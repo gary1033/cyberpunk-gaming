@@ -622,7 +622,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "[結局A — 正義之光]\n\n感謝遊玩 CHROME AND RAIN"
+				"text": "[結局A — 正義之光]\n\n感謝遊玩 NEON MEMORIES"
 			}
 		],
 
@@ -645,7 +645,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "[結局B — 灰色交易]\n\n感謝遊玩 CHROME AND RAIN"
+				"text": "[結局B — 灰色交易]\n\n感謝遊玩 NEON MEMORIES"
 			}
 		],
 
@@ -668,7 +668,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "[結局C — 記憶重生]\n\n感謝遊玩 CHROME AND RAIN"
+				"text": "[結局C — 記憶重生]\n\n感謝遊玩 NEON MEMORIES"
 			}
 		],
 	}

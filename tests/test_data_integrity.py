@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-CHROME AND RAIN - Data Integrity Tests
+NEON MEMORIES - Data Integrity Tests
 Validates game data cross-references without requiring Godot engine.
 Parses .gd and .tscn files to check scene paths, dialogue IDs,
 evidence connections, asset files, and more.
@@ -700,7 +700,7 @@ def test_ready_null_safety():
 # ---------------------------------------------------------------------------
 def main():
     print("=" * 60)
-    print("CHROME AND RAIN — Data Integrity Tests")
+    print("NEON MEMORIES — Data Integrity Tests")
     print("=" * 60)
 
     test_scene_paths()

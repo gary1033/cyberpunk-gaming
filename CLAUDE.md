@@ -1,4 +1,4 @@
-# CHROME AND RAIN - 開發指南
+# NEON MEMORIES - 開發指南
 
 ## 專案資訊
 - **引擎**: Godot 4 (GDScript)
