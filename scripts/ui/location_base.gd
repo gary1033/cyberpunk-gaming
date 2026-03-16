@@ -208,7 +208,7 @@ func _show_map() -> void:
 		btn.pressed.connect(func():
 			popup_layer.queue_free()
 			GameManager.spend_action_points(1)
-			SceneManager.change_scene(conn_id)
+			await SceneManager.change_scene(conn_id)
 		)
 		vbox.add_child(btn)
 
@@ -334,7 +334,7 @@ func _show_pause_menu() -> void:
 	main_menu_btn.add_theme_color_override("font_color", Color(0.9, 0.5, 0.0))
 	main_menu_btn.pressed.connect(func():
 		popup_layer.queue_free()
-		SceneManager.change_scene("main_menu")
+		await SceneManager.change_scene("main_menu")
 	)
 	vbox.add_child(main_menu_btn)
 

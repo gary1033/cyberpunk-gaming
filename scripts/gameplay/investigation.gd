@@ -91,7 +91,7 @@ func _show_location_map() -> void:
 		btn.pressed.connect(func():
 			popup.queue_free()
 			GameManager.spend_action_points(1)
-			SceneManager.change_scene(conn_id)
+			await SceneManager.change_scene(conn_id)
 		)
 		vbox.add_child(btn)
 
