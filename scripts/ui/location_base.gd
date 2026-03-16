@@ -98,7 +98,8 @@ func _setup_ui() -> void:
 		hint_btn.text = "提示"
 		hint_btn.custom_minimum_size = Vector2(80, 48)
 		hint_btn.add_theme_color_override("font_color", Color(0.5, 0.9, 0.5))
-		hint_btn.pressed.connect(func(): Hotspot.pulse_all_hotspots(get_tree()))
+		var HotspotScript: GDScript = load("res://scripts/gameplay/hotspot.gd")
+		hint_btn.pressed.connect(func(): HotspotScript.pulse_all_hotspots(get_tree()))
 		toolbar.add_child(hint_btn)
 
 	# Menu button
@@ -312,7 +313,8 @@ func _toggle_eagle_eye() -> void:
 		GameManager.activate_eagle_eye()
 
 func _open_evidence_board() -> void:
-	var board := EvidenceBoard.new()
+	var EvidenceBoardScript: GDScript = load("res://scripts/gameplay/evidence_board.gd")
+	var board: Control = EvidenceBoardScript.new()
 	board.set_anchors_preset(Control.PRESET_FULL_RECT)
 	var canvas := CanvasLayer.new()
 	canvas.layer = 80
