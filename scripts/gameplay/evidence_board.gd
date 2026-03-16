@@ -7,11 +7,12 @@ signal board_closed
 
 class_name EvidenceBoard
 
-@onready var board_container: Control = $BoardContainer
-@onready var cards_layer: Control = $BoardContainer/CardsLayer
-@onready var lines_layer: Control = $BoardContainer/LinesLayer
-@onready var progress_bar: ProgressBar = $UI/ProgressBar
-@onready var close_button: Button = $UI/CloseButton
+# Node references (resolved in _ready, not @onready, for safe dynamic instantiation)
+var board_container: Control = null
+var cards_layer: Control = null
+var lines_layer: Control = null
+var progress_bar: ProgressBar = null
+var close_button: Button = null
 
 # Valid deductions - {from_id: to_id} pairs
 var valid_connections: Dictionary = {
@@ -44,7 +45,20 @@ var _zoom_level: float = 1.0
 
 func _ready() -> void:
 	visible = false
-	close_button.pressed.connect(_on_close)
+
+	# Resolve nodes safely — supports both .tscn and dynamic instantiation
+	board_container = get_node_or_null("BoardContainer")
+	if board_container:
+		cards_layer = board_container.get_node_or_null("CardsLayer")
+		lines_layer = board_container.get_node_or_null("LinesLayer")
+
+	var ui := get_node_or_null("UI")
+	if ui:
+		progress_bar = ui.get_node_or_null("ProgressBar") as ProgressBar
+		close_button = ui.get_node_or_null("CloseButton") as Button
+
+	if close_button:
+		close_button.pressed.connect(_on_close)
 
 	if InputManager:
 		InputManager.pinch_zoom.connect(_on_pinch_zoom)
@@ -61,6 +75,9 @@ func close() -> void:
 	board_closed.emit()
 
 func _refresh_cards() -> void:
+	if not cards_layer:
+		return
+
 	# Clear existing cards
 	for child in cards_layer.get_children():
 		child.queue_free()
@@ -163,8 +180,11 @@ func _handle_connection(evidence_id: String) -> void:
 		_connecting_from = evidence_id
 		if evidence_id in _cards:
 			var card: PanelContainer = _cards[evidence_id]
-			var style: StyleBoxFlat = card.get_theme_stylebox("panel").duplicate()
+			var style := StyleBoxFlat.new()
+			style.bg_color = Color(0.08, 0.08, 0.15, 0.9)
 			style.border_color = Color(1.0, 0.0, 0.6)  # Magenta highlight
+			style.set_border_width_all(2)
+			style.set_corner_radius_all(4)
 			card.add_theme_stylebox_override("panel", style)
 	else:
 		# Complete connection
@@ -203,10 +223,12 @@ func _add_connection_line(from_id: String, to_id: String, is_correct: bool) -> v
 		"to": to_id,
 		"correct": is_correct
 	})
-	lines_layer.queue_redraw()
+	if lines_layer:
+		lines_layer.queue_redraw()
 
 func _redraw_connections() -> void:
-	lines_layer.queue_redraw()
+	if lines_layer:
+		lines_layer.queue_redraw()
 
 func _flash_connection(from_id: String, to_id: String, color: Color) -> void:
 	for card_id in [from_id, to_id]:
@@ -243,7 +265,8 @@ func _on_pinch_zoom(zoom_factor: float, _center: Vector2) -> void:
 	if not visible:
 		return
 	_zoom_level = clamp(_zoom_level * zoom_factor, 0.5, 2.0)
-	board_container.scale = Vector2(_zoom_level, _zoom_level)
+	if board_container:
+		board_container.scale = Vector2(_zoom_level, _zoom_level)
 
 func _get_evidence_display_name(evidence_id: String) -> String:
 	var names := {

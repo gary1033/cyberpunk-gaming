@@ -634,6 +634,68 @@ def test_button_disable_on_transition():
 
 
 # ---------------------------------------------------------------------------
+# 17. Bug regression: No @onready with bare $ in class_name scripts
+# Scripts with class_name are registered globally. Using @onready with
+# bare $NodePath can crash if nodes don't exist when parsed/instantiated
+# dynamically. Use get_node_or_null() in _ready() instead.
+# ---------------------------------------------------------------------------
+def test_no_onready_in_classname_scripts():
+    print("\n[17] No @onready with bare $ in class_name scripts")
+    gd_files = []
+    for root, dirs, files in os.walk(os.path.join(PROJECT_ROOT, "scripts")):
+        for f in files:
+            if f.endswith(".gd"):
+                gd_files.append(os.path.join(root, f))
+
+    for gd_file in gd_files:
+        with open(gd_file, "r", encoding="utf-8") as f:
+            content = f.read()
+        rel = os.path.relpath(gd_file, PROJECT_ROOT)
+
+        has_class_name = bool(re.search(r'^class_name\s+\w+', content, re.MULTILINE))
+        if not has_class_name:
+            continue
+
+        # Match @onready var x = $Path but NOT @onready var x = $Path if has_node(...)
+        onready_lines = [
+            line.strip() for line in content.split('\n')
+            if re.match(r'\s*@onready\s+var\s+\w+.*=\s*\$', line)
+            and 'if has_node' not in line
+            and 'get_node_or_null' not in line
+        ]
+        if onready_lines:
+            fail(f"{rel}: {len(onready_lines)} @onready with bare $ in class_name script (use get_node_or_null in _ready)")
+        else:
+            ok(f"{rel}: No unsafe @onready patterns")
+
+
+# ---------------------------------------------------------------------------
+# 18. Bug regression: Null safety in _ready() for dynamically created nodes
+# EvidenceBoard, Interrogation, MemoryPreview are created via .new() with
+# child nodes added externally. Their _ready() must use null checks.
+# ---------------------------------------------------------------------------
+def test_ready_null_safety():
+    print("\n[18] Null safety in class_name script _ready() methods")
+    critical_scripts = [
+        "scripts/gameplay/evidence_board.gd",
+        "scripts/gameplay/interrogation.gd",
+        "scripts/gameplay/memory_preview.gd",
+    ]
+
+    for rel_path in critical_scripts:
+        content = read_file(rel_path)
+        if not content:
+            fail(f"{rel_path} not found")
+            continue
+
+        # Check that _ready uses get_node_or_null instead of bare $ access
+        if "get_node_or_null" in content:
+            ok(f"{rel_path}: Uses safe node resolution")
+        else:
+            fail(f"{rel_path}: Missing get_node_or_null — risk of null crash")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -657,6 +719,8 @@ def main():
     test_change_scene_error_handling()
     test_lambda_loop_capture()
     test_button_disable_on_transition()
+    test_no_onready_in_classname_scripts()
+    test_ready_null_safety()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

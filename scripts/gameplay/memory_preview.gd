@@ -7,11 +7,11 @@ signal memory_failed
 
 class_name MemoryPreview
 
-@onready var background: ColorRect = $Background
-@onready var fragment_display: RichTextLabel = $FragmentDisplay
-@onready var choices_container: HBoxContainer = $ChoicesContainer
-@onready var timer_bar: ProgressBar = $TimerBar
-@onready var instruction_label: Label = $InstructionLabel
+var background: ColorRect = null
+var fragment_display: RichTextLabel = null
+var choices_container: HBoxContainer = null
+var timer_bar: ProgressBar = null
+var instruction_label: Label = null
 
 var _fragments: Array = []
 var _correct_fragment_index: int = 0
@@ -34,7 +34,16 @@ var _result_evidence_id: String = ""
 
 func _ready() -> void:
 	visible = false
-	instruction_label.text = "記憶碎片播放中... 選出關鍵畫面"
+
+	# Resolve nodes safely for dynamic instantiation
+	background = get_node_or_null("Background") as ColorRect
+	fragment_display = get_node_or_null("FragmentDisplay") as RichTextLabel
+	choices_container = get_node_or_null("ChoicesContainer") as HBoxContainer
+	timer_bar = get_node_or_null("TimerBar") as ProgressBar
+	instruction_label = get_node_or_null("InstructionLabel") as Label
+
+	if instruction_label:
+		instruction_label.text = "記憶碎片播放中... 選出關鍵畫面"
 
 func start_memory(memory_data: Dictionary) -> void:
 	_fragments = memory_data.get("fragments", [])

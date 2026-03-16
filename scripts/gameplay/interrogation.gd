@@ -6,15 +6,15 @@ signal interrogation_ended(result: Dictionary)
 
 class_name Interrogation
 
-@onready var character_portrait: TextureRect = $CharacterPortrait
-@onready var character_name_label: Label = $UI/CharacterName
-@onready var pressure_bar: ProgressBar = $UI/PressureBar
-@onready var pressure_label: Label = $UI/PressureLabel
-@onready var dialogue_text: RichTextLabel = $UI/DialogueText
-@onready var questions_container: VBoxContainer = $UI/QuestionsContainer
-@onready var evidence_button: Button = $UI/EvidenceButton
-@onready var biometric_panel: PanelContainer = $UI/BiometricPanel
-@onready var biometric_label: Label = $UI/BiometricPanel/BiometricLabel
+var character_portrait: TextureRect = null
+var character_name_label: Label = null
+var pressure_bar: ProgressBar = null
+var pressure_label: Label = null
+var dialogue_text: RichTextLabel = null
+var questions_container: VBoxContainer = null
+var evidence_button: Button = null
+var biometric_panel: PanelContainer = null
+var biometric_label: Label = null
 
 var _character_id: String = ""
 var _character_data: Dictionary = {}
@@ -40,8 +40,25 @@ var _revealed_info: Array = []
 
 func _ready() -> void:
 	visible = false
-	evidence_button.pressed.connect(_on_evidence_pressed)
-	biometric_panel.visible = false
+
+	# Resolve nodes safely for dynamic instantiation
+	character_portrait = get_node_or_null("CharacterPortrait") as TextureRect
+	var ui := get_node_or_null("UI")
+	if ui:
+		character_name_label = ui.get_node_or_null("CharacterName") as Label
+		pressure_bar = ui.get_node_or_null("PressureBar") as ProgressBar
+		pressure_label = ui.get_node_or_null("PressureLabel") as Label
+		dialogue_text = ui.get_node_or_null("DialogueText") as RichTextLabel
+		questions_container = ui.get_node_or_null("QuestionsContainer") as VBoxContainer
+		evidence_button = ui.get_node_or_null("EvidenceButton") as Button
+		biometric_panel = ui.get_node_or_null("BiometricPanel") as PanelContainer
+		if biometric_panel:
+			biometric_label = biometric_panel.get_node_or_null("BiometricLabel") as Label
+
+	if evidence_button:
+		evidence_button.pressed.connect(_on_evidence_pressed)
+	if biometric_panel:
+		biometric_panel.visible = false
 
 func start_interrogation(character_id: String, data: Dictionary) -> void:
 	_character_id = character_id
