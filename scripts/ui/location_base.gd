@@ -312,7 +312,7 @@ func _show_pause_menu() -> void:
 	vbox.add_theme_constant_override("separation", 12)
 
 	var title := Label.new()
-	title.text = "CHROME AND RAIN"
+	title.text = "NEON MEMORIES"
 	title.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
 	title.add_theme_font_size_override("font_size", 20)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

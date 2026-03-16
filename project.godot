@@ -4,7 +4,7 @@
 
 [application]
 
-config/name="CHROME AND RAIN"
+config/name="NEON MEMORIES"
 config/description="A cyberpunk noir detective adventure game"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
