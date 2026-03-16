@@ -19,6 +19,12 @@
 - `scenes/` — Godot 場景檔案
 - `assets/shaders/` — Shader 效果
 
+### 測試
+- 每次 push 前執行 `python3 tests/test_data_integrity.py` 確認資料完整性
+- 完整測試：`bash tests/run_tests.sh`
+- CI 會在 push 和 PR 時自動執行測試（GitHub Actions）
+- 測試涵蓋：場景路徑、對話 ID、證據連結、角色立繪、背景圖片、證據圖標
+
 ### Git 慣例
 - 分支: `claude/cyberpunk-game-ideas-Mok3L`
 - Commit 訊息使用 conventional commits 格式（feat/fix/refactor/docs）

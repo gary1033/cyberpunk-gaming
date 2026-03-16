@@ -1,0 +1,58 @@
+name: CHROME AND RAIN CI
+
+on:
+  push:
+    branches: ['*']
+  pull_request:
+    branches: ['*']
+
+jobs:
+  data-integrity:
+    name: Data Integrity Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run data integrity tests
+        run: python3 tests/test_data_integrity.py
+
+      - name: Run full test suite
+        run: bash tests/run_tests.sh
+
+  structure-check:
+    name: Project Structure Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify project.godot exists
+        run: test -f project.godot
+
+      - name: Count scene files
+        run: |
+          count=$(find scenes -name "*.tscn" | wc -l)
+          echo "Found $count scene files"
+          [ "$count" -ge 15 ] || (echo "Expected at least 15 scenes" && exit 1)
+
+      - name: Count GDScript files
+        run: |
+          count=$(find scripts -name "*.gd" | wc -l)
+          echo "Found $count GDScript files"
+          [ "$count" -ge 10 ] || (echo "Expected at least 10 scripts" && exit 1)
+
+      - name: Check for debug prints
+        run: |
+          if grep -rn "print(" scripts/ --include="*.gd" | grep -v "^.*:#"; then
+            echo "⚠ Warning: print statements found (review before release)"
+          else
+            echo "✓ No debug print statements"
+          fi

@@ -1,0 +1,435 @@
+#!/usr/bin/env python3
+"""
+CHROME AND RAIN - Data Integrity Tests
+Validates game data cross-references without requiring Godot engine.
+Parses .gd and .tscn files to check scene paths, dialogue IDs,
+evidence connections, asset files, and more.
+"""
+
+import os
+import re
+import sys
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+passed = 0
+failed = 0
+warnings = 0
+
+
+def ok(msg):
+    global passed
+    passed += 1
+    print(f"  ✓ {msg}")
+
+
+def fail(msg):
+    global failed
+    failed += 1
+    print(f"  ✗ {msg}")
+
+
+def warn(msg):
+    global warnings
+    warnings += 1
+    print(f"  ⚠ {msg}")
+
+
+def read_file(rel_path):
+    path = os.path.join(PROJECT_ROOT, rel_path)
+    if not os.path.exists(path):
+        return None
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def res_to_real(res_path):
+    """Convert res:// path to filesystem path."""
+    return os.path.join(PROJECT_ROOT, res_path.replace("res://", ""))
+
+
+# ---------------------------------------------------------------------------
+# 1. Scene paths in SceneManager
+# ---------------------------------------------------------------------------
+def test_scene_paths():
+    print("\n[1] SceneManager scene paths")
+    content = read_file("scripts/core/scene_manager.gd")
+    if not content:
+        fail("scene_manager.gd not found")
+        return
+
+    # Extract all res:// paths from scene_paths dictionary
+    matches = re.findall(r'"(res://scenes/[^"]+\.tscn)"', content)
+    if not matches:
+        fail("No scene paths found in scene_manager.gd")
+        return
+
+    for res_path in matches:
+        real = res_to_real(res_path)
+        if os.path.exists(real):
+            ok(f"Scene exists: {res_path}")
+        else:
+            fail(f"Scene missing: {res_path}")
+
+
+# ---------------------------------------------------------------------------
+# 2. CaseData location connections
+# ---------------------------------------------------------------------------
+def test_case_data_connections():
+    print("\n[2] CaseData location connections")
+    case_content = read_file("scripts/data/case_data.gd")
+    scene_content = read_file("scripts/core/scene_manager.gd")
+    if not case_content or not scene_content:
+        fail("Required files not found")
+        return
+
+    # Extract scene_paths keys
+    scene_keys = set(re.findall(r'"(\w+)":\s*"res://scenes/', scene_content))
+
+    # Extract all location IDs from case_data (keys in "locations" dicts)
+    # Pattern: "location_id": { ... }
+    location_ids = set(re.findall(r'"(\w+)":\s*\{[^}]*"name":', case_content))
+
+    # Extract all connection references
+    conn_matches = re.findall(r'"connections":\s*\[([^\]]*)\]', case_content)
+    all_connections = set()
+    for match in conn_matches:
+        ids = re.findall(r'"(\w+)"', match)
+        all_connections.update(ids)
+
+    for conn_id in sorted(all_connections):
+        if conn_id in location_ids or conn_id in scene_keys:
+            ok(f"Connection target valid: {conn_id}")
+        else:
+            fail(f"Connection target not a known location: {conn_id}")
+
+
+# ---------------------------------------------------------------------------
+# 3. CaseData initial_dialogue references DialogueData
+# ---------------------------------------------------------------------------
+def test_initial_dialogues():
+    print("\n[3] CaseData initial_dialogue → DialogueData")
+    case_content = read_file("scripts/data/case_data.gd")
+    dialogue_content = read_file("scripts/data/dialogue_data.gd")
+    if not case_content or not dialogue_content:
+        fail("Required files not found")
+        return
+
+    # Extract dialogue function names from DialogueData
+    dialogue_funcs = set(re.findall(r'func\s+(get_\w+)\s*\(', dialogue_content))
+    # Also extract string-based dialogue IDs (the keys used in get_dialogue)
+    dialogue_ids = set(re.findall(r'"(ch\d+_\w+|ending_\w+)"', dialogue_content))
+
+    # Extract initial_dialogue values from case_data
+    init_dialogues = re.findall(r'"initial_dialogue":\s*"(\w+)"', case_content)
+
+    for dlg_id in init_dialogues:
+        if dlg_id in dialogue_ids or f"get_{dlg_id}" in dialogue_funcs:
+            ok(f"Dialogue exists: {dlg_id}")
+        else:
+            fail(f"Dialogue not found in DialogueData: {dlg_id}")
+
+
+# ---------------------------------------------------------------------------
+# 4. DialogueData label jump targets
+# ---------------------------------------------------------------------------
+def test_dialogue_labels():
+    print("\n[4] DialogueData label jump targets")
+    content = read_file("scripts/data/dialogue_data.gd")
+    if not content:
+        fail("dialogue_data.gd not found")
+        return
+
+    # Find all "label": "xxx" definitions
+    labels_defined = set(re.findall(r'"label":\s*"(\w+)"', content))
+    # Find all "next": "xxx" references (excluding "end")
+    next_refs = set(re.findall(r'"next":\s*"(\w+)"', content))
+    next_refs.discard("end")
+
+    missing = next_refs - labels_defined
+    if missing:
+        for m in sorted(missing):
+            fail(f"Label jump target not defined: {m}")
+    else:
+        ok(f"All {len(next_refs)} label jump targets are valid")
+
+
+# ---------------------------------------------------------------------------
+# 5. Evidence IDs in EvidenceData
+# ---------------------------------------------------------------------------
+def test_evidence_ids():
+    print("\n[5] Evidence IDs consistency")
+    evidence_content = read_file("scripts/data/evidence_data.gd")
+    board_content = read_file("scripts/gameplay/evidence_board.gd")
+    case_content = read_file("scripts/data/case_data.gd")
+    if not evidence_content:
+        fail("evidence_data.gd not found")
+        return
+
+    # Extract all evidence IDs from evidence_data.gd
+    # Evidence is stored as dictionary keys: "commission_letter": { ... }
+    # Match keys that are followed by a dict with "name": and "icon":
+    evidence_ids = set()
+    # Find keys in the top-level dictionary of get_all_evidence()
+    in_func = False
+    for line in evidence_content.split('\n'):
+        if 'get_all_evidence' in line:
+            in_func = True
+        if in_func:
+            m = re.match(r'\s*"(\w+)":\s*\{', line)
+            if m:
+                evidence_ids.add(m.group(1))
+    ok(f"Found {len(evidence_ids)} evidence IDs")
+
+    # Check for duplicates
+    id_list = []
+    in_func = False
+    for line in evidence_content.split('\n'):
+        if 'get_all_evidence' in line:
+            in_func = True
+        if in_func:
+            m = re.match(r'\s*"(\w+)":\s*\{', line)
+            if m:
+                id_list.append(m.group(1))
+    seen = set()
+    for eid in id_list:
+        if eid in seen:
+            fail(f"Duplicate evidence ID: {eid}")
+        seen.add(eid)
+
+    if len(seen) == len(id_list):
+        ok("No duplicate evidence IDs")
+
+    # Check evidence_board valid_connections reference valid evidence
+    if board_content:
+        conn_refs = set(re.findall(r'"(\w+)":\s*"(\w+)"', board_content))
+        board_ids = set()
+        for k, v in conn_refs:
+            board_ids.add(k)
+            board_ids.add(v)
+
+        # Filter to only IDs that look like evidence (not UI strings)
+        # valid_connections keys/values are evidence IDs
+        vc_section = re.search(
+            r'valid_connections\s*:=\s*\{(.*?)\}',
+            board_content,
+            re.DOTALL
+        )
+        if vc_section:
+            vc_ids = set(re.findall(r'"(\w+)"', vc_section.group(1)))
+            for eid in sorted(vc_ids):
+                if eid in evidence_ids:
+                    ok(f"Board connection valid: {eid}")
+                else:
+                    fail(f"Board references unknown evidence: {eid}")
+
+    # Check case_data evidence references
+    if case_content:
+        case_evidence = set(re.findall(r'"evidence_id":\s*"(\w+)"', case_content))
+        for eid in sorted(case_evidence):
+            if eid in evidence_ids:
+                ok(f"Case evidence valid: {eid}")
+            else:
+                fail(f"Case references unknown evidence: {eid}")
+
+
+# ---------------------------------------------------------------------------
+# 6. Character portrait SVG files
+# ---------------------------------------------------------------------------
+def test_character_portraits():
+    print("\n[6] Character portrait SVG files")
+    char_content = read_file("scripts/data/character_data.gd")
+    if not char_content:
+        fail("character_data.gd not found")
+        return
+
+    # Extract character IDs and moods
+    # Characters stored as dict keys: "kai": { ... "moods": [...] }
+    chars = []
+    mood_blocks = []
+    in_func = False
+    for line in char_content.split('\n'):
+        if 'get_all_characters' in line:
+            in_func = True
+        if in_func:
+            m = re.match(r'\s*"(\w+)":\s*\{', line)
+            if m:
+                chars.append(m.group(1))
+    mood_blocks = re.findall(r'"moods":\s*\[([^\]]+)\]', char_content)
+
+    sprites_dir = os.path.join(PROJECT_ROOT, "assets/sprites/characters")
+    if not os.path.isdir(sprites_dir):
+        fail("assets/sprites/characters/ directory not found")
+        return
+
+    for i, char_id in enumerate(chars):
+        if i < len(mood_blocks):
+            moods = re.findall(r'"(\w+)"', mood_blocks[i])
+            for mood in moods:
+                svg_path = os.path.join(sprites_dir, f"{char_id}_{mood}.svg")
+                if os.path.exists(svg_path):
+                    ok(f"Portrait: {char_id}_{mood}.svg")
+                else:
+                    fail(f"Missing portrait: {char_id}_{mood}.svg")
+
+
+# ---------------------------------------------------------------------------
+# 7. Location background SVG files
+# ---------------------------------------------------------------------------
+def test_location_backgrounds():
+    print("\n[7] Location background SVG files")
+    scene_content = read_file("scripts/core/scene_manager.gd")
+    if not scene_content:
+        fail("scene_manager.gd not found")
+        return
+
+    sprites_dir = os.path.join(PROJECT_ROOT, "assets/sprites/locations")
+    if not os.path.isdir(sprites_dir):
+        fail("assets/sprites/locations/ directory not found")
+        return
+
+    # Extract location IDs (scene_paths keys, excluding main_menu and game)
+    location_ids = re.findall(r'"(\w+)":\s*"res://scenes/locations/', scene_content)
+    for loc_id in location_ids:
+        svg_path = os.path.join(sprites_dir, f"{loc_id}.svg")
+        if os.path.exists(svg_path):
+            ok(f"Background: {loc_id}.svg")
+        else:
+            fail(f"Missing background: {loc_id}.svg")
+
+
+# ---------------------------------------------------------------------------
+# 8. Evidence icon SVG files
+# ---------------------------------------------------------------------------
+def test_evidence_icons():
+    print("\n[8] Evidence icon SVG files")
+    evidence_content = read_file("scripts/data/evidence_data.gd")
+    if not evidence_content:
+        fail("evidence_data.gd not found")
+        return
+
+    sprites_dir = os.path.join(PROJECT_ROOT, "assets/sprites/items")
+    if not os.path.isdir(sprites_dir):
+        fail("assets/sprites/items/ directory not found")
+        return
+
+    icons = re.findall(r'"icon":\s*"(\w+)"', evidence_content)
+    for icon in icons:
+        svg_path = os.path.join(sprites_dir, f"{icon}.svg")
+        if os.path.exists(svg_path):
+            ok(f"Icon: {icon}.svg")
+        else:
+            fail(f"Missing icon: {icon}.svg")
+
+
+# ---------------------------------------------------------------------------
+# 9. Project structure
+# ---------------------------------------------------------------------------
+def test_project_structure():
+    print("\n[9] Project structure")
+    required_files = [
+        "project.godot",
+        "CLAUDE.md",
+        "scripts/core/game_manager.gd",
+        "scripts/core/scene_manager.gd",
+        "scripts/core/save_manager.gd",
+        "scripts/core/audio_manager.gd",
+        "scripts/core/input_manager.gd",
+        "scripts/data/dialogue_data.gd",
+        "scripts/data/evidence_data.gd",
+        "scripts/data/case_data.gd",
+        "scripts/data/character_data.gd",
+        "scripts/gameplay/dialogue_system.gd",
+        "scripts/gameplay/evidence_board.gd",
+        "scripts/gameplay/interrogation.gd",
+        "scripts/gameplay/augmented_vision.gd",
+        "scripts/gameplay/hotspot.gd",
+    ]
+
+    for f in required_files:
+        path = os.path.join(PROJECT_ROOT, f)
+        if os.path.exists(path):
+            ok(f"File exists: {f}")
+        else:
+            fail(f"Missing file: {f}")
+
+    required_dirs = [
+        "scenes",
+        "assets/shaders",
+        "assets/sprites/characters",
+        "assets/sprites/locations",
+        "assets/sprites/items",
+    ]
+
+    for d in required_dirs:
+        path = os.path.join(PROJECT_ROOT, d)
+        if os.path.isdir(path):
+            ok(f"Directory exists: {d}")
+        else:
+            fail(f"Missing directory: {d}")
+
+
+# ---------------------------------------------------------------------------
+# 10. GDScript basic checks
+# ---------------------------------------------------------------------------
+def test_gdscript_quality():
+    print("\n[10] GDScript quality checks")
+    gd_files = []
+    for root, dirs, files in os.walk(os.path.join(PROJECT_ROOT, "scripts")):
+        for f in files:
+            if f.endswith(".gd"):
+                gd_files.append(os.path.join(root, f))
+
+    debug_prints = 0
+    for gd_file in gd_files:
+        with open(gd_file, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        rel = os.path.relpath(gd_file, PROJECT_ROOT)
+        for i, line in enumerate(lines, 1):
+            stripped = line.strip()
+            # Check for debug prints (not in comments)
+            if not stripped.startswith("#") and re.search(r'\bprint\s*\(', stripped):
+                warn(f"Debug print in {rel}:{i}: {stripped[:60]}")
+                debug_prints += 1
+
+    if debug_prints == 0:
+        ok("No debug print statements found")
+    else:
+        warn(f"Found {debug_prints} print statement(s) — review before release")
+
+    ok(f"Scanned {len(gd_files)} GDScript files")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def main():
+    print("=" * 60)
+    print("CHROME AND RAIN — Data Integrity Tests")
+    print("=" * 60)
+
+    test_scene_paths()
+    test_case_data_connections()
+    test_initial_dialogues()
+    test_dialogue_labels()
+    test_evidence_ids()
+    test_character_portraits()
+    test_location_backgrounds()
+    test_evidence_icons()
+    test_project_structure()
+    test_gdscript_quality()
+
+    print("\n" + "=" * 60)
+    print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")
+    print("=" * 60)
+
+    if failed > 0:
+        print("\nFAILED — fix the issues above")
+        sys.exit(1)
+    else:
+        print("\nALL TESTS PASSED")
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()
