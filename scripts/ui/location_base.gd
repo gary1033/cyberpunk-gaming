@@ -231,8 +231,57 @@ func _toggle_eagle_eye() -> void:
 		GameManager.activate_eagle_eye()
 
 func _open_evidence_board() -> void:
-	# TODO: Open evidence board overlay
-	pass
+	var board := EvidenceBoard.new()
+	board.set_anchors_preset(Control.PRESET_FULL_RECT)
+	var canvas := CanvasLayer.new()
+	canvas.layer = 80
+	canvas.name = "EvidenceBoardLayer"
+
+	# Build board UI structure
+	var bg := ColorRect.new()
+	bg.color = Color(0.03, 0.03, 0.08, 0.95)
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+
+	var board_container := Control.new()
+	board_container.name = "BoardContainer"
+	board_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	var cards_layer := Control.new()
+	cards_layer.name = "CardsLayer"
+	cards_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	var lines_layer := Control.new()
+	lines_layer.name = "LinesLayer"
+	lines_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	board_container.add_child(lines_layer)
+	board_container.add_child(cards_layer)
+
+	var ui_container := Control.new()
+	ui_container.name = "UI"
+	ui_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+
+	var progress := ProgressBar.new()
+	progress.name = "ProgressBar"
+	progress.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	progress.custom_minimum_size = Vector2(0, 20)
+	ui_container.add_child(progress)
+
+	var close_btn := Button.new()
+	close_btn.name = "CloseButton"
+	close_btn.text = "關閉證據板"
+	close_btn.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	close_btn.offset_left = -160
+	close_btn.offset_top = -50
+	close_btn.custom_minimum_size = Vector2(150, 44)
+	close_btn.add_theme_color_override("font_color", Color(0.9, 0.3, 0.3))
+	ui_container.add_child(close_btn)
+
+	board.add_child(bg)
+	board.add_child(board_container)
+	board.add_child(ui_container)
+	canvas.add_child(board)
+	add_child(canvas)
+
+	board.board_closed.connect(func(): canvas.queue_free())
+	board.open()
 
 func _show_pause_menu() -> void:
 	var popup_layer := CanvasLayer.new()

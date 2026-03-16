@@ -221,7 +221,7 @@ func _update_pressure_display() -> void:
 		pressure_label.text = "壓力: %d / %d" % [_pressure, _max_pressure]
 
 func _update_portrait(mood: String) -> void:
-	var path := "res://assets/sprites/characters/%s_%s.png" % [_character_id, mood]
+	var path := "res://assets/sprites/characters/%s_%s.svg" % [_character_id, mood]
 	var tex := load(path) as Texture2D
 	if tex:
 		character_portrait.texture = tex

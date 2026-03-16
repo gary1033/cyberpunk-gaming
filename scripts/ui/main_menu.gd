@@ -61,5 +61,77 @@ func _on_continue() -> void:
 		SceneManager.change_scene(location)
 
 func _on_settings() -> void:
-	# TODO: Settings screen
-	pass
+	var popup_layer := CanvasLayer.new()
+	popup_layer.layer = 95
+
+	var dimmer := ColorRect.new()
+	dimmer.color = Color(0, 0, 0, 0.7)
+	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	popup_layer.add_child(dimmer)
+
+	var panel := PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
+	style.border_color = Color(0.0, 0.7, 0.7)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	panel.add_theme_stylebox_override("panel", style)
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.custom_minimum_size = Vector2(350, 0)
+
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 24)
+	margin.add_theme_constant_override("margin_right", 24)
+	margin.add_theme_constant_override("margin_top", 24)
+	margin.add_theme_constant_override("margin_bottom", 24)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 16)
+
+	var title := Label.new()
+	title.text = "設定"
+	title.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	title.add_theme_font_size_override("font_size", 24)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(title)
+
+	# BGM Volume
+	var bgm_label := Label.new()
+	bgm_label.text = "背景音樂"
+	bgm_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	vbox.add_child(bgm_label)
+	var bgm_slider := HSlider.new()
+	bgm_slider.min_value = 0.0
+	bgm_slider.max_value = 1.0
+	bgm_slider.step = 0.05
+	bgm_slider.value = AudioManager.bgm_volume
+	bgm_slider.custom_minimum_size = Vector2(0, 30)
+	bgm_slider.value_changed.connect(func(val: float): AudioManager.set_bgm_volume(val))
+	vbox.add_child(bgm_slider)
+
+	# SFX Volume
+	var sfx_label := Label.new()
+	sfx_label.text = "音效"
+	sfx_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	vbox.add_child(sfx_label)
+	var sfx_slider := HSlider.new()
+	sfx_slider.min_value = 0.0
+	sfx_slider.max_value = 1.0
+	sfx_slider.step = 0.05
+	sfx_slider.value = AudioManager.sfx_volume
+	sfx_slider.custom_minimum_size = Vector2(0, 30)
+	sfx_slider.value_changed.connect(func(val: float): AudioManager.set_sfx_volume(val))
+	vbox.add_child(sfx_slider)
+
+	# Close button
+	var close_btn := Button.new()
+	close_btn.text = "返回"
+	close_btn.custom_minimum_size = Vector2(0, 48)
+	close_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	close_btn.pressed.connect(popup_layer.queue_free)
+	vbox.add_child(close_btn)
+
+	margin.add_child(vbox)
+	panel.add_child(margin)
+	popup_layer.add_child(panel)
+	add_child(popup_layer)

@@ -394,6 +394,116 @@ static func _get_all_dialogues() -> Dictionary:
 			}
 		],
 
+		"ch2_memory_market_enter": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "偽造的身份晶片發出微弱的綠光。你深吸一口氣，走進了記憶黑市的入口——一個廢棄的地鐵站。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "攤位沿著月台排列，全息招牌閃爍著各種記憶的廣告：「初戀體驗 - 高純度」「極限運動合集」「富豪生活一日遊」。",
+				"set_flag": "entered_market"
+			},
+			{
+				"speaker": "mask_merchant", "name": "面具商人", "mood": "default", "portrait_side": "left",
+				"text": "歡迎歡迎！第一次來嗎？我這裡有最新鮮的記憶...保證原汁原味。",
+				"choices": [
+					{"text": "（保持偽裝）有沒有...特別的東西？", "next": "market_special"},
+					{"text": "我在找一個叫浩然的記憶技師。", "next": "market_blown", "set_flag": "identity_exposed_market"}
+				]
+			},
+			{
+				"label": "market_special",
+				"speaker": "mask_merchant", "name": "面具商人", "mood": "interested", "portrait_side": "left",
+				"text": "特別的？哈...如果你出得起價，我有一些『禁品』。提取自不知情者的記憶。非常...真實。",
+				"give_evidence": "memory_sample",
+				"choices": [
+					{"text": "我想見你們的供應商。", "next": "market_supplier"},
+					{"text": "（用鷹眼掃描攤位）", "next": "market_scan", "requires_flag": "eagle_eye_used"}
+				]
+			},
+			{
+				"label": "market_blown",
+				"speaker": "mask_merchant", "name": "面具商人", "mood": "suspicious", "portrait_side": "left",
+				"text": "...你是誰？記憶技師不是我們對外討論的話題。（警覺地看著你）"
+			},
+			{
+				"label": "market_supplier",
+				"speaker": "mask_merchant", "name": "面具商人", "mood": "suspicious", "portrait_side": "left",
+				"text": "供應商？你問的太多了，朋友。不過...如果你去後面的通道找「幽靈」，也許他能回答你的問題。",
+				"set_flag": "knows_ghost_location"
+			},
+			{
+				"label": "market_scan",
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "（鷹眼掃描結果：攤位下方隱藏了一個加密終端，正在接收來自地下深層的數據傳輸。回聲網路的標記清晰可見。）",
+				"give_evidence": "trade_ledger"
+			}
+		],
+
+		"ch2_ghost_encounter": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "記憶黑市的最深處，一個穿著反光斗篷的身影站在陰影中。變聲器讓他的聲音聽起來像金屬碰撞。"
+			},
+			{
+				"speaker": "ghost", "name": "幽靈", "mood": "default", "portrait_side": "left",
+				"text": "面具商人說你在找我。你是誰？"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+				"text": "我在找一個叫林浩然的人。他跟回聲網路有關。",
+				"choices": [
+					{"text": "我可以付錢買情報。", "next": "ghost_deal"},
+					{"text": "你最好配合，否則我會讓所有人知道你的位置。", "next": "ghost_threaten"},
+					{"text": "（出示回聲標記）我知道你們在做什麼。", "next": "ghost_confront", "requires_evidence": "echo_symbol"}
+				]
+			},
+			{
+				"label": "ghost_deal",
+				"speaker": "ghost", "name": "幽靈", "mood": "cautious", "portrait_side": "left",
+				"text": "錢？在這裡，情報比錢值錢。不過...也許我們可以安排一次正式的對話。",
+				"set_flag": "ghost_willing_to_talk"
+			},
+			{
+				"label": "ghost_threaten",
+				"speaker": "ghost", "name": "幽靈", "mood": "hostile", "portrait_side": "left",
+				"text": "威脅我？你知道這裡是誰的地盤嗎？（手伸向腰間）不過...看在你有膽量的份上，我可以給你一個機會。",
+				"set_flag": "ghost_antagonized"
+			},
+			{
+				"label": "ghost_confront",
+				"speaker": "ghost", "name": "幽靈", "mood": "cautious", "portrait_side": "left",
+				"text": "（沉默了幾秒）你做了不少功課。好吧，浩然確實跟我們合作過。但他最近...不見了。連我們也找不到他。",
+				"give_evidence": "comm_frequency"
+			}
+		],
+
+		"ch2_warehouse_explore": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "廢棄倉庫裡散落著記憶提取設備的殘骸。這裡曾經是回聲網路的主要據點，但現在已被匆忙撤離。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "（他們撤得很匆忙。也許留下了什麼線索...）"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你在一個被遺棄的工作台下面找到了浩然的個人日記——部分內容已經被加密。",
+				"give_evidence": "hao_ran_diary"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "日記中未加密的部分寫道：「我以為我只是在幫人保存記憶...但他們要我做的不是保存，而是竊取。我無法繼續了。」"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "在倉庫的角落，你還發現了一份受害者名單。上面有些名字被劃掉，旁邊標注著「已完全提取」。",
+				"give_evidence": "victim_list"
+			}
+		],
+
 		# ============================================
 		# CHAPTER 3: 回聲深處
 		# ============================================

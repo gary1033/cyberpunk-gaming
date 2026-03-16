@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#121218"/>
+  <rect x="10" y="10" width="1260" height="700" rx="4" fill="none" stroke="#ff4444" stroke-width="1" opacity="0.3"/>
+  <line x1="0" y1="500" x2="1280" y2="500" stroke="#ff4444" stroke-width="1" opacity="0.15"/>
+  <rect x="100" y="200" width="200" height="300" fill="none" stroke="#ff4444" stroke-width="1" opacity="0.1"/>
+  <rect x="980" y="150" width="200" height="350" fill="none" stroke="#ff4444" stroke-width="1" opacity="0.1"/>
+  <text x="640" y="340" font-family="monospace" font-size="42" fill="#ff4444" text-anchor="middle">回聲網路總部</text>
+  <text x="640" y="390" font-family="monospace" font-size="18" fill="#ff4444" text-anchor="middle" opacity="0.5">Echo Network HQ</text>
+  <text x="640" y="680" font-family="monospace" font-size="12" fill="#ff4444" text-anchor="middle" opacity="0.3">[ PLACEHOLDER ]</text>
+</svg>

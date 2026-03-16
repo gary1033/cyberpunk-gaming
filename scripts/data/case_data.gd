@@ -186,6 +186,74 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"connections": []
 				}
 			}
+		},
+		"interrogations": {
+			"dr_xiao": {
+				"name": "蕭博士",
+				"opening_line": "川崎先生，我們終於面對面了。坐吧。",
+				"clam_up_threshold": 90,
+				"broke_threshold": 80,
+				"questions": [
+					{
+						"text": "你為什麼要做記憶覆寫的研究？",
+						"type": "gentle",
+						"pressure_change": 5,
+						"response_normal": "因為記憶是人類最大的枷鎖，也是最大的寶藏。如果我們能編輯記憶，就能消除一切痛苦。",
+						"response_pressured": "...一開始確實是為了治療創傷後壓力症。但正和科技看到了其他可能性。",
+						"response_clammed": "你不會理解的。",
+						"reveals": "xiao_motivation",
+						"requires_pressure": 70
+					},
+					{
+						"text": "正和科技用你的技術做了什麼？",
+						"type": "neutral",
+						"pressure_change": 10,
+						"response_normal": "他們資助研究，我提供成果。這就是科學與資本的關係。",
+						"response_pressured": "他們想用記憶覆寫來控制關鍵人物。政客、法官...甚至軍事指揮官。我無法阻止他們。",
+						"response_clammed": "我已經說得夠多了。",
+						"reveals": "zhengtek_plan",
+						"requires_pressure": 75
+					},
+					{
+						"text": "你對我做了什麼？我的記憶被篡改過嗎？",
+						"type": "aggressive",
+						"pressure_change": 15,
+						"response_normal": "什麼讓你這麼認為？你的鷹眼只是一個普通的義體掃描器。",
+						"response_pressured": "...你是我們最早的成功案例之一。你以為你是因為揭發腐敗而離開正和科技？真相沒那麼簡單。",
+						"response_clammed": "這不重要了。重要的是未來。",
+						"reveals": "kai_truth",
+						"requires_pressure": 80
+					},
+					{
+						"text": "放了浩然。這一切到此為止。",
+						"type": "aggressive",
+						"pressure_change": 20,
+						"response_normal": "浩然很安全。他在這裡比外面安全得多。",
+						"response_pressured": "好吧...也許是時候結束了。浩然在B區第三實驗室。但你要知道，他已經不完全是原來的他了。",
+						"response_clammed": "你沒有資格對我提要求。",
+						"reveals": "hao_ran_location",
+						"requires_pressure": 85
+					}
+				],
+				"evidence_reactions": {
+					"overwrite_report": {
+						"response": "你看到了完整的研究報告...我本以為那份已經被銷毀了。",
+						"pressure_change": 20,
+						"reveals": "report_reaction"
+					},
+					"zhengtek_funding": {
+						"response": "（沉默良久）...是的。正和科技資助了一切。從第一天開始。",
+						"pressure_change": 25,
+						"reveals": "funding_confirmed"
+					},
+					"kai_memory_fragment": {
+						"response": "（微微顫抖）你找到了...你自己的記憶碎片。那你應該已經知道了。",
+						"pressure_change": 30,
+						"reveals": "kai_memory_confirmed"
+					}
+				},
+				"default_evidence_response": "有趣。但這改變不了什麼。"
+			}
 		}
 	}
 	return chapters.get(chapter, {})

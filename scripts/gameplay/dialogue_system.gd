@@ -219,7 +219,7 @@ func end_dialogue() -> void:
 	dialogue_ended.emit()
 
 func _update_portrait(speaker: String, mood: String, side: String) -> void:
-	var portrait_path := "res://assets/sprites/characters/%s_%s.png" % [speaker, mood]
+	var portrait_path := "res://assets/sprites/characters/%s_%s.svg" % [speaker, mood]
 	var texture := load(portrait_path) as Texture2D
 
 	# Hide both first
