@@ -24,6 +24,7 @@ var _initial_pinch_distance: float = 0.0
 var _is_pinching: bool = false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Detect platform
 	is_mobile = _detect_mobile()
 	current_mode = InputMode.TOUCH if is_mobile else InputMode.MOUSE

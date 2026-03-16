@@ -111,11 +111,88 @@ func _setup_ui() -> void:
 
 	ui_layer.add_child(toolbar)
 
-	# Dialogue box area (bottom portion of screen)
-	var dialogue_container := Control.new()
-	dialogue_container.name = "DialogueContainer"
-	dialogue_container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	ui_layer.add_child(dialogue_container)
+	# Dialogue system
+	var dialogue_system := Control.new()
+	dialogue_system.name = "DialogueSystem"
+	dialogue_system.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dialogue_system.set_script(load("res://scripts/gameplay/dialogue_system.gd"))
+	dialogue_system.add_to_group("dialogue_system")
+
+	# Portraits
+	var portrait_left := TextureRect.new()
+	portrait_left.name = "PortraitLeft"
+	portrait_left.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	portrait_left.offset_left = 16
+	portrait_left.offset_top = -280
+	portrait_left.offset_bottom = -80
+	portrait_left.custom_minimum_size = Vector2(120, 200)
+	portrait_left.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait_left.visible = false
+	dialogue_system.add_child(portrait_left)
+
+	var portrait_right := TextureRect.new()
+	portrait_right.name = "PortraitRight"
+	portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	portrait_right.offset_right = -16
+	portrait_right.offset_left = -136
+	portrait_right.offset_top = -280
+	portrait_right.offset_bottom = -80
+	portrait_right.custom_minimum_size = Vector2(120, 200)
+	portrait_right.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait_right.visible = false
+	dialogue_system.add_child(portrait_right)
+
+	# Dialogue panel (bottom of screen)
+	var dialogue_panel := PanelContainer.new()
+	dialogue_panel.name = "DialoguePanel"
+	dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	dialogue_panel.offset_top = -200
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.02, 0.02, 0.08, 0.9)
+	panel_style.border_color = Color(0.0, 0.7, 0.7, 0.8)
+	panel_style.border_width_top = 2
+	panel_style.set_content_margin_all(16)
+	dialogue_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var vbox := VBoxContainer.new()
+	vbox.name = "VBox"
+	vbox.add_theme_constant_override("separation", 4)
+
+	var name_label := Label.new()
+	name_label.name = "NameLabel"
+	name_label.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6))
+	name_label.add_theme_font_size_override("font_size", 16)
+	vbox.add_child(name_label)
+
+	var dialogue_text := RichTextLabel.new()
+	dialogue_text.name = "DialogueText"
+	dialogue_text.bbcode_enabled = true
+	dialogue_text.fit_content = true
+	dialogue_text.scroll_active = false
+	dialogue_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	dialogue_text.add_theme_color_override("default_color", Color(0.9, 0.9, 0.9))
+	dialogue_text.add_theme_font_size_override("normal_font_size", 18)
+	dialogue_text.custom_minimum_size = Vector2(0, 80)
+	vbox.add_child(dialogue_text)
+
+	var choices_container := VBoxContainer.new()
+	choices_container.name = "ChoicesContainer"
+	choices_container.add_theme_constant_override("separation", 6)
+	choices_container.visible = false
+	vbox.add_child(choices_container)
+
+	var continue_indicator := Label.new()
+	continue_indicator.name = "ContinueIndicator"
+	continue_indicator.text = "▼"
+	continue_indicator.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9, 0.7))
+	continue_indicator.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	continue_indicator.visible = false
+	vbox.add_child(continue_indicator)
+
+	dialogue_panel.add_child(vbox)
+	dialogue_system.add_child(dialogue_panel)
+
+	ui_layer.add_child(dialogue_system)
 
 	# Update AP display when it changes
 	GameManager.action_points_changed.connect(func(remaining: int):
@@ -152,8 +229,12 @@ func _trigger_initial_dialogue() -> void:
 
 	if initial_dialogue != "" and not GameManager.get_dialogue_flag("visited_" + location_id):
 		GameManager.set_dialogue_flag("visited_" + location_id)
-		# Will need to instantiate dialogue system and play
-		# For now, this is a stub that would be connected in scene setup
+		var dialogue_entries := DialogueData.get_dialogue(initial_dialogue)
+		if dialogue_entries.size() > 0:
+			await get_tree().process_frame
+			var ds := get_tree().get_first_node_in_group("dialogue_system")
+			if ds and ds.has_method("start_dialogue"):
+				ds.start_dialogue(dialogue_entries)
 
 func _show_map() -> void:
 	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)
