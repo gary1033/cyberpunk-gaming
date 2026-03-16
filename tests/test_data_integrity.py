@@ -696,6 +696,114 @@ def test_ready_null_safety():
 
 
 # ---------------------------------------------------------------------------
+# 19. Bug regression: DialogueSystem must be instantiated in location scenes
+# LocationBase._setup_ui() must create a DialogueSystem node and add it to
+# the "dialogue_system" group, otherwise no dialogue can play in-game.
+# ---------------------------------------------------------------------------
+def test_dialogue_system_instantiated():
+    print("\n[19] DialogueSystem instantiated in LocationBase")
+    content = read_file("scripts/ui/location_base.gd")
+    if not content:
+        fail("location_base.gd not found")
+        return
+
+    # Must load and set dialogue_system.gd script
+    if 'dialogue_system.gd' in content:
+        ok("LocationBase loads dialogue_system.gd script")
+    else:
+        fail("LocationBase does not load dialogue_system.gd — dialogue will never appear")
+
+    # Must add to "dialogue_system" group
+    if 'add_to_group("dialogue_system")' in content:
+        ok("DialogueSystem added to 'dialogue_system' group")
+    else:
+        fail("DialogueSystem not added to 'dialogue_system' group — hotspots cannot find it")
+
+    # _trigger_initial_dialogue must call start_dialogue, not be a stub
+    trigger_section = re.search(
+        r'func _trigger_initial_dialogue\(\).*?(?=\nfunc |\Z)',
+        content,
+        re.DOTALL
+    )
+    if trigger_section:
+        body = trigger_section.group(0)
+        if 'start_dialogue' in body:
+            ok("_trigger_initial_dialogue calls start_dialogue")
+        else:
+            fail("_trigger_initial_dialogue is a stub — initial dialogue will never play")
+    else:
+        fail("_trigger_initial_dialogue function not found")
+
+
+# ---------------------------------------------------------------------------
+# 20. Bug regression: class_name references via load() in location_base
+# Direct class_name identifiers (e.g. EvidenceBoard.new()) can fail with
+# "identifier not declared in scope" due to Godot script loading order.
+# Use load("res://...gd").new() instead.
+# ---------------------------------------------------------------------------
+def test_classname_load_safety():
+    print("\n[20] class_name references use load() in location_base")
+    content = read_file("scripts/ui/location_base.gd")
+    if not content:
+        fail("location_base.gd not found")
+        return
+
+    # Check that EvidenceBoard is not used as a direct identifier
+    has_direct_eb = False
+    for line in content.split('\n'):
+        stripped = line.strip()
+        if stripped.startswith('#'):
+            continue
+        if 'EvidenceBoard.new()' in stripped:
+            has_direct_eb = True
+            break
+    if has_direct_eb:
+        fail("Direct EvidenceBoard.new() found — use load() to avoid scope errors")
+    else:
+        ok("EvidenceBoard loaded via load() (no direct class_name reference)")
+
+    # Check that Hotspot static calls use load() too
+    has_direct_hs = False
+    for line in content.split('\n'):
+        stripped = line.strip()
+        if stripped.startswith('#'):
+            continue
+        if 'Hotspot.pulse_all_hotspots' in stripped:
+            has_direct_hs = True
+            break
+    if has_direct_hs:
+        fail("Direct Hotspot.pulse_all_hotspots() found — use load() to avoid scope errors")
+    else:
+        ok("Hotspot accessed via load() (no direct class_name reference)")
+
+
+# ---------------------------------------------------------------------------
+# 21. Bug regression: Autoload singletons must set process_mode = ALWAYS
+# Core autoloads (GameManager, SceneManager, InputManager) must set
+# process_mode = Node.PROCESS_MODE_ALWAYS in _ready() so they keep
+# functioning when the scene tree is paused.
+# ---------------------------------------------------------------------------
+def test_autoload_process_mode():
+    print("\n[21] Autoload singletons set process_mode = ALWAYS")
+    autoloads = [
+        "scripts/core/game_manager.gd",
+        "scripts/core/scene_manager.gd",
+        "scripts/core/input_manager.gd",
+    ]
+
+    for rel_path in autoloads:
+        content = read_file(rel_path)
+        if not content:
+            fail(f"{rel_path} not found")
+            continue
+
+        if "PROCESS_MODE_ALWAYS" in content:
+            ok(f"{rel_path}: process_mode = ALWAYS set")
+        else:
+            fail(f"{rel_path}: missing process_mode = ALWAYS — will stop during pause")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -721,6 +829,9 @@ def main():
     test_button_disable_on_transition()
     test_no_onready_in_classname_scripts()
     test_ready_null_safety()
+    test_dialogue_system_instantiated()
+    test_classname_load_safety()
+    test_autoload_process_mode()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

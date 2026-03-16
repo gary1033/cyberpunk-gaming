@@ -24,6 +24,7 @@
 - 完整測試：`bash tests/run_tests.sh`
 - CI 會在 push 和 PR 時自動執行測試（GitHub Actions）
 - 測試涵蓋：場景路徑、對話 ID、證據連結、角色立繪、背景圖片、證據圖標
+- **每次修復 bug 後，必須在 `tests/test_data_integrity.py` 中新增對應的回歸測試**，防止相同問題再次發生。回歸測試以 `# Bug regression:` 開頭的註解標記
 
 ### Git 慣例
 - 分支: `claude/cyberpunk-game-ideas-Mok3L`
