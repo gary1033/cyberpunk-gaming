@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/location_base.gd" id="1"]
+
+[node name="ZhengtekExterior" type="Node2D"]
+script = ExtResource("1")
+location_id = "zhengtek_exterior"
+location_name = "正和科技大樓外圍"
+bg_color = Color(0.04, 0.04, 0.1, 1)

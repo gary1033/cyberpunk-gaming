@@ -1,0 +1,302 @@
+extends Node2D
+## LocationBase - Base script for all location scenes.
+## Sets up common UI elements: dialogue box, HUD, map button, hint button.
+
+@export var location_id: String = ""
+@export var location_name: String = ""
+@export var bg_color: Color = Color(0.05, 0.05, 0.12)
+
+var _dialogue_system_scene: PackedScene = null
+
+func _ready() -> void:
+	_setup_background()
+	_setup_ui()
+	_setup_location_label()
+	_trigger_initial_dialogue()
+
+func _setup_background() -> void:
+	# Placeholder colored background
+	var bg := ColorRect.new()
+	bg.color = bg_color
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.z_index = -10
+
+	var canvas := CanvasLayer.new()
+	canvas.layer = -10
+	canvas.add_child(bg)
+	add_child(canvas)
+
+func _setup_ui() -> void:
+	var ui_layer := CanvasLayer.new()
+	ui_layer.layer = 10
+	ui_layer.name = "UILayer"
+	add_child(ui_layer)
+
+	# HUD - top bar
+	var hud := HBoxContainer.new()
+	hud.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	hud.offset_bottom = 40
+	hud.name = "HUD"
+
+	# Chapter & Location label
+	var info_label := Label.new()
+	info_label.text = "第%d章 | %s" % [GameManager.current_chapter, location_name]
+	info_label.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9, 0.8))
+	info_label.add_theme_font_size_override("font_size", 14)
+	hud.add_child(info_label)
+
+	# Spacer
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hud.add_child(spacer)
+
+	# Action points
+	var ap_label := Label.new()
+	ap_label.text = "AP: %d/%d" % [GameManager.action_points, GameManager.max_action_points]
+	ap_label.add_theme_color_override("font_color", Color(0.9, 0.6, 0.0))
+	ap_label.add_theme_font_size_override("font_size", 14)
+	ap_label.name = "APLabel"
+	hud.add_child(ap_label)
+
+	ui_layer.add_child(hud)
+
+	# Bottom toolbar
+	var toolbar := HBoxContainer.new()
+	toolbar.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	toolbar.offset_top = -56
+	toolbar.alignment = BoxContainer.ALIGNMENT_CENTER
+	toolbar.add_theme_constant_override("separation", 20)
+	toolbar.name = "Toolbar"
+
+	# Map button
+	var map_btn := Button.new()
+	map_btn.text = "地圖"
+	map_btn.custom_minimum_size = Vector2(80, 48)
+	map_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	map_btn.pressed.connect(_show_map)
+	toolbar.add_child(map_btn)
+
+	# Eagle eye button
+	var eye_btn := Button.new()
+	eye_btn.text = "鷹眼"
+	eye_btn.custom_minimum_size = Vector2(80, 48)
+	eye_btn.add_theme_color_override("font_color", Color(0.9, 0.9, 0.0))
+	eye_btn.pressed.connect(_toggle_eagle_eye)
+	toolbar.add_child(eye_btn)
+
+	# Evidence board button
+	var board_btn := Button.new()
+	board_btn.text = "證據板"
+	board_btn.custom_minimum_size = Vector2(80, 48)
+	board_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	board_btn.pressed.connect(_open_evidence_board)
+	toolbar.add_child(board_btn)
+
+	# Hint button (mobile)
+	if InputManager.is_mobile:
+		var hint_btn := Button.new()
+		hint_btn.text = "提示"
+		hint_btn.custom_minimum_size = Vector2(80, 48)
+		hint_btn.add_theme_color_override("font_color", Color(0.5, 0.9, 0.5))
+		hint_btn.pressed.connect(func(): Hotspot.pulse_all_hotspots(get_tree()))
+		toolbar.add_child(hint_btn)
+
+	# Menu button
+	var menu_btn := Button.new()
+	menu_btn.text = "選單"
+	menu_btn.custom_minimum_size = Vector2(80, 48)
+	menu_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+	menu_btn.pressed.connect(_show_pause_menu)
+	toolbar.add_child(menu_btn)
+
+	ui_layer.add_child(toolbar)
+
+	# Dialogue box area (bottom portion of screen)
+	var dialogue_container := Control.new()
+	dialogue_container.name = "DialogueContainer"
+	dialogue_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	ui_layer.add_child(dialogue_container)
+
+	# Update AP display when it changes
+	GameManager.action_points_changed.connect(func(remaining: int):
+		ap_label.text = "AP: %d/%d" % [remaining, GameManager.max_action_points]
+	)
+
+func _setup_location_label() -> void:
+	# Large location name that fades in and out
+	var canvas := CanvasLayer.new()
+	canvas.layer = 20
+
+	var label := Label.new()
+	label.text = location_name
+	label.set_anchors_preset(Control.PRESET_CENTER)
+	label.add_theme_font_size_override("font_size", 32)
+	label.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+
+	canvas.add_child(label)
+	add_child(canvas)
+
+	# Animate
+	label.modulate.a = 0.0
+	var tween := create_tween()
+	tween.tween_property(label, "modulate:a", 1.0, 0.5)
+	tween.tween_interval(1.5)
+	tween.tween_property(label, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(canvas.queue_free)
+
+func _trigger_initial_dialogue() -> void:
+	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)
+	var loc_data: Dictionary = chapter_data.get("locations", {}).get(location_id, {})
+	var initial_dialogue: String = loc_data.get("initial_dialogue", "")
+
+	if initial_dialogue != "" and not GameManager.get_dialogue_flag("visited_" + location_id):
+		GameManager.set_dialogue_flag("visited_" + location_id)
+		# Will need to instantiate dialogue system and play
+		# For now, this is a stub that would be connected in scene setup
+
+func _show_map() -> void:
+	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)
+	var current_loc: Dictionary = chapter_data.get("locations", {}).get(location_id, {})
+	var connections: Array = current_loc.get("connections", [])
+
+	var popup_layer := CanvasLayer.new()
+	popup_layer.layer = 95
+
+	var dimmer := ColorRect.new()
+	dimmer.color = Color(0, 0, 0, 0.6)
+	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	popup_layer.add_child(dimmer)
+
+	var panel := PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
+	style.border_color = Color(0.0, 0.7, 0.7)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	panel.add_theme_stylebox_override("panel", style)
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.custom_minimum_size = Vector2(320, 0)
+
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 20)
+	margin.add_theme_constant_override("margin_right", 20)
+	margin.add_theme_constant_override("margin_top", 20)
+	margin.add_theme_constant_override("margin_bottom", 20)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 12)
+
+	var title := Label.new()
+	title.text = "前往目的地"
+	title.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	title.add_theme_font_size_override("font_size", 22)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(title)
+
+	for conn_id in connections:
+		var loc: Dictionary = chapter_data.get("locations", {}).get(conn_id, {})
+		var req_flag: String = loc.get("requires_flag", "")
+		if req_flag != "" and not GameManager.get_dialogue_flag(req_flag):
+			continue
+
+		var btn := Button.new()
+		btn.text = loc.get("name", conn_id)
+		btn.custom_minimum_size = Vector2(0, 48)
+		btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
+		btn.pressed.connect(func():
+			popup_layer.queue_free()
+			GameManager.spend_action_points(1)
+			SceneManager.change_scene(conn_id)
+		)
+		vbox.add_child(btn)
+
+	var close_btn := Button.new()
+	close_btn.text = "取消"
+	close_btn.custom_minimum_size = Vector2(0, 48)
+	close_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+	close_btn.pressed.connect(popup_layer.queue_free)
+	vbox.add_child(close_btn)
+
+	margin.add_child(vbox)
+	panel.add_child(margin)
+	popup_layer.add_child(panel)
+	add_child(popup_layer)
+
+func _toggle_eagle_eye() -> void:
+	if GameManager.eagle_eye_active:
+		GameManager.deactivate_eagle_eye()
+	else:
+		GameManager.activate_eagle_eye()
+
+func _open_evidence_board() -> void:
+	# TODO: Open evidence board overlay
+	pass
+
+func _show_pause_menu() -> void:
+	var popup_layer := CanvasLayer.new()
+	popup_layer.layer = 95
+
+	var dimmer := ColorRect.new()
+	dimmer.color = Color(0, 0, 0, 0.7)
+	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	popup_layer.add_child(dimmer)
+
+	var panel := PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
+	style.border_color = Color(0.0, 0.7, 0.7)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	panel.add_theme_stylebox_override("panel", style)
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.custom_minimum_size = Vector2(280, 0)
+
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 20)
+	margin.add_theme_constant_override("margin_right", 20)
+	margin.add_theme_constant_override("margin_top", 20)
+	margin.add_theme_constant_override("margin_bottom", 20)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 12)
+
+	var title := Label.new()
+	title.text = "CHROME AND RAIN"
+	title.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	title.add_theme_font_size_override("font_size", 20)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(title)
+
+	var save_btn := Button.new()
+	save_btn.text = "存檔"
+	save_btn.custom_minimum_size = Vector2(0, 48)
+	save_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	save_btn.pressed.connect(func():
+		SaveManager.save_game(1)
+		popup_layer.queue_free()
+	)
+	vbox.add_child(save_btn)
+
+	var main_menu_btn := Button.new()
+	main_menu_btn.text = "回到主選單"
+	main_menu_btn.custom_minimum_size = Vector2(0, 48)
+	main_menu_btn.add_theme_color_override("font_color", Color(0.9, 0.5, 0.0))
+	main_menu_btn.pressed.connect(func():
+		popup_layer.queue_free()
+		SceneManager.change_scene("main_menu")
+	)
+	vbox.add_child(main_menu_btn)
+
+	var resume_btn := Button.new()
+	resume_btn.text = "繼續遊戲"
+	resume_btn.custom_minimum_size = Vector2(0, 48)
+	resume_btn.add_theme_color_override("font_color", Color(0.5, 0.9, 0.5))
+	resume_btn.pressed.connect(popup_layer.queue_free)
+	vbox.add_child(resume_btn)
+
+	margin.add_child(vbox)
+	panel.add_child(margin)
+	popup_layer.add_child(panel)
+	add_child(popup_layer)
