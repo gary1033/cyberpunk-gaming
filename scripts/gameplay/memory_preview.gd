@@ -79,8 +79,9 @@ func _animate_fragment_text(text: String) -> void:
 
 	# Show text character by character
 	for i in text.length():
+		var char_count := i + 1
 		tween.tween_callback(func():
-			fragment_display.text = text.substr(0, min(i + 1, text.length()))
+			fragment_display.text = text.substr(0, min(char_count, text.length()))
 		)
 		tween.tween_interval(0.04)
 

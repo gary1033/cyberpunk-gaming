@@ -2,6 +2,8 @@ extends Area2D
 ## Hotspot - Base class for interactive objects in investigation scenes.
 ## Supports mouse hover highlighting and touch-friendly interaction.
 
+class_name Hotspot
+
 signal interacted
 signal examined
 
@@ -150,5 +152,3 @@ static func pulse_all_hotspots(scene_tree: SceneTree) -> void:
 				tween.tween_property(hs.sprite, "modulate", Color.WHITE, 0.3)
 				tween.tween_property(hs.sprite, "modulate", Color(0.0, 0.9, 0.9), 0.3)
 				tween.tween_property(hs.sprite, "modulate", Color.WHITE, 0.3)
-
-class_name Hotspot

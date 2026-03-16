@@ -50,15 +50,23 @@ func _animate_title() -> void:
 	tween.tween_property(settings_btn, "modulate:a", 1.0, 0.3)
 
 func _on_new_game() -> void:
+	# Disable buttons to prevent double-click during transition
+	new_game_btn.disabled = true
+	continue_btn.disabled = true
+	settings_btn.disabled = true
+
 	GameManager.new_game()
-	SceneManager.change_scene_with_chapter_title(
+	await SceneManager.change_scene_with_chapter_title(
 		"detective_office", 1, "失蹤的記憶"
 	)
 
 func _on_continue() -> void:
 	if SaveManager.load_game(1):
+		new_game_btn.disabled = true
+		continue_btn.disabled = true
+		settings_btn.disabled = true
 		var location := GameManager.current_location
-		SceneManager.change_scene(location)
+		await SceneManager.change_scene(location)
 
 func _on_settings() -> void:
 	var popup_layer := CanvasLayer.new()

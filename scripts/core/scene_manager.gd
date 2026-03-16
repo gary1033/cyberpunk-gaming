@@ -105,13 +105,26 @@ func change_scene_with_chapter_title(scene_name: String, chapter_num: int, chapt
 	await tween.finished
 
 	# Show chapter title
-	_show_chapter_title(chapter_num, chapter_title)
+	var title_label := _show_chapter_title(chapter_num, chapter_title)
 	await get_tree().create_timer(2.5).timeout
 
+	# Clean up title label before scene change
+	if is_instance_valid(title_label):
+		title_label.queue_free()
+
 	# Change scene
-	if scene_name in scene_paths:
-		get_tree().change_scene_to_file(scene_paths[scene_name])
-		GameManager.current_location = scene_name
+	if scene_name not in scene_paths:
+		push_error("SceneManager: Unknown scene '%s'" % scene_name)
+		_is_transitioning = false
+		return
+
+	var error := get_tree().change_scene_to_file(scene_paths[scene_name])
+	if error != OK:
+		push_error("SceneManager: Failed to load scene '%s'" % scene_name)
+		_is_transitioning = false
+		return
+
+	GameManager.current_location = scene_name
 
 	await get_tree().process_frame
 
@@ -124,7 +137,7 @@ func change_scene_with_chapter_title(scene_name: String, chapter_num: int, chapt
 	scene_changed.emit(scene_name)
 	transition_finished.emit()
 
-func _show_chapter_title(chapter_num: int, title: String) -> void:
+func _show_chapter_title(chapter_num: int, title: String) -> Label:
 	var label := Label.new()
 	label.text = "Chapter %d\n%s" % [chapter_num, title]
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -140,4 +153,5 @@ func _show_chapter_title(chapter_num: int, title: String) -> void:
 	tween.tween_property(label, "modulate:a", 1.0, 0.8)
 	tween.tween_interval(1.0)
 	tween.tween_property(label, "modulate:a", 0.0, 0.7)
-	tween.tween_callback(label.queue_free)
+
+	return label
