@@ -4,234 +4,113 @@
       <stop offset="0%" stop-color="#141430"/>
       <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#d4a574"/>
-      <stop offset="100%" stop-color="#c08a60"/>
-    </linearGradient>
-    <linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#e8e8f0"/>
-      <stop offset="70%" stop-color="#d0d0dc"/>
-      <stop offset="100%" stop-color="#c0c0d0"/>
-    </linearGradient>
-    <linearGradient id="hairHighlight" x1="0" y1="0" x2="0.5" y2="1">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#e0e0ea"/>
-    </linearGradient>
-    <linearGradient id="hairShadow" x1="0.5" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#b8b8c8"/>
-      <stop offset="100%" stop-color="#a0a0b4"/>
-    </linearGradient>
-    <linearGradient id="coatGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1c1c32"/>
-      <stop offset="50%" stop-color="#141428"/>
-      <stop offset="100%" stop-color="#0e0e1e"/>
-    </linearGradient>
-    <linearGradient id="coatLight" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#24243e"/>
-      <stop offset="100%" stop-color="#1a1a30"/>
-    </linearGradient>
-    <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1e1e38"/>
-      <stop offset="100%" stop-color="#14142a"/>
-    </linearGradient>
-    <radialGradient id="cyberIrisDim" cx="45%" cy="45%" r="55%">
-      <stop offset="0%" stop-color="#00bbcc"/>
-      <stop offset="50%" stop-color="#008899"/>
-      <stop offset="100%" stop-color="#004455"/>
+    <radialGradient id="cyberIris" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#00ffff"/>
+      <stop offset="50%" stop-color="#00bbdd"/>
+      <stop offset="100%" stop-color="#005577"/>
     </radialGradient>
-    <filter id="glowCyanDim" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="2.5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <radialGradient id="normalIris" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#5588aa"/>
+      <stop offset="50%" stop-color="#2a4a6a"/>
+      <stop offset="100%" stop-color="#152540"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="glowCyanSoft" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <filter id="glowSoft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
-  <!-- Background -->
   <rect width="256" height="384" fill="url(#bgGrad)"/>
+  <line x1="20" y1="40" x2="20" y2="384" stroke="#00e5e5" stroke-width="0.3" opacity="0.1"/>
+  <line x1="236" y1="0" x2="236" y2="384" stroke="#00e5e5" stroke-width="0.3" opacity="0.08"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#00e5e5" stroke-width="1" opacity="0.3"/>
+  <text x="128" y="28" font-family="monospace" font-size="20" fill="#00e5e5" text-anchor="middle" filter="url(#glow)" opacity="0.9">凱</text>
 
-  <!-- Background circuit pattern -->
-  <line x1="18" y1="40" x2="18" y2="384" stroke="#00e5e5" stroke-width="0.3" opacity="0.12"/>
-  <line x1="50" y1="0" x2="50" y2="180" stroke="#ff00aa" stroke-width="0.3" opacity="0.08"/>
-  <line x1="206" y1="90" x2="206" y2="384" stroke="#00e5e5" stroke-width="0.3" opacity="0.1"/>
-  <line x1="238" y1="0" x2="238" y2="280" stroke="#ff00aa" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="330" x2="256" y2="330" stroke="#00e5e5" stroke-width="0.3" opacity="0.08"/>
-  <line x1="0" y1="60" x2="80" y2="60" stroke="#00e5e5" stroke-width="0.2" opacity="0.1"/>
-  <line x1="180" y1="50" x2="256" y2="50" stroke="#ff00aa" stroke-width="0.2" opacity="0.07"/>
+  <!-- COAT -->
+  <path d="M55,275 Q62,252 85,238 L100,230 Q115,224 128,222 Q141,224 156,230 L171,238 Q194,252 201,275 L210,384 L46,384 Z" fill="#141428"/>
+  <path d="M55,275 Q62,252 85,238 L100,230 Q110,226 118,224 L118,384 L46,384 Z" fill="#0e0e1e" opacity="0.5"/>
+  <path d="M88,236 L74,260 L105,250 L115,232 Z" fill="#1e1e3a"/>
+  <path d="M168,236 L182,260 L151,250 L141,232 Z" fill="#222240"/>
+  <path d="M76,258 L68,220 L86,218 L96,244 Z" fill="#181832"/>
+  <path d="M180,258 L188,220 L170,218 L160,244 Z" fill="#1c1c38"/>
+  <line x1="128" y1="236" x2="128" y2="384" stroke="#2a2a4e" stroke-width="0.8"/>
+  <path d="M112,232 L128,250 L144,232" fill="#161630"/>
+  <line x1="70" y1="278" x2="70" y2="384" stroke="#00e5e5" stroke-width="0.8" opacity="0.3" filter="url(#glow)"/>
+  <line x1="186" y1="278" x2="186" y2="384" stroke="#00e5e5" stroke-width="0.8" opacity="0.3" filter="url(#glow)"/>
 
-  <!-- Thought indicator - floating data fragments -->
-  <text x="40" y="88" font-family="monospace" font-size="6" fill="#00e5e5" opacity="0.18">0x4F</text>
-  <text x="198" y="68" font-family="monospace" font-size="5" fill="#00e5e5" opacity="0.14">DATA</text>
-  <text x="218" y="108" font-family="monospace" font-size="4" fill="#ff00aa" opacity="0.1">??</text>
-  <text x="22" y="145" font-family="monospace" font-size="4" fill="#00e5e5" opacity="0.12">SCAN</text>
+  <!-- NECK -->
+  <path d="M115,216 Q128,222 141,216 L139,234 Q128,240 117,234 Z" fill="#e8c4a0"/>
+  <path d="M115,216 Q128,220 141,216 L140,224 Q128,228 116,224 Z" fill="#d4a878" opacity="0.4"/>
 
-  <!-- Border frame -->
-  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#00e5e5" stroke-width="1" opacity="0.35"/>
-  <rect x="5" y="5" width="246" height="374" rx="5" fill="none" stroke="#00e5e5" stroke-width="0.3" opacity="0.2"/>
+  <!-- HEAD -->
+  <path d="M80,130 Q78,105 88,88 Q100,72 128,68 Q156,72 168,88 Q178,105 176,130 L176,155 Q174,175 164,190 Q154,204 142,212 Q136,216 128,218 Q120,216 114,212 Q102,204 92,190 Q82,175 80,155 Z" fill="#f0cba8"/>
+  <path d="M80,130 Q78,105 88,88 Q94,80 104,74 L100,130 L98,160 Q90,175 92,190 Q96,198 108,208 L114,212 Q102,204 92,190 Q82,175 80,155 Z" fill="#deb896" opacity="0.5"/>
 
-  <!-- Character name -->
-  <text x="128" y="28" font-family="monospace" font-size="20" fill="#00e5e5" text-anchor="middle" filter="url(#neonGlow)" opacity="0.9">凱</text>
+  <!-- EARS -->
+  <ellipse cx="80" cy="148" rx="5" ry="10" fill="#f0cba8"/>
+  <ellipse cx="176" cy="148" rx="5" ry="10" fill="#f0cba8"/>
+  <rect x="170" y="144" width="4" height="9" rx="1" fill="#1a2a3a" stroke="#00cccc" stroke-width="0.5"/>
+  <circle cx="172" cy="146" r="0.8" fill="#00ffff"/>
 
-  <!-- === COAT / BODY === -->
-  <path d="M55,265 Q58,245 80,234 L95,228 Q110,222 128,220 Q146,222 161,228 L176,234 Q198,245 201,265 L208,384 L48,384 Z" fill="url(#coatGrad)" stroke="#1a1a36" stroke-width="0.5"/>
-  <path d="M60,260 Q68,248 82,240 L90,245 Q75,255 70,268 Z" fill="url(#coatLight)" opacity="0.4"/>
-  <path d="M196,260 Q188,248 174,240 L166,245 Q181,255 186,268 Z" fill="url(#coatLight)" opacity="0.4"/>
-  <path d="M88,234 L76,258 L104,252 L114,232 Z" fill="#222240" stroke="#2a2a4e" stroke-width="0.5"/>
-  <path d="M168,234 L180,258 L152,252 L142,232 Z" fill="#222240" stroke="#2a2a4e" stroke-width="0.5"/>
-  <path d="M78,256 L68,222 L84,218 L94,242 Z" fill="#1c1c36" stroke="#2a2a4e" stroke-width="0.5"/>
-  <path d="M178,256 L188,222 L172,218 L162,242 Z" fill="#1c1c36" stroke="#2a2a4e" stroke-width="0.5"/>
-  <line x1="128" y1="234" x2="128" y2="384" stroke="#2a2a4e" stroke-width="0.8"/>
-  <path d="M108,232 Q118,238 128,240 Q138,238 148,232 L146,248 Q138,254 128,255 Q118,254 110,248 Z" fill="url(#shirtGrad)"/>
-  <line x1="72" y1="272" x2="72" y2="384" stroke="#00e5e5" stroke-width="0.7" opacity="0.25" filter="url(#neonGlow)"/>
-  <line x1="184" y1="272" x2="184" y2="384" stroke="#00e5e5" stroke-width="0.7" opacity="0.25" filter="url(#neonGlow)"/>
-  <path d="M66,252 Q128,234 190,252" fill="none" stroke="#ff00aa" stroke-width="0.5" opacity="0.2" filter="url(#neonGlow)"/>
-  <path d="M176,310 L151,308 L151,330 L176,332 Z" fill="none" stroke="#2a2a4e" stroke-width="0.6" opacity="0.5"/>
+  <!-- HAIR -->
+  <path d="M66,130 Q64,100 80,76 Q96,56 128,52 Q160,56 176,76 Q192,100 190,130 L188,118 Q184,100 172,84 Q156,68 128,64 Q100,68 84,84 Q72,100 68,118 Z" fill="#e8e8f0"/>
+  <path d="M66,130 Q64,100 80,76 Q90,62 108,56 L104,80 Q88,96 78,118 L72,130 Z" fill="#b8b8cc"/>
+  <path d="M96,68 L84,30 L112,62 Z" fill="#e0e0ee"/>
+  <path d="M112,62 L98,18 L128,56 Z" fill="#eeeef6"/>
+  <path d="M128,56 L122,10 L142,54 Z" fill="#f0f0f8"/>
+  <path d="M142,54 L148,16 L158,60 Z" fill="#eeeef6"/>
+  <path d="M158,60 L168,28 L172,68 Z" fill="#e0e0ee"/>
+  <path d="M120,58 L116,6 L136,54 Z" fill="#f4f4fc"/>
+  <path d="M66,130 L54,116 L64,148 L46,134 L60,168 L42,155 L56,182" fill="none" stroke="#d0d0e0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M66,130 L54,116 L64,148 L46,134 L60,168 L42,155 L56,182" fill="none" stroke="#e8e8f0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M190,130 L202,116 L192,148 L210,134 L196,168 L214,155 L200,182" fill="none" stroke="#d0d0e0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M190,130 L202,116 L192,148 L210,134 L196,168 L214,155 L200,182" fill="none" stroke="#e8e8f0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M86,90 Q90,110 94,125 L102,120 Q98,102 96,88 Z" fill="#e0e0ee"/>
+  <path d="M96,84 Q100,104 104,118 L112,112 Q108,96 106,80 Z" fill="#eaeaf4"/>
+  <path d="M148,80 Q150,98 152,112 L160,118 Q158,100 156,84 Z" fill="#e0e0ee"/>
+  <path d="M158,84 Q160,102 162,120 L170,126 Q168,106 166,88 Z" fill="#d8d8ea"/>
+  <path d="M88,78 Q108,68 128,64 Q148,68 168,78 L164,86 Q148,76 128,72 Q108,76 92,86 Z" fill="#ffffff" opacity="0.5"/>
 
-  <!-- === HAND NEAR CHIN (right arm raised) === -->
-  <!-- Arm from coat -->
-  <path d="M92,272 Q86,256 82,242 Q80,232 86,224" fill="url(#coatGrad)" stroke="#1a1a36" stroke-width="0.5"/>
-  <!-- Sleeve cuff -->
-  <path d="M86,224 Q90,219 98,216 L104,214 Q98,220 93,226" fill="#222240" stroke="#2a2a4e" stroke-width="0.4"/>
-  <!-- Hand/fist near chin -->
-  <ellipse cx="100" cy="210" rx="9" ry="7" fill="url(#skinGrad)" stroke="#b07a55" stroke-width="0.4"/>
-  <!-- Fingers curled -->
-  <path d="M93,208 Q91,204 93,202 Q95,200 97,202 L97,207" fill="url(#skinGrad)" stroke="#b07a55" stroke-width="0.4"/>
-  <path d="M97,207 Q95,202 97,200 Q99,198 101,200 L101,206" fill="url(#skinGrad)" stroke="#b07a55" stroke-width="0.4"/>
-  <path d="M101,206 Q99,202 101,200 Q103,198 105,200 L105,206" fill="url(#skinGrad)" stroke="#b07a55" stroke-width="0.4"/>
-  <!-- Thumb toward chin -->
-  <path d="M105,212 Q107,208 109,206 Q110,205 109,208" fill="url(#skinGrad)" stroke="#b07a55" stroke-width="0.4"/>
-  <!-- Knuckle highlights -->
-  <circle cx="95" cy="203" r="0.5" fill="#dab892" opacity="0.4"/>
-  <circle cx="99" cy="201" r="0.5" fill="#dab892" opacity="0.4"/>
-  <circle cx="103" cy="201" r="0.5" fill="#dab892" opacity="0.4"/>
+  <!-- THOUGHTFUL: slightly furrowed brows, eyes looking up-right, slight smirk -->
+  <!-- Eyebrows - one slightly raised, inner ends slightly down -->
+  <path d="M88,126 Q100,122 120,126" fill="none" stroke="#b0b0be" stroke-width="3" stroke-linecap="round"/>
+  <path d="M136,127 Q156,121 168,126" fill="none" stroke="#b0b0be" stroke-width="3" stroke-linecap="round"/>
 
-  <!-- === NECK === -->
-  <path d="M112,216 Q120,220 128,221 Q136,220 144,216 L142,234 Q136,238 128,239 Q120,238 114,234 Z" fill="url(#skinGrad)"/>
-  <path d="M116,224 Q128,228 140,224" fill="none" stroke="#a07050" stroke-width="0.6" opacity="0.3"/>
+  <!-- Right eye - looking up and to the side -->
+  <path d="M88,148 Q98,134 108,133 Q118,134 124,148 Q118,158 108,159 Q98,158 88,148 Z" fill="#f0f0f5"/>
+  <path d="M86,148 Q96,132 108,130 Q120,132 126,148" fill="none" stroke="#2a2a3e" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M90,150 Q100,159 108,160 Q116,159 122,150" fill="none" stroke="#8a7a6a" stroke-width="0.6"/>
+  <!-- Iris shifted up-right -->
+  <circle cx="112" cy="145" r="12" fill="url(#normalIris)"/>
+  <circle cx="112" cy="146" r="5.5" fill="#0a0a1e"/>
+  <circle cx="117" cy="140" r="4" fill="#ffffff" opacity="0.9"/>
+  <circle cx="108" cy="150" r="2" fill="#ffffff" opacity="0.5"/>
 
-  <!-- === HEAD (slightly turned right) === -->
-  <ellipse cx="130" cy="162" rx="50" ry="60" fill="url(#skinGrad)"/>
-  <path d="M85,178 Q97,208 114,218 Q122,222 130,223 Q138,222 146,218 Q163,208 175,178" fill="url(#skinGrad)" stroke="#b07a55" stroke-width="0.3"/>
-  <path d="M87,165 Q92,178 100,185" fill="none" stroke="#b07a55" stroke-width="0.8" opacity="0.2"/>
-  <path d="M173,165 Q168,178 160,185" fill="none" stroke="#b07a55" stroke-width="0.8" opacity="0.2"/>
-  <path d="M84,155 Q86,175 94,192 Q102,205 114,215" fill="none" stroke="#a06e48" stroke-width="0.5" opacity="0.25"/>
-  <path d="M176,155 Q174,175 166,192 Q158,205 146,215" fill="none" stroke="#a06e48" stroke-width="0.5" opacity="0.25"/>
+  <!-- Left eye (cyber) - also looking up-right -->
+  <path d="M132,148 Q142,134 152,133 Q162,134 168,148 Q162,158 152,159 Q142,158 132,148 Z" fill="#081820"/>
+  <path d="M130,148 Q140,132 152,130 Q164,132 170,148" fill="none" stroke="#00aacc" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="156" cy="145" r="12" fill="url(#cyberIris)" filter="url(#glow)"/>
+  <circle cx="156" cy="145" r="7" fill="#00ccdd" opacity="0.5"/>
+  <circle cx="156" cy="146" r="4" fill="#00ffff" filter="url(#glow)"/>
+  <circle cx="161" cy="140" r="4" fill="#aaffff" opacity="0.85"/>
+  <circle cx="152" cy="150" r="2" fill="#88ffff" opacity="0.45"/>
+  <line x1="147" y1="145" x2="165" y2="145" stroke="#00ffff" stroke-width="0.4" opacity="0.3"/>
+  <line x1="156" y1="136" x2="156" y2="154" stroke="#00ffff" stroke-width="0.4" opacity="0.3"/>
+  <circle cx="156" cy="145" r="20" fill="none" stroke="#00ffff" stroke-width="0.3" opacity="0.1" filter="url(#glowSoft)"/>
 
-  <!-- === EARS === -->
-  <ellipse cx="80" cy="158" rx="6" ry="12" fill="#c08a60" stroke="#a07050" stroke-width="0.5"/>
-  <ellipse cx="81" cy="158" rx="3" ry="7" fill="none" stroke="#a07050" stroke-width="0.4" opacity="0.5"/>
-  <ellipse cx="180" cy="158" rx="6" ry="12" fill="#c08a60" stroke="#a07050" stroke-width="0.5"/>
-  <ellipse cx="179" cy="158" rx="3" ry="7" fill="none" stroke="#a07050" stroke-width="0.4" opacity="0.5"/>
-  <rect x="174" y="152" width="4" height="8" rx="1" fill="#1a2a3a" stroke="#00aaaa" stroke-width="0.4"/>
-  <circle cx="176" cy="154" r="0.6" fill="#00cccc" opacity="0.6"/>
-  <circle cx="176" cy="158" r="0.4" fill="#00cccc" opacity="0.4"/>
+  <!-- Nose -->
+  <path d="M127,173 L128,178 L131,176" fill="none" stroke="#d4a878" stroke-width="1" stroke-linecap="round"/>
 
-  <!-- === HAIR (head slightly turned right) === -->
-  <path d="M70,142 Q68,108 82,86 Q97,66 130,62 Q163,66 178,86 Q192,108 190,142 L186,132 Q182,112 168,98 Q152,82 130,78 Q108,82 92,98 Q78,112 74,132 Z" fill="url(#hairGrad)"/>
-  <path d="M74,135 Q72,110 86,90 Q102,72 130,68 Q158,72 174,90 Q188,110 186,135 L182,125 Q178,106 166,94 Q150,80 130,76 Q110,80 94,94 Q82,106 78,125 Z" fill="url(#hairHighlight)" opacity="0.6"/>
-  <!-- Spiky top -->
-  <path d="M98,76 L92,48 L106,72 L100,42 L116,68 L112,38 L128,64 L126,36 L138,62 L142,38 L148,66 L154,42 L156,70 L164,46 L160,76" fill="url(#hairGrad)" stroke="#d0d0dc" stroke-width="0.5"/>
-  <path d="M90,54 L94,48 L98,58" fill="url(#hairHighlight)" stroke="#e0e0ea" stroke-width="0.3"/>
-  <path d="M158,48 L162,42 L164,52" fill="url(#hairHighlight)" stroke="#e0e0ea" stroke-width="0.3"/>
-  <!-- Side hair -->
-  <path d="M70,142 L62,126 L68,148 L58,138 L66,160 L56,152 L64,172 L60,168" fill="url(#hairShadow)" stroke="#c0c0d0" stroke-width="0.4"/>
-  <path d="M190,142 L198,126 L192,148 L202,138 L194,160 L204,152 L196,172 L200,168" fill="url(#hairShadow)" stroke="#c0c0d0" stroke-width="0.4"/>
-  <!-- Forehead strands -->
-  <path d="M108,80 Q102,98 98,118 Q96,126 100,122" fill="none" stroke="#f0f0f8" stroke-width="3" opacity="0.7" stroke-linecap="round"/>
-  <path d="M118,76 Q114,94 110,112 Q108,120 112,116" fill="none" stroke="#ffffff" stroke-width="2.2" opacity="0.6" stroke-linecap="round"/>
-  <path d="M140,78 Q144,92 147,106" fill="none" stroke="#e8e8f0" stroke-width="1.8" opacity="0.5" stroke-linecap="round"/>
-  <!-- Hair highlights -->
-  <path d="M94,88 Q110,78 127,74" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.7"/>
-  <path d="M137,76 Q157,84 170,98" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+  <!-- Mouth - slight asymmetric smirk -->
+  <path d="M120,194 Q128,196 134,194 Q137,193 139,192" fill="none" stroke="#c08a70" stroke-width="1.2" stroke-linecap="round"/>
 
-  <!-- === FACIAL FEATURES (THOUGHTFUL - eyes looking right) === -->
+  <!-- Cheek blush (thinking = slightly flushed) -->
+  <ellipse cx="96" cy="178" rx="10" ry="3.5" fill="#e8a0a0" opacity="0.1"/>
+  <ellipse cx="160" cy="178" rx="10" ry="3.5" fill="#e8a0a0" opacity="0.1"/>
 
-  <!-- Eyebrows - slightly raised on left, contemplative asymmetry -->
-  <path d="M96,132 Q108,127 122,132" fill="none" stroke="#909098" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M140,130 Q152,126 164,132" fill="none" stroke="#909098" stroke-width="2.5" stroke-linecap="round"/>
-
-  <!-- RIGHT EYE (looking right - pupil offset) -->
-  <ellipse cx="110" cy="150" rx="14" ry="8" fill="#f0f0f0"/>
-  <path d="M96,150 Q103,141 110,140 Q117,141 124,150" fill="none" stroke="#7a6a5a" stroke-width="1.2"/>
-  <path d="M96,150 Q103,157 110,158 Q117,157 124,150" fill="none" stroke="#8a7a6a" stroke-width="0.8"/>
-  <!-- Pupil shifted right -->
-  <circle cx="114" cy="150" r="5.5" fill="#3a4e5e"/>
-  <circle cx="114" cy="150" r="2.8" fill="#1a1a2a"/>
-  <circle cx="116" cy="148" r="1.3" fill="#ffffff" opacity="0.8"/>
-  <!-- Pensive hooded upper lid -->
-  <path d="M96,149 Q110,143 124,149" fill="url(#skinGrad)" stroke="#8a7a6a" stroke-width="0.3" opacity="0.45"/>
-  <path d="M98,137 Q110,132 122,137" fill="none" stroke="#b09070" stroke-width="0.5" opacity="0.35"/>
-
-  <!-- LEFT EYE (Cybernetic - DIMMER glow, looking right) -->
-  <ellipse cx="152" cy="150" rx="14" ry="8.5" fill="#0a1a20" stroke="#00aaaa" stroke-width="1.2"/>
-  <!-- Dimmer iris - pupil offset right -->
-  <circle cx="152" cy="150" r="7" fill="#002a33" stroke="#00aaaa" stroke-width="0.8" filter="url(#glowCyanDim)"/>
-  <circle cx="155" cy="150" r="4.5" fill="url(#cyberIrisDim)" opacity="0.75"/>
-  <circle cx="155" cy="150" r="2.2" fill="#00bbcc" opacity="0.7"/>
-  <!-- Subtle scan lines -->
-  <line x1="145" y1="150" x2="159" y2="150" stroke="#00aabb" stroke-width="0.3" opacity="0.4"/>
-  <line x1="152" y1="143" x2="152" y2="157" stroke="#00aabb" stroke-width="0.3" opacity="0.4"/>
-  <!-- Circuit details - dimmer -->
-  <path d="M137,145 L140,145 L142,147" fill="none" stroke="#008888" stroke-width="0.5" opacity="0.5"/>
-  <path d="M137,155 L140,155 L142,153" fill="none" stroke="#008888" stroke-width="0.5" opacity="0.5"/>
-  <path d="M162,147 L164,145 L169,145" fill="none" stroke="#008888" stroke-width="0.5" opacity="0.5"/>
-  <path d="M162,153 L164,155 L169,155" fill="none" stroke="#008888" stroke-width="0.5" opacity="0.5"/>
-  <circle cx="137" cy="145" r="0.7" fill="#00aaaa" opacity="0.5"/>
-  <circle cx="137" cy="155" r="0.7" fill="#00aaaa" opacity="0.5"/>
-  <circle cx="169" cy="145" r="0.7" fill="#00aaaa" opacity="0.5"/>
-  <circle cx="169" cy="155" r="0.7" fill="#00aaaa" opacity="0.5"/>
-  <!-- Soft outer glow - dimmer -->
-  <circle cx="152" cy="150" r="12" fill="none" stroke="#009999" stroke-width="0.4" opacity="0.2" filter="url(#glowCyanSoft)"/>
-
-  <!-- NOSE (slightly offset for head turn) -->
-  <path d="M128,157 Q130,170 127,175 Q130,177 133,175 Q135,170 132,157" fill="none" stroke="#b07a55" stroke-width="0.9" stroke-linecap="round"/>
-  <path d="M129,160 L129,168" fill="none" stroke="#dab892" stroke-width="0.5" opacity="0.3"/>
-  <circle cx="126" cy="175" r="1.2" fill="none" stroke="#a07050" stroke-width="0.5" opacity="0.4"/>
-  <circle cx="134" cy="175" r="1.2" fill="none" stroke="#a07050" stroke-width="0.5" opacity="0.4"/>
-
-  <!-- MOUTH - slightly pursed, contemplative, asymmetric -->
-  <path d="M116,188 Q122,186 130,187 Q136,186 142,188" fill="none" stroke="#9a7060" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Slight asymmetry -->
-  <path d="M116,188 Q115,190 114,188" fill="none" stroke="#9a7060" stroke-width="0.8" opacity="0.6"/>
-  <path d="M118,189 Q130,192 140,189" fill="none" stroke="#a87a6a" stroke-width="0.6" opacity="0.35"/>
-
-  <!-- STUBBLE -->
-  <circle cx="118" cy="200" r="0.5" fill="#8a8a92" opacity="0.4"/>
-  <circle cx="124" cy="202" r="0.5" fill="#8a8a92" opacity="0.35"/>
-  <circle cx="130" cy="204" r="0.5" fill="#8a8a92" opacity="0.4"/>
-  <circle cx="136" cy="202" r="0.5" fill="#8a8a92" opacity="0.35"/>
-  <circle cx="142" cy="200" r="0.5" fill="#8a8a92" opacity="0.4"/>
-  <circle cx="121" cy="206" r="0.45" fill="#8a8a92" opacity="0.3"/>
-  <circle cx="127" cy="208" r="0.45" fill="#8a8a92" opacity="0.3"/>
-  <circle cx="133" cy="208" r="0.45" fill="#8a8a92" opacity="0.3"/>
-  <circle cx="139" cy="206" r="0.45" fill="#8a8a92" opacity="0.3"/>
-  <circle cx="115" cy="196" r="0.4" fill="#8a8a92" opacity="0.3"/>
-  <circle cx="143" cy="196" r="0.4" fill="#8a8a92" opacity="0.3"/>
-
-  <!-- AMBIENT -->
-  <circle cx="28" cy="95" r="1" fill="#00ffff" opacity="0.3"/>
-  <circle cx="225" cy="75" r="0.8" fill="#ff00aa" opacity="0.2"/>
-  <circle cx="38" cy="310" r="1.2" fill="#00ffff" opacity="0.2"/>
-  <circle cx="215" cy="350" r="0.8" fill="#ff00aa" opacity="0.22"/>
-  <circle cx="12" cy="210" r="0.7" fill="#00ffff" opacity="0.22"/>
-  <circle cx="242" cy="260" r="1" fill="#00ffff" opacity="0.18"/>
-
-  <!-- Expression label -->
   <text x="128" y="372" font-family="monospace" font-size="10" fill="#00e5e5" text-anchor="middle" opacity="0.5">[thoughtful]</text>
 </svg>

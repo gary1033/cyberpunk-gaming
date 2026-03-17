@@ -1,41 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <radialGradient id="bg_warm" cx="50%" cy="40%" r="65%">
+    <radialGradient id="bg_glow" cx="50%" cy="40%" r="65%">
       <stop offset="0%" stop-color="#0e0e22"/>
-      <stop offset="100%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#080810"/>
     </radialGradient>
-    <filter id="neon_blue">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="soft_glow">
-      <feGaussianBlur stdDeviation="1.5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="soft_glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ccb090"/>
-      <stop offset="50%" stop-color="#c4a884"/>
-      <stop offset="100%" stop-color="#b09070"/>
+    <radialGradient id="iris_grad_l" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#6b4422"/>
+      <stop offset="60%" stop-color="#3d2211"/>
+      <stop offset="100%" stop-color="#1a0e06"/>
+    </radialGradient>
+    <radialGradient id="iris_grad_r" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#6b4422"/>
+      <stop offset="60%" stop-color="#3d2211"/>
+      <stop offset="100%" stop-color="#1a0e06"/>
+    </radialGradient>
+    <linearGradient id="glass_lens" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#2266cc" stop-opacity="0.06"/>
     </linearGradient>
     <linearGradient id="coat_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#eaeaf2"/>
-      <stop offset="30%" stop-color="#d8d8e8"/>
-      <stop offset="70%" stop-color="#c8c8d8"/>
-      <stop offset="100%" stop-color="#b8b8c8"/>
+      <stop offset="0%" stop-color="#eeeef4"/>
+      <stop offset="100%" stop-color="#c8c8d6"/>
     </linearGradient>
-    <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a2244"/>
-      <stop offset="100%" stop-color="#0d1530"/>
-    </linearGradient>
-    <linearGradient id="hair_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e1e32"/>
-      <stop offset="50%" stop-color="#141428"/>
-      <stop offset="100%" stop-color="#0d0d1a"/>
-    </linearGradient>
-    <linearGradient id="glass_fill" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.15"/>
-      <stop offset="50%" stop-color="#3377ee" stop-opacity="0.1"/>
-      <stop offset="100%" stop-color="#2266cc" stop-opacity="0.08"/>
+    <linearGradient id="badge_holo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#66aaff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4488ff" stop-opacity="0.3"/>
     </linearGradient>
     <radialGradient id="relief_aura" cx="50%" cy="40%" r="55%">
       <stop offset="0%" stop-color="#4488ff" stop-opacity="0.04"/>
@@ -47,143 +45,146 @@
     </linearGradient>
   </defs>
 
-  <!-- Background - slightly warmer tone -->
-  <rect width="256" height="384" fill="url(#bg_warm)"/>
+  <!-- Background - slightly warmer -->
+  <rect width="256" height="384" fill="url(#bg_glow)"/>
   <rect width="256" height="384" fill="url(#relief_aura)"/>
-  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.4"/>
+  <rect x="3" y="3" width="250" height="378" rx="5" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.4"/>
+  <line x1="0" y1="96" x2="256" y2="96" stroke="#4488ff" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="192" x2="256" y2="192" stroke="#4488ff" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="288" x2="256" y2="288" stroke="#4488ff" stroke-width="0.3" opacity="0.04"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle" filter="url(#neon_blue)">Dr. 陳</text>
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle">Dr. 陳</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle" filter="url(#glow)">Dr. 陳</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#66aaff" text-anchor="middle">Dr. 陳</text>
 
-  <!-- Neck - relaxed -->
-  <path d="M115,162 Q115,170 116,180 L140,180 Q141,170 141,162" fill="url(#skin_grad)"/>
+  <!-- === BODY - relaxed, shoulders dropped === -->
+  <!-- Neck relaxed -->
+  <path d="M115,164 Q115,172 116,182 L140,182 Q141,172 141,164" fill="#f0cba8"/>
 
-  <!-- Body - shoulders dropped, relaxed posture -->
-  <path d="M128,178 Q128,194 128,212 L128,384 L53,384 L53,270 Q53,230 86,218 Q110,206 128,178 Z" fill="url(#shirt_grad)"/>
-  <path d="M128,178 Q128,194 128,212 L128,384 L203,384 L203,270 Q203,230 170,218 Q146,206 128,178 Z" fill="url(#shirt_grad)"/>
+  <!-- Dark undershirt -->
+  <path d="M128,180 L128,384 L53,384 L53,270 Q53,232 86,218 Q110,206 128,180Z" fill="#0d1530"/>
+  <path d="M128,180 L128,384 L203,384 L203,270 Q203,232 170,218 Q146,206 128,180Z" fill="#0d1530"/>
 
   <!-- Lab coat - neat, settled -->
-  <path d="M86,218 Q66,224 56,246 Q53,258 53,270 L53,384 L84,384 L84,242 Q86,230 94,222" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M170,218 Q190,224 200,246 Q203,258 203,270 L203,384 L172,384 L172,242 Q170,230 162,222" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
+  <path d="M86,218 Q66,224 56,246 Q53,258 53,270 L53,384 L84,384 L84,242 Q86,230 94,222" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <path d="M170,218 Q190,224 200,246 Q203,258 203,270 L203,384 L172,384 L172,242 Q170,230 162,222" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <!-- Coat cel-shadow -->
+  <path d="M53,270 L53,384 L70,384 L70,258 Q66,246 68,234" fill="#b8b8cc" opacity="0.4"/>
+  <path d="M203,270 L203,384 L186,384 L186,258 Q190,246 188,234" fill="#b8b8cc" opacity="0.4"/>
 
-  <!-- Lab coat lapels - neat -->
-  <path d="M100,192 L118,230 L100,244" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M156,192 L138,230 L156,244" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <!-- Lapel fold lines -->
-  <path d="M106,200 Q112,218 110,234" fill="none" stroke="#a8a8c0" stroke-width="0.4" opacity="0.4"/>
-  <path d="M150,200 Q144,218 146,234" fill="none" stroke="#a8a8c0" stroke-width="0.4" opacity="0.4"/>
+  <!-- Lapels -->
+  <path d="M100,192 L118,230 L100,244" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <path d="M156,192 L138,230 L156,244" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <!-- Collar -->
+  <path d="M110,190 L128,215 L146,190" fill="none" stroke="#0d1530" stroke-width="1.8"/>
 
-  <!-- Shirt collar -->
-  <path d="M110,190 L128,215 L146,190" fill="none" stroke="#1a2244" stroke-width="1.5"/>
-  <!-- Tie -->
-  <path d="M125,210 L128,232 L131,210" fill="#1a3366" stroke="#2a4488" stroke-width="0.5" opacity="0.6"/>
+  <!-- Tech accent lines -->
+  <line x1="84" y1="260" x2="84" y2="384" stroke="#4488ff" stroke-width="0.6" opacity="0.12"/>
+  <line x1="172" y1="260" x2="172" y2="384" stroke="#4488ff" stroke-width="0.6" opacity="0.12"/>
 
-  <!-- Arms - hanging relaxed at sides, shoulders dropped -->
-  <path d="M53,270 Q52,300 53,335 Q54,360 56,384" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M203,270 Q204,300 203,335 Q202,360 200,384" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <!-- Hands relaxed -->
-  <path d="M53,374 Q50,378 52,384 L62,384 Q64,378 60,374 Q56,372 53,374 Z" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.4"/>
-  <path d="M200,374 Q203,378 201,384 L191,384 Q189,378 193,374 Q197,372 200,374 Z" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.4"/>
-  <!-- Finger details -->
-  <path d="M54,380 L58,380" fill="none" stroke="#b09070" stroke-width="0.3" opacity="0.3"/>
-  <path d="M196,380 L200,380" fill="none" stroke="#b09070" stroke-width="0.3" opacity="0.3"/>
-
-  <!-- Shoulders visibly dropped -->
-  <path d="M86,218 Q66,228 56,250" fill="none" stroke="#b0b0c0" stroke-width="0.4" opacity="0.5"/>
-  <path d="M170,218 Q190,228 200,250" fill="none" stroke="#b0b0c0" stroke-width="0.4" opacity="0.5"/>
-
-  <!-- Coat pocket with pen -->
-  <rect x="160" y="264" width="22" height="28" rx="2" fill="none" stroke="#b0b0c0" stroke-width="0.8" opacity="0.5"/>
+  <!-- Pocket with pen -->
+  <rect x="160" y="264" width="22" height="28" rx="2" fill="none" stroke="#b0b0c0" stroke-width="0.7" opacity="0.5"/>
   <line x1="168" y1="258" x2="168" y2="268" stroke="#4488ff" stroke-width="1.5" opacity="0.5"/>
   <circle cx="168" cy="257" r="1.5" fill="#4488ff" opacity="0.5"/>
 
-  <!-- Head - slightly tilted down in relief, chin dropped -->
-  <path d="M93,82 Q93,52 128,46 Q163,52 163,82 L163,124 Q163,142 154,152 Q143,164 128,166 Q113,164 103,152 Q93,142 93,124 Z" fill="url(#skin_grad)"/>
-  <!-- Relaxed face shadow -->
-  <path d="M102,130 Q110,148 120,155 Q126,158 128,158 Q130,158 136,155 Q146,148 154,130" fill="#a08060" opacity="0.1"/>
+  <!-- Badge hanging straight -->
+  <rect x="66" y="282" width="18" height="24" rx="2" fill="#0d1020" stroke="#4488ff" stroke-width="0.6" opacity="0.7"/>
+  <rect x="69" y="285" width="12" height="7" rx="1" fill="url(#badge_holo)" opacity="0.5"/>
+  <line x1="69" y1="296" x2="81" y2="296" stroke="#4488ff" stroke-width="0.5" opacity="0.3"/>
 
-  <!-- Hair - neat, combed -->
-  <path d="M91,78 Q91,50 128,44 Q165,50 165,78 L165,72 Q165,48 128,42 Q91,48 91,72 Z" fill="url(#hair_grad)"/>
-  <path d="M89,72 Q87,60 94,52 Q107,44 120,44" fill="url(#hair_grad)"/>
-  <path d="M167,72 Q169,60 162,52 Q149,44 123,44" fill="url(#hair_grad)"/>
-  <!-- Hair strands - neatly combed -->
-  <path d="M100,54 Q110,48 120,46" fill="none" stroke="#2a2a3e" stroke-width="0.8" opacity="0.4"/>
-  <path d="M105,58 Q115,50 125,46" fill="none" stroke="#2a2a3e" stroke-width="0.6" opacity="0.3"/>
-  <path d="M145,56 Q140,48 132,46" fill="none" stroke="#2a2a3e" stroke-width="0.6" opacity="0.3"/>
+  <!-- Arms relaxed at sides -->
+  <path d="M53,270 Q52,308 53,345 Q54,368 56,384" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.4"/>
+  <path d="M203,270 Q204,308 203,345 Q202,368 200,384" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.4"/>
+  <!-- Hands relaxed -->
+  <path d="M53,374 Q50,378 52,383 L62,383 Q64,378 60,374 Q56,372 53,374Z" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
+  <path d="M200,374 Q203,378 201,383 L191,383 Q189,378 193,374 Q197,372 200,374Z" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
+
+  <!-- === HEAD - slightly tilted down, relaxed === -->
+  <path d="M93,84 Q93,54 128,48 Q163,54 163,84 L163,126 Q163,144 154,154 Q142,166 128,168 Q114,166 104,154 Q93,144 93,126Z" fill="#f0cba8"/>
+  <!-- Cel-shadow -->
+  <path d="M93,98 Q93,86 103,78 L93,98 L93,130 Q95,144 105,154 Q111,160 117,163 L114,166 Q104,154 93,144Z" fill="#d4a878" opacity="0.3"/>
 
   <!-- Ears -->
-  <path d="M91,108 Q85,102 84,110 Q84,120 88,124 Q91,118 91,108 Z" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.4"/>
-  <path d="M165,108 Q171,102 172,110 Q172,120 168,124 Q165,118 165,108 Z" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.4"/>
-  <path d="M87,110 Q86,114 87,118" fill="none" stroke="#b09070" stroke-width="0.4" opacity="0.4"/>
-  <path d="M169,110 Q170,114 169,118" fill="none" stroke="#b09070" stroke-width="0.4" opacity="0.4"/>
+  <path d="M91,110 Q85,104 84,112 Q84,122 88,126 Q91,120 91,110Z" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
+  <path d="M165,110 Q171,104 172,112 Q172,122 168,126 Q165,120 165,110Z" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
+  <path d="M87,112 Q86,116 87,120" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.4"/>
+  <path d="M169,112 Q170,116 169,120" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.4"/>
 
-  <!-- Glasses - pushed up on nose, sitting higher than usual -->
-  <rect x="96" y="98" rx="3" ry="3" width="26" height="18" fill="url(#glass_fill)" stroke="#4488ff" stroke-width="1.2" opacity="0.85"/>
-  <rect x="134" y="98" rx="3" ry="3" width="26" height="18" fill="url(#glass_fill)" stroke="#4488ff" stroke-width="1.2" opacity="0.85"/>
-  <!-- Bridge - pushed up -->
-  <path d="M122,106 Q128,102 134,106" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.8"/>
+  <!-- Hair - neat, combed back to normal -->
+  <path d="M91,80 Q91,52 128,46 Q165,52 165,80 L165,74 Q165,50 128,44 Q91,50 91,74Z" fill="#1a1a2e"/>
+  <path d="M89,74 Q87,62 94,54 Q107,46 121,46" fill="#1a1a2e"/>
+  <path d="M167,74 Q169,62 162,54 Q149,46 123,46" fill="#1a1a2e"/>
+  <path d="M120,46 Q122,54 122,66" fill="none" stroke="#0e0e1a" stroke-width="1" opacity="0.5"/>
+  <path d="M100,58 Q112,50 122,48" fill="none" stroke="#2e2e44" stroke-width="1" opacity="0.35"/>
+  <path d="M105,62 Q116,52 126,48" fill="none" stroke="#2e2e44" stroke-width="0.7" opacity="0.25"/>
+
+  <!-- === GLASSES - sitting properly, slightly pushed up === -->
+  <rect x="96" y="100" rx="3" ry="3" width="27" height="19" fill="url(#glass_lens)" stroke="#4488ff" stroke-width="1.2" opacity="0.85"/>
+  <rect x="133" y="100" rx="3" ry="3" width="27" height="19" fill="url(#glass_lens)" stroke="#4488ff" stroke-width="1.2" opacity="0.85"/>
+  <!-- Bridge -->
+  <path d="M123,108 Q128,104 133,108" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.8"/>
   <!-- Temples -->
-  <line x1="96" y1="104" x2="90" y2="102" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
-  <line x1="160" y1="104" x2="166" y2="102" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
-  <!-- Warm lens reflections -->
-  <path d="M100,101 L106,101 L104,104" fill="#ffffff" opacity="0.1"/>
-  <path d="M138,101 L144,101 L142,104" fill="#ffffff" opacity="0.1"/>
-  <!-- Gentle glare -->
-  <line x1="100" y1="109" x2="106" y2="103" stroke="#4488ff" stroke-width="0.3" opacity="0.12"/>
-  <line x1="138" y1="109" x2="144" y2="103" stroke="#4488ff" stroke-width="0.3" opacity="0.12"/>
+  <line x1="96" y1="106" x2="90" y2="104" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
+  <line x1="160" y1="106" x2="166" y2="104" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
+  <!-- Warm glare -->
+  <path d="M100,103 L107,103 L104,107" fill="#ffffff" opacity="0.1"/>
+  <path d="M137,103 L144,103 L141,107" fill="#ffffff" opacity="0.1"/>
 
-  <!-- Eyes - softened, half-closed with relief, slightly squinted from smile -->
-  <!-- Left eye -->
-  <ellipse cx="109" cy="108" rx="8" ry="4" fill="#1a1a2e"/>
-  <ellipse cx="109" cy="108" rx="8" ry="4" fill="none" stroke="#2a2020" stroke-width="0.3"/>
-  <circle cx="109" cy="108" r="3" fill="#443322"/>
-  <circle cx="109" cy="108" r="1.5" fill="#0a0a1a"/>
-  <circle cx="111" cy="107" r="0.8" fill="#ffffff" opacity="0.6"/>
-  <!-- Relaxed lower lid -->
-  <path d="M101,110 Q109,113 117,110" fill="none" stroke="#b09070" stroke-width="0.4" opacity="0.3"/>
+  <!-- === EYES - softened, slightly closed, relieved === -->
+  <!-- Left eye - half-closed, relaxed -->
+  <path d="M100,109 Q105,104 109,103 Q114,104 118,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M101,109 Q109,113 117,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="0.8"/>
+  <!-- Iris partially hidden by relaxed lids -->
+  <circle cx="109" cy="108" r="6.5" fill="url(#iris_grad_l)"/>
+  <circle cx="109" cy="108" r="3.5" fill="#1a0e06"/>
+  <!-- Soft highlights -->
+  <circle cx="112" cy="106" r="2" fill="#ffffff" opacity="0.8"/>
+  <circle cx="106" cy="109" r="1" fill="#ffffff" opacity="0.4"/>
+  <circle cx="111" cy="110" r="0.6" fill="#ffffff" opacity="0.25"/>
+  <!-- Relaxed lower lid line -->
+  <path d="M101,111 Q109,114 117,111" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.3"/>
 
   <!-- Right eye -->
-  <ellipse cx="147" cy="108" rx="8" ry="4" fill="#1a1a2e"/>
-  <ellipse cx="147" cy="108" rx="8" ry="4" fill="none" stroke="#2a2020" stroke-width="0.3"/>
-  <circle cx="147" cy="108" r="3" fill="#443322"/>
-  <circle cx="147" cy="108" r="1.5" fill="#0a0a1a"/>
-  <circle cx="149" cy="107" r="0.8" fill="#ffffff" opacity="0.6"/>
-  <path d="M139,110 Q147,113 155,110" fill="none" stroke="#b09070" stroke-width="0.4" opacity="0.3"/>
+  <path d="M138,109 Q143,104 147,103 Q152,104 156,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M139,109 Q147,113 155,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="0.8"/>
+  <circle cx="147" cy="108" r="6.5" fill="url(#iris_grad_r)"/>
+  <circle cx="147" cy="108" r="3.5" fill="#1a0e06"/>
+  <circle cx="150" cy="106" r="2" fill="#ffffff" opacity="0.8"/>
+  <circle cx="144" cy="109" r="1" fill="#ffffff" opacity="0.4"/>
+  <circle cx="149" cy="110" r="0.6" fill="#ffffff" opacity="0.25"/>
+  <path d="M139,111 Q147,114 155,111" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.3"/>
 
   <!-- Eyebrows - relaxed, gently curved -->
   <path d="M98,98 Q109,94 120,98" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
   <path d="M136,98 Q147,94 158,98" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
 
   <!-- Nose -->
-  <path d="M128,112 Q127,120 125,128 Q123,132 126,134 Q128,135 130,134 Q133,132 131,128 Q129,120 128,112" fill="none" stroke="#a08060" stroke-width="0.7" opacity="0.4"/>
+  <path d="M128,114 L126,130 Q128,133 130,130Z" fill="#d4a878" opacity="0.4"/>
 
-  <!-- Mouth - small warm smile of relief -->
-  <path d="M114,144 Q120,150 128,152 Q136,150 142,144" fill="none" stroke="#8a6a5a" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Mouth - gentle exhale, small relieved smile -->
+  <path d="M114,146 Q121,152 128,154 Q135,152 142,146" fill="none" stroke="#8a6a5a" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Lower lip -->
+  <path d="M120,154 Q128,157 136,154" fill="none" stroke="#a08060" stroke-width="0.6" opacity="0.2"/>
   <!-- Smile crinkle lines -->
-  <path d="M112,143 Q111,140 112,137" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.35"/>
-  <path d="M144,143 Q145,140 144,137" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.35"/>
-  <!-- Lower lip suggestion -->
-  <path d="M120,152 Q128,155 136,152" fill="none" stroke="#a08060" stroke-width="0.6" opacity="0.2"/>
+  <path d="M112,145 Q111,142 112,139" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.3"/>
+  <path d="M144,145 Q145,142 144,139" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.3"/>
 
-  <!-- Exhale breath wisps - visible sigh of relief -->
-  <path d="M134,148 Q142,146 152,148 Q160,152 168,150" fill="none" stroke="url(#exhale_grad)" stroke-width="1.5" opacity="0.2" filter="url(#soft_glow)"/>
-  <path d="M136,152 Q145,150 155,153 Q162,156 170,154" fill="none" stroke="url(#exhale_grad)" stroke-width="1" opacity="0.15"/>
+  <!-- Exhale breath wisps -->
+  <path d="M134,150 Q142,148 152,150 Q160,154 168,152" fill="none" stroke="url(#exhale_grad)" stroke-width="1.5" opacity="0.2" filter="url(#soft_glow)"/>
+  <path d="M136,154 Q145,152 155,155 Q162,158 170,156" fill="none" stroke="url(#exhale_grad)" stroke-width="1" opacity="0.15"/>
 
-  <!-- Cheek warmth - slight flush from relief -->
-  <ellipse cx="99" cy="130" rx="10" ry="6" fill="#cc8866" opacity="0.06"/>
-  <ellipse cx="157" cy="130" rx="10" ry="6" fill="#cc8866" opacity="0.06"/>
+  <!-- Cheek warmth - slight relief flush -->
+  <ellipse cx="99" cy="132" rx="10" ry="6" fill="#cc8866" opacity="0.06"/>
+  <ellipse cx="157" cy="132" rx="10" ry="6" fill="#cc8866" opacity="0.06"/>
 
-  <!-- Crow's feet from smile -->
-  <path d="M91,106 Q89,104 87,103" fill="none" stroke="#b09070" stroke-width="0.4" opacity="0.25"/>
-  <path d="M165,106 Q167,104 169,103" fill="none" stroke="#b09070" stroke-width="0.4" opacity="0.25"/>
+  <!-- Crow's feet from gentle smile -->
+  <path d="M91,108 Q89,106 87,105" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.25"/>
+  <path d="M165,108 Q167,106 169,105" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.25"/>
 
-  <!-- ID badge - hanging straight -->
-  <rect x="68" y="282" width="16" height="22" rx="2" fill="#1a1a2e" stroke="#4488ff" stroke-width="0.5" opacity="0.6"/>
-  <rect x="71" y="285" width="10" height="6" rx="1" fill="#4488ff" opacity="0.2"/>
-  <line x1="71" y1="295" x2="81" y2="295" stroke="#4488ff" stroke-width="0.5" opacity="0.3"/>
-
-  <!-- Ambient - calm, warm -->
+  <!-- Ambient -->
   <ellipse cx="128" cy="300" rx="85" ry="30" fill="#4488ff" opacity="0.025"/>
   <ellipse cx="128" cy="150" rx="50" ry="25" fill="#4488ff" opacity="0.015"/>
+
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="'Courier New', monospace" font-size="11" fill="#4488ff" text-anchor="middle" opacity="0.5">[ RELIEVED ]</text>
 </svg>

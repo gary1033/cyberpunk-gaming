@@ -1,159 +1,219 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <linearGradient id="hd_bg" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0a0a1a"/>
       <stop offset="100%" stop-color="#050510"/>
     </linearGradient>
-    <linearGradient id="hd_skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#c8b090"/>
-      <stop offset="100%" stop-color="#b09a74"/>
-    </linearGradient>
-    <linearGradient id="hd_shirt" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="100%" stop-color="#12122a"/>
-    </linearGradient>
-    <linearGradient id="hd_overshirt" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1e2d3d"/>
-      <stop offset="100%" stop-color="#0f1a28"/>
-    </linearGradient>
-    <linearGradient id="hd_hair" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1a1a2a"/>
-      <stop offset="100%" stop-color="#0e0e1a"/>
-    </linearGradient>
-    <radialGradient id="hd_glow" cx="0.5" cy="0.35" r="0.5">
-      <stop offset="0%" stop-color="#00ccff" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#00ccff" stop-opacity="0"/>
+    <radialGradient id="irisGradL" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#5a3528"/>
+      <stop offset="50%" stop-color="#3a1a10"/>
+      <stop offset="100%" stop-color="#1a0a08"/>
     </radialGradient>
-    <radialGradient id="hd_port_glow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="#00ccff" stop-opacity="0.9"/>
-      <stop offset="30%" stop-color="#00ccff" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#00ccff" stop-opacity="0"/>
+    <radialGradient id="irisGradR" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#5a3528"/>
+      <stop offset="50%" stop-color="#3a1a10"/>
+      <stop offset="100%" stop-color="#1a0a08"/>
     </radialGradient>
-    <filter id="hd_neon">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
+    <radialGradient id="portGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00cccc" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#00cccc" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#00cccc" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="dazedGlow" cx="0.5" cy="0.35" r="0.5">
+      <stop offset="0%" stop-color="#00cccc" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00cccc" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="hd_intense">
+    <filter id="intensePulse">
       <feGaussianBlur stdDeviation="5" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="hd_blur">
-      <feGaussianBlur stdDeviation="0.6"/>
+    <filter id="blurEyes">
+      <feGaussianBlur stdDeviation="0.4"/>
     </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="256" height="384" fill="url(#hd_bg)"/>
-  <rect width="256" height="384" fill="url(#hd_glow)"/>
+  <rect width="256" height="384" fill="url(#bgGrad)"/>
+  <rect width="256" height="384" fill="url(#dazedGlow)"/>
 
-  <!-- Frame border -->
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#00ccff" stroke-width="1.5" opacity="0.35"/>
+  <!-- Border frame -->
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#00cccc" stroke-width="1.5" opacity="0.4"/>
+  <rect x="6" y="6" width="244" height="372" rx="4" fill="none" stroke="#00cccc" stroke-width="0.5" opacity="0.2"/>
 
-  <!-- Character name -->
-  <text x="128" y="30" font-family="monospace" font-size="18" fill="#00ccff" text-anchor="middle" filter="url(#hd_neon)">浩然</text>
+  <!-- Character name at top -->
+  <text x="128" y="28" font-family="monospace" font-size="16" fill="#00cccc" text-anchor="middle" filter="url(#neonGlow)" opacity="0.9">浩然</text>
+  <line x1="40" y1="35" x2="216" y2="35" stroke="#00cccc" stroke-width="0.5" opacity="0.3"/>
 
-  <!-- Body - slightly slouched -->
-  <path d="M62,222 Q56,242 48,292 L42,384 H214 L208,292 Q202,242 194,222 Q182,202 168,194 L160,190 Q146,182 128,180 Q110,182 96,190 L88,194 Q74,202 62,222 Z" fill="url(#hd_overshirt)" stroke="#00ccff" stroke-width="0.3" opacity="0.85"/>
-  <!-- Open shirt lapels - slightly rumpled -->
-  <path d="M110,190 Q114,198 110,218 Q108,234 106,254" fill="none" stroke="#1a3040" stroke-width="2.5" opacity="0.55"/>
-  <path d="M146,190 Q142,198 146,218 Q148,234 150,254" fill="none" stroke="#1a3040" stroke-width="2.5" opacity="0.55"/>
-  <line x1="128" y1="197" x2="128" y2="384" stroke="#00ccff" stroke-width="0.35" opacity="0.08"/>
+  <!-- Corner accents -->
+  <path d="M10,10 L30,10 M10,10 L10,30" fill="none" stroke="#00cccc" stroke-width="1" opacity="0.5"/>
+  <path d="M246,10 L226,10 M246,10 L246,30" fill="none" stroke="#00cccc" stroke-width="1" opacity="0.5"/>
+  <path d="M10,374 L30,374 M10,374 L10,354" fill="none" stroke="#00cccc" stroke-width="1" opacity="0.5"/>
+  <path d="M246,374 L226,374 M246,374 L246,354" fill="none" stroke="#00cccc" stroke-width="1" opacity="0.5"/>
 
-  <!-- T-shirt visible underneath -->
-  <path d="M110,190 Q118,183 128,180 Q138,183 146,190 L146,242 Q138,240 128,238 Q118,240 110,242 Z" fill="url(#hd_shirt)" opacity="0.8"/>
+  <!-- === BODY - slightly slouched === -->
+  <g transform="rotate(2,128,310)">
+    <path d="M50,310 Q60,255 85,235 Q100,227 115,223 L128,220 L141,223 Q156,227 171,235 Q196,255 206,310 L206,390 L50,390 Z" fill="#1a2a30" stroke="#1e3038" stroke-width="0.5"/>
+    <path d="M50,310 Q60,265 85,243 Q95,235 105,230 L128,220 L128,390 L50,390 Z" fill="#0f1e24" opacity="0.5"/>
 
-  <!-- Neck - slightly angled -->
-  <path d="M118,180 Q118,170 120,162 L128,159 L136,162 Q138,170 138,180" fill="url(#hd_skin)" opacity="0.85"/>
+    <!-- Open jacket lapels - rumpled -->
+    <path d="M115,223 L110,260 L128,285 L128,220 Z" fill="#1e3038" stroke="#00cccc" stroke-width="0.3" opacity="0.75"/>
+    <path d="M141,223 L146,260 L128,285 L128,220 Z" fill="#1e3038" stroke="#00cccc" stroke-width="0.3" opacity="0.75"/>
 
-  <!-- Head shape - slightly drooped/tilted -->
-  <g transform="rotate(3,128,120)">
-    <ellipse cx="128" cy="120" rx="37" ry="43" fill="url(#hd_skin)" opacity="0.9"/>
+    <!-- Jacket collar -->
+    <path d="M105,228 Q110,216 120,214 L128,220 L115,223 Z" fill="#162428"/>
+    <path d="M151,228 Q146,216 136,214 L128,220 L141,223 Z" fill="#162428"/>
 
-    <!-- Face shadow - paler -->
-    <path d="M98,132 Q104,144 114,152 Q122,156 128,158 Q134,156 142,152 Q152,144 158,132" fill="#a08858" opacity="0.2"/>
+    <!-- Tech stripes -->
+    <line x1="72" y1="255" x2="72" y2="335" stroke="#00cccc" stroke-width="1" opacity="0.3"/>
+    <line x1="184" y1="255" x2="184" y2="335" stroke="#00cccc" stroke-width="1" opacity="0.3"/>
+
+    <!-- T-shirt -->
+    <path d="M113,222 Q120,230 128,233 Q136,230 143,222 L143,250 Q136,248 128,246 Q120,248 113,250 Z" fill="#1a1a2e" opacity="0.8"/>
+  </g>
+
+  <!-- Neck - slightly tilted -->
+  <path d="M118,214 Q117,200 119,188 L137,188 Q139,200 138,214" fill="#f0cba8"/>
+  <path d="M118,214 Q120,205 119,188 L128,188 L128,214 Z" fill="#c8a070" opacity="0.35"/>
+
+  <!-- === HEAD - slight droop/tilt === -->
+  <g transform="rotate(3,128,150)">
+    <!-- Face shape -->
+    <path d="M86,118 Q84,138 86,155 Q90,172 106,186 Q119,196 128,199 Q137,196 150,186 Q166,172 170,155 Q172,138 170,118 Q168,103 160,98 Q145,90 128,88 Q111,90 96,98 Q88,103 86,118 Z" fill="#f0cba8"/>
+    <!-- Face shadow - paler/washed out -->
+    <path d="M86,118 Q84,138 86,155 Q90,172 106,186 Q117,194 128,199 L128,88 Q111,90 96,98 Q88,103 86,118 Z" fill="#c8a070" opacity="0.2"/>
+    <!-- Jaw shadow -->
+    <path d="M90,167 Q101,180 116,191 Q123,196 128,199 Q119,196 109,188 Q96,177 90,167 Z" fill="#c8a070" opacity="0.25"/>
+
+    <!-- Dark circles under eyes - more pronounced when dazed -->
+    <path d="M98,143 Q106,146 117,143" fill="none" stroke="#8a6a4a" stroke-width="1.5" opacity="0.3"/>
+    <ellipse cx="108" cy="144" rx="8" ry="2" fill="#9a7a5a" opacity="0.15"/>
+    <path d="M139,143 Q149,146 158,143" fill="none" stroke="#8a6a4a" stroke-width="1.5" opacity="0.3"/>
+    <ellipse cx="148" cy="144" rx="8" ry="2" fill="#9a7a5a" opacity="0.15"/>
 
     <!-- Ears -->
-    <path d="M91,116 Q86,111 85,119 Q85,128 89,131 Q91,126 91,116 Z" fill="url(#hd_skin)" opacity="0.75"/>
-    <path d="M165,116 Q170,111 171,119 Q171,128 167,131 Q165,126 165,116 Z" fill="url(#hd_skin)" opacity="0.75"/>
+    <path d="M84,128 Q78,128 76,138 Q75,148 80,153" fill="#f0cba8" stroke="#c8a070" stroke-width="0.5"/>
+    <path d="M172,128 Q178,128 180,138 Q181,148 176,153" fill="#f0cba8" stroke="#c8a070" stroke-width="0.5"/>
 
-    <!-- Neural interface port - right temple - GLOWING BRIGHTER -->
-    <circle cx="166" cy="108" r="6" fill="#00ccff" opacity="0.15" filter="url(#hd_intense)"/>
-    <circle cx="166" cy="108" r="5" fill="#0a1520" stroke="#00ccff" stroke-width="1.2" opacity="0.85"/>
-    <circle cx="166" cy="108" r="3.5" fill="url(#hd_port_glow)" filter="url(#hd_neon)"/>
-    <circle cx="166" cy="108" r="2" fill="#00ccff" opacity="0.8"/>
-    <circle cx="166" cy="108" r="1" fill="#ffffff" opacity="0.5"/>
-    <!-- Port circuit lines - active/pulsing -->
-    <path d="M171,108 Q175,108 178,106" fill="none" stroke="#00ccff" stroke-width="0.7" opacity="0.5"/>
-    <path d="M170,111 Q174,112 177,111" fill="none" stroke="#00ccff" stroke-width="0.6" opacity="0.4"/>
-    <path d="M170,105 Q173,104 176,105" fill="none" stroke="#00ccff" stroke-width="0.5" opacity="0.35"/>
-    <path d="M172,108 Q176,108 180,110" fill="none" stroke="#00ccff" stroke-width="0.3" opacity="0.2"/>
+    <!-- === NEURAL INTERFACE HEADBAND - GLOWING INTENSELY === -->
+    <path d="M78,108 Q90,96 128,93 Q166,96 178,108" fill="none" stroke="#1a2a30" stroke-width="4" opacity="0.8"/>
+    <path d="M78,108 Q90,96 128,93 Q166,96 178,108" fill="none" stroke="#00cccc" stroke-width="1.5" opacity="0.6" filter="url(#glow)"/>
+    <!-- Neural node - pulsing bright -->
+    <circle cx="175" cy="110" r="7" fill="#00cccc" opacity="0.15" filter="url(#intensePulse)"/>
+    <circle cx="175" cy="110" r="5" fill="#0a1a1e" stroke="#00cccc" stroke-width="1.5" opacity="0.9"/>
+    <circle cx="175" cy="110" r="3.5" fill="url(#portGlow)" filter="url(#glow)"/>
+    <circle cx="175" cy="110" r="2" fill="#00cccc" opacity="0.85"/>
+    <circle cx="175" cy="110" r="1" fill="#ffffff" opacity="0.5"/>
+    <!-- Active circuit lines -->
+    <path d="M180,110 Q185,110 189,108" fill="none" stroke="#00cccc" stroke-width="0.7" opacity="0.5"/>
+    <path d="M179,113 Q184,114 188,113" fill="none" stroke="#00cccc" stroke-width="0.6" opacity="0.4"/>
+    <path d="M179,107 Q183,106 187,107" fill="none" stroke="#00cccc" stroke-width="0.5" opacity="0.35"/>
+    <path d="M182,110 Q186,110 190,112" fill="none" stroke="#00cccc" stroke-width="0.3" opacity="0.2"/>
+    <!-- Left node also active -->
+    <circle cx="81" cy="110" r="3.5" fill="#0a1a1e" stroke="#00cccc" stroke-width="1" opacity="0.75"/>
+    <circle cx="81" cy="110" r="2" fill="#00cccc" opacity="0.5"/>
 
-    <!-- Hair - messy, more disheveled -->
-    <path d="M91,112 Q87,94 91,76 Q95,58 108,48 Q118,40 128,38 Q138,40 148,48 Q161,58 165,76 Q169,94 165,112 Q160,102 152,94 Q142,84 132,80 Q128,78 124,80 Q114,84 104,94 Q96,102 91,112 Z" fill="url(#hd_hair)" opacity="0.95"/>
-    <!-- More disheveled strands -->
-    <path d="M107,82 Q103,92 107,104" fill="none" stroke="#1a1a2a" stroke-width="2.2" opacity="0.75"/>
-    <path d="M115,78 Q111,88 115,100" fill="none" stroke="#1a1a2a" stroke-width="1.6" opacity="0.65"/>
-    <path d="M123,76 Q120,84 123,96" fill="none" stroke="#16162a" stroke-width="1.2" opacity="0.55"/>
-    <path d="M141,80 Q145,88 141,100" fill="none" stroke="#1a1a2a" stroke-width="2" opacity="0.72"/>
-    <path d="M150,84 Q154,92 150,104" fill="none" stroke="#16162a" stroke-width="1.3" opacity="0.55"/>
-    <path d="M133,78 Q136,86 133,98" fill="none" stroke="#1a1a2a" stroke-width="1.1" opacity="0.6"/>
-    <!-- Extra messy strand falling forward -->
-    <path d="M100,96 Q96,86 99,76" fill="none" stroke="#1a1a2a" stroke-width="1.8" opacity="0.55"/>
-    <path d="M118,74 Q114,82 116,94" fill="none" stroke="#16162a" stroke-width="1" opacity="0.45"/>
+    <!-- === HAIR - more disheveled === -->
+    <path d="M75,122 Q72,98 80,76 Q90,56 110,48 Q125,43 128,43 Q131,43 146,48 Q166,56 176,76 Q184,98 181,122 Q178,108 170,98 Q158,88 145,84 Q128,81 111,84 Q98,88 86,98 Q78,108 75,122 Z" fill="#12101e"/>
 
-    <!-- Eyes - glazed, unfocused, dilated pupils, NO highlights -->
-    <!-- Left eye - half-lidded, vacant -->
-    <path d="M107,117 Q113,114 120,115 Q122,117 122,121 Q119,124 112,124 Q108,122 107,119 Z" fill="#ffffff" opacity="0.7" filter="url(#hd_blur)"/>
-    <circle cx="114" cy="118" r="4.5" fill="#1a1a2e" opacity="0.85"/>
-    <circle cx="114" cy="118" r="3" fill="#2a3a4a" opacity="0.6"/>
-    <circle cx="114" cy="118" r="2" fill="#00ccff" opacity="0.25"/>
-    <!-- NO reflection highlights - eyes are dead/glazed -->
-    <!-- Heavy eyelid -->
-    <path d="M107,115 Q113,112 121,114" fill="#b89a74" opacity="0.45"/>
-    <!-- Right eye -->
-    <path d="M134,115 Q142,114 149,117 Q149,122 144,124 Q137,124 135,121 Q134,118 134,115 Z" fill="#ffffff" opacity="0.7" filter="url(#hd_blur)"/>
-    <circle cx="142" cy="118" r="4.5" fill="#1a1a2e" opacity="0.85"/>
-    <circle cx="142" cy="118" r="3" fill="#2a3a4a" opacity="0.6"/>
-    <circle cx="142" cy="118" r="2" fill="#00ccff" opacity="0.25"/>
-    <!-- Heavy eyelid -->
-    <path d="M134,114 Q142,112 149,115" fill="#b89a74" opacity="0.45"/>
+    <!-- Hair shine -->
+    <path d="M100,70 Q112,60 128,56 Q144,60 156,70 Q148,62 138,57 Q128,54 118,57 Q108,62 100,70 Z" fill="white" opacity="0.25"/>
 
-    <!-- Eyebrows - slack, neutral/drooping -->
-    <path d="M106,111 Q113,109 121,111" fill="none" stroke="#1a1a2a" stroke-width="1.4" opacity="0.5"/>
-    <path d="M135,111 Q143,109 150,111" fill="none" stroke="#1a1a2a" stroke-width="1.4" opacity="0.5"/>
+    <!-- Messy bangs - even more disheveled -->
+    <path d="M82,118 Q88,80 106,65 Q114,60 118,68 Q108,85 102,118 Z" fill="#12101e"/>
+    <path d="M98,112 Q106,72 124,60 Q130,56 133,63 Q123,78 116,112 Z" fill="#0d0a15"/>
+    <path d="M115,108 Q124,70 140,62 Q146,60 148,66 Q140,80 133,108 Z" fill="#12101e"/>
+    <path d="M132,114 Q144,78 160,72 Q166,71 165,78 Q156,90 148,116 Z" fill="#0d0a15"/>
+    <!-- Extra messy strands -->
+    <path d="M120,106 Q118,82 126,66 Q130,60 132,66 Q128,80 124,106 Z" fill="#15102a" opacity="0.7"/>
+    <path d="M88,115 Q92,82 108,68 Q112,64 114,70 Q104,86 100,115 Z" fill="#15102a" opacity="0.55"/>
+    <!-- Stray strand falling far forward -->
+    <path d="M104,96 Q100,80 104,68" fill="none" stroke="#12101e" stroke-width="2" opacity="0.6"/>
+    <path d="M142,100 Q146,86 142,72" fill="none" stroke="#0d0a15" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Side hair -->
+    <path d="M78,118 Q73,150 70,185 Q69,200 71,215" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
+    <path d="M178,118 Q183,150 186,185 Q187,200 185,215" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
+
+    <!-- === EYES - glazed, unfocused, NO highlights === -->
+
+    <!-- Left eye - half-lidded -->
+    <!-- Thick upper eyelid - drooping -->
+    <path d="M96,132 Q104,127 112,126 Q118,127 124,132" fill="none" stroke="#1a1020" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Eye white - dimmer -->
+    <path d="M97,133 Q104,128 111,127 Q118,128 123,133 Q118,136 111,137 Q104,136 97,133 Z" fill="white" opacity="0.7" filter="url(#blurEyes)"/>
+    <!-- Iris - dilated, darker -->
+    <clipPath id="eyeClipL"><path d="M97,133 Q104,128 111,127 Q118,128 123,133 Q118,136 111,137 Q104,136 97,133 Z"/></clipPath>
+    <circle cx="111" cy="132" r="12" fill="url(#irisGradL)" clip-path="url(#eyeClipL)"/>
+    <circle cx="111" cy="132" r="11" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipL)"/>
+    <!-- Pupil - enlarged/dilated -->
+    <circle cx="111" cy="132" r="6" fill="#0a0505" clip-path="url(#eyeClipL)"/>
+    <!-- NO highlights - eyes are dead/glazed -->
+    <!-- Heavy drooping eyelid covering top -->
+    <path d="M96,130 Q104,126 112,125 Q118,126 124,130 L124,132 Q118,128 111,127 Q104,128 96,132 Z" fill="#d8b888" opacity="0.5"/>
+    <!-- Lower lid barely visible -->
+    <path d="M100,134 Q111,137 120,134" fill="none" stroke="#2a2035" stroke-width="0.4" opacity="0.3"/>
+
+    <!-- Right eye - half-lidded -->
+    <path d="M132,132 Q140,127 147,126 Q154,127 160,132" fill="none" stroke="#1a1020" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M133,133 Q140,128 147,127 Q154,128 159,133 Q154,136 147,137 Q140,136 133,133 Z" fill="white" opacity="0.7" filter="url(#blurEyes)"/>
+    <clipPath id="eyeClipR"><path d="M133,133 Q140,128 147,127 Q154,128 159,133 Q154,136 147,137 Q140,136 133,133 Z"/></clipPath>
+    <circle cx="147" cy="132" r="12" fill="url(#irisGradR)" clip-path="url(#eyeClipR)"/>
+    <circle cx="147" cy="132" r="11" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipR)"/>
+    <!-- Pupil - enlarged -->
+    <circle cx="147" cy="132" r="6" fill="#0a0505" clip-path="url(#eyeClipR)"/>
+    <!-- NO highlights -->
+    <!-- Heavy drooping eyelid -->
+    <path d="M132,130 Q140,126 147,125 Q154,126 160,130 L160,132 Q154,128 147,127 Q140,128 132,132 Z" fill="#d8b888" opacity="0.5"/>
+    <path d="M136,134 Q147,137 156,134" fill="none" stroke="#2a2035" stroke-width="0.4" opacity="0.3"/>
+
+    <!-- Eyebrows - slack, drooping -->
+    <path d="M96,121 Q106,118 120,120" fill="none" stroke="#1a1020" stroke-width="2" stroke-linecap="round"/>
+    <path d="M136,120 Q150,118 160,121" fill="none" stroke="#1a1020" stroke-width="2" stroke-linecap="round"/>
 
     <!-- Nose -->
-    <path d="M128,120 Q127,126 126,132 Q125,135 127,137 Q128,138 130,137 Q131,135 130,132 Q129,126 128,120" fill="none" stroke="#a08858" stroke-width="0.7" opacity="0.38"/>
+    <path d="M127,148 L126,155 Q128,157 130,155" fill="none" stroke="#c8a070" stroke-width="1" opacity="0.55"/>
 
-    <!-- Mouth - slack jaw, slightly open -->
-    <path d="M120,145 Q124,146 128,146 Q132,146 136,145" fill="none" stroke="#8a6050" stroke-width="0.9" opacity="0.5"/>
+    <!-- Mouth - slack, slightly open -->
+    <path d="M120,170 Q128,171 136,170" fill="none" stroke="#8a6050" stroke-width="0.9" opacity="0.5"/>
     <!-- Open mouth gap -->
-    <path d="M122,145 Q126,148 128,148 Q130,148 134,145" fill="#5a3030" opacity="0.2"/>
+    <path d="M122,170 Q126,173 128,173 Q130,173 134,170" fill="#4a2828" opacity="0.25"/>
     <!-- Lower lip -->
-    <path d="M123,148 Q126,149 128,149 Q130,149 133,148" fill="none" stroke="#8a6050" stroke-width="0.6" opacity="0.35"/>
+    <path d="M123,173 Q126,174 128,174 Q130,174 133,173" fill="none" stroke="#8a6050" stroke-width="0.6" opacity="0.35"/>
   </g>
 
   <!-- Digital noise/interference around head -->
-  <rect x="174" y="108" width="4" height="1" fill="#00ccff" opacity="0.22"/>
-  <rect x="178" y="112" width="6" height="1" fill="#00ccff" opacity="0.16"/>
-  <rect x="176" y="116" width="3" height="1" fill="#00ccff" opacity="0.18"/>
-  <rect x="76" y="106" width="5" height="1" fill="#00ccff" opacity="0.14"/>
-  <rect x="73" y="110" width="3" height="1" fill="#00ccff" opacity="0.12"/>
-  <rect x="180" y="104" width="2" height="1" fill="#00ccff" opacity="0.12"/>
-  <rect x="72" y="114" width="4" height="1" fill="#00ccff" opacity="0.1"/>
+  <rect x="182" y="108" width="5" height="1" fill="#00cccc" opacity="0.22"/>
+  <rect x="186" y="112" width="7" height="1" fill="#00cccc" opacity="0.16"/>
+  <rect x="184" y="116" width="4" height="1" fill="#00cccc" opacity="0.18"/>
+  <rect x="72" y="106" width="5" height="1" fill="#00cccc" opacity="0.14"/>
+  <rect x="69" y="110" width="3" height="1" fill="#00cccc" opacity="0.12"/>
+  <rect x="188" y="104" width="3" height="1" fill="#00cccc" opacity="0.12"/>
+  <rect x="68" y="114" width="4" height="1" fill="#00cccc" opacity="0.1"/>
+
+  <!-- Tech earpiece -->
+  <circle cx="76" cy="142" r="3" fill="none" stroke="#00cccc" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="76" cy="142" r="1.5" fill="#00cccc" opacity="0.4"/>
+
+  <!-- === AMBIENT EFFECTS === -->
+  <line x1="0" y1="100" x2="256" y2="100" stroke="#00cccc" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="200" x2="256" y2="200" stroke="#00cccc" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#00cccc" stroke-width="0.3" opacity="0.08"/>
 
   <!-- Ambient particles -->
-  <circle cx="28" cy="78" r="1.2" fill="#00ccff" opacity="0.16"/>
-  <circle cx="228" cy="92" r="0.8" fill="#00ccff" opacity="0.12"/>
-  <circle cx="38" cy="260" r="1" fill="#00ccff" opacity="0.12"/>
-  <circle cx="218" cy="244" r="0.7" fill="#00ccff" opacity="0.16"/>
-  <circle cx="18" cy="178" r="0.9" fill="#00ccff" opacity="0.08"/>
+  <circle cx="25" cy="75" r="1.2" fill="#00cccc" opacity="0.16"/>
+  <circle cx="230" cy="90" r="0.8" fill="#00cccc" opacity="0.12"/>
+  <circle cx="35" cy="260" r="1" fill="#00cccc" opacity="0.10"/>
+  <circle cx="220" cy="245" r="0.7" fill="#00cccc" opacity="0.14"/>
+  <circle cx="18" cy="180" r="0.9" fill="#00cccc" opacity="0.08"/>
 
-  <!-- Scanlines -->
-  <line x1="0" y1="60" x2="256" y2="60" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
-  <line x1="0" y1="120" x2="256" y2="120" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
-  <line x1="0" y1="180" x2="256" y2="180" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
-  <line x1="0" y1="240" x2="256" y2="240" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
-  <line x1="0" y1="300" x2="256" y2="300" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
-  <line x1="0" y1="360" x2="256" y2="360" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="monospace" font-size="10" fill="#00cccc" text-anchor="middle" opacity="0.5">[DAZED]</text>
 </svg>

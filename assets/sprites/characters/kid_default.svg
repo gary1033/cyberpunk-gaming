@@ -1,54 +1,59 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
     <radialGradient id="kd-bg" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#0e1a08"/>
-      <stop offset="100%" stop-color="#0a0a1a"/>
+      <stop offset="0%" stop-color="#0a1a08"/>
+      <stop offset="100%" stop-color="#06061a"/>
+    </radialGradient>
+    <radialGradient id="kd-iris-l" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#66ff88"/>
+      <stop offset="40%" stop-color="#22dd44"/>
+      <stop offset="100%" stop-color="#0a6622"/>
+    </radialGradient>
+    <radialGradient id="kd-iris-r" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#66ff88"/>
+      <stop offset="40%" stop-color="#22dd44"/>
+      <stop offset="100%" stop-color="#0a6622"/>
     </radialGradient>
     <linearGradient id="kd-hoodie" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a2a1a"/>
-      <stop offset="50%" stop-color="#142214"/>
-      <stop offset="100%" stop-color="#0c180c"/>
+      <stop offset="0%" stop-color="#1e2e1e"/>
+      <stop offset="50%" stop-color="#142614"/>
+      <stop offset="100%" stop-color="#0c1a0c"/>
     </linearGradient>
-    <linearGradient id="kd-skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e0c098"/>
-      <stop offset="100%" stop-color="#d0b088"/>
+    <linearGradient id="kd-hoodie-shadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c180c"/>
+      <stop offset="100%" stop-color="#081208"/>
     </linearGradient>
     <linearGradient id="kd-hair" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2a1a10"/>
-      <stop offset="100%" stop-color="#1a1008"/>
+      <stop offset="0%" stop-color="#00ccff"/>
+      <stop offset="50%" stop-color="#0099dd"/>
+      <stop offset="100%" stop-color="#0066aa"/>
+    </linearGradient>
+    <linearGradient id="kd-hair-shine" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#88eeff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#00ccff" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="kd-goggles" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2a2a3a"/>
-      <stop offset="100%" stop-color="#1a1a28"/>
+      <stop offset="0%" stop-color="#3a3a4a"/>
+      <stop offset="100%" stop-color="#1a1a2a"/>
     </linearGradient>
     <linearGradient id="kd-goggle-lens" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#44cc00"/>
-      <stop offset="50%" stop-color="#88ff00"/>
-      <stop offset="100%" stop-color="#44cc00"/>
+      <stop offset="0%" stop-color="#44ff88"/>
+      <stop offset="50%" stop-color="#00ff44"/>
+      <stop offset="100%" stop-color="#44ff88"/>
     </linearGradient>
-    <linearGradient id="kd-neon-stripe" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#88ff00" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#44cc00" stop-opacity="0.2"/>
-    </linearGradient>
-    <filter id="kd-glow">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="kd-glow-soft">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
     <linearGradient id="kd-border" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#88ff00" stop-opacity="0.6"/>
-      <stop offset="50%" stop-color="#44cc00" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#88ff00" stop-opacity="0.6"/>
+      <stop offset="0%" stop-color="#00ff44" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#44ff88" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00ff44" stop-opacity="0.6"/>
     </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
   <!-- Background -->
@@ -56,137 +61,160 @@
   <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="url(#kd-border)" stroke-width="1.5"/>
 
   <!-- Character name -->
-  <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#88ff00" text-anchor="middle" filter="url(#kd-glow)">小鬼</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#00ff44" text-anchor="middle" filter="url(#glow)">小鬼</text>
 
   <!-- Hoodie body - oversized on small frame -->
-  <path d="M58,180 C58,168 72,155 88,150 L108,144 C116,141 122,140 128,139 C134,140 140,141 148,144 L168,150 C184,155 198,168 198,180 L204,275 C206,315 202,348 198,370 L58,370 C54,348 50,315 52,275 Z" fill="url(#kd-hoodie)"/>
-  <!-- Neon lime patches/stripes on hoodie -->
-  <path d="M68,200 L78,200 L78,230 L68,230 Z" fill="#88ff00" opacity="0.12"/>
-  <path d="M178,200 L188,200 L188,230 L178,230 Z" fill="#88ff00" opacity="0.12"/>
-  <!-- Neon stripe down sleeves -->
-  <path d="M60,185 Q62,220 58,260" fill="none" stroke="#88ff00" stroke-width="2" opacity="0.15"/>
-  <path d="M196,185 Q194,220 198,260" fill="none" stroke="#88ff00" stroke-width="2" opacity="0.15"/>
-  <!-- Horizontal neon accent stripe across chest -->
-  <path d="M80,210 L176,210" fill="none" stroke="#88ff00" stroke-width="1.5" opacity="0.1"/>
+  <path d="M55,182 C55,168 70,154 88,148 L108,142 C116,139 122,138 128,137 C134,138 140,139 148,142 L168,148 C186,154 201,168 201,182 L207,278 C209,318 205,350 201,372 L55,372 C51,350 47,318 49,278 Z" fill="url(#kd-hoodie)"/>
+  <!-- Hoodie shadow (cel-shading) -->
+  <path d="M55,182 C55,168 70,154 88,148 L108,142 C116,139 122,138 128,137 L128,372 L55,372 C51,350 47,318 49,278 Z" fill="url(#kd-hoodie-shadow)" opacity="0.3"/>
+  <!-- Neon accent stripes -->
+  <path d="M68,200 L78,200 L78,240 L68,240 Z" fill="#00ff44" opacity="0.12"/>
+  <path d="M178,200 L188,200 L188,240 L178,240 Z" fill="#00ff44" opacity="0.12"/>
+  <path d="M58,186 Q60,225 56,268" fill="none" stroke="#00ff44" stroke-width="2.5" opacity="0.15"/>
+  <path d="M198,186 Q196,225 200,268" fill="none" stroke="#00ff44" stroke-width="2.5" opacity="0.15"/>
+  <!-- Chest horizontal accent -->
+  <path d="M78,215 L178,215" fill="none" stroke="#00ff44" stroke-width="1.5" opacity="0.1"/>
 
-  <!-- Hoodie pocket/kangaroo pouch -->
-  <path d="M90,260 L166,260 L168,295 C168,305 160,310 128,310 C96,310 88,305 88,295 Z" fill="#0c180c" opacity="0.6"/>
-  <path d="M90,260 L166,260" fill="none" stroke="#88ff00" stroke-width="0.5" opacity="0.2"/>
+  <!-- Hoodie kangaroo pocket -->
+  <path d="M88,262 L168,262 L170,298 C170,308 162,314 128,314 C94,314 86,308 86,298 Z" fill="#0c1a0c" opacity="0.6"/>
+  <path d="M88,262 L168,262" fill="none" stroke="#00ff44" stroke-width="0.8" opacity="0.2"/>
 
-  <!-- Hoodie seam lines -->
-  <path d="M128,165 L128,370" fill="none" stroke="#88ff00" stroke-width="0.3" opacity="0.1"/>
-  <path d="M85,200 C90,240 88,290 86,340" fill="none" stroke="#88ff00" stroke-width="0.4" opacity="0.12"/>
-  <path d="M171,200 C166,240 168,290 170,340" fill="none" stroke="#88ff00" stroke-width="0.4" opacity="0.12"/>
+  <!-- Center seam -->
+  <path d="M128,166 L128,372" fill="none" stroke="#00ff44" stroke-width="0.3" opacity="0.1"/>
 
-  <!-- Hoodie drawstrings -->
-  <line x1="120" y1="165" x2="118" y2="200" stroke="#88ff00" stroke-width="0.8" opacity="0.25"/>
-  <line x1="136" y1="165" x2="138" y2="200" stroke="#88ff00" stroke-width="0.8" opacity="0.25"/>
-  <rect x="116" y="198" width="4" height="6" rx="1" fill="#88ff00" opacity="0.3"/>
-  <rect x="136" y="198" width="4" height="6" rx="1" fill="#88ff00" opacity="0.3"/>
+  <!-- Drawstrings -->
+  <line x1="120" y1="166" x2="117" y2="204" stroke="#00ff44" stroke-width="1" opacity="0.25"/>
+  <line x1="136" y1="166" x2="139" y2="204" stroke="#00ff44" stroke-width="1" opacity="0.25"/>
+  <rect x="115" y="202" width="4" height="6" rx="1" fill="#00ff44" opacity="0.3"/>
+  <rect x="137" y="202" width="4" height="6" rx="1" fill="#00ff44" opacity="0.3"/>
 
   <!-- T-shirt visible at collar -->
-  <path d="M112,155 C118,150 124,148 128,147 C132,148 138,150 144,155" fill="#1a1a28"/>
-  <path d="M122,155 L128,148 L134,155" fill="none" stroke="#88ff00" stroke-width="0.8" opacity="0.4"/>
+  <path d="M112,156 C118,150 124,148 128,147 C132,148 138,150 144,156" fill="#1a1a2a"/>
+  <path d="M122,156 L128,148 L134,156" fill="none" stroke="#00ff44" stroke-width="0.8" opacity="0.4"/>
 
   <!-- Neck - thin, young -->
-  <path d="M118,132 L118,150 C118,153 122,155 128,155 C134,155 138,153 138,150 L138,132" fill="url(#kd-skin)"/>
+  <path d="M118,130 L118,152 C118,155 122,157 128,157 C134,157 138,155 138,152 L138,130" fill="#f0cba8"/>
+  <!-- Neck shadow -->
+  <path d="M118,130 L118,152 C118,155 122,157 128,157 L128,130" fill="#d4ad8a" opacity="0.35"/>
 
   <!-- Hoodie hood bunched behind neck -->
-  <path d="M105,138 C110,145 118,148 128,148 C138,148 146,145 151,138 L155,145 C155,155 145,162 128,163 C111,162 101,155 101,145 Z" fill="#1a2a1a"/>
-  <path d="M105,138 C110,145 118,148 128,148 C138,148 146,145 151,138" fill="none" stroke="#88ff00" stroke-width="0.5" opacity="0.2"/>
+  <path d="M104,136 C110,144 118,147 128,147 C138,147 146,144 152,136 L156,144 C156,154 146,162 128,163 C110,162 100,154 100,144 Z" fill="#1a2a1a"/>
 
-  <!-- Head shape - rounder, younger proportions -->
-  <path d="M98,82 C98,55 110,42 128,40 C146,42 158,55 158,82 L158,112 C158,132 146,142 128,142 C110,142 98,132 98,112 Z" fill="url(#kd-skin)"/>
+  <!-- Head shape - rounder, younger proportions, bigger -->
+  <path d="M94,80 C94,50 108,36 128,34 C148,36 162,50 162,80 L162,114 C162,136 148,148 128,148 C108,148 94,136 94,114 Z" fill="#f0cba8"/>
+  <!-- Face shadow (cel-shading) -->
+  <path d="M94,80 C94,50 108,36 128,34 L128,148 C108,148 94,136 94,114 Z" fill="#d4ad8a" opacity="0.2"/>
 
-  <!-- Hair - messy, spiky, brown -->
-  <path d="M96,80 C96,52 110,36 128,34 C146,36 160,52 160,80" fill="url(#kd-hair)"/>
-  <!-- Spiky hair tufts -->
-  <path d="M108,40 L104,28 L112,36" fill="url(#kd-hair)"/>
-  <path d="M122,36 L118,22 L126,32" fill="url(#kd-hair)"/>
-  <path d="M136,35 L140,20 L142,32" fill="url(#kd-hair)"/>
-  <path d="M148,38 L154,26 L152,36" fill="url(#kd-hair)"/>
+  <!-- Hair - ELECTRIC BLUE, messy chunky spikes -->
+  <path d="M92,78 C92,46 108,28 128,26 C148,28 164,46 164,78" fill="url(#kd-hair)"/>
+  <!-- Big chunky spikes going in different directions -->
+  <path d="M104,34 L96,14 L114,30" fill="url(#kd-hair)"/>
+  <path d="M118,28 L110,6 L124,22" fill="url(#kd-hair)"/>
+  <path d="M134,26 L140,4 L146,22" fill="url(#kd-hair)"/>
+  <path d="M150,30 L162,12 L158,28" fill="url(#kd-hair)"/>
+  <path d="M92,58 L82,48 L92,68" fill="url(#kd-hair)"/>
+  <path d="M164,58 L174,48 L164,68" fill="url(#kd-hair)"/>
   <!-- Hair sides -->
-  <path d="M96,78 C96,68 98,58 102,52" fill="none" stroke="#1a1008" stroke-width="3"/>
-  <path d="M160,78 C160,68 158,58 154,52" fill="none" stroke="#1a1008" stroke-width="3"/>
-  <!-- Brown hair strand detail -->
-  <path d="M106,44 Q104,52 106,62" fill="none" stroke="#2a1a10" stroke-width="1.5" opacity="0.6"/>
-  <path d="M150,42 Q152,50 150,60" fill="none" stroke="#2a1a10" stroke-width="1.5" opacity="0.6"/>
-  <!-- Green-tinted hair highlights -->
-  <path d="M112,38 L108,26" fill="none" stroke="#88ff00" stroke-width="0.6" opacity="0.3"/>
-  <path d="M140,34 L144,22" fill="none" stroke="#88ff00" stroke-width="0.6" opacity="0.3"/>
+  <path d="M92,76 C92,64 94,52 100,44" fill="none" stroke="#0088bb" stroke-width="4"/>
+  <path d="M164,76 C164,64 162,52 156,44" fill="none" stroke="#0088bb" stroke-width="4"/>
+  <!-- Large hair shine area -->
+  <path d="M108,30 C114,26 124,24 128,26 C120,30 112,40 108,50 Z" fill="url(#kd-hair-shine)"/>
+  <!-- Hair strand details -->
+  <path d="M102,40 Q100,50 102,62" fill="none" stroke="#00aadd" stroke-width="2" opacity="0.5"/>
+  <path d="M154,38 Q156,48 154,60" fill="none" stroke="#00aadd" stroke-width="2" opacity="0.5"/>
 
-  <!-- VR Goggles on forehead -->
-  <path d="M100,68 C100,60 108,55 128,55 C148,55 156,60 156,68 L156,78 C156,82 148,85 128,85 C108,85 100,82 100,78 Z" fill="url(#kd-goggles)"/>
+  <!-- Tech Goggles on forehead -->
+  <path d="M98,66 C98,57 108,51 128,51 C148,51 158,57 158,66 L158,78 C158,83 148,87 128,87 C108,87 98,83 98,78 Z" fill="url(#kd-goggles)"/>
   <!-- Goggle strap -->
-  <path d="M96,72 L100,72" fill="none" stroke="#2a2a3a" stroke-width="3"/>
-  <path d="M156,72 L160,72" fill="none" stroke="#2a2a3a" stroke-width="3"/>
+  <path d="M94,71 L98,71" fill="none" stroke="#3a3a4a" stroke-width="3.5"/>
+  <path d="M158,71 L162,71" fill="none" stroke="#3a3a4a" stroke-width="3.5"/>
   <!-- Goggle lenses -->
-  <ellipse cx="116" cy="72" rx="10" ry="7" fill="#0a0a14"/>
-  <ellipse cx="116" cy="72" rx="8" ry="5.5" fill="url(#kd-goggle-lens)" opacity="0.3"/>
-  <ellipse cx="140" cy="72" rx="10" ry="7" fill="#0a0a14"/>
-  <ellipse cx="140" cy="72" rx="8" ry="5.5" fill="url(#kd-goggle-lens)" opacity="0.3"/>
+  <ellipse cx="116" cy="71" rx="11" ry="8" fill="#0a0a18"/>
+  <ellipse cx="116" cy="71" rx="9" ry="6" fill="url(#kd-goggle-lens)" opacity="0.3"/>
+  <ellipse cx="140" cy="71" rx="11" ry="8" fill="#0a0a18"/>
+  <ellipse cx="140" cy="71" rx="9" ry="6" fill="url(#kd-goggle-lens)" opacity="0.3"/>
   <!-- Goggle rim glow -->
-  <ellipse cx="116" cy="72" rx="10" ry="7" fill="none" stroke="#88ff00" stroke-width="0.8" opacity="0.4"/>
-  <ellipse cx="140" cy="72" rx="10" ry="7" fill="none" stroke="#88ff00" stroke-width="0.8" opacity="0.4"/>
+  <ellipse cx="116" cy="71" rx="11" ry="8" fill="none" stroke="#00ff44" stroke-width="1" opacity="0.45"/>
+  <ellipse cx="140" cy="71" rx="11" ry="8" fill="none" stroke="#00ff44" stroke-width="1" opacity="0.45"/>
   <!-- Goggle bridge -->
-  <path d="M126,72 L130,72" fill="none" stroke="#2a2a3a" stroke-width="2"/>
+  <path d="M127,71 L129,71" fill="none" stroke="#3a3a4a" stroke-width="2.5"/>
   <!-- Lens reflections -->
-  <path d="M110,69 Q114,67 118,69" fill="none" stroke="#88ff00" stroke-width="0.4" opacity="0.25"/>
-  <path d="M134,69 Q138,67 142,69" fill="none" stroke="#88ff00" stroke-width="0.4" opacity="0.25"/>
+  <path d="M109,68 Q114,65 119,68" fill="none" stroke="#44ff88" stroke-width="0.5" opacity="0.3"/>
+  <path d="M133,68 Q138,65 143,68" fill="none" stroke="#44ff88" stroke-width="0.5" opacity="0.3"/>
 
   <!-- Ears -->
-  <ellipse cx="95" cy="95" rx="5" ry="7" fill="#d0b088"/>
-  <ellipse cx="161" cy="95" rx="5" ry="7" fill="#d0b088"/>
-  <!-- Small ear stud -->
-  <circle cx="94" cy="92" r="1.2" fill="#88ff00" opacity="0.5"/>
+  <ellipse cx="91" cy="98" rx="5" ry="8" fill="#e0b890"/>
+  <ellipse cx="165" cy="98" rx="5" ry="8" fill="#e0b890"/>
+  <!-- Ear piercing -->
+  <circle cx="90" cy="94" r="1.5" fill="#00ff44" opacity="0.6"/>
 
-  <!-- Eyebrows - expressive, mischievous -->
-  <path d="M105,88 C108,86 114,86 120,87" fill="none" stroke="#2a1a10" stroke-width="1.5" opacity="0.7"/>
-  <path d="M136,87 C142,86 148,86 151,88" fill="none" stroke="#2a1a10" stroke-width="1.5" opacity="0.7"/>
+  <!-- Eyebrows - cocky, one raised (mischievous) -->
+  <path d="M101,88 C105,85 112,84 120,86" fill="none" stroke="#0077aa" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M136,84 C143,82 150,84 155,88" fill="none" stroke="#0077aa" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
 
-  <!-- Eyes - large, bright, young -->
-  <ellipse cx="113" cy="96" rx="9" ry="7" fill="#e8e8f0"/>
-  <ellipse cx="113" cy="96" rx="5" ry="5" fill="#1a3a08"/>
-  <ellipse cx="113" cy="96" rx="3" ry="3" fill="#0a0a0a"/>
-  <circle cx="111" cy="94" r="1.5" fill="#ffffff" opacity="0.9"/>
-  <circle cx="115" cy="94" r="0.8" fill="#88ff00" opacity="0.4"/>
+  <!-- LEFT EYE - large shounen style -->
+  <!-- White -->
+  <ellipse cx="112" cy="100" rx="12" ry="10" fill="#f0f0f8"/>
+  <!-- Thick upper eyelid -->
+  <path d="M100,96 C104,90 112,88 124,96" fill="none" stroke="#0a0a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Iris - large bright green -->
+  <circle cx="112" cy="101" r="8" fill="url(#kd-iris-l)"/>
+  <!-- Pupil -->
+  <circle cx="112" cy="101" r="4" fill="#0a0a0a"/>
+  <!-- Large highlight -->
+  <circle cx="108" cy="97" r="3" fill="#ffffff" opacity="0.95"/>
+  <!-- Medium highlight -->
+  <circle cx="116" cy="97" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <!-- Small accent highlight -->
+  <circle cx="114" cy="105" r="1" fill="#44ff88" opacity="0.5"/>
+  <!-- Lower eyelid line -->
+  <path d="M102,106 C106,110 118,110 122,106" fill="none" stroke="#d4ad8a" stroke-width="0.8" opacity="0.5"/>
 
-  <ellipse cx="143" cy="96" rx="9" ry="7" fill="#e8e8f0"/>
-  <ellipse cx="143" cy="96" rx="5" ry="5" fill="#1a3a08"/>
-  <ellipse cx="143" cy="96" rx="3" ry="3" fill="#0a0a0a"/>
-  <circle cx="141" cy="94" r="1.5" fill="#ffffff" opacity="0.9"/>
-  <circle cx="145" cy="94" r="0.8" fill="#88ff00" opacity="0.4"/>
+  <!-- RIGHT EYE - large shounen style -->
+  <ellipse cx="144" cy="100" rx="12" ry="10" fill="#f0f0f8"/>
+  <path d="M132,96 C136,90 144,88 156,96" fill="none" stroke="#0a0a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="144" cy="101" r="8" fill="url(#kd-iris-r)"/>
+  <circle cx="144" cy="101" r="4" fill="#0a0a0a"/>
+  <circle cx="140" cy="97" r="3" fill="#ffffff" opacity="0.95"/>
+  <circle cx="148" cy="97" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="146" cy="105" r="1" fill="#44ff88" opacity="0.5"/>
+  <path d="M134,106 C138,110 150,110 154,106" fill="none" stroke="#d4ad8a" stroke-width="0.8" opacity="0.5"/>
 
-  <!-- Nose - small, young -->
-  <path d="M128,98 L126,110 L128,112 L130,110" fill="none" stroke="#c0a078" stroke-width="0.8" opacity="0.5"/>
+  <!-- Nose - small button dot -->
+  <circle cx="128" cy="114" r="2" fill="#d4ad8a" opacity="0.5"/>
 
-  <!-- Mouth - mischievous grin showing teeth -->
-  <path d="M116,120 C120,126 128,128 136,126 C140,122 140,120 140,120" fill="none" stroke="#a08060" stroke-width="1.2"/>
+  <!-- Mouth - cocky grin -->
+  <path d="M114,124 C118,130 128,133 138,130 C142,126 142,124 142,124" fill="none" stroke="#8a6848" stroke-width="1.8" stroke-linecap="round"/>
   <!-- Teeth showing in grin -->
-  <path d="M120,122 C124,124 132,124 136,122" fill="#e8e8f0" opacity="0.3"/>
-  <!-- Dimple hints -->
-  <path d="M114,120 Q116,122 116,120" fill="none" stroke="#c0a078" stroke-width="0.5" opacity="0.3"/>
-  <path d="M140,120 Q142,118 142,120" fill="none" stroke="#c0a078" stroke-width="0.5" opacity="0.3"/>
+  <path d="M118,126 C122,130 134,130 138,126" fill="#f0f0f0" opacity="0.35"/>
+  <!-- Fang tooth -->
+  <path d="M136,126 L138,129 L140,126" fill="#f0f0f0" opacity="0.4"/>
 
   <!-- Freckles -->
-  <circle cx="108" cy="106" r="0.8" fill="#c0a078" opacity="0.3"/>
-  <circle cx="112" cy="108" r="0.6" fill="#c0a078" opacity="0.25"/>
-  <circle cx="144" cy="106" r="0.8" fill="#c0a078" opacity="0.3"/>
-  <circle cx="148" cy="108" r="0.6" fill="#c0a078" opacity="0.25"/>
+  <circle cx="104" cy="110" r="1" fill="#d4ad8a" opacity="0.3"/>
+  <circle cx="108" cy="112" r="0.8" fill="#d4ad8a" opacity="0.25"/>
+  <circle cx="148" cy="110" r="1" fill="#d4ad8a" opacity="0.3"/>
+  <circle cx="152" cy="112" r="0.8" fill="#d4ad8a" opacity="0.25"/>
 
   <!-- Shoulder definition -->
-  <path d="M58,180 C63,170 75,162 88,158" fill="none" stroke="#88ff00" stroke-width="0.6" opacity="0.2"/>
-  <path d="M198,180 C193,170 181,162 168,158" fill="none" stroke="#88ff00" stroke-width="0.6" opacity="0.2"/>
+  <path d="M55,182 C60,170 73,160 88,156" fill="none" stroke="#00ff44" stroke-width="0.8" opacity="0.2"/>
+  <path d="M201,182 C196,170 183,160 168,156" fill="none" stroke="#00ff44" stroke-width="0.8" opacity="0.2"/>
 
-  <!-- Neon patch on hoodie shoulder -->
-  <rect x="64" y="175" width="8" height="12" rx="1" fill="#88ff00" opacity="0.08"/>
-  <rect x="184" y="175" width="8" height="12" rx="1" fill="#88ff00" opacity="0.08"/>
+  <!-- Holographic display floating near hand -->
+  <rect x="178" y="190" width="36" height="24" rx="2" fill="#00ff44" opacity="0.06" filter="url(#glow-soft)"/>
+  <line x1="182" y1="196" x2="208" y2="196" stroke="#00ff44" stroke-width="0.6" opacity="0.2"/>
+  <line x1="182" y1="200" x2="200" y2="200" stroke="#00ff44" stroke-width="0.5" opacity="0.15"/>
+  <line x1="182" y1="204" x2="204" y2="204" stroke="#00ff44" stroke-width="0.5" opacity="0.15"/>
+  <rect x="178" y="190" width="36" height="24" rx="2" fill="none" stroke="#00ff44" stroke-width="0.5" opacity="0.2"/>
 
   <!-- Ambient digital particles -->
-  <circle cx="38" cy="195" r="1" fill="#88ff00" opacity="0.4"/>
-  <circle cx="218" cy="175" r="1.2" fill="#88ff00" opacity="0.35"/>
-  <circle cx="52" cy="305" r="0.8" fill="#44cc00" opacity="0.3"/>
-  <circle cx="204" cy="295" r="1" fill="#88ff00" opacity="0.25"/>
-  <circle cx="30" cy="255" r="0.8" fill="#88ff00" opacity="0.2"/>
-  <circle cx="226" cy="250" r="0.6" fill="#44cc00" opacity="0.18"/>
+  <circle cx="36" cy="195" r="1.2" fill="#00ff44" opacity="0.4"/>
+  <circle cx="220" cy="175" r="1.5" fill="#00ff44" opacity="0.35"/>
+  <circle cx="50" cy="308" r="1" fill="#44ff88" opacity="0.3"/>
+  <circle cx="206" cy="298" r="1.2" fill="#00ff44" opacity="0.25"/>
+  <circle cx="28" cy="258" r="0.8" fill="#00ff44" opacity="0.2"/>
+  <circle cx="228" cy="252" r="0.7" fill="#44ff88" opacity="0.18"/>
+
+  <!-- Expression label -->
+  <text x="128" y="368" font-family="'Courier New', monospace" font-size="10" fill="#00ff44" text-anchor="middle" opacity="0.5">DEFAULT</text>
 </svg>

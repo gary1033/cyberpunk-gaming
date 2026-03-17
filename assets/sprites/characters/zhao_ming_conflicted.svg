@@ -1,165 +1,138 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <radialGradient id="zmc-bg" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#1a1408"/>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#141420"/>
       <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <linearGradient id="zmc-suit" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="50%" stop-color="#141428"/>
-      <stop offset="100%" stop-color="#0e0e20"/>
-    </linearGradient>
-    <linearGradient id="zmc-lapel" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#222240"/>
-      <stop offset="100%" stop-color="#1a1a30"/>
-    </linearGradient>
-    <linearGradient id="zmc-shirt" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e8e8f0"/>
-      <stop offset="100%" stop-color="#c8c8d8"/>
-    </linearGradient>
-    <linearGradient id="zmc-skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#d4a574"/>
-      <stop offset="100%" stop-color="#c49464"/>
-    </linearGradient>
-    <linearGradient id="zmc-hair" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1a1a2a"/>
-      <stop offset="100%" stop-color="#0e0e18"/>
-    </linearGradient>
-    <linearGradient id="zmc-tie" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffaa00"/>
-      <stop offset="50%" stop-color="#dd8800"/>
-      <stop offset="100%" stop-color="#cc7700"/>
-    </linearGradient>
-    <filter id="zmc-glow">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <radialGradient id="irisGrad" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#6b4423"/>
+      <stop offset="50%" stop-color="#4a2a10"/>
+      <stop offset="100%" stop-color="#2a1508"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="zmc-glow-soft">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <filter id="glowSoft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="zmc-border" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffaa00" stop-opacity="0.6"/>
-      <stop offset="50%" stop-color="#dd8800" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#ffaa00" stop-opacity="0.6"/>
-    </linearGradient>
   </defs>
 
-  <!-- Background -->
-  <rect width="256" height="384" fill="url(#zmc-bg)"/>
-  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="url(#zmc-border)" stroke-width="1.5"/>
+  <!-- BG -->
+  <rect width="256" height="384" fill="url(#bgGrad)"/>
+  <line x1="20" y1="40" x2="20" y2="384" stroke="#4488ff" stroke-width="0.3" opacity="0.1"/>
+  <line x1="236" y1="0" x2="236" y2="384" stroke="#4488ff" stroke-width="0.3" opacity="0.08"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.25"/>
 
-  <!-- Character name -->
-  <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#ffaa00" text-anchor="middle" filter="url(#zmc-glow)">趙明</text>
+  <!-- Name -->
+  <text x="128" y="28" font-family="monospace" font-size="20" fill="#4488ff" text-anchor="middle" filter="url(#glow)" opacity="0.9">趙明</text>
 
-  <!-- Suit body -->
-  <path d="M55,195 C55,180 70,168 85,162 L105,155 C115,152 122,150 128,149 C134,150 141,152 151,155 L171,162 C186,168 201,180 201,195 L208,280 C210,320 206,350 202,370 L54,370 C50,350 46,320 48,280 Z" fill="url(#zmc-suit)"/>
+  <!-- === SUIT BODY === -->
+  <path d="M52,275 Q60,252 84,238 L100,230 Q115,224 128,222 Q141,224 156,230 L172,238 Q196,252 204,275 L212,384 L44,384 Z" fill="#1a1a2e"/>
+  <!-- Suit shadow left -->
+  <path d="M52,275 Q60,252 84,238 L100,230 Q110,226 118,224 L118,384 L44,384 Z" fill="#0e0e1e" opacity="0.5"/>
+  <!-- Suit lapel left -->
+  <path d="M88,236 L74,260 L106,250 L116,232 Z" fill="#222240"/>
+  <!-- Suit lapel right -->
+  <path d="M168,236 L182,260 L150,250 L140,232 Z" fill="#282848"/>
+  <!-- Shirt V -->
+  <path d="M112,232 L128,252 L144,232" fill="#d8d8e8" stroke="#c0c0d0" stroke-width="0.5"/>
+  <!-- Tie slightly loosened -->
+  <path d="M124,246 L127,242 L131,246 L130,310 L128,316 L126,310 Z" fill="#1a1a2e" stroke="#4488ff" stroke-width="0.6" opacity="0.7"/>
+  <path d="M123,242 L128,236 L133,242 L131,248 L124,248 Z" fill="#222240"/>
+  <!-- Neon accent lines -->
+  <line x1="68" y1="278" x2="68" y2="384" stroke="#4488ff" stroke-width="0.8" opacity="0.15" filter="url(#glow)"/>
+  <line x1="188" y1="278" x2="188" y2="384" stroke="#4488ff" stroke-width="0.8" opacity="0.15" filter="url(#glow)"/>
+  <!-- ZhengTek badge -->
+  <rect x="80" y="248" width="12" height="8" rx="1.5" fill="#1a2a3a" stroke="#4488ff" stroke-width="0.6" opacity="0.7"/>
+  <text x="86" y="255" font-family="monospace" font-size="5" fill="#4488ff" text-anchor="middle" opacity="0.8">ZT</text>
+  <!-- Pocket square -->
+  <path d="M166,250 L172,244 L178,250 L175,256 L169,256 Z" fill="#4488ff" opacity="0.15"/>
 
-  <!-- Suit lapels -->
-  <path d="M105,155 L90,175 L95,220 L118,195 L128,180 Z" fill="url(#zmc-lapel)"/>
-  <path d="M105,155 L90,175 L95,220" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.3"/>
-  <path d="M151,155 L166,175 L161,220 L138,195 L128,180 Z" fill="url(#zmc-lapel)"/>
-  <path d="M151,155 L166,175 L161,220" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.3"/>
+  <!-- === NECK === -->
+  <path d="M115,216 Q128,222 141,216 L139,234 Q128,240 117,234 Z" fill="#f0cba8"/>
+  <path d="M115,216 Q128,220 141,216 L140,224 Q128,228 116,224 Z" fill="#deb896" opacity="0.4"/>
 
-  <!-- White shirt -->
-  <path d="M118,195 L128,180 L138,195 L135,250 L121,250 Z" fill="url(#zmc-shirt)"/>
-
-  <!-- Tie - slightly askew -->
-  <path d="M124,184 L127,181 L130,184 L130,240 L128,245 L125,240 Z" fill="url(#zmc-tie)"/>
-
-  <!-- Neck -->
-  <path d="M115,148 L115,165 C115,170 120,175 128,175 C136,175 141,170 141,165 L141,148" fill="url(#zmc-skin)"/>
-
-  <!-- Collar -->
-  <path d="M110,158 C115,153 120,150 128,149 C136,150 141,153 146,158" fill="none" stroke="#c8c8d8" stroke-width="2" opacity="0.8"/>
-
-  <!-- Head shape - slightly tilted -->
-  <path d="M100,97 C100,70 112,52 128,50 C144,52 156,70 156,97 L156,127 C156,147 144,157 128,157 C112,157 100,147 100,127 Z" fill="url(#zmc-skin)"/>
-
-  <!-- Hair - slightly disheveled -->
-  <path d="M100,87 C100,62 112,44 128,42 C144,44 156,62 156,87" fill="url(#zmc-hair)"/>
-  <path d="M98,92 C98,82 100,74 104,70" fill="none" stroke="#0e0e18" stroke-width="3"/>
-  <path d="M158,92 C158,82 156,74 152,70" fill="none" stroke="#0e0e18" stroke-width="3"/>
-  <!-- Stray hair strand -->
-  <path d="M120,48 C118,42 122,38 126,42" fill="none" stroke="#1a1a2a" stroke-width="1.5"/>
-
-  <!-- Right hand raised to forehead - conflicted gesture -->
-  <path d="M168,195 C162,175 152,155 145,125 C143,115 140,102 138,92" fill="none" stroke="#d4a574" stroke-width="11" stroke-linecap="round"/>
-  <!-- Hand on forehead -->
-  <ellipse cx="136" cy="86" rx="13" ry="7" fill="#d4a574" transform="rotate(-12,136,86)"/>
-  <!-- Fingers on forehead -->
-  <path d="M126,82 C128,76 130,74 132,76" fill="none" stroke="#d4a574" stroke-width="3" stroke-linecap="round"/>
-  <path d="M132,80 C134,74 136,72 138,74" fill="none" stroke="#d4a574" stroke-width="3" stroke-linecap="round"/>
-  <path d="M138,81 C140,76 142,74 144,76" fill="none" stroke="#d4a574" stroke-width="3" stroke-linecap="round"/>
-  <path d="M143,84 C146,80 148,79 149,81" fill="none" stroke="#c49464" stroke-width="2.5" stroke-linecap="round"/>
-
-  <!-- Ears -->
-  <ellipse cx="97" cy="110" rx="5" ry="8" fill="#c49464"/>
-  <ellipse cx="159" cy="110" rx="5" ry="8" fill="#c49464"/>
-
-  <!-- Cybernetic ear implant -->
-  <path d="M160,106 L165,102 L166,110 L165,118 L160,114" fill="none" stroke="#ffaa00" stroke-width="1" opacity="0.6"/>
-  <circle cx="165" cy="110" r="1.5" fill="#ffaa00" opacity="0.5"/>
-
-  <!-- Eyebrows - furrowed, conflicted -->
-  <path d="M107,94 C110,96 116,97 122,95" fill="none" stroke="#1a1a2a" stroke-width="2.2" opacity="0.8"/>
-  <path d="M134,95 C140,97 146,96 149,94" fill="none" stroke="#1a1a2a" stroke-width="2.2" opacity="0.8"/>
+  <!-- === HEAD === -->
+  <!-- Face - slightly turned, looking away -->
+  <path d="M82,130 Q80,105 90,88 Q102,72 130,68 Q158,72 168,88 Q178,105 176,130 L176,155 Q174,175 164,190 Q154,204 142,212 Q136,216 128,218 Q120,216 114,212 Q102,204 92,190 Q84,175 82,155 Z" fill="#f0cba8"/>
+  <!-- Face shadow left (cel-shade) -->
+  <path d="M82,130 Q80,105 90,88 Q96,80 106,74 L102,130 L100,160 Q92,175 94,190 Q98,198 110,208 L114,212 Q102,204 92,190 Q84,175 82,155 Z" fill="#deb896" opacity="0.5"/>
+  <!-- Jaw shadow -->
+  <path d="M92,190 Q102,204 114,212 Q120,216 128,218 L128,208 Q116,202 106,192 Z" fill="#d4a878" opacity="0.3"/>
+  <path d="M164,190 Q154,204 142,212 Q136,216 128,218 L128,208 Q140,202 150,192 Z" fill="#d4a878" opacity="0.2"/>
   <!-- Furrow lines between brows -->
-  <path d="M125,92 L126,98" fill="none" stroke="#b48454" stroke-width="0.7" opacity="0.35"/>
-  <path d="M130,92 L129,98" fill="none" stroke="#b48454" stroke-width="0.7" opacity="0.35"/>
+  <line x1="125" y1="130" x2="126" y2="137" stroke="#d4a878" stroke-width="0.7" opacity="0.35"/>
+  <line x1="130" y1="130" x2="129" y2="137" stroke="#d4a878" stroke-width="0.7" opacity="0.35"/>
 
-  <!-- Eyes - pained, looking down -->
-  <ellipse cx="115" cy="102" rx="8" ry="4.5" fill="#e8e8f0"/>
-  <ellipse cx="115" cy="103" rx="4" ry="3.5" fill="#2a1a08"/>
-  <ellipse cx="115" cy="103" rx="2" ry="2" fill="#0a0a0a"/>
-  <circle cx="114" cy="102" r="0.8" fill="#ffffff" opacity="0.6"/>
+  <!-- === EARS === -->
+  <ellipse cx="82" cy="148" rx="5" ry="10" fill="#f0cba8"/>
+  <ellipse cx="82" cy="148" rx="3" ry="7" fill="#deb896" opacity="0.3"/>
+  <ellipse cx="176" cy="148" rx="5" ry="10" fill="#f0cba8"/>
+  <!-- Cyber implant -->
+  <rect x="170" y="144" width="4" height="9" rx="1" fill="#1a2a3a" stroke="#4488ff" stroke-width="0.5"/>
+  <circle cx="172" cy="146" r="0.8" fill="#4488ff"/>
+  <circle cx="172" cy="150" r="0.6" fill="#4488ff" opacity="0.6"/>
 
-  <ellipse cx="141" cy="102" rx="8" ry="4.5" fill="#e8e8f0"/>
-  <ellipse cx="141" cy="103" rx="4" ry="3.5" fill="#2a1a08"/>
-  <ellipse cx="141" cy="103" rx="2" ry="2" fill="#0a0a0a"/>
-  <circle cx="140" cy="102" r="0.8" fill="#ffffff" opacity="0.6"/>
+  <!-- === HAIR === -->
+  <path d="M70,128 Q68,100 82,78 Q98,58 130,54 Q162,58 176,78 Q190,100 188,128 L186,116 Q182,98 170,84 Q156,68 130,64 Q102,68 88,84 Q76,98 72,116 Z" fill="#1a1a2a"/>
+  <path d="M70,128 Q68,100 82,78 Q92,64 108,58 L104,82 Q90,96 80,116 L74,128 Z" fill="#0e0e18"/>
+  <path d="M188,128 Q190,100 176,78 Q170,68 158,62 L162,84 Q176,98 184,116 Z" fill="#141422" opacity="0.5"/>
+  <!-- Neat bangs -->
+  <path d="M90,82 Q94,96 98,112 L106,108 Q102,92 100,78 Z" fill="#1e1e30"/>
+  <path d="M98,86 Q102,100 106,112 L112,108 Q110,96 108,84 Z" fill="#222234"/>
+  <path d="M150,84 Q152,96 154,108 L160,112 Q158,98 156,86 Z" fill="#1c1c2e"/>
+  <path d="M158,82 Q160,96 162,112 L168,116 Q166,100 164,82 Z" fill="#161626"/>
+  <!-- Stray strand - conflicted dishevelment -->
+  <path d="M120,60 C118,50 122,44 127,50" fill="none" stroke="#1a1a2a" stroke-width="1.5"/>
+  <!-- Hair shine -->
+  <path d="M92,76 Q110,68 130,64 Q150,68 168,76 L164,84 Q150,76 130,72 Q110,76 96,84 Z" fill="#ffffff" opacity="0.15"/>
 
-  <!-- Nose -->
-  <path d="M128,104 L125,120 L128,122 L131,120" fill="none" stroke="#b48454" stroke-width="1" opacity="0.5"/>
+  <!-- === EYES === -->
+  <!-- RIGHT EYE - looking slightly to the side -->
+  <path d="M90,148 Q100,136 108,135 Q116,136 122,148 Q116,156 108,157 Q100,156 90,148 Z" fill="#f0f0f5"/>
+  <path d="M88,148 Q98,134 108,132 Q118,134 124,148" fill="none" stroke="#1a1a2a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M92,150 Q100,157 108,158 Q116,157 120,150" fill="none" stroke="#8a7a6a" stroke-width="0.6"/>
+  <!-- Iris shifted left (looking away) -->
+  <circle cx="105" cy="148" r="11" fill="url(#irisGrad)"/>
+  <circle cx="105" cy="148" r="11" fill="none" stroke="#2a1508" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="105" cy="149" r="5" fill="#0a0a0a"/>
+  <circle cx="110" cy="143" r="3.5" fill="#ffffff" opacity="0.85"/>
+  <circle cx="100" cy="153" r="2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="108" cy="152" r="0.8" fill="#ffffff" opacity="0.3"/>
 
-  <!-- Mouth - tense, lips pressed together -->
-  <path d="M118,132 C122,130 128,130 134,130 C138,132 138,132 138,132" fill="none" stroke="#a07050" stroke-width="1.4"/>
-  <path d="M116,132 L118,134" fill="none" stroke="#b48454" stroke-width="0.6" opacity="0.4"/>
-  <path d="M140,132 L138,134" fill="none" stroke="#b48454" stroke-width="0.6" opacity="0.4"/>
+  <!-- LEFT EYE - looking slightly to the side -->
+  <path d="M134,148 Q144,136 152,135 Q160,136 166,148 Q160,156 152,157 Q144,156 134,148 Z" fill="#f0f0f5"/>
+  <path d="M132,148 Q142,134 152,132 Q162,134 168,148" fill="none" stroke="#1a1a2a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M136,150 Q144,157 152,158 Q160,157 164,150" fill="none" stroke="#8a7a6a" stroke-width="0.6"/>
+  <!-- Iris shifted left -->
+  <circle cx="149" cy="148" r="11" fill="url(#irisGrad)"/>
+  <circle cx="149" cy="148" r="11" fill="none" stroke="#2a1508" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="149" cy="149" r="5" fill="#0a0a0a"/>
+  <circle cx="154" cy="143" r="3.5" fill="#ffffff" opacity="0.85"/>
+  <circle cx="144" cy="153" r="2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="152" cy="152" r="0.8" fill="#ffffff" opacity="0.3"/>
 
-  <!-- Jawline -->
-  <path d="M100,127 C102,142 112,152 128,157" fill="none" stroke="#b48454" stroke-width="0.6" opacity="0.3"/>
-  <path d="M156,127 C154,142 144,152 128,157" fill="none" stroke="#b48454" stroke-width="0.6" opacity="0.3"/>
+  <!-- Eyebrows - one raised slightly, conflicted -->
+  <path d="M88,128 Q100,124 120,128" fill="none" stroke="#1a1a2a" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M136,126 Q156,121 168,128" fill="none" stroke="#1a1a2a" stroke-width="2.8" stroke-linecap="round"/>
 
-  <!-- Suit shoulders -->
-  <path d="M55,195 C60,185 72,175 85,170" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.2"/>
-  <path d="M201,195 C196,185 184,175 171,170" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.2"/>
+  <!-- === NOSE === -->
+  <path d="M127,173 L128,178 L132,176" fill="none" stroke="#d4a878" stroke-width="1" stroke-linecap="round"/>
 
-  <!-- Pocket square - slightly rumpled -->
-  <path d="M165,195 L169,189 L174,194 L171,200 L167,200 Z" fill="#ffaa00" opacity="0.3"/>
+  <!-- === MOUTH - tense, conflicted === -->
+  <path d="M118,196 Q123,194 128,194 Q133,194 138,196" fill="none" stroke="#c08a70" stroke-width="1.3" stroke-linecap="round"/>
+  <!-- Tension lines at mouth corners -->
+  <path d="M116,196 L118,198" fill="none" stroke="#d4a878" stroke-width="0.6" opacity="0.4"/>
+  <path d="M140,196 L138,198" fill="none" stroke="#d4a878" stroke-width="0.6" opacity="0.4"/>
 
-  <!-- Suit fabric lines -->
-  <path d="M80,220 C85,260 82,310 80,360" fill="none" stroke="#ffaa00" stroke-width="0.4" opacity="0.1"/>
-  <path d="M176,220 C171,260 174,310 176,360" fill="none" stroke="#ffaa00" stroke-width="0.4" opacity="0.1"/>
+  <!-- === AMBIENT === -->
+  <circle cx="28" cy="95" r="1" fill="#4488ff" opacity="0.18"/>
+  <circle cx="225" cy="75" r="0.8" fill="#4488ff" opacity="0.12"/>
+  <circle cx="38" cy="310" r="1.2" fill="#4488ff" opacity="0.12"/>
+  <circle cx="215" cy="350" r="0.8" fill="#4488ff" opacity="0.1"/>
 
-  <!-- Temple cybernetic -->
-  <path d="M100,92 L96,97 L95,104" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.3"/>
-
-  <!-- Ambient glow -->
-  <ellipse cx="128" cy="120" rx="38" ry="28" fill="#ffaa00" opacity="0.025" filter="url(#zmc-glow-soft)"/>
-
-  <!-- Ambient particles -->
-  <circle cx="40" cy="200" r="1" fill="#ffaa00" opacity="0.3"/>
-  <circle cx="215" cy="180" r="1.2" fill="#ffaa00" opacity="0.25"/>
-  <circle cx="55" cy="310" r="0.8" fill="#dd8800" opacity="0.25"/>
-  <circle cx="200" cy="300" r="1" fill="#ffaa00" opacity="0.2"/>
-
-  <!-- State label -->
-  <text x="128" y="375" font-family="'Courier New', monospace" font-size="10" fill="#ffaa00" text-anchor="middle" opacity="0.5">[conflicted]</text>
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="monospace" font-size="10" fill="#4488ff" text-anchor="middle" opacity="0.5">[conflicted]</text>
 </svg>

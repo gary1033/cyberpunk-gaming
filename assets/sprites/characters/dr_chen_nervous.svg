@@ -1,130 +1,173 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
     <radialGradient id="bg_glow" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#0a0f1a" />
-      <stop offset="100%" stop-color="#0a0a1a" />
+      <stop offset="0%" stop-color="#0d1025"/>
+      <stop offset="100%" stop-color="#080810"/>
     </radialGradient>
-    <filter id="neon_blue">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c8a882" />
-      <stop offset="100%" stop-color="#b09070" />
+    <filter id="soft_glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="iris_grad_l" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#6b4422"/>
+      <stop offset="60%" stop-color="#3d2211"/>
+      <stop offset="100%" stop-color="#1a0e06"/>
+    </radialGradient>
+    <radialGradient id="iris_grad_r" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#6b4422"/>
+      <stop offset="60%" stop-color="#3d2211"/>
+      <stop offset="100%" stop-color="#1a0e06"/>
+    </radialGradient>
+    <linearGradient id="glass_lens" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#2266cc" stop-opacity="0.06"/>
     </linearGradient>
     <linearGradient id="coat_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#e8e8f0" />
-      <stop offset="50%" stop-color="#d0d0e0" />
-      <stop offset="100%" stop-color="#b8b8c8" />
+      <stop offset="0%" stop-color="#eeeef4"/>
+      <stop offset="100%" stop-color="#c8c8d6"/>
     </linearGradient>
-    <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a2244" />
-      <stop offset="100%" stop-color="#0d1530" />
+    <linearGradient id="badge_holo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#66aaff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4488ff" stop-opacity="0.3"/>
     </linearGradient>
-    <linearGradient id="hair_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a1a2e" />
-      <stop offset="100%" stop-color="#0d0d1a" />
-    </linearGradient>
-    <linearGradient id="glass_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.15" />
-      <stop offset="100%" stop-color="#2266cc" stop-opacity="0.1" />
+    <linearGradient id="sweat_grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#bbddff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#88ccff" stop-opacity="0.3"/>
     </linearGradient>
   </defs>
 
   <!-- Background -->
   <rect width="256" height="384" fill="url(#bg_glow)"/>
-  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.4"/>
+  <rect x="3" y="3" width="250" height="378" rx="5" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.35"/>
+  <line x1="0" y1="96" x2="256" y2="96" stroke="#4488ff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="192" x2="256" y2="192" stroke="#4488ff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="288" x2="256" y2="288" stroke="#4488ff" stroke-width="0.3" opacity="0.05"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle" filter="url(#neon_blue)">Dr.陳</text>
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle">Dr.陳</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle" filter="url(#glow)">Dr. 陳</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#66aaff" text-anchor="middle">Dr. 陳</text>
 
-  <!-- Neck -->
-  <rect x="114" y="160" width="28" height="28" rx="4" fill="url(#skin_grad)"/>
+  <!-- === BODY === -->
+  <!-- Neck - slightly tense -->
+  <rect x="115" y="168" width="26" height="22" rx="3" fill="#f0cba8"/>
+  <path d="M120,170 L120,188" fill="none" stroke="#d4a878" stroke-width="0.6" opacity="0.3"/>
+  <path d="M136,170 L136,188" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.2"/>
 
-  <!-- Body -->
-  <path d="M128,186 Q128,198 128,210 L128,384 L55,384 L55,270 Q55,230 88,218 Q112,206 128,186 Z" fill="url(#shirt_grad)"/>
-  <path d="M128,186 Q128,198 128,210 L128,384 L201,384 L201,270 Q201,230 168,218 Q144,206 128,186 Z" fill="url(#shirt_grad)"/>
+  <!-- Dark undershirt -->
+  <path d="M128,188 L128,384 L58,384 L58,268 Q58,232 90,218 Q114,206 128,188Z" fill="#0d1530"/>
+  <path d="M128,188 L128,384 L198,384 L198,268 Q198,232 166,218 Q142,206 128,188Z" fill="#0d1530"/>
 
-  <!-- Lab coat -->
-  <path d="M88,218 Q68,224 58,244 Q55,255 55,270 L55,384 L85,384 L85,240 Q88,228 95,222" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M168,218 Q188,224 198,244 Q201,255 201,270 L201,384 L171,384 L171,240 Q168,228 161,222" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
+  <!-- Lab coat left -->
+  <path d="M90,218 Q68,225 58,248 Q56,260 56,272 L56,384 L88,384 L88,244 Q90,230 96,222" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <!-- Lab coat right -->
+  <path d="M166,218 Q188,225 198,248 Q200,260 200,272 L200,384 L168,384 L168,244 Q166,230 160,222" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <!-- Coat cel-shadow -->
+  <path d="M56,272 L56,384 L72,384 L72,260 Q68,248 70,236" fill="#b8b8cc" opacity="0.4"/>
+  <path d="M200,272 L200,384 L184,384 L184,260 Q188,248 186,236" fill="#b8b8cc" opacity="0.4"/>
 
-  <!-- Lab coat lapels -->
-  <path d="M100,195 L118,230 L100,240" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M156,195 L138,230 L156,240" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
+  <!-- Lapels -->
+  <path d="M102,195 L120,232 L102,244" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <path d="M154,195 L136,232 L154,244" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <!-- Collar V -->
+  <path d="M112,192 L128,216 L144,192" fill="none" stroke="#0d1530" stroke-width="1.8"/>
 
-  <!-- Shirt collar -->
-  <path d="M110,192 L128,215 L146,192" fill="none" stroke="#1a2244" stroke-width="1.5"/>
+  <!-- Tech accent lines -->
+  <line x1="88" y1="260" x2="88" y2="384" stroke="#4488ff" stroke-width="0.6" opacity="0.12"/>
+  <line x1="168" y1="260" x2="168" y2="384" stroke="#4488ff" stroke-width="0.6" opacity="0.12"/>
 
-  <!-- Coat pocket -->
-  <rect x="160" y="260" width="22" height="28" rx="2" fill="none" stroke="#b0b0c0" stroke-width="0.8" opacity="0.6"/>
+  <!-- Pocket -->
+  <rect x="160" y="268" width="20" height="26" rx="2" fill="none" stroke="#b0b0c0" stroke-width="0.7" opacity="0.5"/>
 
-  <!-- Right arm - raised to adjust glasses -->
-  <path d="M201,270 Q195,255 185,240 Q175,228 165,218" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
+  <!-- Holographic badge -->
+  <rect x="66" y="278" width="18" height="24" rx="2" fill="#0d1020" stroke="#4488ff" stroke-width="0.6" opacity="0.7"/>
+  <rect x="69" y="281" width="12" height="7" rx="1" fill="url(#badge_holo)" opacity="0.5"/>
+  <line x1="69" y1="292" x2="81" y2="292" stroke="#4488ff" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Right arm raised - adjusting glasses nervously -->
+  <path d="M200,272 Q196,256 186,242 Q176,230 166,220" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.4"/>
   <!-- Hand near glasses -->
-  <path d="M162,170 Q158,165 160,160 Q165,155 170,158 Q172,162 168,168 Q165,172 162,170 Z" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
-  <!-- Fingers on glasses frame -->
-  <path d="M164,162 Q166,155 165,150" fill="none" stroke="url(#skin_grad)" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M160,164 Q160,157 161,152" fill="none" stroke="url(#skin_grad)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M163,172 Q159,167 161,162 Q165,157 170,160 Q172,164 168,170 Q165,174 163,172Z" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
+  <path d="M165,164 Q167,157 166,152" fill="none" stroke="#f0cba8" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M161,166 Q161,159 162,154" fill="none" stroke="#f0cba8" stroke-width="2" stroke-linecap="round"/>
 
-  <!-- Left arm down -->
-  <path d="M55,270 Q54,300 55,330 Q56,355 58,380" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M55,370 Q52,375 54,380 L62,380 Q64,375 60,370" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
+  <!-- Left arm at side -->
+  <path d="M56,272 Q54,310 56,350 Q57,370 58,384" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.4"/>
+  <path d="M55,374 Q52,378 54,383 L63,383 Q65,378 61,374" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
 
-  <!-- Head - turned slightly, looking sideways -->
-  <path d="M96,82 Q96,52 130,46 Q164,52 164,82 L164,122 Q164,140 155,150 Q145,162 130,164 Q115,162 105,150 Q96,140 96,122 Z" fill="url(#skin_grad)"/>
-
-  <!-- Hair -->
-  <path d="M94,78 Q94,50 130,44 Q166,50 166,78 L166,72 Q166,48 130,42 Q94,48 94,72 Z" fill="url(#hair_grad)"/>
-  <path d="M92,72 Q90,60 97,52 Q110,44 122,44" fill="url(#hair_grad)"/>
-  <path d="M168,72 Q170,60 163,52 Q150,44 124,44" fill="url(#hair_grad)"/>
-  <!-- Slightly disheveled strand -->
-  <path d="M105,52 Q102,48 100,52 Q98,56 102,58" fill="url(#hair_grad)" opacity="0.8"/>
-
-  <!-- Glasses - slightly pushed up by hand, tilted -->
-  <rect x="98" y="99" rx="3" ry="3" width="26" height="18" fill="url(#glass_grad)" stroke="#4488ff" stroke-width="1.2" opacity="0.8" transform="rotate(-2, 111, 108)"/>
-  <rect x="136" y="100" rx="3" ry="3" width="26" height="18" fill="url(#glass_grad)" stroke="#4488ff" stroke-width="1.2" opacity="0.8" transform="rotate(-2, 149, 109)"/>
-  <!-- Bridge -->
-  <path d="M124,107 Q130,103 136,107" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.8"/>
-  <!-- Temples -->
-  <line x1="98" y1="105" x2="92" y2="103" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
-  <line x1="162" y1="106" x2="168" y2="104" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
-
-  <!-- Eyes - looking sideways (to the right), nervous -->
-  <ellipse cx="111" cy="109" rx="8" ry="5" fill="#1a1a2e"/>
-  <ellipse cx="149" cy="109" rx="8" ry="5" fill="#1a1a2e"/>
-  <!-- Pupils shifted right -->
-  <circle cx="114" cy="109" r="3" fill="#443322"/>
-  <circle cx="152" cy="109" r="3" fill="#443322"/>
-  <circle cx="115" cy="109" r="1.5" fill="#0a0a1a"/>
-  <circle cx="153" cy="109" r="1.5" fill="#0a0a1a"/>
-  <circle cx="116" cy="108" r="0.8" fill="#ffffff" opacity="0.6"/>
-  <circle cx="154" cy="108" r="0.8" fill="#ffffff" opacity="0.6"/>
-
-  <!-- Eyebrows - raised with worry -->
-  <path d="M100,95 Q111,91 122,95" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-  <path d="M138,95 Q149,91 160,95" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-
-  <!-- Sweat drop -->
-  <path d="M170,92 Q172,97 170,102 Q168,97 170,92 Z" fill="#88ccff" opacity="0.5"/>
-
-  <!-- Nose -->
-  <path d="M130,112 L127,128 Q130,131 133,128 Z" fill="#a08060" opacity="0.4"/>
-
-  <!-- Mouth - tight, nervous -->
-  <path d="M120,143 Q130,141 140,143" fill="none" stroke="#8a6a5a" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Slight quiver line -->
-  <path d="M124,145 Q130,143 136,145" fill="none" stroke="#8a6a5a" stroke-width="0.5" opacity="0.3"/>
+  <!-- === HEAD - turned slightly, looking sideways === -->
+  <path d="M95,88 Q95,56 130,48 Q164,56 164,88 L164,126 Q164,142 154,152 Q142,165 130,167 Q118,165 106,152 Q95,142 95,126Z" fill="#f0cba8"/>
+  <!-- Cel-shadow -->
+  <path d="M95,100 Q95,88 105,80 L95,100 L95,130 Q97,144 107,154 Q113,160 119,163 L118,165 Q106,152 95,142Z" fill="#d4a878" opacity="0.35"/>
 
   <!-- Ears -->
-  <ellipse cx="94" cy="112" rx="5" ry="9" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
-  <ellipse cx="166" cy="112" rx="5" ry="9" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
+  <ellipse cx="93" cy="114" rx="5" ry="10" fill="#f0cba8" stroke="#d4a878" stroke-width="0.5"/>
+  <ellipse cx="166" cy="114" rx="5" ry="10" fill="#f0cba8" stroke="#d4a878" stroke-width="0.5"/>
+  <path d="M91,110 Q90,114 91,118" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.4"/>
+  <path d="M168,110 Q169,114 168,118" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.4"/>
 
-  <!-- ID badge -->
-  <rect x="68" y="280" width="16" height="22" rx="2" fill="#1a1a2e" stroke="#4488ff" stroke-width="0.5" opacity="0.6"/>
-  <rect x="71" y="283" width="10" height="6" rx="1" fill="#4488ff" opacity="0.2"/>
+  <!-- Hair - slightly disheveled -->
+  <path d="M93,84 Q93,54 130,46 Q166,54 166,84 L166,76 Q166,50 130,44 Q93,50 93,76Z" fill="#1a1a2e"/>
+  <path d="M91,78 Q89,64 97,54 Q110,46 122,46" fill="#1a1a2e"/>
+  <path d="M168,78 Q170,64 162,54 Q150,46 124,46" fill="#1a1a2e"/>
+  <path d="M120,46 Q122,54 122,66" fill="none" stroke="#0e0e1a" stroke-width="1" opacity="0.5"/>
+  <path d="M100,58 Q112,50 122,48" fill="none" stroke="#2e2e44" stroke-width="1.2" opacity="0.35"/>
+  <!-- Slight disheveled strand -->
+  <path d="M106,52 Q103,48 101,52 Q99,56 103,58" fill="#1a1a2e" opacity="0.8"/>
 
-  <!-- Ambient -->
+  <!-- === GLASSES - slightly tilted from adjusting === -->
+  <rect x="97" y="99" rx="3" ry="3" width="27" height="19" fill="url(#glass_lens)" stroke="#4488ff" stroke-width="1.3" opacity="0.85" transform="rotate(-2, 111, 108)"/>
+  <rect x="135" y="100" rx="3" ry="3" width="27" height="19" fill="url(#glass_lens)" stroke="#4488ff" stroke-width="1.3" opacity="0.85" transform="rotate(-2, 149, 109)"/>
+  <!-- Bridge -->
+  <path d="M124,107 Q130,103 135,107" fill="none" stroke="#4488ff" stroke-width="1.1" opacity="0.8"/>
+  <!-- Temples -->
+  <line x1="97" y1="106" x2="91" y2="104" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
+  <line x1="162" y1="107" x2="168" y2="105" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
+  <!-- Glare -->
+  <path d="M100,102 L107,102 L104,106" fill="#ffffff" opacity="0.1"/>
+  <path d="M138,103 L145,103 L142,107" fill="#ffffff" opacity="0.1"/>
+
+  <!-- === EYES - slightly wider, pupils looking sideways (nervous) === -->
+  <!-- Left eye -->
+  <path d="M101,109 Q105,101 111,100 Q117,101 121,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M102,109 Q111,116 120,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="0.8"/>
+  <circle cx="113" cy="108" r="7" fill="url(#iris_grad_l)"/>
+  <circle cx="113" cy="108" r="4" fill="#1a0e06"/>
+  <circle cx="116" cy="105" r="2.2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="110" cy="110" r="1.2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="115" cy="111" r="0.7" fill="#ffffff" opacity="0.3"/>
+
+  <!-- Right eye -->
+  <path d="M139,109 Q143,101 149,100 Q155,101 159,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M140,109 Q149,116 158,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="0.8"/>
+  <circle cx="151" cy="108" r="7" fill="url(#iris_grad_r)"/>
+  <circle cx="151" cy="108" r="4" fill="#1a0e06"/>
+  <circle cx="154" cy="105" r="2.2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="148" cy="110" r="1.2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="153" cy="111" r="0.7" fill="#ffffff" opacity="0.3"/>
+
+  <!-- Eyebrows - raised with worry, inner brows angled up -->
+  <path d="M100,93 Q111,89 122,94" fill="none" stroke="#1a1a2e" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M136,94 Q147,89 158,93" fill="none" stroke="#1a1a2e" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- Sweat drop near right temple - anime style -->
+  <path d="M172,88 Q174,95 172,102 Q170,95 172,88Z" fill="url(#sweat_grad)" filter="url(#soft_glow)"/>
+
+  <!-- Nose -->
+  <path d="M130,114 L127,130 Q130,133 133,130Z" fill="#d4a878" opacity="0.4"/>
+
+  <!-- Mouth - tight smile, pressed lips -->
+  <path d="M118,146 Q128,143 138,146" fill="none" stroke="#8a6a5a" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Tight press line -->
+  <path d="M122,148 Q128,146 134,148" fill="none" stroke="#8a6a5a" stroke-width="0.6" opacity="0.3"/>
+
+  <!-- Ambient glow -->
   <ellipse cx="128" cy="300" rx="80" ry="30" fill="#4488ff" opacity="0.02"/>
+
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="'Courier New', monospace" font-size="11" fill="#4488ff" text-anchor="middle" opacity="0.5">[ NERVOUS ]</text>
 </svg>

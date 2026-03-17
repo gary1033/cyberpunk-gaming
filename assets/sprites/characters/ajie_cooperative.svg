@@ -4,18 +4,14 @@
       <stop offset="0%" stop-color="#1a0f00"/>
       <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <filter id="neon_orange">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c4956e"/>
-      <stop offset="100%" stop-color="#a47a58"/>
-    </linearGradient>
-    <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="100%" stop-color="#0d0d1a"/>
-    </linearGradient>
+    <radialGradient id="iris_grad" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#a0703c"/>
+      <stop offset="100%" stop-color="#5a3018"/>
+    </radialGradient>
   </defs>
 
   <!-- Background -->
@@ -23,38 +19,41 @@
   <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff8800" stroke-width="1.5" opacity="0.4"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle" filter="url(#neon_orange)">阿傑</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle" filter="url(#glow)">阿傑</text>
   <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle">阿傑</text>
 
   <!-- Neck - relaxed -->
-  <rect x="104" y="180" width="48" height="30" rx="6" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1"/>
+  <rect x="104" y="182" width="48" height="28" rx="6" fill="#c8a882"/>
+  <path d="M104,182 L114,182 L114,210 L104,210 Z" fill="#2a1a0a" opacity="0.2"/>
 
   <!-- Body - relaxed open posture -->
-  <path d="M128,208 L128,384 L38,384 L38,268 Q38,228 82,218 Q110,208 128,208 Z" fill="url(#shirt_grad)"/>
-  <path d="M128,208 L128,384 L218,384 L218,268 Q218,228 174,218 Q146,208 128,208 Z" fill="url(#shirt_grad)"/>
+  <path d="M128,208 L128,384 L38,384 L38,268 Q38,228 82,218 Q110,208 128,208 Z" fill="#1a1a2e"/>
+  <path d="M128,208 L128,384 L218,384 L218,268 Q218,228 174,218 Q146,208 128,208 Z" fill="#1a1a2e"/>
+  <path d="M128,208 L128,384 L80,384 L80,256 Q84,232 128,208 Z" fill="#0d0d1a" opacity="0.35"/>
   <path d="M82,218 Q58,224 44,244 Q38,258 38,268" fill="none" stroke="#2a2a4e" stroke-width="2"/>
   <path d="M174,218 Q198,224 212,244 Q218,258 218,268" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
   <!-- Left arm relaxed -->
-  <path d="M38,268 Q42,296 48,324 Q52,350 58,374" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1"/>
+  <path d="M38,268 Q42,296 48,324 Q52,350 58,374" fill="#c8a882"/>
+  <path d="M38,268 Q40,288 42,308 L48,308 Q46,288 44,268 Z" fill="#2a1a0a" opacity="0.25"/>
   <!-- Open hand -->
-  <path d="M58,374 Q54,378 56,382 Q60,384 64,382 Q66,378 62,374" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="0.8"/>
+  <path d="M58,374 Q54,378 56,382 Q60,384 64,382 Q66,378 62,374" fill="#c8a882"/>
 
   <!-- Right arm slightly raised, open gesture -->
-  <path d="M218,268 Q210,282 200,298 Q188,314 176,322" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1"/>
-  <path d="M176,322 Q172,318 170,312" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="0.8"/>
-  <path d="M176,322 Q174,326 175,332" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="0.8"/>
-  <path d="M176,322 Q180,328 182,334" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="0.8"/>
-  <path d="M176,322 Q184,320 188,326" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="0.8"/>
+  <path d="M218,268 Q210,282 200,298 Q188,314 176,322" fill="#c8a882"/>
+  <path d="M176,322 Q172,318 170,312" fill="#c8a882" stroke="#a08060" stroke-width="0.6"/>
+  <path d="M176,322 Q174,326 175,332" fill="#c8a882" stroke="#a08060" stroke-width="0.6"/>
+  <path d="M176,322 Q180,328 182,334" fill="#c8a882" stroke="#a08060" stroke-width="0.6"/>
+  <path d="M176,322 Q184,320 188,326" fill="#c8a882" stroke="#a08060" stroke-width="0.6"/>
 
   <!-- Circuit tattoos - warm steady glow -->
-  <g filter="url(#neon_orange)" opacity="0.65">
+  <g filter="url(#glow)" opacity="0.65">
     <path d="M44,278 L52,278 L52,292 L62,292 L62,308" fill="none" stroke="#ff8800" stroke-width="1.5"/>
     <circle cx="44" cy="278" r="2.5" fill="#ff8800"/>
     <circle cx="62" cy="292" r="2.5" fill="#ff8800"/>
     <circle cx="62" cy="308" r="2.5" fill="#ff8800"/>
   </g>
-  <g filter="url(#neon_orange)" opacity="0.65">
+  <g filter="url(#glow)" opacity="0.65">
     <path d="M212,274 L204,278 L196,286 L190,294" fill="none" stroke="#ff8800" stroke-width="1.5"/>
     <circle cx="212" cy="274" r="2.5" fill="#ff8800"/>
     <circle cx="196" cy="286" r="2.5" fill="#ff8800"/>
@@ -63,61 +62,79 @@
   <!-- Shirt V-neck -->
   <path d="M98,218 L128,248 L158,218" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
-  <!-- Head - slight tilt down showing warmth -->
-  <path d="M82,90 Q82,48 128,42 Q174,48 174,90 L174,148 Q174,164 162,176 Q150,188 128,190 Q106,188 94,176 Q82,164 82,148 Z" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="2"/>
+  <!-- Head - slight warm tilt -->
+  <path d="M78,88 Q78,44 128,38 Q178,44 178,88 L178,148 Q178,164 166,176 Q152,188 128,190 Q104,188 90,176 Q78,164 78,148 Z" fill="#c8a882"/>
+  <path d="M78,88 L78,148 Q78,164 90,176 Q96,181 104,185 L104,98 Q92,92 78,88 Z" fill="#2a1a0a" opacity="0.18"/>
+  <path d="M90,176 Q104,188 128,190 L128,183 Q110,181 98,172 Z" fill="#2a1a0a" opacity="0.12"/>
 
-  <!-- Bald head -->
-  <path d="M88,74 Q128,42 168,74" fill="#5a4030" opacity="0.25"/>
-  <ellipse cx="128" cy="58" rx="32" ry="10" fill="#b08860" opacity="0.1"/>
+  <!-- Buzz cut -->
+  <path d="M84,72 Q84,46 128,40 Q172,46 172,72 Q128,58 84,72 Z" fill="#3a2a1a"/>
+  <path d="M110,52 Q128,46 146,52 Q128,50 110,52 Z" fill="#6a5a4a" opacity="0.3"/>
 
   <!-- Ears -->
-  <ellipse cx="80" cy="126" rx="8" ry="14" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
-  <ellipse cx="176" cy="126" rx="8" ry="14" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
+  <ellipse cx="76" cy="126" rx="8" ry="14" fill="#c8a882"/>
+  <ellipse cx="76" cy="126" rx="5" ry="10" fill="#2a1a0a" opacity="0.12"/>
+  <ellipse cx="180" cy="126" rx="8" ry="14" fill="#c8a882"/>
 
-  <!-- Eyes - warm, direct, slight crinkle from smile -->
-  <!-- Left eye -->
-  <path d="M90,120 Q108,110 126,120" fill="#1a1a2e"/>
-  <path d="M90,120 Q108,130 126,120" fill="#1a1a2e"/>
-  <circle cx="108" cy="120" r="8" fill="#8b5a2b"/>
-  <circle cx="108" cy="120" r="5" fill="#0a0a1a"/>
-  <circle cx="105" cy="117" r="2.5" fill="#ffffff" opacity="0.85"/>
-  <circle cx="111" cy="122" r="1.5" fill="#ffffff" opacity="0.5"/>
-  <circle cx="107" cy="118" r="1" fill="#ffffff" opacity="0.3"/>
-  <path d="M88,120 Q108,108 128,120" fill="none" stroke="#2a1a0a" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Left eye - warm, direct, slight crinkle from smile -->
+  <path d="M90,118 Q108,108 126,118" fill="#f0ece8"/>
+  <path d="M90,118 Q108,130 126,118" fill="#f0ece8"/>
+  <circle cx="108" cy="118" r="10" fill="url(#iris_grad)"/>
+  <circle cx="108" cy="118" r="4.5" fill="#0a0a0a"/>
+  <circle cx="104" cy="114" r="3.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="112" cy="121" r="2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="107" cy="116" r="1" fill="#ffffff" opacity="0.3"/>
+  <path d="M88,118 Q108,106 128,118" fill="none" stroke="#1a0a00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M92,121 Q108,130 124,121" fill="none" stroke="#1a0a00" stroke-width="0.8" opacity="0.3"/>
   <!-- Smile crinkle -->
-  <path d="M88,124 Q86,126 88,128" fill="none" stroke="#8a6040" stroke-width="0.6" opacity="0.35"/>
+  <path d="M88,122 Q86,125 88,128" fill="none" stroke="#a08060" stroke-width="0.8" opacity="0.3"/>
 
-  <!-- Right eye -->
-  <path d="M130,120 Q148,110 166,120" fill="#1a1a2e"/>
-  <path d="M130,120 Q148,130 166,120" fill="#1a1a2e"/>
-  <circle cx="148" cy="120" r="8" fill="#8b5a2b"/>
-  <circle cx="148" cy="120" r="5" fill="#0a0a1a"/>
-  <circle cx="145" cy="117" r="2.5" fill="#ffffff" opacity="0.85"/>
-  <circle cx="151" cy="122" r="1.5" fill="#ffffff" opacity="0.5"/>
-  <circle cx="147" cy="118" r="1" fill="#ffffff" opacity="0.3"/>
-  <path d="M128,120 Q148,108 168,120" fill="none" stroke="#2a1a0a" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M168,124 Q170,126 168,128" fill="none" stroke="#8a6040" stroke-width="0.6" opacity="0.35"/>
+  <!-- Right eye - warm, direct -->
+  <path d="M130,118 Q148,108 166,118" fill="#f0ece8"/>
+  <path d="M130,118 Q148,130 166,118" fill="#f0ece8"/>
+  <circle cx="148" cy="118" r="10" fill="url(#iris_grad)"/>
+  <circle cx="148" cy="118" r="4.5" fill="#0a0a0a"/>
+  <circle cx="144" cy="114" r="3.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="152" cy="121" r="2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="147" cy="116" r="1" fill="#ffffff" opacity="0.3"/>
+  <path d="M128,118 Q148,106 168,118" fill="none" stroke="#1a0a00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M132,121 Q148,130 164,121" fill="none" stroke="#1a0a00" stroke-width="0.8" opacity="0.3"/>
+  <path d="M168,122 Q170,125 168,128" fill="none" stroke="#a08060" stroke-width="0.8" opacity="0.3"/>
 
   <!-- Eyebrows - relaxed, slightly raised in friendly way -->
-  <path d="M90,108 Q108,102 126,107" fill="none" stroke="#2a1a0a" stroke-width="3" stroke-linecap="round"/>
-  <path d="M130,107 Q148,102 166,108" fill="none" stroke="#2a1a0a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M88,106 Q108,100 126,105" fill="none" stroke="#1a0a00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M130,105 Q148,100 168,106" fill="none" stroke="#1a0a00" stroke-width="3" stroke-linecap="round"/>
 
   <!-- Nose -->
-  <path d="M126,140 Q128,146 130,140" fill="none" stroke="#8a6040" stroke-width="1.2" opacity="0.45"/>
+  <path d="M126,136 L124,144 Q128,148 132,144" fill="none" stroke="#a08060" stroke-width="1.3" opacity="0.5"/>
 
   <!-- Mouth - warm slight smile -->
-  <path d="M114,160 Q122,166 128,167 Q134,166 142,160" fill="none" stroke="#6a4030" stroke-width="2" stroke-linecap="round"/>
+  <path d="M112,160 Q122,167 128,168 Q134,167 144,160" fill="none" stroke="#6a4030" stroke-width="2" stroke-linecap="round"/>
   <!-- Hint of teeth in smile -->
-  <path d="M118,162 Q128,165 138,162" fill="#ddccbb" opacity="0.2"/>
+  <path d="M116,162 Q128,166 140,162" fill="#ddccbb" opacity="0.2"/>
 
-  <!-- Scar -->
-  <line x1="86" y1="140" x2="95" y2="150" stroke="#b08860" stroke-width="1" opacity="0.4"/>
-
-  <!-- Circuit glow on neck - warm steady -->
-  <g filter="url(#neon_orange)" opacity="0.4">
-    <path d="M112,186 L112,196 L124,196" fill="none" stroke="#ff8800" stroke-width="1"/>
-    <circle cx="124" cy="196" r="1.5" fill="#ff8800"/>
+  <!-- Stubble -->
+  <g opacity="0.08" fill="#3a2a1a">
+    <circle cx="114" cy="174" r="0.8"/><circle cx="118" cy="176" r="0.8"/>
+    <circle cx="122" cy="175" r="0.8"/><circle cx="126" cy="177" r="0.8"/>
+    <circle cx="130" cy="175" r="0.8"/><circle cx="134" cy="176" r="0.8"/>
+    <circle cx="138" cy="174" r="0.8"/><circle cx="142" cy="175" r="0.8"/>
   </g>
 
+  <!-- Scar -->
+  <line x1="84" y1="138" x2="93" y2="148" stroke="#a08060" stroke-width="1" opacity="0.35"/>
+
+  <!-- Circuit glow on neck - warm steady -->
+  <g filter="url(#glow)" opacity="0.4">
+    <path d="M112,186 L112,196 L124,196" fill="none" stroke="#ff8800" stroke-width="1"/>
+    <circle cx="124" cy="196" r="1.5" fill="#ff8800"/>
+    <path d="M144,188 L144,194 L136,194" fill="none" stroke="#ff8800" stroke-width="1"/>
+    <circle cx="136" cy="194" r="1.5" fill="#ff8800"/>
+  </g>
+
+  <!-- Ambient glow -->
   <ellipse cx="128" cy="310" rx="80" ry="30" fill="#ff8800" opacity="0.03"/>
+
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="'Courier New', monospace" font-size="11" fill="#ff8800" text-anchor="middle" opacity="0.6">COOPERATIVE</text>
 </svg>

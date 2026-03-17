@@ -1,139 +1,174 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
     <radialGradient id="bg_glow" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#0a0f1a" />
-      <stop offset="100%" stop-color="#0a0a1a" />
+      <stop offset="0%" stop-color="#0d1025"/>
+      <stop offset="100%" stop-color="#080810"/>
     </radialGradient>
-    <filter id="neon_blue">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="glass_reflect">
-      <feGaussianBlur stdDeviation="1" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <filter id="soft_glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c8a882" />
-      <stop offset="100%" stop-color="#b09070" />
+    <radialGradient id="iris_grad_l" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#6b4422"/>
+      <stop offset="60%" stop-color="#3d2211"/>
+      <stop offset="100%" stop-color="#1a0e06"/>
+    </radialGradient>
+    <radialGradient id="iris_grad_r" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#6b4422"/>
+      <stop offset="60%" stop-color="#3d2211"/>
+      <stop offset="100%" stop-color="#1a0e06"/>
+    </radialGradient>
+    <linearGradient id="glass_lens" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#2266cc" stop-opacity="0.06"/>
     </linearGradient>
     <linearGradient id="coat_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#e8e8f0" />
-      <stop offset="50%" stop-color="#d0d0e0" />
-      <stop offset="100%" stop-color="#b8b8c8" />
+      <stop offset="0%" stop-color="#eeeef4"/>
+      <stop offset="100%" stop-color="#c8c8d6"/>
     </linearGradient>
-    <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a2244" />
-      <stop offset="100%" stop-color="#0d1530" />
-    </linearGradient>
-    <linearGradient id="hair_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a1a2e" />
-      <stop offset="100%" stop-color="#0d0d1a" />
-    </linearGradient>
-    <linearGradient id="glass_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.15" />
-      <stop offset="100%" stop-color="#2266cc" stop-opacity="0.1" />
+    <linearGradient id="badge_holo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4488ff" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#66aaff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4488ff" stop-opacity="0.3"/>
     </linearGradient>
   </defs>
 
   <!-- Background -->
   <rect width="256" height="384" fill="url(#bg_glow)"/>
-  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.4"/>
+  <rect x="3" y="3" width="250" height="378" rx="5" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.35"/>
+  <!-- Subtle grid lines -->
+  <line x1="0" y1="96" x2="256" y2="96" stroke="#4488ff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="192" x2="256" y2="192" stroke="#4488ff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="288" x2="256" y2="288" stroke="#4488ff" stroke-width="0.3" opacity="0.05"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle" filter="url(#neon_blue)">Dr.陳</text>
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle">Dr.陳</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#4488ff" text-anchor="middle" filter="url(#glow)">Dr. 陳</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#66aaff" text-anchor="middle">Dr. 陳</text>
 
+  <!-- === BODY === -->
   <!-- Neck -->
-  <rect x="114" y="160" width="28" height="28" rx="4" fill="url(#skin_grad)"/>
+  <rect x="115" y="168" width="26" height="22" rx="3" fill="#f0cba8"/>
+  <path d="M120,170 L120,188" fill="none" stroke="#d4a878" stroke-width="0.6" opacity="0.3"/>
 
-  <!-- Body - lab coat over dark shirt -->
-  <!-- Inner shirt -->
-  <path d="M128,186 Q128,198 128,210 L128,384 L55,384 L55,270 Q55,230 88,218 Q112,206 128,186 Z" fill="url(#shirt_grad)"/>
-  <path d="M128,186 Q128,198 128,210 L128,384 L201,384 L201,270 Q201,230 168,218 Q144,206 128,186 Z" fill="url(#shirt_grad)"/>
+  <!-- Dark undershirt -->
+  <path d="M128,188 L128,384 L58,384 L58,268 Q58,232 90,218 Q114,206 128,188Z" fill="#0d1530"/>
+  <path d="M128,188 L128,384 L198,384 L198,268 Q198,232 166,218 Q142,206 128,188Z" fill="#0d1530"/>
 
-  <!-- Lab coat - white, open front -->
-  <path d="M88,218 Q68,224 58,244 Q55,255 55,270 L55,384 L85,384 L85,240 Q88,228 95,222" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M168,218 Q188,224 198,244 Q201,255 201,270 L201,384 L171,384 L171,240 Q168,228 161,222" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
+  <!-- Lab coat left -->
+  <path d="M90,218 Q68,225 58,248 Q56,260 56,272 L56,384 L88,384 L88,244 Q90,230 96,222" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <!-- Lab coat right -->
+  <path d="M166,218 Q188,225 198,248 Q200,260 200,272 L200,384 L168,384 L168,244 Q166,230 160,222" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <!-- Coat cel-shadow left -->
+  <path d="M56,272 L56,384 L72,384 L72,260 Q68,248 70,236" fill="#b8b8cc" opacity="0.4"/>
+  <!-- Coat cel-shadow right -->
+  <path d="M200,272 L200,384 L184,384 L184,260 Q188,248 186,236" fill="#b8b8cc" opacity="0.4"/>
 
-  <!-- Lab coat lapels -->
-  <path d="M100,195 L118,230 L100,240" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M156,195 L138,230 L156,240" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
+  <!-- Lapels -->
+  <path d="M102,195 L120,232 L102,244" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
+  <path d="M154,195 L136,232 L154,244" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.5"/>
 
-  <!-- Shirt collar visible -->
-  <path d="M110,192 L128,215 L146,192" fill="none" stroke="#1a2244" stroke-width="1.5"/>
+  <!-- Collar V -->
+  <path d="M112,192 L128,216 L144,192" fill="none" stroke="#0d1530" stroke-width="1.8"/>
 
-  <!-- Lab coat pocket with pen -->
-  <rect x="160" y="260" width="22" height="28" rx="2" fill="none" stroke="#b0b0c0" stroke-width="0.8" opacity="0.6"/>
-  <line x1="168" y1="255" x2="168" y2="265" stroke="#4488ff" stroke-width="1.5" opacity="0.6"/>
-  <circle cx="168" cy="254" r="1.5" fill="#4488ff" opacity="0.6"/>
+  <!-- Coat tech accent lines -->
+  <line x1="88" y1="260" x2="88" y2="384" stroke="#4488ff" stroke-width="0.6" opacity="0.12"/>
+  <line x1="168" y1="260" x2="168" y2="384" stroke="#4488ff" stroke-width="0.6" opacity="0.12"/>
 
-  <!-- Blue accent line on coat -->
-  <line x1="85" y1="250" x2="85" y2="384" stroke="#4488ff" stroke-width="0.5" opacity="0.15"/>
-  <line x1="171" y1="250" x2="171" y2="384" stroke="#4488ff" stroke-width="0.5" opacity="0.15"/>
+  <!-- Pocket -->
+  <rect x="160" y="268" width="20" height="26" rx="2" fill="none" stroke="#b0b0c0" stroke-width="0.7" opacity="0.5"/>
+  <!-- Pen -->
+  <line x1="167" y1="262" x2="167" y2="272" stroke="#4488ff" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="167" cy="261" r="1.5" fill="#4488ff" opacity="0.5"/>
 
-  <!-- Arms at sides in coat -->
-  <path d="M55,270 Q54,300 55,330 Q56,355 58,380" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <path d="M201,270 Q202,300 201,330 Q200,355 198,380" fill="url(#coat_grad)" stroke="#b0b0c0" stroke-width="0.5"/>
-  <!-- Hands visible at bottom -->
-  <path d="M55,370 Q52,375 54,380 L62,380 Q64,375 60,370" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
-  <path d="M198,370 Q201,375 199,380 L191,380 Q189,375 193,370" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
+  <!-- Holographic badge -->
+  <rect x="66" y="278" width="18" height="24" rx="2" fill="#0d1020" stroke="#4488ff" stroke-width="0.6" opacity="0.7"/>
+  <rect x="69" y="281" width="12" height="7" rx="1" fill="url(#badge_holo)" opacity="0.5"/>
+  <line x1="69" y1="292" x2="81" y2="292" stroke="#4488ff" stroke-width="0.5" opacity="0.3"/>
+  <line x1="69" y1="295" x2="78" y2="295" stroke="#4488ff" stroke-width="0.4" opacity="0.2"/>
 
-  <!-- Head -->
-  <path d="M94,82 Q94,52 128,46 Q162,52 162,82 L162,122 Q162,140 153,150 Q143,162 128,164 Q113,162 103,150 Q94,140 94,122 Z" fill="url(#skin_grad)"/>
+  <!-- Arms at sides -->
+  <path d="M56,272 Q54,310 56,350 Q57,370 58,384" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.4"/>
+  <path d="M200,272 Q202,310 200,350 Q199,370 198,384" fill="url(#coat_grad)" stroke="#b8b8c8" stroke-width="0.4"/>
+  <!-- Hands -->
+  <path d="M55,374 Q52,378 54,383 L63,383 Q65,378 61,374" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
+  <path d="M198,374 Q201,378 199,383 L190,383 Q188,378 192,374" fill="#f0cba8" stroke="#d4a878" stroke-width="0.4"/>
 
-  <!-- Hair - neat, parted, dark -->
-  <path d="M92,78 Q92,50 128,44 Q164,50 164,78 L164,72 Q164,48 128,42 Q92,48 92,72 Z" fill="url(#hair_grad)"/>
-  <!-- Hair part line -->
-  <path d="M120,44 Q122,50 122,62" fill="none" stroke="#0a0a14" stroke-width="0.8" opacity="0.5"/>
-  <!-- Hair volume left -->
-  <path d="M90,72 Q88,60 95,52 Q108,44 120,44" fill="url(#hair_grad)"/>
-  <!-- Hair volume right -->
-  <path d="M166,72 Q168,60 161,52 Q148,44 122,44" fill="url(#hair_grad)"/>
-  <!-- Hair highlight -->
-  <path d="M100,55 Q110,48 120,46" fill="none" stroke="#2a2a3e" stroke-width="1" opacity="0.4"/>
-
-  <!-- Glasses - rectangular frames -->
-  <rect x="96" y="100" rx="3" ry="3" width="26" height="18" fill="url(#glass_grad)" stroke="#4488ff" stroke-width="1.2" opacity="0.8"/>
-  <rect x="134" y="100" rx="3" ry="3" width="26" height="18" fill="url(#glass_grad)" stroke="#4488ff" stroke-width="1.2" opacity="0.8"/>
-  <!-- Bridge -->
-  <path d="M122,108 Q128,104 134,108" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.8"/>
-  <!-- Temples -->
-  <line x1="96" y1="106" x2="90" y2="104" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
-  <line x1="160" y1="106" x2="166" y2="104" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
-  <!-- Glass reflection -->
-  <path d="M100,103 L106,103 L104,106" fill="#ffffff" opacity="0.08"/>
-  <path d="M138,103 L144,103 L142,106" fill="#ffffff" opacity="0.08"/>
-
-  <!-- Eyes behind glasses - mild expression -->
-  <ellipse cx="109" cy="109" rx="8" ry="5" fill="#1a1a2e"/>
-  <ellipse cx="147" cy="109" rx="8" ry="5" fill="#1a1a2e"/>
-  <circle cx="109" cy="109" r="3" fill="#443322"/>
-  <circle cx="147" cy="109" r="3" fill="#443322"/>
-  <circle cx="109" cy="109" r="1.5" fill="#0a0a1a"/>
-  <circle cx="147" cy="109" r="1.5" fill="#0a0a1a"/>
-  <circle cx="111" cy="108" r="0.8" fill="#ffffff" opacity="0.6"/>
-  <circle cx="149" cy="108" r="0.8" fill="#ffffff" opacity="0.6"/>
-
-  <!-- Eyebrows - neutral, neat -->
-  <path d="M98,97 Q109,94 120,97" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-  <path d="M136,97 Q147,94 158,97" fill="none" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-
-  <!-- Nose -->
-  <path d="M128,112 L125,128 Q128,131 131,128 Z" fill="#a08060" opacity="0.4"/>
-
-  <!-- Mouth - mild, neutral -->
-  <path d="M118,142 Q128,145 138,142" fill="none" stroke="#8a6a5a" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- === HEAD === -->
+  <!-- Head shape - V-chin, slightly rounder for middle-age -->
+  <path d="M94,88 Q94,56 128,48 Q162,56 162,88 L162,126 Q162,142 152,152 Q140,165 128,167 Q116,165 104,152 Q94,142 94,126Z" fill="#f0cba8"/>
+  <!-- Cel-shadow on face -->
+  <path d="M94,100 Q94,88 104,80 L94,100 L94,130 Q96,144 106,154 Q112,160 118,163 L116,165 Q104,152 94,142Z" fill="#d4a878" opacity="0.35"/>
 
   <!-- Ears -->
-  <ellipse cx="92" cy="112" rx="5" ry="9" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
-  <ellipse cx="164" cy="112" rx="5" ry="9" fill="url(#skin_grad)" stroke="#b09070" stroke-width="0.5"/>
+  <ellipse cx="92" cy="114" rx="5" ry="10" fill="#f0cba8" stroke="#d4a878" stroke-width="0.5"/>
+  <ellipse cx="164" cy="114" rx="5" ry="10" fill="#f0cba8" stroke="#d4a878" stroke-width="0.5"/>
+  <path d="M90,110 Q89,114 90,118" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.4"/>
+  <path d="M166,110 Q167,114 166,118" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.4"/>
 
-  <!-- ID badge on coat -->
-  <rect x="68" y="280" width="16" height="22" rx="2" fill="#1a1a2e" stroke="#4488ff" stroke-width="0.5" opacity="0.6"/>
-  <rect x="71" y="283" width="10" height="6" rx="1" fill="#4488ff" opacity="0.2"/>
-  <line x1="71" y1="293" x2="81" y2="293" stroke="#4488ff" stroke-width="0.5" opacity="0.3"/>
-  <line x1="71" y1="296" x2="79" y2="296" stroke="#4488ff" stroke-width="0.5" opacity="0.2"/>
+  <!-- Hair - short, neat, dark, parted, slightly receding at temples -->
+  <path d="M92,84 Q92,54 128,46 Q164,54 164,84 L164,76 Q164,50 128,44 Q92,50 92,76Z" fill="#1a1a2e"/>
+  <!-- Left hair volume -->
+  <path d="M90,78 Q88,64 96,54 Q108,46 122,46" fill="#1a1a2e"/>
+  <!-- Right hair volume -->
+  <path d="M166,78 Q168,64 160,54 Q148,46 124,46" fill="#1a1a2e"/>
+  <!-- Part line -->
+  <path d="M120,46 Q122,54 122,66" fill="none" stroke="#0e0e1a" stroke-width="1" opacity="0.5"/>
+  <!-- Hair highlight -->
+  <path d="M100,58 Q112,50 122,48" fill="none" stroke="#2e2e44" stroke-width="1.2" opacity="0.35"/>
+  <!-- Receding temples -->
+  <path d="M96,72 Q94,66 98,60" fill="#f0cba8" opacity="0.25"/>
+  <path d="M160,72 Q162,66 158,60" fill="#f0cba8" opacity="0.25"/>
 
-  <!-- Ambient -->
+  <!-- === GLASSES - rectangular frames === -->
+  <rect x="96" y="100" rx="3" ry="3" width="27" height="19" fill="url(#glass_lens)" stroke="#4488ff" stroke-width="1.3" opacity="0.85"/>
+  <rect x="133" y="100" rx="3" ry="3" width="27" height="19" fill="url(#glass_lens)" stroke="#4488ff" stroke-width="1.3" opacity="0.85"/>
+  <!-- Bridge -->
+  <path d="M123,108 Q128,104 133,108" fill="none" stroke="#4488ff" stroke-width="1.1" opacity="0.8"/>
+  <!-- Temples -->
+  <line x1="96" y1="107" x2="90" y2="105" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
+  <line x1="160" y1="107" x2="166" y2="105" stroke="#4488ff" stroke-width="1" opacity="0.6"/>
+  <!-- Glare -->
+  <path d="M99,103 L106,103 L103,107" fill="#ffffff" opacity="0.1"/>
+  <path d="M136,103 L143,103 L140,107" fill="#ffffff" opacity="0.1"/>
+
+  <!-- === EYES - Shounen style with thick upper lid === -->
+  <!-- Left eye -->
+  <path d="M100,109 Q104,102 109,101 Q114,102 118,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M101,109 Q109,115 117,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="0.8"/>
+  <circle cx="109" cy="108" r="7" fill="url(#iris_grad_l)"/>
+  <circle cx="109" cy="108" r="4" fill="#1a0e06"/>
+  <!-- Highlights -->
+  <circle cx="112" cy="105" r="2.2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="106" cy="110" r="1.2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="111" cy="111" r="0.7" fill="#ffffff" opacity="0.3"/>
+
+  <!-- Right eye -->
+  <path d="M138,109 Q142,102 147,101 Q152,102 156,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M139,109 Q147,115 155,109" fill="#eae6e0" stroke="#1a1a2e" stroke-width="0.8"/>
+  <circle cx="147" cy="108" r="7" fill="url(#iris_grad_r)"/>
+  <circle cx="147" cy="108" r="4" fill="#1a0e06"/>
+  <!-- Highlights -->
+  <circle cx="150" cy="105" r="2.2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="144" cy="110" r="1.2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="149" cy="111" r="0.7" fill="#ffffff" opacity="0.3"/>
+
+  <!-- Eyebrows - thin for middle-age, neutral arch -->
+  <path d="M98,96 Q109,92 120,96" fill="none" stroke="#1a1a2e" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M136,96 Q147,92 158,96" fill="none" stroke="#1a1a2e" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Nose - small, simple -->
+  <path d="M128,114 L126,130 Q128,133 130,130Z" fill="#d4a878" opacity="0.4"/>
+
+  <!-- Mouth - mild, composed, professional -->
+  <path d="M118,146 Q128,149 138,146" fill="none" stroke="#8a6a5a" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- Ambient glow -->
   <ellipse cx="128" cy="300" rx="80" ry="30" fill="#4488ff" opacity="0.02"/>
+
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="'Courier New', monospace" font-size="11" fill="#4488ff" text-anchor="middle" opacity="0.5">[ DEFAULT ]</text>
 </svg>

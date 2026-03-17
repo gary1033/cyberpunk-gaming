@@ -1,117 +1,153 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <linearGradient id="dp_bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a1a"/>
-      <stop offset="100%" stop-color="#050510"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#080818"/>
+      <stop offset="100%" stop-color="#040410"/>
     </linearGradient>
-    <linearGradient id="dp_skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f0dcc8"/>
-      <stop offset="100%" stop-color="#dcc4a8"/>
-    </linearGradient>
-    <linearGradient id="dp_hair" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1a1a28"/>
-      <stop offset="30%" stop-color="#2a2a38"/>
-      <stop offset="50%" stop-color="#c0c0d0"/>
-      <stop offset="70%" stop-color="#2a2a38"/>
-      <stop offset="100%" stop-color="#1a1a28"/>
-    </linearGradient>
-    <radialGradient id="dp_glow" cx="0.5" cy="0.35" r="0.5">
-      <stop offset="0%" stop-color="#ff3344" stop-opacity="0.1"/>
-      <stop offset="100%" stop-color="#ff3344" stop-opacity="0"/>
+    <radialGradient id="bgGlow" cx="0.5" cy="0.35" r="0.5">
+      <stop offset="0%" stop-color="#88bbff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#88bbff" stop-opacity="0"/>
     </radialGradient>
-    <filter id="dp_neon">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <radialGradient id="irisL" cx="0.3" cy="0.3" r="0.5">
+      <stop offset="0%" stop-color="#ddeeff"/>
+      <stop offset="40%" stop-color="#99aabb"/>
+      <stop offset="100%" stop-color="#667788"/>
+    </radialGradient>
+    <radialGradient id="irisR" cx="0.3" cy="0.3" r="0.5">
+      <stop offset="0%" stop-color="#ddeeff"/>
+      <stop offset="40%" stop-color="#99aabb"/>
+      <stop offset="100%" stop-color="#667788"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="256" height="384" fill="url(#dp_bg)"/>
-  <rect width="256" height="384" fill="url(#dp_glow)"/>
+  <rect width="256" height="384" fill="url(#bg)"/>
+  <rect width="256" height="384" fill="url(#bgGlow)"/>
 
-  <!-- Frame border -->
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#ff3344" stroke-width="1.5" opacity="0.4"/>
+  <!-- Frame -->
+  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#88bbff" stroke-width="1" opacity="0.3"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="monospace" font-size="16" fill="#ff3344" text-anchor="middle" filter="url(#dp_neon)">蕭博士</text>
+  <text x="128" y="28" font-family="monospace" font-size="14" fill="#aaccff" text-anchor="middle" filter="url(#glow)">蕭博士</text>
+
+  <!-- Holographic data patterns -->
+  <line x1="18" y1="338" x2="65" y2="338" stroke="#88bbff" stroke-width="0.4" opacity="0.12"/>
+  <line x1="18" y1="342" x2="50" y2="342" stroke="#88bbff" stroke-width="0.3" opacity="0.08"/>
+  <line x1="190" y1="334" x2="238" y2="334" stroke="#88bbff" stroke-width="0.4" opacity="0.12"/>
+  <line x1="200" y1="338" x2="238" y2="338" stroke="#88bbff" stroke-width="0.3" opacity="0.08"/>
 
   <!-- Body -->
-  <path d="M58,228 Q52,248 44,300 L38,384 H218 L212,300 Q206,248 198,228 Q186,206 172,196 L165,192 Q150,184 128,180 Q106,184 91,192 L84,196 Q70,206 58,228 Z" fill="#0d0d1a" stroke="#ff3344" stroke-width="0.5" opacity="0.9"/>
-  <path d="M128,186 L128,384" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.2"/>
+  <path d="M56,230 Q50,250 44,302 L38,384 H218 L212,302 Q206,250 200,230 Q188,208 174,198 L166,194 Q152,186 128,182 Q104,186 90,194 L82,198 Q68,208 56,230 Z" fill="#0c0c1a"/>
+  <path d="M56,230 Q62,250 66,280 L68,384 H100 L96,280 Q92,250 86,230 Z" fill="#08081a" opacity="0.6"/>
+  <path d="M200,230 Q194,250 190,280 L188,384 H156 L160,280 Q164,250 170,230 Z" fill="#08081a" opacity="0.6"/>
+  <path d="M128,188 L128,384" fill="none" stroke="#aaccff" stroke-width="0.3" opacity="0.08"/>
 
-  <!-- One hand raised to chin - contemplative gesture -->
-  <path d="M155,256 Q162,268 165,282 Q168,292 172,302 L185,308 Q190,298 188,282 Q185,266 178,250 Q172,238 165,232 Z" fill="#0d0d1a" stroke="#ff3344" stroke-width="0.3" opacity="0.85"/>
-  <path d="M145,248 Q150,242 155,246 Q160,250 162,258 L164,268 Q165,276 162,282 Q158,288 152,286 L148,282 Q144,278 142,270 Q140,260 145,248 Z" fill="url(#dp_skin)" opacity="0.8"/>
+  <!-- One hand raised to chin - contemplative -->
+  <path d="M155,258 Q162,270 166,284 Q169,294 174,304 L186,310 Q190,300 188,284 Q185,268 178,252 Q172,240 165,234 Z" fill="#0c0c1a" opacity="0.85"/>
+  <path d="M144,248 Q150,242 155,246 Q160,250 162,258 L164,268 Q165,276 162,282 Q158,288 152,286 L148,282 Q144,278 142,270 Q140,260 144,248 Z" fill="#f2d4b8" opacity="0.75"/>
+  <!-- Finger details -->
+  <path d="M148,250 Q146,256 148,262" fill="none" stroke="#c8aa90" stroke-width="0.5" opacity="0.3"/>
+  <path d="M154,248 Q152,254 154,260" fill="none" stroke="#c8aa90" stroke-width="0.5" opacity="0.3"/>
 
   <!-- High collar -->
-  <path d="M92,196 Q95,180 106,170 L112,164 Q118,160 124,158 L128,156 L132,158 Q138,160 144,164 L150,170 Q161,180 164,196 L158,204 Q148,194 138,188 Q132,186 128,184 Q124,186 118,188 Q108,194 98,204 Z" fill="#151528" stroke="#ff3344" stroke-width="0.8" opacity="0.95"/>
-  <path d="M98,198 Q108,190 118,186 Q124,184 128,182 Q132,184 138,186 Q148,190 158,198" fill="none" stroke="#ff3344" stroke-width="1" opacity="0.6"/>
+  <path d="M90,198 Q94,178 104,168 L110,162 Q116,158 122,156 L128,154 L134,156 Q140,158 146,162 L152,168 Q162,178 166,198 L158,206 Q148,196 138,190 Q132,188 128,186 Q124,188 118,190 Q108,196 98,206 Z" fill="#141428" stroke="#aaccff" stroke-width="0.6" opacity="0.9"/>
+  <path d="M100,200 Q110,192 118,188 Q124,186 128,184 Q132,186 138,188 Q146,192 156,200" fill="none" stroke="#aaccff" stroke-width="0.8" opacity="0.35"/>
 
   <!-- Neck - tilted slightly upward -->
-  <rect x="118" y="152" width="20" height="20" rx="4" fill="url(#dp_skin)" opacity="0.9"/>
+  <rect x="118" y="152" width="20" height="22" rx="4" fill="#eedcca" opacity="0.9"/>
 
-  <!-- Head - tilted upward, anime V-chin -->
-  <g transform="rotate(-5, 128, 108)">
-    <path d="M88,118 Q86,94 90,74 Q96,54 110,44 Q120,38 128,36 Q136,38 146,44 Q160,54 166,74 Q170,94 168,118 Q166,134 160,146 Q152,156 140,162 Q132,166 128,166 Q124,166 116,162 Q104,156 96,146 Q90,134 88,118 Z" fill="url(#dp_skin)" opacity="0.95"/>
+  <!-- Head - tilted upward -->
+  <g transform="rotate(-5, 128, 106)">
+    <!-- Head shape -->
+    <path d="M88,118 Q86,94 90,74 Q96,54 110,44 Q120,38 128,36 Q136,38 146,44 Q160,54 166,74 Q170,94 168,118 Q166,134 160,146 Q152,156 140,162 Q132,166 128,166 Q124,166 116,162 Q104,156 96,146 Q90,134 88,118 Z" fill="#f2d4b8" opacity="0.95"/>
+    <!-- Face shadows -->
+    <path d="M88,118 Q90,130 96,140 L104,148 Q96,138 92,126 Q90,118 88,118 Z" fill="#d4b498" opacity="0.5"/>
+    <path d="M168,118 Q166,130 160,140 L152,148 Q160,138 164,126 Q166,118 168,118 Z" fill="#d4b498" opacity="0.5"/>
+    <path d="M92,112 Q96,120 100,126 Q104,130 106,128 Q102,122 98,114 Z" fill="#d4b498" opacity="0.35"/>
+    <path d="M164,112 Q160,120 156,126 Q152,130 150,128 Q154,122 158,114 Z" fill="#d4b498" opacity="0.35"/>
 
-    <!-- Eyes - looking upward, contemplative, anime -->
+    <!-- Neural interface -->
+    <circle cx="86" cy="100" r="4" fill="none" stroke="#88bbff" stroke-width="0.8" opacity="0.45"/>
+    <circle cx="86" cy="100" r="2" fill="#88bbff" opacity="0.3"/>
+    <circle cx="86" cy="100" r="1" fill="#aaccff" opacity="0.55"/>
+    <line x1="82" y1="100" x2="76" y2="98" stroke="#88bbff" stroke-width="0.5" opacity="0.3"/>
+    <line x1="86" y1="96" x2="84" y2="90" stroke="#88bbff" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Eyes - looking up/to side, contemplative -->
     <!-- Left eye -->
-    <path d="M103,112 Q110,106 120,108 Q123,112 122,118 Q118,122 110,122 Q104,120 103,114 Z" fill="#ffffff" opacity="0.9"/>
-    <ellipse cx="112" cy="112" rx="5.5" ry="5.5" fill="#1a0808"/>
-    <ellipse cx="112" cy="112" rx="4" ry="4" fill="#440011"/>
-    <ellipse cx="113" cy="111" rx="2.8" ry="2.8" fill="#ff3344" opacity="0.7"/>
-    <circle cx="109" cy="109" r="2.2" fill="#ffffff" opacity="0.9"/>
-    <circle cx="114" cy="114" r="1.3" fill="#ffffff" opacity="0.6"/>
-    <circle cx="110" cy="114" r="0.7" fill="#ffffff" opacity="0.4"/>
+    <path d="M103,112 Q110,108 118,109 Q122,112 121,117 Q116,120 108,120 Q104,118 103,114 Z" fill="#ffffff" opacity="0.92"/>
+    <path d="M103,112 Q110,108 118,109 Q122,112" fill="none" stroke="#1a1a2a" stroke-width="3.5" stroke-linecap="round" opacity="0.9"/>
+    <!-- Iris shifted up-left for looking up -->
+    <ellipse cx="110" cy="112" rx="5.5" ry="5" fill="url(#irisL)"/>
+    <ellipse cx="110" cy="112" rx="2.5" ry="2.8" fill="#0a0a14"/>
+    <circle cx="107" cy="110" r="2.2" fill="#ffffff" opacity="0.95"/>
+    <circle cx="112" cy="114" r="1.2" fill="#ffffff" opacity="0.6"/>
+    <circle cx="109" cy="114" r="0.6" fill="#ffffff" opacity="0.4"/>
+    <path d="M104,118 Q110,120 118,118" fill="none" stroke="#d4b498" stroke-width="0.5" opacity="0.4"/>
+
     <!-- Right eye -->
-    <path d="M134,108 Q144,106 153,112 Q153,120 146,122 Q137,122 134,118 Q134,112 134,108 Z" fill="#ffffff" opacity="0.9"/>
-    <ellipse cx="144" cy="112" rx="5.5" ry="5.5" fill="#1a0808"/>
-    <ellipse cx="144" cy="112" rx="4" ry="4" fill="#440011"/>
-    <ellipse cx="143" cy="111" rx="2.8" ry="2.8" fill="#ff3344" opacity="0.7"/>
-    <circle cx="141" cy="109" r="2.2" fill="#ffffff" opacity="0.9"/>
-    <circle cx="146" cy="114" r="1.3" fill="#ffffff" opacity="0.6"/>
-    <circle cx="142" cy="114" r="0.7" fill="#ffffff" opacity="0.4"/>
+    <path d="M134,109 Q144,108 153,112 Q153,118 146,120 Q137,120 134,117 Q134,112 134,109 Z" fill="#ffffff" opacity="0.92"/>
+    <path d="M134,112 Q144,108 153,112" fill="none" stroke="#1a1a2a" stroke-width="3.5" stroke-linecap="round" opacity="0.9"/>
+    <!-- Iris shifted up-left -->
+    <ellipse cx="142" cy="112" rx="5.5" ry="5" fill="url(#irisR)"/>
+    <ellipse cx="142" cy="112" rx="2.5" ry="2.8" fill="#0a0a14"/>
+    <circle cx="139" cy="110" r="2.2" fill="#ffffff" opacity="0.95"/>
+    <circle cx="144" cy="114" r="1.2" fill="#ffffff" opacity="0.6"/>
+    <circle cx="141" cy="114" r="0.6" fill="#ffffff" opacity="0.4"/>
+    <path d="M136,118 Q142,120 150,118" fill="none" stroke="#d4b498" stroke-width="0.5" opacity="0.4"/>
 
     <!-- Eyebrows - slightly raised, thoughtful -->
-    <path d="M101,102 Q110,98 122,100" fill="none" stroke="#1a1a28" stroke-width="2" opacity="0.75"/>
-    <path d="M134,100 Q146,98 155,102" fill="none" stroke="#1a1a28" stroke-width="2" opacity="0.75"/>
+    <path d="M101,103 Q110,100 120,102" fill="none" stroke="#8a8a9a" stroke-width="1.8" opacity="0.75"/>
+    <path d="M136,102 Q146,100 155,103" fill="none" stroke="#8a8a9a" stroke-width="1.8" opacity="0.75"/>
 
-    <!-- Small anime nose -->
-    <path d="M126,126 Q128,130 130,126" fill="none" stroke="#c4a888" stroke-width="0.8" opacity="0.5"/>
+    <!-- Nose -->
+    <path d="M126,130 Q128,134 130,130" fill="none" stroke="#c8aa90" stroke-width="0.8" opacity="0.5"/>
 
-    <!-- Mouth - slightly parted, contemplative -->
-    <path d="M118,138 Q123,140 128,140 Q133,140 138,138" fill="none" stroke="#a07060" stroke-width="1" opacity="0.6"/>
+    <!-- Mouth - slight contemplative smile -->
+    <path d="M118,142 Q123,143 128,143 Q133,143 138,142" fill="none" stroke="#a07060" stroke-width="0.9" opacity="0.6"/>
+    <path d="M117,142 Q116,141 116,140" fill="none" stroke="#a07060" stroke-width="0.4" opacity="0.25"/>
+    <path d="M139,142 Q140,141 140,140" fill="none" stroke="#a07060" stroke-width="0.4" opacity="0.25"/>
 
     <!-- Hair -->
-    <path d="M86,108 Q82,86 86,64 Q92,44 108,34 Q120,26 128,24 Q136,26 148,34 Q164,44 170,64 Q174,86 170,108 Q166,96 158,86 Q148,76 138,72 Q128,68 118,72 Q108,76 98,86 Q90,96 86,108 Z" fill="url(#dp_hair)" opacity="0.95"/>
-    <path d="M96,98 Q100,76 114,60 Q122,52 128,48" fill="none" stroke="#e0e0f0" stroke-width="1.2" opacity="0.5"/>
-    <path d="M160,98 Q156,76 142,60 Q134,52 128,48" fill="none" stroke="#e0e0f0" stroke-width="1.2" opacity="0.5"/>
-    <path d="M104,54 Q116,46 128,44 Q140,46 152,54" fill="none" stroke="#e8e8f8" stroke-width="1.5" opacity="0.35"/>
-    <path d="M88,104 Q86,90 88,74" fill="none" stroke="#c0c0d0" stroke-width="2.5" opacity="0.6"/>
-    <path d="M168,104 Q170,90 168,74" fill="none" stroke="#c0c0d0" stroke-width="2.5" opacity="0.6"/>
+    <path d="M86,108 Q82,86 86,64 Q92,44 108,34 Q120,26 128,24 Q136,26 148,34 Q164,44 170,64 Q174,86 170,108 Q166,96 158,86 Q148,76 138,72 Q128,68 118,72 Q108,76 98,86 Q90,96 86,108 Z" fill="#6a6a7a"/>
+    <path d="M92,90 Q96,72 110,56 Q120,44 128,40 L118,48 Q106,58 98,76 Z" fill="#8a8a9a" opacity="0.7"/>
+    <path d="M164,90 Q160,72 146,56 Q136,44 128,40 L138,48 Q150,58 158,76 Z" fill="#8a8a9a" opacity="0.7"/>
+    <path d="M104,52 Q116,44 128,42 Q140,44 152,52" fill="none" stroke="#d0d0e0" stroke-width="2.5" opacity="0.5"/>
+    <path d="M100,66 Q114,56 128,54 Q142,56 156,66" fill="none" stroke="#c0c0d0" stroke-width="1.5" opacity="0.35"/>
+    <path d="M88,104 Q86,90 88,74" fill="none" stroke="#c8c8d8" stroke-width="3" opacity="0.6"/>
+    <path d="M168,104 Q170,90 168,74" fill="none" stroke="#c8c8d8" stroke-width="3" opacity="0.6"/>
+    <path d="M86,108 Q84,116 84,126 Q84,134 86,140" fill="none" stroke="#6a6a7a" stroke-width="3" opacity="0.5"/>
+    <path d="M170,108 Q172,116 172,126 Q172,134 170,140" fill="none" stroke="#6a6a7a" stroke-width="3" opacity="0.5"/>
 
     <!-- Ears -->
-    <path d="M88,108 Q82,104 82,112 Q82,120 86,122" fill="url(#dp_skin)" opacity="0.6"/>
-    <path d="M168,108 Q174,104 174,112 Q174,120 170,122" fill="url(#dp_skin)" opacity="0.6"/>
+    <path d="M88,108 Q82,104 82,112 Q82,120 86,122" fill="#f2d4b8" opacity="0.5"/>
+    <path d="M168,108 Q174,104 174,112 Q174,120 170,122" fill="#f2d4b8" opacity="0.5"/>
   </g>
 
-  <!-- Red accent -->
-  <circle cx="128" cy="210" r="3" fill="none" stroke="#ff3344" stroke-width="0.8" opacity="0.5"/>
-  <circle cx="128" cy="210" r="1" fill="#ff3344" opacity="0.4"/>
+  <!-- Coat accent -->
+  <circle cx="128" cy="212" r="3" fill="none" stroke="#aaccff" stroke-width="0.6" opacity="0.28"/>
+  <circle cx="128" cy="212" r="1" fill="#88bbff" opacity="0.28"/>
 
-  <!-- Ambient particles -->
-  <circle cx="30" cy="75" r="1.2" fill="#ff3344" opacity="0.18"/>
-  <circle cx="225" cy="90" r="0.8" fill="#ff3344" opacity="0.14"/>
-  <circle cx="40" cy="260" r="1" fill="#ff3344" opacity="0.14"/>
-  <circle cx="215" cy="240" r="0.7" fill="#ff3344" opacity="0.18"/>
-  <circle cx="20" cy="175" r="0.9" fill="#ff3344" opacity="0.1"/>
-  <circle cx="235" cy="165" r="1.1" fill="#ff3344" opacity="0.14"/>
+  <!-- Particles -->
+  <circle cx="28" cy="76" r="1.1" fill="#88bbff" opacity="0.13"/>
+  <circle cx="226" cy="90" r="0.7" fill="#aaccff" opacity="0.1"/>
+  <circle cx="38" cy="258" r="0.9" fill="#88bbff" opacity="0.1"/>
+  <circle cx="216" cy="242" r="0.6" fill="#aaccff" opacity="0.13"/>
+  <circle cx="18" cy="176" r="0.8" fill="#88bbff" opacity="0.07"/>
+  <circle cx="236" cy="166" r="1" fill="#aaccff" opacity="0.1"/>
 
   <!-- Scanlines -->
-  <line x1="0" y1="60" x2="256" y2="60" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="120" x2="256" y2="120" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="180" x2="256" y2="180" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="240" x2="256" y2="240" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="300" x2="256" y2="300" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="360" x2="256" y2="360" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="60" x2="256" y2="60" stroke="#aaccff" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="120" x2="256" y2="120" stroke="#aaccff" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="180" x2="256" y2="180" stroke="#aaccff" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#aaccff" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#aaccff" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="360" x2="256" y2="360" stroke="#aaccff" stroke-width="0.3" opacity="0.04"/>
+
+  <!-- Expression label -->
+  <text x="128" y="374" font-family="monospace" font-size="10" fill="#aaccff" text-anchor="middle" opacity="0.6">PHILOSOPHICAL</text>
 </svg>

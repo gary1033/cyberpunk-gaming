@@ -1,170 +1,154 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <radialGradient id="zd-bg" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#1a1408"/>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#141420"/>
       <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <linearGradient id="zd-suit" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="50%" stop-color="#141428"/>
-      <stop offset="100%" stop-color="#0e0e20"/>
-    </linearGradient>
-    <linearGradient id="zd-suit-lapel" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#222240"/>
-      <stop offset="100%" stop-color="#1a1a30"/>
-    </linearGradient>
-    <linearGradient id="zd-shirt" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e8e8f0"/>
-      <stop offset="100%" stop-color="#c8c8d8"/>
-    </linearGradient>
-    <linearGradient id="zd-skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#d4a574"/>
-      <stop offset="100%" stop-color="#c49464"/>
-    </linearGradient>
-    <linearGradient id="zd-hair" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1a1a2a"/>
-      <stop offset="100%" stop-color="#0e0e18"/>
-    </linearGradient>
-    <linearGradient id="zd-tie" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffaa00"/>
-      <stop offset="50%" stop-color="#dd8800"/>
-      <stop offset="100%" stop-color="#cc7700"/>
-    </linearGradient>
-    <linearGradient id="zd-cyber-pin" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffcc44"/>
-      <stop offset="100%" stop-color="#ffaa00"/>
-    </linearGradient>
-    <filter id="zd-glow-gold">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <radialGradient id="irisGrad" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#6b4423"/>
+      <stop offset="50%" stop-color="#4a2a10"/>
+      <stop offset="100%" stop-color="#2a1508"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="zd-glow-soft">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <filter id="glowSoft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="zd-border" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffaa00" stop-opacity="0.6"/>
-      <stop offset="50%" stop-color="#dd8800" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#ffaa00" stop-opacity="0.6"/>
-    </linearGradient>
   </defs>
 
-  <!-- Background -->
-  <rect width="256" height="384" fill="url(#zd-bg)"/>
-  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="url(#zd-border)" stroke-width="1.5"/>
+  <!-- BG -->
+  <rect width="256" height="384" fill="url(#bgGrad)"/>
+  <line x1="20" y1="40" x2="20" y2="384" stroke="#4488ff" stroke-width="0.3" opacity="0.1"/>
+  <line x1="236" y1="0" x2="236" y2="384" stroke="#4488ff" stroke-width="0.3" opacity="0.08"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.3"/>
 
-  <!-- Character name -->
-  <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#ffaa00" text-anchor="middle" filter="url(#zd-glow-gold)">趙明</text>
+  <!-- Name -->
+  <text x="128" y="28" font-family="monospace" font-size="20" fill="#4488ff" text-anchor="middle" filter="url(#glow)" opacity="0.9">趙明</text>
 
-  <!-- Suit body -->
-  <path d="M55,195 C55,180 70,168 85,162 L105,155 C115,152 122,150 128,149 C134,150 141,152 151,155 L171,162 C186,168 201,180 201,195 L208,280 C210,320 206,350 202,370 L54,370 C50,350 46,320 48,280 Z" fill="url(#zd-suit)"/>
-
-  <!-- Suit lapels - left -->
-  <path d="M105,155 L90,175 L95,220 L118,195 L128,180 Z" fill="url(#zd-suit-lapel)"/>
-  <path d="M105,155 L90,175 L95,220" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.3"/>
-
-  <!-- Suit lapels - right -->
-  <path d="M151,155 L166,175 L161,220 L138,195 L128,180 Z" fill="url(#zd-suit-lapel)"/>
-  <path d="M151,155 L166,175 L161,220" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.3"/>
-
-  <!-- White shirt visible -->
-  <path d="M118,195 L128,180 L138,195 L135,250 L121,250 Z" fill="url(#zd-shirt)"/>
-
+  <!-- === SUIT BODY === -->
+  <path d="M52,275 Q60,252 84,238 L100,230 Q115,224 128,222 Q141,224 156,230 L172,238 Q196,252 204,275 L212,384 L44,384 Z" fill="#1a1a2e"/>
+  <!-- Suit shadow left (cel-shade) -->
+  <path d="M52,275 Q60,252 84,238 L100,230 Q110,226 118,224 L118,384 L44,384 Z" fill="#0e0e1e" opacity="0.5"/>
+  <!-- Suit lapel left -->
+  <path d="M88,236 L74,260 L106,250 L116,232 Z" fill="#222240"/>
+  <!-- Suit lapel right -->
+  <path d="M168,236 L182,260 L150,250 L140,232 Z" fill="#282848"/>
+  <!-- Shirt V -->
+  <path d="M112,232 L128,252 L144,232" fill="#d8d8e8" stroke="#c0c0d0" stroke-width="0.5"/>
   <!-- Tie -->
-  <path d="M125,182 L128,180 L131,182 L130,240 L128,245 L126,240 Z" fill="url(#zd-tie)"/>
-  <path d="M126,200 L130,200" fill="none" stroke="#ffcc44" stroke-width="0.4" opacity="0.5"/>
-  <path d="M126,210 L130,210" fill="none" stroke="#ffcc44" stroke-width="0.4" opacity="0.5"/>
-  <path d="M126,220 L130,220" fill="none" stroke="#ffcc44" stroke-width="0.4" opacity="0.5"/>
-
-  <!-- Corporate gold pin on lapel -->
-  <circle cx="100" cy="185" r="4" fill="url(#zd-cyber-pin)" filter="url(#zd-glow-gold)"/>
-  <text x="100" y="187" font-family="monospace" font-size="5" fill="#1a1a2e" text-anchor="middle">ZT</text>
-
-  <!-- Neck -->
-  <path d="M115,148 L115,165 C115,170 120,175 128,175 C136,175 141,170 141,165 L141,148" fill="url(#zd-skin)"/>
-
-  <!-- Collar -->
-  <path d="M110,158 C115,153 120,150 128,149 C136,150 141,153 146,158" fill="none" stroke="#c8c8d8" stroke-width="2" opacity="0.8"/>
-
-  <!-- Head shape -->
-  <path d="M100,95 C100,68 112,50 128,48 C144,50 156,68 156,95 L156,125 C156,145 144,155 128,155 C112,155 100,145 100,125 Z" fill="url(#zd-skin)"/>
-
-  <!-- Hair - neat black, parted to side -->
-  <path d="M98,92 C98,62 112,44 128,42 C144,44 158,62 158,92 L158,78 C158,58 146,42 128,40 C110,42 98,58 98,78 Z" fill="url(#zd-hair)"/>
-  <path d="M100,85 C100,60 112,42 128,40 C144,42 156,60 156,85" fill="url(#zd-hair)"/>
-  <!-- Hair side detail -->
-  <path d="M98,90 C98,80 100,72 104,68" fill="none" stroke="#0e0e18" stroke-width="3"/>
-  <path d="M158,90 C158,80 156,72 152,68" fill="none" stroke="#0e0e18" stroke-width="3"/>
-  <!-- Hair part line and highlight -->
-  <path d="M115,50 C120,46 126,44 134,46" fill="none" stroke="#2a2a3a" stroke-width="1.5" opacity="0.5"/>
-  <path d="M118,48 C122,44 130,42 138,44" fill="none" stroke="#333348" stroke-width="0.8" opacity="0.3"/>
-
-  <!-- Ears -->
-  <ellipse cx="97" cy="108" rx="5" ry="8" fill="#c49464"/>
-  <ellipse cx="97" cy="108" rx="3" ry="5" fill="#b48454" opacity="0.5"/>
-  <ellipse cx="159" cy="108" rx="5" ry="8" fill="#c49464"/>
-  <ellipse cx="159" cy="108" rx="3" ry="5" fill="#b48454" opacity="0.5"/>
-
-  <!-- Cybernetic ear implant - right ear -->
-  <path d="M160,104 L165,100 L166,108 L165,116 L160,112" fill="none" stroke="#ffaa00" stroke-width="1" opacity="0.6"/>
-  <circle cx="165" cy="108" r="1.5" fill="#ffaa00" opacity="0.5"/>
-
-  <!-- Eyebrows - confident, slightly raised -->
-  <path d="M107,93 C110,90 116,89 122,91" fill="none" stroke="#1a1a2a" stroke-width="2" opacity="0.8"/>
-  <path d="M134,91 C140,89 146,90 149,93" fill="none" stroke="#1a1a2a" stroke-width="2" opacity="0.8"/>
-
-  <!-- Eyes - confident, sharp -->
-  <ellipse cx="115" cy="100" rx="8" ry="5" fill="#e8e8f0"/>
-  <ellipse cx="115" cy="100" rx="4" ry="4" fill="#2a1a08"/>
-  <ellipse cx="115" cy="100" rx="2" ry="2" fill="#0a0a0a"/>
-  <circle cx="113" cy="99" r="1" fill="#ffffff" opacity="0.8"/>
-
-  <ellipse cx="141" cy="100" rx="8" ry="5" fill="#e8e8f0"/>
-  <ellipse cx="141" cy="100" rx="4" ry="4" fill="#2a1a08"/>
-  <ellipse cx="141" cy="100" rx="2" ry="2" fill="#0a0a0a"/>
-  <circle cx="139" cy="99" r="1" fill="#ffffff" opacity="0.8"/>
-
-  <!-- Nose -->
-  <path d="M128,102 L125,118 L128,120 L131,118" fill="none" stroke="#b48454" stroke-width="1" opacity="0.5"/>
-
-  <!-- Mouth - slight confident smile -->
-  <path d="M118,130 C122,134 128,135 134,134 C137,132 138,131 138,130" fill="none" stroke="#a07050" stroke-width="1.2"/>
-  <path d="M120,130 C124,128 132,128 136,130" fill="none" stroke="#c49464" stroke-width="0.5" opacity="0.4"/>
-
-  <!-- Jawline -->
-  <path d="M100,125 C102,140 112,150 128,155" fill="none" stroke="#b48454" stroke-width="0.6" opacity="0.3"/>
-  <path d="M156,125 C154,140 144,150 128,155" fill="none" stroke="#b48454" stroke-width="0.6" opacity="0.3"/>
-
-  <!-- Suit shoulder lines -->
-  <path d="M55,195 C60,185 72,175 85,170" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.25"/>
-  <path d="M201,195 C196,185 184,175 171,170" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.25"/>
-
+  <path d="M125,244 L128,240 L131,244 L130,310 L128,316 L126,310 Z" fill="#1a1a2e" stroke="#4488ff" stroke-width="0.6" opacity="0.8"/>
+  <!-- Tie knot -->
+  <path d="M124,240 L128,234 L132,240 L131,246 L125,246 Z" fill="#222240"/>
+  <!-- Tie glow lines -->
+  <line x1="127" y1="260" x2="129" y2="260" stroke="#4488ff" stroke-width="0.5" opacity="0.4"/>
+  <line x1="127" y1="275" x2="129" y2="275" stroke="#4488ff" stroke-width="0.5" opacity="0.4"/>
+  <line x1="127" y1="290" x2="129" y2="290" stroke="#4488ff" stroke-width="0.5" opacity="0.4"/>
+  <!-- Suit neon accent lines -->
+  <line x1="68" y1="278" x2="68" y2="384" stroke="#4488ff" stroke-width="0.8" opacity="0.2" filter="url(#glow)"/>
+  <line x1="188" y1="278" x2="188" y2="384" stroke="#4488ff" stroke-width="0.8" opacity="0.2" filter="url(#glow)"/>
+  <!-- ZhengTek badge on lapel -->
+  <rect x="80" y="248" width="12" height="8" rx="1.5" fill="#1a2a3a" stroke="#4488ff" stroke-width="0.6" opacity="0.8"/>
+  <text x="86" y="255" font-family="monospace" font-size="5" fill="#4488ff" text-anchor="middle" opacity="0.9">ZT</text>
+  <circle cx="86" cy="252" r="8" fill="none" stroke="#4488ff" stroke-width="0.3" opacity="0.15" filter="url(#glowSoft)"/>
   <!-- Pocket square -->
-  <path d="M165,195 L170,190 L175,195 L172,200 L168,200 Z" fill="#ffaa00" opacity="0.4"/>
+  <path d="M166,250 L172,244 L178,250 L175,256 L169,256 Z" fill="#4488ff" opacity="0.2"/>
 
-  <!-- Suit fabric lines -->
-  <path d="M80,220 C85,260 82,310 80,360" fill="none" stroke="#ffaa00" stroke-width="0.4" opacity="0.12"/>
-  <path d="M176,220 C171,260 174,310 176,360" fill="none" stroke="#ffaa00" stroke-width="0.4" opacity="0.12"/>
+  <!-- === NECK === -->
+  <path d="M115,216 Q128,222 141,216 L139,234 Q128,240 117,234 Z" fill="#f0cba8"/>
+  <!-- Neck shadow -->
+  <path d="M115,216 Q128,220 141,216 L140,224 Q128,228 116,224 Z" fill="#deb896" opacity="0.4"/>
 
-  <!-- Cybernetic temple lines -->
-  <path d="M100,90 L96,95 L95,102" fill="none" stroke="#ffaa00" stroke-width="0.6" opacity="0.3"/>
+  <!-- === HEAD === -->
+  <!-- Face base - V-chin, clean jawline -->
+  <path d="M80,130 Q78,105 88,88 Q100,72 128,68 Q156,72 168,88 Q178,105 176,130 L176,155 Q174,175 164,190 Q154,204 142,212 Q136,216 128,218 Q120,216 114,212 Q102,204 92,190 Q82,175 80,155 Z" fill="#f0cba8"/>
+  <!-- Face shadow left (cel-shade hard edge) -->
+  <path d="M80,130 Q78,105 88,88 Q94,80 104,74 L100,130 L98,160 Q90,175 92,190 Q96,198 108,208 L114,212 Q102,204 92,190 Q82,175 80,155 Z" fill="#deb896" opacity="0.45"/>
+  <!-- Jaw shadow -->
+  <path d="M92,190 Q102,204 114,212 Q120,216 128,218 L128,208 Q116,202 106,192 Z" fill="#d4a878" opacity="0.3"/>
+  <path d="M164,190 Q154,204 142,212 Q136,216 128,218 L128,208 Q140,202 150,192 Z" fill="#d4a878" opacity="0.2"/>
 
-  <!-- Ambient gold glow -->
-  <ellipse cx="128" cy="120" rx="40" ry="30" fill="#ffaa00" opacity="0.03" filter="url(#zd-glow-soft)"/>
+  <!-- === EARS === -->
+  <ellipse cx="80" cy="148" rx="5" ry="10" fill="#f0cba8"/>
+  <ellipse cx="80" cy="148" rx="3" ry="7" fill="#deb896" opacity="0.3"/>
+  <ellipse cx="176" cy="148" rx="5" ry="10" fill="#f0cba8"/>
+  <!-- Cyber implant right ear -->
+  <rect x="170" y="144" width="4" height="9" rx="1" fill="#1a2a3a" stroke="#4488ff" stroke-width="0.5"/>
+  <circle cx="172" cy="146" r="0.8" fill="#4488ff"/>
+  <circle cx="172" cy="150" r="0.6" fill="#4488ff" opacity="0.6"/>
 
-  <!-- Ambient particles -->
-  <circle cx="40" cy="200" r="1" fill="#ffaa00" opacity="0.35"/>
-  <circle cx="215" cy="180" r="1.2" fill="#ffaa00" opacity="0.3"/>
-  <circle cx="55" cy="310" r="0.8" fill="#dd8800" opacity="0.3"/>
-  <circle cx="200" cy="300" r="1" fill="#ffaa00" opacity="0.25"/>
-  <circle cx="30" cy="270" r="0.8" fill="#ffcc44" opacity="0.2"/>
+  <!-- === HAIR === -->
+  <!-- Main hair mass - neat, corporate, short-medium black -->
+  <path d="M68,128 Q66,100 80,78 Q96,58 128,54 Q160,58 176,78 Q190,100 188,128 L186,116 Q182,98 170,84 Q156,68 128,64 Q100,68 86,84 Q74,98 70,116 Z" fill="#1a1a2a"/>
+  <!-- Hair shadow block left -->
+  <path d="M68,128 Q66,100 80,78 Q90,64 106,58 L102,82 Q88,96 78,116 L72,128 Z" fill="#0e0e18"/>
+  <!-- Hair shadow block right -->
+  <path d="M188,128 Q190,100 176,78 Q170,68 158,62 L162,84 Q176,98 184,116 Z" fill="#141422" opacity="0.5"/>
+  <!-- Neat parted top - groomed corporate style -->
+  <path d="M88,82 Q92,96 96,112 L104,108 Q100,92 98,78 Z" fill="#1e1e30"/>
+  <path d="M156,78 Q158,92 160,108 L168,112 Q166,96 164,82 Z" fill="#161626"/>
+  <!-- Short neat bangs -->
+  <path d="M96,86 Q100,100 104,112 L110,108 Q108,96 106,84 Z" fill="#222234"/>
+  <path d="M148,84 Q150,96 152,108 L158,112 Q156,98 154,86 Z" fill="#1c1c2e"/>
+  <!-- Hair part line -->
+  <path d="M118,60 Q128,56 138,60" fill="none" stroke="#2a2a3e" stroke-width="1.2" opacity="0.5"/>
+  <!-- Hair shine band -->
+  <path d="M90,76 Q108,68 128,64 Q148,68 166,76 L162,84 Q148,76 128,72 Q108,76 94,84 Z" fill="#ffffff" opacity="0.18"/>
+  <!-- Secondary shine -->
+  <path d="M96,84 Q112,78 128,76 Q144,78 160,84" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.12"/>
 
-  <!-- State label -->
-  <text x="128" y="375" font-family="'Courier New', monospace" font-size="10" fill="#ffaa00" text-anchor="middle" opacity="0.5">[default]</text>
+  <!-- === EYES === -->
+  <!-- RIGHT EYE -->
+  <path d="M90,148 Q100,136 108,135 Q116,136 122,148 Q116,156 108,157 Q100,156 90,148 Z" fill="#f0f0f5"/>
+  <!-- Thick upper eyelid -->
+  <path d="M88,148 Q98,134 108,132 Q118,134 124,148" fill="none" stroke="#1a1a2a" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Lower eyelid -->
+  <path d="M92,150 Q100,157 108,158 Q116,157 120,150" fill="none" stroke="#8a7a6a" stroke-width="0.6"/>
+  <!-- Iris -->
+  <circle cx="108" cy="148" r="11" fill="url(#irisGrad)"/>
+  <circle cx="108" cy="148" r="11" fill="none" stroke="#2a1508" stroke-width="0.8" opacity="0.5"/>
+  <!-- Pupil -->
+  <circle cx="108" cy="149" r="5" fill="#0a0a0a"/>
+  <!-- 3 highlight spots -->
+  <circle cx="113" cy="143" r="3.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="103" cy="153" r="2" fill="#ffffff" opacity="0.55"/>
+  <circle cx="111" cy="152" r="0.8" fill="#ffffff" opacity="0.3"/>
+
+  <!-- LEFT EYE -->
+  <path d="M134,148 Q144,136 152,135 Q160,136 166,148 Q160,156 152,157 Q144,156 134,148 Z" fill="#f0f0f5"/>
+  <!-- Thick upper eyelid -->
+  <path d="M132,148 Q142,134 152,132 Q162,134 168,148" fill="none" stroke="#1a1a2a" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Lower eyelid -->
+  <path d="M136,150 Q144,157 152,158 Q160,157 164,150" fill="none" stroke="#8a7a6a" stroke-width="0.6"/>
+  <!-- Iris -->
+  <circle cx="152" cy="148" r="11" fill="url(#irisGrad)"/>
+  <circle cx="152" cy="148" r="11" fill="none" stroke="#2a1508" stroke-width="0.8" opacity="0.5"/>
+  <!-- Pupil -->
+  <circle cx="152" cy="149" r="5" fill="#0a0a0a"/>
+  <!-- 3 highlight spots -->
+  <circle cx="157" cy="143" r="3.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="147" cy="153" r="2" fill="#ffffff" opacity="0.55"/>
+  <circle cx="155" cy="152" r="0.8" fill="#ffffff" opacity="0.3"/>
+
+  <!-- Eyebrows - confident, slightly angular -->
+  <path d="M88,130 Q100,123 120,126" fill="none" stroke="#1a1a2a" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M136,126 Q156,123 168,130" fill="none" stroke="#1a1a2a" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- === NOSE (tiny L-shape) === -->
+  <path d="M127,173 L128,178 L132,176" fill="none" stroke="#d4a878" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- === MOUTH - slight confident smile === -->
+  <path d="M118,196 Q128,200 138,196" fill="none" stroke="#c08a70" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- === AMBIENT === -->
+  <circle cx="28" cy="95" r="1" fill="#4488ff" opacity="0.2"/>
+  <circle cx="225" cy="75" r="0.8" fill="#4488ff" opacity="0.15"/>
+  <circle cx="38" cy="310" r="1.2" fill="#4488ff" opacity="0.15"/>
+  <circle cx="215" cy="350" r="0.8" fill="#4488ff" opacity="0.12"/>
+  <circle cx="30" cy="260" r="0.7" fill="#4488ff" opacity="0.1"/>
+
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="monospace" font-size="10" fill="#4488ff" text-anchor="middle" opacity="0.5">[default]</text>
 </svg>

@@ -1,123 +1,160 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <linearGradient id="mm_bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a1a"/>
-      <stop offset="100%" stop-color="#050510"/>
+    <linearGradient id="md_bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#080818"/>
+      <stop offset="100%" stop-color="#04040c"/>
     </linearGradient>
-    <linearGradient id="mm_mask_holo" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#00ddbb"/>
-      <stop offset="25%" stop-color="#0088ff"/>
-      <stop offset="50%" stop-color="#dd00ff"/>
-      <stop offset="75%" stop-color="#00ddbb"/>
-      <stop offset="100%" stop-color="#0088ff"/>
+    <linearGradient id="md_mask" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00ccaa"/>
+      <stop offset="30%" stop-color="#0088cc"/>
+      <stop offset="60%" stop-color="#00bbaa"/>
+      <stop offset="100%" stop-color="#006699"/>
     </linearGradient>
-    <linearGradient id="mm_robe" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="100%" stop-color="#0d0d1a"/>
+    <linearGradient id="md_robe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#16162a"/>
+      <stop offset="100%" stop-color="#0a0a16"/>
     </linearGradient>
-    <radialGradient id="mm_glow" cx="0.5" cy="0.4" r="0.5">
-      <stop offset="0%" stop-color="#00ddbb" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#00ddbb" stop-opacity="0"/>
+    <linearGradient id="md_robe_shadow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0c0c1a"/>
+      <stop offset="50%" stop-color="#16162a"/>
+      <stop offset="100%" stop-color="#0c0c1a"/>
+    </linearGradient>
+    <radialGradient id="md_glow" cx="0.5" cy="0.35" r="0.45">
+      <stop offset="0%" stop-color="#ffaa00" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ffaa00" stop-opacity="0"/>
     </radialGradient>
-    <filter id="mm_neon">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="mm_holo_glow">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="md_mask_glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="256" height="384" fill="url(#mm_bg)"/>
-  <rect width="256" height="384" fill="url(#mm_glow)"/>
+  <rect width="256" height="384" fill="url(#md_bg)"/>
+  <rect width="256" height="384" fill="url(#md_glow)"/>
 
   <!-- Frame border -->
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#00ddbb" stroke-width="1.5" opacity="0.4"/>
+  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#ffaa00" stroke-width="1.5" opacity="0.35"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="monospace" font-size="16" fill="#00ddbb" text-anchor="middle" filter="url(#mm_neon)">面具商人</text>
+  <text x="128" y="30" font-family="monospace" font-size="16" fill="#ffaa00" text-anchor="middle" filter="url(#glow)">面具商人</text>
+
+  <!-- Body / dark merchant robe - broad shoulders, imposing -->
+  <path d="M58,215 Q50,238 42,275 L38,310 H218 L214,275 Q206,238 198,215 Q186,196 174,186 L166,182 Q150,174 128,170 Q106,174 90,182 L82,186 Q70,196 58,215 Z" fill="url(#md_robe)" stroke="#ffaa00" stroke-width="0.4" opacity="0.95"/>
+  <!-- Hard shadow blocks - cel shading on robe -->
+  <path d="M58,215 Q50,238 42,275 L38,310 H88 L92,275 Q96,238 100,215 Q92,200 82,186 L90,182 Q106,174 128,170 L108,174 Q88,182 78,196 Q66,206 58,215 Z" fill="#0c0c1a" opacity="0.6"/>
+  <path d="M198,215 Q206,238 214,275 L218,310 H168 L164,275 Q160,238 156,215 Q164,200 174,186 L166,182 Q150,174 128,170 L148,174 Q168,182 178,196 Q190,206 198,215 Z" fill="#0c0c1a" opacity="0.6"/>
+  <!-- Robe fold lines -->
+  <path d="M98,196 Q102,238 100,276 L98,308" fill="none" stroke="#ffaa00" stroke-width="0.3" opacity="0.2"/>
+  <path d="M158,196 Q154,238 156,276 L158,308" fill="none" stroke="#ffaa00" stroke-width="0.3" opacity="0.2"/>
+  <path d="M128,174 Q127,230 128,280 L128,310" fill="none" stroke="#ffaa00" stroke-width="0.2" opacity="0.15"/>
+
+  <!-- Belt with merchandise -->
+  <rect x="72" y="260" width="112" height="6" rx="2" fill="#1a1a30" stroke="#ffaa00" stroke-width="0.5" opacity="0.8"/>
+  <!-- Memory chips on belt -->
+  <rect x="82" y="255" width="8" height="12" rx="1" fill="#0a1520" stroke="#00ccaa" stroke-width="0.6" opacity="0.7"/>
+  <rect x="94" y="256" width="6" height="10" rx="1" fill="#0a1520" stroke="#0088ff" stroke-width="0.5" opacity="0.6"/>
+  <!-- Vial on belt -->
+  <rect x="158" y="254" width="5" height="13" rx="2" fill="#0a1520" stroke="#dd00ff" stroke-width="0.5" opacity="0.6"/>
+  <circle cx="160.5" cy="254" r="3" fill="#0a1520" stroke="#dd00ff" stroke-width="0.4" opacity="0.5"/>
+  <!-- Another chip -->
+  <rect x="170" y="255" width="7" height="11" rx="1" fill="#0a1520" stroke="#ffaa00" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Robe collar - high, mysterious -->
+  <path d="M90,186 Q96,174 110,166 Q120,162 128,160 Q136,162 146,166 Q160,174 166,186 L160,196 Q148,184 128,178 Q108,184 96,196 Z" fill="#121228" stroke="#ffaa00" stroke-width="0.6" opacity="0.95"/>
+
+  <!-- Hood - anime style with sharp lines -->
+  <path d="M74,186 Q68,158 72,126 Q76,98 86,78 Q98,58 116,46 Q126,40 128,38 Q130,40 140,46 Q158,58 170,78 Q180,98 184,126 Q188,158 182,186 Q170,176 154,168 Q142,164 128,160 Q114,164 102,168 Q86,176 74,186 Z" fill="#0e0e26" stroke="#ffaa00" stroke-width="0.4" opacity="0.95"/>
+  <!-- Hood inner shadow -->
+  <path d="M84,180 Q80,154 84,124 Q88,100 96,84 Q106,68 120,58 Q126,54 128,52 Q130,54 136,58 Q150,68 160,84 Q168,100 172,124 Q176,154 172,180" fill="#080818" opacity="0.75"/>
+
+  <!-- Holographic mask - blue/teal geometric, face-shaped -->
+  <path d="M128,82 Q152,86 160,108 Q164,126 160,148 Q154,164 140,172 Q132,176 128,176 Q124,176 116,172 Q102,164 96,148 Q92,126 96,108 Q104,86 128,82 Z" fill="url(#md_mask)" opacity="0.85" filter="url(#md_mask_glow)"/>
+
+  <!-- Geometric patterns on mask - triangles and hexagons -->
+  <!-- Hexagon pattern top -->
+  <polygon points="128,88 138,94 138,106 128,112 118,106 118,94" fill="none" stroke="#00ffee" stroke-width="0.8" opacity="0.4"/>
+  <!-- Triangle patterns -->
+  <polygon points="106,110 114,100 122,110" fill="none" stroke="#00ddcc" stroke-width="0.6" opacity="0.35"/>
+  <polygon points="134,100 142,110 150,100" fill="none" stroke="#00ddcc" stroke-width="0.6" opacity="0.35"/>
+  <!-- Lower hexagon -->
+  <polygon points="128,130 136,135 136,145 128,150 120,145 120,135" fill="none" stroke="#0088cc" stroke-width="0.6" opacity="0.3"/>
+  <!-- Small triangles -->
+  <polygon points="104,130 110,122 116,130" fill="none" stroke="#00bbaa" stroke-width="0.5" opacity="0.25"/>
+  <polygon points="140,122 146,130 152,122" fill="none" stroke="#00bbaa" stroke-width="0.5" opacity="0.25"/>
+
+  <!-- Iridescent color patches on mask -->
+  <ellipse cx="112" cy="104" rx="8" ry="6" fill="#0088cc" opacity="0.15"/>
+  <ellipse cx="144" cy="104" rx="8" ry="6" fill="#00bbaa" opacity="0.15"/>
+  <ellipse cx="128" cy="140" rx="10" ry="8" fill="#006699" opacity="0.12"/>
+  <ellipse cx="108" cy="136" rx="6" ry="5" fill="#00ccaa" opacity="0.1"/>
+  <ellipse cx="148" cy="136" rx="6" ry="5" fill="#0088ff" opacity="0.1"/>
+
+  <!-- Eyes through mask slits - glowing, large anime style -->
+  <!-- Left eye slit -->
+  <path d="M102,108 Q110,102 122,108 Q110,114 102,108 Z" fill="#040410" opacity="0.9"/>
+  <ellipse cx="112" cy="108" rx="7" ry="4" fill="#003838" opacity="0.8"/>
+  <ellipse cx="112" cy="108" rx="5" ry="3.5" fill="#00ccaa" opacity="0.75"/>
+  <ellipse cx="112" cy="108" rx="3" ry="2.5" fill="#00ffdd" opacity="0.9"/>
+  <circle cx="110" cy="106.5" r="1.8" fill="#ffffff" opacity="0.95"/>
+  <circle cx="114" cy="109" r="0.9" fill="#ffffff" opacity="0.6"/>
+  <!-- Right eye slit -->
+  <path d="M134,108 Q142,102 154,108 Q142,114 134,108 Z" fill="#040410" opacity="0.9"/>
+  <ellipse cx="144" cy="108" rx="7" ry="4" fill="#003838" opacity="0.8"/>
+  <ellipse cx="144" cy="108" rx="5" ry="3.5" fill="#00ccaa" opacity="0.75"/>
+  <ellipse cx="144" cy="108" rx="3" ry="2.5" fill="#00ffdd" opacity="0.9"/>
+  <circle cx="142" cy="106.5" r="1.8" fill="#ffffff" opacity="0.95"/>
+  <circle cx="146" cy="109" r="0.9" fill="#ffffff" opacity="0.6"/>
 
   <!-- Stall / counter surface -->
-  <rect x="20" y="295" width="216" height="8" rx="2" fill="#1a1a2e" stroke="#00ddbb" stroke-width="0.5" opacity="0.8"/>
-  <rect x="15" y="300" width="226" height="80" rx="3" fill="#111122" stroke="#00ddbb" stroke-width="0.5" opacity="0.5"/>
-  <rect x="30" y="308" width="18" height="14" rx="2" fill="#0d0d1a" stroke="#00ddbb" stroke-width="0.5" opacity="0.4"/>
-  <rect x="55" y="310" width="14" height="12" rx="2" fill="#0d0d1a" stroke="#dd00ff" stroke-width="0.5" opacity="0.3"/>
-  <rect x="185" y="308" width="16" height="14" rx="2" fill="#0d0d1a" stroke="#0088ff" stroke-width="0.5" opacity="0.4"/>
+  <rect x="18" y="308" width="220" height="6" rx="2" fill="#1a1a2e" stroke="#ffaa00" stroke-width="0.5" opacity="0.8"/>
+  <rect x="12" y="312" width="232" height="68" rx="3" fill="#0e0e1e" stroke="#ffaa00" stroke-width="0.4" opacity="0.5"/>
 
-  <!-- Body / dark robe - anime proportions, bigger head -->
-  <path d="M68,210 Q62,224 55,264 L52,295 H204 L201,264 Q195,224 188,210 Q178,196 168,188 L162,184 Q148,176 128,172 Q108,176 94,184 L88,188 Q78,196 68,210 Z" fill="url(#mm_robe)" stroke="#00ddbb" stroke-width="0.5" opacity="0.9"/>
-  <!-- Robe folds -->
-  <path d="M95,196 Q100,230 98,264 L97,292" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
-  <path d="M161,196 Q156,230 158,264 L159,292" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
-  <path d="M128,176 Q127,220 128,264 L128,295" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.2"/>
+  <!-- Merchandise on stall -->
+  <rect x="28" y="318" width="18" height="14" rx="2" fill="#0a0a18" stroke="#00ccaa" stroke-width="0.6" opacity="0.5"/>
+  <rect x="52" y="320" width="14" height="12" rx="2" fill="#0a0a18" stroke="#dd00ff" stroke-width="0.5" opacity="0.4"/>
+  <rect x="186" y="318" width="16" height="14" rx="2" fill="#0a0a18" stroke="#0088ff" stroke-width="0.6" opacity="0.5"/>
 
-  <!-- Robe collar - high and mysterious -->
-  <path d="M94,188 Q98,176 110,170 Q120,166 128,165 Q136,166 146,170 Q158,176 162,188 L157,196 Q147,185 128,180 Q109,185 99,196 Z" fill="#151528" stroke="#00ddbb" stroke-width="0.8" opacity="0.9"/>
+  <!-- Hands resting on stall - relaxed -->
+  <path d="M76,280 Q72,290 74,302 Q76,308 82,309 L102,308 Q106,305 106,300 Q105,292 102,284 Q96,276 86,276 Q79,277 76,280 Z" fill="#16162a" stroke="#ffaa00" stroke-width="0.4" opacity="0.7"/>
+  <path d="M180,280 Q184,290 182,302 Q180,308 174,309 L154,308 Q150,305 150,300 Q151,292 154,284 Q160,276 170,276 Q177,277 180,280 Z" fill="#16162a" stroke="#ffaa00" stroke-width="0.4" opacity="0.7"/>
 
-  <!-- Hood - anime style with clean lines -->
-  <path d="M80,184 Q76,160 78,132 Q80,106 88,88 Q98,68 114,56 Q124,50 128,48 Q132,50 142,56 Q158,68 168,88 Q176,106 178,132 Q180,160 176,184 Q166,176 152,170 Q142,166 128,165 Q114,166 104,170 Q90,176 80,184 Z" fill="#12122a" stroke="#00ddbb" stroke-width="0.5" opacity="0.95"/>
-  <!-- Hood shadow inner -->
-  <path d="M88,178 Q86,156 88,128 Q90,106 98,90 Q106,76 118,66 Q124,62 128,60 Q132,62 138,66 Q150,76 158,90 Q166,106 168,128 Q170,156 168,178" fill="#0a0a1e" opacity="0.7"/>
+  <!-- Floating holographic price tags -->
+  <g opacity="0.5" filter="url(#glow)">
+    <rect x="30" y="200" width="28" height="12" rx="2" fill="none" stroke="#00ccaa" stroke-width="0.5"/>
+    <text x="44" y="209" font-family="monospace" font-size="6" fill="#00ccaa" text-anchor="middle">¥8800</text>
+  </g>
+  <g opacity="0.4" filter="url(#glow)">
+    <rect x="198" y="190" width="30" height="12" rx="2" fill="none" stroke="#ffaa00" stroke-width="0.5"/>
+    <text x="213" y="199" font-family="monospace" font-size="6" fill="#ffaa00" text-anchor="middle">¥12000</text>
+  </g>
 
-  <!-- Holographic mask - anime style, smooth oval -->
-  <ellipse cx="128" cy="126" rx="32" ry="42" fill="url(#mm_mask_holo)" opacity="0.85" filter="url(#mm_holo_glow)"/>
+  <!-- Ambient multi-color particles -->
+  <circle cx="32" cy="75" r="1.5" fill="#ffaa00" opacity="0.3"/>
+  <circle cx="224" cy="90" r="1" fill="#00ccaa" opacity="0.25"/>
+  <circle cx="40" cy="245" r="1.2" fill="#0088ff" opacity="0.2"/>
+  <circle cx="215" cy="230" r="0.8" fill="#dd00ff" opacity="0.25"/>
+  <circle cx="22" cy="170" r="1" fill="#00ccaa" opacity="0.15"/>
+  <circle cx="234" cy="155" r="1.3" fill="#ffaa00" opacity="0.2"/>
 
-  <!-- Mask surface holographic lines -->
-  <path d="M106,96 Q116,91 128,89 Q140,91 150,96" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
-  <path d="M104,112 Q114,107 128,105 Q142,107 152,112" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
-  <path d="M102,128 Q114,123 128,121 Q142,123 154,128" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.3"/>
-  <path d="M104,144 Q114,139 128,137 Q142,139 152,144" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.25"/>
-
-  <!-- Anime eyes on mask - LARGE expressive with big iris and highlights -->
-  <!-- Left eye -->
-  <ellipse cx="114" cy="112" rx="12" ry="10" fill="#0a1520" opacity="0.9"/>
-  <ellipse cx="114" cy="112" rx="11" ry="9" fill="#003333" opacity="0.8"/>
-  <ellipse cx="114" cy="113" rx="8" ry="8" fill="#00ddbb" opacity="0.7"/>
-  <ellipse cx="114" cy="113" rx="5.5" ry="5.5" fill="#00ffee" opacity="0.8"/>
-  <circle cx="110" cy="109" r="3" fill="#ffffff" opacity="0.95"/>
-  <circle cx="117" cy="115" r="1.8" fill="#ffffff" opacity="0.7"/>
-  <circle cx="112" cy="116" r="1" fill="#ffffff" opacity="0.5"/>
-  <!-- Right eye -->
-  <ellipse cx="142" cy="112" rx="12" ry="10" fill="#0a1520" opacity="0.9"/>
-  <ellipse cx="142" cy="112" rx="11" ry="9" fill="#003333" opacity="0.8"/>
-  <ellipse cx="142" cy="113" rx="8" ry="8" fill="#00ddbb" opacity="0.7"/>
-  <ellipse cx="142" cy="113" rx="5.5" ry="5.5" fill="#00ffee" opacity="0.8"/>
-  <circle cx="138" cy="109" r="3" fill="#ffffff" opacity="0.95"/>
-  <circle cx="145" cy="115" r="1.8" fill="#ffffff" opacity="0.7"/>
-  <circle cx="140" cy="116" r="1" fill="#ffffff" opacity="0.5"/>
-
-  <!-- Small simple nose -->
-  <path d="M126,130 Q128,133 130,130" fill="none" stroke="#00ddbb" stroke-width="0.6" opacity="0.4"/>
-
-  <!-- Small mouth -->
-  <path d="M122,140 Q128,143 134,140" fill="none" stroke="#00ddbb" stroke-width="0.8" opacity="0.5"/>
-
-  <!-- Holographic shimmer particles -->
-  <circle cx="115" cy="94" r="1" fill="#dd00ff" opacity="0.6"/>
-  <circle cx="140" cy="102" r="0.8" fill="#0088ff" opacity="0.5"/>
-  <circle cx="120" cy="148" r="1.2" fill="#00ddbb" opacity="0.4"/>
-  <circle cx="145" cy="135" r="0.7" fill="#dd00ff" opacity="0.5"/>
-  <circle cx="108" cy="122" r="0.9" fill="#0088ff" opacity="0.4"/>
-
-  <!-- Hands resting on stall -->
-  <path d="M80,270 Q78,278 80,288 Q82,294 88,295 L105,295 Q108,293 108,288 Q107,280 105,272 Q100,265 90,265 Q83,266 80,270 Z" fill="#1a1a2e" stroke="#00ddbb" stroke-width="0.5" opacity="0.7"/>
-  <path d="M176,270 Q178,278 176,288 Q174,294 168,295 L151,295 Q148,293 148,288 Q149,280 151,272 Q156,265 166,265 Q173,266 176,270 Z" fill="#1a1a2e" stroke="#00ddbb" stroke-width="0.5" opacity="0.7"/>
-
-  <!-- Ambient teal particles -->
-  <circle cx="35" cy="80" r="1.5" fill="#00ddbb" opacity="0.3"/>
-  <circle cx="220" cy="95" r="1" fill="#00ddbb" opacity="0.25"/>
-  <circle cx="45" cy="250" r="1.2" fill="#00ddbb" opacity="0.2"/>
-  <circle cx="210" cy="230" r="0.8" fill="#00ddbb" opacity="0.3"/>
-  <circle cx="25" cy="180" r="1" fill="#00ddbb" opacity="0.15"/>
-  <circle cx="230" cy="160" r="1.3" fill="#00ddbb" opacity="0.2"/>
+  <!-- Holographic shimmer on mask -->
+  <circle cx="118" cy="90" r="1" fill="#00ffee" opacity="0.5"/>
+  <circle cx="142" cy="96" r="0.8" fill="#0088ff" opacity="0.4"/>
+  <circle cx="110" cy="148" r="1.1" fill="#00ccaa" opacity="0.35"/>
+  <circle cx="148" cy="130" r="0.7" fill="#00ddcc" opacity="0.4"/>
 
   <!-- Scanline overlay -->
-  <line x1="0" y1="60" x2="256" y2="60" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
-  <line x1="0" y1="120" x2="256" y2="120" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
-  <line x1="0" y1="180" x2="256" y2="180" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
-  <line x1="0" y1="240" x2="256" y2="240" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
-  <line x1="0" y1="300" x2="256" y2="300" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
-  <line x1="0" y1="360" x2="256" y2="360" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="60" x2="256" y2="60" stroke="#ffaa00" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="120" x2="256" y2="120" stroke="#ffaa00" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="180" x2="256" y2="180" stroke="#ffaa00" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#ffaa00" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#ffaa00" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="360" x2="256" y2="360" stroke="#ffaa00" stroke-width="0.3" opacity="0.06"/>
+
+  <!-- Expression label -->
+  <text x="128" y="374" font-family="monospace" font-size="10" fill="#ffaa00" text-anchor="middle" opacity="0.6">DEFAULT</text>
 </svg>

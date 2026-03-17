@@ -1,50 +1,59 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
     <radialGradient id="ks-bg" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#0c1608"/>
-      <stop offset="100%" stop-color="#0a0a1a"/>
+      <stop offset="0%" stop-color="#081608"/>
+      <stop offset="100%" stop-color="#06061a"/>
+    </radialGradient>
+    <radialGradient id="ks-iris-l" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#44dd66"/>
+      <stop offset="40%" stop-color="#1abb33"/>
+      <stop offset="100%" stop-color="#085518"/>
+    </radialGradient>
+    <radialGradient id="ks-iris-r" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#44dd66"/>
+      <stop offset="40%" stop-color="#1abb33"/>
+      <stop offset="100%" stop-color="#085518"/>
     </radialGradient>
     <linearGradient id="ks-hoodie" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#182618"/>
-      <stop offset="50%" stop-color="#122012"/>
-      <stop offset="100%" stop-color="#0a160a"/>
+      <stop offset="0%" stop-color="#1a281a"/>
+      <stop offset="50%" stop-color="#122212"/>
+      <stop offset="100%" stop-color="#0a180a"/>
     </linearGradient>
-    <linearGradient id="ks-skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e0c098"/>
-      <stop offset="100%" stop-color="#d0b088"/>
+    <linearGradient id="ks-hoodie-shadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a140a"/>
+      <stop offset="100%" stop-color="#061006"/>
     </linearGradient>
     <linearGradient id="ks-hair" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2a1a10"/>
-      <stop offset="100%" stop-color="#1a1008"/>
+      <stop offset="0%" stop-color="#00bbee"/>
+      <stop offset="50%" stop-color="#0088cc"/>
+      <stop offset="100%" stop-color="#005599"/>
+    </linearGradient>
+    <linearGradient id="ks-hair-shine" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#77ddee" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0099cc" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="ks-goggles" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2a2a3a"/>
-      <stop offset="100%" stop-color="#1a1a28"/>
+      <stop offset="0%" stop-color="#3a3a4a"/>
+      <stop offset="100%" stop-color="#1a1a2a"/>
     </linearGradient>
     <linearGradient id="ks-goggle-lens" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#44cc00"/>
-      <stop offset="50%" stop-color="#88ff00"/>
-      <stop offset="100%" stop-color="#44cc00"/>
+      <stop offset="0%" stop-color="#44ff88"/>
+      <stop offset="50%" stop-color="#00ff44"/>
+      <stop offset="100%" stop-color="#44ff88"/>
     </linearGradient>
-    <filter id="ks-glow">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="ks-glow-soft">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
     <linearGradient id="ks-border" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#88ff00" stop-opacity="0.5"/>
-      <stop offset="50%" stop-color="#44cc00" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#88ff00" stop-opacity="0.5"/>
+      <stop offset="0%" stop-color="#00ff44" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#44ff88" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00ff44" stop-opacity="0.5"/>
     </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
   <!-- Background - slightly darker, more serious -->
@@ -52,110 +61,138 @@
   <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="url(#ks-border)" stroke-width="1.5"/>
 
   <!-- Character name -->
-  <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#88ff00" text-anchor="middle" filter="url(#ks-glow)">小鬼</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#00ff44" text-anchor="middle" filter="url(#glow)">小鬼</text>
 
-  <!-- Hoodie body - standing straight -->
-  <path d="M58,180 C58,168 72,155 88,150 L108,144 C116,141 122,140 128,139 C134,140 140,141 148,144 L168,150 C184,155 198,168 198,180 L204,275 C206,315 202,348 198,370 L58,370 C54,348 50,315 52,275 Z" fill="url(#ks-hoodie)"/>
+  <!-- Hoodie body - standing straight, squared -->
+  <path d="M55,182 C55,168 70,154 88,148 L108,142 C116,139 122,138 128,137 C134,138 140,139 148,142 L168,148 C186,154 201,168 201,182 L207,278 C209,318 205,350 201,372 L55,372 C51,350 47,318 49,278 Z" fill="url(#ks-hoodie)"/>
+  <!-- Hoodie shadow -->
+  <path d="M55,182 C55,168 70,154 88,148 L108,142 C116,139 122,138 128,137 L128,372 L55,372 C51,350 47,318 49,278 Z" fill="url(#ks-hoodie-shadow)" opacity="0.3"/>
   <!-- Neon patches - subdued -->
-  <path d="M68,200 L78,200 L78,230 L68,230 Z" fill="#88ff00" opacity="0.08"/>
-  <path d="M178,200 L188,200 L188,230 L178,230 Z" fill="#88ff00" opacity="0.08"/>
-  <path d="M60,185 Q62,220 58,260" fill="none" stroke="#88ff00" stroke-width="2" opacity="0.1"/>
-  <path d="M196,185 Q194,220 198,260" fill="none" stroke="#88ff00" stroke-width="2" opacity="0.1"/>
+  <path d="M68,200 L78,200 L78,240 L68,240 Z" fill="#00ff44" opacity="0.08"/>
+  <path d="M178,200 L188,200 L188,240 L178,240 Z" fill="#00ff44" opacity="0.08"/>
+  <path d="M58,186 Q60,225 56,268" fill="none" stroke="#00ff44" stroke-width="2" opacity="0.1"/>
+  <path d="M198,186 Q196,225 200,268" fill="none" stroke="#00ff44" stroke-width="2" opacity="0.1"/>
 
   <!-- Hoodie pocket -->
-  <path d="M90,260 L166,260 L168,295 C168,305 160,310 128,310 C96,310 88,305 88,295 Z" fill="#0a160a" opacity="0.6"/>
-  <path d="M90,260 L166,260" fill="none" stroke="#88ff00" stroke-width="0.5" opacity="0.18"/>
+  <path d="M88,262 L168,262 L170,298 C170,308 162,314 128,314 C94,314 86,308 86,298 Z" fill="#0a180a" opacity="0.6"/>
+  <path d="M88,262 L168,262" fill="none" stroke="#00ff44" stroke-width="0.5" opacity="0.18"/>
 
-  <!-- Hoodie seam -->
-  <path d="M128,165 L128,370" fill="none" stroke="#88ff00" stroke-width="0.3" opacity="0.08"/>
+  <!-- Center seam -->
+  <path d="M128,166 L128,372" fill="none" stroke="#00ff44" stroke-width="0.3" opacity="0.08"/>
 
   <!-- Drawstrings -->
-  <line x1="120" y1="165" x2="118" y2="200" stroke="#88ff00" stroke-width="0.8" opacity="0.2"/>
-  <line x1="136" y1="165" x2="138" y2="200" stroke="#88ff00" stroke-width="0.8" opacity="0.2"/>
-  <rect x="116" y="198" width="4" height="6" rx="1" fill="#88ff00" opacity="0.25"/>
-  <rect x="136" y="198" width="4" height="6" rx="1" fill="#88ff00" opacity="0.25"/>
+  <line x1="120" y1="166" x2="117" y2="204" stroke="#00ff44" stroke-width="0.8" opacity="0.2"/>
+  <line x1="136" y1="166" x2="139" y2="204" stroke="#00ff44" stroke-width="0.8" opacity="0.2"/>
+  <rect x="115" y="202" width="4" height="6" rx="1" fill="#00ff44" opacity="0.25"/>
+  <rect x="137" y="202" width="4" height="6" rx="1" fill="#00ff44" opacity="0.25"/>
 
   <!-- T-shirt collar -->
-  <path d="M112,155 C118,150 124,148 128,147 C132,148 138,150 144,155" fill="#1a1a28"/>
+  <path d="M112,156 C118,150 124,148 128,147 C132,148 138,150 144,156" fill="#1a1a2a"/>
 
   <!-- Neck -->
-  <path d="M118,132 L118,150 C118,153 122,155 128,155 C134,155 138,153 138,150 L138,132" fill="url(#ks-skin)"/>
+  <path d="M118,132 L118,152 C118,155 122,157 128,157 C134,157 138,155 138,152 L138,132" fill="#f0cba8"/>
+  <path d="M118,132 L118,152 C118,155 122,157 128,157 L128,132" fill="#d4ad8a" opacity="0.3"/>
 
   <!-- Hoodie hood behind neck -->
-  <path d="M105,138 C110,145 118,148 128,148 C138,148 146,145 151,138 L155,145 C155,155 145,162 128,163 C111,162 101,155 101,145 Z" fill="#182618"/>
+  <path d="M104,138 C110,145 118,148 128,148 C138,148 146,145 152,138 L156,145 C156,155 146,163 128,164 C110,163 100,155 100,145 Z" fill="#1a281a"/>
 
   <!-- Head shape -->
-  <path d="M98,82 C98,55 110,42 128,40 C146,42 158,55 158,82 L158,112 C158,132 146,142 128,142 C110,142 98,132 98,112 Z" fill="url(#ks-skin)"/>
+  <path d="M94,80 C94,50 108,36 128,34 C148,36 162,50 162,80 L162,114 C162,136 148,148 128,148 C108,148 94,136 94,114 Z" fill="#f0cba8"/>
+  <!-- Face shadow -->
+  <path d="M94,80 C94,50 108,36 128,34 L128,148 C108,148 94,136 94,114 Z" fill="#d4ad8a" opacity="0.2"/>
 
-  <!-- Hair - messy but flattened by pulled-down goggles -->
-  <path d="M96,80 C96,52 110,36 128,34 C146,36 160,52 160,80" fill="url(#ks-hair)"/>
-  <!-- Spikes compressed by goggle strap -->
-  <path d="M108,40 L106,30 L112,36" fill="url(#ks-hair)"/>
-  <path d="M122,37 L120,26 L126,34" fill="url(#ks-hair)"/>
-  <path d="M136,36 L138,24 L140,34" fill="url(#ks-hair)"/>
-  <path d="M148,39 L152,28 L152,37" fill="url(#ks-hair)"/>
-  <path d="M96,78 C96,68 98,58 102,52" fill="none" stroke="#1a1008" stroke-width="3"/>
-  <path d="M160,78 C160,68 158,58 154,52" fill="none" stroke="#1a1008" stroke-width="3"/>
-  <!-- Brown hair strand detail -->
-  <path d="M106,44 Q104,52 106,62" fill="none" stroke="#2a1a10" stroke-width="1.5" opacity="0.5"/>
-  <path d="M150,42 Q152,50 150,60" fill="none" stroke="#2a1a10" stroke-width="1.5" opacity="0.5"/>
+  <!-- Hair - electric blue, slightly flatter (serious posture) -->
+  <path d="M92,78 C92,46 108,28 128,26 C148,28 164,46 164,78" fill="url(#ks-hair)"/>
+  <!-- Spikes - less wild than default -->
+  <path d="M106,34 L100,18 L114,30" fill="url(#ks-hair)"/>
+  <path d="M120,28 L114,10 L126,24" fill="url(#ks-hair)"/>
+  <path d="M136,27 L142,8 L146,24" fill="url(#ks-hair)"/>
+  <path d="M150,32 L160,16 L158,30" fill="url(#ks-hair)"/>
+  <path d="M92,58 L84,50 L92,68" fill="url(#ks-hair)"/>
+  <path d="M164,58 L172,50 L164,68" fill="url(#ks-hair)"/>
+  <!-- Hair sides -->
+  <path d="M92,76 C92,64 94,52 100,44" fill="none" stroke="#0077aa" stroke-width="4"/>
+  <path d="M164,76 C164,64 162,52 156,44" fill="none" stroke="#0077aa" stroke-width="4"/>
+  <!-- Hair shine - smaller for serious mood -->
+  <path d="M110,30 C116,26 124,24 128,26 C122,30 114,40 110,50 Z" fill="url(#ks-hair-shine)"/>
+  <!-- Strand details -->
+  <path d="M102,40 Q100,50 102,62" fill="none" stroke="#0099cc" stroke-width="1.8" opacity="0.45"/>
+  <path d="M154,38 Q156,48 154,60" fill="none" stroke="#0099cc" stroke-width="1.8" opacity="0.45"/>
 
   <!-- VR Goggles PULLED DOWN over eyes - serious mode -->
-  <path d="M96,82 C96,74 106,68 128,68 C150,68 160,74 160,82 L160,98 C160,104 150,108 128,108 C106,108 96,104 96,98 Z" fill="url(#ks-goggles)"/>
-  <!-- Goggle strap going around head -->
-  <path d="M92,88 L96,88" fill="none" stroke="#2a2a3a" stroke-width="4"/>
-  <path d="M160,88 L164,88" fill="none" stroke="#2a2a3a" stroke-width="4"/>
-  <!-- Goggle lenses - glowing active, covering eyes -->
-  <ellipse cx="114" cy="90" rx="12" ry="9" fill="#0a0a14"/>
-  <ellipse cx="114" cy="90" rx="10" ry="7" fill="url(#ks-goggle-lens)" opacity="0.5" filter="url(#ks-glow)"/>
-  <ellipse cx="142" cy="90" rx="12" ry="9" fill="#0a0a14"/>
-  <ellipse cx="142" cy="90" rx="10" ry="7" fill="url(#ks-goggle-lens)" opacity="0.5" filter="url(#ks-glow)"/>
-  <!-- Active goggle rims - brighter glow -->
-  <ellipse cx="114" cy="90" rx="12" ry="9" fill="none" stroke="#88ff00" stroke-width="1.2" opacity="0.6"/>
-  <ellipse cx="142" cy="90" rx="12" ry="9" fill="none" stroke="#88ff00" stroke-width="1.2" opacity="0.6"/>
+  <path d="M92,84 C92,74 104,68 128,68 C152,68 164,74 164,84 L164,102 C164,108 152,113 128,113 C104,113 92,108 92,102 Z" fill="url(#ks-goggles)"/>
+  <!-- Goggle strap -->
+  <path d="M88,92 L92,92" fill="none" stroke="#3a3a4a" stroke-width="4.5"/>
+  <path d="M164,92 L168,92" fill="none" stroke="#3a3a4a" stroke-width="4.5"/>
+  <!-- Active goggle lenses - glowing, covering eyes -->
+  <ellipse cx="114" cy="93" rx="14" ry="10" fill="#0a0a18"/>
+  <ellipse cx="114" cy="93" rx="11" ry="8" fill="url(#ks-goggle-lens)" opacity="0.45" filter="url(#glow)"/>
+  <ellipse cx="142" cy="93" rx="14" ry="10" fill="#0a0a18"/>
+  <ellipse cx="142" cy="93" rx="11" ry="8" fill="url(#ks-goggle-lens)" opacity="0.45" filter="url(#glow)"/>
+  <!-- Active rims - bright glow -->
+  <ellipse cx="114" cy="93" rx="14" ry="10" fill="none" stroke="#00ff44" stroke-width="1.5" opacity="0.6"/>
+  <ellipse cx="142" cy="93" rx="14" ry="10" fill="none" stroke="#00ff44" stroke-width="1.5" opacity="0.6"/>
   <!-- Goggle bridge -->
-  <path d="M126,90 L130,90" fill="none" stroke="#2a2a3a" stroke-width="3"/>
+  <path d="M128,93 L128,93" fill="none" stroke="#3a3a4a" stroke-width="3"/>
   <!-- Data readout lines inside lenses -->
-  <line x1="106" y1="86" x2="122" y2="86" stroke="#88ff00" stroke-width="0.5" opacity="0.3"/>
-  <line x1="108" y1="90" x2="118" y2="90" stroke="#88ff00" stroke-width="0.4" opacity="0.25"/>
-  <line x1="134" y1="86" x2="150" y2="86" stroke="#88ff00" stroke-width="0.5" opacity="0.3"/>
-  <line x1="136" y1="90" x2="146" y2="90" stroke="#88ff00" stroke-width="0.4" opacity="0.25"/>
-  <!-- Targeting reticle in lens -->
-  <circle cx="114" cy="90" r="3" fill="none" stroke="#88ff00" stroke-width="0.3" opacity="0.2"/>
-  <circle cx="142" cy="90" r="3" fill="none" stroke="#88ff00" stroke-width="0.3" opacity="0.2"/>
+  <line x1="104" y1="88" x2="124" y2="88" stroke="#00ff44" stroke-width="0.6" opacity="0.3"/>
+  <line x1="106" y1="93" x2="120" y2="93" stroke="#00ff44" stroke-width="0.5" opacity="0.25"/>
+  <line x1="108" y1="97" x2="118" y2="97" stroke="#00ff44" stroke-width="0.4" opacity="0.2"/>
+  <line x1="132" y1="88" x2="152" y2="88" stroke="#00ff44" stroke-width="0.6" opacity="0.3"/>
+  <line x1="134" y1="93" x2="148" y2="93" stroke="#00ff44" stroke-width="0.5" opacity="0.25"/>
+  <line x1="136" y1="97" x2="146" y2="97" stroke="#00ff44" stroke-width="0.4" opacity="0.2"/>
+  <!-- Targeting reticle -->
+  <circle cx="114" cy="93" r="4" fill="none" stroke="#00ff44" stroke-width="0.4" opacity="0.2"/>
+  <circle cx="142" cy="93" r="4" fill="none" stroke="#00ff44" stroke-width="0.4" opacity="0.2"/>
+  <line x1="114" y1="87" x2="114" y2="89" stroke="#00ff44" stroke-width="0.3" opacity="0.2"/>
+  <line x1="114" y1="97" x2="114" y2="99" stroke="#00ff44" stroke-width="0.3" opacity="0.2"/>
+  <line x1="142" y1="87" x2="142" y2="89" stroke="#00ff44" stroke-width="0.3" opacity="0.2"/>
+  <line x1="142" y1="97" x2="142" y2="99" stroke="#00ff44" stroke-width="0.3" opacity="0.2"/>
 
   <!-- Goggle glow on cheeks -->
-  <ellipse cx="114" cy="108" rx="14" ry="8" fill="#88ff00" opacity="0.04" filter="url(#ks-glow-soft)"/>
-  <ellipse cx="142" cy="108" rx="14" ry="8" fill="#88ff00" opacity="0.04" filter="url(#ks-glow-soft)"/>
+  <ellipse cx="114" cy="112" rx="16" ry="8" fill="#00ff44" opacity="0.04" filter="url(#glow-soft)"/>
+  <ellipse cx="142" cy="112" rx="16" ry="8" fill="#00ff44" opacity="0.04" filter="url(#glow-soft)"/>
 
   <!-- Ears - partially covered by strap -->
-  <ellipse cx="93" cy="95" rx="5" ry="7" fill="#d0b088"/>
-  <ellipse cx="163" cy="95" rx="5" ry="7" fill="#d0b088"/>
-  <circle cx="92" cy="92" r="1.2" fill="#88ff00" opacity="0.4"/>
+  <ellipse cx="89" cy="98" rx="5" ry="8" fill="#e0b890"/>
+  <ellipse cx="167" cy="98" rx="5" ry="8" fill="#e0b890"/>
+  <circle cx="88" cy="94" r="1.5" fill="#00ff44" opacity="0.4"/>
 
   <!-- Nose -->
-  <path d="M128,100 L126,112 L128,114 L130,112" fill="none" stroke="#c0a078" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="128" cy="118" r="2" fill="#d4ad8a" opacity="0.45"/>
 
   <!-- Mouth - pressed thin, serious/focused -->
-  <path d="M118,122 C122,120 128,120 134,120 C138,122 138,122 138,122" fill="none" stroke="#a08060" stroke-width="1.3"/>
+  <path d="M118,126 C123,124 128,124 133,124 C138,126 138,126 138,126" fill="none" stroke="#8a6848" stroke-width="1.5" stroke-linecap="round"/>
   <!-- Firm set of jaw -->
-  <path d="M120,122 Q128,123 136,122" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.3"/>
+  <path d="M120,127 Q128,128 136,127" fill="none" stroke="#8a6848" stroke-width="0.6" opacity="0.3"/>
 
   <!-- Freckles -->
-  <circle cx="108" cy="110" r="0.8" fill="#c0a078" opacity="0.25"/>
-  <circle cx="148" cy="110" r="0.8" fill="#c0a078" opacity="0.25"/>
+  <circle cx="106" cy="116" r="0.8" fill="#d4ad8a" opacity="0.25"/>
+  <circle cx="150" cy="116" r="0.8" fill="#d4ad8a" opacity="0.25"/>
 
   <!-- Shoulders - squared, focused -->
-  <path d="M58,180 C63,170 75,162 88,158" fill="none" stroke="#88ff00" stroke-width="0.6" opacity="0.2"/>
-  <path d="M198,180 C193,170 181,162 168,158" fill="none" stroke="#88ff00" stroke-width="0.6" opacity="0.2"/>
+  <path d="M55,182 C60,170 73,160 88,156" fill="none" stroke="#00ff44" stroke-width="0.6" opacity="0.2"/>
+  <path d="M201,182 C196,170 183,160 168,156" fill="none" stroke="#00ff44" stroke-width="0.6" opacity="0.2"/>
 
-  <!-- Neon patches subdued -->
-  <rect x="64" y="175" width="8" height="12" rx="1" fill="#88ff00" opacity="0.06"/>
-  <rect x="184" y="175" width="8" height="12" rx="1" fill="#88ff00" opacity="0.06"/>
+  <!-- Holographic display - multiple panels (hacking mode) -->
+  <rect x="22" y="186" width="32" height="22" rx="2" fill="#00ff44" opacity="0.05" filter="url(#glow-soft)"/>
+  <line x1="26" y1="192" x2="48" y2="192" stroke="#00ff44" stroke-width="0.5" opacity="0.15"/>
+  <line x1="26" y1="196" x2="44" y2="196" stroke="#00ff44" stroke-width="0.4" opacity="0.12"/>
+  <line x1="26" y1="200" x2="46" y2="200" stroke="#00ff44" stroke-width="0.4" opacity="0.12"/>
+  <rect x="22" y="186" width="32" height="22" rx="2" fill="none" stroke="#00ff44" stroke-width="0.4" opacity="0.15"/>
+
+  <rect x="202" y="182" width="32" height="22" rx="2" fill="#00ff44" opacity="0.05" filter="url(#glow-soft)"/>
+  <line x1="206" y1="188" x2="228" y2="188" stroke="#00ff44" stroke-width="0.5" opacity="0.15"/>
+  <line x1="206" y1="192" x2="224" y2="192" stroke="#00ff44" stroke-width="0.4" opacity="0.12"/>
+  <line x1="206" y1="196" x2="226" y2="196" stroke="#00ff44" stroke-width="0.4" opacity="0.12"/>
+  <rect x="202" y="182" width="32" height="22" rx="2" fill="none" stroke="#00ff44" stroke-width="0.4" opacity="0.15"/>
 
   <!-- Ambient particles - subdued -->
-  <circle cx="40" cy="198" r="0.8" fill="#88ff00" opacity="0.3"/>
-  <circle cx="216" cy="178" r="1" fill="#88ff00" opacity="0.25"/>
-  <circle cx="55" cy="308" r="0.7" fill="#44cc00" opacity="0.25"/>
-  <circle cx="202" cy="298" r="0.8" fill="#88ff00" opacity="0.2"/>
+  <circle cx="38" cy="240" r="0.8" fill="#00ff44" opacity="0.3"/>
+  <circle cx="218" cy="250" r="1" fill="#00ff44" opacity="0.25"/>
+  <circle cx="52" cy="310" r="0.7" fill="#44ff88" opacity="0.25"/>
+  <circle cx="204" cy="300" r="0.8" fill="#00ff44" opacity="0.2"/>
+
+  <!-- Expression label -->
+  <text x="128" y="368" font-family="'Courier New', monospace" font-size="10" fill="#00ff44" text-anchor="middle" opacity="0.5">SERIOUS</text>
 </svg>

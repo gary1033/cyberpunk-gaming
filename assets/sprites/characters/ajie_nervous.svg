@@ -4,18 +4,14 @@
       <stop offset="0%" stop-color="#1a0f00"/>
       <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <filter id="neon_orange">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c4956e"/>
-      <stop offset="100%" stop-color="#a47a58"/>
-    </linearGradient>
-    <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="100%" stop-color="#0d0d1a"/>
-    </linearGradient>
+    <radialGradient id="iris_grad" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#a0703c"/>
+      <stop offset="100%" stop-color="#5a3018"/>
+    </radialGradient>
   </defs>
 
   <!-- Background -->
@@ -23,26 +19,30 @@
   <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff8800" stroke-width="1.5" opacity="0.4"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle" filter="url(#neon_orange)">阿傑</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle" filter="url(#glow)">阿傑</text>
   <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle">阿傑</text>
 
   <!-- Neck - slightly turned -->
-  <rect x="104" y="195" width="52" height="30" rx="6" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1"/>
+  <rect x="104" y="195" width="52" height="30" rx="6" fill="#c8a882"/>
+  <path d="M104,195 L114,195 L114,225 L104,225 Z" fill="#2a1a0a" opacity="0.25"/>
 
-  <!-- Body / Shoulders -->
-  <path d="M130,222 L130,384 L34,384 L34,272 Q34,230 80,218 Q110,210 130,222 Z" fill="url(#shirt_grad)"/>
-  <path d="M130,222 L130,384 L222,384 L222,272 Q222,230 178,218 Q150,210 130,222 Z" fill="url(#shirt_grad)"/>
+  <!-- Body / Shoulders - shifted slightly -->
+  <path d="M130,222 L130,384 L34,384 L34,272 Q34,230 80,218 Q110,210 130,222 Z" fill="#1a1a2e"/>
+  <path d="M130,222 L130,384 L222,384 L222,272 Q222,230 178,218 Q150,210 130,222 Z" fill="#1a1a2e"/>
+  <path d="M130,222 L130,384 L82,384 L82,260 Q87,235 130,222 Z" fill="#0d0d1a" opacity="0.4"/>
   <path d="M80,218 Q54,224 40,246 Q34,260 34,272" fill="none" stroke="#2a2a4e" stroke-width="2"/>
   <path d="M178,218 Q202,224 216,246 Q222,260 222,272" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
   <!-- Left arm hanging -->
-  <path d="M34,272 Q38,300 44,340 Q48,365 52,384" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1"/>
-  <!-- Right arm - hand on back of neck -->
-  <path d="M222,272 Q214,260 200,248 Q184,236 170,224" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1"/>
-  <ellipse cx="164" cy="206" rx="14" ry="11" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="0.8"/>
+  <path d="M34,272 Q38,300 44,340 Q48,365 52,384" fill="#c8a882"/>
+  <path d="M34,272 Q36,290 38,310 L44,310 Q42,290 40,272 Z" fill="#2a1a0a" opacity="0.25"/>
+  <!-- Right arm - hand on back of neck (nervous gesture) -->
+  <path d="M222,272 Q214,260 200,248 Q184,236 170,224" fill="#c8a882"/>
+  <ellipse cx="164" cy="206" rx="14" ry="11" fill="#c8a882"/>
+  <ellipse cx="164" cy="206" rx="10" ry="7" fill="#2a1a0a" opacity="0.15"/>
 
   <!-- Circuit tattoos left arm - dimmer when nervous -->
-  <g filter="url(#neon_orange)" opacity="0.5">
+  <g filter="url(#glow)" opacity="0.5">
     <path d="M40,280 L50,280 L50,296 L60,296" fill="none" stroke="#ff8800" stroke-width="1.5"/>
     <circle cx="40" cy="280" r="2.5" fill="#ff8800"/>
     <circle cx="60" cy="296" r="2.5" fill="#ff8800"/>
@@ -52,58 +52,74 @@
   <path d="M98,222 L130,254 L162,222" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
   <!-- Head - turned slightly right -->
-  <path d="M82,90 Q82,42 131,36 Q180,42 180,90 L180,150 Q180,168 166,180 Q152,192 131,194 Q110,192 96,180 Q82,168 82,150 Z" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="2"/>
+  <path d="M80,88 Q80,42 131,36 Q182,42 182,88 L182,148 Q182,166 168,178 Q154,190 131,192 Q108,190 94,178 Q80,166 80,148 Z" fill="#c8a882"/>
+  <path d="M80,88 L80,148 Q80,166 94,178 Q100,183 108,187 L108,100 Q94,92 80,88 Z" fill="#2a1a0a" opacity="0.2"/>
+  <path d="M94,178 Q108,190 131,192 L131,185 Q113,183 101,174 Z" fill="#2a1a0a" opacity="0.15"/>
 
-  <!-- Bald/buzzcut -->
-  <path d="M88,72 Q131,40 174,72" fill="#5a4030" opacity="0.25"/>
-  <ellipse cx="131" cy="56" rx="34" ry="12" fill="#b08860" opacity="0.1"/>
+  <!-- Buzz cut -->
+  <path d="M86,72 Q86,44 131,38 Q176,44 176,72 Q131,58 86,72 Z" fill="#3a2a1a"/>
+  <path d="M114,50 Q131,44 148,50 Q131,48 114,50 Z" fill="#6a5a4a" opacity="0.3"/>
 
   <!-- Ears -->
-  <ellipse cx="80" cy="130" rx="8" ry="14" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
-  <ellipse cx="182" cy="130" rx="8" ry="14" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
-
-  <!-- Eyes - looking away to the right -->
-  <!-- Left eye -->
-  <path d="M96,120 Q112,108 128,120" fill="#1a1a2e"/>
-  <path d="M96,120 Q112,132 128,120" fill="#1a1a2e"/>
-  <circle cx="116" cy="120" r="9" fill="#8b5a2b"/>
-  <circle cx="116" cy="120" r="5.5" fill="#0a0a1a"/>
-  <circle cx="113" cy="116" r="3" fill="#ffffff" opacity="0.9"/>
-  <circle cx="119" cy="122" r="1.8" fill="#ffffff" opacity="0.55"/>
-  <circle cx="115" cy="118" r="1.2" fill="#ffffff" opacity="0.3"/>
-  <path d="M94,120 Q112,106 130,120" fill="none" stroke="#2a1a0a" stroke-width="3" stroke-linecap="round"/>
-
-  <!-- Right eye -->
-  <path d="M138,120 Q154,108 170,120" fill="#1a1a2e"/>
-  <path d="M138,120 Q154,132 170,120" fill="#1a1a2e"/>
-  <circle cx="158" cy="120" r="9" fill="#8b5a2b"/>
-  <circle cx="158" cy="120" r="5.5" fill="#0a0a1a"/>
-  <circle cx="155" cy="116" r="3" fill="#ffffff" opacity="0.9"/>
-  <circle cx="161" cy="122" r="1.8" fill="#ffffff" opacity="0.55"/>
-  <circle cx="157" cy="118" r="1.2" fill="#ffffff" opacity="0.3"/>
-  <path d="M136,120 Q154,106 172,120" fill="none" stroke="#2a1a0a" stroke-width="3" stroke-linecap="round"/>
-
-  <!-- Eyebrows - worried, inner corners raised -->
-  <path d="M94,106 Q112,100 128,110" fill="none" stroke="#2a1a0a" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M138,110 Q154,100 172,106" fill="none" stroke="#2a1a0a" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="78" cy="128" rx="8" ry="14" fill="#c8a882"/>
+  <ellipse cx="78" cy="128" rx="5" ry="10" fill="#2a1a0a" opacity="0.12"/>
+  <ellipse cx="184" cy="128" rx="8" ry="14" fill="#c8a882"/>
 
   <!-- Anime sweat drop -->
-  <path d="M184,96 Q187,108 184,120 Q181,108 184,96 Z" fill="#88ccff" opacity="0.6"/>
+  <path d="M186,96 Q189,108 186,120 Q183,108 186,96 Z" fill="#88ccff" opacity="0.6"/>
+
+  <!-- Left eye - slightly wider (nervous) looking away right -->
+  <path d="M96,118 Q112,106 128,118" fill="#f0ece8"/>
+  <path d="M96,118 Q112,132 128,118" fill="#f0ece8"/>
+  <!-- Iris shifted right (looking away) -->
+  <circle cx="116" cy="118" r="10" fill="url(#iris_grad)"/>
+  <circle cx="116" cy="118" r="4.5" fill="#0a0a0a"/>
+  <circle cx="113" cy="114" r="3.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="120" cy="121" r="2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="115" cy="116" r="1" fill="#ffffff" opacity="0.3"/>
+  <path d="M94,118 Q112,104 130,118" fill="none" stroke="#1a0a00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M98,121 Q112,131 126,121" fill="none" stroke="#1a0a00" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Right eye - slightly wider looking away -->
+  <path d="M138,118 Q154,106 170,118" fill="#f0ece8"/>
+  <path d="M138,118 Q154,132 170,118" fill="#f0ece8"/>
+  <circle cx="158" cy="118" r="10" fill="url(#iris_grad)"/>
+  <circle cx="158" cy="118" r="4.5" fill="#0a0a0a"/>
+  <circle cx="155" cy="114" r="3.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="162" cy="121" r="2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="157" cy="116" r="1" fill="#ffffff" opacity="0.3"/>
+  <path d="M136,118 Q154,104 172,118" fill="none" stroke="#1a0a00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M140,121 Q154,131 168,121" fill="none" stroke="#1a0a00" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Eyebrows - worried, inner corners raised -->
+  <path d="M94,104 Q112,98 128,108" fill="none" stroke="#1a0a00" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M138,108 Q154,98 172,104" fill="none" stroke="#1a0a00" stroke-width="3.5" stroke-linecap="round"/>
 
   <!-- Nose -->
-  <path d="M129,140 Q131,146 133,140" fill="none" stroke="#8a6040" stroke-width="1.2" opacity="0.45"/>
+  <path d="M129,134 L127,142 Q131,146 135,142" fill="none" stroke="#a08060" stroke-width="1.3" opacity="0.5"/>
 
-  <!-- Mouth - tight uncomfortable -->
+  <!-- Mouth - tight uncomfortable line -->
   <path d="M118,162 Q131,158 144,162" fill="none" stroke="#6a4030" stroke-width="2" stroke-linecap="round"/>
 
+  <!-- Stubble -->
+  <g opacity="0.08" fill="#3a2a1a">
+    <circle cx="118" cy="170" r="0.8"/><circle cx="122" cy="172" r="0.8"/>
+    <circle cx="126" cy="171" r="0.8"/><circle cx="130" cy="173" r="0.8"/>
+    <circle cx="134" cy="171" r="0.8"/><circle cx="138" cy="170" r="0.8"/>
+  </g>
+
   <!-- Scar -->
-  <line x1="92" y1="142" x2="101" y2="152" stroke="#b08860" stroke-width="1.2" opacity="0.45"/>
+  <line x1="90" y1="140" x2="99" y2="150" stroke="#a08060" stroke-width="1.2" opacity="0.45"/>
 
   <!-- Circuit glow on neck - dim -->
-  <g filter="url(#neon_orange)" opacity="0.3">
+  <g filter="url(#glow)" opacity="0.3">
     <path d="M112,200 L112,210 L124,210" fill="none" stroke="#ff8800" stroke-width="1"/>
     <circle cx="124" cy="210" r="1.5" fill="#ff8800"/>
   </g>
 
+  <!-- Ambient glow -->
   <ellipse cx="128" cy="310" rx="80" ry="30" fill="#ff8800" opacity="0.02"/>
+
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="'Courier New', monospace" font-size="11" fill="#ff8800" text-anchor="middle" opacity="0.6">NERVOUS</text>
 </svg>
