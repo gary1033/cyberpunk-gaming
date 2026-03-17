@@ -209,6 +209,74 @@ func _on_settings() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(title)
 
+	# Window Mode
+	var window_label := Label.new()
+	window_label.text = "視窗模式"
+	window_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	vbox.add_child(window_label)
+
+	var window_options := OptionButton.new()
+	window_options.add_item("視窗", 0)
+	window_options.add_item("全螢幕", 1)
+	window_options.add_item("無邊框全螢幕", 2)
+	window_options.custom_minimum_size = Vector2(0, 36)
+	window_options.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+
+	var current_wm := DisplayServer.window_get_mode()
+	if current_wm == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		window_options.selected = 1
+	elif current_wm == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+		window_options.selected = 2
+	else:
+		window_options.selected = 0
+
+	window_options.item_selected.connect(func(idx: int):
+		match idx:
+			0:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+				DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+			1:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			2:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+	)
+	vbox.add_child(window_options)
+
+	# Resolution
+	var res_label := Label.new()
+	res_label.text = "解析度"
+	res_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	vbox.add_child(res_label)
+
+	var res_options := OptionButton.new()
+	var resolutions := [
+		Vector2i(960, 540),
+		Vector2i(1024, 576),
+		Vector2i(1280, 720),
+		Vector2i(1366, 768),
+		Vector2i(1600, 900),
+		Vector2i(1920, 1080),
+	]
+	var current_size := DisplayServer.window_get_size()
+	var selected_idx := 2  # default 1280x720
+	for i in resolutions.size():
+		var r: Vector2i = resolutions[i]
+		res_options.add_item("%d x %d" % [r.x, r.y], i)
+		if r == current_size:
+			selected_idx = i
+	res_options.selected = selected_idx
+	res_options.custom_minimum_size = Vector2(0, 36)
+	res_options.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	res_options.item_selected.connect(func(idx: int):
+		var r: Vector2i = resolutions[idx]
+		DisplayServer.window_set_size(r)
+		# Center window on screen
+		var screen_size := DisplayServer.screen_get_size()
+		var pos := Vector2i((screen_size.x - r.x) / 2, (screen_size.y - r.y) / 2)
+		DisplayServer.window_set_position(pos)
+	)
+	vbox.add_child(res_options)
+
 	# BGM Volume
 	var bgm_label := Label.new()
 	bgm_label.text = "背景音樂"
