@@ -46,6 +46,16 @@ func _ready() -> void:
 	continue_indicator.visible = false
 	continue_indicator.text = "▼"
 
+	# Let mouse events pass through display-only controls
+	# so _unhandled_input can receive clicks to advance dialogue
+	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	dialogue_text.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	character_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	continue_indicator.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for child in dialogue_panel.get_children():
+		if child is Container:
+			child.mouse_filter = Control.MOUSE_FILTER_PASS
+
 func start_dialogue(dialogue_data: Array) -> void:
 	if dialogue_data.is_empty():
 		return
