@@ -4,20 +4,9 @@
       <stop offset="0%" stop-color="#1a0a0a"/>
       <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <linearGradient id="gh-cloak" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2a1848"/>
-      <stop offset="40%" stop-color="#1a1030"/>
-      <stop offset="100%" stop-color="#0d0818"/>
-    </linearGradient>
-    <linearGradient id="gh-cloak-sheen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ff2244" stop-opacity="0.18"/>
-      <stop offset="30%" stop-color="#aa44ff" stop-opacity="0.05"/>
-      <stop offset="60%" stop-color="#ff2244" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#aa44ff" stop-opacity="0.08"/>
-    </linearGradient>
     <radialGradient id="gh-eye-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="25%" stop-color="#ff4466"/>
+      <stop offset="25%" stop-color="#ff6666"/>
       <stop offset="60%" stop-color="#ff2244"/>
       <stop offset="100%" stop-color="#ff2244" stop-opacity="0"/>
     </radialGradient>
@@ -27,29 +16,25 @@
     </radialGradient>
     <filter id="gh-glow-red">
       <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <filter id="gh-glow-soft">
       <feGaussianBlur stdDeviation="8" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <filter id="gh-glow-purple">
       <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <linearGradient id="gh-border" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#ff2244" stop-opacity="0.7"/>
       <stop offset="50%" stop-color="#aa44ff" stop-opacity="0.3"/>
       <stop offset="100%" stop-color="#ff2244" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="gh-cloak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1848"/>
+      <stop offset="40%" stop-color="#1a1030"/>
+      <stop offset="100%" stop-color="#0d0818"/>
     </linearGradient>
   </defs>
 
@@ -61,76 +46,67 @@
   <!-- Character name -->
   <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#aa44ff" text-anchor="middle" filter="url(#gh-glow-purple)">幽靈</text>
 
-  <!-- Cloak body - slightly forward, menacing lean -->
-  <path d="M45,135 C45,115 65,92 88,88 L100,83 C112,78 120,76 128,74 C136,76 144,78 156,83 L168,88 C191,92 211,115 211,135 L218,235 C221,285 213,338 203,370 L53,370 C43,338 35,285 38,235 Z" fill="url(#gh-cloak)"/>
+  <!-- Cloak body - leaning forward menacingly -->
+  <path d="M38,150 C38,128 58,105 82,95 L98,88 C110,82 120,78 128,76 C136,78 146,82 158,88 L174,95 C198,105 218,128 218,150 L225,255 C228,300 220,345 212,370 L44,370 C36,345 28,300 31,255 Z" fill="url(#gh-cloak)"/>
+  <path d="M38,150 C38,128 58,105 82,95 L98,88 C110,82 120,78 128,76 C136,78 146,82 158,88 L174,95 C198,105 218,128 218,150 L225,255 C228,300 220,345 212,370 L44,370 C36,345 28,300 31,255 Z" fill="#ff2244" opacity="0.04"/>
 
-  <!-- Cloak reflective sheen overlay -->
-  <path d="M45,135 C45,115 65,92 88,88 L100,83 C112,78 120,76 128,74 C136,76 144,78 156,83 L168,88 C191,92 211,115 211,135 L218,235 C221,285 213,338 203,370 L53,370 C43,338 35,285 38,235 Z" fill="url(#gh-cloak-sheen)"/>
+  <!-- Cloak edge highlights -->
+  <path d="M38,150 C38,128 58,105 82,95 L98,88" fill="none" stroke="#ff2244" stroke-width="1.5" opacity="0.5"/>
+  <path d="M218,150 C218,128 198,105 174,95 L158,88" fill="none" stroke="#ff2244" stroke-width="1.5" opacity="0.5"/>
 
-  <!-- Cloak edge highlights - left -->
-  <path d="M45,135 C45,115 65,92 88,88 L100,83" fill="none" stroke="#ff2244" stroke-width="1.2" opacity="0.5"/>
-  <path d="M38,235 L53,370" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.2"/>
+  <!-- Large anime hood - forward tilt for menace -->
+  <path d="M65,148 C65,92 78,58 96,44 C108,34 118,29 128,27 C138,29 148,34 160,44 C178,58 191,92 191,148 C191,165 178,180 162,185 L128,190 L94,185 C78,180 65,165 65,148 Z" fill="#1a1030"/>
 
-  <!-- Cloak edge highlights - right -->
-  <path d="M211,135 C211,115 191,92 168,88 L156,83" fill="none" stroke="#ff2244" stroke-width="1.2" opacity="0.5"/>
-  <path d="M218,235 L203,370" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.2"/>
-
-  <!-- Hood shape - slightly tilted forward for menace -->
-  <path d="M72,140 C72,95 82,65 98,53 C109,45 119,41 128,39 C137,41 147,45 158,53 C174,65 184,95 184,140 C184,156 173,170 158,175 L128,180 L98,175 C83,170 72,156 72,140 Z" fill="#1a1030"/>
-
-  <!-- Hood outer edge -->
-  <path d="M72,140 C72,95 82,65 98,53 C109,45 119,41 128,39 C137,41 147,45 158,53 C174,65 184,95 184,140" fill="none" stroke="#ff2244" stroke-width="1.5" opacity="0.6"/>
+  <!-- Hood outer edge - red glow -->
+  <path d="M65,148 C65,92 78,58 96,44 C108,34 118,29 128,27 C138,29 148,34 160,44 C178,58 191,92 191,148" fill="none" stroke="#ff2244" stroke-width="1.8" opacity="0.6"/>
 
   <!-- Hood inner shadow -->
-  <path d="M82,136 C82,104 89,78 103,68 C111,62 119,58 128,56 C137,58 145,62 153,68 C167,78 174,104 174,136 C174,148 166,160 155,164 L128,168 L101,164 C90,160 82,148 82,136 Z" fill="#0d0818"/>
+  <path d="M78,144 C78,100 88,70 102,60 C112,52 120,48 128,46 C136,48 144,52 154,60 C168,70 178,100 178,144 C178,156 168,168 156,172 L128,176 L100,172 C88,168 78,156 78,144 Z" fill="#0d0818"/>
 
-  <!-- Deep shadow inside hood -->
-  <ellipse cx="128" cy="126" rx="36" ry="30" fill="#080412"/>
+  <!-- Deep shadow -->
+  <ellipse cx="128" cy="128" rx="40" ry="34" fill="#050210"/>
 
-  <!-- Glowing eyes - left - RED and LARGER -->
-  <ellipse cx="111" cy="124" rx="10" ry="6" fill="url(#gh-eye-glow)" filter="url(#gh-glow-red)"/>
-  <ellipse cx="111" cy="124" rx="5" ry="3" fill="#ffffff"/>
-  <!-- Angry eye shape - narrowed -->
-  <path d="M101,119 L121,121" fill="none" stroke="#0d0818" stroke-width="3"/>
+  <!-- Anime eyes - RED, NARROWED, MENACING - left -->
+  <ellipse cx="108" cy="126" rx="13" ry="6" fill="url(#gh-eye-glow)" filter="url(#gh-glow-red)"/>
+  <!-- Narrowed angry anime eye -->
+  <ellipse cx="108" cy="126" rx="9" ry="4.5" fill="#ff2244" opacity="0.9"/>
+  <ellipse cx="108" cy="126" rx="5" ry="3" fill="#ff6666"/>
+  <!-- Angry top lid cutting in -->
+  <path d="M96,122 L120,124" fill="none" stroke="#050210" stroke-width="3.5"/>
+  <!-- Highlights still visible through anger -->
+  <ellipse cx="105" cy="124" rx="2.5" ry="1.8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="112" cy="127" r="1.2" fill="#ffffff" opacity="0.6"/>
 
-  <!-- Glowing eyes - right - RED and LARGER -->
-  <ellipse cx="145" cy="124" rx="10" ry="6" fill="url(#gh-eye-glow)" filter="url(#gh-glow-red)"/>
-  <ellipse cx="145" cy="124" rx="5" ry="3" fill="#ffffff"/>
-  <!-- Angry eye shape - narrowed -->
-  <path d="M135,121 L155,119" fill="none" stroke="#0d0818" stroke-width="3"/>
+  <!-- Anime eyes - RED, NARROWED - right -->
+  <ellipse cx="148" cy="126" rx="13" ry="6" fill="url(#gh-eye-glow)" filter="url(#gh-glow-red)"/>
+  <ellipse cx="148" cy="126" rx="9" ry="4.5" fill="#ff2244" opacity="0.9"/>
+  <ellipse cx="148" cy="126" rx="5" ry="3" fill="#ff6666"/>
+  <path d="M136,124 L160,122" fill="none" stroke="#050210" stroke-width="3.5"/>
+  <ellipse cx="145" cy="124" rx="2.5" ry="1.8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="152" cy="127" r="1.2" fill="#ffffff" opacity="0.6"/>
 
-  <!-- Intense eye glow ambient -->
-  <ellipse cx="128" cy="124" rx="40" ry="25" fill="#ff2244" opacity="0.1" filter="url(#gh-glow-soft)"/>
+  <!-- Intense ambient glow -->
+  <ellipse cx="128" cy="126" rx="42" ry="25" fill="#ff2244" opacity="0.1" filter="url(#gh-glow-soft)"/>
 
-  <!-- Menacing shoulder raise - slightly hunched forward -->
-  <path d="M65,158 C70,145 88,138 105,142" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
-  <path d="M191,158 C186,145 168,138 151,142" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
+  <!-- Red energy crackling -->
+  <path d="M55,185 L50,205 L60,200 L53,225" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
+  <path d="M201,180 L206,200 L196,195 L203,220" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
 
-  <!-- Cloak fold lines - tenser -->
-  <path d="M92,195 C97,235 95,275 92,325" fill="none" stroke="#aa44ff" stroke-width="0.7" opacity="0.25"/>
-  <path d="M128,180 C128,225 130,275 128,335" fill="none" stroke="#aa44ff" stroke-width="0.5" opacity="0.15"/>
-  <path d="M164,195 C159,235 161,275 164,325" fill="none" stroke="#aa44ff" stroke-width="0.7" opacity="0.25"/>
+  <!-- Shoulder definition - hunched -->
+  <path d="M58,168 C64,155 82,146 100,150" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
+  <path d="M198,168 C192,155 174,146 156,150" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
 
-  <!-- Red energy crackling around cloak -->
-  <path d="M60,180 L55,200 L65,195 L58,220" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
-  <path d="M196,175 L201,195 L191,190 L198,215" fill="none" stroke="#ff2244" stroke-width="1" opacity="0.4"/>
+  <!-- Cloak fold lines -->
+  <path d="M88,210 C93,250 91,290 88,340" fill="none" stroke="#aa44ff" stroke-width="0.7" opacity="0.25"/>
+  <path d="M128,190 C128,235 130,285 128,345" fill="none" stroke="#aa44ff" stroke-width="0.5" opacity="0.15"/>
+  <path d="M168,210 C163,250 165,290 168,340" fill="none" stroke="#aa44ff" stroke-width="0.7" opacity="0.25"/>
 
-  <!-- Reflective light patches on cloak - red tinted -->
-  <ellipse cx="78" cy="248" rx="15" ry="30" fill="#ff2244" opacity="0.05" transform="rotate(-10,78,248)"/>
-  <ellipse cx="178" cy="218" rx="12" ry="25" fill="#ff2244" opacity="0.06" transform="rotate(8,178,218)"/>
-
-  <!-- Voice distortion lines - agitated -->
-  <line x1="115" y1="140" x2="141" y2="140" stroke="#ff2244" stroke-width="0.8" opacity="0.4"/>
-  <line x1="118" y1="143" x2="138" y2="143" stroke="#ff2244" stroke-width="0.6" opacity="0.35"/>
-  <line x1="120" y1="146" x2="136" y2="146" stroke="#ff2244" stroke-width="0.5" opacity="0.25"/>
-
-  <!-- Ambient particles - red -->
+  <!-- Red ambient particles -->
   <circle cx="40" cy="195" r="1.5" fill="#ff2244" opacity="0.5"/>
   <circle cx="215" cy="175" r="1.5" fill="#ff2244" opacity="0.45"/>
   <circle cx="55" cy="295" r="1" fill="#aa44ff" opacity="0.4"/>
   <circle cx="200" cy="305" r="1.2" fill="#ff2244" opacity="0.4"/>
   <circle cx="30" cy="260" r="0.8" fill="#ff2244" opacity="0.35"/>
-  <circle cx="225" cy="250" r="1" fill="#ff2244" opacity="0.3"/>
 
   <!-- State label -->
   <text x="128" y="375" font-family="'Courier New', monospace" font-size="10" fill="#ff2244" text-anchor="middle" opacity="0.5">[hostile]</text>

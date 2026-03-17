@@ -1,36 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
     <radialGradient id="bg_glow" cx="50%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#1a0f00" />
-      <stop offset="100%" stop-color="#0a0a1a" />
+      <stop offset="0%" stop-color="#1a0f00"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <linearGradient id="tattoo_glow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff8800" />
-      <stop offset="50%" stop-color="#ffaa44" />
-      <stop offset="100%" stop-color="#ff8800" />
-    </linearGradient>
     <filter id="neon_orange">
       <feGaussianBlur stdDeviation="3" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
-    <filter id="soft_glow">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-    </filter>
     <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8a6a4a" />
-      <stop offset="100%" stop-color="#6b5040" />
+      <stop offset="0%" stop-color="#8a6a4a"/>
+      <stop offset="100%" stop-color="#6b5040"/>
     </linearGradient>
     <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a1a2e" />
-      <stop offset="100%" stop-color="#0d0d1a" />
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0d0d1a"/>
     </linearGradient>
   </defs>
 
   <!-- Background -->
   <rect width="256" height="384" fill="url(#bg_glow)"/>
-
-  <!-- Border frame -->
   <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff8800" stroke-width="1.5" opacity="0.4"/>
 
   <!-- Character name -->
@@ -38,92 +27,88 @@
   <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle">阿傑</text>
 
   <!-- Neck -->
-  <rect x="108" y="165" width="40" height="35" rx="4" fill="url(#skin_grad)"/>
-  <line x1="118" y1="170" x2="118" y2="195" stroke="#7a5a3a" stroke-width="1" opacity="0.4"/>
-  <line x1="138" y1="170" x2="138" y2="195" stroke="#7a5a3a" stroke-width="1" opacity="0.4"/>
+  <rect x="104" y="185" width="48" height="30" rx="4" fill="url(#skin_grad)"/>
 
   <!-- Body / Shoulders -->
-  <path d="M128,195 Q128,210 128,220 L128,384 L40,384 L40,260 Q40,220 80,210 Q108,200 128,195 Z" fill="url(#shirt_grad)"/>
-  <path d="M128,195 Q128,210 128,220 L128,384 L216,384 L216,260 Q216,220 176,210 Q148,200 128,195 Z" fill="url(#shirt_grad)"/>
+  <path d="M128,212 L128,384 L35,384 L35,265 Q35,225 78,215 Q108,207 128,212 Z" fill="url(#shirt_grad)"/>
+  <path d="M128,212 L128,384 L221,384 L221,265 Q221,225 178,215 Q148,207 128,212 Z" fill="url(#shirt_grad)"/>
 
-  <!-- Muscular shoulders definition -->
-  <path d="M80,210 Q60,215 45,235 Q40,245 40,260" fill="none" stroke="#2a2a4e" stroke-width="2"/>
-  <path d="M176,210 Q196,215 211,235 Q216,245 216,260" fill="none" stroke="#2a2a4e" stroke-width="2"/>
+  <!-- Shoulder definition -->
+  <path d="M78,215 Q55,220 42,240 Q35,252 35,265" fill="none" stroke="#2a2a4e" stroke-width="2"/>
+  <path d="M178,215 Q201,220 214,240 Q221,252 221,265" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
   <!-- Crossed arms -->
-  <path d="M45,260 Q50,280 75,300 Q100,315 140,305 Q155,300 165,290" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1"/>
-  <path d="M211,260 Q206,280 181,300 Q156,315 116,305 Q101,300 91,290" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1"/>
+  <path d="M40,265 Q48,285 75,305 Q100,318 142,308 Q158,302 168,292" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1.5"/>
+  <path d="M216,265 Q208,285 181,305 Q156,318 114,308 Q98,302 88,292" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1.5"/>
 
-  <!-- Arm muscle definition -->
-  <path d="M50,265 Q55,275 70,290" fill="none" stroke="#7a5a3a" stroke-width="1.5" opacity="0.5"/>
-  <path d="M206,265 Q201,275 186,290" fill="none" stroke="#7a5a3a" stroke-width="1.5" opacity="0.5"/>
-
-  <!-- Circuit tattoos on left arm -->
+  <!-- Circuit tattoos left arm -->
   <g filter="url(#neon_orange)" opacity="0.8">
-    <path d="M55,268 L65,268 L65,278 L75,278 L75,288 L85,288" fill="none" stroke="#ff8800" stroke-width="1.5"/>
-    <circle cx="55" cy="268" r="2" fill="#ff8800"/>
-    <circle cx="75" cy="278" r="2" fill="#ff8800"/>
-    <circle cx="85" cy="288" r="2" fill="#ff8800"/>
-    <path d="M60,273 L70,273 L70,283" fill="none" stroke="#ffaa44" stroke-width="1" opacity="0.6"/>
+    <path d="M52,272 L62,272 L62,284 L72,284 L72,296 L82,296" fill="none" stroke="#ff8800" stroke-width="1.5"/>
+    <circle cx="52" cy="272" r="2.5" fill="#ff8800"/>
+    <circle cx="72" cy="284" r="2.5" fill="#ff8800"/>
+    <circle cx="82" cy="296" r="2.5" fill="#ff8800"/>
   </g>
 
-  <!-- Circuit tattoos on right arm -->
+  <!-- Circuit tattoos right arm -->
   <g filter="url(#neon_orange)" opacity="0.8">
-    <path d="M201,268 L191,268 L191,278 L181,278 L181,288 L171,288" fill="none" stroke="#ff8800" stroke-width="1.5"/>
-    <circle cx="201" cy="268" r="2" fill="#ff8800"/>
-    <circle cx="181" cy="278" r="2" fill="#ff8800"/>
-    <circle cx="171" cy="288" r="2" fill="#ff8800"/>
-    <path d="M196,273 L186,273 L186,283" fill="none" stroke="#ffaa44" stroke-width="1" opacity="0.6"/>
+    <path d="M204,272 L194,272 L194,284 L184,284 L184,296 L174,296" fill="none" stroke="#ff8800" stroke-width="1.5"/>
+    <circle cx="204" cy="272" r="2.5" fill="#ff8800"/>
+    <circle cx="184" cy="284" r="2.5" fill="#ff8800"/>
+    <circle cx="174" cy="296" r="2.5" fill="#ff8800"/>
   </g>
 
-  <!-- Shirt collar -->
-  <path d="M100,200 L128,230 L156,200" fill="none" stroke="#2a2a4e" stroke-width="2"/>
+  <!-- Shirt V-neck -->
+  <path d="M98,215 L128,245 L158,215" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
-  <!-- Head shape - slightly tilted for suspicious look -->
-  <path d="M88,90 Q88,55 128,50 Q168,55 168,90 L168,130 Q168,145 158,155 Q148,168 128,170 Q108,168 98,155 Q88,145 88,130 Z" fill="url(#skin_grad)"/>
+  <!-- Head -->
+  <path d="M82,95 Q82,48 128,42 Q174,48 174,95 L174,145 Q174,162 162,174 Q150,186 128,188 Q106,186 94,174 Q82,162 82,145 Z" fill="url(#skin_grad)" stroke="#5a4030" stroke-width="1.5"/>
 
-  <!-- Strong jaw definition -->
-  <path d="M98,150 Q108,165 128,168 Q148,165 158,150" fill="none" stroke="#5a4030" stroke-width="1.5" opacity="0.5"/>
-
-  <!-- Bald head -->
-  <path d="M95,75 Q128,55 161,75" fill="none" stroke="#9a7a5a" stroke-width="1" opacity="0.3"/>
-  <ellipse cx="128" cy="65" rx="25" ry="8" fill="#9a7a5a" opacity="0.15"/>
-  <path d="M92,82 Q128,52 164,82" fill="#3a2a1a" opacity="0.3"/>
-
-  <!-- Eyes - suspicious: left eye squinting, right eyebrow raised -->
-  <!-- Left eye - squinting -->
-  <ellipse cx="108" cy="110" rx="12" ry="4" fill="#1a1a2e"/>
-  <circle cx="108" cy="110" r="3" fill="#554422"/>
-  <circle cx="108" cy="110" r="1.5" fill="#0a0a1a"/>
-  <circle cx="110" cy="109" r="0.8" fill="#ffffff" opacity="0.7"/>
-
-  <!-- Right eye - more open -->
-  <ellipse cx="148" cy="108" rx="12" ry="8" fill="#1a1a2e"/>
-  <circle cx="148" cy="108" r="4.5" fill="#554422"/>
-  <circle cx="148" cy="108" r="2.5" fill="#0a0a1a"/>
-  <circle cx="150" cy="106" r="1" fill="#ffffff" opacity="0.7"/>
-
-  <!-- Eyebrows - left lowered (squinting), right raised -->
-  <path d="M95,104 Q108,102 120,106" fill="none" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
-  <path d="M136,94 Q148,88 161,94" fill="none" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
-
-  <!-- Nose -->
-  <path d="M128,112 L124,130 Q128,134 132,130 Z" fill="#7a5a3a" opacity="0.5"/>
-
-  <!-- Mouth - slight frown, one corner pulled -->
-  <path d="M114,146 Q122,149 130,147 Q138,144 142,142" fill="none" stroke="#5a3a2a" stroke-width="2" stroke-linecap="round"/>
+  <!-- Bald/buzzcut -->
+  <path d="M88,75 Q128,48 168,75" fill="#3a2a1a" opacity="0.3"/>
+  <ellipse cx="128" cy="62" rx="30" ry="10" fill="#9a7a5a" opacity="0.12"/>
 
   <!-- Ears -->
-  <ellipse cx="86" cy="115" rx="6" ry="10" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1"/>
-  <ellipse cx="170" cy="115" rx="6" ry="10" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1"/>
+  <ellipse cx="80" cy="125" rx="7" ry="12" fill="url(#skin_grad)" stroke="#5a4030" stroke-width="1"/>
+  <ellipse cx="176" cy="125" rx="7" ry="12" fill="url(#skin_grad)" stroke="#5a4030" stroke-width="1"/>
+
+  <!-- Left eye - SQUINTING (smaller) -->
+  <path d="M95,118 Q108,112 121,118" fill="#1a1a2e"/>
+  <path d="M95,118 Q108,123 121,118" fill="#1a1a2e"/>
+  <circle cx="108" cy="118" r="6" fill="#6b4422"/>
+  <circle cx="108" cy="118" r="4" fill="#0a0a1a"/>
+  <circle cx="106" cy="116" r="2" fill="#ffffff" opacity="0.8"/>
+  <circle cx="110" cy="119" r="1" fill="#ffffff" opacity="0.4"/>
+  <!-- Squint top lid - lower and heavier -->
+  <path d="M93,118 Q108,110 123,118" fill="none" stroke="#2a1a0a" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Right eye - MORE OPEN (raised brow) -->
+  <path d="M135,116 Q148,106 161,116" fill="#1a1a2e"/>
+  <path d="M135,116 Q148,128 161,116" fill="#1a1a2e"/>
+  <circle cx="148" cy="118" r="9" fill="#6b4422"/>
+  <circle cx="148" cy="118" r="5.5" fill="#0a0a1a"/>
+  <circle cx="145" cy="115" r="2.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="151" cy="120" r="1.5" fill="#ffffff" opacity="0.5"/>
+  <circle cx="148" cy="116" r="1" fill="#ffffff" opacity="0.3"/>
+  <!-- Normal top lid for open eye -->
+  <path d="M133,116 Q148,104 163,116" fill="none" stroke="#2a1a0a" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Left eyebrow - lowered (squinting side) -->
+  <path d="M93,110 Q108,107 123,112" fill="none" stroke="#2a1a0a" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Right eyebrow - RAISED high -->
+  <path d="M133,100 Q148,93 163,100" fill="none" stroke="#2a1a0a" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Nose -->
+  <path d="M126,132 Q128,138 130,132" fill="none" stroke="#5a4030" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- Mouth - one corner pulled, suspicious -->
+  <path d="M116,155 Q124,158 132,156 Q138,153 142,150" fill="none" stroke="#5a3a2a" stroke-width="2" stroke-linecap="round"/>
 
   <!-- Scar -->
-  <line x1="95" y1="128" x2="102" y2="135" stroke="#9a7a5a" stroke-width="1" opacity="0.6"/>
+  <line x1="92" y1="138" x2="100" y2="146" stroke="#9a7a5a" stroke-width="1" opacity="0.5"/>
 
   <!-- Circuit glow on neck -->
-  <path d="M115,175 L115,185 L125,185" fill="none" stroke="#ff8800" stroke-width="1" opacity="0.4" filter="url(#neon_orange)"/>
-  <circle cx="125" cy="185" r="1.5" fill="#ff8800" opacity="0.5"/>
+  <path d="M112,192 L112,202 L122,202" fill="none" stroke="#ff8800" stroke-width="1" opacity="0.4" filter="url(#neon_orange)"/>
+  <circle cx="122" cy="202" r="1.5" fill="#ff8800" opacity="0.5"/>
 
-  <!-- Ambient light -->
   <ellipse cx="128" cy="300" rx="80" ry="30" fill="#ff8800" opacity="0.03"/>
 </svg>
