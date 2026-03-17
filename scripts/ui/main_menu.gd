@@ -3,6 +3,7 @@ extends Control
 
 @onready var new_game_btn: Button = $TitleContainer/NewGameButton
 @onready var continue_btn: Button = $TitleContainer/ContinueButton
+@onready var controls_btn: Button = $TitleContainer/ControlsButton
 @onready var settings_btn: Button = $TitleContainer/SettingsButton
 @onready var title_label: Label = $TitleContainer/Title
 @onready var subtitle_label: Label = $TitleContainer/Subtitle
@@ -12,6 +13,7 @@ func _ready() -> void:
 
 	new_game_btn.pressed.connect(_on_new_game)
 	continue_btn.pressed.connect(_on_continue)
+	controls_btn.pressed.connect(_on_controls)
 	settings_btn.pressed.connect(_on_settings)
 
 	# Check for save files
@@ -31,7 +33,7 @@ func _adapt_layout() -> void:
 		subtitle_label.add_theme_font_size_override("font_size", 14)
 
 		# Larger buttons for touch
-		for btn in [new_game_btn, continue_btn, settings_btn]:
+		for btn in [new_game_btn, continue_btn, controls_btn, settings_btn]:
 			btn.custom_minimum_size = Vector2(0, 60)
 
 func _animate_title() -> void:
@@ -39,6 +41,7 @@ func _animate_title() -> void:
 	subtitle_label.modulate.a = 0.0
 	new_game_btn.modulate.a = 0.0
 	continue_btn.modulate.a = 0.0
+	controls_btn.modulate.a = 0.0
 	settings_btn.modulate.a = 0.0
 
 	var tween := create_tween()
@@ -47,12 +50,14 @@ func _animate_title() -> void:
 	tween.tween_interval(0.3)
 	tween.tween_property(new_game_btn, "modulate:a", 1.0, 0.3)
 	tween.tween_property(continue_btn, "modulate:a", 1.0 if not continue_btn.disabled else 0.4, 0.3)
+	tween.tween_property(controls_btn, "modulate:a", 1.0, 0.3)
 	tween.tween_property(settings_btn, "modulate:a", 1.0, 0.3)
 
 func _on_new_game() -> void:
 	# Disable buttons to prevent double-click during transition
 	new_game_btn.disabled = true
 	continue_btn.disabled = true
+	controls_btn.disabled = true
 	settings_btn.disabled = true
 
 	GameManager.new_game()
@@ -64,9 +69,110 @@ func _on_continue() -> void:
 	if SaveManager.load_game(1):
 		new_game_btn.disabled = true
 		continue_btn.disabled = true
+		controls_btn.disabled = true
 		settings_btn.disabled = true
 		var location := GameManager.current_location
 		await SceneManager.change_scene(location)
+
+func _on_controls() -> void:
+	var popup_layer := CanvasLayer.new()
+	popup_layer.layer = 95
+
+	var dimmer := ColorRect.new()
+	dimmer.color = Color(0, 0, 0, 0.7)
+	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	popup_layer.add_child(dimmer)
+
+	var panel := PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
+	style.border_color = Color(0.0, 0.7, 0.7)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	panel.add_theme_stylebox_override("panel", style)
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.custom_minimum_size = Vector2(420, 0)
+
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 24)
+	margin.add_theme_constant_override("margin_right", 24)
+	margin.add_theme_constant_override("margin_top", 24)
+	margin.add_theme_constant_override("margin_bottom", 24)
+
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(0, 400)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 12)
+	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+	var title := Label.new()
+	title.text = "操作說明"
+	title.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	title.add_theme_font_size_override("font_size", 24)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(title)
+
+	# Desktop or mobile controls
+	if InputManager.is_mobile:
+		_add_section(vbox, "觸控操作")
+		_add_control_row(vbox, "互動", "點擊物件")
+		_add_control_row(vbox, "鷹眼模式", "畫面上的切換按鈕")
+		_add_control_row(vbox, "縮放場景", "雙指捏合")
+		_add_control_row(vbox, "長按檢視", "長按 0.5 秒")
+		_add_control_row(vbox, "提示", "提示按鈕（閃爍可互動物件）")
+	else:
+		_add_section(vbox, "鍵盤 + 滑鼠")
+		_add_control_row(vbox, "互動 / 推進對話", "滑鼠左鍵")
+		_add_control_row(vbox, "鷹眼模式", "E")
+		_add_control_row(vbox, "證據板", "Tab")
+		_add_control_row(vbox, "物品欄", "I")
+		_add_control_row(vbox, "對話加速", "長按滑鼠左鍵")
+		_add_control_row(vbox, "跳過打字效果", "點擊滑鼠左鍵")
+
+	_add_section(vbox, "遊戲系統")
+	_add_control_row(vbox, "場景移動", "地圖按鈕，消耗 1 行動點")
+	_add_control_row(vbox, "鷹眼能量", "啟動後持續消耗，關閉後自動回充")
+	_add_control_row(vbox, "審訊生物指標", "鷹眼模式下讀取心率與說謊機率")
+
+	var close_btn := Button.new()
+	close_btn.text = "返回"
+	close_btn.custom_minimum_size = Vector2(0, 48)
+	close_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	close_btn.pressed.connect(popup_layer.queue_free)
+	vbox.add_child(close_btn)
+
+	scroll.add_child(vbox)
+	margin.add_child(scroll)
+	panel.add_child(margin)
+	popup_layer.add_child(panel)
+	add_child(popup_layer)
+
+func _add_section(parent: VBoxContainer, text: String) -> void:
+	var sep := HSeparator.new()
+	sep.add_theme_constant_override("separation", 8)
+	parent.add_child(sep)
+	var lbl := Label.new()
+	lbl.text = "[ %s ]" % text
+	lbl.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6))
+	lbl.add_theme_font_size_override("font_size", 18)
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	parent.add_child(lbl)
+
+func _add_control_row(parent: VBoxContainer, action: String, key: String) -> void:
+	var hbox := HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 12)
+	var action_lbl := Label.new()
+	action_lbl.text = action
+	action_lbl.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
+	action_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.add_child(action_lbl)
+	var key_lbl := Label.new()
+	key_lbl.text = key
+	key_lbl.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	key_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	hbox.add_child(key_lbl)
+	parent.add_child(hbox)
 
 func _on_settings() -> void:
 	var popup_layer := CanvasLayer.new()

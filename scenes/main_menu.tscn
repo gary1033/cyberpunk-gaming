@@ -67,6 +67,14 @@ theme_override_colors/font_hover_color = Color(1, 0, 0.6, 1)
 theme_override_font_sizes/font_size = 22
 text = "繼續遊戲"
 
+[node name="ControlsButton" type="Button" parent="TitleContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 50)
+theme_override_colors/font_color = Color(0, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0.6, 1)
+theme_override_font_sizes/font_size = 22
+text = "操作說明"
+
 [node name="SettingsButton" type="Button" parent="TitleContainer"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
