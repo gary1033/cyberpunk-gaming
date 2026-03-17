@@ -209,82 +209,85 @@ func _on_settings() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(title)
 
-	# Window Mode (only show if not running in editor embedded window)
-	var is_embedded := DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED and not DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_RESIZE_DISABLED)
-	var can_change_window := not OS.has_feature("editor")
+	# Window Mode
+	var window_label := Label.new()
+	window_label.text = "視窗模式"
+	window_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	vbox.add_child(window_label)
 
-	if can_change_window:
-		var window_label := Label.new()
-		window_label.text = "視窗模式"
-		window_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
-		vbox.add_child(window_label)
+	var _status_label := Label.new()
+	_status_label.add_theme_color_override("font_color", Color(0.9, 0.5, 0.2))
+	_status_label.add_theme_font_size_override("font_size", 12)
+	_status_label.visible = false
+	vbox.add_child(_status_label)
 
-		var window_options := OptionButton.new()
-		window_options.add_item("視窗", 0)
-		window_options.add_item("全螢幕", 1)
-		window_options.add_item("無邊框全螢幕", 2)
-		window_options.custom_minimum_size = Vector2(0, 36)
-		window_options.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	var window_options := OptionButton.new()
+	window_options.add_item("視窗", 0)
+	window_options.add_item("全螢幕", 1)
+	window_options.add_item("無邊框全螢幕", 2)
+	window_options.custom_minimum_size = Vector2(0, 36)
+	window_options.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
 
-		var current_wm := DisplayServer.window_get_mode()
-		if current_wm == DisplayServer.WINDOW_MODE_FULLSCREEN:
-			window_options.selected = 1
-		elif current_wm == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
-			window_options.selected = 2
-		else:
-			window_options.selected = 0
-
-		window_options.item_selected.connect(func(idx: int):
-			match idx:
-				0:
-					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-					DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-				1:
-					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-				2:
-					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-		)
-		vbox.add_child(window_options)
-
-		# Resolution
-		var res_label := Label.new()
-		res_label.text = "解析度"
-		res_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
-		vbox.add_child(res_label)
-
-		var res_options := OptionButton.new()
-		var resolutions := [
-			Vector2i(960, 540),
-			Vector2i(1024, 576),
-			Vector2i(1280, 720),
-			Vector2i(1366, 768),
-			Vector2i(1600, 900),
-			Vector2i(1920, 1080),
-		]
-		var current_size := DisplayServer.window_get_size()
-		var selected_idx := 2  # default 1280x720
-		for i in resolutions.size():
-			var r: Vector2i = resolutions[i]
-			res_options.add_item("%d x %d" % [r.x, r.y], i)
-			if r == current_size:
-				selected_idx = i
-		res_options.selected = selected_idx
-		res_options.custom_minimum_size = Vector2(0, 36)
-		res_options.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-		res_options.item_selected.connect(func(idx: int):
-			var r: Vector2i = resolutions[idx]
-			DisplayServer.window_set_size(r)
-			var screen_size := DisplayServer.screen_get_size()
-			var pos := Vector2i((screen_size.x - r.x) / 2, (screen_size.y - r.y) / 2)
-			DisplayServer.window_set_position(pos)
-		)
-		vbox.add_child(res_options)
+	var current_wm := DisplayServer.window_get_mode()
+	if current_wm == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		window_options.selected = 1
+	elif current_wm == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+		window_options.selected = 2
 	else:
-		var embed_note := Label.new()
-		embed_note.text = "（在編輯器中無法調整視窗）"
-		embed_note.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
-		embed_note.add_theme_font_size_override("font_size", 14)
-		vbox.add_child(embed_note)
+		window_options.selected = 0
+
+	var status_ref := _status_label
+	window_options.item_selected.connect(func(idx: int):
+		var prev_mode := DisplayServer.window_get_mode()
+		match idx:
+			0:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+				DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+			1:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			2:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		# Check if mode actually changed (embedded window blocks this)
+		var new_mode := DisplayServer.window_get_mode()
+		if new_mode == prev_mode and idx != 0:
+			status_ref.text = "嵌入式視窗不支援此模式，請關閉編輯器的嵌入式遊戲視窗"
+			status_ref.visible = true
+	)
+	vbox.add_child(window_options)
+
+	# Resolution
+	var res_label := Label.new()
+	res_label.text = "解析度"
+	res_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+	vbox.add_child(res_label)
+
+	var res_options := OptionButton.new()
+	var resolutions := [
+		Vector2i(960, 540),
+		Vector2i(1024, 576),
+		Vector2i(1280, 720),
+		Vector2i(1366, 768),
+		Vector2i(1600, 900),
+		Vector2i(1920, 1080),
+	]
+	var current_size := DisplayServer.window_get_size()
+	var selected_idx := 2  # default 1280x720
+	for i in resolutions.size():
+		var r: Vector2i = resolutions[i]
+		res_options.add_item("%d x %d" % [r.x, r.y], i)
+		if r == current_size:
+			selected_idx = i
+	res_options.selected = selected_idx
+	res_options.custom_minimum_size = Vector2(0, 36)
+	res_options.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+	res_options.item_selected.connect(func(idx: int):
+		var r: Vector2i = resolutions[idx]
+		DisplayServer.window_set_size(r)
+		var screen_size := DisplayServer.screen_get_size()
+		var pos := Vector2i((screen_size.x - r.x) / 2, (screen_size.y - r.y) / 2)
+		DisplayServer.window_set_position(pos)
+	)
+	vbox.add_child(res_options)
 
 	# BGM Volume
 	var bgm_label := Label.new()

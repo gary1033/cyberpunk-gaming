@@ -48,15 +48,14 @@ func _ready() -> void:
 
 	# Root Control covers full screen; set to IGNORE so it doesn't block
 	# toolbar buttons and other UI when dialogue is active.
-	# We use _input instead of _unhandled_input to catch clicks directly.
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	dialogue_text.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	character_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	continue_indicator.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for child in dialogue_panel.get_children():
 		if child is Container:
-			child.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			child.mouse_filter = Control.MOUSE_FILTER_PASS
 
 func start_dialogue(dialogue_data: Array) -> void:
 	if dialogue_data.is_empty():
