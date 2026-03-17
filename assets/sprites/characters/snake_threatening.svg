@@ -1,153 +1,226 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <radialGradient id="bg_glow" cx="50%" cy="35%" r="60%">
-      <stop offset="0%" stop-color="#1a0a0a" />
-      <stop offset="100%" stop-color="#0a0a1a" />
+    <radialGradient id="st_bg_glow" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#1a0a0a"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
     </radialGradient>
-    <filter id="neon_green">
+    <filter id="st_neon_green">
       <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="neon_red">
+    <filter id="st_neon_red">
       <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="intense_glow">
+    <filter id="st_intense_glow">
       <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#d4b896" />
-      <stop offset="100%" stop-color="#b89a78" />
+    <filter id="st_shadow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="st_skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4b896"/>
+      <stop offset="100%" stop-color="#b89a78"/>
     </linearGradient>
-    <linearGradient id="hair_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a1a2e" />
-      <stop offset="50%" stop-color="#0d0d1a" />
-      <stop offset="100%" stop-color="#1a1a2e" />
+    <linearGradient id="st_hair" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#0d0d1a"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
     </linearGradient>
-    <linearGradient id="dress_grad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#0d0d1a" />
-      <stop offset="50%" stop-color="#1a1a2e" />
-      <stop offset="100%" stop-color="#0a0a14" />
+    <linearGradient id="st_dress" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d0d1a"/>
+      <stop offset="50%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0a0a14"/>
     </linearGradient>
-    <linearGradient id="mask_grad_threat" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3a2a2a" />
-      <stop offset="50%" stop-color="#2a1a1a" />
-      <stop offset="100%" stop-color="#1a0a0a" />
+    <linearGradient id="st_mask" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a2a2a"/>
+      <stop offset="50%" stop-color="#2a1a1a"/>
+      <stop offset="100%" stop-color="#1a0a0a"/>
     </linearGradient>
-    <linearGradient id="mask_scale" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff2244" stop-opacity="0.3" />
-      <stop offset="100%" stop-color="#aa1133" stop-opacity="0.1" />
+    <linearGradient id="st_mask_scale" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2244" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#aa1133" stop-opacity="0.1"/>
     </linearGradient>
-    <radialGradient id="red_eye_glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ff4444" />
-      <stop offset="60%" stop-color="#ff2222" />
-      <stop offset="100%" stop-color="#880000" />
+    <radialGradient id="st_red_eye" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff4444"/>
+      <stop offset="60%" stop-color="#ff2222"/>
+      <stop offset="100%" stop-color="#880000"/>
     </radialGradient>
+    <radialGradient id="st_red_ambient" cx="50%" cy="40%" r="0.5">
+      <stop offset="0%" stop-color="#ff2244" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ff2244" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="st_collar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d0d1a"/>
+      <stop offset="100%" stop-color="#0a0a14"/>
+    </linearGradient>
   </defs>
 
-  <!-- Background - darker, menacing -->
-  <rect width="256" height="384" fill="url(#bg_glow)"/>
+  <!-- Background - dark, menacing -->
+  <rect width="256" height="384" fill="url(#st_bg_glow)"/>
+  <!-- Red ambient glow -->
+  <rect width="256" height="384" fill="url(#st_red_ambient)"/>
+  <!-- Border -->
   <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#00ff88" stroke-width="1.5" opacity="0.3"/>
   <rect x="5" y="5" width="246" height="374" rx="5" fill="none" stroke="#ff2244" stroke-width="0.5" opacity="0.3"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#00ff88" text-anchor="middle" filter="url(#neon_green)">蛇女</text>
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#00ff88" text-anchor="middle">蛇女</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#00ff88" text-anchor="middle" filter="url(#st_neon_green)">蛇女</text>
 
-  <!-- Hair - more dramatic spread -->
-  <path d="M82,75 Q70,90 58,140 Q48,200 44,280 Q42,320 46,370" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5" opacity="0.8"/>
-  <path d="M88,75 Q78,95 70,150 Q62,210 58,280 Q56,330 60,380" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5"/>
-  <path d="M174,75 Q186,90 198,140 Q208,200 212,280 Q214,320 210,370" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5" opacity="0.8"/>
-  <path d="M168,75 Q178,95 186,150 Q194,210 198,280 Q200,330 196,380" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5"/>
-  <path d="M100,70 Q95,80 92,120 Q90,180 88,260 Q86,330 90,384" fill="url(#hair_grad)" opacity="0.6"/>
-  <path d="M156,70 Q161,80 164,120 Q166,180 168,260 Q170,330 166,384" fill="url(#hair_grad)" opacity="0.6"/>
+  <!-- Long dark hair - dramatic spread, flowing down -->
+  <path d="M82,75 Q70,90 58,140 Q48,200 44,280 Q42,320 46,370" fill="url(#st_hair)" stroke="#1a2a2a" stroke-width="0.5" opacity="0.8"/>
+  <path d="M88,75 Q78,95 70,150 Q62,210 58,280 Q56,330 60,384" fill="url(#st_hair)" stroke="#1a2a2a" stroke-width="0.5"/>
+  <path d="M174,75 Q186,90 198,140 Q208,200 212,280 Q214,320 210,370" fill="url(#st_hair)" stroke="#1a2a2a" stroke-width="0.5" opacity="0.8"/>
+  <path d="M168,75 Q178,95 186,150 Q194,210 198,280 Q200,330 196,384" fill="url(#st_hair)" stroke="#1a2a2a" stroke-width="0.5"/>
+  <!-- Inner hair layers -->
+  <path d="M100,70 Q95,80 92,120 Q90,180 88,260 Q86,330 90,384" fill="url(#st_hair)" opacity="0.6"/>
+  <path d="M156,70 Q161,80 164,120 Q166,180 168,260 Q170,330 166,384" fill="url(#st_hair)" opacity="0.6"/>
+  <!-- Hair strand details -->
+  <path d="M75,100 Q72,140 70,180" fill="none" stroke="#0d0d1a" stroke-width="1" opacity="0.5"/>
+  <path d="M181,100 Q184,140 186,180" fill="none" stroke="#0d0d1a" stroke-width="1" opacity="0.5"/>
+  <path d="M65,130 Q62,170 64,210" fill="none" stroke="#1a1a2e" stroke-width="0.8" opacity="0.4"/>
+  <path d="M191,130 Q194,170 192,210" fill="none" stroke="#1a1a2e" stroke-width="0.8" opacity="0.4"/>
 
   <!-- Neck -->
-  <rect x="115" y="150" width="26" height="30" rx="6" fill="url(#skin_grad)"/>
+  <rect x="115" y="150" width="26" height="30" rx="6" fill="url(#st_skin)"/>
+  <!-- Neck shadow from leaning forward -->
+  <path d="M115,155 Q128,158 141,155" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.3"/>
 
-  <!-- Body - LEANING FORWARD -->
-  <path d="M128,178 Q128,192 128,210 L128,384 L48,384 L48,275 Q48,232 82,218 Q108,204 128,178 Z" fill="url(#dress_grad)"/>
-  <path d="M128,178 Q128,192 128,210 L128,384 L208,384 L208,275 Q208,232 174,218 Q148,204 128,178 Z" fill="url(#dress_grad)"/>
+  <!-- Body - LEANING FORWARD menacingly -->
+  <path d="M128,178 Q128,192 128,210 L128,384 L48,384 L48,275 Q48,232 82,218 Q108,204 128,178 Z" fill="url(#st_dress)"/>
+  <path d="M128,178 Q128,192 128,210 L128,384 L208,384 L208,275 Q208,232 174,218 Q148,204 128,178 Z" fill="url(#st_dress)"/>
+  <!-- Dress detail lines -->
+  <path d="M128,210 L128,384" fill="none" stroke="#00ff88" stroke-width="0.3" opacity="0.08"/>
+  <path d="M100,240 Q105,300 102,360" fill="none" stroke="#1a2a2e" stroke-width="0.5" opacity="0.15"/>
+  <path d="M156,240 Q151,300 154,360" fill="none" stroke="#1a2a2e" stroke-width="0.5" opacity="0.15"/>
 
-  <!-- High collar - more prominent -->
-  <path d="M108,178 Q113,168 120,163 L128,160 L136,163 Q143,168 148,178" fill="#0d0d1a" stroke="#00ff88" stroke-width="0.8" opacity="0.8"/>
+  <!-- High collar - prominent, elegant -->
+  <path d="M108,178 Q113,168 120,163 L128,160 L136,163 Q143,168 148,178" fill="url(#st_collar)" stroke="#00ff88" stroke-width="0.8" opacity="0.8"/>
   <path d="M110,176 Q118,165 128,162 Q138,165 146,176" fill="none" stroke="#ff2244" stroke-width="0.5" opacity="0.3"/>
+  <!-- Collar edge detail -->
+  <path d="M108,178 Q106,172 108,166" fill="none" stroke="#00ff88" stroke-width="0.4" opacity="0.2"/>
+  <path d="M148,178 Q150,172 148,166" fill="none" stroke="#00ff88" stroke-width="0.4" opacity="0.2"/>
 
   <!-- Shoulders -->
   <path d="M82,218 Q60,224 50,244 Q48,256 48,275" fill="none" stroke="#1a2a2e" stroke-width="1"/>
   <path d="M174,218 Q196,224 206,244 Q208,256 208,275" fill="none" stroke="#1a2a2e" stroke-width="1"/>
 
-  <!-- Arms - hands pressing forward -->
-  <path d="M48,275 Q55,295 68,310 Q85,325 105,330 L105,340" fill="url(#dress_grad)" stroke="#1a1a2e" stroke-width="0.5"/>
-  <path d="M208,275 Q201,295 188,310 Q171,325 151,330 L151,340" fill="url(#dress_grad)" stroke="#1a1a2e" stroke-width="0.5"/>
-  <!-- Hands pressing down -->
-  <path d="M95,335 Q100,330 108,330 Q115,330 118,335 Q115,340 108,342 Q100,340 95,335 Z" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5"/>
-  <path d="M138,335 Q143,330 150,330 Q157,330 161,335 Q157,340 150,342 Q143,340 138,335 Z" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5"/>
-  <!-- Fingers spread -->
+  <!-- Arms - hands pressing forward menacingly -->
+  <path d="M48,275 Q55,295 68,310 Q85,325 105,330 L105,340" fill="url(#st_dress)" stroke="#1a1a2e" stroke-width="0.5"/>
+  <path d="M208,275 Q201,295 188,310 Q171,325 151,330 L151,340" fill="url(#st_dress)" stroke="#1a1a2e" stroke-width="0.5"/>
+  <!-- Hands with fingers spread -->
+  <path d="M95,335 Q100,330 108,330 Q115,330 118,335 Q115,340 108,342 Q100,340 95,335 Z" fill="url(#st_skin)" stroke="#b89a78" stroke-width="0.5"/>
+  <path d="M138,335 Q143,330 150,330 Q157,330 161,335 Q157,340 150,342 Q143,340 138,335 Z" fill="url(#st_skin)" stroke="#b89a78" stroke-width="0.5"/>
+  <!-- Fingers -->
   <line x1="98" y1="332" x2="95" y2="328" stroke="#b89a78" stroke-width="1.5" stroke-linecap="round"/>
   <line x1="104" y1="330" x2="102" y2="326" stroke="#b89a78" stroke-width="1.5" stroke-linecap="round"/>
   <line x1="110" y1="330" x2="110" y2="326" stroke="#b89a78" stroke-width="1.5" stroke-linecap="round"/>
   <line x1="158" y1="332" x2="161" y2="328" stroke="#b89a78" stroke-width="1.5" stroke-linecap="round"/>
   <line x1="152" y1="330" x2="154" y2="326" stroke="#b89a78" stroke-width="1.5" stroke-linecap="round"/>
   <line x1="146" y1="330" x2="146" y2="326" stroke="#b89a78" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Nail details -->
+  <circle cx="95" cy="327" r="0.8" fill="#880000" opacity="0.5"/>
+  <circle cx="102" cy="325" r="0.8" fill="#880000" opacity="0.5"/>
+  <circle cx="161" cy="327" r="0.8" fill="#880000" opacity="0.5"/>
+  <circle cx="154" cy="325" r="0.8" fill="#880000" opacity="0.5"/>
 
   <!-- Head - leaning forward -->
-  <path d="M93,75 Q93,50 128,44 Q163,50 163,75 L163,115 Q163,133 154,143 Q144,156 128,158 Q112,156 102,143 Q93,133 93,115 Z" fill="url(#skin_grad)"/>
+  <path d="M93,75 Q93,50 128,44 Q163,50 163,75 L163,115 Q163,133 154,143 Q144,156 128,158 Q112,156 102,143 Q93,133 93,115 Z" fill="url(#st_skin)"/>
+  <!-- Face shadow - deeper, more menacing -->
+  <path d="M100,130 Q110,140 128,145 Q146,140 156,130" fill="#8a7060" opacity="0.2"/>
+  <!-- Dramatic cheek shadows -->
+  <path d="M95,100 Q98,115 104,125" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.2"/>
+  <path d="M161,100 Q158,115 152,125" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.2"/>
 
-  <!-- Front hair -->
-  <path d="M93,70 Q89,65 84,62 Q78,75 76,92 Q80,78 87,73 Q93,75 96,85" fill="url(#hair_grad)"/>
-  <path d="M163,70 Q167,65 172,62 Q178,75 180,92 Q176,78 169,73 Q163,75 160,85" fill="url(#hair_grad)"/>
-  <path d="M96,75 Q108,67 128,65 Q148,67 160,75 L160,80 Q148,73 128,71 Q108,73 96,80 Z" fill="url(#hair_grad)"/>
+  <!-- Front hair wisps -->
+  <path d="M93,70 Q89,65 84,62 Q78,75 76,92 Q80,78 87,73 Q93,75 96,85" fill="url(#st_hair)"/>
+  <path d="M163,70 Q167,65 172,62 Q178,75 180,92 Q176,78 169,73 Q163,75 160,85" fill="url(#st_hair)"/>
+  <path d="M96,75 Q108,67 128,65 Q148,67 160,75 L160,80 Q148,73 128,71 Q108,73 96,80 Z" fill="url(#st_hair)"/>
 
-  <!-- Snake mask - shifting red -->
-  <path d="M90,73 Q90,63 128,57 Q166,63 166,73 L166,110 Q166,120 157,123 Q148,126 128,128 Q108,126 101,123 Q90,120 90,110 Z" fill="url(#mask_grad_threat)" stroke="#ff2244" stroke-width="1.2" opacity="0.9"/>
+  <!-- Snake mask - upper face, shifting red tones -->
+  <path d="M90,73 Q90,63 128,57 Q166,63 166,73 L166,110 Q166,120 157,123 Q148,126 128,128 Q108,126 101,123 Q90,120 90,110 Z" fill="url(#st_mask)" stroke="#ff2244" stroke-width="1.2" opacity="0.9"/>
 
-  <!-- Mask scales - reddish -->
-  <path d="M98,80 Q128,73 158,80" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
-  <path d="M96,87 Q128,80 160,87" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
-  <path d="M94,94 Q128,87 162,94" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
-  <path d="M95,101 Q128,94 161,101" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
-  <path d="M98,108 Q128,101 158,108" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
+  <!-- Mask texture - scale pattern, reddish -->
+  <path d="M98,80 Q128,73 158,80" fill="none" stroke="url(#st_mask_scale)" stroke-width="1.5"/>
+  <path d="M96,87 Q128,80 160,87" fill="none" stroke="url(#st_mask_scale)" stroke-width="1.5"/>
+  <path d="M94,94 Q128,87 162,94" fill="none" stroke="url(#st_mask_scale)" stroke-width="1.5"/>
+  <path d="M95,101 Q128,94 161,101" fill="none" stroke="url(#st_mask_scale)" stroke-width="1.5"/>
+  <path d="M98,108 Q128,101 158,108" fill="none" stroke="url(#st_mask_scale)" stroke-width="1.5"/>
+  <!-- Extra scale detail -->
+  <path d="M100,76 Q114,73 128,72 Q142,73 156,76" fill="none" stroke="#ff2244" stroke-width="0.3" opacity="0.15"/>
+  <path d="M97,83 Q128,77 159,83" fill="none" stroke="#ff2244" stroke-width="0.3" opacity="0.12"/>
 
-  <!-- Mask eye holes - GLOWING RED -->
+  <!-- Mask eye holes - angular, menacing -->
   <path d="M101,95 Q110,90 119,95 Q110,100 101,95 Z" fill="#0a0a0a" stroke="#ff2244" stroke-width="1"/>
   <path d="M137,95 Q146,90 155,95 Q146,100 137,95 Z" fill="#0a0a0a" stroke="#ff2244" stroke-width="1"/>
 
-  <!-- Eyes - RED GLOW -->
-  <circle cx="110" cy="95" r="3.5" fill="url(#red_eye_glow)" filter="url(#neon_red)"/>
-  <circle cx="146" cy="95" r="3.5" fill="url(#red_eye_glow)" filter="url(#neon_red)"/>
+  <!-- Eyes - GLOWING RED instead of green -->
+  <circle cx="110" cy="95" r="3.5" fill="url(#st_red_eye)" filter="url(#st_neon_red)"/>
+  <circle cx="146" cy="95" r="3.5" fill="url(#st_red_eye)" filter="url(#st_neon_red)"/>
   <circle cx="110" cy="95" r="2" fill="#ff4444"/>
   <circle cx="146" cy="95" r="2" fill="#ff4444"/>
   <circle cx="110" cy="95" r="1" fill="#ffffff" opacity="0.8"/>
   <circle cx="146" cy="95" r="1" fill="#ffffff" opacity="0.8"/>
+  <!-- Slit pupils - snake-like -->
+  <ellipse cx="110" cy="95" rx="0.5" ry="3" fill="#220000" opacity="0.6"/>
+  <ellipse cx="146" cy="95" rx="0.5" ry="3" fill="#220000" opacity="0.6"/>
 
-  <!-- Red glow spill -->
-  <ellipse cx="110" cy="95" rx="8" ry="5" fill="#ff2244" opacity="0.1" filter="url(#intense_glow)"/>
-  <ellipse cx="146" cy="95" rx="8" ry="5" fill="#ff2244" opacity="0.1" filter="url(#intense_glow)"/>
+  <!-- Red glow spill from eyes -->
+  <ellipse cx="110" cy="95" rx="10" ry="6" fill="#ff2244" opacity="0.1" filter="url(#st_intense_glow)"/>
+  <ellipse cx="146" cy="95" rx="10" ry="6" fill="#ff2244" opacity="0.1" filter="url(#st_intense_glow)"/>
+  <!-- Red glow casting on cheeks below mask -->
+  <ellipse cx="110" cy="120" rx="12" ry="8" fill="#ff2244" opacity="0.04" filter="url(#st_intense_glow)"/>
+  <ellipse cx="146" cy="120" rx="12" ry="8" fill="#ff2244" opacity="0.04" filter="url(#st_intense_glow)"/>
 
   <!-- Mask nose ridge -->
   <path d="M128,80 L128,120" fill="none" stroke="#ff2244" stroke-width="0.5" opacity="0.4"/>
   <path d="M125,120 Q128,125 131,120" fill="none" stroke="#ff2244" stroke-width="0.5" opacity="0.5"/>
 
-  <!-- Mask fangs - prominent -->
+  <!-- Mask fangs - prominent, threatening -->
   <path d="M104,123 Q101,132 105,127" fill="#3a2a2a" stroke="#ff2244" stroke-width="0.8" opacity="0.7"/>
   <path d="M152,123 Q155,132 151,127" fill="#3a2a2a" stroke="#ff2244" stroke-width="0.8" opacity="0.7"/>
+  <!-- Extra fang detail -->
+  <path d="M108,122 Q107,128 109,125" fill="#3a2a2a" stroke="#ff2244" stroke-width="0.5" opacity="0.4"/>
+  <path d="M148,122 Q149,128 147,125" fill="#3a2a2a" stroke="#ff2244" stroke-width="0.5" opacity="0.4"/>
 
-  <!-- Lips - tight threatening smile -->
+  <!-- Lips - thin, dangerous smile -->
   <path d="M115,140 Q122,137 128,136 Q134,137 141,140" fill="none" stroke="#aa6655" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Slight upturn at corners - dangerous -->
+  <path d="M115,140 Q113,138 112,136" fill="none" stroke="#aa6655" stroke-width="0.8" opacity="0.5"/>
+  <path d="M141,140 Q143,138 144,136" fill="none" stroke="#aa6655" stroke-width="0.8" opacity="0.5"/>
+  <!-- Lower lip line -->
   <path d="M117,141 Q128,143 139,141" fill="none" stroke="#886655" stroke-width="0.8"/>
 
   <!-- Chin -->
   <path d="M110,148 Q128,158 146,148" fill="none" stroke="#a08870" stroke-width="0.8" opacity="0.4"/>
 
   <!-- Ears and earrings - red glow -->
-  <ellipse cx="91" cy="100" rx="4" ry="8" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5" opacity="0.6"/>
-  <ellipse cx="165" cy="100" rx="4" ry="8" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5" opacity="0.6"/>
-  <circle cx="91" cy="110" r="2.5" fill="#2a0a0a" stroke="#ff2244" stroke-width="0.8" filter="url(#neon_red)"/>
-  <circle cx="165" cy="110" r="2.5" fill="#2a0a0a" stroke="#ff2244" stroke-width="0.8" filter="url(#neon_red)"/>
+  <ellipse cx="91" cy="100" rx="4" ry="8" fill="url(#st_skin)" stroke="#b89a78" stroke-width="0.5" opacity="0.6"/>
+  <ellipse cx="165" cy="100" rx="4" ry="8" fill="url(#st_skin)" stroke="#b89a78" stroke-width="0.5" opacity="0.6"/>
+  <!-- Dangling earrings with red glow -->
+  <circle cx="91" cy="110" r="2.5" fill="#2a0a0a" stroke="#ff2244" stroke-width="0.8" filter="url(#st_neon_red)"/>
+  <circle cx="165" cy="110" r="2.5" fill="#2a0a0a" stroke="#ff2244" stroke-width="0.8" filter="url(#st_neon_red)"/>
+  <circle cx="91" cy="110" r="1" fill="#ff2244" opacity="0.4"/>
+  <circle cx="165" cy="110" r="1" fill="#ff2244" opacity="0.4"/>
 
-  <!-- Menacing ambient -->
+  <!-- Deep shadows beneath figure -->
+  <ellipse cx="128" cy="370" rx="80" ry="12" fill="#0a0a0a" opacity="0.3"/>
+
+  <!-- Menacing ambient red glow -->
   <ellipse cx="128" cy="300" rx="90" ry="40" fill="#ff2244" opacity="0.03"/>
   <ellipse cx="128" cy="95" rx="50" ry="25" fill="#ff2244" opacity="0.04"/>
+
+  <!-- Ambient particles - red tinted -->
+  <circle cx="40" cy="200" r="1" fill="#ff2244" opacity="0.12"/>
+  <circle cx="216" cy="180" r="0.8" fill="#ff2244" opacity="0.1"/>
+  <circle cx="30" cy="300" r="1.2" fill="#00ff88" opacity="0.08"/>
+  <circle cx="226" cy="280" r="0.8" fill="#00ff88" opacity="0.06"/>
+
+  <!-- Scanlines for cyberpunk feel -->
+  <line x1="0" y1="80" x2="256" y2="80" stroke="#ff2244" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="160" x2="256" y2="160" stroke="#ff2244" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#ff2244" stroke-width="0.3" opacity="0.04"/>
+  <line x1="0" y1="320" x2="256" y2="320" stroke="#ff2244" stroke-width="0.3" opacity="0.04"/>
 </svg>
