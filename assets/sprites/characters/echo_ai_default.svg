@@ -1,15 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <linearGradient id="ea_bg" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="ai_bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0a0a1a"/>
-      <stop offset="100%" stop-color="#050510"/>
+      <stop offset="50%" stop-color="#080818"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
     </linearGradient>
-    <linearGradient id="ea_body" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
-      <stop offset="50%" stop-color="#aaccff" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03"/>
+    <radialGradient id="ai_core_glow" cx="50%" cy="42%" r="40%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="50%" stop-color="#aaccff" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#0a0a1a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="stream_cyan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00ffff" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#00ccff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0088ff" stop-opacity="0.2"/>
     </linearGradient>
-    <linearGradient id="ea_prismatic" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="stream_magenta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff00ff" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#cc44ff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#8800ff" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="stream_gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffcc00" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#ff8800" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ff4400" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="stream_green" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00ff88" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#00cc66" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#008844" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="stream_white" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#ccddff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#8899cc" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="prismatic_border" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#ff3344"/>
       <stop offset="16%" stop-color="#ff8800"/>
       <stop offset="33%" stop-color="#ffdd00"/>
@@ -18,160 +44,211 @@
       <stop offset="83%" stop-color="#8844ff"/>
       <stop offset="100%" stop-color="#ff3344"/>
     </linearGradient>
-    <linearGradient id="ea_stream1" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="30%" stop-color="#00ccff" stop-opacity="0.4"/>
-      <stop offset="70%" stop-color="#8844ff" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="ea_stream2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="25%" stop-color="#ff3344" stop-opacity="0.3"/>
-      <stop offset="75%" stop-color="#00ff88" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="ea_stream3" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="40%" stop-color="#ffdd00" stop-opacity="0.2"/>
-      <stop offset="60%" stop-color="#ff8800" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    <radialGradient id="ea_core_glow" cx="0.5" cy="0.4" r="0.5">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.2"/>
-      <stop offset="50%" stop-color="#aaccff" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    <radialGradient id="eye_left" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#aaeeff" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#44ccff" stop-opacity="0.6"/>
+      <stop offset="80%" stop-color="#ff44ff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ff44ff" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="ea_eye_left" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="30%" stop-color="#00ccff"/>
-      <stop offset="60%" stop-color="#8844ff"/>
-      <stop offset="100%" stop-color="#ff3344" stop-opacity="0"/>
+    <radialGradient id="eye_right" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#ffccaa" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#ff88ff" stop-opacity="0.6"/>
+      <stop offset="80%" stop-color="#44ccff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#44ccff" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="ea_eye_right" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="30%" stop-color="#ff3344"/>
-      <stop offset="60%" stop-color="#ffdd00"/>
-      <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="ea_neon">
+    <linearGradient id="body_fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#aaccff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+    </linearGradient>
+    <filter id="ai_glow">
       <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="ea_glow_strong">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
+    <filter id="ai_glow_strong">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="ea_soft">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
+    <filter id="eye_bloom">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="particle_soft">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
   <!-- Background -->
-  <rect width="256" height="384" fill="url(#ea_bg)"/>
-  <rect width="256" height="384" fill="url(#ea_core_glow)"/>
+  <rect width="256" height="384" fill="url(#ai_bg)"/>
+  <rect width="256" height="384" fill="url(#ai_core_glow)"/>
 
-  <!-- Frame border - prismatic -->
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="url(#ea_prismatic)" stroke-width="1.5" opacity="0.35"/>
+  <!-- Prismatic border -->
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="url(#prismatic_border)" stroke-width="1.5" opacity="0.3"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="monospace" font-size="16" fill="#ffffff" text-anchor="middle" filter="url(#ea_neon)">迴響</text>
+  <text x="128" y="28" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle" filter="url(#ai_glow)">迴響</text>
+  <text x="128" y="28" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">迴響</text>
 
-  <!-- Data streams flowing through form - background layer -->
-  <path d="M85,380 Q80,320 88,260 Q95,200 90,140 Q86,100 92,60 Q96,30 90,10" fill="none" stroke="url(#ea_stream1)" stroke-width="3" opacity="0.3"/>
-  <path d="M170,380 Q175,310 168,250 Q160,190 165,130 Q170,90 164,50 Q160,25 166,10" fill="none" stroke="url(#ea_stream2)" stroke-width="2.5" opacity="0.25"/>
-  <path d="M128,380 Q125,320 130,260 Q135,200 128,140 Q122,100 128,60 Q132,30 128,10" fill="none" stroke="url(#ea_stream3)" stroke-width="2" opacity="0.2"/>
-  <path d="M105,380 Q100,300 108,220 Q115,160 106,100 Q100,60 108,20" fill="none" stroke="url(#ea_stream1)" stroke-width="1.5" opacity="0.15"/>
-  <path d="M150,380 Q155,310 148,240 Q140,180 148,120 Q154,70 148,30" fill="none" stroke="url(#ea_stream2)" stroke-width="1.5" opacity="0.15"/>
+  <!-- === HUMANOID SILHOUETTE made of flowing data streams === -->
 
-  <!-- Abstract humanoid torso shape - translucent, made of data -->
-  <path d="M70,240 Q62,260 55,310 L48,380 H208 L201,310 Q194,260 186,240 Q178,225 168,218 L158,212 Q145,206 128,204 Q111,206 98,212 L88,218 Q78,225 70,240 Z" fill="url(#ea_body)" stroke="#ffffff" stroke-width="0.5" opacity="0.6"/>
-  <!-- Internal data lines in torso -->
-  <path d="M128,210 L128,380" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.15"/>
-  <path d="M100,222 Q108,260 105,310" fill="none" stroke="#00ccff" stroke-width="0.3" opacity="0.12"/>
-  <path d="M156,222 Q148,260 151,310" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.12"/>
+  <!-- Core body silhouette outline - ethereal, semi-transparent -->
+  <path d="M128,70 Q108,72 100,90 Q92,110 94,130 Q94,145 96,155 Q88,165 78,180 Q68,200 65,220 L62,260 Q60,300 65,340 L70,384 L90,384 Q95,350 98,320 Q100,300 105,280 L128,280 L151,280 Q156,300 158,320 Q161,350 166,384 L186,384 L191,340 Q196,300 194,260 L191,220 Q188,200 178,180 Q168,165 160,155 Q162,145 162,130 Q164,110 156,90 Q148,72 128,70 Z" fill="url(#body_fill)" stroke="#ffffff" stroke-width="0.5" opacity="0.2"/>
 
-  <!-- Shoulder energy nodes -->
-  <circle cx="82" cy="230" r="3" fill="#00ccff" opacity="0.2" filter="url(#ea_soft)"/>
-  <circle cx="174" cy="230" r="3" fill="#ff3344" opacity="0.2" filter="url(#ea_soft)"/>
+  <!-- Data stream paths forming the body - LEFT SIDE -->
+  <path d="M128,72 Q110,78 102,96 Q96,116 98,140 Q96,158 86,175 Q74,198 70,225 L66,270 Q64,310 68,355 L70,384" fill="none" stroke="url(#stream_cyan)" stroke-width="1.8" opacity="0.6" filter="url(#ai_glow)"/>
+  <path d="M128,76 Q114,82 106,98 Q100,118 102,142 Q100,160 90,178 Q80,200 76,228 L72,268 Q70,305 74,350 L78,384" fill="none" stroke="url(#stream_magenta)" stroke-width="1.2" opacity="0.5"/>
+  <path d="M128,80 Q118,86 112,102 Q108,120 108,140 Q106,158 98,174 Q90,194 86,220 L82,256 Q80,290 84,340 L86,384" fill="none" stroke="url(#stream_gold)" stroke-width="1" opacity="0.4"/>
 
-  <!-- Neck - translucent data column -->
-  <path d="M115,204 Q115,192 118,182 L128,178 L138,182 Q141,192 141,204" fill="url(#ea_body)" stroke="#ffffff" stroke-width="0.4" opacity="0.5"/>
-  <!-- Data flowing through neck -->
-  <path d="M125,204 L126,182" fill="none" stroke="#00ccff" stroke-width="0.5" opacity="0.2"/>
-  <path d="M131,204 L130,182" fill="none" stroke="#8844ff" stroke-width="0.5" opacity="0.2"/>
+  <!-- Data stream paths forming the body - RIGHT SIDE -->
+  <path d="M128,72 Q146,78 154,96 Q160,116 158,140 Q160,158 170,175 Q182,198 186,225 L190,270 Q192,310 188,355 L186,384" fill="none" stroke="url(#stream_cyan)" stroke-width="1.8" opacity="0.6" filter="url(#ai_glow)"/>
+  <path d="M128,76 Q142,82 150,98 Q156,118 154,142 Q156,160 166,178 Q176,200 180,228 L184,268 Q186,305 182,350 L178,384" fill="none" stroke="url(#stream_green)" stroke-width="1.2" opacity="0.5"/>
+  <path d="M128,80 Q138,86 144,102 Q148,120 148,140 Q150,158 158,174 Q166,194 170,220 L174,256 Q176,290 172,340 L170,384" fill="none" stroke="url(#stream_gold)" stroke-width="1" opacity="0.4"/>
 
-  <!-- Head shape - abstract, suggestion of a face -->
-  <ellipse cx="128" cy="138" rx="38" ry="46" fill="url(#ea_body)" stroke="#ffffff" stroke-width="0.6" opacity="0.5"/>
-  <!-- Inner head glow -->
-  <ellipse cx="128" cy="135" rx="30" ry="38" fill="#ffffff" opacity="0.03"/>
+  <!-- Center spine data stream -->
+  <path d="M128,72 L128,100 Q128,130 128,155 Q128,180 128,220 L128,260 Q128,310 128,360 L128,384" fill="none" stroke="url(#stream_white)" stroke-width="2" opacity="0.5" filter="url(#ai_glow)"/>
+
+  <!-- ARM data streams - LEFT -->
+  <path d="M96,155 Q84,162 72,175 Q60,192 52,210 Q48,225 50,240" fill="none" stroke="url(#stream_cyan)" stroke-width="1.5" opacity="0.5" filter="url(#ai_glow)"/>
+  <path d="M98,158 Q88,166 78,180 Q66,198 58,216 Q54,230 56,244" fill="none" stroke="url(#stream_magenta)" stroke-width="1" opacity="0.4"/>
+  <!-- Hand area - data dispersing -->
+  <path d="M50,240 Q46,248 44,256" fill="none" stroke="#00ffff" stroke-width="1" opacity="0.35"/>
+  <path d="M50,240 Q52,250 50,260" fill="none" stroke="#ff00ff" stroke-width="0.8" opacity="0.3"/>
+  <path d="M50,240 Q48,252 52,264" fill="none" stroke="#ffcc00" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- ARM data streams - RIGHT -->
+  <path d="M160,155 Q172,162 184,175 Q196,192 204,210 Q208,225 206,240" fill="none" stroke="url(#stream_cyan)" stroke-width="1.5" opacity="0.5" filter="url(#ai_glow)"/>
+  <path d="M158,158 Q168,166 178,180 Q190,198 198,216 Q202,230 200,244" fill="none" stroke="url(#stream_green)" stroke-width="1" opacity="0.4"/>
+  <path d="M206,240 Q210,248 212,256" fill="none" stroke="#00ffff" stroke-width="1" opacity="0.35"/>
+  <path d="M206,240 Q204,250 206,260" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.3"/>
+  <path d="M206,240 Q208,252 204,264" fill="none" stroke="#ffcc00" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- HEAD area - data streams converging -->
+  <path d="M128,72 Q118,60 112,52 Q108,46 110,42" fill="none" stroke="url(#stream_white)" stroke-width="1.5" opacity="0.45"/>
+  <path d="M128,72 Q138,60 144,52 Q148,46 146,42" fill="none" stroke="url(#stream_white)" stroke-width="1.5" opacity="0.45"/>
+  <path d="M128,72 Q128,58 128,48 Q128,42 128,38" fill="none" stroke="url(#stream_white)" stroke-width="1.8" opacity="0.5"/>
+  <!-- Head outline -->
+  <path d="M104,88 Q100,72 108,58 Q116,46 128,44 Q140,46 148,58 Q156,72 152,88 Q150,96 146,102 Q140,108 128,110 Q116,108 110,102 Q106,96 104,88 Z" fill="url(#body_fill)" stroke="#ffffff" stroke-width="0.8" opacity="0.3"/>
 
   <!-- Face wireframe suggestion -->
-  <path d="M100,140 Q105,155 115,162 Q122,166 128,168 Q134,166 141,162 Q151,155 156,140" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.15"/>
-  <path d="M105,130 Q115,125 128,124 Q141,125 151,130" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.12"/>
+  <path d="M110,94 Q118,90 128,89 Q138,90 146,94" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.15"/>
+  <path d="M108,100 Q115,105 128,106 Q141,105 148,100" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.12"/>
 
-  <!-- Prismatic eyes - the most vivid part -->
+  <!-- === EYES - prismatic glowing - the most vivid feature === -->
   <!-- Left eye -->
-  <ellipse cx="114" cy="135" rx="8" ry="5" fill="url(#ea_eye_left)" opacity="0.85" filter="url(#ea_glow_strong)"/>
-  <circle cx="114" cy="135" r="2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="116" cy="82" r="9" fill="url(#eye_left)" filter="url(#eye_bloom)"/>
+  <circle cx="116" cy="82" r="6" fill="#ffffff" opacity="0.5"/>
+  <circle cx="116" cy="82" r="3.5" fill="#ffffff" opacity="0.85"/>
+  <!-- Eye glow rings -->
+  <circle cx="116" cy="82" r="11" fill="none" stroke="#44ccff" stroke-width="0.8" opacity="0.3"/>
+  <circle cx="116" cy="82" r="14" fill="none" stroke="#ff44ff" stroke-width="0.5" opacity="0.15"/>
+  <circle cx="116" cy="82" r="17" fill="none" stroke="#44ccff" stroke-width="0.3" opacity="0.08"/>
+
   <!-- Right eye -->
-  <ellipse cx="142" cy="135" rx="8" ry="5" fill="url(#ea_eye_right)" opacity="0.85" filter="url(#ea_glow_strong)"/>
-  <circle cx="142" cy="135" r="2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="140" cy="82" r="9" fill="url(#eye_right)" filter="url(#eye_bloom)"/>
+  <circle cx="140" cy="82" r="6" fill="#ffffff" opacity="0.5"/>
+  <circle cx="140" cy="82" r="3.5" fill="#ffffff" opacity="0.85"/>
+  <circle cx="140" cy="82" r="11" fill="none" stroke="#ff88ff" stroke-width="0.8" opacity="0.3"/>
+  <circle cx="140" cy="82" r="14" fill="none" stroke="#44ccff" stroke-width="0.5" opacity="0.15"/>
+  <circle cx="140" cy="82" r="17" fill="none" stroke="#ff88ff" stroke-width="0.3" opacity="0.08"/>
+
+  <!-- Eye connection beam -->
+  <line x1="125" y1="82" x2="131" y2="82" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
 
   <!-- Suggestion of nose -->
-  <path d="M128,138 Q127,145 128,150" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.15"/>
+  <path d="M128,90 Q127,96 128,100" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.15"/>
 
   <!-- Suggestion of mouth -->
-  <path d="M120,156 Q124,158 128,158 Q132,158 136,156" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.2"/>
+  <path d="M120,104 Q124,106 128,106 Q132,106 136,104" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.2"/>
 
-  <!-- Floating digital particles around the form -->
-  <!-- Near head -->
-  <circle cx="80" cy="120" r="1.5" fill="#00ccff" opacity="0.4"/>
-  <circle cx="176" cy="125" r="1.2" fill="#ff3344" opacity="0.35"/>
-  <circle cx="90" cy="100" r="0.8" fill="#ffdd00" opacity="0.3"/>
-  <circle cx="166" cy="105" r="1" fill="#00ff88" opacity="0.3"/>
-  <circle cx="75" cy="145" r="0.7" fill="#8844ff" opacity="0.35"/>
-  <circle cx="181" cy="148" r="0.9" fill="#ff8800" opacity="0.3"/>
+  <!-- Horizontal data cross-streams -->
+  <path d="M80,160 Q100,155 120,158 Q140,162 160,158 Q176,155 190,160" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.15"/>
+  <path d="M70,220 Q95,215 128,218 Q161,215 186,220" fill="none" stroke="#00ffff" stroke-width="0.4" opacity="0.12"/>
+  <path d="M75,280 Q100,275 128,278 Q156,275 181,280" fill="none" stroke="#ff00ff" stroke-width="0.4" opacity="0.1"/>
 
-  <!-- Near body -->
-  <circle cx="55" cy="260" r="1.3" fill="#00ccff" opacity="0.25"/>
-  <circle cx="200" cy="270" r="1" fill="#ff3344" opacity="0.2"/>
-  <circle cx="65" cy="300" r="0.8" fill="#00ff88" opacity="0.2"/>
-  <circle cx="190" cy="290" r="1.1" fill="#8844ff" opacity="0.22"/>
+  <!-- Data nodes along body -->
+  <circle cx="128" cy="130" r="3" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.3"/>
+  <circle cx="128" cy="130" r="1" fill="#ffffff" opacity="0.5"/>
+  <circle cx="128" cy="180" r="2.5" fill="none" stroke="#00ffff" stroke-width="0.6" opacity="0.25"/>
+  <circle cx="128" cy="180" r="0.8" fill="#00ffff" opacity="0.4"/>
+  <circle cx="128" cy="230" r="2" fill="none" stroke="#ff00ff" stroke-width="0.6" opacity="0.2"/>
+  <circle cx="128" cy="230" r="0.6" fill="#ff00ff" opacity="0.35"/>
+  <circle cx="128" cy="310" r="1.5" fill="none" stroke="#ffcc00" stroke-width="0.5" opacity="0.18"/>
+  <circle cx="128" cy="310" r="0.5" fill="#ffcc00" opacity="0.3"/>
 
-  <!-- Scattered data fragments -->
-  <rect x="68" cy="130" width="4" height="1" fill="#00ccff" opacity="0.3" transform="rotate(15, 70, 130)"/>
-  <rect x="184" y="135" width="3" height="1" fill="#ff3344" opacity="0.25" transform="rotate(-10, 185, 135)"/>
-  <rect x="72" y="160" width="5" height="1" fill="#ffdd00" opacity="0.2"/>
-  <rect x="178" y="155" width="4" height="1" fill="#00ff88" opacity="0.2"/>
-  <rect x="60" y="200" width="3" height="1" fill="#8844ff" opacity="0.18"/>
-  <rect x="192" y="210" width="4" height="1" fill="#ff8800" opacity="0.18"/>
+  <!-- === FLOATING DATA PARTICLES - rainbow scattered === -->
+  <!-- Cyan particles -->
+  <circle cx="38" cy="56" r="1.8" fill="#00ffff" opacity="0.5" filter="url(#particle_soft)"/>
+  <circle cx="218" cy="72" r="1.5" fill="#00ffff" opacity="0.4"/>
+  <circle cx="92" cy="200" r="1.2" fill="#00ffff" opacity="0.35"/>
+  <circle cx="168" cy="310" r="1" fill="#00ffff" opacity="0.3"/>
+  <circle cx="44" cy="290" r="1.4" fill="#00ffff" opacity="0.35"/>
+  <rect x="22" y="142" width="3" height="3" fill="#00ffff" opacity="0.3" transform="rotate(45,23.5,143.5)"/>
+  <rect x="232" y="198" width="2.5" height="2.5" fill="#00ffff" opacity="0.25" transform="rotate(30,233,199)"/>
 
-  <!-- Binary / hex data suggestion floating around -->
-  <text x="52" y="185" font-family="monospace" font-size="6" fill="#00ccff" opacity="0.15">01101</text>
-  <text x="188" y="195" font-family="monospace" font-size="6" fill="#ff3344" opacity="0.12">10010</text>
-  <text x="48" y="240" font-family="monospace" font-size="5" fill="#8844ff" opacity="0.1">FF0A</text>
-  <text x="196" y="250" font-family="monospace" font-size="5" fill="#00ff88" opacity="0.1">A3C7</text>
+  <!-- Magenta particles -->
+  <circle cx="52" cy="120" r="1.5" fill="#ff00ff" opacity="0.45"/>
+  <circle cx="200" cy="142" r="1.8" fill="#ff00ff" opacity="0.4" filter="url(#particle_soft)"/>
+  <circle cx="75" cy="340" r="1.3" fill="#ff00ff" opacity="0.3"/>
+  <circle cx="180" cy="264" r="1" fill="#ff00ff" opacity="0.35"/>
+  <rect x="162" y="58" width="2.5" height="2.5" fill="#ff00ff" opacity="0.35" transform="rotate(45,163.25,59.25)"/>
+  <rect x="28" y="230" width="3" height="3" fill="#ff00ff" opacity="0.25" transform="rotate(20,29.5,231.5)"/>
 
-  <!-- Floating outer particles -->
-  <circle cx="25" cy="75" r="1.5" fill="#ffffff" opacity="0.15"/>
-  <circle cx="230" cy="85" r="1" fill="#ffffff" opacity="0.12"/>
-  <circle cx="35" cy="330" r="1.2" fill="#00ccff" opacity="0.12"/>
-  <circle cx="220" cy="340" r="0.8" fill="#ff3344" opacity="0.1"/>
-  <circle cx="15" cy="200" r="0.9" fill="#ffdd00" opacity="0.08"/>
-  <circle cx="240" cy="180" r="1.1" fill="#8844ff" opacity="0.1"/>
+  <!-- Gold/Orange particles -->
+  <circle cx="196" cy="96" r="1.3" fill="#ffcc00" opacity="0.45"/>
+  <circle cx="62" cy="168" r="1.6" fill="#ffcc00" opacity="0.4" filter="url(#particle_soft)"/>
+  <circle cx="188" cy="330" r="1.2" fill="#ff8800" opacity="0.3"/>
+  <circle cx="36" cy="360" r="1" fill="#ffcc00" opacity="0.3"/>
+  <rect x="224" y="280" width="2" height="2" fill="#ffcc00" opacity="0.3" transform="rotate(45,225,281)"/>
+  <rect x="110" y="360" width="2.5" height="2.5" fill="#ff8800" opacity="0.25"/>
+
+  <!-- Green particles -->
+  <circle cx="224" cy="180" r="1.5" fill="#00ff88" opacity="0.4"/>
+  <circle cx="34" cy="100" r="1.2" fill="#00ff88" opacity="0.35"/>
+  <circle cx="146" cy="350" r="1.4" fill="#00ff88" opacity="0.3" filter="url(#particle_soft)"/>
+  <circle cx="82" cy="280" r="1" fill="#00ff88" opacity="0.35"/>
+  <rect x="210" y="340" width="2" height="2" fill="#00ff88" opacity="0.3" transform="rotate(30,211,341)"/>
+
+  <!-- White/prismatic particles -->
+  <circle cx="128" cy="42" r="2" fill="#ffffff" opacity="0.5" filter="url(#particle_soft)"/>
+  <circle cx="100" cy="260" r="1.5" fill="#ffffff" opacity="0.3"/>
+  <circle cx="158" cy="240" r="1.3" fill="#ffffff" opacity="0.35"/>
+  <circle cx="48" cy="190" r="1" fill="#ffffff" opacity="0.3"/>
+  <circle cx="210" cy="120" r="1.2" fill="#ffffff" opacity="0.35"/>
+  <rect x="240" y="52" width="2" height="2" fill="#ffffff" opacity="0.3"/>
+  <rect x="14" y="310" width="2.5" height="2.5" fill="#ffffff" opacity="0.25" transform="rotate(45,15.25,311.25)"/>
+
+  <!-- Red particles -->
+  <circle cx="72" cy="76" r="1" fill="#ff4444" opacity="0.35"/>
+  <circle cx="240" cy="240" r="1.3" fill="#ff4444" opacity="0.3"/>
+  <rect x="18" y="180" width="2" height="2" fill="#ff4444" opacity="0.3"/>
+
+  <!-- Purple particles -->
+  <circle cx="172" cy="48" r="1.2" fill="#8844ff" opacity="0.4"/>
+  <circle cx="56" cy="250" r="1.5" fill="#8844ff" opacity="0.3"/>
+  <rect x="194" y="360" width="2.5" height="2.5" fill="#8844ff" opacity="0.25" transform="rotate(45,195.25,361.25)"/>
+
+  <!-- Binary/hex data fragments floating -->
+  <text x="48" y="184" font-family="monospace" font-size="6" fill="#00ccff" opacity="0.15">01101</text>
+  <text x="190" y="194" font-family="monospace" font-size="6" fill="#ff3344" opacity="0.12">10010</text>
+  <text x="44" y="238" font-family="monospace" font-size="5" fill="#8844ff" opacity="0.1">FF0A</text>
+  <text x="198" y="248" font-family="monospace" font-size="5" fill="#00ff88" opacity="0.1">A3C7</text>
+  <text x="20" y="320" font-family="monospace" font-size="5" fill="#ffcc00" opacity="0.08">D7E2</text>
+  <text x="216" y="302" font-family="monospace" font-size="5" fill="#ff00ff" opacity="0.08">9B4F</text>
 
   <!-- Connection lines between particles -->
-  <line x1="80" y1="120" x2="90" y2="100" stroke="#00ccff" stroke-width="0.3" opacity="0.15"/>
-  <line x1="176" y1="125" x2="166" y2="105" stroke="#ff3344" stroke-width="0.3" opacity="0.12"/>
-  <line x1="75" y1="145" x2="55" y2="260" stroke="#8844ff" stroke-width="0.2" opacity="0.08"/>
-  <line x1="181" y1="148" x2="200" y2="270" stroke="#ff8800" stroke-width="0.2" opacity="0.08"/>
+  <line x1="38" y1="56" x2="52" y2="120" stroke="#00ffff" stroke-width="0.2" opacity="0.1"/>
+  <line x1="218" y1="72" x2="200" y2="142" stroke="#ff00ff" stroke-width="0.2" opacity="0.08"/>
+  <line x1="34" y1="100" x2="44" y2="290" stroke="#00ff88" stroke-width="0.15" opacity="0.06"/>
+  <line x1="196" y1="96" x2="188" y2="330" stroke="#ffcc00" stroke-width="0.15" opacity="0.06"/>
 
-  <!-- Scanlines - prismatic tinted -->
-  <line x1="0" y1="60" x2="256" y2="60" stroke="#ffffff" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="120" x2="256" y2="120" stroke="#00ccff" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="180" x2="256" y2="180" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="240" x2="256" y2="240" stroke="#8844ff" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="300" x2="256" y2="300" stroke="#00ff88" stroke-width="0.3" opacity="0.06"/>
-  <line x1="0" y1="360" x2="256" y2="360" stroke="#ffdd00" stroke-width="0.3" opacity="0.06"/>
+  <!-- Ethereal vertical scan lines -->
+  <line x1="0" y1="60" x2="256" y2="60" stroke="#ffffff" stroke-width="0.2" opacity="0.06"/>
+  <line x1="0" y1="120" x2="256" y2="120" stroke="#00ccff" stroke-width="0.2" opacity="0.06"/>
+  <line x1="0" y1="180" x2="256" y2="180" stroke="#ff3344" stroke-width="0.2" opacity="0.06"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#8844ff" stroke-width="0.2" opacity="0.06"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#00ff88" stroke-width="0.2" opacity="0.06"/>
+  <line x1="0" y1="360" x2="256" y2="360" stroke="#ffdd00" stroke-width="0.2" opacity="0.06"/>
 </svg>
