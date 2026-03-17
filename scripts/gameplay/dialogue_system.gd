@@ -46,15 +46,17 @@ func _ready() -> void:
 	continue_indicator.visible = false
 	continue_indicator.text = "▼"
 
-	# Let mouse events pass through display-only controls
-	# so _unhandled_input can receive clicks to advance dialogue
-	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	# Root Control covers full screen; set to IGNORE so it doesn't block
+	# toolbar buttons and other UI when dialogue is active.
+	# We use _input instead of _unhandled_input to catch clicks directly.
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	dialogue_text.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	character_name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	continue_indicator.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for child in dialogue_panel.get_children():
 		if child is Container:
-			child.mouse_filter = Control.MOUSE_FILTER_PASS
+			child.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func start_dialogue(dialogue_data: Array) -> void:
 	if dialogue_data.is_empty():
@@ -186,7 +188,7 @@ func _on_choice_pressed(index: int) -> void:
 		else:
 			_advance()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not visible:
 		return
 
@@ -202,8 +204,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			_visible_chars = _full_text.length()
 			dialogue_text.visible_characters = -1
 			_finish_typing()
+			get_viewport().set_input_as_handled()
 		elif _is_waiting_for_input:
 			_advance()
+			get_viewport().set_input_as_handled()
 
 func _advance() -> void:
 	_current_index += 1

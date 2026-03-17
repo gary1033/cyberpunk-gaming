@@ -313,7 +313,18 @@ func _on_settings() -> void:
 	close_btn.pressed.connect(popup_layer.queue_free)
 	vbox.add_child(close_btn)
 
-	margin.add_child(vbox)
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(0, 0)
+	var viewport_h := get_viewport().get_visible_rect().size.y
+	scroll.custom_minimum_size.y = min(vbox.get_combined_minimum_size().y, viewport_h * 0.7)
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.add_child(vbox)
+
+	margin.add_child(scroll)
 	panel.add_child(margin)
 	popup_layer.add_child(panel)
 	add_child(popup_layer)
+
+	# Recalculate scroll height after layout
+	await get_tree().process_frame
+	scroll.custom_minimum_size.y = min(vbox.size.y, viewport_h * 0.7)
