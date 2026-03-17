@@ -1,10 +1,293 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#14041e"/>
-  <rect x="10" y="10" width="1260" height="700" rx="4" fill="none" stroke="#cc00ff" stroke-width="1" opacity="0.3"/>
-  <line x1="0" y1="500" x2="1280" y2="500" stroke="#cc00ff" stroke-width="1" opacity="0.15"/>
-  <rect x="100" y="200" width="200" height="300" fill="none" stroke="#cc00ff" stroke-width="1" opacity="0.1"/>
-  <rect x="980" y="150" width="200" height="350" fill="none" stroke="#cc00ff" stroke-width="1" opacity="0.1"/>
-  <text x="640" y="340" font-family="monospace" font-size="42" fill="#cc00ff" text-anchor="middle">深淵酒吧</text>
-  <text x="640" y="390" font-family="monospace" font-size="18" fill="#cc00ff" text-anchor="middle" opacity="0.5">The Abyss Bar</text>
-  <text x="640" y="680" font-family="monospace" font-size="12" fill="#cc00ff" text-anchor="middle" opacity="0.3">[ PLACEHOLDER ]</text>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0008"/>
+      <stop offset="100%" stop-color="#180012"/>
+    </linearGradient>
+    <linearGradient id="barTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1a22"/>
+      <stop offset="100%" stop-color="#1a0e15"/>
+    </linearGradient>
+    <linearGradient id="neonStrip" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff0066" stop-opacity="0"/>
+      <stop offset="15%" stop-color="#ff0066"/>
+      <stop offset="85%" stop-color="#ff3388"/>
+      <stop offset="100%" stop-color="#ff0066" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="shelfGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1018"/>
+      <stop offset="100%" stop-color="#0d0008"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0e000a"/>
+      <stop offset="100%" stop-color="#060004"/>
+    </linearGradient>
+    <linearGradient id="boothShadow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#050003"/>
+      <stop offset="100%" stop-color="#0a0008"/>
+    </linearGradient>
+    <radialGradient id="smokeGrad" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#aa4488" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#aa4488" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ceilingLight" cx="0.5" cy="0" r="0.9">
+      <stop offset="0%" stop-color="#ff0066" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ff0066" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="signGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff0066" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ff0066" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigGlow">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="smokeFilter">
+      <feGaussianBlur stdDeviation="25"/>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+  <rect width="1280" height="720" fill="url(#ceilingLight)"/>
+
+  <!-- Back wall -->
+  <rect x="0" y="0" width="1280" height="400" fill="#0d000a"/>
+  <!-- Brick texture -->
+  <g opacity="0.06">
+    <rect x="0" y="10" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="62" y="10" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="124" y="10" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="30" y="38" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="92" y="38" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="154" y="38" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="1080" y="10" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="1142" y="10" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="1110" y="38" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+    <rect x="1172" y="38" width="58" height="24" rx="1" fill="none" stroke="#3a1020" stroke-width="1"/>
+  </g>
+
+  <!-- Ceiling pipes and conduits -->
+  <rect x="0" y="0" width="1280" height="8" fill="#0a0006"/>
+  <rect x="200" y="5" width="880" height="4" rx="2" fill="#1a0e15"/>
+  <circle cx="300" cy="7" r="3" fill="#220015"/>
+  <circle cx="980" cy="7" r="3" fill="#220015"/>
+
+  <!-- Floor with reflections -->
+  <rect x="0" y="500" width="1280" height="220" fill="url(#floorGrad)"/>
+  <!-- Floor reflective sheen -->
+  <rect x="0" y="500" width="1280" height="220" fill="#ff0066" opacity="0.015"/>
+  <rect x="100" y="510" width="400" height="2" fill="#ff0066" opacity="0.03"/>
+  <rect x="600" y="530" width="300" height="1" fill="#ff0066" opacity="0.02"/>
+  <rect x="200" y="560" width="500" height="1" fill="#ff0066" opacity="0.02"/>
+
+  <!-- Back bar shelving unit -->
+  <rect x="100" y="50" width="1080" height="300" fill="url(#shelfGrad)"/>
+  <rect x="100" y="50" width="1080" height="300" fill="none" stroke="#2a1020" stroke-width="2"/>
+  <!-- Shelf dividers -->
+  <line x1="100" y1="130" x2="1180" y2="130" stroke="#2a1020" stroke-width="3"/>
+  <line x1="100" y1="210" x2="1180" y2="210" stroke="#2a1020" stroke-width="3"/>
+  <line x1="100" y1="280" x2="1180" y2="280" stroke="#2a1020" stroke-width="3"/>
+  <!-- Vertical dividers -->
+  <line x1="400" y1="50" x2="400" y2="350" stroke="#1a0e15" stroke-width="1"/>
+  <line x1="700" y1="50" x2="700" y2="350" stroke="#1a0e15" stroke-width="1"/>
+  <line x1="1000" y1="50" x2="1000" y2="350" stroke="#1a0e15" stroke-width="1"/>
+
+  <!-- Mirror behind bar -->
+  <rect x="420" y="55" width="440" height="70" fill="#080410" opacity="0.6"/>
+  <rect x="420" y="55" width="440" height="70" fill="none" stroke="#3a2030" stroke-width="1"/>
+  <!-- Mirror reflection hints -->
+  <rect x="430" y="60" width="2" height="60" fill="#ff0066" opacity="0.02"/>
+  <rect x="500" y="62" width="2" height="55" fill="#ff0066" opacity="0.03"/>
+
+  <!-- Neon sign "深淵" on back wall -->
+  <ellipse cx="640" cy="95" rx="180" ry="60" fill="url(#signGlow)" filter="url(#bigGlow)"/>
+  <g filter="url(#neonGlow)">
+    <text x="640" y="105" font-family="serif" font-size="48" fill="#ff0066" text-anchor="middle" opacity="0.95">深淵</text>
+  </g>
+  <g filter="url(#softGlow)">
+    <text x="640" y="105" font-family="serif" font-size="48" fill="#ff3388" text-anchor="middle" opacity="0.3">深淵</text>
+  </g>
+
+  <!-- Bottles on top shelf -->
+  <g>
+    <rect x="130" y="90" width="14" height="35" rx="2" fill="#1a4430" opacity="0.8"/>
+    <rect x="133" y="82" width="8" height="10" rx="3" fill="#1a4430" opacity="0.7"/>
+    <rect x="155" y="95" width="12" height="30" rx="2" fill="#886622" opacity="0.7"/>
+    <rect x="157" y="88" width="8" height="9" rx="3" fill="#886622" opacity="0.7"/>
+    <rect x="180" y="85" width="16" height="40" rx="2" fill="#1a3355" opacity="0.8"/>
+    <rect x="183" y="78" width="10" height="9" rx="3" fill="#1a3355" opacity="0.7"/>
+    <rect x="210" y="92" width="13" height="33" rx="2" fill="#552222" opacity="0.7"/>
+    <rect x="235" y="85" width="15" height="40" rx="2" fill="#1a4430" opacity="0.6"/>
+    <rect x="260" y="90" width="12" height="35" rx="2" fill="#886622" opacity="0.65"/>
+    <rect x="285" y="88" width="14" height="37" rx="2" fill="#442255" opacity="0.7"/>
+    <rect x="310" y="93" width="11" height="32" rx="2" fill="#1a3355" opacity="0.6"/>
+    <rect x="335" y="87" width="14" height="38" rx="2" fill="#553322" opacity="0.65"/>
+    <rect x="360" y="91" width="12" height="34" rx="2" fill="#1a4430" opacity="0.7"/>
+    <!-- Right section bottles -->
+    <rect x="900" y="88" width="15" height="37" rx="2" fill="#1a4430" opacity="0.7"/>
+    <rect x="925" y="92" width="12" height="33" rx="2" fill="#886622" opacity="0.75"/>
+    <rect x="950" y="84" width="14" height="41" rx="2" fill="#552244" opacity="0.7"/>
+    <rect x="975" y="90" width="16" height="35" rx="2" fill="#1a3355" opacity="0.7"/>
+    <rect x="1005" y="88" width="13" height="37" rx="2" fill="#886622" opacity="0.6"/>
+    <rect x="1030" y="93" width="11" height="32" rx="2" fill="#1a4430" opacity="0.65"/>
+    <rect x="1055" y="86" width="15" height="39" rx="2" fill="#442244" opacity="0.6"/>
+    <rect x="1080" y="90" width="12" height="35" rx="2" fill="#553322" opacity="0.7"/>
+    <rect x="1105" y="87" width="14" height="38" rx="2" fill="#1a3355" opacity="0.65"/>
+    <rect x="1130" y="92" width="11" height="33" rx="2" fill="#886622" opacity="0.7"/>
+  </g>
+
+  <!-- Middle shelf bottles -->
+  <g>
+    <rect x="140" y="165" width="13" height="40" rx="2" fill="#886622" opacity="0.65"/>
+    <rect x="165" y="170" width="15" height="35" rx="2" fill="#1a3355" opacity="0.7"/>
+    <rect x="190" y="168" width="12" height="37" rx="2" fill="#552222" opacity="0.6"/>
+    <rect x="215" y="172" width="14" height="33" rx="2" fill="#1a4430" opacity="0.65"/>
+    <rect x="240" y="167" width="11" height="38" rx="2" fill="#442255" opacity="0.6"/>
+    <rect x="500" y="165" width="16" height="40" rx="2" fill="#442255" opacity="0.6"/>
+    <rect x="525" y="170" width="12" height="35" rx="2" fill="#886622" opacity="0.65"/>
+    <rect x="550" y="167" width="14" height="38" rx="2" fill="#1a3355" opacity="0.7"/>
+    <rect x="575" y="172" width="11" height="33" rx="2" fill="#1a4430" opacity="0.6"/>
+    <rect x="700" y="168" width="15" height="37" rx="2" fill="#1a4430" opacity="0.6"/>
+    <rect x="725" y="172" width="11" height="33" rx="2" fill="#552222" opacity="0.65"/>
+    <rect x="750" y="166" width="14" height="39" rx="2" fill="#886622" opacity="0.6"/>
+    <rect x="950" y="168" width="14" height="37" rx="2" fill="#886622" opacity="0.6"/>
+    <rect x="980" y="170" width="12" height="35" rx="2" fill="#442255" opacity="0.65"/>
+    <rect x="1010" y="165" width="15" height="40" rx="2" fill="#1a3355" opacity="0.6"/>
+    <rect x="1040" y="170" width="12" height="35" rx="2" fill="#553322" opacity="0.6"/>
+  </g>
+
+  <!-- Lower shelf glasses -->
+  <g opacity="0.5">
+    <rect x="150" y="250" width="8" height="25" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="170" y="252" width="8" height="23" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="190" y="250" width="8" height="25" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="210" y="251" width="8" height="24" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="500" y="250" width="8" height="25" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="520" y="252" width="8" height="23" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="540" y="250" width="8" height="25" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="800" y="250" width="8" height="25" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="820" y="251" width="8" height="24" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="1000" y="250" width="8" height="25" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="1020" y="252" width="8" height="23" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+    <rect x="1040" y="250" width="8" height="25" rx="1" fill="#181830" stroke="#2a2a50" stroke-width="0.5"/>
+  </g>
+
+  <!-- Neon strips under shelves -->
+  <rect x="110" y="128" width="1060" height="3" fill="url(#neonStrip)" opacity="0.7" filter="url(#neonGlow)"/>
+  <rect x="110" y="208" width="1060" height="3" fill="url(#neonStrip)" opacity="0.5" filter="url(#neonGlow)"/>
+  <rect x="110" y="278" width="1060" height="2" fill="url(#neonStrip)" opacity="0.35" filter="url(#neonGlow)"/>
+
+  <!-- Wall signs left -->
+  <g filter="url(#neonGlow)">
+    <text x="350" y="260" font-family="serif" font-size="26" fill="#ff3388" opacity="0.55">酒吧</text>
+  </g>
+
+  <!-- Wall sign right -->
+  <g filter="url(#neonGlow)">
+    <rect x="850" y="232" width="80" height="28" rx="3" fill="none" stroke="#ff0066" stroke-width="1.5" opacity="0.45"/>
+    <text x="890" y="252" font-family="monospace" font-size="13" fill="#ff0066" text-anchor="middle" opacity="0.65">OPEN</text>
+  </g>
+
+  <!-- Bar counter -->
+  <rect x="50" y="378" width="1180" height="32" rx="3" fill="url(#barTop)"/>
+  <rect x="50" y="378" width="1180" height="32" rx="3" fill="none" stroke="#3a2030" stroke-width="1"/>
+  <!-- Neon magenta strip on bar edge -->
+  <rect x="50" y="408" width="1180" height="4" fill="#ff0066" opacity="0.6" filter="url(#neonGlow)"/>
+  <rect x="50" y="408" width="1180" height="2" fill="#ff3388" opacity="0.9"/>
+  <!-- Bar front -->
+  <rect x="50" y="412" width="1180" height="90" fill="#120010"/>
+  <rect x="50" y="412" width="1180" height="90" fill="none" stroke="#1a0012" stroke-width="1"/>
+  <!-- Bar front panels -->
+  <rect x="80" y="422" width="150" height="70" rx="2" fill="#0e000a" stroke="#1a0012" stroke-width="1"/>
+  <rect x="260" y="422" width="150" height="70" rx="2" fill="#0e000a" stroke="#1a0012" stroke-width="1"/>
+  <rect x="440" y="422" width="150" height="70" rx="2" fill="#0e000a" stroke="#1a0012" stroke-width="1"/>
+  <rect x="620" y="422" width="150" height="70" rx="2" fill="#0e000a" stroke="#1a0012" stroke-width="1"/>
+  <rect x="800" y="422" width="150" height="70" rx="2" fill="#0e000a" stroke="#1a0012" stroke-width="1"/>
+  <rect x="980" y="422" width="150" height="70" rx="2" fill="#0e000a" stroke="#1a0012" stroke-width="1"/>
+
+  <!-- Drinks on bar counter -->
+  <rect x="180" y="360" width="8" height="18" rx="1" fill="#220015" stroke="#ff0066" stroke-width="0.5" opacity="0.6"/>
+  <rect x="183" y="362" width="2" height="8" fill="#ff2288" opacity="0.15"/>
+  <rect x="400" y="362" width="12" height="16" rx="1" fill="#220015" stroke="#ff8844" stroke-width="0.5" opacity="0.55"/>
+  <rect x="402" y="364" width="8" height="5" fill="#ff8844" opacity="0.12"/>
+  <path d="M640 366 L628 380 L652 380 Z" fill="#1a0044" opacity="0.25" stroke="#00ccff" stroke-width="0.5"/>
+  <rect x="638" y="380" width="4" height="10" fill="#333340"/>
+  <rect x="632" y="389" width="16" height="3" rx="1" fill="#333340"/>
+  <rect x="880" y="361" width="10" height="17" rx="1" fill="#220015" stroke="#44ff88" stroke-width="0.5" opacity="0.5"/>
+  <rect x="1050" y="363" width="8" height="15" rx="1" fill="#220015" stroke="#ff0066" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Bar stools -->
+  <g>
+    <circle cx="200" cy="512" r="22" fill="#1a1015" stroke="#2a1525" stroke-width="1.5"/>
+    <circle cx="200" cy="512" r="14" fill="#150e12"/>
+    <rect x="197" y="532" width="6" height="58" fill="#1a1015"/>
+    <line x1="180" y1="590" x2="220" y2="590" stroke="#1a1015" stroke-width="4"/>
+    <rect x="185" y="586" width="30" height="4" rx="2" fill="#120010"/>
+
+    <circle cx="400" cy="512" r="22" fill="#1a1015" stroke="#2a1525" stroke-width="1.5"/>
+    <circle cx="400" cy="512" r="14" fill="#150e12"/>
+    <rect x="397" y="532" width="6" height="58" fill="#1a1015"/>
+    <line x1="380" y1="590" x2="420" y2="590" stroke="#1a1015" stroke-width="4"/>
+    <rect x="385" y="586" width="30" height="4" rx="2" fill="#120010"/>
+
+    <circle cx="640" cy="516" r="24" fill="#1a1015" stroke="#2a1525" stroke-width="1.5"/>
+    <circle cx="640" cy="516" r="15" fill="#150e12"/>
+    <rect x="637" y="538" width="6" height="54" fill="#1a1015"/>
+    <line x1="618" y1="592" x2="662" y2="592" stroke="#1a1015" stroke-width="4"/>
+    <rect x="623" y="588" width="34" height="4" rx="2" fill="#120010"/>
+
+    <circle cx="860" cy="512" r="22" fill="#1a1015" stroke="#2a1525" stroke-width="1.5"/>
+    <circle cx="860" cy="512" r="14" fill="#150e12"/>
+    <rect x="857" y="532" width="6" height="58" fill="#1a1015"/>
+    <line x1="840" y1="590" x2="880" y2="590" stroke="#1a1015" stroke-width="4"/>
+    <rect x="845" y="586" width="30" height="4" rx="2" fill="#120010"/>
+
+    <circle cx="1060" cy="512" r="22" fill="#1a1015" stroke="#2a1525" stroke-width="1.5"/>
+    <circle cx="1060" cy="512" r="14" fill="#150e12"/>
+    <rect x="1057" y="532" width="6" height="58" fill="#1a1015"/>
+    <line x1="1040" y1="590" x2="1080" y2="590" stroke="#1a1015" stroke-width="4"/>
+    <rect x="1045" y="586" width="30" height="4" rx="2" fill="#120010"/>
+  </g>
+
+  <!-- Shadow booth left -->
+  <rect x="0" y="280" width="90" height="240" fill="#050003"/>
+  <rect x="5" y="285" width="80" height="130" rx="6" fill="#0e000a"/>
+  <rect x="10" y="290" width="70" height="40" rx="4" fill="#0a0006"/>
+  <rect x="15" y="388" width="60" height="8" fill="#1a1015"/>
+  <circle cx="45" cy="330" r="3" fill="#ff0066" opacity="0.15"/>
+  <circle cx="35" cy="345" r="2" fill="#ff0066" opacity="0.1"/>
+
+  <!-- Shadow booth right -->
+  <rect x="1190" y="280" width="90" height="240" fill="#050003"/>
+  <rect x="1195" y="285" width="80" height="130" rx="6" fill="#0e000a"/>
+  <rect x="1200" y="290" width="70" height="40" rx="4" fill="#0a0006"/>
+  <rect x="1205" y="388" width="60" height="8" fill="#1a1015"/>
+  <circle cx="1235" cy="330" r="3" fill="#ff0066" opacity="0.15"/>
+  <circle cx="1245" cy="345" r="2" fill="#ff0066" opacity="0.1"/>
+  <!-- Faint silhouette in booth -->
+  <ellipse cx="1240" cy="310" rx="12" ry="15" fill="#0a0006" opacity="0.6"/>
+  <rect x="1228" y="325" width="24" height="30" rx="3" fill="#0a0006" opacity="0.5"/>
+
+  <!-- Smoke layers -->
+  <ellipse cx="350" cy="280" rx="320" ry="110" fill="url(#smokeGrad)" filter="url(#smokeFilter)"/>
+  <ellipse cx="900" cy="240" rx="280" ry="90" fill="url(#smokeGrad)" filter="url(#smokeFilter)"/>
+  <ellipse cx="640" cy="380" rx="450" ry="70" fill="url(#smokeGrad)" filter="url(#smokeFilter)"/>
+  <ellipse cx="200" cy="450" rx="200" ry="50" fill="url(#smokeGrad)" filter="url(#smokeFilter)"/>
+  <ellipse cx="1000" cy="420" rx="250" ry="60" fill="url(#smokeGrad)" filter="url(#smokeFilter)"/>
+
+  <!-- Floor neon reflections -->
+  <ellipse cx="640" cy="600" rx="500" ry="90" fill="#ff0066" opacity="0.025" filter="url(#bigGlow)"/>
+  <rect x="300" y="520" width="200" height="1" fill="#ff0066" opacity="0.04"/>
+  <rect x="700" y="550" width="150" height="1" fill="#ff0066" opacity="0.03"/>
+
+  <!-- Dark vignette overlay -->
+  <rect width="1280" height="720" fill="#050003" opacity="0.15"/>
 </svg>

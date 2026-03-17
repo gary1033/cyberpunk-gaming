@@ -1,12 +1,213 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#ff8800" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#ff8800" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#ff8800" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#ff8800" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#ff8800" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#ff8800" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#ff8800" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#ff8800" text-anchor="middle">阿傑</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#ff8800" text-anchor="middle" opacity="0.8">[angry]</text>
+  <defs>
+    <radialGradient id="bg_glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#2a0800" />
+      <stop offset="100%" stop-color="#0a0a1a" />
+    </radialGradient>
+    <linearGradient id="angry_skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#996050" />
+      <stop offset="100%" stop-color="#7a5545" />
+    </linearGradient>
+    <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#0d0d1a" />
+    </linearGradient>
+    <linearGradient id="tattoo_hot" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffaa00" />
+      <stop offset="50%" stop-color="#ffdd66" />
+      <stop offset="100%" stop-color="#ffaa00" />
+    </linearGradient>
+    <filter id="neon_orange">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="intense_glow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="vein_pulse">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="rage_aura">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background - angry red tint -->
+  <rect width="256" height="384" fill="url(#bg_glow)"/>
+  <!-- Rage ambient glow -->
+  <ellipse cx="128" cy="130" rx="100" ry="80" fill="#ff4400" opacity="0.04"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff8800" stroke-width="2" opacity="0.6"/>
+
+  <!-- Character name -->
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle" filter="url(#neon_orange)">阿傑</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle">阿傑</text>
+
+  <!-- Neck - thick, tensed, veins bulging -->
+  <rect x="104" y="162" width="48" height="40" rx="4" fill="url(#angry_skin)"/>
+  <!-- Neck tendons - prominent -->
+  <line x1="114" y1="165" x2="114" y2="200" stroke="#6a4535" stroke-width="1.8" opacity="0.6"/>
+  <line x1="142" y1="165" x2="142" y2="200" stroke="#6a4535" stroke-width="1.8" opacity="0.6"/>
+  <!-- Bulging veins on neck -->
+  <path d="M118,166 Q116,176 117,188 Q117,195 118,200" fill="none" stroke="#8a5545" stroke-width="2" opacity="0.7" filter="url(#vein_pulse)"/>
+  <path d="M138,166 Q140,176 139,188 Q139,195 138,200" fill="none" stroke="#8a5545" stroke-width="2" opacity="0.7" filter="url(#vein_pulse)"/>
+  <path d="M123,168 Q122,180 123,194" fill="none" stroke="#7a4a3a" stroke-width="1.2" opacity="0.5"/>
+  <path d="M133,168 Q134,180 133,194" fill="none" stroke="#7a4a3a" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- Body / Shoulders - puffed up, aggressive wide stance -->
+  <path d="M128,198 Q128,208 128,220 L128,384 L30,384 L30,250 Q30,210 74,204 Q104,195 128,198 Z" fill="url(#shirt_grad)"/>
+  <path d="M128,198 Q128,208 128,220 L128,384 L226,384 L226,250 Q226,210 182,204 Q152,195 128,198 Z" fill="url(#shirt_grad)"/>
+
+  <!-- Shoulders - tensed, raised high -->
+  <path d="M74,204 Q50,209 36,230 Q30,242 30,250" fill="none" stroke="#2a2a4e" stroke-width="2.5"/>
+  <path d="M182,204 Q206,209 220,230 Q226,242 226,250" fill="none" stroke="#2a2a4e" stroke-width="2.5"/>
+  <!-- Shoulder muscle bulge -->
+  <path d="M68,206 Q56,211 46,224" fill="none" stroke="#252548" stroke-width="1.5" opacity="0.6"/>
+  <path d="M188,206 Q200,211 210,224" fill="none" stroke="#252548" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Arms - fists clenched at sides, muscles tense -->
+  <path d="M30,250 Q34,278 38,306 Q42,332 46,358" fill="url(#angry_skin)" stroke="#6b5040" stroke-width="1"/>
+  <path d="M226,250 Q222,278 218,306 Q214,332 210,358" fill="url(#angry_skin)" stroke="#6b5040" stroke-width="1"/>
+
+  <!-- Left arm muscle definition -->
+  <path d="M34,256 Q36,270 38,288" fill="none" stroke="#7a5a3a" stroke-width="2" opacity="0.5"/>
+  <path d="M36,262 Q40,276 42,296" fill="none" stroke="#6a4a3a" stroke-width="1.2" opacity="0.3"/>
+  <!-- Bicep bulge left -->
+  <ellipse cx="36" cy="272" rx="6" ry="14" fill="#8a6050" opacity="0.3"/>
+  <!-- Right arm muscle definition -->
+  <path d="M222,256 Q220,270 218,288" fill="none" stroke="#7a5a3a" stroke-width="2" opacity="0.5"/>
+  <path d="M220,262 Q216,276 214,296" fill="none" stroke="#6a4a3a" stroke-width="1.2" opacity="0.3"/>
+  <!-- Bicep bulge right -->
+  <ellipse cx="220" cy="272" rx="6" ry="14" fill="#8a6050" opacity="0.3"/>
+
+  <!-- Left fist - clenched tight -->
+  <ellipse cx="46" cy="362" rx="14" ry="12" fill="url(#angry_skin)" stroke="#6b5040" stroke-width="1"/>
+  <line x1="38" y1="357" x2="38" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+  <line x1="43" y1="355" x2="43" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+  <line x1="48" y1="355" x2="48" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+  <line x1="53" y1="357" x2="53" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+  <!-- Right fist -->
+  <ellipse cx="210" cy="362" rx="14" ry="12" fill="url(#angry_skin)" stroke="#6b5040" stroke-width="1"/>
+  <line x1="203" y1="357" x2="203" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+  <line x1="208" y1="355" x2="208" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+  <line x1="213" y1="355" x2="213" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+  <line x1="218" y1="357" x2="218" y2="366" stroke="#6b5040" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- Circuit tattoos on left arm - BRIGHT ORANGE, intensified with energy arcs -->
+  <g filter="url(#intense_glow)" opacity="1">
+    <path d="M34,263 L42,263 L42,276 L50,276 L50,290 L56,290" fill="none" stroke="#ffaa00" stroke-width="2.5"/>
+    <path d="M38,270 L46,270 L46,284" fill="none" stroke="#ffdd66" stroke-width="1.5"/>
+    <circle cx="34" cy="263" r="3.5" fill="#ffdd66"/>
+    <circle cx="50" cy="276" r="3.5" fill="#ffdd66"/>
+    <circle cx="56" cy="290" r="3.5" fill="#ffdd66"/>
+    <path d="M40,296 L40,314 L46,314 L46,330" fill="none" stroke="#ffaa00" stroke-width="2"/>
+    <circle cx="46" cy="330" r="3" fill="#ffdd66"/>
+    <!-- Energy arcs radiating from nodes -->
+    <path d="M34,260 Q30,256 34,252" fill="none" stroke="#ffdd66" stroke-width="1" opacity="0.7"/>
+    <path d="M56,287 Q60,283 56,279" fill="none" stroke="#ffdd66" stroke-width="1" opacity="0.7"/>
+    <path d="M46,327 Q50,323 46,319" fill="none" stroke="#ffdd66" stroke-width="0.8" opacity="0.5"/>
+  </g>
+
+  <!-- Circuit tattoos on right arm - BRIGHT ORANGE, intensified -->
+  <g filter="url(#intense_glow)" opacity="1">
+    <path d="M222,263 L214,263 L214,276 L206,276 L206,290 L200,290" fill="none" stroke="#ffaa00" stroke-width="2.5"/>
+    <path d="M218,270 L210,270 L210,284" fill="none" stroke="#ffdd66" stroke-width="1.5"/>
+    <circle cx="222" cy="263" r="3.5" fill="#ffdd66"/>
+    <circle cx="206" cy="276" r="3.5" fill="#ffdd66"/>
+    <circle cx="200" cy="290" r="3.5" fill="#ffdd66"/>
+    <path d="M216,296 L216,314 L210,314 L210,330" fill="none" stroke="#ffaa00" stroke-width="2"/>
+    <circle cx="210" cy="330" r="3" fill="#ffdd66"/>
+    <!-- Energy arcs -->
+    <path d="M222,260 Q226,256 222,252" fill="none" stroke="#ffdd66" stroke-width="1" opacity="0.7"/>
+    <path d="M200,287 Q196,283 200,279" fill="none" stroke="#ffdd66" stroke-width="1" opacity="0.7"/>
+    <path d="M210,327 Q206,323 210,319" fill="none" stroke="#ffdd66" stroke-width="0.8" opacity="0.5"/>
+  </g>
+
+  <!-- Shirt collar V-neck -->
+  <path d="M96,200 L128,234 L160,200" fill="none" stroke="#2a2a4e" stroke-width="2"/>
+
+  <!-- Head - slightly forward, aggressive posture -->
+  <path d="M86,86 Q86,50 128,44 Q170,50 170,86 L170,126 Q170,142 160,152 Q150,166 128,168 Q106,166 96,152 Q86,142 86,126 Z" fill="url(#angry_skin)"/>
+
+  <!-- Strong jaw - clenched hard -->
+  <path d="M96,147 Q106,162 128,165 Q150,162 160,147" fill="none" stroke="#5a4030" stroke-width="2" opacity="0.6"/>
+  <!-- Jaw muscle bulge -->
+  <ellipse cx="96" cy="140" rx="5" ry="4" fill="#8a5a45" opacity="0.35"/>
+  <ellipse cx="160" cy="140" rx="5" ry="4" fill="#8a5a45" opacity="0.35"/>
+
+  <!-- Bald head -->
+  <path d="M93,72 Q128,50 163,72" fill="none" stroke="#9a7a5a" stroke-width="1" opacity="0.3"/>
+  <ellipse cx="128" cy="62" rx="25" ry="8" fill="#9a7a5a" opacity="0.15"/>
+  <path d="M90,78 Q128,47 166,78" fill="#3a2a1a" opacity="0.3"/>
+
+  <!-- Forehead veins - pulsing with anger -->
+  <path d="M106,66 Q111,62 114,66 Q116,70 120,68" fill="none" stroke="#8a5a3a" stroke-width="1.5" opacity="0.7" filter="url(#vein_pulse)"/>
+  <path d="M138,68 Q142,64 146,68 Q148,72 152,70" fill="none" stroke="#8a5a3a" stroke-width="1.2" opacity="0.5"/>
+  <path d="M125,64 Q128,60 131,64" fill="none" stroke="#8a5a3a" stroke-width="1" opacity="0.4"/>
+
+  <!-- Ears -->
+  <ellipse cx="84" cy="112" rx="6" ry="10" fill="url(#angry_skin)" stroke="#6b5040" stroke-width="1"/>
+  <ellipse cx="172" cy="112" rx="6" ry="10" fill="url(#angry_skin)" stroke="#6b5040" stroke-width="1"/>
+  <!-- Ear flush - red tint from anger -->
+  <ellipse cx="84" cy="112" rx="4" ry="7" fill="#aa5545" opacity="0.2"/>
+  <ellipse cx="172" cy="112" rx="4" ry="7" fill="#aa5545" opacity="0.2"/>
+
+  <!-- Eyes - narrowed slits of rage, orange fire reflection -->
+  <ellipse cx="108" cy="108" rx="13" ry="4" fill="#1a1a2e"/>
+  <ellipse cx="148" cy="108" rx="13" ry="4" fill="#1a1a2e"/>
+  <circle cx="108" cy="108" r="3" fill="#664422"/>
+  <circle cx="148" cy="108" r="3" fill="#664422"/>
+  <circle cx="108" cy="108" r="1.5" fill="#0a0a1a"/>
+  <circle cx="148" cy="108" r="1.5" fill="#0a0a1a"/>
+  <!-- Orange rage reflection in eyes -->
+  <circle cx="110" cy="107" r="1.2" fill="#ffaa44" opacity="0.7"/>
+  <circle cx="150" cy="107" r="1.2" fill="#ffaa44" opacity="0.7"/>
+  <!-- Red bloodshot lines -->
+  <path d="M97,107 L102,108" fill="none" stroke="#aa4422" stroke-width="0.5" opacity="0.5"/>
+  <path d="M154,108 L159,107" fill="none" stroke="#aa4422" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Eyebrows - deeply furrowed V-shape, very thick and angry -->
+  <path d="M93,102 Q103,90 122,99" fill="none" stroke="#3a2a1a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M134,99 Q153,90 163,102" fill="none" stroke="#3a2a1a" stroke-width="5" stroke-linecap="round"/>
+  <!-- Deep furrow lines between brows -->
+  <line x1="123" y1="93" x2="121" y2="103" stroke="#5a4030" stroke-width="1.8" opacity="0.7"/>
+  <line x1="133" y1="93" x2="135" y2="103" stroke="#5a4030" stroke-width="1.8" opacity="0.7"/>
+  <line x1="127" y1="91" x2="127" y2="99" stroke="#5a4030" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- Nose - flared nostrils -->
+  <path d="M128,110 L122,128 Q128,134 134,128 Z" fill="#7a5a3a" opacity="0.5"/>
+  <circle cx="121" cy="130" r="3" fill="#5a3a28" opacity="0.45"/>
+  <circle cx="135" cy="130" r="3" fill="#5a3a28" opacity="0.45"/>
+
+  <!-- Mouth - baring teeth, snarling -->
+  <path d="M108,140 Q118,136 128,137 Q138,136 148,140" fill="none" stroke="#5a3a2a" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Upper teeth row - visible snarl -->
+  <rect x="113" y="139" width="30" height="5" rx="1" fill="#ddccbb" opacity="0.7"/>
+  <!-- Teeth gaps -->
+  <line x1="119" y1="139" x2="119" y2="144" stroke="#1a1a2e" stroke-width="1" opacity="0.5"/>
+  <line x1="125" y1="138" x2="125" y2="144" stroke="#1a1a2e" stroke-width="1" opacity="0.5"/>
+  <line x1="131" y1="138" x2="131" y2="144" stroke="#1a1a2e" stroke-width="1" opacity="0.5"/>
+  <line x1="137" y1="139" x2="137" y2="144" stroke="#1a1a2e" stroke-width="1" opacity="0.5"/>
+  <!-- Lower lip tension -->
+  <path d="M114,148 Q128,152 142,148" fill="none" stroke="#5a3020" stroke-width="1.8" opacity="0.5"/>
+  <!-- Upper lip snarl curl -->
+  <path d="M110,140 Q108,137 110,135" fill="none" stroke="#6a4535" stroke-width="1" opacity="0.4"/>
+  <path d="M146,140 Q148,137 146,135" fill="none" stroke="#6a4535" stroke-width="1" opacity="0.4"/>
+
+  <!-- Scar - more visible when flushed -->
+  <line x1="93" y1="125" x2="100" y2="132" stroke="#aa8a6a" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Circuit glow on neck - bright, pulsing with rage -->
+  <g filter="url(#intense_glow)" opacity="0.9">
+    <path d="M111,170 L111,182 L121,182 L121,195" fill="none" stroke="#ffaa00" stroke-width="1.8"/>
+    <circle cx="121" cy="195" r="3" fill="#ffdd66"/>
+    <path d="M145,170 L145,182 L135,182" fill="none" stroke="#ffaa00" stroke-width="1.8"/>
+    <circle cx="135" cy="182" r="3" fill="#ffdd66"/>
+  </g>
+
+  <!-- Ambient angry glow effects -->
+  <ellipse cx="128" cy="300" rx="110" ry="50" fill="#ff4400" opacity="0.04"/>
+  <ellipse cx="128" cy="110" rx="70" ry="45" fill="#ff6600" opacity="0.03"/>
 </svg>

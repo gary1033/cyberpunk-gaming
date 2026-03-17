@@ -1,10 +1,311 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#0f0a1a"/>
-  <rect x="10" y="10" width="1260" height="700" rx="4" fill="none" stroke="#00e5e5" stroke-width="1" opacity="0.3"/>
-  <line x1="0" y1="500" x2="1280" y2="500" stroke="#00e5e5" stroke-width="1" opacity="0.15"/>
-  <rect x="100" y="200" width="200" height="300" fill="none" stroke="#00e5e5" stroke-width="1" opacity="0.1"/>
-  <rect x="980" y="150" width="200" height="350" fill="none" stroke="#00e5e5" stroke-width="1" opacity="0.1"/>
-  <text x="640" y="340" font-family="monospace" font-size="42" fill="#00e5e5" text-anchor="middle">偵探辦公室</text>
-  <text x="640" y="390" font-family="monospace" font-size="18" fill="#00e5e5" text-anchor="middle" opacity="0.5">Kai's Detective Office</text>
-  <text x="640" y="680" font-family="monospace" font-size="12" fill="#00e5e5" text-anchor="middle" opacity="0.3">[ PLACEHOLDER ]</text>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#1a1428"/>
+    </linearGradient>
+    <linearGradient id="lampGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffb84d" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ffb84d" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="lampRadial" cx="0.5" cy="0" r="0.8">
+      <stop offset="0%" stop-color="#ffb84d" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffb84d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="windowGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00e5e5" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#00e5e5" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1428"/>
+      <stop offset="100%" stop-color="#0d0a14"/>
+    </linearGradient>
+    <linearGradient id="deskGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d2b1f"/>
+      <stop offset="100%" stop-color="#2a1c12"/>
+    </linearGradient>
+    <linearGradient id="screenGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00e5e5"/>
+      <stop offset="50%" stop-color="#006666"/>
+      <stop offset="100%" stop-color="#003333"/>
+    </linearGradient>
+    <radialGradient id="lampLight" cx="0.5" cy="0.2" r="0.7">
+      <stop offset="0%" stop-color="#ffb84d" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffb84d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="screenFlicker">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="windowClip">
+      <rect x="700" y="60" width="520" height="380"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background layer -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+
+  <!-- Back wall -->
+  <rect x="0" y="0" width="1280" height="500" fill="#12101e"/>
+  <line x1="0" y1="100" x2="1280" y2="100" stroke="#1a1830" stroke-width="1"/>
+  <line x1="0" y1="200" x2="1280" y2="200" stroke="#1a1830" stroke-width="1"/>
+  <line x1="0" y1="300" x2="1280" y2="300" stroke="#1a1830" stroke-width="1"/>
+  <line x1="0" y1="400" x2="1280" y2="400" stroke="#1a1830" stroke-width="1"/>
+
+  <!-- Floor -->
+  <polygon points="0,500 1280,500 1280,720 0,720" fill="url(#floorGrad)"/>
+  <line x1="0" y1="540" x2="1280" y2="540" stroke="#1f1a2a" stroke-width="1"/>
+  <line x1="0" y1="580" x2="1280" y2="580" stroke="#1f1a2a" stroke-width="1"/>
+  <line x1="0" y1="630" x2="1280" y2="630" stroke="#1f1a2a" stroke-width="1"/>
+  <line x1="0" y1="680" x2="1280" y2="680" stroke="#1f1a2a" stroke-width="1"/>
+  <line x1="200" y1="500" x2="200" y2="720" stroke="#1f1a2a" stroke-width="1"/>
+  <line x1="450" y1="500" x2="450" y2="720" stroke="#1f1a2a" stroke-width="1"/>
+  <line x1="700" y1="500" x2="700" y2="720" stroke="#1f1a2a" stroke-width="1"/>
+  <line x1="950" y1="500" x2="950" y2="720" stroke="#1f1a2a" stroke-width="1"/>
+
+  <!-- Window showing city outside -->
+  <rect x="700" y="60" width="520" height="380" fill="#050510" rx="2"/>
+  <rect x="695" y="55" width="530" height="390" fill="none" stroke="#2a2a3a" stroke-width="6" rx="3"/>
+  <line x1="960" y1="55" x2="960" y2="445" stroke="#2a2a3a" stroke-width="4"/>
+  <line x1="695" y1="250" x2="1225" y2="250" stroke="#2a2a3a" stroke-width="4"/>
+
+  <!-- City outside window -->
+  <g clip-path="url(#windowClip)">
+    <rect x="700" y="60" width="520" height="380" fill="#080818"/>
+    <!-- Distant buildings -->
+    <rect x="710" y="180" width="40" height="260" fill="#0f0f25"/>
+    <rect x="755" y="150" width="55" height="290" fill="#0d0d20"/>
+    <rect x="815" y="200" width="35" height="240" fill="#101028"/>
+    <rect x="860" y="130" width="50" height="310" fill="#0e0e22"/>
+    <rect x="920" y="170" width="45" height="270" fill="#0f0f25"/>
+    <rect x="975" y="100" width="60" height="340" fill="#0d0d20"/>
+    <rect x="1045" y="160" width="40" height="280" fill="#101028"/>
+    <rect x="1090" y="190" width="55" height="250" fill="#0e0e22"/>
+    <rect x="1150" y="140" width="50" height="300" fill="#0f0f25"/>
+    <!-- Building windows -->
+    <rect x="720" y="200" width="4" height="3" fill="#ffdd44" opacity="0.6"/>
+    <rect x="730" y="220" width="4" height="3" fill="#00e5e5" opacity="0.5"/>
+    <rect x="720" y="260" width="4" height="3" fill="#ffdd44" opacity="0.4"/>
+    <rect x="765" y="170" width="5" height="3" fill="#ff66aa" opacity="0.5"/>
+    <rect x="780" y="200" width="5" height="3" fill="#00e5e5" opacity="0.6"/>
+    <rect x="765" y="240" width="5" height="3" fill="#ffdd44" opacity="0.3"/>
+    <rect x="780" y="280" width="5" height="3" fill="#ff66aa" opacity="0.4"/>
+    <rect x="870" y="150" width="5" height="3" fill="#00e5e5" opacity="0.5"/>
+    <rect x="880" y="180" width="5" height="3" fill="#ffdd44" opacity="0.6"/>
+    <rect x="870" y="220" width="5" height="3" fill="#ff66aa" opacity="0.4"/>
+    <rect x="880" y="260" width="5" height="3" fill="#00e5e5" opacity="0.3"/>
+    <rect x="985" y="120" width="6" height="4" fill="#ff66aa" opacity="0.6"/>
+    <rect x="1000" y="150" width="6" height="4" fill="#00e5e5" opacity="0.5"/>
+    <rect x="985" y="190" width="6" height="4" fill="#ffdd44" opacity="0.4"/>
+    <rect x="1000" y="230" width="6" height="4" fill="#ff66aa" opacity="0.3"/>
+    <rect x="1160" y="160" width="5" height="3" fill="#00e5e5" opacity="0.5"/>
+    <rect x="1170" y="200" width="5" height="3" fill="#ffdd44" opacity="0.6"/>
+    <rect x="730" y="300" width="4" height="3" fill="#00e5e5" opacity="0.3"/>
+    <rect x="935" y="200" width="4" height="3" fill="#ffdd44" opacity="0.5"/>
+    <rect x="1055" y="220" width="4" height="3" fill="#ff66aa" opacity="0.4"/>
+    <!-- Neon signs outside -->
+    <rect x="860" y="310" width="50" height="12" rx="2" fill="#ff1493" opacity="0.7" filter="url(#neonGlow)"/>
+    <rect x="980" y="280" width="45" height="10" rx="2" fill="#00e5ff" opacity="0.7" filter="url(#neonGlow)"/>
+    <rect x="740" y="340" width="35" height="8" rx="2" fill="#ffdd00" opacity="0.6" filter="url(#neonGlow)"/>
+    <rect x="1100" y="300" width="40" height="10" rx="2" fill="#ff6600" opacity="0.5" filter="url(#neonGlow)"/>
+    <!-- Rain streaks on window -->
+    <line x1="720" y1="60" x2="718" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.15"/>
+    <line x1="750" y1="60" x2="746" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.12"/>
+    <line x1="790" y1="60" x2="787" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.18"/>
+    <line x1="830" y1="60" x2="826" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.1"/>
+    <line x1="870" y1="60" x2="867" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.14"/>
+    <line x1="910" y1="60" x2="907" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.16"/>
+    <line x1="940" y1="60" x2="936" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.12"/>
+    <line x1="1000" y1="60" x2="996" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.15"/>
+    <line x1="1050" y1="60" x2="1047" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.1"/>
+    <line x1="1100" y1="60" x2="1096" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.13"/>
+    <line x1="1150" y1="60" x2="1146" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.17"/>
+    <line x1="1190" y1="60" x2="1187" y2="440" stroke="#4488aa" stroke-width="1" opacity="0.11"/>
+    <!-- Rain droplets -->
+    <circle cx="725" cy="180" r="2" fill="#4488aa" opacity="0.2"/>
+    <circle cx="800" cy="300" r="1.5" fill="#4488aa" opacity="0.15"/>
+    <circle cx="920" cy="150" r="2" fill="#4488aa" opacity="0.18"/>
+    <circle cx="1060" cy="250" r="1.5" fill="#4488aa" opacity="0.2"/>
+    <circle cx="1130" cy="350" r="2" fill="#4488aa" opacity="0.15"/>
+  </g>
+
+  <!-- Cyan window light spill -->
+  <rect x="700" y="60" width="520" height="380" fill="#00e5e5" opacity="0.03"/>
+  <rect x="700" y="440" width="520" height="80" fill="url(#windowGlow)" opacity="0.3"/>
+
+  <!-- Filing cabinets (left wall) -->
+  <rect x="30" y="250" width="130" height="250" rx="3" fill="#1a1a2e"/>
+  <rect x="30" y="250" width="130" height="250" rx="3" fill="none" stroke="#252540" stroke-width="2"/>
+  <rect x="40" y="260" width="110" height="55" rx="2" fill="#1e1e35"/>
+  <rect x="40" y="325" width="110" height="55" rx="2" fill="#1e1e35"/>
+  <rect x="40" y="390" width="110" height="55" rx="2" fill="#1e1e35"/>
+  <rect x="40" y="455" width="110" height="35" rx="2" fill="#1e1e35"/>
+  <rect x="80" y="283" width="30" height="4" rx="2" fill="#3a3a55"/>
+  <rect x="80" y="348" width="30" height="4" rx="2" fill="#3a3a55"/>
+  <rect x="80" y="413" width="30" height="4" rx="2" fill="#3a3a55"/>
+  <rect x="80" y="470" width="30" height="4" rx="2" fill="#3a3a55"/>
+  <rect x="45" y="318" width="20" height="8" fill="#d4c8a0" opacity="0.4" transform="rotate(-5 55 322)"/>
+  <rect x="120" y="383" width="15" height="6" fill="#c0b090" opacity="0.3" transform="rotate(3 127 386)"/>
+
+  <!-- Second filing cabinet -->
+  <rect x="180" y="300" width="110" height="200" rx="3" fill="#1c1c30"/>
+  <rect x="180" y="300" width="110" height="200" rx="3" fill="none" stroke="#252540" stroke-width="2"/>
+  <rect x="190" y="310" width="90" height="45" rx="2" fill="#202038"/>
+  <rect x="190" y="365" width="90" height="45" rx="2" fill="#202038"/>
+  <rect x="190" y="420" width="90" height="45" rx="2" fill="#202038"/>
+  <rect x="225" y="328" width="25" height="4" rx="2" fill="#3a3a55"/>
+  <rect x="225" y="383" width="25" height="4" rx="2" fill="#3a3a55"/>
+  <rect x="225" y="438" width="25" height="4" rx="2" fill="#3a3a55"/>
+  <!-- Open drawer with files -->
+  <rect x="185" y="410" width="100" height="50" rx="2" fill="#222240"/>
+  <rect x="195" y="415" width="8" height="40" fill="#cc9944" opacity="0.5"/>
+  <rect x="208" y="415" width="8" height="40" fill="#44aa88" opacity="0.4"/>
+  <rect x="221" y="415" width="8" height="40" fill="#cc5555" opacity="0.4"/>
+
+  <!-- Desk -->
+  <rect x="320" y="400" width="360" height="20" rx="2" fill="url(#deskGrad)"/>
+  <rect x="320" y="400" width="360" height="20" rx="2" fill="none" stroke="#4a3525" stroke-width="1"/>
+  <rect x="330" y="420" width="12" height="100" fill="#2a1c12"/>
+  <rect x="658" y="420" width="12" height="100" fill="#2a1c12"/>
+  <rect x="340" y="430" width="140" height="60" fill="#2e2015" stroke="#3d2b1f" stroke-width="1" rx="2"/>
+  <rect x="395" y="456" width="30" height="4" rx="2" fill="#5a4535"/>
+  <rect x="520" y="430" width="140" height="60" fill="#2e2015" stroke="#3d2b1f" stroke-width="1" rx="2"/>
+  <rect x="575" y="456" width="30" height="4" rx="2" fill="#5a4535"/>
+
+  <!-- Coffee mug -->
+  <ellipse cx="345" cy="395" rx="14" ry="5" fill="#2a2a3a"/>
+  <rect x="331" y="375" width="28" height="20" rx="3" fill="#2a2a3a"/>
+  <ellipse cx="345" cy="375" rx="14" ry="5" fill="#1a1a2a"/>
+  <path d="M359 380 Q368 383 368 390 Q368 397 359 398" fill="none" stroke="#2a2a3a" stroke-width="3"/>
+  <path d="M340 370 Q338 360 342 352" fill="none" stroke="#aaaacc" stroke-width="1" opacity="0.2"/>
+  <path d="M348 370 Q350 358 346 350" fill="none" stroke="#aaaacc" stroke-width="1" opacity="0.15"/>
+
+  <!-- Holo-screen 1 (main) -->
+  <rect x="420" y="280" width="180" height="115" rx="3" fill="#001a1a" opacity="0.9"/>
+  <rect x="420" y="280" width="180" height="115" rx="3" fill="none" stroke="#00e5e5" stroke-width="1.5" opacity="0.7" filter="url(#screenFlicker)"/>
+  <rect x="430" y="295" width="100" height="3" fill="#00e5e5" opacity="0.4"/>
+  <rect x="430" y="305" width="80" height="3" fill="#00e5e5" opacity="0.3"/>
+  <rect x="430" y="315" width="120" height="3" fill="#00e5e5" opacity="0.4"/>
+  <rect x="430" y="325" width="60" height="3" fill="#00e5e5" opacity="0.3"/>
+  <rect x="430" y="335" width="90" height="3" fill="#00e5e5" opacity="0.4"/>
+  <rect x="430" y="350" width="70" height="3" fill="#00e5e5" opacity="0.25"/>
+  <polyline points="430,375 450,365 470,370 490,355 510,360 530,350 550,363 570,345 590,355" fill="none" stroke="#00e5e5" stroke-width="1.5" opacity="0.6"/>
+  <rect x="420" y="280" width="180" height="115" rx="3" fill="#00e5e5" opacity="0.03" filter="url(#softGlow)"/>
+  <rect x="500" y="395" width="20" height="5" fill="#1a1a2a"/>
+  <rect x="490" y="398" width="40" height="4" rx="2" fill="#1a1a2a"/>
+
+  <!-- Holo-screen 2 (smaller, angled) -->
+  <g transform="rotate(-15 630 340)">
+    <rect x="590" y="300" width="120" height="80" rx="2" fill="#001a1a" opacity="0.85"/>
+    <rect x="590" y="300" width="120" height="80" rx="2" fill="none" stroke="#00bbcc" stroke-width="1" opacity="0.5"/>
+    <rect x="600" y="315" width="60" height="2" fill="#00bbcc" opacity="0.3"/>
+    <rect x="600" y="325" width="45" height="2" fill="#00bbcc" opacity="0.25"/>
+    <rect x="600" y="335" width="70" height="2" fill="#00bbcc" opacity="0.3"/>
+    <rect x="600" y="345" width="55" height="2" fill="#00bbcc" opacity="0.2"/>
+    <rect x="670" y="310" width="30" height="30" fill="#00bbcc" opacity="0.15"/>
+    <circle cx="685" cy="320" r="8" fill="#00bbcc" opacity="0.1"/>
+  </g>
+
+  <!-- Scattered papers -->
+  <rect x="380" y="390" width="30" height="20" fill="#d4c8a0" opacity="0.25" transform="rotate(12 395 400)"/>
+  <rect x="440" y="392" width="25" height="15" fill="#c8bca0" opacity="0.2" transform="rotate(-8 452 399)"/>
+  <rect x="460" y="388" width="20" height="18" fill="#d0c4a0" opacity="0.18" transform="rotate(5 470 397)"/>
+
+  <!-- Pen -->
+  <line x1="470" y1="393" x2="500" y2="397" stroke="#4444aa" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Desk lamp -->
+  <rect x="620" y="398" width="30" height="4" rx="2" fill="#3a3a4a"/>
+  <rect x="631" y="340" width="8" height="60" fill="#3a3a4a"/>
+  <path d="M615 340 L645 340 L655 325 L605 325 Z" fill="#4a4a5a"/>
+  <rect x="605" y="320" width="50" height="8" rx="2" fill="#ffb84d" opacity="0.8"/>
+  <polygon points="610,328 650,328 680,400 580,400" fill="url(#lampRadial)" opacity="0.15"/>
+  <ellipse cx="630" cy="400" rx="60" ry="10" fill="#ffb84d" opacity="0.06"/>
+  <!-- Lamp warm ambient -->
+  <ellipse cx="630" cy="370" rx="120" ry="80" fill="url(#lampLight)" opacity="0.5"/>
+
+  <!-- Chair -->
+  <rect x="440" y="520" width="120" height="15" rx="5" fill="#1a1a30"/>
+  <rect x="445" y="535" width="10" height="40" fill="#1a1a30"/>
+  <rect x="545" y="535" width="10" height="40" fill="#1a1a30"/>
+  <rect x="435" y="475" width="130" height="50" rx="8" fill="#1e1e35"/>
+  <rect x="435" y="475" width="130" height="50" rx="8" fill="none" stroke="#2a2a45" stroke-width="1"/>
+  <circle cx="450" cy="578" r="5" fill="#222240"/>
+  <circle cx="555" cy="578" r="5" fill="#222240"/>
+  <circle cx="500" cy="580" r="5" fill="#222240"/>
+
+  <!-- Bookshelf -->
+  <rect x="560" y="100" width="120" height="340" fill="#181830"/>
+  <rect x="560" y="100" width="120" height="340" fill="none" stroke="#222245" stroke-width="2"/>
+  <line x1="560" y1="180" x2="680" y2="180" stroke="#222245" stroke-width="3"/>
+  <line x1="560" y1="260" x2="680" y2="260" stroke="#222245" stroke-width="3"/>
+  <line x1="560" y1="340" x2="680" y2="340" stroke="#222245" stroke-width="3"/>
+  <rect x="568" y="110" width="12" height="65" fill="#8b4444" opacity="0.6"/>
+  <rect x="583" y="115" width="10" height="60" fill="#44668b" opacity="0.6"/>
+  <rect x="596" y="108" width="14" height="67" fill="#448b5a" opacity="0.5"/>
+  <rect x="613" y="112" width="11" height="63" fill="#8b7744" opacity="0.6"/>
+  <rect x="627" y="118" width="9" height="57" fill="#6644aa" opacity="0.5"/>
+  <rect x="640" y="110" width="13" height="65" fill="#aa4466" opacity="0.5"/>
+  <rect x="656" y="114" width="10" height="61" fill="#4488aa" opacity="0.5"/>
+  <rect x="570" y="190" width="15" height="65" fill="#665544" opacity="0.5"/>
+  <rect x="588" y="195" width="12" height="60" fill="#445566" opacity="0.5"/>
+  <rect x="604" y="188" width="10" height="67" fill="#884444" opacity="0.4"/>
+  <rect x="618" y="192" width="14" height="63" fill="#446688" opacity="0.5"/>
+  <rect x="638" y="210" width="35" height="45" fill="#2a2a40"/>
+  <rect x="568" y="275" width="40" height="55" fill="#222240"/>
+  <circle cx="630" cy="310" r="15" fill="#1a1a35" stroke="#00e5e5" stroke-width="1" opacity="0.3"/>
+
+  <!-- Wall holographic poster -->
+  <rect x="350" y="100" width="100" height="140" rx="2" fill="#0a0a20"/>
+  <rect x="350" y="100" width="100" height="140" rx="2" fill="none" stroke="#ff1493" stroke-width="1" opacity="0.4"/>
+  <rect x="365" y="130" width="70" height="50" fill="#ff1493" opacity="0.06"/>
+  <rect x="360" y="190" width="80" height="2" fill="#ff1493" opacity="0.3"/>
+  <rect x="370" y="200" width="60" height="2" fill="#ff1493" opacity="0.2"/>
+  <rect x="375" y="210" width="50" height="2" fill="#ff1493" opacity="0.15"/>
+
+  <!-- Wall clock -->
+  <circle cx="300" cy="150" r="25" fill="#1a1a30" stroke="#2a2a45" stroke-width="2"/>
+  <circle cx="300" cy="150" r="2" fill="#00e5e5" opacity="0.5"/>
+  <line x1="300" y1="150" x2="300" y2="132" stroke="#00e5e5" stroke-width="1.5" opacity="0.4"/>
+  <line x1="300" y1="150" x2="315" y2="155" stroke="#00e5e5" stroke-width="1" opacity="0.3"/>
+
+  <!-- Waste basket -->
+  <path d="M350 510 L340 580 L380 580 L370 510 Z" fill="#1a1a2e" stroke="#252540" stroke-width="1"/>
+  <rect x="352" y="540" width="8" height="12" fill="#d4c8a0" opacity="0.15" transform="rotate(20 356 546)"/>
+  <rect x="358" y="550" width="10" height="8" fill="#c0b890" opacity="0.1" transform="rotate(-10 363 554)"/>
+
+  <!-- Cable on floor -->
+  <path d="M660 500 Q680 530 700 520 Q730 510 750 540 Q770 560 800 550" fill="none" stroke="#222240" stroke-width="3"/>
+
+  <!-- Ambient neon reflections on floor -->
+  <ellipse cx="900" cy="550" rx="150" ry="30" fill="#00e5e5" opacity="0.03"/>
+  <ellipse cx="500" cy="600" rx="100" ry="20" fill="#ffb84d" opacity="0.04"/>
+
+  <!-- Venetian blinds shadow -->
+  <g opacity="0.04">
+    <rect x="700" y="460" width="400" height="6" fill="#00e5e5"/>
+    <rect x="710" y="475" width="380" height="6" fill="#00e5e5"/>
+    <rect x="720" y="490" width="360" height="6" fill="#00e5e5"/>
+    <rect x="730" y="505" width="340" height="6" fill="#00e5e5"/>
+    <rect x="740" y="520" width="320" height="6" fill="#00e5e5"/>
+  </g>
+
+  <!-- Dust particles in lamp light -->
+  <circle cx="620" cy="350" r="1" fill="#ffb84d" opacity="0.2"/>
+  <circle cx="640" cy="360" r="0.8" fill="#ffb84d" opacity="0.15"/>
+  <circle cx="615" cy="370" r="1.2" fill="#ffb84d" opacity="0.1"/>
+  <circle cx="650" cy="345" r="0.7" fill="#ffb84d" opacity="0.18"/>
+  <circle cx="625" cy="380" r="1" fill="#ffb84d" opacity="0.12"/>
+  <circle cx="608" cy="355" r="0.9" fill="#ffb84d" opacity="0.14"/>
+  <circle cx="645" cy="375" r="0.6" fill="#ffb84d" opacity="0.1"/>
+
+  <!-- Overall atmosphere -->
+  <rect width="1280" height="720" fill="#0a0520" opacity="0.15"/>
 </svg>

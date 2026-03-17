@@ -1,12 +1,150 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#00ccaa" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#00ccaa" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#00ccaa" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#00ccaa" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#00ccaa" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#00ccaa" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#00ccaa" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#00ccaa" text-anchor="middle">浩然</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#00ccaa" text-anchor="middle" opacity="0.8">[confused]</text>
+  <defs>
+    <linearGradient id="hc_bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#050510"/>
+    </linearGradient>
+    <linearGradient id="hc_skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d0ac88"/>
+      <stop offset="100%" stop-color="#b89a72"/>
+    </linearGradient>
+    <linearGradient id="hc_shirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#12122a"/>
+    </linearGradient>
+    <linearGradient id="hc_overshirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e2d3d"/>
+      <stop offset="100%" stop-color="#0f1a28"/>
+    </linearGradient>
+    <linearGradient id="hc_hair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2a"/>
+      <stop offset="100%" stop-color="#0e0e1a"/>
+    </linearGradient>
+    <radialGradient id="hc_glow" cx="0.5" cy="0.35" r="0.5">
+      <stop offset="0%" stop-color="#00ccff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00ccff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="hc_port_glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00ccff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00ccff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="hc_neon">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="hc_soft">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#hc_bg)"/>
+  <rect width="256" height="384" fill="url(#hc_glow)"/>
+
+  <!-- Frame border -->
+  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#00ccff" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Character name -->
+  <text x="128" y="30" font-family="monospace" font-size="18" fill="#00ccff" text-anchor="middle" filter="url(#hc_neon)">浩然</text>
+
+  <!-- Body -->
+  <path d="M60,220 Q54,240 46,290 L40,384 H216 L210,290 Q204,240 196,220 Q184,200 170,192 L162,188 Q147,180 128,178 Q109,180 94,188 L86,192 Q72,200 60,220 Z" fill="url(#hc_overshirt)" stroke="#00ccff" stroke-width="0.3" opacity="0.9"/>
+  <!-- Open shirt lapels -->
+  <path d="M108,188 Q112,195 108,215 Q106,230 104,250" fill="none" stroke="#1a3040" stroke-width="2.5" opacity="0.6"/>
+  <path d="M148,188 Q144,195 148,215 Q150,230 152,250" fill="none" stroke="#1a3040" stroke-width="2.5" opacity="0.6"/>
+  <line x1="128" y1="195" x2="128" y2="384" stroke="#00ccff" stroke-width="0.35" opacity="0.1"/>
+
+  <!-- Right hand raised to head - confused gesture -->
+  <!-- Arm/sleeve -->
+  <path d="M182,216 Q188,208 194,212 Q200,220 198,235 L196,248 Q194,260 198,275 L208,288" fill="url(#hc_overshirt)" stroke="#00ccff" stroke-width="0.3" opacity="0.85"/>
+  <!-- Hand near temple -->
+  <path d="M170,108 Q174,102 180,104 Q186,108 186,116 L184,124 Q182,130 178,132 Q174,134 170,130 L168,124 Q166,116 170,108 Z" fill="url(#hc_skin)" opacity="0.8"/>
+  <!-- Fingers spread near head -->
+  <path d="M172,106 Q170,100 172,96" fill="none" stroke="#c0a478" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <path d="M176,104 Q176,98 178,94" fill="none" stroke="#c0a478" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <path d="M180,106 Q182,100 184,96" fill="none" stroke="#c0a478" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- T-shirt visible underneath -->
+  <path d="M108,188 Q118,182 128,178 Q138,182 148,188 L148,240 Q138,238 128,236 Q118,238 108,240 Z" fill="url(#hc_shirt)" opacity="0.82"/>
+
+  <!-- Neck -->
+  <path d="M118,178 Q118,168 120,160 L128,157 L136,160 Q138,168 138,178" fill="url(#hc_skin)" opacity="0.9"/>
+
+  <!-- Head shape -->
+  <ellipse cx="128" cy="118" rx="37" ry="43" fill="url(#hc_skin)" opacity="0.95"/>
+
+  <!-- Face shadow -->
+  <path d="M98,130 Q104,142 114,150 Q122,155 128,157 Q134,155 142,150 Q152,142 158,130" fill="#b09060" opacity="0.2"/>
+
+  <!-- Ears -->
+  <path d="M91,114 Q86,109 85,117 Q85,126 89,129 Q91,124 91,114 Z" fill="url(#hc_skin)" opacity="0.8"/>
+  <path d="M165,114 Q170,109 171,117 Q171,126 167,129 Q165,124 165,114 Z" fill="url(#hc_skin)" opacity="0.8"/>
+
+  <!-- Neural interface port - right temple - flickering (dashed stroke) -->
+  <circle cx="166" cy="106" r="5" fill="#0a1520" stroke="#00ccff" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+  <circle cx="166" cy="106" r="3" fill="url(#hc_port_glow)"/>
+  <circle cx="166" cy="106" r="1.5" fill="#00ccff" opacity="0.35"/>
+  <!-- Flickering circuit lines - dashed -->
+  <path d="M171,106 Q174,106 176,104" fill="none" stroke="#00ccff" stroke-width="0.5" stroke-dasharray="1.5,1.5" opacity="0.3"/>
+  <path d="M170,109 Q173,110 175,109" fill="none" stroke="#00ccff" stroke-width="0.4" stroke-dasharray="1,2" opacity="0.2"/>
+
+  <!-- Hair - messy -->
+  <path d="M91,110 Q87,92 91,74 Q95,56 108,46 Q118,38 128,36 Q138,38 148,46 Q161,56 165,74 Q169,92 165,110 Q160,100 152,92 Q142,82 132,78 Q128,76 124,78 Q114,82 104,92 Q96,100 91,110 Z" fill="url(#hc_hair)" opacity="0.95"/>
+  <path d="M109,80 Q106,90 110,102" fill="none" stroke="#1a1a2a" stroke-width="2.2" opacity="0.75"/>
+  <path d="M117,76 Q113,86 117,98" fill="none" stroke="#1a1a2a" stroke-width="1.5" opacity="0.65"/>
+  <path d="M139,78 Q142,86 139,98" fill="none" stroke="#1a1a2a" stroke-width="1.8" opacity="0.7"/>
+  <path d="M148,82 Q151,90 148,100" fill="none" stroke="#16162a" stroke-width="1.2" opacity="0.55"/>
+  <path d="M132,76 Q134,84 131,96" fill="none" stroke="#1a1a2a" stroke-width="1.1" opacity="0.58"/>
+  <!-- Hair highlight -->
+  <path d="M112,50 Q120,46 128,44 Q136,46 144,50" fill="none" stroke="#2a2a44" stroke-width="0.7" opacity="0.35"/>
+
+  <!-- Eyes - confused, one squinting more -->
+  <!-- Left eye - squinting -->
+  <path d="M107,116 Q113,114 120,115 Q122,117 122,119 Q119,121 112,121 Q108,120 107,117 Z" fill="#ffffff" opacity="0.9"/>
+  <circle cx="114" cy="118" r="3.5" fill="#1a1a2e"/>
+  <circle cx="114" cy="117.5" r="2" fill="#2a3a4a"/>
+  <circle cx="114.5" cy="117" r="1.3" fill="#00ccff" opacity="0.45"/>
+  <circle cx="113" cy="116" r="0.7" fill="#ffffff" opacity="0.7"/>
+  <!-- Squinting eyelid - heavier on left -->
+  <path d="M107,114 Q113,112 121,114" fill="#c0a478" opacity="0.4"/>
+
+  <!-- Right eye - wider, disoriented -->
+  <path d="M134,113 Q142,111 150,115 Q150,121 144,123 Q137,123 134,119 Z" fill="#ffffff" opacity="0.92"/>
+  <circle cx="142" cy="117" r="4" fill="#1a1a2e"/>
+  <circle cx="142" cy="116.5" r="2.2" fill="#2a3a4a"/>
+  <circle cx="141.5" cy="116" r="1.5" fill="#00ccff" opacity="0.45"/>
+  <circle cx="140" cy="115" r="0.8" fill="#ffffff" opacity="0.7"/>
+
+  <!-- Eyebrows - furrowed, confused angled -->
+  <path d="M106,107 Q112,110 120,108" fill="none" stroke="#1a1a2a" stroke-width="1.9" opacity="0.72"/>
+  <path d="M135,107 Q143,110 150,108" fill="none" stroke="#1a1a2a" stroke-width="1.9" opacity="0.72"/>
+  <!-- Confusion furrow between brows -->
+  <path d="M123,105 L125,108" fill="none" stroke="#a08060" stroke-width="0.7" opacity="0.4"/>
+  <path d="M133,105 L131,108" fill="none" stroke="#a08060" stroke-width="0.7" opacity="0.4"/>
+
+  <!-- Nose -->
+  <path d="M128,118 Q127,124 126,130 Q125,133 127,135 Q128,136 130,135 Q131,133 130,130 Q129,124 128,118" fill="none" stroke="#a08858" stroke-width="0.7" opacity="0.42"/>
+
+  <!-- Mouth - unsure, slightly sideways/asymmetric -->
+  <path d="M119,143 Q123,142 128,143 Q133,145 137,143" fill="none" stroke="#8a6050" stroke-width="1.1" opacity="0.6"/>
+  <!-- Slight frown on one side -->
+  <path d="M119,143 Q118,144 117,143" fill="none" stroke="#8a6050" stroke-width="0.6" opacity="0.3"/>
+
+  <!-- Question mark particle effect -->
+  <text x="185" y="80" font-family="monospace" font-size="14" fill="#00ccff" opacity="0.2">?</text>
+
+  <!-- Ambient particles -->
+  <circle cx="28" cy="78" r="1.2" fill="#00ccff" opacity="0.16"/>
+  <circle cx="228" cy="92" r="0.8" fill="#00ccff" opacity="0.12"/>
+  <circle cx="38" cy="260" r="1" fill="#00ccff" opacity="0.12"/>
+  <circle cx="218" cy="244" r="0.7" fill="#00ccff" opacity="0.16"/>
+
+  <!-- Scanlines -->
+  <line x1="0" y1="60" x2="256" y2="60" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="120" x2="256" y2="120" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="180" x2="256" y2="180" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
+  <line x1="0" y1="360" x2="256" y2="360" stroke="#00ccff" stroke-width="0.3" opacity="0.05"/>
 </svg>

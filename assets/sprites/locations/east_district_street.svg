@@ -1,10 +1,234 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#080818"/>
-  <rect x="10" y="10" width="1260" height="700" rx="4" fill="none" stroke="#ff8800" stroke-width="1" opacity="0.3"/>
-  <line x1="0" y1="500" x2="1280" y2="500" stroke="#ff8800" stroke-width="1" opacity="0.15"/>
-  <rect x="100" y="200" width="200" height="300" fill="none" stroke="#ff8800" stroke-width="1" opacity="0.1"/>
-  <rect x="980" y="150" width="200" height="350" fill="none" stroke="#ff8800" stroke-width="1" opacity="0.1"/>
-  <text x="640" y="340" font-family="monospace" font-size="42" fill="#ff8800" text-anchor="middle">東區街道</text>
-  <text x="640" y="390" font-family="monospace" font-size="18" fill="#ff8800" text-anchor="middle" opacity="0.5">East District Streets</text>
-  <text x="640" y="680" font-family="monospace" font-size="12" fill="#ff8800" text-anchor="middle" opacity="0.3">[ PLACEHOLDER ]</text>
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#040412"/>
+      <stop offset="100%" stop-color="#0a0a20"/>
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a18"/>
+      <stop offset="100%" stop-color="#050510"/>
+    </linearGradient>
+    <linearGradient id="buildingL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0c0c1e"/>
+      <stop offset="100%" stop-color="#08081a"/>
+    </linearGradient>
+    <linearGradient id="buildingR" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#08081a"/>
+      <stop offset="100%" stop-color="#0c0c1e"/>
+    </linearGradient>
+    <linearGradient id="wetGround" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a25" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#060615" stop-opacity="0.8"/>
+    </linearGradient>
+    <radialGradient id="pinkGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff1493" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ff1493" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cyanGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="yellowGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffdd00" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffdd00" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigGlow">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <filter id="signGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1280" height="720" fill="url(#skyGrad)"/>
+
+  <!-- Left building block -->
+  <rect x="0" y="0" width="320" height="720" fill="url(#buildingL)"/>
+  <rect x="0" y="0" width="115" height="720" fill="#0b0b1c"/>
+  <rect x="120" y="0" width="200" height="720" fill="#0a0a1a"/>
+  <rect x="0" y="200" width="320" height="4" fill="#141428"/>
+  <rect x="0" y="350" width="320" height="3" fill="#141428"/>
+  <!-- Left windows -->
+  <g opacity="0.5">
+    <rect x="15" y="35" width="14" height="10" fill="#ffdd44" opacity="0.45"/>
+    <rect x="45" y="35" width="14" height="10" fill="#00cccc" opacity="0.35"/>
+    <rect x="75" y="35" width="14" height="10" fill="#ffdd44" opacity="0.5"/>
+    <rect x="15" y="75" width="14" height="10" fill="#ff66aa" opacity="0.3"/>
+    <rect x="45" y="75" width="14" height="10" fill="#ffdd44" opacity="0.45"/>
+    <rect x="75" y="75" width="14" height="10" fill="#00cccc" opacity="0.5"/>
+    <rect x="15" y="115" width="14" height="10" fill="#00cccc" opacity="0.4"/>
+    <rect x="45" y="115" width="14" height="10" fill="#ff66aa" opacity="0.3"/>
+    <rect x="75" y="115" width="14" height="10" fill="#ffdd44" opacity="0.45"/>
+    <rect x="15" y="155" width="14" height="10" fill="#ffdd44" opacity="0.3"/>
+    <rect x="75" y="155" width="14" height="10" fill="#00cccc" opacity="0.4"/>
+    <rect x="15" y="220" width="14" height="10" fill="#ff66aa" opacity="0.35"/>
+    <rect x="45" y="220" width="14" height="10" fill="#ffdd44" opacity="0.3"/>
+    <rect x="75" y="220" width="14" height="10" fill="#00cccc" opacity="0.4"/>
+    <rect x="15" y="260" width="14" height="10" fill="#00cccc" opacity="0.3"/>
+    <rect x="75" y="260" width="14" height="10" fill="#ffdd44" opacity="0.5"/>
+    <rect x="145" y="45" width="16" height="12" fill="#ffdd44" opacity="0.4"/>
+    <rect x="180" y="45" width="16" height="12" fill="#00cccc" opacity="0.35"/>
+    <rect x="215" y="45" width="16" height="12" fill="#ff66aa" opacity="0.4"/>
+    <rect x="255" y="45" width="16" height="12" fill="#ffdd44" opacity="0.3"/>
+    <rect x="145" y="90" width="16" height="12" fill="#00cccc" opacity="0.5"/>
+    <rect x="180" y="90" width="16" height="12" fill="#ffdd44" opacity="0.4"/>
+    <rect x="255" y="90" width="16" height="12" fill="#ff66aa" opacity="0.3"/>
+    <rect x="145" y="135" width="16" height="12" fill="#ffdd44" opacity="0.3"/>
+    <rect x="215" y="135" width="16" height="12" fill="#00cccc" opacity="0.4"/>
+    <rect x="145" y="225" width="16" height="12" fill="#ff66aa" opacity="0.4"/>
+    <rect x="180" y="225" width="16" height="12" fill="#ffdd44" opacity="0.3"/>
+    <rect x="255" y="225" width="16" height="12" fill="#00cccc" opacity="0.45"/>
+  </g>
+
+  <!-- Right building block -->
+  <rect x="960" y="0" width="320" height="720" fill="url(#buildingR)"/>
+  <rect x="960" y="0" width="150" height="720" fill="#0a0a1a"/>
+  <rect x="1115" y="0" width="165" height="720" fill="#0b0b1c"/>
+  <rect x="960" y="180" width="320" height="4" fill="#141428"/>
+  <rect x="960" y="330" width="320" height="3" fill="#141428"/>
+  <!-- Right windows -->
+  <g opacity="0.5">
+    <rect x="975" y="40" width="15" height="11" fill="#00cccc" opacity="0.4"/>
+    <rect x="1005" y="40" width="15" height="11" fill="#ffdd44" opacity="0.5"/>
+    <rect x="1035" y="40" width="15" height="11" fill="#ff66aa" opacity="0.3"/>
+    <rect x="1070" y="40" width="15" height="11" fill="#ffdd44" opacity="0.4"/>
+    <rect x="975" y="85" width="15" height="11" fill="#ffdd44" opacity="0.3"/>
+    <rect x="1035" y="85" width="15" height="11" fill="#00cccc" opacity="0.5"/>
+    <rect x="1070" y="85" width="15" height="11" fill="#ff66aa" opacity="0.4"/>
+    <rect x="975" y="130" width="15" height="11" fill="#ff66aa" opacity="0.4"/>
+    <rect x="1005" y="130" width="15" height="11" fill="#00cccc" opacity="0.3"/>
+    <rect x="1070" y="130" width="15" height="11" fill="#ffdd44" opacity="0.5"/>
+    <rect x="1005" y="200" width="15" height="11" fill="#ffdd44" opacity="0.4"/>
+    <rect x="1035" y="200" width="15" height="11" fill="#ff66aa" opacity="0.35"/>
+    <rect x="1135" y="45" width="15" height="11" fill="#ffdd44" opacity="0.4"/>
+    <rect x="1170" y="45" width="15" height="11" fill="#00cccc" opacity="0.35"/>
+    <rect x="1205" y="45" width="15" height="11" fill="#ff66aa" opacity="0.5"/>
+    <rect x="1240" y="45" width="15" height="11" fill="#ffdd44" opacity="0.3"/>
+    <rect x="1135" y="95" width="15" height="11" fill="#00cccc" opacity="0.4"/>
+    <rect x="1205" y="95" width="15" height="11" fill="#ffdd44" opacity="0.4"/>
+    <rect x="1135" y="145" width="15" height="11" fill="#ffdd44" opacity="0.5"/>
+    <rect x="1170" y="145" width="15" height="11" fill="#ff66aa" opacity="0.3"/>
+    <rect x="1240" y="145" width="15" height="11" fill="#00cccc" opacity="0.4"/>
+  </g>
+
+  <!-- Neon signs left -->
+  <g filter="url(#signGlow)">
+    <rect x="90" y="100" width="28" height="190" rx="2" fill="#ff1493" opacity="0.12"/>
+    <text x="104" y="140" font-family="serif" font-size="22" fill="#ff1493" text-anchor="middle" opacity="0.9">電</text>
+    <text x="104" y="168" font-family="serif" font-size="22" fill="#ff1493" text-anchor="middle" opacity="0.9">子</text>
+    <text x="104" y="196" font-family="serif" font-size="22" fill="#ff1493" text-anchor="middle" opacity="0.9">市</text>
+    <text x="104" y="224" font-family="serif" font-size="22" fill="#ff1493" text-anchor="middle" opacity="0.9">場</text>
+  </g>
+  <ellipse cx="104" cy="190" rx="55" ry="110" fill="#ff1493" opacity="0.025" filter="url(#bigGlow)"/>
+  <g filter="url(#signGlow)">
+    <rect x="245" y="55" width="30" height="155" rx="2" fill="#00e5ff" opacity="0.1"/>
+    <text x="260" y="88" font-family="serif" font-size="20" fill="#00e5ff" text-anchor="middle" opacity="0.85">廠</text>
+    <text x="260" y="114" font-family="serif" font-size="20" fill="#00e5ff" text-anchor="middle" opacity="0.85">房</text>
+    <text x="260" y="140" font-family="serif" font-size="20" fill="#00e5ff" text-anchor="middle" opacity="0.85">修</text>
+    <text x="260" y="166" font-family="serif" font-size="20" fill="#00e5ff" text-anchor="middle" opacity="0.85">理</text>
+  </g>
+  <g filter="url(#signGlow)">
+    <rect x="140" y="290" width="120" height="25" rx="2" fill="#00ff66" opacity="0.08"/>
+    <rect x="140" y="290" width="120" height="25" rx="2" fill="none" stroke="#00ff66" stroke-width="1" opacity="0.5"/>
+    <text x="200" y="308" font-family="serif" font-size="16" fill="#00ff66" text-anchor="middle" opacity="0.8">藥局</text>
+  </g>
+
+  <!-- Neon signs right -->
+  <g filter="url(#signGlow)">
+    <rect x="985" y="75" width="30" height="175" rx="2" fill="#ffdd00" opacity="0.1"/>
+    <text x="1000" y="110" font-family="serif" font-size="22" fill="#ffdd00" text-anchor="middle" opacity="0.9">食</text>
+    <text x="1000" y="138" font-family="serif" font-size="22" fill="#ffdd00" text-anchor="middle" opacity="0.9">堂</text>
+    <text x="1000" y="166" font-family="serif" font-size="22" fill="#ffdd00" text-anchor="middle" opacity="0.9">開</text>
+    <text x="1000" y="194" font-family="serif" font-size="22" fill="#ffdd00" text-anchor="middle" opacity="0.9">放</text>
+  </g>
+  <ellipse cx="1000" cy="155" rx="50" ry="100" fill="#ffdd00" opacity="0.02" filter="url(#bigGlow)"/>
+  <g filter="url(#signGlow)">
+    <rect x="1145" y="115" width="26" height="135" rx="2" fill="#ff6600" opacity="0.1"/>
+    <text x="1158" y="148" font-family="serif" font-size="20" fill="#ff6600" text-anchor="middle" opacity="0.85">酒</text>
+    <text x="1158" y="174" font-family="serif" font-size="20" fill="#ff6600" text-anchor="middle" opacity="0.85">店</text>
+    <text x="1158" y="200" font-family="serif" font-size="20" fill="#ff6600" text-anchor="middle" opacity="0.85">街</text>
+  </g>
+
+  <!-- Holographic ads -->
+  <rect x="440" y="75" width="155" height="55" rx="3" fill="#ff1493" opacity="0.05"/>
+  <rect x="440" y="75" width="155" height="55" rx="3" fill="none" stroke="#ff1493" stroke-width="1" opacity="0.3" filter="url(#neonGlow)"/>
+  <rect x="452" y="88" width="75" height="3" fill="#ff1493" opacity="0.22"/>
+  <rect x="452" y="98" width="55" height="3" fill="#ff1493" opacity="0.18"/>
+  <rect x="452" y="108" width="95" height="3" fill="#ff1493" opacity="0.14"/>
+  <rect x="540" y="85" width="40" height="30" fill="#ff1493" opacity="0.04"/>
+  <rect x="690" y="45" width="135" height="50" rx="3" fill="#00e5ff" opacity="0.04"/>
+  <rect x="690" y="45" width="135" height="50" rx="3" fill="none" stroke="#00e5ff" stroke-width="1" opacity="0.22" filter="url(#neonGlow)"/>
+  <rect x="700" y="58" width="65" height="3" fill="#00e5ff" opacity="0.2"/>
+  <rect x="700" y="68" width="85" height="3" fill="#00e5ff" opacity="0.15"/>
+  <rect x="560" y="140" width="120" height="40" rx="2" fill="#ffdd00" opacity="0.03"/>
+  <rect x="560" y="140" width="120" height="40" rx="2" fill="none" stroke="#ffdd00" stroke-width="0.8" opacity="0.2" filter="url(#neonGlow)"/>
+  <rect x="570" y="150" width="50" height="2" fill="#ffdd00" opacity="0.15"/>
+  <rect x="570" y="158" width="70" height="2" fill="#ffdd00" opacity="0.12"/>
+
+  <!-- Awnings -->
+  <path d="M320 340 L400 330 L400 342 L320 352 Z" fill="#1a1a30" opacity="0.8"/>
+  <path d="M960 340 L880 330 L880 342 L960 352 Z" fill="#1a1a30" opacity="0.8"/>
+
+  <!-- Shop fronts -->
+  <rect x="320" y="355" width="80" height="115" fill="#0a0a1a"/>
+  <rect x="325" y="360" width="70" height="65" fill="#001515" stroke="#00e5ff" stroke-width="0.5" opacity="0.3"/>
+  <rect x="880" y="355" width="80" height="115" fill="#0a0a1a"/>
+  <rect x="885" y="360" width="70" height="65" fill="#150a0a" stroke="#ff6600" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Wet street -->
+  <rect x="320" y="480" width="640" height="240" fill="url(#groundGrad)"/>
+  <rect x="320" y="480" width="640" height="240" fill="#3344aa" opacity="0.025"/>
+  <rect x="320" y="470" width="80" height="250" fill="#0e0e1e"/>
+  <line x1="320" y1="470" x2="320" y2="720" stroke="#1a1a2a" stroke-width="2"/>
+  <rect x="880" y="470" width="80" height="250" fill="#0e0e1e"/>
+  <line x1="960" y1="470" x2="960" y2="720" stroke="#1a1a2a" stroke-width="2"/>
+  <rect x="630" y="490" width="20" height="40" fill="#ffdd44" opacity="0.07"/>
+  <rect x="630" y="560" width="20" height="40" fill="#ffdd44" opacity="0.05"/>
+  <rect x="630" y="630" width="20" height="40" fill="#ffdd44" opacity="0.035"/>
+
+  <!-- Puddle reflections -->
+  <ellipse cx="500" cy="575" rx="80" ry="25" fill="#0a0a25" opacity="0.5"/>
+  <ellipse cx="500" cy="575" rx="80" ry="25" fill="#ff1493" opacity="0.035"/>
+  <ellipse cx="500" cy="573" rx="30" ry="8" fill="#ff1493" opacity="0.05"/>
+  <ellipse cx="750" cy="625" rx="70" ry="22" fill="#0a0a25" opacity="0.5"/>
+  <ellipse cx="750" cy="625" rx="70" ry="22" fill="#00e5ff" opacity="0.035"/>
+  <ellipse cx="750" cy="623" rx="25" ry="7" fill="#00e5ff" opacity="0.045"/>
+  <ellipse cx="640" cy="680" rx="95" ry="22" fill="#0a0a25" opacity="0.4"/>
+  <ellipse cx="640" cy="680" rx="95" ry="22" fill="#ffdd00" opacity="0.025"/>
+
+  <!-- Rain -->
+  <g opacity="0.14">
+    <line x1="348" y1="0" x2="328" y2="720" stroke="#5588cc" stroke-width="0.9"/>
+    <line x1="418" y1="0" x2="398" y2="720" stroke="#5588cc" stroke-width="0.7"/>
+    <line x1="488" y1="0" x2="468" y2="720" stroke="#5588cc" stroke-width="0.9"/>
+    <line x1="538" y1="0" x2="518" y2="720" stroke="#5588cc" stroke-width="0.6"/>
+    <line x1="598" y1="0" x2="578" y2="720" stroke="#5588cc" stroke-width="0.9"/>
+    <line x1="658" y1="0" x2="638" y2="720" stroke="#5588cc" stroke-width="0.7"/>
+    <line x1="718" y1="0" x2="698" y2="720" stroke="#5588cc" stroke-width="0.9"/>
+    <line x1="778" y1="0" x2="758" y2="720" stroke="#5588cc" stroke-width="0.65"/>
+    <line x1="838" y1="0" x2="818" y2="720" stroke="#5588cc" stroke-width="0.9"/>
+    <line x1="898" y1="0" x2="878" y2="720" stroke="#5588cc" stroke-width="0.7"/>
+    <line x1="378" y1="0" x2="358" y2="500" stroke="#5588cc" stroke-width="0.55"/>
+    <line x1="458" y1="90" x2="438" y2="600" stroke="#5588cc" stroke-width="0.55"/>
+    <line x1="558" y1="45" x2="538" y2="545" stroke="#5588cc" stroke-width="0.65"/>
+    <line x1="638" y1="75" x2="618" y2="575" stroke="#5588cc" stroke-width="0.55"/>
+    <line x1="748" y1="25" x2="728" y2="525" stroke="#5588cc" stroke-width="0.65"/>
+    <line x1="818" y1="55" x2="798" y2="555" stroke="#5588cc" stroke-width="0.55"/>
+    <line x1="510" y1="200" x2="495" y2="720" stroke="#5588cc" stroke-width="0.5"/>
+    <line x1="680" y1="150" x2="665" y2="680" stroke="#5588cc" stroke-width="0.5"/>
+  </g>
+
+  <!-- Ambient glow -->
+  <ellipse cx="104" cy="340" rx="200" ry="200" fill="url(#pinkGlow)"/>
+  <ellipse cx="1000" cy="300" rx="180" ry="200" fill="url(#yellowGlow)"/>
+  <ellipse cx="640" cy="300" rx="150" ry="150" fill="url(#cyanGlow)"/>
+
+  <!-- Vignette -->
+  <rect width="1280" height="720" fill="#030310" opacity="0.18"/>
 </svg>

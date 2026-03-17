@@ -1,12 +1,177 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#00ffff" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#00ffff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#00ffff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#00ffff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#00ffff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#00ffff" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#00ffff" text-anchor="middle">AI迴響</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#00ffff" text-anchor="middle" opacity="0.8">[default]</text>
+  <defs>
+    <linearGradient id="ea_bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#050510"/>
+    </linearGradient>
+    <linearGradient id="ea_body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#aaccff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="ea_prismatic" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff3344"/>
+      <stop offset="16%" stop-color="#ff8800"/>
+      <stop offset="33%" stop-color="#ffdd00"/>
+      <stop offset="50%" stop-color="#00ff88"/>
+      <stop offset="66%" stop-color="#00ccff"/>
+      <stop offset="83%" stop-color="#8844ff"/>
+      <stop offset="100%" stop-color="#ff3344"/>
+    </linearGradient>
+    <linearGradient id="ea_stream1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#00ccff" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#8844ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ea_stream2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="25%" stop-color="#ff3344" stop-opacity="0.3"/>
+      <stop offset="75%" stop-color="#00ff88" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ea_stream3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#ffdd00" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#ff8800" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="ea_core_glow" cx="0.5" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#aaccff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ea_eye_left" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#00ccff"/>
+      <stop offset="60%" stop-color="#8844ff"/>
+      <stop offset="100%" stop-color="#ff3344" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ea_eye_right" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#ff3344"/>
+      <stop offset="60%" stop-color="#ffdd00"/>
+      <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="ea_neon">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ea_glow_strong">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ea_soft">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#ea_bg)"/>
+  <rect width="256" height="384" fill="url(#ea_core_glow)"/>
+
+  <!-- Frame border - prismatic -->
+  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="url(#ea_prismatic)" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Character name -->
+  <text x="128" y="30" font-family="monospace" font-size="16" fill="#ffffff" text-anchor="middle" filter="url(#ea_neon)">迴響</text>
+
+  <!-- Data streams flowing through form - background layer -->
+  <path d="M85,380 Q80,320 88,260 Q95,200 90,140 Q86,100 92,60 Q96,30 90,10" fill="none" stroke="url(#ea_stream1)" stroke-width="3" opacity="0.3"/>
+  <path d="M170,380 Q175,310 168,250 Q160,190 165,130 Q170,90 164,50 Q160,25 166,10" fill="none" stroke="url(#ea_stream2)" stroke-width="2.5" opacity="0.25"/>
+  <path d="M128,380 Q125,320 130,260 Q135,200 128,140 Q122,100 128,60 Q132,30 128,10" fill="none" stroke="url(#ea_stream3)" stroke-width="2" opacity="0.2"/>
+  <path d="M105,380 Q100,300 108,220 Q115,160 106,100 Q100,60 108,20" fill="none" stroke="url(#ea_stream1)" stroke-width="1.5" opacity="0.15"/>
+  <path d="M150,380 Q155,310 148,240 Q140,180 148,120 Q154,70 148,30" fill="none" stroke="url(#ea_stream2)" stroke-width="1.5" opacity="0.15"/>
+
+  <!-- Abstract humanoid torso shape - translucent, made of data -->
+  <path d="M70,240 Q62,260 55,310 L48,380 H208 L201,310 Q194,260 186,240 Q178,225 168,218 L158,212 Q145,206 128,204 Q111,206 98,212 L88,218 Q78,225 70,240 Z" fill="url(#ea_body)" stroke="#ffffff" stroke-width="0.5" opacity="0.6"/>
+  <!-- Internal data lines in torso -->
+  <path d="M128,210 L128,380" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.15"/>
+  <path d="M100,222 Q108,260 105,310" fill="none" stroke="#00ccff" stroke-width="0.3" opacity="0.12"/>
+  <path d="M156,222 Q148,260 151,310" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.12"/>
+
+  <!-- Shoulder energy nodes -->
+  <circle cx="82" cy="230" r="3" fill="#00ccff" opacity="0.2" filter="url(#ea_soft)"/>
+  <circle cx="174" cy="230" r="3" fill="#ff3344" opacity="0.2" filter="url(#ea_soft)"/>
+
+  <!-- Neck - translucent data column -->
+  <path d="M115,204 Q115,192 118,182 L128,178 L138,182 Q141,192 141,204" fill="url(#ea_body)" stroke="#ffffff" stroke-width="0.4" opacity="0.5"/>
+  <!-- Data flowing through neck -->
+  <path d="M125,204 L126,182" fill="none" stroke="#00ccff" stroke-width="0.5" opacity="0.2"/>
+  <path d="M131,204 L130,182" fill="none" stroke="#8844ff" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Head shape - abstract, suggestion of a face -->
+  <ellipse cx="128" cy="138" rx="38" ry="46" fill="url(#ea_body)" stroke="#ffffff" stroke-width="0.6" opacity="0.5"/>
+  <!-- Inner head glow -->
+  <ellipse cx="128" cy="135" rx="30" ry="38" fill="#ffffff" opacity="0.03"/>
+
+  <!-- Face wireframe suggestion -->
+  <path d="M100,140 Q105,155 115,162 Q122,166 128,168 Q134,166 141,162 Q151,155 156,140" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.15"/>
+  <path d="M105,130 Q115,125 128,124 Q141,125 151,130" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.12"/>
+
+  <!-- Prismatic eyes - the most vivid part -->
+  <!-- Left eye -->
+  <ellipse cx="114" cy="135" rx="8" ry="5" fill="url(#ea_eye_left)" opacity="0.85" filter="url(#ea_glow_strong)"/>
+  <circle cx="114" cy="135" r="2" fill="#ffffff" opacity="0.9"/>
+  <!-- Right eye -->
+  <ellipse cx="142" cy="135" rx="8" ry="5" fill="url(#ea_eye_right)" opacity="0.85" filter="url(#ea_glow_strong)"/>
+  <circle cx="142" cy="135" r="2" fill="#ffffff" opacity="0.9"/>
+
+  <!-- Suggestion of nose -->
+  <path d="M128,138 Q127,145 128,150" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.15"/>
+
+  <!-- Suggestion of mouth -->
+  <path d="M120,156 Q124,158 128,158 Q132,158 136,156" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Floating digital particles around the form -->
+  <!-- Near head -->
+  <circle cx="80" cy="120" r="1.5" fill="#00ccff" opacity="0.4"/>
+  <circle cx="176" cy="125" r="1.2" fill="#ff3344" opacity="0.35"/>
+  <circle cx="90" cy="100" r="0.8" fill="#ffdd00" opacity="0.3"/>
+  <circle cx="166" cy="105" r="1" fill="#00ff88" opacity="0.3"/>
+  <circle cx="75" cy="145" r="0.7" fill="#8844ff" opacity="0.35"/>
+  <circle cx="181" cy="148" r="0.9" fill="#ff8800" opacity="0.3"/>
+
+  <!-- Near body -->
+  <circle cx="55" cy="260" r="1.3" fill="#00ccff" opacity="0.25"/>
+  <circle cx="200" cy="270" r="1" fill="#ff3344" opacity="0.2"/>
+  <circle cx="65" cy="300" r="0.8" fill="#00ff88" opacity="0.2"/>
+  <circle cx="190" cy="290" r="1.1" fill="#8844ff" opacity="0.22"/>
+
+  <!-- Scattered data fragments -->
+  <rect x="68" cy="130" width="4" height="1" fill="#00ccff" opacity="0.3" transform="rotate(15, 70, 130)"/>
+  <rect x="184" y="135" width="3" height="1" fill="#ff3344" opacity="0.25" transform="rotate(-10, 185, 135)"/>
+  <rect x="72" y="160" width="5" height="1" fill="#ffdd00" opacity="0.2"/>
+  <rect x="178" y="155" width="4" height="1" fill="#00ff88" opacity="0.2"/>
+  <rect x="60" y="200" width="3" height="1" fill="#8844ff" opacity="0.18"/>
+  <rect x="192" y="210" width="4" height="1" fill="#ff8800" opacity="0.18"/>
+
+  <!-- Binary / hex data suggestion floating around -->
+  <text x="52" y="185" font-family="monospace" font-size="6" fill="#00ccff" opacity="0.15">01101</text>
+  <text x="188" y="195" font-family="monospace" font-size="6" fill="#ff3344" opacity="0.12">10010</text>
+  <text x="48" y="240" font-family="monospace" font-size="5" fill="#8844ff" opacity="0.1">FF0A</text>
+  <text x="196" y="250" font-family="monospace" font-size="5" fill="#00ff88" opacity="0.1">A3C7</text>
+
+  <!-- Floating outer particles -->
+  <circle cx="25" cy="75" r="1.5" fill="#ffffff" opacity="0.15"/>
+  <circle cx="230" cy="85" r="1" fill="#ffffff" opacity="0.12"/>
+  <circle cx="35" cy="330" r="1.2" fill="#00ccff" opacity="0.12"/>
+  <circle cx="220" cy="340" r="0.8" fill="#ff3344" opacity="0.1"/>
+  <circle cx="15" cy="200" r="0.9" fill="#ffdd00" opacity="0.08"/>
+  <circle cx="240" cy="180" r="1.1" fill="#8844ff" opacity="0.1"/>
+
+  <!-- Connection lines between particles -->
+  <line x1="80" y1="120" x2="90" y2="100" stroke="#00ccff" stroke-width="0.3" opacity="0.15"/>
+  <line x1="176" y1="125" x2="166" y2="105" stroke="#ff3344" stroke-width="0.3" opacity="0.12"/>
+  <line x1="75" y1="145" x2="55" y2="260" stroke="#8844ff" stroke-width="0.2" opacity="0.08"/>
+  <line x1="181" y1="148" x2="200" y2="270" stroke="#ff8800" stroke-width="0.2" opacity="0.08"/>
+
+  <!-- Scanlines - prismatic tinted -->
+  <line x1="0" y1="60" x2="256" y2="60" stroke="#ffffff" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="120" x2="256" y2="120" stroke="#00ccff" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="180" x2="256" y2="180" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#8844ff" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#00ff88" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="360" x2="256" y2="360" stroke="#ffdd00" stroke-width="0.3" opacity="0.06"/>
 </svg>

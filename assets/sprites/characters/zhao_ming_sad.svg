@@ -1,12 +1,160 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#4488ff" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#4488ff" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#4488ff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#4488ff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#4488ff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#4488ff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#4488ff" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#4488ff" text-anchor="middle">趙明</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#4488ff" text-anchor="middle" opacity="0.8">[sad]</text>
+  <defs>
+    <radialGradient id="zsa-bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#141008"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </radialGradient>
+    <linearGradient id="zsa-suit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#181828"/>
+      <stop offset="50%" stop-color="#121224"/>
+      <stop offset="100%" stop-color="#0c0c1c"/>
+    </linearGradient>
+    <linearGradient id="zsa-lapel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#202038"/>
+      <stop offset="100%" stop-color="#181828"/>
+    </linearGradient>
+    <linearGradient id="zsa-shirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dddde8"/>
+      <stop offset="100%" stop-color="#bbbbc8"/>
+    </linearGradient>
+    <linearGradient id="zsa-skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c89c6a"/>
+      <stop offset="100%" stop-color="#b88c5a"/>
+    </linearGradient>
+    <linearGradient id="zsa-hair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2a"/>
+      <stop offset="100%" stop-color="#0e0e18"/>
+    </linearGradient>
+    <linearGradient id="zsa-tie" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dd9900"/>
+      <stop offset="50%" stop-color="#bb7700"/>
+      <stop offset="100%" stop-color="#996600"/>
+    </linearGradient>
+    <filter id="zsa-glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="zsa-glow-soft">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="zsa-border" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffaa00" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#dd8800" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffaa00" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#zsa-bg)"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="url(#zsa-border)" stroke-width="1.5"/>
+
+  <!-- Character name -->
+  <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#ffaa00" text-anchor="middle" filter="url(#zsa-glow)">趙明</text>
+
+  <!-- Suit body - slumped shoulders -->
+  <path d="M58,200 C58,185 72,172 87,166 L106,158 C116,155 123,153 128,152 C133,153 140,155 150,158 L169,166 C184,172 198,185 198,200 L205,282 C207,322 203,352 199,370 L57,370 C53,352 49,322 51,282 Z" fill="url(#zsa-suit)"/>
+
+  <!-- Suit lapels -->
+  <path d="M106,158 L92,178 L96,222 L119,198 L128,183 Z" fill="url(#zsa-lapel)"/>
+  <path d="M106,158 L92,178 L96,222" fill="none" stroke="#ffaa00" stroke-width="0.5" opacity="0.2"/>
+  <path d="M150,158 L164,178 L160,222 L137,198 L128,183 Z" fill="url(#zsa-lapel)"/>
+  <path d="M150,158 L164,178 L160,222" fill="none" stroke="#ffaa00" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- White shirt - collar loosened -->
+  <path d="M119,198 L128,183 L137,198 L134,252 L122,252 Z" fill="url(#zsa-shirt)"/>
+
+  <!-- Tie - loosened hanging -->
+  <path d="M124,188 L127,185 L130,188 L130,244 L128,249 L126,244 Z" fill="url(#zsa-tie)"/>
+  <!-- Collar open -->
+  <path d="M120,176 L128,170 L136,176" fill="url(#zsa-skin)" opacity="0.4"/>
+
+  <!-- Neck -->
+  <path d="M116,150 L116,170 C116,175 121,180 128,180 C135,180 140,175 140,170 L140,150" fill="url(#zsa-skin)"/>
+  <path d="M112,162 C116,157 121,154 128,153 C135,154 140,157 144,162" fill="none" stroke="#bbbbc8" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Head shape - tilted down -->
+  <path d="M101,100 C101,73 113,55 128,53 C143,55 155,73 155,100 L155,130 C155,150 143,160 128,160 C113,160 101,150 101,130 Z" fill="url(#zsa-skin)"/>
+
+  <!-- Hair -->
+  <path d="M101,90 C101,63 113,47 128,45 C143,47 155,63 155,90" fill="url(#zsa-hair)"/>
+  <path d="M99,95 C99,85 101,77 105,73" fill="none" stroke="#0e0e18" stroke-width="3"/>
+  <path d="M157,95 C157,85 155,77 151,73" fill="none" stroke="#0e0e18" stroke-width="3"/>
+  <path d="M116,53 C121,49 127,47 135,49" fill="none" stroke="#2a2a3a" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Ears -->
+  <ellipse cx="98" cy="113" rx="5" ry="8" fill="#b88c5a"/>
+  <ellipse cx="98" cy="113" rx="3" ry="5" fill="#a87c4a" opacity="0.5"/>
+  <ellipse cx="158" cy="113" rx="5" ry="8" fill="#b88c5a"/>
+  <ellipse cx="158" cy="113" rx="3" ry="5" fill="#a87c4a" opacity="0.5"/>
+
+  <!-- Cybernetic ear implant - dim -->
+  <path d="M159,109 L164,105 L165,113 L164,121 L159,117" fill="none" stroke="#ffaa00" stroke-width="0.8" opacity="0.35"/>
+  <circle cx="164" cy="113" r="1.3" fill="#ffaa00" opacity="0.3"/>
+
+  <!-- Eyebrows - drooping sad -->
+  <path d="M108,97 C111,99 117,100 122,99" fill="none" stroke="#1a1a2a" stroke-width="1.8" opacity="0.7"/>
+  <path d="M134,99 C139,100 145,99 148,97" fill="none" stroke="#1a1a2a" stroke-width="1.8" opacity="0.7"/>
+
+  <!-- Eyes - downcast heavy-lidded -->
+  <ellipse cx="115" cy="106" rx="7.5" ry="4" fill="#e8e8f0"/>
+  <ellipse cx="115" cy="107" rx="3.5" ry="3" fill="#2a1a08"/>
+  <ellipse cx="115" cy="107" rx="1.8" ry="1.8" fill="#0a0a0a"/>
+  <circle cx="114" cy="106" r="0.7" fill="#ffffff" opacity="0.5"/>
+  <!-- Heavy upper eyelid -->
+  <path d="M108,104 C111,102 118,102 122,104" fill="none" stroke="#b88c5a" stroke-width="1.5" opacity="0.5"/>
+
+  <ellipse cx="141" cy="106" rx="7.5" ry="4" fill="#e8e8f0"/>
+  <ellipse cx="141" cy="107" rx="3.5" ry="3" fill="#2a1a08"/>
+  <ellipse cx="141" cy="107" rx="1.8" ry="1.8" fill="#0a0a0a"/>
+  <circle cx="140" cy="106" r="0.7" fill="#ffffff" opacity="0.5"/>
+  <!-- Heavy upper eyelid -->
+  <path d="M134,104 C137,102 144,102 148,104" fill="none" stroke="#b88c5a" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Under-eye shadows -->
+  <path d="M109,109 C112,111 118,111 122,109" fill="none" stroke="#8a6844" stroke-width="0.6" opacity="0.25"/>
+  <path d="M134,109 C137,111 143,111 147,109" fill="none" stroke="#8a6844" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- Nose -->
+  <path d="M128,108 L125,124 L128,126 L131,124" fill="none" stroke="#a87c4a" stroke-width="1" opacity="0.5"/>
+
+  <!-- Mouth - downturned sad -->
+  <path d="M119,136 C123,134 128,134 133,134 C136,136 138,138 138,138" fill="none" stroke="#907050" stroke-width="1.1"/>
+  <path d="M118,136 C120,138 121,138 122,137" fill="none" stroke="#907050" stroke-width="0.6" opacity="0.4"/>
+
+  <!-- Jawline -->
+  <path d="M101,130 C103,145 113,155 128,160" fill="none" stroke="#a87c4a" stroke-width="0.6" opacity="0.25"/>
+  <path d="M155,130 C153,145 143,155 128,160" fill="none" stroke="#a87c4a" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- Slumped shoulders -->
+  <path d="M58,200 C62,190 74,180 87,175" fill="none" stroke="#ffaa00" stroke-width="0.5" opacity="0.15"/>
+  <path d="M198,200 C194,190 182,180 169,175" fill="none" stroke="#ffaa00" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Pocket square - wilted -->
+  <path d="M163,198 L167,193 L171,197 L169,202 L165,201 Z" fill="#ffaa00" opacity="0.22"/>
+
+  <!-- Suit fabric lines -->
+  <path d="M82,225 C87,265 84,315 82,362" fill="none" stroke="#ffaa00" stroke-width="0.35" opacity="0.08"/>
+  <path d="M174,225 C169,265 172,315 174,362" fill="none" stroke="#ffaa00" stroke-width="0.35" opacity="0.08"/>
+
+  <!-- Temple cybernetic - dim -->
+  <path d="M101,95 L97,100 L96,107" fill="none" stroke="#ffaa00" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Subdued ambient glow -->
+  <ellipse cx="128" cy="125" rx="35" ry="25" fill="#ffaa00" opacity="0.018" filter="url(#zsa-glow-soft)"/>
+
+  <!-- Sparse ambient particles -->
+  <circle cx="42" cy="208" r="0.8" fill="#ffaa00" opacity="0.2"/>
+  <circle cx="212" cy="188" r="0.9" fill="#ffaa00" opacity="0.18"/>
+  <circle cx="58" cy="318" r="0.6" fill="#dd8800" opacity="0.18"/>
+  <circle cx="198" cy="308" r="0.7" fill="#ffaa00" opacity="0.15"/>
+
+  <!-- State label -->
+  <text x="128" y="375" font-family="'Courier New', monospace" font-size="10" fill="#ffaa00" text-anchor="middle" opacity="0.5">[sad]</text>
 </svg>

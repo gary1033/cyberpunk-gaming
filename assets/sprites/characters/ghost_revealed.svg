@@ -1,12 +1,158 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#ffffff" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#ffffff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#ffffff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#ffffff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#ffffff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#ffffff" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#ffffff" text-anchor="middle">幽靈</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#ffffff" text-anchor="middle" opacity="0.8">[revealed]</text>
+  <defs>
+    <radialGradient id="gr-bg" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#1a1030"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </radialGradient>
+    <linearGradient id="gr-cloak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1848"/>
+      <stop offset="40%" stop-color="#1a1030"/>
+      <stop offset="100%" stop-color="#0d0818"/>
+    </linearGradient>
+    <linearGradient id="gr-cloak-sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#aa44ff" stop-opacity="0.12"/>
+      <stop offset="30%" stop-color="#aa44ff" stop-opacity="0.04"/>
+      <stop offset="60%" stop-color="#7722cc" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#aa44ff" stop-opacity="0.06"/>
+    </linearGradient>
+    <radialGradient id="gr-eye-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#cc88ff"/>
+      <stop offset="70%" stop-color="#aa44ff"/>
+      <stop offset="100%" stop-color="#aa44ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gr-skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c4a882"/>
+      <stop offset="100%" stop-color="#a08868"/>
+    </linearGradient>
+    <linearGradient id="gr-hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1848"/>
+      <stop offset="100%" stop-color="#1a0e30"/>
+    </linearGradient>
+    <linearGradient id="gr-scar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#aa44ff" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#aa44ff" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#cc66ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#aa44ff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="gr-glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="gr-glow-soft">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="gr-border" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#aa44ff" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#7722cc" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#aa44ff" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#gr-bg)"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="url(#gr-border)" stroke-width="1.5"/>
+
+  <!-- Character name -->
+  <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#aa44ff" text-anchor="middle" filter="url(#gr-glow)">幽靈</text>
+
+  <!-- Cloak body -->
+  <path d="M50,155 C50,135 70,112 90,106 L102,100 C112,95 120,92 128,90 C136,92 146,95 156,100 L166,106 C186,112 206,135 206,155 L215,250 C218,298 210,342 200,370 L56,370 C46,342 38,298 41,250 Z" fill="url(#gr-cloak)"/>
+  <path d="M50,155 C50,135 70,112 90,106 L102,100 C112,95 120,92 128,90 C136,92 146,95 156,100 L166,106 C186,112 206,135 206,155 L215,250 C218,298 210,342 200,370 L56,370 C46,342 38,298 41,250 Z" fill="url(#gr-cloak-sheen)"/>
+
+  <!-- Cloak edge highlights -->
+  <path d="M50,155 C50,135 70,112 90,106 L102,100" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.4"/>
+  <path d="M206,155 C206,135 186,112 166,106 L156,100" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.4"/>
+
+  <!-- Hood pushed back - partially down, bunched at neck -->
+  <path d="M82,135 C82,108 90,85 102,76 C110,69 120,65 128,63 C136,65 146,69 154,76 C166,85 174,108 174,135 L174,145 C170,152 156,157 128,159 C100,157 86,152 82,145 Z" fill="#1a1030"/>
+
+  <!-- Hood bunched at back of neck -->
+  <path d="M84,145 C90,160 107,167 128,169 C149,167 166,160 172,145 L176,153 C176,170 158,182 128,184 C98,182 80,170 80,153 Z" fill="#221440"/>
+  <path d="M84,145 C90,160 107,167 128,169 C149,167 166,160 172,145" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Hair visible - dark purple with highlights, tousled short androgynous style -->
+  <path d="M97,98 C97,75 110,62 128,59 C146,62 159,75 159,98 L159,112 C159,120 146,128 128,130 C110,128 97,120 97,112 Z" fill="url(#gr-hair)"/>
+  <!-- Hair strand details -->
+  <path d="M100,84 C107,72 117,64 128,62 C139,64 149,72 156,84" fill="none" stroke="#aa44ff" stroke-width="0.7" opacity="0.3"/>
+  <path d="M102,92 C102,80 114,70 128,68" fill="none" stroke="#cc66ff" stroke-width="0.5" opacity="0.2"/>
+  <path d="M154,88 C150,78 140,70 128,68" fill="none" stroke="#cc66ff" stroke-width="0.4" opacity="0.18"/>
+  <!-- Wispy bangs over forehead -->
+  <path d="M108,85 C112,78 118,74 125,76" fill="none" stroke="#2a1848" stroke-width="2" opacity="0.6"/>
+  <path d="M148,87 C144,80 138,76 132,78" fill="none" stroke="#2a1848" stroke-width="1.8" opacity="0.5"/>
+
+  <!-- Face - young androgynous, partially visible, right side more exposed -->
+  <path d="M107,102 C107,88 116,80 128,78 C140,80 149,88 149,102 L149,128 C149,140 140,150 128,152 C116,150 107,140 107,128 Z" fill="url(#gr-skin)"/>
+
+  <!-- Left side of face in partial hood shadow -->
+  <path d="M107,102 C107,88 116,80 128,78 L128,152 C116,150 107,140 107,128 Z" fill="#0d0818" opacity="0.4"/>
+
+  <!-- Surprised raised eyebrows -->
+  <path d="M109,95 C112,91 117,90 122,91" fill="none" stroke="#1a1030" stroke-width="1.3" opacity="0.7"/>
+  <path d="M134,91 C139,90 144,91 147,95" fill="none" stroke="#1a1030" stroke-width="1.3" opacity="0.8"/>
+
+  <!-- Eyes - wide with surprise, glowing -->
+  <!-- Left eye - in shadow but visible -->
+  <ellipse cx="117" cy="104" rx="5.5" ry="4.5" fill="#0d0818"/>
+  <ellipse cx="117" cy="104" rx="4.5" ry="4" fill="url(#gr-eye-glow)" opacity="0.7" filter="url(#gr-glow)"/>
+  <ellipse cx="117" cy="104" rx="2" ry="2" fill="#ddbbff" opacity="0.8"/>
+
+  <!-- Right eye - more visible, wide open -->
+  <ellipse cx="139" cy="104" rx="6.5" ry="5" fill="#1a1030"/>
+  <ellipse cx="139" cy="104" rx="5.5" ry="4.5" fill="url(#gr-eye-glow)" filter="url(#gr-glow)"/>
+  <ellipse cx="139" cy="104" rx="2.5" ry="2.5" fill="#ffffff"/>
+  <!-- Surprise highlight -->
+  <circle cx="137" cy="102" r="1" fill="#ffffff" opacity="0.9"/>
+
+  <!-- Small delicate nose -->
+  <path d="M128,108 L126,117 L128,119 L130,117" fill="none" stroke="#8a7862" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Mouth - slightly parted in surprise, soft lips -->
+  <path d="M121,128 C124,126 128,125 132,126 C135,127 136,129 136,129" fill="none" stroke="#a07050" stroke-width="1"/>
+  <ellipse cx="128" cy="128" rx="5" ry="2" fill="#8a6048" opacity="0.3"/>
+
+  <!-- Cybernetic scar on right cheek - glowing purple line -->
+  <path d="M140,112 L148,122 L145,132" fill="none" stroke="url(#gr-scar)" stroke-width="1.5" filter="url(#gr-glow)"/>
+  <circle cx="142" cy="115" r="1" fill="#aa44ff" opacity="0.6"/>
+  <circle cx="147" cy="121" r="1" fill="#cc66ff" opacity="0.5"/>
+  <circle cx="146" cy="128" r="1" fill="#aa44ff" opacity="0.6"/>
+
+  <!-- Neck -->
+  <path d="M118,150 L118,168 L138,168 L138,150" fill="url(#gr-skin)" opacity="0.8"/>
+
+  <!-- Collar/cloak meeting neck -->
+  <path d="M100,164 C108,158 118,155 128,155 C138,155 148,158 156,164" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Shoulder definition -->
+  <path d="M68,175 C73,165 90,157 106,160" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+  <path d="M188,175 C183,165 166,157 150,160" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Cloak fold lines -->
+  <path d="M95,210 C100,250 98,290 95,340" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
+  <path d="M128,184 C128,230 130,285 128,345" fill="none" stroke="#aa44ff" stroke-width="0.5" opacity="0.15"/>
+  <path d="M161,210 C156,250 158,290 161,340" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
+
+  <!-- Reflective patches -->
+  <ellipse cx="80" cy="260" rx="14" ry="28" fill="#aa44ff" opacity="0.04" transform="rotate(-10,80,260)"/>
+  <ellipse cx="178" cy="230" rx="12" ry="24" fill="#aa44ff" opacity="0.04" transform="rotate(8,178,230)"/>
+
+  <!-- Ambient glow from face reveal -->
+  <ellipse cx="138" cy="112" rx="25" ry="20" fill="#aa44ff" opacity="0.05" filter="url(#gr-glow-soft)"/>
+
+  <!-- Ambient particles -->
+  <circle cx="45" cy="205" r="1" fill="#aa44ff" opacity="0.35"/>
+  <circle cx="210" cy="190" r="1.2" fill="#aa44ff" opacity="0.3"/>
+  <circle cx="60" cy="310" r="0.8" fill="#7722cc" opacity="0.4"/>
+  <circle cx="195" cy="320" r="1" fill="#aa44ff" opacity="0.3"/>
+  <circle cx="35" cy="265" r="0.8" fill="#cc66ff" opacity="0.25"/>
+
+  <!-- State label -->
+  <text x="128" y="375" font-family="'Courier New', monospace" font-size="10" fill="#aa44ff" text-anchor="middle" opacity="0.5">[revealed]</text>
 </svg>

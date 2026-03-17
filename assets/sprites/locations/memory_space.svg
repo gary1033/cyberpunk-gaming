@@ -1,10 +1,187 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#000410"/>
-  <rect x="10" y="10" width="1260" height="700" rx="4" fill="none" stroke="#00ffff" stroke-width="1" opacity="0.3"/>
-  <line x1="0" y1="500" x2="1280" y2="500" stroke="#00ffff" stroke-width="1" opacity="0.15"/>
-  <rect x="100" y="200" width="200" height="300" fill="none" stroke="#00ffff" stroke-width="1" opacity="0.1"/>
-  <rect x="980" y="150" width="200" height="350" fill="none" stroke="#00ffff" stroke-width="1" opacity="0.1"/>
-  <text x="640" y="340" font-family="monospace" font-size="42" fill="#00ffff" text-anchor="middle">記憶空間</text>
-  <text x="640" y="390" font-family="monospace" font-size="18" fill="#00ffff" text-anchor="middle" opacity="0.5">Memory Space</text>
-  <text x="640" y="680" font-family="monospace" font-size="12" fill="#00ffff" text-anchor="middle" opacity="0.3">[ PLACEHOLDER ]</text>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000005"/>
+      <stop offset="50%" stop-color="#000208"/>
+      <stop offset="100%" stop-color="#000005"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#4400ff" stop-opacity="0.08"/>
+      <stop offset="50%" stop-color="#2200aa" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="streamGrad1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff0066" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#ff0066" stop-opacity="0.3"/>
+      <stop offset="70%" stop-color="#0066ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0066ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="streamGrad2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00ffaa" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#00ffaa" stop-opacity="0.2"/>
+      <stop offset="70%" stop-color="#ffaa00" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffaa00" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="streamGrad3" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#aa00ff" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#aa00ff" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#00ffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00ffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="cubeGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="starGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Void background -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+
+  <!-- Stars / particles scattered across void -->
+  <g>
+    <circle cx="50" cy="30" r="1" fill="#ffffff" opacity="0.4"/>
+    <circle cx="120" cy="80" r="0.8" fill="#ffffff" opacity="0.3"/>
+    <circle cx="200" cy="45" r="1.2" fill="#aaccff" opacity="0.35"/>
+    <circle cx="300" cy="120" r="0.7" fill="#ffffff" opacity="0.25"/>
+    <circle cx="380" cy="60" r="1" fill="#ffaacc" opacity="0.3"/>
+    <circle cx="450" cy="150" r="0.9" fill="#ffffff" opacity="0.35"/>
+    <circle cx="530" cy="30" r="1.1" fill="#aaffcc" opacity="0.3"/>
+    <circle cx="620" cy="90" r="0.8" fill="#ffffff" opacity="0.4"/>
+    <circle cx="700" cy="50" r="1" fill="#ccaaff" opacity="0.3"/>
+    <circle cx="780" cy="130" r="0.7" fill="#ffffff" opacity="0.25"/>
+    <circle cx="850" cy="40" r="1.2" fill="#ffccaa" opacity="0.35"/>
+    <circle cx="930" cy="100" r="0.9" fill="#ffffff" opacity="0.3"/>
+    <circle cx="1010" cy="60" r="1" fill="#aaccff" opacity="0.4"/>
+    <circle cx="1080" cy="140" r="0.8" fill="#ffffff" opacity="0.3"/>
+    <circle cx="1150" cy="35" r="1.1" fill="#ffaacc" opacity="0.25"/>
+    <circle cx="1230" cy="80" r="0.7" fill="#ffffff" opacity="0.35"/>
+    <circle cx="80" cy="600" r="1" fill="#ffffff" opacity="0.3"/>
+    <circle cx="170" cy="650" r="0.8" fill="#ccaaff" opacity="0.25"/>
+    <circle cx="260" cy="580" r="1.2" fill="#ffffff" opacity="0.35"/>
+    <circle cx="400" cy="670" r="0.9" fill="#aaffcc" opacity="0.3"/>
+    <circle cx="550" cy="620" r="1" fill="#ffffff" opacity="0.4"/>
+    <circle cx="680" cy="680" r="0.7" fill="#ffccaa" opacity="0.3"/>
+    <circle cx="800" cy="610" r="1.1" fill="#ffffff" opacity="0.25"/>
+    <circle cx="920" cy="660" r="0.8" fill="#aaccff" opacity="0.35"/>
+    <circle cx="1050" cy="590" r="1" fill="#ffffff" opacity="0.3"/>
+    <circle cx="1180" cy="640" r="0.9" fill="#ffaacc" opacity="0.3"/>
+    <circle cx="100" cy="350" r="0.8" fill="#ffffff" opacity="0.2"/>
+    <circle cx="1200" cy="380" r="1" fill="#ffffff" opacity="0.25"/>
+    <circle cx="60" cy="450" r="0.7" fill="#ccaaff" opacity="0.2"/>
+    <circle cx="1240" cy="290" r="0.9" fill="#aaffcc" opacity="0.3"/>
+  </g>
+
+  <!-- Center radial glow -->
+  <rect width="1280" height="720" fill="url(#centerGlow)"/>
+
+  <!-- Data streams (flowing curved lines) -->
+  <!-- Stream 1 - pink to blue -->
+  <path d="M0 300 Q200 200 400 350 Q600 500 800 300 Q1000 100 1280 250" fill="none" stroke="url(#streamGrad1)" stroke-width="2"/>
+  <path d="M0 310 Q200 210 400 360 Q600 510 800 310 Q1000 110 1280 260" fill="none" stroke="url(#streamGrad1)" stroke-width="1" opacity="0.5"/>
+
+  <!-- Stream 2 - green to yellow -->
+  <path d="M0 500 Q300 350 500 450 Q700 550 900 400 Q1100 250 1280 380" fill="none" stroke="url(#streamGrad2)" stroke-width="2"/>
+  <path d="M0 510 Q300 360 500 460 Q700 560 900 410 Q1100 260 1280 390" fill="none" stroke="url(#streamGrad2)" stroke-width="1" opacity="0.5"/>
+
+  <!-- Stream 3 - purple to cyan -->
+  <path d="M200 0 Q350 200 300 360 Q250 520 400 600 Q550 680 700 720" fill="none" stroke="url(#streamGrad3)" stroke-width="2"/>
+  <path d="M210 0 Q360 200 310 360 Q260 520 410 600 Q560 680 710 720" fill="none" stroke="url(#streamGrad3)" stroke-width="1" opacity="0.5"/>
+
+  <!-- Stream 4 -->
+  <path d="M1000 0 Q900 180 950 320 Q1000 460 880 560 Q760 660 640 720" fill="none" stroke="url(#streamGrad3)" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Floating memory cubes (rotated squares with glow) -->
+  <!-- Cube 1 - large, center -->
+  <g transform="translate(640,340) rotate(25)">
+    <rect x="-50" y="-50" width="100" height="100" fill="#0a0a30" stroke="#4400ff" stroke-width="2" opacity="0.5" filter="url(#cubeGlow)"/>
+    <rect x="-40" y="-40" width="80" height="80" fill="none" stroke="#6622ff" stroke-width="1" opacity="0.3"/>
+    <rect x="-30" y="-30" width="60" height="60" fill="#4400ff" opacity="0.05"/>
+    <!-- Data pattern inside -->
+    <rect x="-35" y="-20" width="30" height="2" fill="#6644ff" opacity="0.3"/>
+    <rect x="-35" y="-10" width="20" height="2" fill="#6644ff" opacity="0.25"/>
+    <rect x="-35" y="0" width="40" height="2" fill="#6644ff" opacity="0.3"/>
+    <rect x="-35" y="10" width="25" height="2" fill="#6644ff" opacity="0.2"/>
+  </g>
+  <ellipse cx="640" cy="340" rx="70" ry="70" fill="#4400ff" opacity="0.03" filter="url(#softGlow)"/>
+
+  <!-- Cube 2 - upper left -->
+  <g transform="translate(250,180) rotate(40)">
+    <rect x="-35" y="-35" width="70" height="70" fill="#0a1a0a" stroke="#00ff88" stroke-width="1.5" opacity="0.4" filter="url(#cubeGlow)"/>
+    <rect x="-25" y="-25" width="50" height="50" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.25"/>
+    <rect x="-20" y="-10" width="25" height="2" fill="#00ff88" opacity="0.25"/>
+    <rect x="-20" y="0" width="15" height="2" fill="#00ff88" opacity="0.2"/>
+  </g>
+  <ellipse cx="250" cy="180" rx="50" ry="50" fill="#00ff88" opacity="0.02" filter="url(#softGlow)"/>
+
+  <!-- Cube 3 - lower right -->
+  <g transform="translate(950,480) rotate(60)">
+    <rect x="-40" y="-40" width="80" height="80" fill="#1a0a0a" stroke="#ff0066" stroke-width="1.5" opacity="0.4" filter="url(#cubeGlow)"/>
+    <rect x="-30" y="-30" width="60" height="60" fill="none" stroke="#ff0066" stroke-width="0.8" opacity="0.25"/>
+    <rect x="-25" y="-15" width="30" height="2" fill="#ff0066" opacity="0.25"/>
+    <rect x="-25" y="-5" width="20" height="2" fill="#ff0066" opacity="0.2"/>
+    <rect x="-25" y="5" width="35" height="2" fill="#ff0066" opacity="0.25"/>
+  </g>
+  <ellipse cx="950" cy="480" rx="55" ry="55" fill="#ff0066" opacity="0.02" filter="url(#softGlow)"/>
+
+  <!-- Cube 4 - small, upper right -->
+  <g transform="translate(1050,150) rotate(15)">
+    <rect x="-25" y="-25" width="50" height="50" fill="#0a0a1a" stroke="#00ccff" stroke-width="1" opacity="0.4" filter="url(#cubeGlow)"/>
+    <rect x="-18" y="-18" width="36" height="36" fill="none" stroke="#00ccff" stroke-width="0.5" opacity="0.2"/>
+  </g>
+
+  <!-- Cube 5 - small, lower left -->
+  <g transform="translate(180,520) rotate(50)">
+    <rect x="-28" y="-28" width="56" height="56" fill="#0a0a1a" stroke="#ffaa00" stroke-width="1" opacity="0.35" filter="url(#cubeGlow)"/>
+    <rect x="-20" y="-20" width="40" height="40" fill="none" stroke="#ffaa00" stroke-width="0.5" opacity="0.2"/>
+  </g>
+
+  <!-- Cube 6 - tiny, scattered -->
+  <g transform="translate(500,100) rotate(30)">
+    <rect x="-15" y="-15" width="30" height="30" fill="#0a0a1a" stroke="#cc44ff" stroke-width="1" opacity="0.3" filter="url(#cubeGlow)"/>
+  </g>
+  <g transform="translate(800,600) rotate(70)">
+    <rect x="-18" y="-18" width="36" height="36" fill="#0a0a1a" stroke="#44ffcc" stroke-width="1" opacity="0.3" filter="url(#cubeGlow)"/>
+  </g>
+  <g transform="translate(1150,350) rotate(20)">
+    <rect x="-12" y="-12" width="24" height="24" fill="#0a0a1a" stroke="#ff4488" stroke-width="1" opacity="0.25" filter="url(#cubeGlow)"/>
+  </g>
+
+  <!-- Impossible geometry / Escher-like paths -->
+  <!-- Geometric structure 1 -->
+  <g opacity="0.15">
+    <path d="M400 400 L450 350 L500 400 L450 450 Z" fill="none" stroke="#8866ff" stroke-width="1.5"/>
+    <path d="M450 350 L500 300 L550 350 L500 400" fill="none" stroke="#6644dd" stroke-width="1"/>
+    <path d="M500 400 L550 350 L600 400 L550 450" fill="none" stroke="#8866ff" stroke-width="1"/>
+    <path d="M400 400 L450 450 L500 400" fill="none" stroke="#aa88ff" stroke-width="0.8"/>
+    <line x1="450" y1="350" x2="450" y2="450" stroke="#6644dd" stroke-width="0.5"/>
+    <line x1="500" y1="300" x2="500" y2="400" stroke="#6644dd" stroke-width="0.5"/>
+  </g>
+
+  <!-- Geometric structure 2 -->
+  <g opacity="0.12">
+    <path d="M850 200 L900 150 L950 200 L900 250 Z" fill="none" stroke="#ff6644" stroke-width="1.5"/>
+    <path d="M900 150 L950 100 L1000 150 L950 200" fill="none" stroke="#dd4422" stroke-width="1"/>
+    <path d="M850 200 L800 250 L850 300 L900 250" fill="none" stroke="#ff6644" stroke-width="1"/>
+    <line x1="900" y1="150" x2="900" y2="250" stroke="#dd4422" stroke-width="0.5"/>
+  </g>
+
+  <!-- Ethereal particles along streams -->
+  <circle cx="320" cy="310" r="2" fill="#ff0066" opacity="0.3" filter="url(#starGlow)"/>
+  <circle cx="550" cy="420" r="2.5" fill="#0066ff" opacity="0.25" filter="url(#starGlow)"/>
+  <circle cx="730" cy="350" r="2" fill="#00ffaa" opacity="0.3" filter="url(#starGlow)"/>
+  <circle cx="900" cy="380" r="1.5" fill="#ffaa00" opacity="0.25" filter="url(#starGlow)"/>
+  <circle cx="400" cy="500" r="2" fill="#aa00ff" opacity="0.2" filter="url(#starGlow)"/>
+  <circle cx="640" cy="260" r="3" fill="#00ffff" opacity="0.2" filter="url(#starGlow)"/>
+  <circle cx="1100" cy="300" r="2" fill="#ff4488" opacity="0.25" filter="url(#starGlow)"/>
+  <circle cx="200" cy="400" r="1.5" fill="#44ffcc" opacity="0.2" filter="url(#starGlow)"/>
+
+  <!-- Prismatic light overlay -->
+  <rect width="1280" height="720" fill="#000010" opacity="0.1"/>
 </svg>

@@ -1,12 +1,128 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#00ff66" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#00ff66" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#00ff66" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#00ff66" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#00ff66" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#00ff66" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#00ff66" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#00ff66" text-anchor="middle">蛇女</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#00ff66" text-anchor="middle" opacity="0.8">[serious]</text>
+  <defs>
+    <radialGradient id="bg_glow" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#001a0a" />
+      <stop offset="100%" stop-color="#0a0a1a" />
+    </radialGradient>
+    <filter id="neon_green">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4b896" />
+      <stop offset="100%" stop-color="#b89a78" />
+    </linearGradient>
+    <linearGradient id="hair_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="50%" stop-color="#0d0d1a" />
+      <stop offset="100%" stop-color="#1a1a2e" />
+    </linearGradient>
+    <linearGradient id="dress_grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d0d1a" />
+      <stop offset="50%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#0a0a14" />
+    </linearGradient>
+    <linearGradient id="mask_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a4a3a" />
+      <stop offset="50%" stop-color="#1a3a2a" />
+      <stop offset="100%" stop-color="#0a2a1a" />
+    </linearGradient>
+    <linearGradient id="mask_scale" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff88" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#00aa55" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#bg_glow)"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#00ff88" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Character name -->
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#00ff88" text-anchor="middle" filter="url(#neon_green)">蛇女</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#00ff88" text-anchor="middle">蛇女</text>
+
+  <!-- Long flowing hair -->
+  <path d="M85,75 Q75,90 65,140 Q55,200 50,280 Q48,320 52,370" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5" opacity="0.8"/>
+  <path d="M90,75 Q82,95 75,150 Q68,210 65,280 Q63,330 68,380" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5"/>
+  <path d="M171,75 Q181,90 191,140 Q201,200 206,280 Q208,320 204,370" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5" opacity="0.8"/>
+  <path d="M166,75 Q174,95 181,150 Q188,210 191,280 Q193,330 188,380" fill="url(#hair_grad)" stroke="#1a2a2a" stroke-width="0.5"/>
+  <path d="M100,70 Q95,80 92,120 Q90,180 88,260 Q86,330 90,384" fill="url(#hair_grad)" opacity="0.6"/>
+  <path d="M156,70 Q161,80 164,120 Q166,180 168,260 Q170,330 166,384" fill="url(#hair_grad)" opacity="0.6"/>
+
+  <!-- Neck - tense -->
+  <rect x="115" y="158" width="26" height="30" rx="6" fill="url(#skin_grad)"/>
+
+  <!-- Body - tense posture -->
+  <path d="M128,185 Q128,200 128,220 L128,384 L50,384 L50,280 Q50,235 85,220 Q110,208 128,185 Z" fill="url(#dress_grad)"/>
+  <path d="M128,185 Q128,200 128,220 L128,384 L206,384 L206,280 Q206,235 171,220 Q146,208 128,185 Z" fill="url(#dress_grad)"/>
+
+  <!-- High collar -->
+  <path d="M110,185 Q115,175 120,170 L128,168 L136,170 Q141,175 146,185" fill="#0d0d1a" stroke="#00ff88" stroke-width="0.8" opacity="0.8"/>
+  <path d="M112,183 Q118,172 128,170 Q138,172 144,183" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Outfit trim -->
+  <path d="M128,220 L128,384" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Shoulders - tense -->
+  <path d="M85,220 Q65,226 55,246 Q50,258 50,278" fill="none" stroke="#1a2a2e" stroke-width="1"/>
+  <path d="M171,220 Q191,226 201,246 Q206,258 206,278" fill="none" stroke="#1a2a2e" stroke-width="1"/>
+
+  <!-- Arms - crossed/clasped in front -->
+  <path d="M50,278 Q55,295 70,310 Q90,325 110,320" fill="url(#dress_grad)" stroke="#1a1a2e" stroke-width="0.5"/>
+  <path d="M206,278 Q201,295 186,310 Q166,325 146,320" fill="url(#dress_grad)" stroke="#1a1a2e" stroke-width="0.5"/>
+  <!-- Clasped hands -->
+  <path d="M110,318 Q118,315 128,314 Q138,315 146,318" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5"/>
+  <path d="M115,318 Q128,322 141,318" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5"/>
+
+  <!-- Head -->
+  <path d="M95,80 Q95,55 128,48 Q161,55 161,80 L161,120 Q161,138 152,148 Q142,160 128,162 Q114,160 104,148 Q95,138 95,120 Z" fill="url(#skin_grad)"/>
+
+  <!-- Front hair -->
+  <path d="M95,75 Q92,70 88,68 Q84,80 82,95 Q84,82 90,78 Q95,80 98,90" fill="url(#hair_grad)"/>
+  <path d="M161,75 Q164,70 168,68 Q172,80 174,95 Q172,82 166,78 Q161,80 158,90" fill="url(#hair_grad)"/>
+  <path d="M98,80 Q108,72 128,70 Q148,72 158,80 L158,85 Q148,78 128,76 Q108,78 98,85 Z" fill="url(#hair_grad)"/>
+
+  <!-- Snake mask -->
+  <path d="M92,78 Q92,68 128,62 Q164,68 164,78 L164,115 Q164,125 155,128 Q148,130 128,132 Q108,130 101,128 Q92,125 92,115 Z" fill="url(#mask_grad)" stroke="#00ff88" stroke-width="1" opacity="0.9"/>
+
+  <!-- Mask scales -->
+  <path d="M100,85 Q128,78 156,85" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
+  <path d="M98,92 Q128,85 158,92" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
+  <path d="M96,99 Q128,92 160,99" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
+  <path d="M97,106 Q128,99 159,106" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
+  <path d="M100,113 Q128,106 156,113" fill="none" stroke="url(#mask_scale)" stroke-width="1.5"/>
+
+  <!-- Mask eye holes - slightly narrowed, serious -->
+  <path d="M104,100 Q110,96 117,100 Q110,103 104,100 Z" fill="#0a0a1a" stroke="#00ff88" stroke-width="0.8"/>
+  <path d="M139,100 Q146,96 152,100 Q146,103 139,100 Z" fill="#0a0a1a" stroke="#00ff88" stroke-width="0.8"/>
+
+  <!-- Eyes - intense, focused -->
+  <circle cx="110" cy="100" r="2.5" fill="#1a3a2a"/>
+  <circle cx="146" cy="100" r="2.5" fill="#1a3a2a"/>
+  <circle cx="110" cy="100" r="1.5" fill="#00ff88" opacity="0.8"/>
+  <circle cx="146" cy="100" r="1.5" fill="#00ff88" opacity="0.8"/>
+
+  <!-- Mask nose ridge -->
+  <path d="M128,85 L128,125" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.3"/>
+  <path d="M125,125 Q128,130 131,125" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Mask fangs -->
+  <path d="M105,128 Q103,134 106,130" fill="#2a4a3a" stroke="#00ff88" stroke-width="0.5" opacity="0.5"/>
+  <path d="M151,128 Q153,134 150,130" fill="#2a4a3a" stroke="#00ff88" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Lips - THIN LINE, serious -->
+  <path d="M116,144 Q128,142 140,144" fill="none" stroke="#997766" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M118,145 Q128,144 138,145" fill="none" stroke="#886655" stroke-width="0.5"/>
+
+  <!-- Chin - jaw set -->
+  <path d="M112,152 Q128,160 144,152" fill="none" stroke="#a08870" stroke-width="1" opacity="0.5"/>
+
+  <!-- Ears and earrings -->
+  <ellipse cx="93" cy="105" rx="4" ry="8" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5" opacity="0.6"/>
+  <ellipse cx="163" cy="105" rx="4" ry="8" fill="url(#skin_grad)" stroke="#b89a78" stroke-width="0.5" opacity="0.6"/>
+  <circle cx="93" cy="115" r="2.5" fill="#0a2a1a" stroke="#00ff88" stroke-width="0.8" filter="url(#neon_green)"/>
+  <circle cx="163" cy="115" r="2.5" fill="#0a2a1a" stroke="#00ff88" stroke-width="0.8" filter="url(#neon_green)"/>
+
+  <!-- Ambient -->
+  <ellipse cx="128" cy="280" rx="70" ry="25" fill="#00ff88" opacity="0.015"/>
 </svg>

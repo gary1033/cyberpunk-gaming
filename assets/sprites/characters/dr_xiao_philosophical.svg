@@ -1,12 +1,112 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#ff0044" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#ff0044" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#ff0044" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#ff0044" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#ff0044" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#ff0044" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#ff0044" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#ff0044" text-anchor="middle">蕭博士</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#ff0044" text-anchor="middle" opacity="0.8">[philosophical]</text>
+  <defs>
+    <linearGradient id="dp_bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#050510"/>
+    </linearGradient>
+    <linearGradient id="dp_skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c4a882"/>
+      <stop offset="100%" stop-color="#a8906e"/>
+    </linearGradient>
+    <linearGradient id="dp_hair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a2a35"/>
+      <stop offset="40%" stop-color="#c0c0cc"/>
+      <stop offset="60%" stop-color="#2a2a35"/>
+      <stop offset="85%" stop-color="#c0c0cc"/>
+      <stop offset="100%" stop-color="#2a2a35"/>
+    </linearGradient>
+    <radialGradient id="dp_glow" cx="0.5" cy="0.35" r="0.5">
+      <stop offset="0%" stop-color="#ff3344" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ff3344" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dp_neon">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#dp_bg)"/>
+  <rect width="256" height="384" fill="url(#dp_glow)"/>
+
+  <!-- Frame border -->
+  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#ff3344" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Character name -->
+  <text x="128" y="30" font-family="monospace" font-size="16" fill="#ff3344" text-anchor="middle" filter="url(#dp_neon)">蕭博士</text>
+
+  <!-- Body -->
+  <path d="M60,220 Q55,240 48,290 L42,380 H214 L208,290 Q202,240 196,220 Q185,200 172,190 L165,186 Q150,178 128,175 Q106,178 91,186 L84,190 Q71,200 60,220 Z" fill="#0d0d1a" stroke="#ff3344" stroke-width="0.5" opacity="0.9"/>
+  <path d="M128,180 L128,380" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.2"/>
+  <path d="M95,195 Q98,250 96,320" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.15"/>
+  <path d="M161,195 Q158,250 160,320" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.15"/>
+
+  <!-- One hand raised to chin - contemplative gesture -->
+  <path d="M155,248 Q162,260 165,275 Q168,285 172,295 L185,300 Q190,290 188,275 Q185,258 178,242 Q172,230 165,225 Z" fill="#0d0d1a" stroke="#ff3344" stroke-width="0.3" opacity="0.85"/>
+  <path d="M145,240 Q150,235 155,238 Q160,242 162,250 L164,260 Q165,268 162,275 Q158,280 152,278 L148,275 Q144,270 142,262 Q140,252 145,240 Z" fill="url(#dp_skin)" opacity="0.8"/>
+
+  <!-- High collar -->
+  <path d="M92,190 Q95,175 105,165 L110,160 Q115,156 120,154 L128,152 L136,154 Q141,156 146,160 L151,165 Q161,175 164,190 L158,198 Q148,188 138,183 Q132,180 128,179 Q124,180 118,183 Q108,188 98,198 Z" fill="#151528" stroke="#ff3344" stroke-width="0.8" opacity="0.95"/>
+  <path d="M98,192 Q108,184 118,180 Q124,178 128,177 Q132,178 138,180 Q148,184 158,192" fill="none" stroke="#ff3344" stroke-width="1" opacity="0.6"/>
+
+  <!-- Neck - tilted slightly upward -->
+  <path d="M118,163 Q117,153 119,146 L128,142 L137,146 Q139,153 138,163" fill="url(#dp_skin)" opacity="0.9"/>
+
+  <!-- Head shape - tilted upward -->
+  <ellipse cx="128" cy="106" rx="38" ry="45" fill="url(#dp_skin)" opacity="0.95" transform="rotate(-5, 128, 106)"/>
+
+  <!-- Face shadow -->
+  <path d="M100,116 Q105,131 115,141 Q122,146 128,148 Q134,146 141,141 Q151,131 156,116" fill="#b09870" opacity="0.3"/>
+
+  <!-- Eyes - looking upward, contemplative -->
+  <path d="M106,106 Q112,102 120,104 Q122,106 122,109 Q120,112 112,113 Q106,111 106,106 Z" fill="#ffffff" opacity="0.9"/>
+  <circle cx="114" cy="106" r="3.5" fill="#1a0808"/>
+  <circle cx="115" cy="105" r="1.5" fill="#ff3344" opacity="0.7"/>
+  <circle cx="115.5" cy="104.5" r="0.5" fill="#ffffff"/>
+  <path d="M134,104 Q142,102 150,106 Q150,111 144,113 Q136,112 134,109 Q134,106 134,104 Z" fill="#ffffff" opacity="0.9"/>
+  <circle cx="142" cy="106" r="3.5" fill="#1a0808"/>
+  <circle cx="141" cy="105" r="1.5" fill="#ff3344" opacity="0.7"/>
+  <circle cx="140.5" cy="104.5" r="0.5" fill="#ffffff"/>
+  <!-- Eyebrows - slightly raised, thoughtful -->
+  <path d="M105,98 Q112,94 122,97" fill="none" stroke="#2a2a35" stroke-width="1.8" opacity="0.75"/>
+  <path d="M134,97 Q144,94 151,98" fill="none" stroke="#2a2a35" stroke-width="1.8" opacity="0.75"/>
+  <path d="M100,108 L96,106" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.4"/>
+  <path d="M156,108 L160,106" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Nose -->
+  <path d="M128,106 Q127,116 125,124 Q124,128 126,130 Q128,131 130,130 Q132,128 131,124 Q129,116 128,106" fill="none" stroke="#a08060" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Mouth - slightly parted, contemplative -->
+  <path d="M118,136 Q123,138 128,138 Q133,138 138,136" fill="none" stroke="#8a6050" stroke-width="1" opacity="0.6"/>
+
+  <!-- Hair -->
+  <path d="M90,93 Q88,78 90,66 Q95,50 108,42 Q118,36 128,34 Q138,36 148,42 Q161,50 166,66 Q168,78 166,93 Q162,86 155,80 Q145,73 135,70 Q128,68 121,70 Q111,73 101,80 Q94,86 90,93 Z" fill="url(#dp_hair)" opacity="0.95"/>
+  <path d="M100,88 Q105,73 115,63 Q122,58 128,56" fill="none" stroke="#e0e0ee" stroke-width="0.8" opacity="0.4"/>
+  <path d="M156,88 Q151,73 141,63 Q134,58 128,56" fill="none" stroke="#e0e0ee" stroke-width="0.8" opacity="0.4"/>
+  <path d="M92,98 Q90,88 92,76" fill="none" stroke="#c0c0cc" stroke-width="2" opacity="0.6"/>
+  <path d="M164,98 Q166,88 164,76" fill="none" stroke="#c0c0cc" stroke-width="2" opacity="0.6"/>
+
+  <!-- Ears -->
+  <path d="M90,103 Q85,98 84,106 Q84,114 88,116 Q90,113 90,103 Z" fill="url(#dp_skin)" opacity="0.8"/>
+  <path d="M166,103 Q171,98 172,106 Q172,114 168,116 Q166,113 166,103 Z" fill="url(#dp_skin)" opacity="0.8"/>
+
+  <!-- Red accent -->
+  <circle cx="128" cy="200" r="3" fill="none" stroke="#ff3344" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="128" cy="200" r="1" fill="#ff3344" opacity="0.4"/>
+
+  <!-- Ambient particles -->
+  <circle cx="30" cy="75" r="1.2" fill="#ff3344" opacity="0.18"/>
+  <circle cx="225" cy="90" r="0.8" fill="#ff3344" opacity="0.14"/>
+  <circle cx="40" cy="260" r="1" fill="#ff3344" opacity="0.14"/>
+  <circle cx="215" cy="240" r="0.7" fill="#ff3344" opacity="0.18"/>
+  <circle cx="20" cy="175" r="0.9" fill="#ff3344" opacity="0.1"/>
+  <circle cx="235" cy="165" r="1.1" fill="#ff3344" opacity="0.14"/>
+
+  <!-- Scanlines -->
+  <line x1="0" y1="60" x2="256" y2="60" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="120" x2="256" y2="120" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="180" x2="256" y2="180" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
+  <line x1="0" y1="360" x2="256" y2="360" stroke="#ff3344" stroke-width="0.3" opacity="0.06"/>
 </svg>

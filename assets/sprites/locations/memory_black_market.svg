@@ -1,10 +1,183 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#1a0414"/>
-  <rect x="10" y="10" width="1260" height="700" rx="4" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.3"/>
-  <line x1="0" y1="500" x2="1280" y2="500" stroke="#ff0066" stroke-width="1" opacity="0.15"/>
-  <rect x="100" y="200" width="200" height="300" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.1"/>
-  <rect x="980" y="150" width="200" height="350" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.1"/>
-  <text x="640" y="340" font-family="monospace" font-size="42" fill="#ff0066" text-anchor="middle">記憶黑市</text>
-  <text x="640" y="390" font-family="monospace" font-size="18" fill="#ff0066" text-anchor="middle" opacity="0.5">Memory Black Market</text>
-  <text x="640" y="680" font-family="monospace" font-size="12" fill="#ff0066" text-anchor="middle" opacity="0.3">[ PLACEHOLDER ]</text>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1210"/>
+      <stop offset="100%" stop-color="#050a08"/>
+    </linearGradient>
+    <linearGradient id="tunnelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1512"/>
+      <stop offset="100%" stop-color="#061010"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#081210"/>
+      <stop offset="100%" stop-color="#040a08"/>
+    </linearGradient>
+    <radialGradient id="capsuleGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00ffaa" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00ffaa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="tealAmbient" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0%" stop-color="#00aa88" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#00aa88" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="capsuleFilter">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+
+  <!-- Tunnel ceiling arch -->
+  <path d="M0 200 Q640 -80 1280 200 L1280 0 L0 0 Z" fill="#061010"/>
+  <path d="M30 200 Q640 -50 1250 200" fill="none" stroke="#0a1a15" stroke-width="3"/>
+  <path d="M60 180 Q640 -20 1220 180" fill="none" stroke="#0a1a15" stroke-width="2"/>
+  <path d="M100 160 Q640 10 1180 160" fill="none" stroke="#0a1a15" stroke-width="1.5"/>
+
+  <!-- Tunnel walls -->
+  <rect x="0" y="200" width="50" height="520" fill="#081510"/>
+  <rect x="1230" y="200" width="50" height="520" fill="#081510"/>
+
+  <!-- Cables on ceiling -->
+  <path d="M0 120 Q200 140 400 110 Q600 90 800 115 Q1000 135 1280 100" fill="none" stroke="#1a2a20" stroke-width="4"/>
+  <path d="M0 140 Q300 160 500 130 Q700 110 900 140 Q1100 155 1280 125" fill="none" stroke="#152520" stroke-width="3"/>
+  <path d="M0 100 Q250 115 450 100 Q700 80 950 105 Q1150 120 1280 95" fill="none" stroke="#1a2a22" stroke-width="3.5"/>
+  <!-- Cable junction boxes -->
+  <rect x="400" y="100" width="25" height="15" rx="2" fill="#1a2a20"/>
+  <rect x="800" y="110" width="20" height="12" rx="2" fill="#1a2a20"/>
+
+  <!-- Floor -->
+  <rect x="0" y="500" width="1280" height="220" fill="url(#floorGrad)"/>
+  <!-- Floor grating pattern -->
+  <g opacity="0.1">
+    <line x1="0" y1="540" x2="1280" y2="540" stroke="#1a3025" stroke-width="1"/>
+    <line x1="0" y1="580" x2="1280" y2="580" stroke="#1a3025" stroke-width="1"/>
+    <line x1="0" y1="620" x2="1280" y2="620" stroke="#1a3025" stroke-width="1"/>
+    <line x1="0" y1="660" x2="1280" y2="660" stroke="#1a3025" stroke-width="1"/>
+    <line x1="0" y1="700" x2="1280" y2="700" stroke="#1a3025" stroke-width="1"/>
+  </g>
+
+  <!-- Market stall 1 (left) -->
+  <rect x="80" y="300" width="200" height="200" fill="#0a1512" stroke="#1a2a20" stroke-width="1"/>
+  <rect x="80" y="290" width="200" height="15" fill="#1a2a20"/>
+  <!-- Shelves -->
+  <line x1="80" y1="360" x2="280" y2="360" stroke="#1a2a20" stroke-width="2"/>
+  <line x1="80" y1="420" x2="280" y2="420" stroke="#1a2a20" stroke-width="2"/>
+  <!-- Memory capsules (glowing orbs) -->
+  <circle cx="110" cy="340" r="8" fill="#00ffaa" opacity="0.3" filter="url(#capsuleFilter)"/>
+  <circle cx="110" cy="340" r="4" fill="#00ffaa" opacity="0.6"/>
+  <circle cx="140" cy="335" r="7" fill="#00ddaa" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="140" cy="335" r="3.5" fill="#00ddaa" opacity="0.5"/>
+  <circle cx="170" cy="340" r="9" fill="#00ffcc" opacity="0.3" filter="url(#capsuleFilter)"/>
+  <circle cx="170" cy="340" r="4.5" fill="#00ffcc" opacity="0.6"/>
+  <circle cx="200" cy="338" r="6" fill="#00eebb" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="200" cy="338" r="3" fill="#00eebb" opacity="0.5"/>
+  <circle cx="230" cy="342" r="8" fill="#00ffaa" opacity="0.28" filter="url(#capsuleFilter)"/>
+  <circle cx="230" cy="342" r="4" fill="#00ffaa" opacity="0.55"/>
+  <circle cx="260" cy="337" r="7" fill="#00ddcc" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="260" cy="337" r="3.5" fill="#00ddcc" opacity="0.5"/>
+  <!-- Second shelf capsules -->
+  <circle cx="120" cy="395" r="7" fill="#00ccaa" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="120" cy="395" r="3.5" fill="#00ccaa" opacity="0.5"/>
+  <circle cx="155" cy="400" r="8" fill="#00ffaa" opacity="0.3" filter="url(#capsuleFilter)"/>
+  <circle cx="155" cy="400" r="4" fill="#00ffaa" opacity="0.6"/>
+  <circle cx="190" cy="397" r="6" fill="#44ffcc" opacity="0.2" filter="url(#capsuleFilter)"/>
+  <circle cx="190" cy="397" r="3" fill="#44ffcc" opacity="0.45"/>
+  <circle cx="220" cy="400" r="7" fill="#00eebb" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="220" cy="400" r="3.5" fill="#00eebb" opacity="0.5"/>
+  <!-- Holographic price tags -->
+  <rect x="100" y="430" width="40" height="15" rx="2" fill="#00ffaa" opacity="0.08"/>
+  <rect x="100" y="430" width="40" height="15" rx="2" fill="none" stroke="#00ffaa" stroke-width="0.5" opacity="0.3"/>
+  <rect x="160" y="432" width="35" height="12" rx="2" fill="#00ddcc" opacity="0.06"/>
+  <rect x="160" y="432" width="35" height="12" rx="2" fill="none" stroke="#00ddcc" stroke-width="0.5" opacity="0.25"/>
+  <rect x="220" y="430" width="40" height="15" rx="2" fill="#00ffaa" opacity="0.08"/>
+  <rect x="220" y="430" width="40" height="15" rx="2" fill="none" stroke="#00ffaa" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Market stall 2 (center) -->
+  <rect x="400" y="280" width="220" height="220" fill="#0a1512" stroke="#1a2a20" stroke-width="1"/>
+  <rect x="400" y="270" width="220" height="15" fill="#1a2a20"/>
+  <line x1="400" y1="340" x2="620" y2="340" stroke="#1a2a20" stroke-width="2"/>
+  <line x1="400" y1="400" x2="620" y2="400" stroke="#1a2a20" stroke-width="2"/>
+  <!-- Capsules -->
+  <circle cx="430" cy="315" r="9" fill="#00ffaa" opacity="0.35" filter="url(#capsuleFilter)"/>
+  <circle cx="430" cy="315" r="4.5" fill="#00ffaa" opacity="0.65"/>
+  <circle cx="465" cy="320" r="7" fill="#33ffcc" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="465" cy="320" r="3.5" fill="#33ffcc" opacity="0.5"/>
+  <circle cx="500" cy="315" r="10" fill="#00eebb" opacity="0.3" filter="url(#capsuleFilter)"/>
+  <circle cx="500" cy="315" r="5" fill="#00eebb" opacity="0.6"/>
+  <circle cx="540" cy="318" r="8" fill="#00ffaa" opacity="0.28" filter="url(#capsuleFilter)"/>
+  <circle cx="540" cy="318" r="4" fill="#00ffaa" opacity="0.55"/>
+  <circle cx="575" cy="312" r="7" fill="#00ddaa" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="575" cy="312" r="3.5" fill="#00ddaa" opacity="0.5"/>
+  <circle cx="600" cy="320" r="8" fill="#44ffcc" opacity="0.3" filter="url(#capsuleFilter)"/>
+  <circle cx="600" cy="320" r="4" fill="#44ffcc" opacity="0.6"/>
+  <!-- Larger rare capsules on lower shelf -->
+  <circle cx="450" cy="375" r="12" fill="#00ffaa" opacity="0.2" filter="url(#capsuleFilter)"/>
+  <circle cx="450" cy="375" r="6" fill="#00ffaa" opacity="0.45"/>
+  <circle cx="510" cy="378" r="11" fill="#ffaa00" opacity="0.2" filter="url(#capsuleFilter)"/>
+  <circle cx="510" cy="378" r="5.5" fill="#ffaa00" opacity="0.4"/>
+  <circle cx="570" cy="373" r="12" fill="#ff4488" opacity="0.15" filter="url(#capsuleFilter)"/>
+  <circle cx="570" cy="373" r="6" fill="#ff4488" opacity="0.35"/>
+
+  <!-- Market stall 3 (right) -->
+  <rect x="740" y="290" width="200" height="210" fill="#0a1512" stroke="#1a2a20" stroke-width="1"/>
+  <rect x="740" y="280" width="200" height="15" fill="#1a2a20"/>
+  <line x1="740" y1="350" x2="940" y2="350" stroke="#1a2a20" stroke-width="2"/>
+  <line x1="740" y1="410" x2="940" y2="410" stroke="#1a2a20" stroke-width="2"/>
+  <!-- Capsules -->
+  <circle cx="770" cy="328" r="8" fill="#00ddcc" opacity="0.28" filter="url(#capsuleFilter)"/>
+  <circle cx="770" cy="328" r="4" fill="#00ddcc" opacity="0.55"/>
+  <circle cx="805" cy="325" r="7" fill="#00ffaa" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="805" cy="325" r="3.5" fill="#00ffaa" opacity="0.5"/>
+  <circle cx="840" cy="330" r="9" fill="#00eebb" opacity="0.3" filter="url(#capsuleFilter)"/>
+  <circle cx="840" cy="330" r="4.5" fill="#00eebb" opacity="0.6"/>
+  <circle cx="875" cy="326" r="7" fill="#33ffbb" opacity="0.25" filter="url(#capsuleFilter)"/>
+  <circle cx="875" cy="326" r="3.5" fill="#33ffbb" opacity="0.5"/>
+  <circle cx="910" cy="332" r="8" fill="#00ffaa" opacity="0.28" filter="url(#capsuleFilter)"/>
+  <circle cx="910" cy="332" r="4" fill="#00ffaa" opacity="0.55"/>
+
+  <!-- Far stall (background, smaller) -->
+  <rect x="1020" y="320" width="160" height="180" fill="#081210" stroke="#152520" stroke-width="1"/>
+  <rect x="1020" y="312" width="160" height="12" fill="#152520"/>
+  <circle cx="1050" cy="350" r="5" fill="#00ccaa" opacity="0.2" filter="url(#capsuleFilter)"/>
+  <circle cx="1050" cy="350" r="2.5" fill="#00ccaa" opacity="0.4"/>
+  <circle cx="1075" cy="348" r="6" fill="#00ffaa" opacity="0.2" filter="url(#capsuleFilter)"/>
+  <circle cx="1075" cy="348" r="3" fill="#00ffaa" opacity="0.45"/>
+  <circle cx="1100" cy="352" r="5" fill="#00ddbb" opacity="0.2" filter="url(#capsuleFilter)"/>
+  <circle cx="1100" cy="352" r="2.5" fill="#00ddbb" opacity="0.4"/>
+  <circle cx="1125" cy="348" r="6" fill="#00eebb" opacity="0.2" filter="url(#capsuleFilter)"/>
+  <circle cx="1125" cy="348" r="3" fill="#00eebb" opacity="0.4"/>
+
+  <!-- Hooded vendor silhouettes -->
+  <!-- Vendor 1 -->
+  <path d="M160 470 Q160 420 180 400 Q190 390 200 400 Q220 420 220 470 Z" fill="#050a08" opacity="0.8"/>
+  <ellipse cx="190" cy="395" rx="18" ry="12" fill="#061010"/>
+  <!-- Vendor 2 -->
+  <path d="M490 460 Q490 410 510 390 Q520 380 530 390 Q550 410 550 460 Z" fill="#050a08" opacity="0.8"/>
+  <ellipse cx="520" cy="385" rx="18" ry="12" fill="#061010"/>
+  <!-- Vendor 3 -->
+  <path d="M830 465 Q830 415 850 395 Q860 385 870 395 Q890 415 890 465 Z" fill="#050a08" opacity="0.8"/>
+  <ellipse cx="860" cy="390" rx="18" ry="12" fill="#061010"/>
+  <!-- Vendor 4 (background) -->
+  <path d="M1070 475 Q1070 440 1085 425 Q1090 418 1095 425 Q1110 440 1110 475 Z" fill="#050a08" opacity="0.7"/>
+  <ellipse cx="1090" cy="422" rx="14" ry="9" fill="#061010"/>
+
+  <!-- Ambient teal glow -->
+  <rect width="1280" height="720" fill="url(#tealAmbient)"/>
+
+  <!-- Floor glow from capsules -->
+  <ellipse cx="180" cy="510" rx="120" ry="30" fill="#00ffaa" opacity="0.02" filter="url(#softGlow)"/>
+  <ellipse cx="510" cy="510" rx="130" ry="35" fill="#00ffaa" opacity="0.025" filter="url(#softGlow)"/>
+  <ellipse cx="840" cy="510" rx="120" ry="30" fill="#00ffaa" opacity="0.02" filter="url(#softGlow)"/>
+
+  <!-- Dark atmosphere overlay -->
+  <rect width="1280" height="720" fill="#020805" opacity="0.2"/>
 </svg>

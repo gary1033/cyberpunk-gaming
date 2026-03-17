@@ -1,12 +1,137 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#cc00ff" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#cc00ff" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#cc00ff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#cc00ff" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#cc00ff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#cc00ff" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#cc00ff" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#cc00ff" text-anchor="middle">面具商人</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#cc00ff" text-anchor="middle" opacity="0.8">[interested]</text>
+  <defs>
+    <linearGradient id="mi_bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#050510"/>
+    </linearGradient>
+    <linearGradient id="mi_mask_holo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00ddbb"/>
+      <stop offset="20%" stop-color="#ffaa00"/>
+      <stop offset="40%" stop-color="#00ffee"/>
+      <stop offset="60%" stop-color="#dd00ff"/>
+      <stop offset="80%" stop-color="#0088ff"/>
+      <stop offset="100%" stop-color="#00ddbb"/>
+    </linearGradient>
+    <linearGradient id="mi_robe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0d0d1a"/>
+    </linearGradient>
+    <radialGradient id="mi_glow" cx="0.5" cy="0.35" r="0.5">
+      <stop offset="0%" stop-color="#00ddbb" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#00ddbb" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="mi_neon">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="mi_holo_glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1.2 0 0 0 0  0 1.2 0 0 0  0 0 1.2 0 0  0 0 0 1 0" result="bright"/>
+      <feMerge><feMergeNode in="bright"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#mi_bg)"/>
+  <rect width="256" height="384" fill="url(#mi_glow)"/>
+
+  <!-- Frame border -->
+  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#00ddbb" stroke-width="1.5" opacity="0.45"/>
+
+  <!-- Character name -->
+  <text x="128" y="30" font-family="monospace" font-size="16" fill="#00ddbb" text-anchor="middle" filter="url(#mi_neon)">面具商人</text>
+
+  <!-- Stall / counter surface -->
+  <rect x="18" y="278" width="220" height="8" rx="2" fill="#1a1a2e" stroke="#00ddbb" stroke-width="0.5" opacity="0.8"/>
+  <rect x="12" y="284" width="232" height="92" rx="3" fill="#111122" stroke="#00ddbb" stroke-width="0.5" opacity="0.5"/>
+  <!-- Stall goods - highlighted showing wares -->
+  <rect x="28" y="292" width="20" height="16" rx="3" fill="#0d0d1a" stroke="#00ddbb" stroke-width="0.7" opacity="0.5"/>
+  <rect x="54" y="294" width="16" height="14" rx="2" fill="#0d0d1a" stroke="#dd00ff" stroke-width="0.6" opacity="0.4"/>
+  <rect x="76" y="293" width="14" height="13" rx="2" fill="#0d0d1a" stroke="#ffaa00" stroke-width="0.5" opacity="0.35"/>
+  <rect x="180" y="292" width="18" height="16" rx="3" fill="#0d0d1a" stroke="#0088ff" stroke-width="0.7" opacity="0.5"/>
+  <rect x="204" y="294" width="16" height="14" rx="2" fill="#0d0d1a" stroke="#00ddbb" stroke-width="0.6" opacity="0.4"/>
+
+  <!-- Body / dark robe - leaning forward eagerly -->
+  <path d="M72,185 Q64,200 52,248 L46,278 H210 L204,248 Q196,200 188,185 Q178,172 168,166 L162,162 Q148,156 130,154 Q114,156 100,162 L94,166 Q84,172 72,185 Z" fill="url(#mi_robe)" stroke="#00ddbb" stroke-width="0.5" opacity="0.9"/>
+  <!-- Robe folds - dynamic forward lean -->
+  <path d="M98,173 Q102,210 98,248 L96,274" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
+  <path d="M164,173 Q160,210 162,248 L163,274" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
+  <path d="M130,160 Q128,200 129,248 L129,276" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.2"/>
+  <path d="M84,192 Q87,218 85,248" fill="none" stroke="#00ddbb" stroke-width="0.2" opacity="0.2"/>
+  <path d="M176,192 Q173,218 175,248" fill="none" stroke="#00ddbb" stroke-width="0.2" opacity="0.2"/>
+
+  <!-- Robe collar - open, leaning in -->
+  <path d="M100,166 Q104,156 116,150 Q124,146 130,145 Q136,146 144,150 Q156,156 160,166 L154,173 Q144,164 130,160 Q116,164 106,173 Z" fill="#151528" stroke="#00ddbb" stroke-width="0.8" opacity="0.9"/>
+
+  <!-- Hood - tilted forward with interest -->
+  <path d="M84,162 Q76,140 78,116 Q80,92 88,76 Q98,60 116,50 Q126,45 130,44 Q134,45 144,50 Q162,60 172,76 Q180,92 182,116 Q184,140 180,162 Q168,156 154,150 Q144,146 130,145 Q118,146 108,150 Q94,156 84,162 Z" fill="#12122a" stroke="#00ddbb" stroke-width="0.5" opacity="0.95"/>
+  <!-- Hood shadow inner -->
+  <path d="M92,158 Q88,138 90,114 Q92,94 100,80 Q110,68 122,60 Q128,57 130,56 Q132,57 138,60 Q150,68 160,80 Q168,94 170,114 Q172,138 170,158" fill="#0a0a1e" opacity="0.7"/>
+
+  <!-- Hood edge detail -->
+  <path d="M84,162 Q88,158 94,156" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.3"/>
+  <path d="M180,162 Q176,158 170,156" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.3"/>
+
+  <!-- Holographic mask - brighter, energized with interest -->
+  <path d="M102,144 Q100,130 102,110 Q104,94 112,84 Q120,76 130,74 Q140,76 148,84 Q156,94 158,110 Q160,130 158,144 Q152,152 142,156 Q134,158 130,158 Q126,158 118,156 Q108,152 102,144 Z" fill="url(#mi_mask_holo)" opacity="0.92" filter="url(#mi_holo_glow)"/>
+
+  <!-- Mask surface details - holographic flowing lines -->
+  <path d="M110,90 Q120,85 130,83 Q140,85 150,90" fill="none" stroke="#ffffff" stroke-width="0.9" opacity="0.6"/>
+  <path d="M107,104 Q118,99 130,97 Q142,99 153,104" fill="none" stroke="#ffffff" stroke-width="0.7" opacity="0.5"/>
+  <path d="M105,118 Q116,113 130,111 Q144,113 155,118" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+  <path d="M107,132 Q118,127 130,125 Q142,127 153,132" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Mask eye slits - wider, engaged, excited -->
+  <ellipse cx="117" cy="104" rx="9" ry="6" fill="#00ffee" opacity="0.95" filter="url(#mi_neon)"/>
+  <ellipse cx="143" cy="104" rx="9" ry="6" fill="#00ffee" opacity="0.95" filter="url(#mi_neon)"/>
+  <!-- Bright pupils -->
+  <circle cx="118" cy="104" r="2.2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="144" cy="104" r="2.2" fill="#ffffff" opacity="0.9"/>
+  <!-- Raised brow arches on mask - high with interest -->
+  <path d="M106,95 Q113,91 123,94" fill="none" stroke="#00ffee" stroke-width="1.2" opacity="0.7"/>
+  <path d="M137,94 Q147,91 154,95" fill="none" stroke="#00ffee" stroke-width="1.2" opacity="0.7"/>
+
+  <!-- Mask expression - slight eager smile -->
+  <path d="M116,134 Q123,140 130,141 Q137,140 144,134" fill="none" stroke="#00ffee" stroke-width="1" opacity="0.6"/>
+
+  <!-- Holographic shimmer particles - very active, excited -->
+  <circle cx="110" cy="88" r="1.3" fill="#ffaa00" opacity="0.8"/>
+  <circle cx="146" cy="96" r="1.1" fill="#0088ff" opacity="0.7"/>
+  <circle cx="114" cy="128" r="1.5" fill="#00ddbb" opacity="0.6"/>
+  <circle cx="148" cy="118" r="0.9" fill="#ffaa00" opacity="0.7"/>
+  <circle cx="104" cy="113" r="1.1" fill="#dd00ff" opacity="0.6"/>
+  <circle cx="138" cy="140" r="1.2" fill="#00ffee" opacity="0.7"/>
+  <circle cx="130" cy="80" r="0.8" fill="#dd00ff" opacity="0.6"/>
+  <circle cx="153" cy="138" r="0.7" fill="#0088ff" opacity="0.5"/>
+  <circle cx="106" cy="143" r="1" fill="#ffaa00" opacity="0.5"/>
+
+  <!-- Hands reaching forward onto table - eager, palms down -->
+  <path d="M68,248 Q64,258 66,272 Q68,278 74,279 L98,278 Q102,275 103,269 Q102,261 98,253 Q92,245 82,246 Q73,247 68,248 Z" fill="#1a1a2e" stroke="#00ddbb" stroke-width="0.5" opacity="0.75"/>
+  <!-- Finger details left hand -->
+  <path d="M90,278 L92,273" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.4"/>
+  <path d="M86,279 L87,274" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.4"/>
+  <path d="M82,279 L82,274" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.4"/>
+  <path d="M188,248 Q192,258 190,272 Q188,278 182,279 L158,278 Q154,275 153,269 Q154,261 158,253 Q164,245 174,246 Q183,247 188,248 Z" fill="#1a1a2e" stroke="#00ddbb" stroke-width="0.5" opacity="0.75"/>
+  <!-- Finger details right hand -->
+  <path d="M166,278 L164,273" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.4"/>
+  <path d="M170,279 L169,274" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.4"/>
+  <path d="M174,279 L174,274" fill="none" stroke="#00ddbb" stroke-width="0.4" opacity="0.4"/>
+
+  <!-- Ambient teal particles -->
+  <circle cx="32" cy="72" r="1.6" fill="#00ddbb" opacity="0.35"/>
+  <circle cx="224" cy="88" r="1.1" fill="#00ddbb" opacity="0.3"/>
+  <circle cx="40" cy="238" r="1.3" fill="#00ddbb" opacity="0.28"/>
+  <circle cx="218" cy="216" r="0.9" fill="#00ddbb" opacity="0.35"/>
+  <circle cx="20" cy="165" r="1.1" fill="#00ddbb" opacity="0.22"/>
+  <circle cx="238" cy="148" r="1.4" fill="#00ddbb" opacity="0.28"/>
+  <circle cx="48" cy="140" r="0.8" fill="#00ffee" opacity="0.2"/>
+  <circle cx="210" cy="310" r="1" fill="#00ddbb" opacity="0.18"/>
+
+  <!-- Scanline overlay -->
+  <line x1="0" y1="60" x2="256" y2="60" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="120" x2="256" y2="120" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="180" x2="256" y2="180" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="240" x2="256" y2="240" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
+  <line x1="0" y1="360" x2="256" y2="360" stroke="#00ddbb" stroke-width="0.3" opacity="0.08"/>
 </svg>

@@ -1,10 +1,207 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="#121218"/>
-  <rect x="10" y="10" width="1260" height="700" rx="4" fill="none" stroke="#ff4444" stroke-width="1" opacity="0.3"/>
-  <line x1="0" y1="500" x2="1280" y2="500" stroke="#ff4444" stroke-width="1" opacity="0.15"/>
-  <rect x="100" y="200" width="200" height="300" fill="none" stroke="#ff4444" stroke-width="1" opacity="0.1"/>
-  <rect x="980" y="150" width="200" height="350" fill="none" stroke="#ff4444" stroke-width="1" opacity="0.1"/>
-  <text x="640" y="340" font-family="monospace" font-size="42" fill="#ff4444" text-anchor="middle">回聲網路總部</text>
-  <text x="640" y="390" font-family="monospace" font-size="18" fill="#ff4444" text-anchor="middle" opacity="0.5">Echo Network HQ</text>
-  <text x="640" y="680" font-family="monospace" font-size="12" fill="#ff4444" text-anchor="middle" opacity="0.3">[ PLACEHOLDER ]</text>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8e8f0"/>
+      <stop offset="100%" stop-color="#d0d0e0"/>
+    </linearGradient>
+    <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8c8d8"/>
+      <stop offset="100%" stop-color="#b0b0c0"/>
+    </linearGradient>
+    <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0e0ea"/>
+      <stop offset="100%" stop-color="#d0d0da"/>
+    </linearGradient>
+    <radialGradient id="redAccent" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff2244" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ff2244" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="holoGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="blinkGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background - clean white -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+
+  <!-- Corridor walls -->
+  <rect x="0" y="0" width="1280" height="420" fill="url(#wallGrad)"/>
+  <!-- Wall panel lines -->
+  <g opacity="0.1">
+    <line x1="0" y1="100" x2="1280" y2="100" stroke="#b0b0c0" stroke-width="1"/>
+    <line x1="0" y1="210" x2="1280" y2="210" stroke="#b0b0c0" stroke-width="1"/>
+    <line x1="0" y1="320" x2="1280" y2="320" stroke="#b0b0c0" stroke-width="1"/>
+    <line x1="320" y1="0" x2="320" y2="420" stroke="#b0b0c0" stroke-width="1"/>
+    <line x1="640" y1="0" x2="640" y2="420" stroke="#b0b0c0" stroke-width="1"/>
+    <line x1="960" y1="0" x2="960" y2="420" stroke="#b0b0c0" stroke-width="1"/>
+  </g>
+
+  <!-- Floor -->
+  <rect x="0" y="420" width="1280" height="300" fill="url(#floorGrad)"/>
+  <!-- Polished floor tiles -->
+  <g opacity="0.08">
+    <line x1="0" y1="480" x2="1280" y2="480" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="0" y1="540" x2="1280" y2="540" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="0" y1="600" x2="1280" y2="600" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="0" y1="660" x2="1280" y2="660" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="160" y1="420" x2="160" y2="720" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="320" y1="420" x2="320" y2="720" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="480" y1="420" x2="480" y2="720" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="640" y1="420" x2="640" y2="720" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="800" y1="420" x2="800" y2="720" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="960" y1="420" x2="960" y2="720" stroke="#9090a0" stroke-width="0.5"/>
+    <line x1="1120" y1="420" x2="1120" y2="720" stroke="#9090a0" stroke-width="0.5"/>
+  </g>
+
+  <!-- Ceiling LED strip -->
+  <rect x="0" y="0" width="1280" height="4" fill="#ffffff" opacity="0.4"/>
+  <rect x="0" y="0" width="1280" height="15" fill="#ffffff" opacity="0.03" filter="url(#softGlow)"/>
+
+  <!-- Red accent lighting strip on ceiling -->
+  <rect x="0" y="8" width="1280" height="2" fill="#ff2244" opacity="0.3" filter="url(#holoGlow)"/>
+
+  <!-- Holographic displays (floating blue panels) -->
+  <!-- Display 1 -->
+  <rect x="100" y="120" width="180" height="120" rx="5" fill="#0a1a3a" opacity="0.3"/>
+  <rect x="100" y="120" width="180" height="120" rx="5" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.5" filter="url(#holoGlow)"/>
+  <rect x="112" y="135" width="80" height="3" fill="#4488ff" opacity="0.3"/>
+  <rect x="112" y="145" width="60" height="3" fill="#4488ff" opacity="0.25"/>
+  <rect x="112" y="155" width="100" height="3" fill="#4488ff" opacity="0.3"/>
+  <rect x="112" y="165" width="45" height="3" fill="#4488ff" opacity="0.2"/>
+  <circle cx="240" cy="170" r="20" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.2"/>
+  <circle cx="240" cy="170" r="12" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.15"/>
+  <rect x="100" y="120" width="180" height="120" fill="#4488ff" opacity="0.01" filter="url(#softGlow)"/>
+
+  <!-- Display 2 -->
+  <rect x="400" y="80" width="200" height="140" rx="5" fill="#0a1a3a" opacity="0.3"/>
+  <rect x="400" y="80" width="200" height="140" rx="5" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.5" filter="url(#holoGlow)"/>
+  <!-- Brain scan display -->
+  <ellipse cx="500" cy="140" rx="50" ry="35" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.3"/>
+  <path d="M470 130 Q485 115 500 130 Q515 145 530 130" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.25"/>
+  <path d="M460 150 Q480 165 500 150 Q520 135 540 150" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.2"/>
+  <rect x="412" y="190" width="60" height="2" fill="#4488ff" opacity="0.2"/>
+  <rect x="412" y="198" width="80" height="2" fill="#4488ff" opacity="0.15"/>
+  <rect x="520" y="190" width="50" height="2" fill="#ff4444" opacity="0.2"/>
+  <rect x="400" y="80" width="200" height="140" fill="#4488ff" opacity="0.01" filter="url(#softGlow)"/>
+
+  <!-- Display 3 -->
+  <rect x="750" y="100" width="170" height="130" rx="5" fill="#0a1a3a" opacity="0.3"/>
+  <rect x="750" y="100" width="170" height="130" rx="5" fill="none" stroke="#4488ff" stroke-width="1.5" opacity="0.5" filter="url(#holoGlow)"/>
+  <rect x="762" y="115" width="90" height="3" fill="#4488ff" opacity="0.3"/>
+  <rect x="762" y="125" width="70" height="3" fill="#4488ff" opacity="0.25"/>
+  <rect x="762" y="135" width="110" height="3" fill="#4488ff" opacity="0.3"/>
+  <polyline points="762,175 780,165 800,172 820,158 840,168 860,155 880,170 900,160" fill="none" stroke="#4488ff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Neural interface pods (oval shapes with tubes) -->
+  <!-- Pod 1 -->
+  <ellipse cx="180" cy="380" rx="60" ry="40" fill="#c0c0d8" stroke="#a0a0b8" stroke-width="2"/>
+  <ellipse cx="180" cy="380" rx="45" ry="28" fill="#d8d8e8"/>
+  <ellipse cx="180" cy="380" rx="30" ry="18" fill="#e8e8f0" stroke="#b0b0c0" stroke-width="1"/>
+  <!-- Tubes from pod -->
+  <path d="M180 340 Q180 300 200 280" fill="none" stroke="#a0a0b8" stroke-width="4"/>
+  <path d="M140 360 Q120 340 120 310" fill="none" stroke="#a0a0b8" stroke-width="3"/>
+  <path d="M220 360 Q240 340 240 310" fill="none" stroke="#a0a0b8" stroke-width="3"/>
+  <!-- Pod status light -->
+  <circle cx="180" cy="380" r="5" fill="#4488ff" opacity="0.4" filter="url(#blinkGlow)"/>
+
+  <!-- Pod 2 -->
+  <ellipse cx="500" cy="370" rx="65" ry="45" fill="#c0c0d8" stroke="#a0a0b8" stroke-width="2"/>
+  <ellipse cx="500" cy="370" rx="50" ry="32" fill="#d8d8e8"/>
+  <ellipse cx="500" cy="370" rx="33" ry="20" fill="#e8e8f0" stroke="#b0b0c0" stroke-width="1"/>
+  <path d="M500 325 Q500 290 520 270" fill="none" stroke="#a0a0b8" stroke-width="4"/>
+  <path d="M455 345 Q435 325 435 300" fill="none" stroke="#a0a0b8" stroke-width="3"/>
+  <path d="M545 345 Q565 325 565 300" fill="none" stroke="#a0a0b8" stroke-width="3"/>
+  <circle cx="500" cy="370" r="5" fill="#44ff44" opacity="0.4" filter="url(#blinkGlow)"/>
+
+  <!-- Server racks (tall rectangles with blinking lights) -->
+  <!-- Rack 1 -->
+  <rect x="1000" y="100" width="60" height="320" fill="#2a2a40" stroke="#3a3a55" stroke-width="2"/>
+  <rect x="1005" y="110" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="130" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="150" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="170" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="190" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="210" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="230" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="250" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="270" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="290" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="310" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="330" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="350" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="370" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1005" y="390" width="50" height="15" fill="#1a1a30"/>
+  <!-- Blinking lights on rack -->
+  <circle cx="1048" cy="117" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="137" r="2" fill="#4488ff" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="157" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="177" r="2" fill="#ff4444" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="197" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="217" r="2" fill="#4488ff" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="237" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="257" r="2" fill="#44ff44" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="277" r="2" fill="#ff4444" opacity="0.4" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="297" r="2" fill="#4488ff" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="317" r="2" fill="#44ff44" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="337" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="357" r="2" fill="#4488ff" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="377" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1048" cy="397" r="2" fill="#ff4444" opacity="0.4" filter="url(#blinkGlow)"/>
+
+  <!-- Rack 2 -->
+  <rect x="1080" y="100" width="60" height="320" fill="#2a2a40" stroke="#3a3a55" stroke-width="2"/>
+  <rect x="1085" y="110" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="130" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="150" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="170" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="190" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="210" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="230" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="250" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="270" width="50" height="15" fill="#1a1a30"/>
+  <rect x="1085" y="290" width="50" height="15" fill="#1a1a30"/>
+  <circle cx="1128" cy="117" r="2" fill="#44ff44" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="137" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="157" r="2" fill="#ff4444" opacity="0.4" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="177" r="2" fill="#4488ff" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="197" r="2" fill="#44ff44" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="217" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="237" r="2" fill="#ff4444" opacity="0.4" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="257" r="2" fill="#4488ff" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="277" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1128" cy="297" r="2" fill="#44ff44" opacity="0.5" filter="url(#blinkGlow)"/>
+
+  <!-- Rack 3 -->
+  <rect x="1160" y="120" width="55" height="300" fill="#2a2a40" stroke="#3a3a55" stroke-width="2"/>
+  <rect x="1165" y="130" width="45" height="15" fill="#1a1a30"/>
+  <rect x="1165" y="150" width="45" height="15" fill="#1a1a30"/>
+  <rect x="1165" y="170" width="45" height="15" fill="#1a1a30"/>
+  <rect x="1165" y="190" width="45" height="15" fill="#1a1a30"/>
+  <rect x="1165" y="210" width="45" height="15" fill="#1a1a30"/>
+  <rect x="1165" y="230" width="45" height="15" fill="#1a1a30"/>
+  <circle cx="1203" cy="137" r="2" fill="#4488ff" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1203" cy="157" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1203" cy="177" r="2" fill="#44ff44" opacity="0.5" filter="url(#blinkGlow)"/>
+  <circle cx="1203" cy="197" r="2" fill="#ff4444" opacity="0.4" filter="url(#blinkGlow)"/>
+  <circle cx="1203" cy="217" r="2" fill="#44ff44" opacity="0.6" filter="url(#blinkGlow)"/>
+  <circle cx="1203" cy="237" r="2" fill="#4488ff" opacity="0.5" filter="url(#blinkGlow)"/>
+
+  <!-- Ominous red accent lighting -->
+  <rect x="0" y="415" width="1280" height="5" fill="#ff2244" opacity="0.15" filter="url(#holoGlow)"/>
+  <ellipse cx="640" cy="420" rx="640" ry="50" fill="url(#redAccent)"/>
+
+  <!-- Floor reflections -->
+  <rect x="100" y="430" width="180" height="40" fill="#4488ff" opacity="0.01"/>
+  <rect x="1000" y="430" width="220" height="40" fill="#44ff44" opacity="0.01"/>
+
+  <!-- Clean corridor atmosphere -->
+  <rect width="1280" height="720" fill="#e0e0f0" opacity="0.03"/>
 </svg>

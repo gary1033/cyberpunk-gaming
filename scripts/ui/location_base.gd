@@ -15,15 +15,25 @@ func _ready() -> void:
 	_trigger_initial_dialogue()
 
 func _setup_background() -> void:
-	# Placeholder colored background
-	var bg := ColorRect.new()
-	bg.color = bg_color
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-	bg.z_index = -10
-
 	var canvas := CanvasLayer.new()
 	canvas.layer = -10
-	canvas.add_child(bg)
+
+	# Try to load location background SVG
+	var bg_path := "res://assets/sprites/locations/%s.svg" % location_id
+	var bg_texture := load(bg_path) as Texture2D
+
+	if bg_texture:
+		var bg_img := TextureRect.new()
+		bg_img.texture = bg_texture
+		bg_img.set_anchors_preset(Control.PRESET_FULL_RECT)
+		bg_img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		canvas.add_child(bg_img)
+	else:
+		var bg := ColorRect.new()
+		bg.color = bg_color
+		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+		canvas.add_child(bg)
+
 	add_child(canvas)
 
 func _setup_ui() -> void:

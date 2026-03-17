@@ -1,12 +1,259 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
-  <rect width="256" height="384" fill="#0a0a1a"/>
-  <rect x="4" y="4" width="248" height="376" rx="8" fill="none" stroke="#ff6699" stroke-width="2" opacity="0.6"/>
-  <circle cx="128" cy="120" r="50" fill="none" stroke="#ff6699" stroke-width="2"/>
-  <line x1="128" y1="170" x2="128" y2="280" stroke="#ff6699" stroke-width="2"/>
-  <line x1="128" y1="200" x2="88" y2="250" stroke="#ff6699" stroke-width="2"/>
-  <line x1="128" y1="200" x2="168" y2="250" stroke="#ff6699" stroke-width="2"/>
-  <line x1="128" y1="280" x2="98" y2="340" stroke="#ff6699" stroke-width="2"/>
-  <line x1="128" y1="280" x2="158" y2="340" stroke="#ff6699" stroke-width="2"/>
-  <text x="128" y="50" font-family="monospace" font-size="18" fill="#ff6699" text-anchor="middle">美玲</text>
-  <text x="128" y="365" font-family="monospace" font-size="14" fill="#ff6699" text-anchor="middle" opacity="0.8">[default]</text>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#0f0520"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0d5b8"/>
+      <stop offset="100%" stop-color="#e8c4a0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1025"/>
+      <stop offset="40%" stop-color="#0d0a15"/>
+      <stop offset="70%" stop-color="#1a0d28"/>
+      <stop offset="100%" stop-color="#0d0a15"/>
+    </linearGradient>
+    <linearGradient id="jacketGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0f0f1e"/>
+    </linearGradient>
+    <linearGradient id="lipGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c47070"/>
+      <stop offset="100%" stop-color="#a85555"/>
+    </linearGradient>
+    <radialGradient id="earringGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff0066" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ff0066" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="irisGrad" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#5a3528"/>
+      <stop offset="100%" stop-color="#2a1510"/>
+    </radialGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="innerShadow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="256" height="384" fill="url(#bgGrad)"/>
+
+  <!-- Ambient neon light from sides -->
+  <ellipse cx="0" cy="200" rx="80" ry="200" fill="#ff0066" opacity="0.03"/>
+  <ellipse cx="256" cy="180" rx="60" ry="180" fill="#6600ff" opacity="0.03"/>
+
+  <!-- Border frame -->
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff0066" stroke-width="1.5" opacity="0.4"/>
+  <rect x="6" y="6" width="244" height="372" rx="4" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- Character name at top -->
+  <text x="128" y="28" font-family="monospace" font-size="16" fill="#ff0066" text-anchor="middle" filter="url(#neonGlow)" opacity="0.9">美玲</text>
+  <line x1="40" y1="35" x2="216" y2="35" stroke="#ff0066" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- === BODY / JACKET === -->
+  <!-- Shoulders and upper torso -->
+  <path d="M50,320 Q60,260 85,240 Q100,232 115,228 L128,225 L141,228 Q156,232 171,240 Q196,260 206,320 L206,390 L50,390 Z" fill="url(#jacketGrad)" stroke="#2a2a4e" stroke-width="0.5"/>
+
+  <!-- Jacket lapels -->
+  <path d="M115,228 L108,270 L128,300 L128,225 Z" fill="#222240" stroke="#ff0066" stroke-width="0.3" opacity="0.8"/>
+  <path d="M141,228 L148,270 L128,300 L128,225 Z" fill="#222240" stroke="#ff0066" stroke-width="0.3" opacity="0.8"/>
+
+  <!-- Jacket collar -->
+  <path d="M105,232 Q110,220 120,218 L128,225 L115,228 Z" fill="#1e1e35"/>
+  <path d="M151,232 Q146,220 136,218 L128,225 L141,228 Z" fill="#1e1e35"/>
+
+  <!-- Tech stripe on jacket -->
+  <line x1="72" y1="260" x2="72" y2="340" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
+  <line x1="184" y1="260" x2="184" y2="340" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
+  <!-- Small circuit patterns on shoulders -->
+  <path d="M78,258 L82,258 L82,265 L88,265" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="88" cy="265" r="1" fill="#ff0066" opacity="0.5"/>
+  <path d="M178,258 L174,258 L174,265 L168,265" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="168" cy="265" r="1" fill="#ff0066" opacity="0.5"/>
+  <!-- Additional tech detail on left shoulder -->
+  <path d="M65,275 L70,275 L70,280 L75,280 L75,288" fill="none" stroke="#ff0066" stroke-width="0.4" opacity="0.3"/>
+  <rect x="73" y="288" width="4" height="2" fill="#ff0066" opacity="0.3"/>
+  <!-- Tech detail on right shoulder -->
+  <path d="M191,275 L186,275 L186,280 L181,280 L181,288" fill="none" stroke="#ff0066" stroke-width="0.4" opacity="0.3"/>
+  <rect x="179" y="288" width="4" height="2" fill="#ff0066" opacity="0.3"/>
+
+  <!-- Jacket seam lines -->
+  <path d="M90,245 Q100,280 105,340" fill="none" stroke="#2a2a4e" stroke-width="0.5" opacity="0.6"/>
+  <path d="M166,245 Q156,280 151,340" fill="none" stroke="#2a2a4e" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Inner shirt / blouse neckline -->
+  <path d="M113,226 Q120,235 128,238 Q136,235 143,226" fill="none" stroke="#333355" stroke-width="1"/>
+
+  <!-- Neck -->
+  <path d="M118,218 Q117,205 119,192 L137,192 Q139,205 138,218" fill="url(#skinGrad)" stroke="#d4a878" stroke-width="0.3"/>
+  <!-- Neck shadow -->
+  <path d="M120,210 Q128,215 136,210" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- === HAIR (back layer) === -->
+  <!-- Long hair falling behind shoulders -->
+  <path d="M75,130 Q65,180 55,260 Q50,300 52,350 Q53,365 58,365 Q65,340 68,280 Q72,220 80,170 Z" fill="url(#hairGrad)"/>
+  <path d="M181,130 Q191,180 201,260 Q206,300 204,350 Q203,365 198,365 Q191,340 188,280 Q184,220 176,170 Z" fill="url(#hairGrad)"/>
+
+  <!-- Additional back hair volume -->
+  <path d="M70,140 Q60,190 52,250 Q48,290 48,340 Q47,355 52,358 Q56,340 58,290 Q62,230 72,170 Z" fill="#0d0a15" opacity="0.6"/>
+  <path d="M186,140 Q196,190 204,250 Q208,290 208,340 Q209,355 204,358 Q200,340 198,290 Q194,230 184,170 Z" fill="#0d0a15" opacity="0.6"/>
+
+  <!-- Purple highlight streaks in back hair -->
+  <path d="M60,200 Q58,250 55,300" fill="none" stroke="#6b2fa0" stroke-width="1.5" opacity="0.3"/>
+  <path d="M196,200 Q198,250 201,300" fill="none" stroke="#6b2fa0" stroke-width="1.5" opacity="0.3"/>
+  <path d="M55,230 Q54,270 53,320" fill="none" stroke="#5a1f90" stroke-width="1" opacity="0.2"/>
+  <path d="M201,230 Q202,270 203,320" fill="none" stroke="#5a1f90" stroke-width="1" opacity="0.2"/>
+
+  <!-- === HEAD === -->
+  <!-- Face shape - oval feminine face -->
+  <ellipse cx="128" cy="145" rx="42" ry="52" fill="url(#skinGrad)"/>
+  <!-- Jawline refinement -->
+  <path d="M86,145 Q88,175 105,192 Q118,200 128,202 Q138,200 151,192 Q168,175 170,145" fill="url(#skinGrad)"/>
+  <!-- Chin highlight -->
+  <ellipse cx="128" cy="195" rx="8" ry="3" fill="#f5dcc5" opacity="0.3"/>
+  <!-- Cheek contour shadows -->
+  <path d="M90,155 Q95,170 105,180" fill="none" stroke="#d4a878" stroke-width="0.8" opacity="0.15"/>
+  <path d="M166,155 Q161,170 151,180" fill="none" stroke="#d4a878" stroke-width="0.8" opacity="0.15"/>
+
+  <!-- === HAIR (front layer) === -->
+  <!-- Main hair volume -->
+  <path d="M75,130 Q72,100 80,80 Q90,60 110,52 Q125,48 128,48 Q131,48 146,52 Q166,60 176,80 Q184,100 181,130 Q178,115 170,105 Q160,95 145,90 Q128,87 111,90 Q96,95 86,105 Q78,115 75,130 Z" fill="url(#hairGrad)"/>
+
+  <!-- Hair top highlight -->
+  <path d="M100,62 Q115,55 128,53 Q141,55 156,62" fill="none" stroke="#2a1838" stroke-width="2" opacity="0.4"/>
+
+  <!-- Hair bangs / fringe - layered -->
+  <path d="M88,110 Q92,85 108,72 Q115,68 120,75 Q110,90 105,110 Z" fill="#0d0a15"/>
+  <path d="M105,105 Q110,78 125,65 Q130,63 133,70 Q125,82 120,105 Z" fill="#12101e"/>
+  <path d="M120,102 Q128,75 140,68 Q145,67 146,72 Q140,85 135,105 Z" fill="#0d0a15"/>
+  <path d="M138,108 Q148,82 160,78 Q165,78 164,84 Q155,95 148,112 Z" fill="#12101e"/>
+  <!-- Extra bang layer for depth -->
+  <path d="M95,108 Q100,88 112,76 Q116,73 118,78 Q112,92 108,108 Z" fill="#15102a" opacity="0.7"/>
+  <path d="M130,104 Q136,80 148,72 Q152,71 152,76 Q146,88 140,108 Z" fill="#15102a" opacity="0.7"/>
+
+  <!-- Purple highlight streaks in front hair -->
+  <path d="M95,90 Q100,110 102,130" fill="none" stroke="#6b2fa0" stroke-width="1.2" opacity="0.4"/>
+  <path d="M155,88 Q158,108 160,128" fill="none" stroke="#6b2fa0" stroke-width="1.2" opacity="0.4"/>
+  <path d="M112,75 Q115,95 116,115" fill="none" stroke="#5a1f90" stroke-width="0.8" opacity="0.3"/>
+  <path d="M140,73 Q142,93 143,113" fill="none" stroke="#5a1f90" stroke-width="0.8" opacity="0.3"/>
+  <path d="M103,82 Q106,100 107,120" fill="none" stroke="#7b3fb0" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- Side hair strands framing face -->
+  <path d="M80,125 Q75,160 70,210 Q68,240 70,265" fill="url(#hairGrad)" stroke="#1a0d28" stroke-width="0.5"/>
+  <path d="M176,125 Q181,160 186,210 Q188,240 186,265" fill="url(#hairGrad)" stroke="#1a0d28" stroke-width="0.5"/>
+  <!-- Inner side strands -->
+  <path d="M83,130 Q80,165 77,210 Q76,235 77,255" fill="#12101e" opacity="0.5"/>
+  <path d="M173,130 Q176,165 179,210 Q180,235 179,255" fill="#12101e" opacity="0.5"/>
+
+  <!-- === FACIAL FEATURES === -->
+
+  <!-- Eyebrows - sharp, defined, composed -->
+  <path d="M98,122 Q108,117 120,119" fill="none" stroke="#1a1020" stroke-width="2" stroke-linecap="round"/>
+  <path d="M136,119 Q148,117 158,122" fill="none" stroke="#1a1020" stroke-width="2" stroke-linecap="round"/>
+  <!-- Subtle brow thickness -->
+  <path d="M100,121 Q108,116.5 119,118.5" fill="none" stroke="#1a1020" stroke-width="1" opacity="0.3"/>
+  <path d="M137,118.5 Q148,116.5 156,121" fill="none" stroke="#1a1020" stroke-width="1" opacity="0.3"/>
+
+  <!-- Eyes - sharp almond shape, neutral gaze -->
+  <!-- Left eye -->
+  <path d="M100,132 Q110,126 122,132 Q110,138 100,132 Z" fill="white" stroke="#2a2035" stroke-width="0.5"/>
+  <ellipse cx="111" cy="132" rx="5.5" ry="5" fill="url(#irisGrad)"/>
+  <circle cx="111" cy="132" r="3" fill="#1a0a0a"/>
+  <circle cx="109" cy="130" r="1.3" fill="white" opacity="0.9"/>
+  <circle cx="113" cy="133" r="0.6" fill="white" opacity="0.5"/>
+  <!-- Upper eyelid crease -->
+  <path d="M101,128 Q110,123 121,128" fill="none" stroke="#c4a090" stroke-width="0.5" opacity="0.4"/>
+  <!-- Eyelashes -->
+  <path d="M100,132 Q98,129 96,128" fill="none" stroke="#1a1020" stroke-width="0.8"/>
+  <path d="M122,132 Q124,129 125,127" fill="none" stroke="#1a1020" stroke-width="0.8"/>
+  <path d="M102,130 Q100,128 99,127" fill="none" stroke="#1a1020" stroke-width="0.5"/>
+  <!-- Upper eyelid line -->
+  <path d="M100,132 Q110,125 122,132" fill="none" stroke="#1a1020" stroke-width="1.2"/>
+  <!-- Lower lash line -->
+  <path d="M102,134 Q110,137 120,134" fill="none" stroke="#2a2035" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Right eye -->
+  <path d="M134,132 Q146,126 156,132 Q146,138 134,132 Z" fill="white" stroke="#2a2035" stroke-width="0.5"/>
+  <ellipse cx="145" cy="132" rx="5.5" ry="5" fill="url(#irisGrad)"/>
+  <circle cx="145" cy="132" r="3" fill="#1a0a0a"/>
+  <circle cx="143" cy="130" r="1.3" fill="white" opacity="0.9"/>
+  <circle cx="147" cy="133" r="0.6" fill="white" opacity="0.5"/>
+  <!-- Upper eyelid crease -->
+  <path d="M135,128 Q146,123 155,128" fill="none" stroke="#c4a090" stroke-width="0.5" opacity="0.4"/>
+  <!-- Eyelashes -->
+  <path d="M134,132 Q132,129 131,128" fill="none" stroke="#1a1020" stroke-width="0.8"/>
+  <path d="M156,132 Q158,129 160,128" fill="none" stroke="#1a1020" stroke-width="0.8"/>
+  <path d="M154,130 Q156,128 157,127" fill="none" stroke="#1a1020" stroke-width="0.5"/>
+  <!-- Upper eyelid line -->
+  <path d="M134,132 Q146,125 156,132" fill="none" stroke="#1a1020" stroke-width="1.2"/>
+  <!-- Lower lash line -->
+  <path d="M136,134 Q146,137 154,134" fill="none" stroke="#2a2035" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Nose - subtle, feminine -->
+  <path d="M126,142 Q128,150 125,155" fill="none" stroke="#d4a878" stroke-width="1" opacity="0.6"/>
+  <path d="M123,156 Q128,158 133,156" fill="none" stroke="#d4a878" stroke-width="0.8" opacity="0.5"/>
+  <!-- Nose bridge highlight -->
+  <line x1="127" y1="138" x2="127" y2="148" stroke="#f5dcc5" stroke-width="0.8" opacity="0.2"/>
+
+  <!-- Lips - neutral, composed -->
+  <path d="M116,170 Q122,167 128,168 Q134,167 140,170" fill="none" stroke="#c47070" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M116,170 Q128,175 140,170" fill="url(#lipGrad)" opacity="0.3"/>
+  <!-- Upper lip cupid's bow -->
+  <path d="M121,168 Q124,165.5 128,167 Q132,165.5 135,168" fill="#c47070" opacity="0.4"/>
+  <!-- Lower lip highlight -->
+  <ellipse cx="128" cy="172" rx="6" ry="2" fill="#f0c0c0" opacity="0.1"/>
+  <!-- Lip line -->
+  <path d="M118,170 Q128,169 138,170" fill="none" stroke="#b06060" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Subtle blush -->
+  <ellipse cx="100" cy="148" rx="10" ry="5" fill="#ff6688" opacity="0.06"/>
+  <ellipse cx="156" cy="148" rx="10" ry="5" fill="#ff6688" opacity="0.06"/>
+
+  <!-- Ears (partially visible through hair) -->
+  <!-- Left ear -->
+  <path d="M84,130 Q78,130 76,140 Q75,150 80,155" fill="url(#skinGrad)" stroke="#d4a878" stroke-width="0.5"/>
+  <path d="M79,135 Q77,140 78,148" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.4"/>
+  <!-- Right ear -->
+  <path d="M172,130 Q178,130 180,140 Q181,150 176,155" fill="url(#skinGrad)" stroke="#d4a878" stroke-width="0.5"/>
+  <path d="M177,135 Q179,140 178,148" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.4"/>
+
+  <!-- === TECH EARRING (right ear) === -->
+  <circle cx="180" cy="150" r="4" fill="none" stroke="#ff0066" stroke-width="1" filter="url(#neonGlow)"/>
+  <circle cx="180" cy="150" r="2" fill="#ff0066" opacity="0.6"/>
+  <circle cx="180" cy="150" r="8" fill="url(#earringGlow)" opacity="0.4"/>
+  <!-- Small dangling element -->
+  <line x1="180" y1="154" x2="180" y2="162" stroke="#ff0066" stroke-width="0.8" opacity="0.7"/>
+  <path d="M177,162 L180,168 L183,162 Z" fill="#ff0066" opacity="0.5" filter="url(#neonGlow)"/>
+  <!-- Earring inner glow pulse -->
+  <circle cx="180" cy="150" r="1" fill="#ff99bb" opacity="0.8"/>
+
+  <!-- === AMBIENT EFFECTS === -->
+  <!-- Scan line overlay -->
+  <line x1="0" y1="100" x2="256" y2="100" stroke="#ff0066" stroke-width="0.3" opacity="0.1"/>
+  <line x1="0" y1="200" x2="256" y2="200" stroke="#ff0066" stroke-width="0.3" opacity="0.1"/>
+  <line x1="0" y1="300" x2="256" y2="300" stroke="#ff0066" stroke-width="0.3" opacity="0.1"/>
+
+  <!-- Corner accents -->
+  <path d="M10,10 L30,10 M10,10 L10,30" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.5"/>
+  <path d="M246,10 L226,10 M246,10 L246,30" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.5"/>
+  <path d="M10,374 L30,374 M10,374 L10,354" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.5"/>
+  <path d="M246,374 L226,374 M246,374 L246,354" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.5"/>
+
+  <!-- Expression label -->
+  <text x="128" y="372" font-family="monospace" font-size="10" fill="#ff0066" text-anchor="middle" opacity="0.5">[DEFAULT]</text>
 </svg>
