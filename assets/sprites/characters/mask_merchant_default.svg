@@ -46,60 +46,60 @@
   <rect x="55" y="310" width="14" height="12" rx="2" fill="#0d0d1a" stroke="#dd00ff" stroke-width="0.5" opacity="0.3"/>
   <rect x="185" y="308" width="16" height="14" rx="2" fill="#0d0d1a" stroke="#0088ff" stroke-width="0.5" opacity="0.4"/>
 
-  <!-- Body / dark robe - anime proportions, bigger head area -->
-  <path d="M68,205 Q62,218 55,260 L52,295 H204 L201,260 Q195,218 188,205 Q178,192 168,185 L162,182 Q148,175 128,172 Q108,175 94,182 L88,185 Q78,192 68,205 Z" fill="url(#mm_robe)" stroke="#00ddbb" stroke-width="0.5" opacity="0.9"/>
+  <!-- Body / dark robe - anime proportions, bigger head -->
+  <path d="M68,210 Q62,224 55,264 L52,295 H204 L201,264 Q195,224 188,210 Q178,196 168,188 L162,184 Q148,176 128,172 Q108,176 94,184 L88,188 Q78,196 68,210 Z" fill="url(#mm_robe)" stroke="#00ddbb" stroke-width="0.5" opacity="0.9"/>
   <!-- Robe folds -->
-  <path d="M95,192 Q100,225 98,260 L97,290" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
-  <path d="M161,192 Q156,225 158,260 L159,290" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
-  <path d="M128,176 Q127,215 128,260 L128,295" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.2"/>
+  <path d="M95,196 Q100,230 98,264 L97,292" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
+  <path d="M161,196 Q156,230 158,264 L159,292" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.3"/>
+  <path d="M128,176 Q127,220 128,264 L128,295" fill="none" stroke="#00ddbb" stroke-width="0.3" opacity="0.2"/>
 
   <!-- Robe collar - high and mysterious -->
-  <path d="M94,185 Q98,174 110,168 Q120,164 128,163 Q136,164 146,168 Q158,174 162,185 L157,192 Q147,182 128,178 Q109,182 99,192 Z" fill="#151528" stroke="#00ddbb" stroke-width="0.8" opacity="0.9"/>
+  <path d="M94,188 Q98,176 110,170 Q120,166 128,165 Q136,166 146,170 Q158,176 162,188 L157,196 Q147,185 128,180 Q109,185 99,196 Z" fill="#151528" stroke="#00ddbb" stroke-width="0.8" opacity="0.9"/>
 
   <!-- Hood - anime style with clean lines -->
-  <path d="M80,180 Q76,158 78,132 Q80,108 88,92 Q98,74 114,64 Q124,58 128,57 Q132,58 142,64 Q158,74 168,92 Q176,108 178,132 Q180,158 176,180 Q166,174 152,168 Q142,164 128,163 Q114,164 104,168 Q90,174 80,180 Z" fill="#12122a" stroke="#00ddbb" stroke-width="0.5" opacity="0.95"/>
+  <path d="M80,184 Q76,160 78,132 Q80,106 88,88 Q98,68 114,56 Q124,50 128,48 Q132,50 142,56 Q158,68 168,88 Q176,106 178,132 Q180,160 176,184 Q166,176 152,170 Q142,166 128,165 Q114,166 104,170 Q90,176 80,184 Z" fill="#12122a" stroke="#00ddbb" stroke-width="0.5" opacity="0.95"/>
   <!-- Hood shadow inner -->
-  <path d="M88,175 Q86,153 88,128 Q90,108 98,94 Q106,82 118,74 Q124,70 128,69 Q132,70 138,74 Q150,82 158,94 Q166,108 168,128 Q170,153 168,175" fill="#0a0a1e" opacity="0.7"/>
+  <path d="M88,178 Q86,156 88,128 Q90,106 98,90 Q106,76 118,66 Q124,62 128,60 Q132,62 138,66 Q150,76 158,90 Q166,106 168,128 Q170,156 168,178" fill="#0a0a1e" opacity="0.7"/>
 
-  <!-- Holographic mask - anime style with smoother shape -->
-  <path d="M98,160 Q96,144 98,122 Q100,106 108,96 Q116,88 128,86 Q140,88 148,96 Q156,106 158,122 Q160,144 158,160 Q152,168 142,172 Q134,174 128,174 Q122,174 114,172 Q104,168 98,160 Z" fill="url(#mm_mask_holo)" opacity="0.85" filter="url(#mm_holo_glow)"/>
+  <!-- Holographic mask - anime style, smooth oval -->
+  <ellipse cx="128" cy="126" rx="32" ry="42" fill="url(#mm_mask_holo)" opacity="0.85" filter="url(#mm_holo_glow)"/>
 
   <!-- Mask surface holographic lines -->
-  <path d="M106,102 Q116,97 128,95 Q140,97 150,102" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
-  <path d="M104,118 Q114,113 128,111 Q142,113 152,118" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
-  <path d="M102,134 Q114,129 128,127 Q142,129 154,134" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.3"/>
-  <path d="M104,150 Q114,145 128,143 Q142,145 152,150" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.25"/>
+  <path d="M106,96 Q116,91 128,89 Q140,91 150,96" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.5"/>
+  <path d="M104,112 Q114,107 128,105 Q142,107 152,112" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+  <path d="M102,128 Q114,123 128,121 Q142,123 154,128" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.3"/>
+  <path d="M104,144 Q114,139 128,137 Q142,139 152,144" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.25"/>
 
   <!-- Anime eyes on mask - LARGE expressive with big iris and highlights -->
   <!-- Left eye -->
-  <ellipse cx="114" cy="118" rx="11" ry="9" fill="#0a1520" opacity="0.9"/>
-  <ellipse cx="114" cy="118" rx="10" ry="8" fill="#003333" opacity="0.8"/>
-  <ellipse cx="114" cy="119" rx="7" ry="7" fill="#00ddbb" opacity="0.7"/>
-  <ellipse cx="114" cy="119" rx="5" ry="5" fill="#00ffee" opacity="0.8"/>
-  <circle cx="110" cy="115" r="2.5" fill="#ffffff" opacity="0.95"/>
-  <circle cx="117" cy="121" r="1.5" fill="#ffffff" opacity="0.7"/>
-  <circle cx="112" cy="122" r="0.8" fill="#ffffff" opacity="0.5"/>
+  <ellipse cx="114" cy="112" rx="12" ry="10" fill="#0a1520" opacity="0.9"/>
+  <ellipse cx="114" cy="112" rx="11" ry="9" fill="#003333" opacity="0.8"/>
+  <ellipse cx="114" cy="113" rx="8" ry="8" fill="#00ddbb" opacity="0.7"/>
+  <ellipse cx="114" cy="113" rx="5.5" ry="5.5" fill="#00ffee" opacity="0.8"/>
+  <circle cx="110" cy="109" r="3" fill="#ffffff" opacity="0.95"/>
+  <circle cx="117" cy="115" r="1.8" fill="#ffffff" opacity="0.7"/>
+  <circle cx="112" cy="116" r="1" fill="#ffffff" opacity="0.5"/>
   <!-- Right eye -->
-  <ellipse cx="142" cy="118" rx="11" ry="9" fill="#0a1520" opacity="0.9"/>
-  <ellipse cx="142" cy="118" rx="10" ry="8" fill="#003333" opacity="0.8"/>
-  <ellipse cx="142" cy="119" rx="7" ry="7" fill="#00ddbb" opacity="0.7"/>
-  <ellipse cx="142" cy="119" rx="5" ry="5" fill="#00ffee" opacity="0.8"/>
-  <circle cx="138" cy="115" r="2.5" fill="#ffffff" opacity="0.95"/>
-  <circle cx="145" cy="121" r="1.5" fill="#ffffff" opacity="0.7"/>
-  <circle cx="140" cy="122" r="0.8" fill="#ffffff" opacity="0.5"/>
+  <ellipse cx="142" cy="112" rx="12" ry="10" fill="#0a1520" opacity="0.9"/>
+  <ellipse cx="142" cy="112" rx="11" ry="9" fill="#003333" opacity="0.8"/>
+  <ellipse cx="142" cy="113" rx="8" ry="8" fill="#00ddbb" opacity="0.7"/>
+  <ellipse cx="142" cy="113" rx="5.5" ry="5.5" fill="#00ffee" opacity="0.8"/>
+  <circle cx="138" cy="109" r="3" fill="#ffffff" opacity="0.95"/>
+  <circle cx="145" cy="115" r="1.8" fill="#ffffff" opacity="0.7"/>
+  <circle cx="140" cy="116" r="1" fill="#ffffff" opacity="0.5"/>
 
   <!-- Small simple nose -->
-  <path d="M126,132 Q128,135 130,132" fill="none" stroke="#00ddbb" stroke-width="0.6" opacity="0.4"/>
+  <path d="M126,130 Q128,133 130,130" fill="none" stroke="#00ddbb" stroke-width="0.6" opacity="0.4"/>
 
   <!-- Small mouth -->
-  <path d="M122,142 Q128,145 134,142" fill="none" stroke="#00ddbb" stroke-width="0.8" opacity="0.5"/>
+  <path d="M122,140 Q128,143 134,140" fill="none" stroke="#00ddbb" stroke-width="0.8" opacity="0.5"/>
 
   <!-- Holographic shimmer particles -->
-  <circle cx="115" cy="100" r="1" fill="#dd00ff" opacity="0.6"/>
-  <circle cx="140" cy="108" r="0.8" fill="#0088ff" opacity="0.5"/>
-  <circle cx="120" cy="145" r="1.2" fill="#00ddbb" opacity="0.4"/>
+  <circle cx="115" cy="94" r="1" fill="#dd00ff" opacity="0.6"/>
+  <circle cx="140" cy="102" r="0.8" fill="#0088ff" opacity="0.5"/>
+  <circle cx="120" cy="148" r="1.2" fill="#00ddbb" opacity="0.4"/>
   <circle cx="145" cy="135" r="0.7" fill="#dd00ff" opacity="0.5"/>
-  <circle cx="108" cy="128" r="0.9" fill="#0088ff" opacity="0.4"/>
+  <circle cx="108" cy="122" r="0.9" fill="#0088ff" opacity="0.4"/>
 
   <!-- Hands resting on stall -->
   <path d="M80,270 Q78,278 80,288 Q82,294 88,295 L105,295 Q108,293 108,288 Q107,280 105,272 Q100,265 90,265 Q83,266 80,270 Z" fill="#1a1a2e" stroke="#00ddbb" stroke-width="0.5" opacity="0.7"/>

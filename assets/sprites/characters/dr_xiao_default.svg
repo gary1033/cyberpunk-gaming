@@ -5,19 +5,15 @@
       <stop offset="100%" stop-color="#050510"/>
     </linearGradient>
     <linearGradient id="dx_skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#c4a882"/>
-      <stop offset="100%" stop-color="#a8906e"/>
-    </linearGradient>
-    <linearGradient id="dx_collar" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a1a2e"/>
-      <stop offset="100%" stop-color="#0d0d1a"/>
+      <stop offset="0%" stop-color="#f0dcc8"/>
+      <stop offset="100%" stop-color="#dcc4a8"/>
     </linearGradient>
     <linearGradient id="dx_hair" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2a2a35"/>
-      <stop offset="40%" stop-color="#c0c0cc"/>
-      <stop offset="60%" stop-color="#2a2a35"/>
-      <stop offset="85%" stop-color="#c0c0cc"/>
-      <stop offset="100%" stop-color="#2a2a35"/>
+      <stop offset="0%" stop-color="#1a1a28"/>
+      <stop offset="30%" stop-color="#2a2a38"/>
+      <stop offset="50%" stop-color="#c0c0d0"/>
+      <stop offset="70%" stop-color="#2a2a38"/>
+      <stop offset="100%" stop-color="#1a1a28"/>
     </linearGradient>
     <radialGradient id="dx_glow" cx="0.5" cy="0.4" r="0.5">
       <stop offset="0%" stop-color="#ff3344" stop-opacity="0.1"/>
@@ -26,9 +22,6 @@
     <filter id="dx_neon">
       <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="dx_shadow">
-      <feGaussianBlur stdDeviation="1.5"/>
     </filter>
   </defs>
 
@@ -43,87 +36,76 @@
   <text x="128" y="30" font-family="monospace" font-size="16" fill="#ff3344" text-anchor="middle" filter="url(#dx_neon)">蕭博士</text>
 
   <!-- Body / high-collar dark outfit -->
-  <path d="M60,220 Q55,240 48,290 L42,380 H214 L208,290 Q202,240 196,220 Q185,200 172,190 L165,186 Q150,178 128,175 Q106,178 91,186 L84,190 Q71,200 60,220 Z" fill="#0d0d1a" stroke="#ff3344" stroke-width="0.5" opacity="0.9"/>
-  <!-- Outfit seam lines -->
-  <path d="M128,180 L128,380" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.2"/>
-  <path d="M95,195 Q98,250 96,320" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.15"/>
-  <path d="M161,195 Q158,250 160,320" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.15"/>
-  <!-- Outfit shoulder pads -->
-  <path d="M60,220 Q65,215 75,212 Q85,210 91,212" fill="none" stroke="#ff3344" stroke-width="0.6" opacity="0.3"/>
-  <path d="M196,220 Q191,215 181,212 Q171,210 165,212" fill="none" stroke="#ff3344" stroke-width="0.6" opacity="0.3"/>
+  <path d="M58,228 Q52,248 44,300 L38,384 H218 L212,300 Q206,248 198,228 Q186,206 172,196 L165,192 Q150,184 128,180 Q106,184 91,192 L84,196 Q70,206 58,228 Z" fill="#0d0d1a" stroke="#ff3344" stroke-width="0.5" opacity="0.9"/>
+  <path d="M128,186 L128,384" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.2"/>
+  <path d="M95,202 Q98,258 96,328" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.15"/>
+  <path d="M161,202 Q158,258 160,328" fill="none" stroke="#ff3344" stroke-width="0.3" opacity="0.15"/>
+  <!-- Shoulder pads -->
+  <path d="M58,228 Q64,222 74,218 Q84,216 91,218" fill="none" stroke="#ff3344" stroke-width="0.6" opacity="0.3"/>
+  <path d="M198,228 Q192,222 182,218 Q172,216 165,218" fill="none" stroke="#ff3344" stroke-width="0.6" opacity="0.3"/>
 
   <!-- High collar -->
-  <path d="M92,190 Q95,175 105,165 L110,160 Q115,156 120,154 L128,152 L136,154 Q141,156 146,160 L151,165 Q161,175 164,190 L158,198 Q148,188 138,183 Q132,180 128,179 Q124,180 118,183 Q108,188 98,198 Z" fill="#151528" stroke="#ff3344" stroke-width="0.8" opacity="0.95"/>
-  <!-- Collar inner fold -->
-  <path d="M105,180 Q112,172 120,168 Q125,166 128,165 Q131,166 136,168 Q144,172 151,180" fill="none" stroke="#ff3344" stroke-width="0.5" opacity="0.4"/>
-  <!-- Red accent line on collar -->
-  <path d="M98,192 Q108,184 118,180 Q124,178 128,177 Q132,178 138,180 Q148,184 158,192" fill="none" stroke="#ff3344" stroke-width="1" opacity="0.6"/>
+  <path d="M92,196 Q95,180 106,170 L112,164 Q118,160 124,158 L128,156 L132,158 Q138,160 144,164 L150,170 Q161,180 164,196 L158,204 Q148,194 138,188 Q132,186 128,184 Q124,186 118,188 Q108,194 98,204 Z" fill="#151528" stroke="#ff3344" stroke-width="0.8" opacity="0.95"/>
+  <path d="M106,186 Q112,178 120,174 Q125,172 128,170 Q131,172 136,174 Q144,178 151,186" fill="none" stroke="#ff3344" stroke-width="0.5" opacity="0.4"/>
+  <path d="M98,198 Q108,190 118,186 Q124,184 128,182 Q132,184 138,186 Q148,190 158,198" fill="none" stroke="#ff3344" stroke-width="1" opacity="0.6"/>
 
   <!-- Neck -->
-  <path d="M118,165 Q118,155 120,148 L128,145 L136,148 Q138,155 138,165" fill="url(#dx_skin)" opacity="0.9"/>
+  <rect x="118" y="156" width="20" height="18" rx="4" fill="url(#dx_skin)" opacity="0.9"/>
 
-  <!-- Head shape -->
-  <ellipse cx="128" cy="110" rx="38" ry="45" fill="url(#dx_skin)" opacity="0.95"/>
+  <!-- Head - anime V-shaped chin, bigger proportion -->
+  <path d="M88,120 Q86,96 90,76 Q96,56 110,46 Q120,40 128,38 Q136,40 146,46 Q160,56 166,76 Q170,96 168,120 Q166,136 160,148 Q152,158 140,164 Q132,168 128,168 Q124,168 116,164 Q104,158 96,148 Q90,136 88,120 Z" fill="url(#dx_skin)" opacity="0.95"/>
 
-  <!-- Face shadow / structure -->
-  <path d="M100,120 Q105,135 115,145 Q122,150 128,152 Q134,150 141,145 Q151,135 156,120" fill="#b09870" opacity="0.3"/>
-  <!-- Cheekbone highlights -->
-  <ellipse cx="105" cy="120" rx="8" ry="4" fill="#d4b896" opacity="0.15"/>
-  <ellipse cx="151" cy="120" rx="8" ry="4" fill="#d4b896" opacity="0.15"/>
-
-  <!-- Eyes - sharp, piercing, slightly superior -->
+  <!-- Anime eyes - sharp, piercing, slightly superior (Aizen style) -->
   <!-- Left eye -->
-  <path d="M106,108 Q112,103 120,105 Q122,107 122,110 Q120,114 112,115 Q106,113 106,108 Z" fill="#ffffff" opacity="0.95"/>
-  <circle cx="114" cy="109" r="3.5" fill="#1a0808"/>
-  <circle cx="115" cy="108.5" r="1.5" fill="#ff3344" opacity="0.8"/>
-  <circle cx="116" cy="108" r="0.5" fill="#ffffff"/>
+  <path d="M102,112 Q108,106 120,108 Q124,112 123,118 Q118,122 110,122 Q103,120 102,114 Z" fill="#ffffff" opacity="0.95"/>
+  <ellipse cx="112" cy="114" rx="6" ry="6" fill="#1a0808"/>
+  <ellipse cx="112" cy="114" rx="4.5" ry="4.5" fill="#440011"/>
+  <ellipse cx="113" cy="113" rx="3" ry="3" fill="#ff3344" opacity="0.8"/>
+  <circle cx="109" cy="111" r="2.5" fill="#ffffff" opacity="0.95"/>
+  <circle cx="115" cy="116" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="111" cy="117" r="0.8" fill="#ffffff" opacity="0.5"/>
   <!-- Right eye -->
-  <path d="M134,105 Q142,103 150,108 Q150,113 144,115 Q136,114 134,110 Q134,107 134,105 Z" fill="#ffffff" opacity="0.95"/>
-  <circle cx="142" cy="109" r="3.5" fill="#1a0808"/>
-  <circle cx="141" cy="108.5" r="1.5" fill="#ff3344" opacity="0.8"/>
-  <circle cx="140" cy="108" r="0.5" fill="#ffffff"/>
-  <!-- Eyebrows - strong, slightly raised with superiority -->
-  <path d="M104,100 Q112,96 122,99" fill="none" stroke="#2a2a35" stroke-width="2" opacity="0.8"/>
-  <path d="M134,99 Q144,96 152,100" fill="none" stroke="#2a2a35" stroke-width="2" opacity="0.8"/>
-  <!-- Slight eyelid droop - confident look -->
-  <path d="M108,107 Q114,105 120,106" fill="none" stroke="#b09870" stroke-width="0.5" opacity="0.3"/>
-  <path d="M136,106 Q142,105 148,107" fill="none" stroke="#b09870" stroke-width="0.5" opacity="0.3"/>
-  <!-- Crow's feet -->
-  <path d="M100,110 L96,108" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.4"/>
-  <path d="M100,112 L97,113" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.3"/>
-  <path d="M156,110 L160,108" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.4"/>
-  <path d="M156,112 L159,113" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.3"/>
+  <path d="M132,108 Q144,106 154,112 Q154,120 146,122 Q136,122 133,118 Q132,114 132,108 Z" fill="#ffffff" opacity="0.95"/>
+  <ellipse cx="144" cy="114" rx="6" ry="6" fill="#1a0808"/>
+  <ellipse cx="144" cy="114" rx="4.5" ry="4.5" fill="#440011"/>
+  <ellipse cx="143" cy="113" rx="3" ry="3" fill="#ff3344" opacity="0.8"/>
+  <circle cx="141" cy="111" r="2.5" fill="#ffffff" opacity="0.95"/>
+  <circle cx="147" cy="116" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="143" cy="117" r="0.8" fill="#ffffff" opacity="0.5"/>
 
-  <!-- Nose -->
-  <path d="M128,108 Q127,118 125,126 Q124,130 126,132 Q128,133 130,132 Q132,130 131,126 Q129,118 128,108" fill="none" stroke="#a08060" stroke-width="0.8" opacity="0.5"/>
+  <!-- Eyebrows - strong, anime style, slightly raised with superiority -->
+  <path d="M100,104 Q108,99 122,102" fill="none" stroke="#1a1a28" stroke-width="2.2" opacity="0.85"/>
+  <path d="M134,102 Q148,99 156,104" fill="none" stroke="#1a1a28" stroke-width="2.2" opacity="0.85"/>
 
-  <!-- Mouth - composed, slight superior curl -->
-  <path d="M118,138 Q123,139 128,139.5 Q133,139 138,138" fill="none" stroke="#8a6050" stroke-width="1.2" opacity="0.7"/>
-  <!-- Nasolabial folds -->
-  <path d="M112,128 Q114,134 117,138" fill="none" stroke="#a08060" stroke-width="0.4" opacity="0.25"/>
-  <path d="M144,128 Q142,134 139,138" fill="none" stroke="#a08060" stroke-width="0.4" opacity="0.25"/>
-  <!-- Chin -->
-  <path d="M115,148 Q122,155 128,156 Q134,155 141,148" fill="none" stroke="#a08060" stroke-width="0.5" opacity="0.3"/>
+  <!-- Small anime nose -->
+  <path d="M126,128 Q128,132 130,128" fill="none" stroke="#c4a888" stroke-width="0.8" opacity="0.5"/>
 
-  <!-- Hair - silver streaked, slicked back -->
-  <path d="M90,95 Q88,80 90,68 Q95,52 108,44 Q118,38 128,36 Q138,38 148,44 Q161,52 166,68 Q168,80 166,95 Q162,88 155,82 Q145,75 135,72 Q128,70 121,72 Q111,75 101,82 Q94,88 90,95 Z" fill="url(#dx_hair)" opacity="0.95"/>
-  <!-- Hair detail lines -->
-  <path d="M100,90 Q105,75 115,65 Q122,60 128,58" fill="none" stroke="#e0e0ee" stroke-width="0.8" opacity="0.4"/>
-  <path d="M156,90 Q151,75 141,65 Q134,60 128,58" fill="none" stroke="#e0e0ee" stroke-width="0.8" opacity="0.4"/>
-  <path d="M95,85 Q100,70 112,60 Q120,55 128,54" fill="none" stroke="#888899" stroke-width="0.5" opacity="0.3"/>
-  <path d="M161,85 Q156,70 144,60 Q136,55 128,54" fill="none" stroke="#888899" stroke-width="0.5" opacity="0.3"/>
+  <!-- Mouth - composed, slight superior thin line -->
+  <path d="M118,140 Q123,142 128,142 Q133,142 138,140" fill="none" stroke="#a07060" stroke-width="1" opacity="0.7"/>
+
+  <!-- V-shaped chin line -->
+  <path d="M108,156 Q118,166 128,168 Q138,166 148,156" fill="none" stroke="#c8ac90" stroke-width="0.4" opacity="0.2"/>
+
+  <!-- Hair - slicked back, silver-streaked, sharp defined with shine bands -->
+  <path d="M86,110 Q82,88 86,66 Q92,46 108,36 Q120,28 128,26 Q136,28 148,36 Q164,46 170,66 Q174,88 170,110 Q166,98 158,88 Q148,78 138,74 Q128,70 118,74 Q108,78 98,88 Q90,98 86,110 Z" fill="url(#dx_hair)" opacity="0.95"/>
+  <!-- Sharp hair detail strands -->
+  <path d="M96,100 Q100,78 114,62 Q122,54 128,50" fill="none" stroke="#e0e0f0" stroke-width="1.2" opacity="0.5"/>
+  <path d="M160,100 Q156,78 142,62 Q134,54 128,50" fill="none" stroke="#e0e0f0" stroke-width="1.2" opacity="0.5"/>
+  <!-- Shine bands -->
+  <path d="M104,56 Q116,48 128,46 Q140,48 152,56" fill="none" stroke="#e8e8f8" stroke-width="1.5" opacity="0.35"/>
+  <path d="M100,68 Q114,58 128,56 Q142,58 156,68" fill="none" stroke="#d0d0e0" stroke-width="0.8" opacity="0.25"/>
   <!-- Temple silver streaks -->
-  <path d="M92,100 Q90,90 92,78" fill="none" stroke="#c0c0cc" stroke-width="2" opacity="0.6"/>
-  <path d="M164,100 Q166,90 164,78" fill="none" stroke="#c0c0cc" stroke-width="2" opacity="0.6"/>
+  <path d="M88,106 Q86,92 88,76" fill="none" stroke="#c0c0d0" stroke-width="2.5" opacity="0.6"/>
+  <path d="M168,106 Q170,92 168,76" fill="none" stroke="#c0c0d0" stroke-width="2.5" opacity="0.6"/>
 
-  <!-- Ears -->
-  <path d="M90,105 Q85,100 84,108 Q84,116 88,118 Q90,115 90,105 Z" fill="url(#dx_skin)" opacity="0.8"/>
-  <path d="M166,105 Q171,100 172,108 Q172,116 168,118 Q166,115 166,105 Z" fill="url(#dx_skin)" opacity="0.8"/>
+  <!-- Ears (partially behind hair) -->
+  <path d="M88,110 Q82,106 82,114 Q82,122 86,124" fill="url(#dx_skin)" opacity="0.6"/>
+  <path d="M168,110 Q174,106 174,114 Q174,122 170,124" fill="url(#dx_skin)" opacity="0.6"/>
 
-  <!-- Red accent details on outfit -->
-  <circle cx="128" cy="200" r="3" fill="none" stroke="#ff3344" stroke-width="0.8" opacity="0.5"/>
-  <circle cx="128" cy="200" r="1" fill="#ff3344" opacity="0.4"/>
-  <line x1="128" y1="205" x2="128" y2="230" stroke="#ff3344" stroke-width="0.5" opacity="0.3"/>
+  <!-- Red accent on outfit -->
+  <circle cx="128" cy="210" r="3" fill="none" stroke="#ff3344" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="128" cy="210" r="1" fill="#ff3344" opacity="0.4"/>
+  <line x1="128" y1="215" x2="128" y2="240" stroke="#ff3344" stroke-width="0.5" opacity="0.3"/>
 
   <!-- Ambient red particles -->
   <circle cx="30" cy="80" r="1.2" fill="#ff3344" opacity="0.2"/>

@@ -38,70 +38,69 @@
   <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#aa44ff" text-anchor="middle" filter="url(#gd-glow)">幽靈</text>
 
   <!-- Cloak body - large flowing anime cloak -->
-  <path d="M40,160 C40,140 60,115 85,105 L100,98 C112,92 120,88 128,86 C136,88 144,92 156,98 L171,105 C196,115 216,140 216,160 L222,260 C225,305 218,345 210,370 L46,370 C38,345 31,305 34,260 Z" fill="url(#gd-cloak)"/>
-
+  <path d="M35,170 C35,148 55,120 82,108 L100,100 C114,94 122,90 128,88 C134,90 142,94 156,100 L174,108 C201,120 221,148 221,170 L228,270 C230,310 222,350 214,375 L42,375 C34,350 26,310 28,270 Z" fill="url(#gd-cloak)"/>
   <!-- Cloak sheen -->
-  <path d="M40,160 C40,140 60,115 85,105 L100,98 C112,92 120,88 128,86 C136,88 144,92 156,98 L171,105 C196,115 216,140 216,160 L222,260 C225,305 218,345 210,370 L46,370 C38,345 31,305 34,260 Z" fill="#aa44ff" opacity="0.05"/>
+  <path d="M35,170 C35,148 55,120 82,108 L100,100 C114,94 122,90 128,88 C134,90 142,94 156,100 L174,108 C201,120 221,148 221,170 L228,270 C230,310 222,350 214,375 L42,375 C34,350 26,310 28,270 Z" fill="#aa44ff" opacity="0.05"/>
 
   <!-- Cloak edge highlights -->
-  <path d="M40,160 C40,140 60,115 85,105 L100,98" fill="none" stroke="#aa44ff" stroke-width="1.2" opacity="0.4"/>
-  <path d="M216,160 C216,140 196,115 171,105 L156,98" fill="none" stroke="#aa44ff" stroke-width="1.2" opacity="0.4"/>
-  <path d="M34,260 L46,370" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.2"/>
-  <path d="M222,260 L210,370" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.2"/>
+  <path d="M35,170 C35,148 55,120 82,108 L100,100" fill="none" stroke="#aa44ff" stroke-width="1.2" opacity="0.4"/>
+  <path d="M221,170 C221,148 201,120 174,108 L156,100" fill="none" stroke="#aa44ff" stroke-width="1.2" opacity="0.4"/>
+  <path d="M28,270 L42,375" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.2"/>
+  <path d="M228,270 L214,375" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.2"/>
 
   <!-- Large anime hood shape -->
-  <path d="M68,155 C68,100 80,65 98,50 C110,40 120,35 128,33 C136,35 146,40 158,50 C176,65 188,100 188,155 C188,172 176,185 160,190 L128,195 L96,190 C80,185 68,172 68,155 Z" fill="#1a1030"/>
+  <path d="M62,165 C62,100 76,60 96,44 C110,32 122,26 128,24 C134,26 146,32 160,44 C180,60 194,100 194,165 C194,184 180,198 162,203 L128,208 L94,203 C76,198 62,184 62,165 Z" fill="#1a1030"/>
 
   <!-- Hood outer edge glow -->
-  <path d="M68,155 C68,100 80,65 98,50 C110,40 120,35 128,33 C136,35 146,40 158,50 C176,65 188,100 188,155" fill="none" stroke="#aa44ff" stroke-width="1.5" opacity="0.5"/>
+  <path d="M62,165 C62,100 76,60 96,44 C110,32 122,26 128,24 C134,26 146,32 160,44 C180,60 194,100 194,165" fill="none" stroke="#aa44ff" stroke-width="1.5" opacity="0.5"/>
 
   <!-- Hood inner shadow -->
-  <path d="M80,150 C80,108 88,76 102,65 C112,56 120,52 128,50 C136,52 144,56 154,65 C168,76 176,108 176,150 C176,162 168,174 156,178 L128,182 L100,178 C88,174 80,162 80,150 Z" fill="#0d0818"/>
+  <path d="M76,160 C76,108 86,72 102,60 C112,50 122,46 128,44 C134,46 144,50 154,60 C170,72 180,108 180,160 C180,174 170,186 156,190 L128,194 L100,190 C86,186 76,174 76,160 Z" fill="#0d0818"/>
 
   <!-- Deep shadow inside hood -->
-  <ellipse cx="128" cy="135" rx="38" ry="32" fill="#060310"/>
+  <ellipse cx="128" cy="140" rx="42" ry="36" fill="#060310"/>
 
   <!-- Large anime glowing eyes - left -->
-  <ellipse cx="110" cy="132" rx="12" ry="8" fill="url(#gd-eye-glow)" filter="url(#gd-glow)"/>
+  <ellipse cx="108" cy="138" rx="14" ry="10" fill="url(#gd-eye-glow)" filter="url(#gd-glow)"/>
   <!-- Anime eye shape - large iris -->
-  <ellipse cx="110" cy="132" rx="8" ry="6" fill="#aa44ff" opacity="0.8"/>
-  <ellipse cx="110" cy="132" rx="5" ry="4" fill="#cc88ff"/>
+  <ellipse cx="108" cy="138" rx="10" ry="8" fill="#aa44ff" opacity="0.8"/>
+  <ellipse cx="108" cy="138" rx="6" ry="5" fill="#cc88ff"/>
   <!-- Big highlight 1 -->
-  <ellipse cx="107" cy="129" rx="3" ry="2.5" fill="#ffffff" opacity="0.95"/>
+  <ellipse cx="104" cy="134" rx="3.5" ry="3" fill="#ffffff" opacity="0.95"/>
   <!-- Highlight 2 -->
-  <circle cx="113" cy="134" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="112" cy="140" r="2" fill="#ffffff" opacity="0.7"/>
   <!-- Highlight 3 -->
-  <circle cx="108" cy="135" r="1" fill="#ffffff" opacity="0.5"/>
+  <circle cx="106" cy="142" r="1.2" fill="#ffffff" opacity="0.5"/>
 
   <!-- Large anime glowing eyes - right -->
-  <ellipse cx="146" cy="132" rx="12" ry="8" fill="url(#gd-eye-glow)" filter="url(#gd-glow)"/>
-  <ellipse cx="146" cy="132" rx="8" ry="6" fill="#aa44ff" opacity="0.8"/>
-  <ellipse cx="146" cy="132" rx="5" ry="4" fill="#cc88ff"/>
-  <ellipse cx="143" cy="129" rx="3" ry="2.5" fill="#ffffff" opacity="0.95"/>
-  <circle cx="149" cy="134" r="1.5" fill="#ffffff" opacity="0.7"/>
-  <circle cx="144" cy="135" r="1" fill="#ffffff" opacity="0.5"/>
+  <ellipse cx="148" cy="138" rx="14" ry="10" fill="url(#gd-eye-glow)" filter="url(#gd-glow)"/>
+  <ellipse cx="148" cy="138" rx="10" ry="8" fill="#aa44ff" opacity="0.8"/>
+  <ellipse cx="148" cy="138" rx="6" ry="5" fill="#cc88ff"/>
+  <ellipse cx="144" cy="134" rx="3.5" ry="3" fill="#ffffff" opacity="0.95"/>
+  <circle cx="152" cy="140" r="2" fill="#ffffff" opacity="0.7"/>
+  <circle cx="146" cy="142" r="1.2" fill="#ffffff" opacity="0.5"/>
 
   <!-- Ambient eye glow -->
-  <ellipse cx="128" cy="132" rx="35" ry="22" fill="#aa44ff" opacity="0.08" filter="url(#gd-glow-soft)"/>
+  <ellipse cx="128" cy="138" rx="40" ry="26" fill="#aa44ff" opacity="0.08" filter="url(#gd-glow-soft)"/>
 
   <!-- Cloak fold lines -->
-  <path d="M90,210 C95,250 93,290 90,340" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
-  <path d="M128,195 C128,240 130,290 128,350" fill="none" stroke="#aa44ff" stroke-width="0.5" opacity="0.15"/>
-  <path d="M166,210 C161,250 163,290 166,340" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
+  <path d="M88,220 C93,260 91,300 88,350" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
+  <path d="M128,208 C128,250 130,300 128,360" fill="none" stroke="#aa44ff" stroke-width="0.5" opacity="0.15"/>
+  <path d="M168,220 C163,260 165,300 168,350" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
 
   <!-- Shoulder definition -->
-  <path d="M62,175 C68,162 86,154 102,158" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
-  <path d="M194,175 C188,162 170,154 154,158" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+  <path d="M56,185 C62,172 82,162 100,166" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+  <path d="M200,185 C194,172 174,162 156,166" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
 
   <!-- Reflective patches -->
-  <ellipse cx="78" cy="260" rx="15" ry="30" fill="#aa44ff" opacity="0.04" transform="rotate(-10,78,260)"/>
-  <ellipse cx="180" cy="230" rx="12" ry="25" fill="#aa44ff" opacity="0.05" transform="rotate(8,180,230)"/>
+  <ellipse cx="74" cy="270" rx="15" ry="30" fill="#aa44ff" opacity="0.04" transform="rotate(-10,74,270)"/>
+  <ellipse cx="184" cy="240" rx="12" ry="25" fill="#aa44ff" opacity="0.05" transform="rotate(8,184,240)"/>
 
   <!-- Ambient particles -->
-  <circle cx="45" cy="200" r="1" fill="#aa44ff" opacity="0.4"/>
-  <circle cx="210" cy="180" r="1.5" fill="#aa44ff" opacity="0.3"/>
-  <circle cx="60" cy="300" r="1" fill="#7722cc" opacity="0.5"/>
-  <circle cx="195" cy="310" r="0.8" fill="#aa44ff" opacity="0.35"/>
+  <circle cx="42" cy="210" r="1" fill="#aa44ff" opacity="0.4"/>
+  <circle cx="214" cy="190" r="1.5" fill="#aa44ff" opacity="0.3"/>
+  <circle cx="56" cy="310" r="1" fill="#7722cc" opacity="0.5"/>
+  <circle cx="198" cy="320" r="0.8" fill="#aa44ff" opacity="0.35"/>
 
   <!-- State label -->
   <text x="128" y="375" font-family="'Courier New', monospace" font-size="10" fill="#aa44ff" text-anchor="middle" opacity="0.5">[default]</text>

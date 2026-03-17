@@ -9,12 +9,6 @@
       <stop offset="40%" stop-color="#1a1030"/>
       <stop offset="100%" stop-color="#0d0818"/>
     </linearGradient>
-    <linearGradient id="gr-cloak-sheen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#aa44ff" stop-opacity="0.12"/>
-      <stop offset="30%" stop-color="#aa44ff" stop-opacity="0.04"/>
-      <stop offset="60%" stop-color="#7722cc" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#aa44ff" stop-opacity="0.06"/>
-    </linearGradient>
     <radialGradient id="gr-eye-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#ffffff"/>
       <stop offset="30%" stop-color="#cc88ff"/>
@@ -22,12 +16,18 @@
       <stop offset="100%" stop-color="#aa44ff" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="gr-skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#c4a882"/>
-      <stop offset="100%" stop-color="#a08868"/>
+      <stop offset="0%" stop-color="#e8d0b8"/>
+      <stop offset="100%" stop-color="#d4b89a"/>
     </linearGradient>
-    <linearGradient id="gr-hair" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2a1848"/>
+    <linearGradient id="gr-hair" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#3a2060"/>
       <stop offset="100%" stop-color="#1a0e30"/>
+    </linearGradient>
+    <linearGradient id="gr-hair-shine" x1="0" y1="0" x2="1" y2="0.5">
+      <stop offset="0%" stop-color="#6040a0" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#8060c0" stop-opacity="0.5"/>
+      <stop offset="60%" stop-color="#8060c0" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#6040a0" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="gr-scar" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#aa44ff" stop-opacity="0"/>
@@ -37,17 +37,11 @@
     </linearGradient>
     <filter id="gr-glow">
       <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <filter id="gr-glow-soft">
       <feGaussianBlur stdDeviation="8" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <linearGradient id="gr-border" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#aa44ff" stop-opacity="0.6"/>
@@ -64,94 +58,99 @@
   <text x="128" y="32" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#aa44ff" text-anchor="middle" filter="url(#gr-glow)">幽靈</text>
 
   <!-- Cloak body -->
-  <path d="M50,155 C50,135 70,112 90,106 L102,100 C112,95 120,92 128,90 C136,92 146,95 156,100 L166,106 C186,112 206,135 206,155 L215,250 C218,298 210,342 200,370 L56,370 C46,342 38,298 41,250 Z" fill="url(#gr-cloak)"/>
-  <path d="M50,155 C50,135 70,112 90,106 L102,100 C112,95 120,92 128,90 C136,92 146,95 156,100 L166,106 C186,112 206,135 206,155 L215,250 C218,298 210,342 200,370 L56,370 C46,342 38,298 41,250 Z" fill="url(#gr-cloak-sheen)"/>
+  <path d="M46,168 C46,146 68,120 90,112 L104,106 C114,101 122,98 128,96 C134,98 144,101 154,106 L168,112 C190,120 210,146 210,168 L218,260 C220,306 214,350 206,375 L50,375 C42,350 36,306 38,260 Z" fill="url(#gr-cloak)"/>
+  <path d="M46,168 C46,146 68,120 90,112 L104,106 C114,101 122,98 128,96 C134,98 144,101 154,106 L168,112 C190,120 210,146 210,168 L218,260 C220,306 214,350 206,375 L50,375 C42,350 36,306 38,260 Z" fill="#aa44ff" opacity="0.05"/>
 
   <!-- Cloak edge highlights -->
-  <path d="M50,155 C50,135 70,112 90,106 L102,100" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.4"/>
-  <path d="M206,155 C206,135 186,112 166,106 L156,100" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.4"/>
+  <path d="M46,168 C46,146 68,120 90,112 L104,106" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.4"/>
+  <path d="M210,168 C210,146 190,120 168,112 L154,106" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.4"/>
 
-  <!-- Hood pushed back - partially down, bunched at neck -->
-  <path d="M82,135 C82,108 90,85 102,76 C110,69 120,65 128,63 C136,65 146,69 154,76 C166,85 174,108 174,135 L174,145 C170,152 156,157 128,159 C100,157 86,152 82,145 Z" fill="#1a1030"/>
+  <!-- Hood pushed back - bunched at neck -->
+  <path d="M80,150 C80,128 88,108 102,98 C112,90 122,86 128,84 C134,86 144,90 154,98 C168,108 176,128 176,150 L176,158 C172,166 156,172 128,174 C100,172 84,166 80,158 Z" fill="#1a1030"/>
+  <!-- Hood bunched behind -->
+  <path d="M82,158 C88,174 106,182 128,184 C150,182 168,174 174,158 L178,168 C178,186 158,198 128,200 C98,198 78,186 78,168 Z" fill="#221440"/>
+  <path d="M82,158 C88,174 106,182 128,184 C150,182 168,174 174,158" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
 
-  <!-- Hood bunched at back of neck -->
-  <path d="M84,145 C90,160 107,167 128,169 C149,167 166,160 172,145 L176,153 C176,170 158,182 128,184 C98,182 80,170 80,153 Z" fill="#221440"/>
-  <path d="M84,145 C90,160 107,167 128,169 C149,167 166,160 172,145" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+  <!-- Hair - dark purple, anime style with sharp defined strands and shine bands -->
+  <path d="M94,96 C94,66 108,48 128,44 C148,48 162,66 162,96 L162,118 C162,128 148,136 128,138 C108,136 94,128 94,118 Z" fill="url(#gr-hair)"/>
+  <!-- Anime hair shine band -->
+  <path d="M98,78 C106,68 116,60 128,58 C140,60 150,68 158,78 L158,86 C150,76 140,68 128,66 C116,68 106,76 98,86 Z" fill="url(#gr-hair-shine)"/>
+  <!-- Sharp hair strand details -->
+  <path d="M100,80 C108,66 118,56 128,54" fill="none" stroke="#5038a0" stroke-width="0.8" opacity="0.4"/>
+  <path d="M156,80 C148,66 138,56 128,54" fill="none" stroke="#5038a0" stroke-width="0.8" opacity="0.4"/>
+  <!-- Wispy anime bangs -->
+  <path d="M104,88 Q110,76 120,78 Q112,84 108,94" fill="#2a1848" opacity="0.7"/>
+  <path d="M152,90 Q146,78 136,80 Q144,86 148,96" fill="#2a1848" opacity="0.6"/>
+  <!-- Center bang tuft -->
+  <path d="M122,84 Q126,72 130,72 Q134,72 134,84" fill="#2a1848" opacity="0.5"/>
 
-  <!-- Hair visible - dark purple with highlights, tousled short androgynous style -->
-  <path d="M97,98 C97,75 110,62 128,59 C146,62 159,75 159,98 L159,112 C159,120 146,128 128,130 C110,128 97,120 97,112 Z" fill="url(#gr-hair)"/>
-  <!-- Hair strand details -->
-  <path d="M100,84 C107,72 117,64 128,62 C139,64 149,72 156,84" fill="none" stroke="#aa44ff" stroke-width="0.7" opacity="0.3"/>
-  <path d="M102,92 C102,80 114,70 128,68" fill="none" stroke="#cc66ff" stroke-width="0.5" opacity="0.2"/>
-  <path d="M154,88 C150,78 140,70 128,68" fill="none" stroke="#cc66ff" stroke-width="0.4" opacity="0.18"/>
-  <!-- Wispy bangs over forehead -->
-  <path d="M108,85 C112,78 118,74 125,76" fill="none" stroke="#2a1848" stroke-width="2" opacity="0.6"/>
-  <path d="M148,87 C144,80 138,76 132,78" fill="none" stroke="#2a1848" stroke-width="1.8" opacity="0.5"/>
+  <!-- Face - young androgynous anime face, V-shaped chin, clean skin -->
+  <path d="M104,104 C104,88 114,78 128,76 C142,78 152,88 152,104 L152,126 C152,134 144,144 136,148 L128,152 L120,148 C112,144 104,134 104,126 Z" fill="url(#gr-skin)"/>
 
-  <!-- Face - young androgynous, partially visible, right side more exposed -->
-  <path d="M107,102 C107,88 116,80 128,78 C140,80 149,88 149,102 L149,128 C149,140 140,150 128,152 C116,150 107,140 107,128 Z" fill="url(#gr-skin)"/>
+  <!-- Anime eyebrows - surprised, raised high -->
+  <path d="M108,96 C112,92 118,91 124,92" fill="none" stroke="#1a1030" stroke-width="1.5" opacity="0.7"/>
+  <path d="M132,92 C138,91 144,92 148,96" fill="none" stroke="#1a1030" stroke-width="1.5" opacity="0.8"/>
 
-  <!-- Left side of face in partial hood shadow -->
-  <path d="M107,102 C107,88 116,80 128,78 L128,152 C116,150 107,140 107,128 Z" fill="#0d0818" opacity="0.4"/>
+  <!-- Left eye - large anime style, surprised wide -->
+  <ellipse cx="116" cy="106" rx="9" ry="8" fill="#1a0e30"/>
+  <ellipse cx="116" cy="106" rx="8" ry="7" fill="url(#gr-eye-glow)" filter="url(#gr-glow)"/>
+  <!-- Large iris -->
+  <ellipse cx="116" cy="107" rx="5" ry="5.5" fill="#aa44ff" opacity="0.9"/>
+  <ellipse cx="116" cy="107" rx="3" ry="3.5" fill="#cc88ff"/>
+  <!-- Big highlight 1 -->
+  <ellipse cx="113" cy="104" rx="2.5" ry="2" fill="#ffffff" opacity="0.95"/>
+  <!-- Highlight 2 -->
+  <circle cx="119" cy="109" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <!-- Highlight 3 -->
+  <circle cx="114" cy="110" r="0.8" fill="#ffffff" opacity="0.5"/>
 
-  <!-- Surprised raised eyebrows -->
-  <path d="M109,95 C112,91 117,90 122,91" fill="none" stroke="#1a1030" stroke-width="1.3" opacity="0.7"/>
-  <path d="M134,91 C139,90 144,91 147,95" fill="none" stroke="#1a1030" stroke-width="1.3" opacity="0.8"/>
+  <!-- Right eye - more visible, extra wide surprised -->
+  <ellipse cx="140" cy="106" rx="9" ry="8" fill="#1a0e30"/>
+  <ellipse cx="140" cy="106" rx="8" ry="7" fill="url(#gr-eye-glow)" filter="url(#gr-glow)"/>
+  <ellipse cx="140" cy="107" rx="5" ry="5.5" fill="#aa44ff" opacity="0.9"/>
+  <ellipse cx="140" cy="107" rx="3" ry="3.5" fill="#cc88ff"/>
+  <ellipse cx="137" cy="104" rx="2.5" ry="2" fill="#ffffff" opacity="0.95"/>
+  <circle cx="143" cy="109" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="138" cy="110" r="0.8" fill="#ffffff" opacity="0.5"/>
 
-  <!-- Eyes - wide with surprise, glowing -->
-  <!-- Left eye - in shadow but visible -->
-  <ellipse cx="117" cy="104" rx="5.5" ry="4.5" fill="#0d0818"/>
-  <ellipse cx="117" cy="104" rx="4.5" ry="4" fill="url(#gr-eye-glow)" opacity="0.7" filter="url(#gr-glow)"/>
-  <ellipse cx="117" cy="104" rx="2" ry="2" fill="#ddbbff" opacity="0.8"/>
+  <!-- Small simple nose -->
+  <path d="M127,114 L128,118" fill="none" stroke="#c4a080" stroke-width="0.8" opacity="0.5"/>
+  <ellipse cx="128" cy="118" rx="2" ry="1" fill="#c4a080" opacity="0.3"/>
 
-  <!-- Right eye - more visible, wide open -->
-  <ellipse cx="139" cy="104" rx="6.5" ry="5" fill="#1a1030"/>
-  <ellipse cx="139" cy="104" rx="5.5" ry="4.5" fill="url(#gr-eye-glow)" filter="url(#gr-glow)"/>
-  <ellipse cx="139" cy="104" rx="2.5" ry="2.5" fill="#ffffff"/>
-  <!-- Surprise highlight -->
-  <circle cx="137" cy="102" r="1" fill="#ffffff" opacity="0.9"/>
+  <!-- Small mouth - slightly parted in surprise -->
+  <ellipse cx="128" cy="130" rx="5" ry="3" fill="#c49080" opacity="0.3"/>
+  <path d="M122,129 C125,127 131,127 134,129" fill="none" stroke="#b07060" stroke-width="1"/>
 
-  <!-- Small delicate nose -->
-  <path d="M128,108 L126,117 L128,119 L130,117" fill="none" stroke="#8a7862" stroke-width="0.8" opacity="0.5"/>
-
-  <!-- Mouth - slightly parted in surprise, soft lips -->
-  <path d="M121,128 C124,126 128,125 132,126 C135,127 136,129 136,129" fill="none" stroke="#a07050" stroke-width="1"/>
-  <ellipse cx="128" cy="128" rx="5" ry="2" fill="#8a6048" opacity="0.3"/>
-
-  <!-- Cybernetic scar on right cheek - glowing purple line -->
-  <path d="M140,112 L148,122 L145,132" fill="none" stroke="url(#gr-scar)" stroke-width="1.5" filter="url(#gr-glow)"/>
-  <circle cx="142" cy="115" r="1" fill="#aa44ff" opacity="0.6"/>
-  <circle cx="147" cy="121" r="1" fill="#cc66ff" opacity="0.5"/>
-  <circle cx="146" cy="128" r="1" fill="#aa44ff" opacity="0.6"/>
+  <!-- Cybernetic scar on right cheek -->
+  <path d="M144,112 L152,124 L149,136" fill="none" stroke="url(#gr-scar)" stroke-width="1.5" filter="url(#gr-glow)"/>
+  <circle cx="146" cy="116" r="1" fill="#aa44ff" opacity="0.6"/>
+  <circle cx="151" cy="123" r="1" fill="#cc66ff" opacity="0.5"/>
+  <circle cx="150" cy="132" r="1" fill="#aa44ff" opacity="0.6"/>
 
   <!-- Neck -->
-  <path d="M118,150 L118,168 L138,168 L138,150" fill="url(#gr-skin)" opacity="0.8"/>
+  <path d="M118,150 L118,170 L138,170 L138,150" fill="url(#gr-skin)" opacity="0.8"/>
 
   <!-- Collar/cloak meeting neck -->
-  <path d="M100,164 C108,158 118,155 128,155 C138,155 148,158 156,164" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.3"/>
+  <path d="M100,168 C108,162 118,158 128,158 C138,158 148,162 156,168" fill="none" stroke="#aa44ff" stroke-width="1" opacity="0.3"/>
 
   <!-- Shoulder definition -->
-  <path d="M68,175 C73,165 90,157 106,160" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
-  <path d="M188,175 C183,165 166,157 150,160" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+  <path d="M62,185 C68,174 86,164 104,168" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
+  <path d="M194,185 C188,174 170,164 152,168" fill="none" stroke="#aa44ff" stroke-width="0.8" opacity="0.3"/>
 
   <!-- Cloak fold lines -->
-  <path d="M95,210 C100,250 98,290 95,340" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
-  <path d="M128,184 C128,230 130,285 128,345" fill="none" stroke="#aa44ff" stroke-width="0.5" opacity="0.15"/>
-  <path d="M161,210 C156,250 158,290 161,340" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
-
-  <!-- Reflective patches -->
-  <ellipse cx="80" cy="260" rx="14" ry="28" fill="#aa44ff" opacity="0.04" transform="rotate(-10,80,260)"/>
-  <ellipse cx="178" cy="230" rx="12" ry="24" fill="#aa44ff" opacity="0.04" transform="rotate(8,178,230)"/>
+  <path d="M92,220 C98,260 96,300 92,350" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
+  <path d="M128,200 C128,244 130,298 128,358" fill="none" stroke="#aa44ff" stroke-width="0.5" opacity="0.15"/>
+  <path d="M164,220 C158,260 160,300 164,350" fill="none" stroke="#aa44ff" stroke-width="0.6" opacity="0.2"/>
 
   <!-- Ambient glow from face reveal -->
-  <ellipse cx="138" cy="112" rx="25" ry="20" fill="#aa44ff" opacity="0.05" filter="url(#gr-glow-soft)"/>
+  <ellipse cx="128" cy="116" rx="30" ry="24" fill="#aa44ff" opacity="0.05" filter="url(#gr-glow-soft)"/>
 
   <!-- Ambient particles -->
-  <circle cx="45" cy="205" r="1" fill="#aa44ff" opacity="0.35"/>
-  <circle cx="210" cy="190" r="1.2" fill="#aa44ff" opacity="0.3"/>
-  <circle cx="60" cy="310" r="0.8" fill="#7722cc" opacity="0.4"/>
-  <circle cx="195" cy="320" r="1" fill="#aa44ff" opacity="0.3"/>
-  <circle cx="35" cy="265" r="0.8" fill="#cc66ff" opacity="0.25"/>
+  <circle cx="42" cy="215" r="1" fill="#aa44ff" opacity="0.35"/>
+  <circle cx="214" cy="200" r="1.2" fill="#aa44ff" opacity="0.3"/>
+  <circle cx="56" cy="320" r="0.8" fill="#7722cc" opacity="0.4"/>
+  <circle cx="198" cy="330" r="1" fill="#aa44ff" opacity="0.3"/>
+  <circle cx="32" cy="275" r="0.8" fill="#cc66ff" opacity="0.25"/>
 
   <!-- State label -->
   <text x="128" y="375" font-family="'Courier New', monospace" font-size="10" fill="#aa44ff" text-anchor="middle" opacity="0.5">[revealed]</text>

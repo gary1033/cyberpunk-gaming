@@ -9,8 +9,8 @@
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
     <linearGradient id="skin_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8a6a4a"/>
-      <stop offset="100%" stop-color="#6b5040"/>
+      <stop offset="0%" stop-color="#c4956e"/>
+      <stop offset="100%" stop-color="#a47a58"/>
     </linearGradient>
     <linearGradient id="shirt_grad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1a1a2e"/>
@@ -26,98 +26,107 @@
   <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle" filter="url(#neon_orange)">阿傑</text>
   <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle">阿傑</text>
 
-  <!-- Neck - thick, muscular -->
-  <rect x="104" y="185" width="48" height="30" rx="4" fill="url(#skin_grad)"/>
-  <line x1="118" y1="188" x2="118" y2="212" stroke="#7a5a3a" stroke-width="1" opacity="0.3"/>
-  <line x1="138" y1="188" x2="138" y2="212" stroke="#7a5a3a" stroke-width="1" opacity="0.3"/>
+  <!-- Neck - thick muscular -->
+  <rect x="100" y="195" width="56" height="30" rx="6" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1"/>
+  <line x1="120" y1="198" x2="120" y2="222" stroke="#8a6040" stroke-width="1" opacity="0.25"/>
+  <line x1="136" y1="198" x2="136" y2="222" stroke="#8a6040" stroke-width="1" opacity="0.25"/>
 
-  <!-- Body / Shoulders - wide, muscular -->
-  <path d="M128,212 L128,384 L35,384 L35,265 Q35,225 78,215 Q108,207 128,212 Z" fill="url(#shirt_grad)"/>
-  <path d="M128,212 L128,384 L221,384 L221,265 Q221,225 178,215 Q148,207 128,212 Z" fill="url(#shirt_grad)"/>
+  <!-- Body / Shoulders - wide muscular -->
+  <path d="M128,222 L128,384 L30,384 L30,272 Q30,230 78,218 Q108,210 128,222 Z" fill="url(#shirt_grad)"/>
+  <path d="M128,222 L128,384 L226,384 L226,272 Q226,230 178,218 Q148,210 128,222 Z" fill="url(#shirt_grad)"/>
 
-  <!-- Shoulder muscle definition -->
-  <path d="M78,215 Q55,220 42,240 Q35,252 35,265" fill="none" stroke="#2a2a4e" stroke-width="2"/>
-  <path d="M178,215 Q201,220 214,240 Q221,252 221,265" fill="none" stroke="#2a2a4e" stroke-width="2"/>
+  <!-- Shoulder muscle lines -->
+  <path d="M78,218 Q52,224 38,246 Q30,260 30,272" fill="none" stroke="#2a2a4e" stroke-width="2"/>
+  <path d="M178,218 Q204,224 218,246 Q226,260 226,272" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
   <!-- Crossed arms -->
-  <path d="M40,265 Q48,285 75,305 Q100,318 142,308 Q158,302 168,292" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1.5"/>
-  <path d="M216,265 Q208,285 181,305 Q156,318 114,308 Q98,302 88,292" fill="url(#skin_grad)" stroke="#6b5040" stroke-width="1.5"/>
+  <path d="M34,272 Q44,295 75,315 Q105,328 145,316 Q162,308 172,296" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
+  <path d="M222,272 Q212,295 181,315 Q151,328 111,316 Q94,308 84,296" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
 
-  <!-- Arm muscle lines -->
-  <path d="M48,270 Q55,282 72,295" fill="none" stroke="#7a5a3a" stroke-width="1.5" opacity="0.4"/>
-  <path d="M208,270 Q201,282 184,295" fill="none" stroke="#7a5a3a" stroke-width="1.5" opacity="0.4"/>
+  <!-- Arm muscle definition -->
+  <path d="M42,278 Q52,292 70,304" fill="none" stroke="#8a6040" stroke-width="1.5" opacity="0.35"/>
+  <path d="M214,278 Q204,292 186,304" fill="none" stroke="#8a6040" stroke-width="1.5" opacity="0.35"/>
 
   <!-- Circuit tattoos left arm -->
-  <g filter="url(#neon_orange)" opacity="0.8">
-    <path d="M52,272 L62,272 L62,284 L72,284 L72,296 L82,296" fill="none" stroke="#ff8800" stroke-width="1.5"/>
-    <circle cx="52" cy="272" r="2.5" fill="#ff8800"/>
-    <circle cx="72" cy="284" r="2.5" fill="#ff8800"/>
-    <circle cx="82" cy="296" r="2.5" fill="#ff8800"/>
-    <path d="M57,278 L67,278 L67,290" fill="none" stroke="#ffaa44" stroke-width="1" opacity="0.6"/>
+  <g filter="url(#neon_orange)" opacity="0.85">
+    <path d="M48,280 L58,280 L58,294 L70,294 L70,308 L82,308" fill="none" stroke="#ff8800" stroke-width="2"/>
+    <circle cx="48" cy="280" r="3" fill="#ff8800"/>
+    <circle cx="70" cy="294" r="3" fill="#ff8800"/>
+    <circle cx="82" cy="308" r="3" fill="#ff8800"/>
+    <path d="M54,286 L64,286 L64,300" fill="none" stroke="#ffaa44" stroke-width="1" opacity="0.5"/>
   </g>
 
   <!-- Circuit tattoos right arm -->
-  <g filter="url(#neon_orange)" opacity="0.8">
-    <path d="M204,272 L194,272 L194,284 L184,284 L184,296 L174,296" fill="none" stroke="#ff8800" stroke-width="1.5"/>
-    <circle cx="204" cy="272" r="2.5" fill="#ff8800"/>
-    <circle cx="184" cy="284" r="2.5" fill="#ff8800"/>
-    <circle cx="174" cy="296" r="2.5" fill="#ff8800"/>
-    <path d="M199,278 L189,278 L189,290" fill="none" stroke="#ffaa44" stroke-width="1" opacity="0.6"/>
+  <g filter="url(#neon_orange)" opacity="0.85">
+    <path d="M208,280 L198,280 L198,294 L186,294 L186,308 L174,308" fill="none" stroke="#ff8800" stroke-width="2"/>
+    <circle cx="208" cy="280" r="3" fill="#ff8800"/>
+    <circle cx="186" cy="294" r="3" fill="#ff8800"/>
+    <circle cx="174" cy="308" r="3" fill="#ff8800"/>
+    <path d="M202,286 L192,286 L192,300" fill="none" stroke="#ffaa44" stroke-width="1" opacity="0.5"/>
   </g>
 
   <!-- Shirt V-neck -->
-  <path d="M98,215 L128,245 L158,215" fill="none" stroke="#2a2a4e" stroke-width="2"/>
+  <path d="M96,222 L128,254 L160,222" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
-  <!-- Head - anime proportions, bigger, strong jaw but less V -->
-  <path d="M82,95 Q82,48 128,42 Q174,48 174,95 L174,145 Q174,162 162,174 Q150,186 128,188 Q106,186 94,174 Q82,162 82,145 Z" fill="url(#skin_grad)" stroke="#5a4030" stroke-width="1.5"/>
+  <!-- Head - anime proportions, strong jaw but rounded -->
+  <path d="M78,90 Q78,42 128,36 Q178,42 178,90 L178,150 Q178,168 164,180 Q150,192 128,194 Q106,192 92,180 Q78,168 78,150 Z" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="2"/>
 
-  <!-- Bald/buzzcut head -->
-  <path d="M88,75 Q128,48 168,75" fill="#3a2a1a" opacity="0.3"/>
-  <ellipse cx="128" cy="62" rx="30" ry="10" fill="#9a7a5a" opacity="0.12"/>
+  <!-- Bald/buzzcut -->
+  <path d="M84,72 Q128,40 172,72" fill="#5a4030" opacity="0.25"/>
+  <ellipse cx="128" cy="56" rx="34" ry="12" fill="#b08860" opacity="0.1"/>
 
   <!-- Ears -->
-  <ellipse cx="80" cy="125" rx="7" ry="12" fill="url(#skin_grad)" stroke="#5a4030" stroke-width="1"/>
-  <ellipse cx="176" cy="125" rx="7" ry="12" fill="url(#skin_grad)" stroke="#5a4030" stroke-width="1"/>
+  <ellipse cx="76" cy="130" rx="8" ry="14" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
+  <ellipse cx="180" cy="130" rx="8" ry="14" fill="url(#skin_grad)" stroke="#8a6040" stroke-width="1.5"/>
 
-  <!-- Eyes - large anime style, stern, amber/brown iris -->
-  <!-- Left eye -->
-  <path d="M95,118 Q108,108 121,118" fill="#1a1a2e" stroke="#1a1a2e" stroke-width="0.5"/>
-  <path d="M95,118 Q108,128 121,118" fill="#1a1a2e" stroke="#1a1a2e" stroke-width="0.5"/>
-  <circle cx="108" cy="118" r="8" fill="#6b4422"/>
-  <circle cx="108" cy="118" r="5" fill="#0a0a1a"/>
-  <circle cx="105" cy="115" r="2.5" fill="#ffffff" opacity="0.9"/>
-  <circle cx="111" cy="120" r="1.5" fill="#ffffff" opacity="0.5"/>
-  <circle cx="108" cy="116" r="1" fill="#ffffff" opacity="0.3"/>
-  <!-- Right eye -->
-  <path d="M135,118 Q148,108 161,118" fill="#1a1a2e" stroke="#1a1a2e" stroke-width="0.5"/>
-  <path d="M135,118 Q148,128 161,118" fill="#1a1a2e" stroke="#1a1a2e" stroke-width="0.5"/>
-  <circle cx="148" cy="118" r="8" fill="#6b4422"/>
-  <circle cx="148" cy="118" r="5" fill="#0a0a1a"/>
-  <circle cx="145" cy="115" r="2.5" fill="#ffffff" opacity="0.9"/>
-  <circle cx="151" cy="120" r="1.5" fill="#ffffff" opacity="0.5"/>
-  <circle cx="148" cy="116" r="1" fill="#ffffff" opacity="0.3"/>
+  <!-- Eyes - large anime, stern, amber/brown iris -->
+  <!-- Left eye white -->
+  <path d="M92,120 Q108,108 124,120" fill="#1a1a2e"/>
+  <path d="M92,120 Q108,132 124,120" fill="#1a1a2e"/>
+  <!-- Left iris -->
+  <circle cx="108" cy="120" r="9" fill="#8b5a2b"/>
+  <!-- Left pupil -->
+  <circle cx="108" cy="120" r="5.5" fill="#0a0a1a"/>
+  <!-- Left eye highlights (3) -->
+  <circle cx="104" cy="116" r="3" fill="#ffffff" opacity="0.9"/>
+  <circle cx="112" cy="123" r="1.8" fill="#ffffff" opacity="0.6"/>
+  <circle cx="107" cy="118" r="1.2" fill="#ffffff" opacity="0.35"/>
+  <!-- Left upper lash line (bold) -->
+  <path d="M90,120 Q108,106 126,120" fill="none" stroke="#2a1a0a" stroke-width="3" stroke-linecap="round"/>
 
-  <!-- Bold eyelid lines (anime top lash) -->
-  <path d="M93,118 Q108,106 123,118" fill="none" stroke="#2a1a0a" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M133,118 Q148,106 163,118" fill="none" stroke="#2a1a0a" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right eye white -->
+  <path d="M132,120 Q148,108 164,120" fill="#1a1a2e"/>
+  <path d="M132,120 Q148,132 164,120" fill="#1a1a2e"/>
+  <!-- Right iris -->
+  <circle cx="148" cy="120" r="9" fill="#8b5a2b"/>
+  <!-- Right pupil -->
+  <circle cx="148" cy="120" r="5.5" fill="#0a0a1a"/>
+  <!-- Right eye highlights (3) -->
+  <circle cx="144" cy="116" r="3" fill="#ffffff" opacity="0.9"/>
+  <circle cx="152" cy="123" r="1.8" fill="#ffffff" opacity="0.6"/>
+  <circle cx="147" cy="118" r="1.2" fill="#ffffff" opacity="0.35"/>
+  <!-- Right upper lash line (bold) -->
+  <path d="M130,120 Q148,106 166,120" fill="none" stroke="#2a1a0a" stroke-width="3" stroke-linecap="round"/>
 
   <!-- Eyebrows - thick, straight, stern -->
-  <path d="M93,106 Q108,101 123,106" fill="none" stroke="#2a1a0a" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M133,106 Q148,101 163,106" fill="none" stroke="#2a1a0a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M90,106 Q108,100 126,106" fill="none" stroke="#2a1a0a" stroke-width="4" stroke-linecap="round"/>
+  <path d="M130,106 Q148,100 166,106" fill="none" stroke="#2a1a0a" stroke-width="4" stroke-linecap="round"/>
 
-  <!-- Nose - small subtle line -->
-  <path d="M126,132 Q128,138 130,132" fill="none" stroke="#5a4030" stroke-width="1.2" opacity="0.5"/>
+  <!-- Nose - small subtle -->
+  <path d="M126,140 Q128,146 130,140" fill="none" stroke="#8a6040" stroke-width="1.2" opacity="0.45"/>
 
   <!-- Mouth - neutral firm line -->
-  <path d="M116,155 Q128,158 140,155" fill="none" stroke="#5a3a2a" stroke-width="2" stroke-linecap="round"/>
+  <path d="M116,162 Q128,166 140,162" fill="none" stroke="#6a4030" stroke-width="2" stroke-linecap="round"/>
 
   <!-- Scar on left cheek -->
-  <line x1="92" y1="138" x2="100" y2="146" stroke="#9a7a5a" stroke-width="1" opacity="0.5"/>
+  <line x1="88" y1="142" x2="97" y2="152" stroke="#b08860" stroke-width="1.2" opacity="0.45"/>
 
   <!-- Circuit glow on neck -->
-  <path d="M112,192 L112,202 L122,202" fill="none" stroke="#ff8800" stroke-width="1" opacity="0.4" filter="url(#neon_orange)"/>
-  <circle cx="122" cy="202" r="1.5" fill="#ff8800" opacity="0.5"/>
+  <g filter="url(#neon_orange)" opacity="0.5">
+    <path d="M110,200 L110,210 L122,210" fill="none" stroke="#ff8800" stroke-width="1.2"/>
+    <circle cx="122" cy="210" r="2" fill="#ff8800"/>
+  </g>
 
   <!-- Ambient glow -->
-  <ellipse cx="128" cy="300" rx="80" ry="30" fill="#ff8800" opacity="0.03"/>
+  <ellipse cx="128" cy="310" rx="80" ry="30" fill="#ff8800" opacity="0.03"/>
 </svg>
