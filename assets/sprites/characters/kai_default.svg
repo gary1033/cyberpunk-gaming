@@ -1,254 +1,201 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="384" viewBox="0 0 256 384">
   <defs>
-    <!-- Iris gradient: dark top → bright bottom (Pixiv "jewel eye" core technique) -->
-    <linearGradient id="irisGradR" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0c2848"/>
-      <stop offset="35%" stop-color="#1a4878"/>
-      <stop offset="65%" stop-color="#3a80b8"/>
-      <stop offset="100%" stop-color="#68b8e8"/>
+    <!-- Eye iris gradient (top-dark → bottom-bright, jewel-like) -->
+    <linearGradient id="irisBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3868"/>
+      <stop offset="50%" stop-color="#3070b0"/>
+      <stop offset="100%" stop-color="#58b0e8"/>
     </linearGradient>
-    <!-- Cyber eye iris gradient -->
-    <linearGradient id="irisGradCyber" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#003040"/>
-      <stop offset="35%" stop-color="#006878"/>
-      <stop offset="65%" stop-color="#00b0c8"/>
-      <stop offset="100%" stop-color="#60ffe8"/>
-    </linearGradient>
-    <!-- Skin shadow: cold-shifted (base + blue/purple tint) -->
-    <linearGradient id="skinShadow" x1="0" y1="0" x2="1" y2="0.3">
-      <stop offset="0%" stop-color="#b89070"/>
-      <stop offset="100%" stop-color="#c8a080"/>
-    </linearGradient>
-    <!-- Hair highlight gradient following flow -->
-    <linearGradient id="hairHighlight" x1="0.3" y1="0" x2="0.7" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    <linearGradient id="irisCyan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#004050"/>
+      <stop offset="50%" stop-color="#00a0b8"/>
+      <stop offset="100%" stop-color="#50ffe0"/>
     </linearGradient>
     <filter id="glow">
       <feGaussianBlur stdDeviation="3" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="softGlow">
-      <feGaussianBlur stdDeviation="5" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <!-- Eye clip paths -->
-    <clipPath id="eyeClipL">
-      <path d="M91,148 C97,137 106,132 114,133 C122,134 129,140 131,148 C128,157 121,162 114,162 C107,162 98,157 91,148 Z"/>
+    <clipPath id="eyeL">
+      <ellipse cx="104" cy="196" rx="22" ry="20"/>
     </clipPath>
-    <clipPath id="eyeClipR">
-      <path d="M132,148 C138,137 147,132 155,133 C163,134 170,140 172,148 C169,157 162,162 155,162 C148,162 139,157 132,148 Z"/>
+    <clipPath id="eyeR">
+      <ellipse cx="160" cy="196" rx="22" ry="20"/>
     </clipPath>
   </defs>
 
-  <!-- ===== BACKGROUND ===== -->
-  <rect width="256" height="384" fill="#070710"/>
-  <ellipse cx="128" cy="175" rx="135" ry="195" fill="#0c0c1c" opacity="0.5"/>
-  <!-- Subtle border -->
-  <rect x="4" y="4" width="248" height="376" rx="3" fill="none" stroke="#00dde5" stroke-width="0.7" opacity="0.18"/>
-  <!-- Name -->
-  <text x="128" y="24" font-family="monospace" font-size="15" fill="#00dde5" text-anchor="middle" filter="url(#glow)" opacity="0.75">凱</text>
+  <!-- ===== BG ===== -->
+  <rect width="256" height="384" fill="#0a0a18"/>
+  <ellipse cx="128" cy="200" rx="120" ry="160" fill="#0e0e22" opacity="0.6"/>
+  <rect x="4" y="4" width="248" height="376" rx="4" fill="none" stroke="#00dde5" stroke-width="0.6" opacity="0.15"/>
+  <text x="128" y="22" font-family="monospace" font-size="13" fill="#00dde5" text-anchor="middle" filter="url(#glow)" opacity="0.7">凱</text>
 
-  <!-- ===== BODY / COAT ===== -->
-  <path d="M54,384 L54,282 C60,256 76,242 96,234 C108,228 120,225 128,224 C136,225 148,228 160,234 C180,242 196,256 202,282 L202,384 Z" fill="#101028"/>
-  <!-- Coat shadow left (cold-shifted) -->
-  <path d="M54,384 L54,282 C60,256 76,242 96,234 C106,230 116,226 128,224 L128,384 Z" fill="#080818" opacity="0.65"/>
-  <!-- Coat fold shadows -->
-  <path d="M78,268 C82,295 82,330 80,384 L60,384 C62,335 66,296 72,270 Z" fill="#060614" opacity="0.4"/>
-  <path d="M178,268 C174,295 174,330 176,384 L196,384 C194,335 190,296 184,270 Z" fill="#060614" opacity="0.3"/>
-  <!-- Collar -->
-  <path d="M92,234 L78,258 L108,248 L116,232 Z" fill="#181838" stroke="#0a0a1a" stroke-width="1"/>
-  <path d="M164,234 L178,258 L148,248 L140,232 Z" fill="#1c1c3c" stroke="#0a0a1a" stroke-width="1"/>
+  <!-- ===== CHIBI BODY (small, stubby) ===== -->
+  <!-- Body -->
+  <path d="M96,310 C96,295 105,285 128,285 C151,285 160,295 160,310 L162,384 L94,384 Z" fill="#101028"/>
+  <!-- Body shadow left -->
+  <path d="M96,310 C96,295 105,285 128,285 L128,384 L94,384 Z" fill="#080816" opacity="0.5"/>
+  <!-- Coat collar -->
+  <path d="M104,288 L96,302 L118,296 Z" fill="#181838"/>
+  <path d="M152,288 L160,302 L138,296 Z" fill="#1c1c3c"/>
   <!-- Popped collar -->
-  <path d="M78,256 L72,222 L87,220 L96,244 Z" fill="#141430" stroke="#0a0a18" stroke-width="1.2"/>
-  <path d="M178,256 L184,222 L169,220 L160,244 Z" fill="#181836" stroke="#0a0a18" stroke-width="1.2"/>
+  <path d="M96,300 L92,280 L102,278 L108,294 Z" fill="#141430" stroke="#0a0a18" stroke-width="0.8"/>
+  <path d="M160,300 L164,280 L154,278 L148,294 Z" fill="#181836" stroke="#0a0a18" stroke-width="0.8"/>
   <!-- Shirt V -->
-  <path d="M116,230 L128,250 L140,230" fill="#0c0c20"/>
-  <!-- Coat center -->
-  <line x1="128" y1="236" x2="128" y2="384" stroke="#1c1c3c" stroke-width="0.7"/>
-  <!-- Neon accents -->
-  <line x1="64" y1="282" x2="64" y2="384" stroke="#00dde5" stroke-width="0.7" opacity="0.28" filter="url(#glow)"/>
-  <line x1="192" y1="282" x2="192" y2="384" stroke="#00dde5" stroke-width="0.7" opacity="0.28" filter="url(#glow)"/>
-  <!-- Coat outer contour -->
-  <path d="M54,282 C60,256 76,242 96,234 C108,228 120,225 128,224 C136,225 148,228 160,234 C180,242 196,256 202,282" fill="none" stroke="#08081a" stroke-width="1.8"/>
+  <path d="M120,290 L128,302 L136,290" fill="#0c0c20"/>
+  <!-- Neon accent lines -->
+  <line x1="98" y1="310" x2="98" y2="384" stroke="#00dde5" stroke-width="0.6" opacity="0.25" filter="url(#glow)"/>
+  <line x1="158" y1="310" x2="158" y2="384" stroke="#00dde5" stroke-width="0.6" opacity="0.25" filter="url(#glow)"/>
+  <!-- Coat outline -->
+  <path d="M96,310 C96,295 105,285 128,285 C151,285 160,295 160,310" fill="none" stroke="#08081a" stroke-width="1.2"/>
 
-  <!-- ===== NECK ===== -->
-  <path d="M118,214 C122,218 126,220 128,220 C130,220 134,218 138,214 L137,232 C133,236 130,238 128,238 C126,238 123,236 119,232 Z" fill="#debb96"/>
-  <!-- Chin cast shadow on neck (triangle, cold-shifted) -->
-  <path d="M118,214 C122,216 126,219 128,219 C130,219 134,216 138,214 L138,226 C134,230 130,232 128,232 C126,232 122,230 118,226 Z" fill="#8e6e52" opacity="0.6"/>
+  <!-- Stubby arms -->
+  <path d="M96,300 C86,305 80,315 82,325 C84,330 88,332 92,328 L96,318 Z" fill="#101028" stroke="#08081a" stroke-width="0.8"/>
+  <path d="M160,300 C170,305 176,315 174,325 C172,330 168,332 164,328 L160,318 Z" fill="#101028" stroke="#08081a" stroke-width="0.8"/>
+  <!-- Tiny hands -->
+  <circle cx="87" cy="328" r="6" fill="#e4be98" stroke="#3a2818" stroke-width="0.8"/>
+  <circle cx="169" cy="328" r="6" fill="#e4be98" stroke="#3a2818" stroke-width="0.8"/>
 
-  <!-- ===== HAIR (back layers) ===== -->
-  <!-- Back hair mass -->
-  <path d="M70,128 C68,104 74,80 88,64 C102,50 116,46 128,46 C140,46 154,50 168,64 C182,80 188,104 186,128 Z" fill="#cccce0"/>
+  <!-- ===== NECK (very short for chibi) ===== -->
+  <rect x="120" y="276" width="16" height="12" rx="3" fill="#e4be98"/>
+  <rect x="120" y="276" width="16" height="6" rx="2" fill="#c09878" opacity="0.35"/>
+
+  <!-- ===== CHIBI HEAD (huge! ~60% of canvas height) ===== -->
+  <!-- Head shape — big round circle with slight chin -->
+  <path d="M56,175 C56,112 84,60 128,60 C172,60 200,112 200,175 C200,220 190,250 172,264 C158,274 142,278 128,278 C114,278 98,274 84,264 C66,250 56,220 56,175 Z" fill="#e4be98"/>
+  <!-- Head outline -->
+  <path d="M56,175 C56,112 84,60 128,60 C172,60 200,112 200,175 C200,220 190,250 172,264 C158,274 142,278 128,278 C114,278 98,274 84,264 C66,250 56,220 56,175 Z" fill="none" stroke="#3a2818" stroke-width="1.8"/>
+  <!-- Face shadow left (cold-shifted, subtle for chibi) -->
+  <path d="M56,175 C56,112 84,60 110,60 L108,175 L104,220 C92,240 84,252 84,264 C74,254 60,228 56,200 Z" fill="#c8a07a" opacity="0.28"/>
+  <!-- Cheek blush (important for chibi!) -->
+  <ellipse cx="82" cy="220" rx="14" ry="8" fill="#ff8888" opacity="0.18"/>
+  <ellipse cx="174" cy="220" rx="14" ry="8" fill="#ff8888" opacity="0.18"/>
+
+  <!-- ===== EARS ===== -->
+  <ellipse cx="56" cy="190" rx="8" ry="12" fill="#e4be98" stroke="#3a2818" stroke-width="1"/>
+  <ellipse cx="56" cy="190" rx="5" ry="8" fill="#d4a880" opacity="0.3"/>
+  <ellipse cx="200" cy="190" rx="8" ry="12" fill="#e4be98" stroke="#3a2818" stroke-width="1"/>
+  <!-- Cyber implant on right ear -->
+  <rect x="204" y="186" width="5" height="10" rx="1.5" fill="#0a1828" stroke="#00cccc" stroke-width="0.6"/>
+  <circle cx="206.5" cy="189" r="1" fill="#00ffee"/>
+  <circle cx="206.5" cy="193" r="0.7" fill="#00ffee" opacity="0.5"/>
+
+  <!-- ===== HAIR (back layer) ===== -->
+  <path d="M46,170 C44,118 68,50 128,46 C188,50 212,118 210,170 L208,155 C206,112 186,60 128,56 C70,60 50,112 48,155 Z" fill="#d0d0e4"/>
   <!-- Back hair shadow -->
-  <path d="M70,128 C68,104 74,80 88,64 C95,57 104,52 112,50 L108,72 C96,84 84,102 78,122 Z" fill="#8a8aa6" opacity="0.55"/>
+  <path d="M46,170 C44,118 68,50 108,46 L100,100 C76,120 56,148 48,165 Z" fill="#9090aa" opacity="0.5"/>
 
-  <!-- Side strands (back) — flowing tapered filled paths -->
-  <path d="M70,128 C66,146 60,168 54,194 C50,212 46,224 42,232 L44,228 C48,214 54,192 60,166 C64,148 68,136 70,128 Z" fill="#c4c4d8" stroke="#1a1a2c" stroke-width="1"/>
-  <path d="M66,142 C62,162 56,184 50,208 C46,226 42,236 38,244 L40,240 C44,224 50,202 56,178 C60,160 64,148 66,142 Z" fill="#babace" stroke="#1a1a2c" stroke-width="0.8"/>
-  <path d="M186,128 C190,146 196,168 202,194 C206,212 210,224 214,232 L212,228 C208,214 202,192 196,166 C192,148 188,136 186,128 Z" fill="#c4c4d8" stroke="#1a1a2c" stroke-width="1"/>
-  <path d="M190,142 C194,162 200,184 206,208 C210,226 214,236 218,244 L216,240 C212,224 206,202 200,178 C196,160 192,148 190,142 Z" fill="#babace" stroke="#1a1a2c" stroke-width="0.8"/>
+  <!-- Side hair (flowing down) -->
+  <path d="M48,168 C42,195 36,225 32,248 C30,258 28,265 26,270 L28,266 C32,250 38,222 44,194 C46,182 48,174 48,168 Z" fill="#c8c8dc" stroke="#1a1a2c" stroke-width="0.8"/>
+  <path d="M44,185 C38,212 32,240 28,262 L30,258 C34,240 40,212 46,188 Z" fill="#babace" stroke="#1a1a2c" stroke-width="0.6"/>
+  <path d="M208,168 C214,195 220,225 224,248 C226,258 228,265 230,270 L228,266 C224,250 218,222 212,194 C210,182 208,174 208,168 Z" fill="#c8c8dc" stroke="#1a1a2c" stroke-width="0.8"/>
+  <path d="M212,185 C218,212 224,240 228,262 L226,258 C222,240 216,212 210,188 Z" fill="#babace" stroke="#1a1a2c" stroke-width="0.6"/>
 
-  <!-- Side strand shadows -->
-  <path d="M70,128 C66,146 60,168 56,188 C54,198 52,206 50,212 L52,202 C54,190 58,172 62,154 Z" fill="#8a8aa6" opacity="0.4"/>
+  <!-- ===== EYES (chibi: HUGE, round, sparkly) ===== -->
 
-  <!-- ===== HEAD / FACE ===== -->
-  <!-- Face — smooth cubic bezier, Gojo-style sharp but flowing jaw -->
-  <path d="M88,128 C86,110 90,94 100,82 C110,70 120,66 128,66 C136,66 146,70 156,82 C166,94 170,110 168,128 L168,154 C168,166 164,178 156,190 C150,198 142,206 136,210 C132,212 130,214 128,214 C126,214 124,212 120,210 C114,206 106,198 100,190 C92,178 88,166 88,154 Z" fill="#e4be98"/>
-  <!-- Face contour -->
-  <path d="M88,128 C86,110 90,94 100,82 C110,70 120,66 128,66 C136,66 146,70 156,82 C166,94 170,110 168,128 L168,154 C168,166 164,178 156,190 C150,198 142,206 136,210 C132,212 130,214 128,214 C126,214 124,212 120,210 C114,206 106,198 100,190 C92,178 88,166 88,154 Z" fill="none" stroke="#3a2818" stroke-width="1.6"/>
-  <!-- Face shadow left — cold-shifted (purple tint) -->
-  <path d="M88,128 C86,110 90,94 100,82 C106,74 114,70 120,68 L118,128 L116,158 C112,170 106,182 100,190 C96,194 92,196 88,198 L88,154 Z" fill="#a8886a" opacity="0.48"/>
-  <!-- Forehead shadow from hair (hard edge) -->
-  <path d="M92,98 C104,92 118,88 128,88 C138,88 152,92 164,98 L162,108 C152,102 140,98 128,98 C116,98 104,102 94,108 Z" fill="#c09a74" opacity="0.4"/>
-  <!-- Jaw shadow left (strong) -->
-  <path d="M100,190 C106,198 114,206 120,210 C124,212 126,214 128,214 L128,204 C122,200 112,192 106,186 Z" fill="#8e7058" opacity="0.5"/>
-  <!-- Jaw shadow right (lighter) -->
-  <path d="M156,190 C150,198 142,206 136,210 C132,212 130,214 128,214 L128,204 C134,200 144,192 150,186 Z" fill="#8e7058" opacity="0.28"/>
+  <!-- == LEFT EYE (normal blue) == -->
+  <!-- Eye white -->
+  <ellipse cx="104" cy="196" rx="22" ry="20" fill="#eaecf0"/>
+  <!-- Iris (large! chibi eyes are ~70% iris) -->
+  <circle cx="104" cy="198" r="17" fill="url(#irisBlue)" clip-path="url(#eyeL)"/>
+  <!-- Limbal ring -->
+  <circle cx="104" cy="198" r="16.5" fill="none" stroke="#0c1830" stroke-width="1" clip-path="url(#eyeL)"/>
+  <!-- Eyelid shadow (top crescent) -->
+  <path d="M84,188 C90,180 97,178 104,178 C111,178 118,180 124,188 L124,194 C118,188 111,186 104,186 C97,186 90,188 84,194 Z" fill="#081020" opacity="0.45" clip-path="url(#eyeL)"/>
+  <!-- Reflected light (bottom) -->
+  <path d="M92,210 C96,214 100,215 104,215 C108,215 112,214 116,210 L116,208 C112,212 108,213 104,213 C100,213 96,212 92,208 Z" fill="#80c8f0" opacity="0.3" clip-path="url(#eyeL)"/>
+  <!-- Pupil -->
+  <circle cx="104" cy="197" r="6" fill="#060810" clip-path="url(#eyeL)"/>
+  <!-- Main highlight (BIG for chibi — upper right) -->
+  <ellipse cx="112" cy="189" rx="7" ry="6" fill="#ffffff" opacity="0.92" clip-path="url(#eyeL)"/>
+  <!-- Secondary highlight (lower left) -->
+  <circle cx="96" cy="207" r="4" fill="#ffffff" opacity="0.55" clip-path="url(#eyeL)"/>
+  <!-- Sparkle dots -->
+  <circle cx="114" cy="200" r="1.5" fill="#ffffff" opacity="0.65" clip-path="url(#eyeL)"/>
+  <circle cx="96" cy="192" r="1" fill="#ffffff" opacity="0.4" clip-path="url(#eyeL)"/>
+  <!-- Upper eyelid (thick, rounded for chibi) -->
+  <path d="M80,196 C84,178 94,172 104,173 C114,174 124,180 128,196 L124,196 C121,182 113,178 104,177 C95,178 87,182 84,196 Z" fill="#1a1020"/>
+  <!-- Eyelashes (cute, short flicks) -->
+  <path d="M80,194 C78,190 76,187 75,185" fill="none" stroke="#1a1020" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M81,191 C79,189 78,187 77,185" fill="none" stroke="#1a1020" stroke-width="0.7"/>
 
-  <!-- Ears -->
-  <path d="M88,138 C84,134 82,138 82,146 C82,154 84,158 88,154" fill="#e4be98" stroke="#3a2818" stroke-width="0.8"/>
-  <path d="M168,138 C172,134 174,138 174,146 C174,154 172,158 168,154" fill="#e4be98" stroke="#3a2818" stroke-width="0.8"/>
-  <!-- Cyber implant right ear -->
-  <rect x="170" y="143" width="3" height="7" rx="0.8" fill="#0a1828" stroke="#00cccc" stroke-width="0.5"/>
-  <circle cx="171.5" cy="145.5" r="0.6" fill="#00ffee"/>
-  <circle cx="171.5" cy="148.5" r="0.4" fill="#00ffee" opacity="0.5"/>
+  <!-- == RIGHT EYE (cybernetic cyan) == -->
+  <!-- Eye socket -->
+  <ellipse cx="160" cy="196" rx="22" ry="20" fill="#081018"/>
+  <!-- Iris -->
+  <circle cx="160" cy="198" r="17" fill="url(#irisCyan)" clip-path="url(#eyeR)"/>
+  <!-- Limbal ring -->
+  <circle cx="160" cy="198" r="16.5" fill="none" stroke="#002030" stroke-width="1" clip-path="url(#eyeR)"/>
+  <!-- Eyelid shadow -->
+  <path d="M140,188 C146,180 153,178 160,178 C167,178 174,180 180,188 L180,194 C174,188 167,186 160,186 C153,186 146,188 140,194 Z" fill="#001818" opacity="0.4" clip-path="url(#eyeR)"/>
+  <!-- Reflected light -->
+  <path d="M148,210 C152,214 156,215 160,215 C164,215 168,214 172,210 L172,208 C168,212 164,213 160,213 C156,213 152,212 148,208 Z" fill="#50ffe0" opacity="0.25" clip-path="url(#eyeR)"/>
+  <!-- Pupil (glowing) -->
+  <circle cx="160" cy="197" r="5" fill="#20ffee" clip-path="url(#eyeR)" filter="url(#glow)"/>
+  <!-- Main highlight -->
+  <ellipse cx="168" cy="189" rx="7" ry="6" fill="#ccffff" opacity="0.88" clip-path="url(#eyeR)"/>
+  <!-- Secondary highlight -->
+  <circle cx="152" cy="207" r="4" fill="#88ffee" opacity="0.45" clip-path="url(#eyeR)"/>
+  <!-- Sparkle dots -->
+  <circle cx="170" cy="200" r="1.5" fill="#ffffff" opacity="0.55" clip-path="url(#eyeR)"/>
+  <circle cx="152" cy="192" r="1" fill="#aaffff" opacity="0.35" clip-path="url(#eyeR)"/>
+  <!-- Upper eyelid (cyber) -->
+  <path d="M136,196 C140,178 150,172 160,173 C170,174 180,180 184,196 L180,196 C177,182 169,178 160,177 C151,178 143,182 140,196 Z" fill="#004050"/>
+  <!-- Eyelashes -->
+  <path d="M184,194 C186,190 188,187 189,185" fill="none" stroke="#004050" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M183,191 C185,189 186,187 187,185" fill="none" stroke="#004050" stroke-width="0.7"/>
+  <!-- Circuit ring (subtle) -->
+  <circle cx="160" cy="198" r="20" fill="none" stroke="#00bbcc" stroke-width="0.3" opacity="0.15"/>
+  <!-- Ambient glow -->
+  <circle cx="160" cy="196" r="26" fill="#00ffee" opacity="0.025" filter="url(#glow)"/>
+
+  <!-- Eyebrows (small, cute arcs for chibi) -->
+  <path d="M86,170 C92,164 98,163 108,166" fill="none" stroke="#b0b0c4" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M156,166 C166,163 172,164 178,170" fill="none" stroke="#b0b0c4" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Nose (tiny dot for chibi) -->
+  <circle cx="132" cy="228" r="1.5" fill="#d0a080" opacity="0.5"/>
+
+  <!-- Mouth (small cute arc) -->
+  <path d="M120,242 C124,246 132,246 136,242" fill="none" stroke="#c08868" stroke-width="1.2" stroke-linecap="round"/>
 
   <!-- ===== HAIR (front layers) ===== -->
-  <!-- Main front hair volume -->
-  <path d="M74,126 C72,100 78,78 90,64 C104,50 118,46 128,46 C138,46 152,50 166,64 C178,78 184,100 182,126 C180,112 174,96 164,84 C154,72 142,64 128,62 C114,64 102,72 92,84 C82,96 76,112 74,126 Z" fill="#d0d0e4"/>
+  <!-- Main front volume -->
+  <path d="M42,168 C40,116 64,44 128,40 C192,44 216,116 214,168 C212,140 200,100 180,76 C164,58 146,50 128,48 C110,50 92,58 76,76 C56,100 44,140 42,168 Z" fill="#d4d4e8"/>
   <!-- Front hair shadow -->
-  <path d="M74,126 C72,100 78,78 90,64 C96,58 104,53 112,50 L108,70 C96,82 86,98 80,118 Z" fill="#8888a4" opacity="0.55"/>
+  <path d="M42,168 C40,116 64,44 108,40 L100,80 C76,100 56,132 46,160 Z" fill="#8c8ca8" opacity="0.5"/>
 
-  <!-- Spikes — flowing S-curve tapered strands (cubic bezier, filled) -->
-  <path d="M100,62 C96,48 92,34 88,18 C94,34 102,48 114,58 Z" fill="#dcdcee" stroke="#1a1a2c" stroke-width="1.3"/>
-  <path d="M112,54 C108,38 102,22 96,4 C104,24 114,42 128,52 Z" fill="#e4e4f2" stroke="#1a1a2c" stroke-width="1.3"/>
-  <path d="M126,48 C124,32 120,16 116,0 C122,20 132,38 142,48 Z" fill="#eceff6" stroke="#1a1a2c" stroke-width="1.5"/>
-  <path d="M140,50 C142,34 146,18 150,2 C146,22 142,40 134,52 Z" fill="#e4e4f2" stroke="#1a1a2c" stroke-width="1.3"/>
-  <path d="M158,60 C162,46 166,32 172,16 C166,34 158,48 148,58 Z" fill="#dcdcee" stroke="#1a1a2c" stroke-width="1.3"/>
-  <!-- Extra center spike -->
-  <path d="M130,46 C128,28 124,12 120,0 C126,16 136,34 144,46 Z" fill="#e8e8f4" stroke="#1a1a2c" stroke-width="1.2"/>
+  <!-- Spikes (chibi: rounder, cuter, less aggressive) -->
+  <path d="M98,58 C94,44 90,30 86,14 C92,30 100,44 112,54 Z" fill="#e0e0f0" stroke="#1a1a2c" stroke-width="1.2"/>
+  <path d="M112,48 C108,32 104,18 98,2 C106,20 116,36 128,46 Z" fill="#e8e8f4" stroke="#1a1a2c" stroke-width="1.2"/>
+  <path d="M126,42 C124,26 120,12 116,0 C122,16 132,32 142,42 Z" fill="#eff0f8" stroke="#1a1a2c" stroke-width="1.4"/>
+  <path d="M142,44 C144,28 148,14 152,0 C148,18 144,34 136,44 Z" fill="#e8e8f4" stroke="#1a1a2c" stroke-width="1.2"/>
+  <path d="M158,54 C162,40 166,26 170,12 C166,28 158,42 148,52 Z" fill="#e0e0f0" stroke="#1a1a2c" stroke-width="1.2"/>
 
-  <!-- Spike shadows (left-side of each) -->
-  <path d="M100,62 C96,48 92,34 88,18 C90,28 94,40 100,52 Z" fill="#8888a4" opacity="0.5"/>
-  <path d="M126,48 C124,32 120,16 116,0 C120,14 124,28 128,40 Z" fill="#9090ac" opacity="0.4"/>
+  <!-- Spike shadows -->
+  <path d="M98,58 C94,44 90,30 86,14 C90,26 94,38 100,48 Z" fill="#8c8ca8" opacity="0.45"/>
+  <path d="M126,42 C124,26 120,12 116,0 C120,12 124,24 128,34 Z" fill="#9494b0" opacity="0.35"/>
 
-  <!-- Bangs — smooth tapered pieces falling over forehead -->
-  <path d="M90,88 C92,100 94,112 96,124 L104,118 C102,108 100,98 98,86 Z" fill="#d6d6e8" stroke="#1a1a2c" stroke-width="0.7"/>
-  <path d="M100,82 C102,96 104,108 106,118 L114,112 C112,102 110,92 108,80 Z" fill="#deded0" stroke="#1a1a2c" stroke-width="0.7"/>
-  <path d="M150,80 C152,92 154,104 156,114 L164,120 C162,108 160,96 158,84 Z" fill="#d6d6e8" stroke="#1a1a2c" stroke-width="0.7"/>
-  <path d="M160,86 C162,98 164,110 166,122 L174,128 C172,114 170,102 168,90 Z" fill="#cccce0" stroke="#1a1a2c" stroke-width="0.7"/>
+  <!-- Bangs (soft, rounded pieces for chibi) -->
+  <path d="M66,118 C70,140 74,155 78,168 L88,162 C84,150 80,136 76,114 Z" fill="#d8d8ec" stroke="#1a1a2c" stroke-width="0.7"/>
+  <path d="M78,104 C82,124 86,140 90,156 L100,150 C96,136 92,120 88,100 Z" fill="#e0e0f0" stroke="#1a1a2c" stroke-width="0.7"/>
+  <path d="M166,100 C170,118 174,134 178,150 L188,156 C184,138 180,120 176,102 Z" fill="#d8d8ec" stroke="#1a1a2c" stroke-width="0.7"/>
+  <path d="M178,110 C182,130 186,146 190,162 L200,168 C196,150 192,132 188,112 Z" fill="#d0d0e4" stroke="#1a1a2c" stroke-width="0.7"/>
 
-  <!-- Hair highlight band (large, following flow direction) -->
-  <path d="M94,68 C110,58 120,54 128,52 C136,54 146,58 162,68 L158,76 C146,68 138,64 128,62 C118,64 110,68 98,76 Z" fill="#ffffff" opacity="0.48"/>
-  <!-- Reflected light in hair (cool blue, transparency effect) -->
-  <path d="M80,110 C90,106 100,104 108,104" fill="none" stroke="#a0b8d8" stroke-width="1.2" opacity="0.25"/>
-  <path d="M176,110 C166,106 156,104 148,104" fill="none" stroke="#a0b8d8" stroke-width="1.2" opacity="0.2"/>
+  <!-- Hair highlight band -->
+  <path d="M88,58 C104,48 116,44 128,42 C140,44 152,48 168,58 L164,66 C152,56 140,52 128,50 C116,52 104,56 92,66 Z" fill="#ffffff" opacity="0.45"/>
+  <!-- Reflected light (cool blue) -->
+  <path d="M58,140 C68,134 80,130 90,130" fill="none" stroke="#a8c0e0" stroke-width="1" opacity="0.2"/>
+  <path d="M198,140 C188,134 176,130 166,130" fill="none" stroke="#a8c0e0" stroke-width="1" opacity="0.15"/>
 
-  <!-- Hair contour (thick outer line) -->
-  <path d="M74,126 C72,100 78,78 90,64 C104,50 118,46 128,46 C138,46 152,50 166,64 C178,78 184,100 182,126" fill="none" stroke="#1a1a2c" stroke-width="2"/>
-
-  <!-- ===== EYES ===== -->
-
-  <!-- === RIGHT EYE (normal blue) — Pixiv "jewel eye" 10-layer structure === -->
-
-  <!-- 1. Eye white (sclera) — not pure white -->
-  <path d="M91,148 C97,137 106,132 114,133 C122,134 129,140 131,148 C128,157 121,162 114,162 C107,162 98,157 91,148 Z" fill="#e8eaee"/>
-
-  <!-- 2. Iris base with top-dark→bottom-bright gradient -->
-  <circle cx="114" cy="149" r="12" fill="url(#irisGradR)" clip-path="url(#eyeClipL)"/>
-
-  <!-- 3. Limbal ring (dark outer edge of iris) -->
-  <circle cx="114" cy="149" r="11.5" fill="none" stroke="#0a1828" stroke-width="1.2" clip-path="url(#eyeClipL)"/>
-
-  <!-- 4. Eyelid shadow (top 1/3 of iris, dark crescent) -->
-  <path d="M102,140 C106,136 110,134 114,134 C118,134 122,136 126,140 L126,146 C122,142 118,140 114,140 C110,140 106,142 102,146 Z" fill="#060e1a" opacity="0.55" clip-path="url(#eyeClipL)"/>
-
-  <!-- 5. Reflected light (bottom of iris, bright arc) -->
-  <path d="M106,156 C109,158 112,159 114,159 C116,159 119,158 122,156 L122,154 C119,156 116,157 114,157 C112,157 109,156 106,154 Z" fill="#90d0f0" opacity="0.35" clip-path="url(#eyeClipL)"/>
-
-  <!-- 6. Pupil (small, dark, slightly above center) -->
-  <circle cx="114" cy="148" r="4" fill="#040810" clip-path="url(#eyeClipL)"/>
-
-  <!-- 7. Main highlight (large, irregular, upper-right — key Pixiv feature) -->
-  <path d="M117,141 C120,140 123,141 124,143 C125,146 123,148 120,148 C117,148 116,145 116,143 Z" fill="#ffffff" opacity="0.92" clip-path="url(#eyeClipL)"/>
-  <!-- Dark border around highlight (creates "透明感" transparency) -->
-  <path d="M117,141 C120,140 123,141 124,143 C125,146 123,148 120,148 C117,148 116,145 116,143 Z" fill="none" stroke="#081828" stroke-width="0.6" opacity="0.3" clip-path="url(#eyeClipL)"/>
-
-  <!-- 8. Secondary highlight (small, lower-left) -->
-  <circle cx="108" cy="155" r="2" fill="#ffffff" opacity="0.5" clip-path="url(#eyeClipL)"/>
-
-  <!-- 9. Sparkle dots -->
-  <circle cx="120" cy="152" r="0.8" fill="#ffffff" opacity="0.6" clip-path="url(#eyeClipL)"/>
-  <circle cx="107" cy="143" r="0.6" fill="#ffffff" opacity="0.4" clip-path="url(#eyeClipL)"/>
-
-  <!-- 10. Upper eyelid (FILLED wedge path — thin inner → thick outer) -->
-  <path d="M88,148 C93,135 104,128 114,129 C124,130 133,137 136,148 L131,148 C129,140 122,134 114,133 C106,132 97,137 91,148 Z" fill="#180e18"/>
-  <!-- Eyelash flicks at outer corner (2-3 tapered strokes) -->
-  <path d="M88,147 C86,144 84,141 83,138" fill="none" stroke="#180e18" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M89,145 C87,143 86,140 85,138" fill="none" stroke="#180e18" stroke-width="0.8"/>
-
-  <!-- === LEFT EYE (Cybernetic) — Same 10-layer structure with tech overlay === -->
-
-  <!-- 1. Eye socket (dark for cyber) -->
-  <path d="M132,148 C138,137 147,132 155,133 C163,134 170,140 172,148 C169,157 162,162 155,162 C148,162 139,157 132,148 Z" fill="#0a1418"/>
-
-  <!-- 2. Iris with cyber gradient -->
-  <circle cx="155" cy="149" r="12" fill="url(#irisGradCyber)" clip-path="url(#eyeClipR)"/>
-
-  <!-- 3. Limbal ring -->
-  <circle cx="155" cy="149" r="11.5" fill="none" stroke="#002838" stroke-width="1.2" clip-path="url(#eyeClipR)"/>
-
-  <!-- 4. Eyelid shadow -->
-  <path d="M143,140 C147,136 151,134 155,134 C159,134 163,136 167,140 L167,146 C163,142 159,140 155,140 C151,140 147,142 143,146 Z" fill="#001818" opacity="0.5" clip-path="url(#eyeClipR)"/>
-
-  <!-- 5. Reflected light (brighter for cyber) -->
-  <path d="M147,156 C150,158 153,159 155,159 C157,159 160,158 163,156 L163,154 C160,156 157,157 155,157 C153,157 150,156 147,154 Z" fill="#60ffe8" opacity="0.3" clip-path="url(#eyeClipR)"/>
-
-  <!-- 6. Pupil (glowing) -->
-  <circle cx="155" cy="148" r="3.5" fill="#18ffee" clip-path="url(#eyeClipR)" filter="url(#glow)"/>
-
-  <!-- 7. Main highlight -->
-  <path d="M158,141 C161,140 164,141 165,143 C166,146 164,148 161,148 C158,148 157,145 157,143 Z" fill="#ccffff" opacity="0.88" clip-path="url(#eyeClipR)"/>
-  <path d="M158,141 C161,140 164,141 165,143 C166,146 164,148 161,148 C158,148 157,145 157,143 Z" fill="none" stroke="#003838" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
-
-  <!-- 8. Secondary highlight -->
-  <circle cx="149" cy="155" r="2" fill="#aaffff" opacity="0.4" clip-path="url(#eyeClipR)"/>
-
-  <!-- 9. Sparkle dots -->
-  <circle cx="161" cy="152" r="0.8" fill="#ffffff" opacity="0.5" clip-path="url(#eyeClipR)"/>
-  <circle cx="148" cy="143" r="0.6" fill="#aaffff" opacity="0.35" clip-path="url(#eyeClipR)"/>
-
-  <!-- 10. Upper eyelid (tech-colored) -->
-  <path d="M129,148 C134,135 145,128 155,129 C165,130 174,137 177,148 L172,148 C170,140 163,134 155,133 C147,132 138,137 132,148 Z" fill="#003848"/>
-  <!-- Eyelash extensions -->
-  <path d="M177,147 C179,144 180,141 182,138" fill="none" stroke="#003848" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M176,145 C178,143 179,140 180,138" fill="none" stroke="#003848" stroke-width="0.8"/>
-
-  <!-- Circuit ring (very subtle) -->
-  <circle cx="155" cy="149" r="15" fill="none" stroke="#00bbcc" stroke-width="0.3" opacity="0.2"/>
-  <!-- Scan lines -->
-  <line x1="143" y1="149" x2="167" y2="149" stroke="#00ffee" stroke-width="0.2" opacity="0.15"/>
-  <line x1="155" y1="137" x2="155" y2="161" stroke="#00ffee" stroke-width="0.2" opacity="0.15"/>
-  <!-- Ambient glow -->
-  <circle cx="155" cy="149" r="20" fill="#00ffee" opacity="0.03" filter="url(#softGlow)"/>
-
-  <!-- Eyebrows — filled wedge paths (not strokes), bold -->
-  <path d="M90,128 C96,122 104,120 114,122 L116,126 C106,124 98,126 92,130 Z" fill="#c0c0d0"/>
-  <path d="M166,128 C160,122 152,120 142,122 L140,126 C150,124 158,126 164,130 Z" fill="#c0c0d0"/>
-
-  <!-- Nose — tiny shadow mark -->
-  <path d="M127,176 C128,177 129,178 129,179" fill="none" stroke="#c09878" stroke-width="1" opacity="0.6"/>
-
-  <!-- Mouth — short clean arc -->
-  <path d="M122,194 C125,196 131,196 134,194" fill="none" stroke="#a87060" stroke-width="1.1"/>
+  <!-- Hair outline -->
+  <path d="M42,168 C40,116 64,44 128,40 C192,44 216,116 214,168" fill="none" stroke="#1a1a2c" stroke-width="1.8"/>
 
   <!-- ===== AMBIENT ===== -->
-  <circle cx="28" cy="85" r="0.7" fill="#00ffee" opacity="0.15"/>
-  <circle cx="226" cy="68" r="0.5" fill="#00ffee" opacity="0.1"/>
-  <circle cx="32" cy="334" r="0.7" fill="#00ffee" opacity="0.1"/>
-  <circle cx="222" cy="350" r="0.5" fill="#00ffee" opacity="0.1"/>
+  <circle cx="24" cy="80" r="0.6" fill="#00ffee" opacity="0.12"/>
+  <circle cx="232" cy="65" r="0.5" fill="#00ffee" opacity="0.08"/>
+  <circle cx="20" cy="340" r="0.6" fill="#00ffee" opacity="0.08"/>
+  <circle cx="236" cy="355" r="0.5" fill="#00ffee" opacity="0.08"/>
 
   <!-- Label -->
-  <text x="128" y="372" font-family="monospace" font-size="10" fill="#00dde5" text-anchor="middle" opacity="0.35">[default]</text>
+  <text x="128" y="372" font-family="monospace" font-size="10" fill="#00dde5" text-anchor="middle" opacity="0.3">[default]</text>
 </svg>
