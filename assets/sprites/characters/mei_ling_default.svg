@@ -38,7 +38,7 @@
   <rect x="6" y="6" width="244" height="372" rx="4" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.2"/>
 
   <!-- Character name at top -->
-  <text x="128" y="28" font-family="monospace" font-size="16" fill="#ff0066" text-anchor="middle" filter="url(#neonGlow)" opacity="0.9">美玲</text>
+  <text x="128" y="28" font-family="monospace" font-size="16" fill="#ff0066" text-anchor="middle" filter="url(#neonGlow)" opacity="0.9">美玲 MEI LING</text>
   <line x1="40" y1="35" x2="216" y2="35" stroke="#ff0066" stroke-width="0.5" opacity="0.3"/>
 
   <!-- === BODY / JACKET === -->
@@ -54,7 +54,7 @@
   <path d="M105,232 Q110,220 120,218 L128,225 L115,228 Z" fill="#1e1e35"/>
   <path d="M151,232 Q146,220 136,218 L128,225 L141,228 Z" fill="#1e1e35"/>
 
-  <!-- Tech stripe on jacket -->
+  <!-- Hot pink accent trim on jacket edges -->
   <line x1="72" y1="260" x2="72" y2="340" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
   <line x1="184" y1="260" x2="184" y2="340" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
   <!-- Circuit patterns on shoulders -->
@@ -66,6 +66,9 @@
   <rect x="73" y="288" width="4" height="2" fill="#ff0066" opacity="0.3"/>
   <path d="M191,275 L186,275 L186,280 L181,280 L181,288" fill="none" stroke="#ff0066" stroke-width="0.4" opacity="0.3"/>
   <rect x="179" y="288" width="4" height="2" fill="#ff0066" opacity="0.3"/>
+  <!-- Extra circuit detail on right shoulder -->
+  <path d="M170,252 L166,252 L166,258 L162,258" fill="none" stroke="#ff0066" stroke-width="0.4" opacity="0.35"/>
+  <circle cx="162" cy="258" r="1" fill="#ff0066" opacity="0.35"/>
 
   <!-- Inner shirt neckline -->
   <path d="M113,226 Q120,235 128,238 Q136,235 143,226" fill="none" stroke="#333355" stroke-width="1"/>
@@ -76,21 +79,18 @@
   <path d="M118,218 Q120,210 119,192 L128,192 L128,218 Z" fill="#d4a878" opacity="0.4"/>
 
   <!-- === HAIR (back layer) === -->
-  <!-- Long hair falling behind shoulders - chunky blocks -->
   <path d="M72,130 Q60,180 50,260 Q46,310 50,360 Q52,370 60,365 Q66,340 70,280 Q74,220 78,170 Z" fill="#0d0a15"/>
   <path d="M184,130 Q196,180 206,260 Q210,310 206,360 Q204,370 196,365 Q190,340 186,280 Q182,220 178,170 Z" fill="#0d0a15"/>
-  <!-- Back hair shadow blocks -->
   <path d="M66,150 Q56,200 48,270 Q44,320 46,365 Q46,370 50,368 Q52,340 54,280 Q58,220 66,170 Z" fill="#0d0a15" opacity="0.7"/>
   <path d="M190,150 Q200,200 208,270 Q212,320 210,365 Q210,370 206,368 Q204,340 202,280 Q198,220 190,170 Z" fill="#0d0a15" opacity="0.7"/>
 
-  <!-- Purple highlight streaks in back hair (thick paths) -->
+  <!-- Dark purple highlight streaks in back hair -->
   <path d="M57,200 Q54,240 52,290 Q51,310 52,330" fill="none" stroke="#6b2fa0" stroke-width="3" opacity="0.35"/>
   <path d="M199,200 Q202,240 204,290 Q205,310 204,330" fill="none" stroke="#6b2fa0" stroke-width="3" opacity="0.35"/>
 
   <!-- === HEAD === -->
-  <!-- Face shape - V-chin anime style -->
   <path d="M86,120 Q84,140 86,158 Q90,175 105,190 Q118,200 128,203 Q138,200 151,190 Q166,175 170,158 Q172,140 170,120 Q168,105 160,100 Q145,92 128,90 Q111,92 96,100 Q88,105 86,120 Z" fill="#f0d5b8"/>
-  <!-- Face shadow (cel-shaded, hard edge on left side) -->
+  <!-- Face shadow (cel-shaded) -->
   <path d="M86,120 Q84,140 86,158 Q90,175 105,190 Q115,198 128,203 L128,90 Q111,92 96,100 Q88,105 86,120 Z" fill="#d4a878" opacity="0.25"/>
   <!-- Jaw shadow -->
   <path d="M90,170 Q100,185 115,195 Q122,199 128,203 Q118,200 108,192 Q95,180 90,170 Z" fill="#d4a878" opacity="0.3"/>
@@ -101,10 +101,9 @@
   <ellipse cx="156" cy="155" rx="12" ry="4" fill="#ff6688" opacity="0.1"/>
 
   <!-- === HAIR (front layer) - chunky geometric blocks === -->
-  <!-- Main hair volume -->
   <path d="M75,125 Q72,100 80,78 Q90,58 110,50 Q125,45 128,45 Q131,45 146,50 Q166,58 176,78 Q184,100 181,125 Q178,110 170,100 Q158,90 145,86 Q128,83 111,86 Q98,90 86,100 Q78,110 75,125 Z" fill="#0d0a15"/>
 
-  <!-- Hair shine band (large bright area) -->
+  <!-- Hair shine band -->
   <path d="M95,65 Q110,56 128,53 Q146,56 161,65 Q155,58 140,53 Q128,50 116,53 Q101,58 95,65 Z" fill="white" opacity="0.15"/>
   <path d="M100,72 Q112,62 128,58 Q144,62 156,72 Q148,64 138,59 Q128,56 118,59 Q108,64 100,72 Z" fill="white" opacity="0.4"/>
 
@@ -113,94 +112,76 @@
   <path d="M102,110 Q108,75 126,62 Q132,58 136,66 Q126,80 120,110 Z" fill="#12101e"/>
   <path d="M118,108 Q126,72 142,64 Q148,62 150,68 Q142,82 136,108 Z" fill="#0d0a15"/>
   <path d="M135,112 Q146,80 162,74 Q168,73 167,80 Q158,92 150,115 Z" fill="#12101e"/>
-  <!-- Extra bang depth layers -->
   <path d="M93,112 Q98,86 113,73 Q118,69 120,75 Q113,90 108,112 Z" fill="#15102a" opacity="0.6"/>
   <path d="M128,106 Q135,76 150,68 Q155,66 155,72 Q148,85 142,108 Z" fill="#15102a" opacity="0.6"/>
 
-  <!-- Purple highlight streaks in front hair (thick) -->
+  <!-- Dark purple highlight streaks in front hair -->
   <path d="M92,88 Q96,108 98,130" fill="none" stroke="#6b2fa0" stroke-width="2.5" opacity="0.4"/>
   <path d="M157,86 Q160,106 162,128" fill="none" stroke="#6b2fa0" stroke-width="2.5" opacity="0.4"/>
   <path d="M110,72 Q113,92 114,112" fill="none" stroke="#5a1f90" stroke-width="1.8" opacity="0.35"/>
   <path d="M142,70 Q144,90 145,110" fill="none" stroke="#5a1f90" stroke-width="1.8" opacity="0.35"/>
 
-  <!-- Side hair strands framing face (thick paths) -->
+  <!-- Side hair strands framing face -->
   <path d="M78,120 Q72,160 66,215 Q64,245 66,275" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
   <path d="M178,120 Q184,160 190,215 Q192,245 190,275" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
-  <!-- Side strand shadow -->
   <path d="M82,125 Q78,165 74,215 Q73,240 74,265" fill="#12101e" opacity="0.5"/>
   <path d="M174,125 Q178,165 182,215 Q183,240 182,265" fill="#12101e" opacity="0.5"/>
 
-  <!-- === EYES - Shounen anime style === -->
+  <!-- === EYES - DEFAULT: composed, professional, slight guardedness === -->
 
   <!-- Left eye -->
-  <!-- Thick upper eyelid (THE defining anime feature) -->
   <path d="M96,133 Q104,126 112,125 Q118,126 124,133" fill="none" stroke="#1a1020" stroke-width="3.5" stroke-linecap="round"/>
-  <!-- Eye white shape (almond, pointed corners) -->
   <path d="M97,134 Q104,127 111,126 Q118,127 123,134 Q118,139 111,140 Q104,139 97,134 Z" fill="white"/>
-  <!-- Iris (large circle) -->
-  <circle cx="111" cy="133" r="12" fill="url(#irisGradL)"/>
-  <!-- Clip iris to eye shape -->
   <clipPath id="eyeClipL"><path d="M97,134 Q104,127 111,126 Q118,127 123,134 Q118,139 111,140 Q104,139 97,134 Z"/></clipPath>
   <circle cx="111" cy="133" r="12" fill="url(#irisGradL)" clip-path="url(#eyeClipL)"/>
-  <!-- Outer ring on iris -->
   <circle cx="111" cy="133" r="11" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipL)"/>
-  <!-- Radial detail lines in iris -->
+  <!-- Iris radial detail -->
   <line x1="111" y1="123" x2="111" y2="127" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
   <line x1="117" y1="125" x2="115" y2="128" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
   <line x1="105" y1="125" x2="107" y2="128" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
   <line x1="120" y1="130" x2="117" y2="131" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
   <line x1="102" y1="130" x2="105" y2="131" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <!-- Pupil -->
   <circle cx="111" cy="133" r="5" fill="#0a0505" clip-path="url(#eyeClipL)"/>
-  <!-- Highlights: large, medium, small -->
+  <!-- Highlights -->
   <circle cx="107" cy="129" r="4" fill="white" opacity="0.9" clip-path="url(#eyeClipL)"/>
   <circle cx="115" cy="136" r="2.5" fill="white" opacity="0.55" clip-path="url(#eyeClipL)"/>
   <circle cx="109" cy="137" r="1" fill="white" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <!-- Eyelash flicks at outer corner -->
+  <!-- Eyelash flicks -->
   <path d="M96,134 Q93,130 91,128" fill="none" stroke="#1a1020" stroke-width="1.5" stroke-linecap="round"/>
   <path d="M97,132 Q95,130 93,129" fill="none" stroke="#1a1020" stroke-width="0.8"/>
-  <!-- Thin lower lid -->
+  <!-- Lower lid hint -->
   <path d="M99,136 Q111,140 121,136" fill="none" stroke="#2a2035" stroke-width="0.5" opacity="0.4"/>
 
   <!-- Right eye -->
-  <!-- Thick upper eyelid -->
   <path d="M132,133 Q140,126 147,125 Q154,126 160,133" fill="none" stroke="#1a1020" stroke-width="3.5" stroke-linecap="round"/>
-  <!-- Eye white shape -->
   <path d="M133,134 Q140,127 147,126 Q154,127 159,134 Q154,139 147,140 Q140,139 133,134 Z" fill="white"/>
-  <!-- Iris -->
   <clipPath id="eyeClipR"><path d="M133,134 Q140,127 147,126 Q154,127 159,134 Q154,139 147,140 Q140,139 133,134 Z"/></clipPath>
   <circle cx="147" cy="133" r="12" fill="url(#irisGradR)" clip-path="url(#eyeClipR)"/>
-  <!-- Outer ring -->
   <circle cx="147" cy="133" r="11" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipR)"/>
-  <!-- Radial detail lines -->
   <line x1="147" y1="123" x2="147" y2="127" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
   <line x1="153" y1="125" x2="151" y2="128" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
   <line x1="141" y1="125" x2="143" y2="128" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
   <line x1="156" y1="130" x2="153" y2="131" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
   <line x1="138" y1="130" x2="141" y2="131" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <!-- Pupil -->
   <circle cx="147" cy="133" r="5" fill="#0a0505" clip-path="url(#eyeClipR)"/>
-  <!-- Highlights -->
   <circle cx="143" cy="129" r="4" fill="white" opacity="0.9" clip-path="url(#eyeClipR)"/>
   <circle cx="151" cy="136" r="2.5" fill="white" opacity="0.55" clip-path="url(#eyeClipR)"/>
   <circle cx="145" cy="137" r="1" fill="white" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <!-- Eyelash flicks at outer corner -->
   <path d="M160,134 Q163,130 165,128" fill="none" stroke="#1a1020" stroke-width="1.5" stroke-linecap="round"/>
   <path d="M159,132 Q161,130 163,129" fill="none" stroke="#1a1020" stroke-width="0.8"/>
-  <!-- Thin lower lid -->
   <path d="M135,136 Q147,140 157,136" fill="none" stroke="#2a2035" stroke-width="0.5" opacity="0.4"/>
 
-  <!-- Eyebrows - clean arcs -->
+  <!-- Eyebrows - level, composed, slightly guarded (flat professional look) -->
   <path d="M96,122 Q106,116 120,118" fill="none" stroke="#1a1020" stroke-width="2.2" stroke-linecap="round"/>
   <path d="M136,118 Q150,116 160,122" fill="none" stroke="#1a1020" stroke-width="2.2" stroke-linecap="round"/>
 
-  <!-- Nose - tiny, just an L-shape -->
+  <!-- Nose -->
   <path d="M127,150 L126,157 Q128,159 130,157" fill="none" stroke="#d4a878" stroke-width="1" opacity="0.6"/>
 
-  <!-- Mouth - simple arc, slightly confident -->
+  <!-- Mouth - composed, slight confident line -->
   <path d="M118,172 Q128,176 138,172" fill="none" stroke="#c47070" stroke-width="1.2" stroke-linecap="round"/>
 
-  <!-- Ears (partially visible) -->
+  <!-- Ears -->
   <path d="M84,130 Q78,130 76,140 Q75,150 80,155" fill="#f0d5b8" stroke="#d4a878" stroke-width="0.5"/>
   <path d="M172,130 Q178,130 180,140 Q181,150 176,155" fill="#f0d5b8" stroke="#d4a878" stroke-width="0.5"/>
 

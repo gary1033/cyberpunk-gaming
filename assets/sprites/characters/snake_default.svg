@@ -27,15 +27,15 @@
       <stop offset="100%" stop-color="#b08868"/>
     </linearGradient>
     <linearGradient id="hair_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0a2a2a"/>
-      <stop offset="50%" stop-color="#0d1a1a"/>
-      <stop offset="100%" stop-color="#0a2a2a"/>
+      <stop offset="0%" stop-color="#0a2a1a"/>
+      <stop offset="50%" stop-color="#061510"/>
+      <stop offset="100%" stop-color="#0a2a1a"/>
     </linearGradient>
     <linearGradient id="hair_shine" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a4a4a" stop-opacity="0"/>
-      <stop offset="40%" stop-color="#2a6a5a" stop-opacity="0.6"/>
-      <stop offset="60%" stop-color="#2a6a5a" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#1a4a4a" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#1a4a3a" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#2a6a4a" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#2a6a4a" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#1a4a3a" stop-opacity="0"/>
     </linearGradient>
     <linearGradient id="dress_grad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#0d0d1a"/>
@@ -63,48 +63,49 @@
   <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#00ff88" text-anchor="middle" filter="url(#glow)">蛇女</text>
   <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#00ff88" text-anchor="middle">蛇女</text>
 
-  <!-- === HAIR BEHIND BODY === -->
-  <!-- Left back hair - large chunky strands -->
-  <path d="M88,72 Q72,100 60,160 Q50,230 48,310 Q46,350 50,384" fill="url(#hair_grad)" stroke="#082020" stroke-width="0.5"/>
-  <path d="M94,72 Q80,105 70,170 Q62,240 60,320 Q58,360 62,384" fill="url(#hair_grad)" stroke="#082020" stroke-width="0.5" opacity="0.9"/>
+  <!-- === HAIR BEHIND BODY - very long past waist === -->
+  <!-- Left back hair -->
+  <path d="M88,72 Q70,110 58,170 Q48,240 46,320 Q44,360 48,384" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.5"/>
+  <path d="M94,72 Q78,115 68,180 Q60,250 58,330 Q56,365 60,384" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.5" opacity="0.9"/>
+  <path d="M98,70 Q85,108 78,165 Q72,230 72,310 Q70,355 74,384" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.3" opacity="0.7"/>
   <!-- Right back hair -->
-  <path d="M168,72 Q184,100 196,160 Q206,230 208,310 Q210,350 206,384" fill="url(#hair_grad)" stroke="#082020" stroke-width="0.5"/>
-  <path d="M162,72 Q176,105 186,170 Q194,240 196,320 Q198,360 194,384" fill="url(#hair_grad)" stroke="#082020" stroke-width="0.5" opacity="0.9"/>
+  <path d="M168,72 Q186,110 198,170 Q208,240 210,320 Q212,360 208,384" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.5"/>
+  <path d="M162,72 Q178,115 188,180 Q196,250 198,330 Q200,365 196,384" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.5" opacity="0.9"/>
+  <path d="M158,70 Q171,108 178,165 Q184,230 184,310 Q186,355 182,384" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.3" opacity="0.7"/>
   <!-- Center back hair -->
-  <path d="M102,68 Q96,85 93,130 Q90,190 88,270 Q86,340 90,384" fill="url(#hair_grad)" opacity="0.6"/>
-  <path d="M154,68 Q160,85 163,130 Q166,190 168,270 Q170,340 166,384" fill="url(#hair_grad)" opacity="0.6"/>
+  <path d="M102,68 Q96,85 93,130 Q90,190 88,270 Q86,340 90,384" fill="url(#hair_grad)" opacity="0.5"/>
+  <path d="M154,68 Q160,85 163,130 Q166,190 168,270 Q170,340 166,384" fill="url(#hair_grad)" opacity="0.5"/>
 
   <!-- Hair shine bands -->
-  <path d="M68,155 Q66,180 64,210 Q63,230 64,250" fill="none" stroke="#22cc66" stroke-width="2.5" opacity="0.12"/>
-  <path d="M188,155 Q190,180 192,210 Q193,230 192,250" fill="none" stroke="#22cc66" stroke-width="2.5" opacity="0.12"/>
-  <path d="M74,140 Q72,170 70,200" fill="none" stroke="#22cc66" stroke-width="1" opacity="0.08"/>
-  <path d="M182,140 Q184,170 186,200" fill="none" stroke="#22cc66" stroke-width="1" opacity="0.08"/>
+  <path d="M66,160 Q64,190 62,220 Q61,245 62,270" fill="none" stroke="#00ff88" stroke-width="2" opacity="0.08"/>
+  <path d="M190,160 Q192,190 194,220 Q195,245 194,270" fill="none" stroke="#00ff88" stroke-width="2" opacity="0.08"/>
+  <path d="M76,150 Q74,180 72,210" fill="none" stroke="#22cc66" stroke-width="1.5" opacity="0.06"/>
+  <path d="M180,150 Q182,180 184,210" fill="none" stroke="#22cc66" stroke-width="1.5" opacity="0.06"/>
 
   <!-- === NECK === -->
   <path d="M116,160 Q116,155 118,152 L138,152 Q140,155 140,160 L140,188 L116,188 Z" fill="url(#skin_base)"/>
-  <!-- Neck shadow -->
   <path d="M116,160 Q128,164 140,160 L140,172 Q128,168 116,172 Z" fill="url(#skin_shadow)" opacity="0.4"/>
 
-  <!-- === BODY - elegant dark outfit === -->
+  <!-- === BODY - dark qipao dress === -->
   <path d="M128,188 Q128,200 128,220 L128,384 L48,384 L48,278 Q48,235 84,220 Q110,206 128,188 Z" fill="url(#dress_grad)"/>
   <path d="M128,188 Q128,200 128,220 L128,384 L208,384 L208,278 Q208,235 172,220 Q146,206 128,188 Z" fill="url(#dress_grad)"/>
 
-  <!-- High collar / mandarin collar -->
+  <!-- High mandarin collar -->
   <path d="M110,188 Q114,178 120,172 L128,170 L136,172 Q142,178 146,188" fill="#0d0d1a" stroke="#00ff88" stroke-width="0.8" opacity="0.9"/>
   <path d="M112,186 Q118,175 128,172 Q138,175 144,186" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.3"/>
 
-  <!-- Outfit center line and details -->
+  <!-- Outfit center line and snake scale embroidery -->
   <path d="M128,220 L128,384" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.15"/>
-  <path d="M100,250 Q128,268 156,250" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.1"/>
-  <path d="M95,290 Q128,310 161,290" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.08"/>
-  <!-- Snake pattern on outfit -->
-  <path d="M108,255 Q114,250 120,254 Q126,258 132,254 Q138,250 144,254 Q150,258 154,255" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.12"/>
+  <path d="M108,240 Q114,236 120,240 Q126,244 132,240 Q138,236 144,240 Q150,244 156,240" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.12"/>
+  <path d="M105,265 Q112,261 119,265 Q126,269 133,265 Q140,261 147,265 Q154,269 160,265" fill="none" stroke="#00ff88" stroke-width="0.7" opacity="0.10"/>
+  <path d="M103,290 Q111,286 119,290 Q127,294 135,290 Q143,286 151,290 Q159,294 164,290" fill="none" stroke="#00ff88" stroke-width="0.6" opacity="0.08"/>
+  <path d="M100,315 Q110,311 120,315 Q130,319 140,315 Q150,311 158,315" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.06"/>
 
   <!-- Shoulders -->
   <path d="M84,220 Q64,228 54,248 Q48,262 48,278" fill="none" stroke="#1a2a2e" stroke-width="1"/>
   <path d="M172,220 Q192,228 202,248 Q208,262 208,278" fill="none" stroke="#1a2a2e" stroke-width="1"/>
 
-  <!-- Arms at sides -->
+  <!-- Arms -->
   <path d="M48,278 Q52,310 56,340 Q58,360 60,384" fill="url(#dress_grad)" stroke="#1a1a2e" stroke-width="0.5"/>
   <path d="M208,278 Q204,310 200,340 Q198,360 196,384" fill="url(#dress_grad)" stroke="#1a1a2e" stroke-width="0.5"/>
 
@@ -114,66 +115,71 @@
 
   <!-- === HEAD === -->
   <path d="M94,78 Q94,52 128,44 Q162,52 162,78 L162,122 Q162,140 153,150 Q142,162 128,164 Q114,162 103,150 Q94,140 94,122 Z" fill="url(#skin_base)"/>
-  <!-- Face cel-shading shadows -->
+  <!-- Cel-shading shadows -->
   <path d="M94,100 Q98,120 103,135 Q110,148 128,155 L128,164 Q114,162 103,150 Q94,140 94,122 Z" fill="url(#skin_shadow)" opacity="0.35"/>
   <path d="M162,100 Q158,120 153,135 Q146,148 128,155 L128,164 Q142,162 153,150 Q162,140 162,122 Z" fill="url(#skin_shadow)" opacity="0.25"/>
   <!-- Cheek shadow -->
   <path d="M98,115 Q102,128 108,138" fill="none" stroke="#c49a78" stroke-width="1" opacity="0.2"/>
   <path d="M158,115 Q154,128 148,138" fill="none" stroke="#c49a78" stroke-width="1" opacity="0.15"/>
+  <!-- Luminous skin glow -->
+  <ellipse cx="128" cy="120" rx="28" ry="35" fill="#f0d0b0" opacity="0.06"/>
 
-  <!-- === FRONT HAIR === -->
-  <!-- Side bangs - large chunky strands -->
-  <path d="M94,72 Q90,65 84,62 Q78,72 76,90 Q78,80 85,74 Q92,72 96,82 Z" fill="url(#hair_grad)" stroke="#082020" stroke-width="0.3"/>
-  <path d="M162,72 Q166,65 172,62 Q178,72 180,90 Q178,80 171,74 Q164,72 160,82 Z" fill="url(#hair_grad)" stroke="#082020" stroke-width="0.3"/>
-  <!-- Bangs across forehead (under mask) -->
-  <path d="M98,76 Q110,68 128,66 Q146,68 158,76 L158,82 Q146,74 128,72 Q110,74 98,82 Z" fill="url(#hair_grad)" stroke="#082020" stroke-width="0.3"/>
-  <!-- Extra hair strand detail -->
-  <path d="M86,72 Q82,82 80,95" fill="none" stroke="#0a2a2a" stroke-width="1.5" opacity="0.4"/>
-  <path d="M170,72 Q174,82 176,95" fill="none" stroke="#0a2a2a" stroke-width="1.5" opacity="0.4"/>
+  <!-- === FRONT HAIR - dark green-black === -->
+  <!-- Side bangs -->
+  <path d="M94,72 Q90,65 84,62 Q78,72 76,90 Q78,80 85,74 Q92,72 96,82 Z" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.3"/>
+  <path d="M162,72 Q166,65 172,62 Q178,72 180,90 Q178,80 171,74 Q164,72 160,82 Z" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.3"/>
+  <!-- Bangs across forehead -->
+  <path d="M98,76 Q110,68 128,66 Q146,68 158,76 L158,82 Q146,74 128,72 Q110,74 98,82 Z" fill="url(#hair_grad)" stroke="#041a10" stroke-width="0.3"/>
+  <!-- Extra strands -->
+  <path d="M86,72 Q82,82 80,95" fill="none" stroke="#0a2a1a" stroke-width="1.5" opacity="0.4"/>
+  <path d="M170,72 Q174,82 176,95" fill="none" stroke="#0a2a1a" stroke-width="1.5" opacity="0.4"/>
+  <!-- Hair highlight bands on front -->
+  <path d="M100,72 Q110,70 120,72" fill="none" stroke="#1a5a3a" stroke-width="1" opacity="0.2"/>
+  <path d="M136,72 Q146,70 156,72" fill="none" stroke="#1a5a3a" stroke-width="1" opacity="0.2"/>
 
-  <!-- === SNAKE MASK - covering upper face === -->
+  <!-- === SNAKE MASK - ornate, covering upper face === -->
   <path d="M91,75 Q91,64 128,58 Q165,64 165,75 L165,118 Q165,128 156,131 Q148,134 128,136 Q108,134 100,131 Q91,128 91,118 Z" fill="url(#mask_grad)" stroke="#00ff88" stroke-width="1.2" opacity="0.95"/>
   <!-- Mask iridescent highlight -->
   <path d="M95,70 Q128,62 161,70 L161,85 Q128,77 95,85 Z" fill="url(#mask_highlight)"/>
 
-  <!-- Mask scale texture -->
-  <path d="M99,82 Q128,75 157,82" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
-  <path d="M97,89 Q128,82 159,89" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
-  <path d="M95,96 Q128,89 161,96" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
-  <path d="M96,103 Q128,96 160,103" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
-  <path d="M98,110 Q128,103 158,110" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
-  <path d="M100,117 Q128,110 156,117" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.2"/>
+  <!-- Scale texture pattern -->
+  <path d="M99,82 Q128,75 157,82" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.18"/>
+  <path d="M97,89 Q128,82 159,89" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.18"/>
+  <path d="M95,96 Q128,89 161,96" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.18"/>
+  <path d="M96,103 Q128,96 160,103" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.18"/>
+  <path d="M98,110 Q128,103 158,110" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.18"/>
+  <path d="M100,117 Q128,110 156,117" fill="none" stroke="#00ff88" stroke-width="0.8" opacity="0.18"/>
   <!-- Diamond scale overlay -->
-  <path d="M110,82 L115,86 L110,90 L105,86 Z" fill="none" stroke="#00ff88" stroke-width="0.3" opacity="0.12"/>
-  <path d="M128,79 L133,83 L128,87 L123,83 Z" fill="none" stroke="#00ff88" stroke-width="0.3" opacity="0.12"/>
-  <path d="M146,82 L151,86 L146,90 L141,86 Z" fill="none" stroke="#00ff88" stroke-width="0.3" opacity="0.12"/>
+  <path d="M110,82 L115,86 L110,90 L105,86 Z" fill="none" stroke="#00ff88" stroke-width="0.4" opacity="0.12"/>
+  <path d="M128,79 L133,83 L128,87 L123,83 Z" fill="none" stroke="#00ff88" stroke-width="0.4" opacity="0.12"/>
+  <path d="M146,82 L151,86 L146,90 L141,86 Z" fill="none" stroke="#00ff88" stroke-width="0.4" opacity="0.12"/>
+  <path d="M119,90 L124,94 L119,98 L114,94 Z" fill="none" stroke="#00ff88" stroke-width="0.3" opacity="0.10"/>
+  <path d="M137,90 L142,94 L137,98 L132,94 Z" fill="none" stroke="#00ff88" stroke-width="0.3" opacity="0.10"/>
 
   <!-- Mask nose ridge -->
   <path d="M128,80 L128,128" fill="none" stroke="#00ff88" stroke-width="0.6" opacity="0.25"/>
   <path d="M124,128 Q128,134 132,128" fill="none" stroke="#00ff88" stroke-width="0.5" opacity="0.35"/>
 
   <!-- Snake fangs on mask bottom -->
-  <path d="M106,131 L103,139 L108,134" fill="#1a4a3a" stroke="#00ff88" stroke-width="0.5" opacity="0.5"/>
-  <path d="M150,131 L153,139 L148,134" fill="#1a4a3a" stroke="#00ff88" stroke-width="0.5" opacity="0.5"/>
+  <path d="M106,131 L103,140 L108,134" fill="#1a4a3a" stroke="#00ff88" stroke-width="0.6" opacity="0.5"/>
+  <path d="M150,131 L153,140 L148,134" fill="#1a4a3a" stroke="#00ff88" stroke-width="0.6" opacity="0.5"/>
 
   <!-- === MASK EYE HOLES - almond shaped === -->
-  <!-- Left eye hole -->
   <path d="M100,98 Q110,91 120,98 Q110,105 100,98 Z" fill="#050a08" stroke="#00ff88" stroke-width="1"/>
-  <!-- Right eye hole -->
   <path d="M136,98 Q146,91 156,98 Q146,105 136,98 Z" fill="#050a08" stroke="#00ff88" stroke-width="1"/>
 
-  <!-- === EYES - Shounen anime style, half-lidded (default) === -->
+  <!-- === EYES - golden-amber with VERTICAL SLIT PUPILS, half-lidded === -->
   <!-- Left eye -->
-  <!-- Thick upper eyelid -->
   <path d="M102,97 Q110,92 119,97" fill="none" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
-  <!-- Lower eyelid -->
   <path d="M103,100 Q110,104 118,100" fill="none" stroke="#1a1a1a" stroke-width="1" opacity="0.6"/>
-  <!-- Iris -->
   <circle cx="110" cy="98" r="6" fill="url(#eye_grad)"/>
-  <!-- Iris ring detail -->
-  <circle cx="110" cy="98" r="5" fill="none" stroke="#aa7711" stroke-width="0.5" opacity="0.4"/>
-  <!-- Vertical slit pupil - snake! -->
-  <ellipse cx="110" cy="98" rx="1.8" ry="5" fill="#1a0a00"/>
+  <circle cx="110" cy="98" r="5.2" fill="none" stroke="#aa7711" stroke-width="0.5" opacity="0.4"/>
+  <!-- Iris detail lines radiating out -->
+  <line x1="110" y1="93" x2="110" y2="95" stroke="#cc9922" stroke-width="0.3" opacity="0.3"/>
+  <line x1="106" y1="96" x2="107" y2="97" stroke="#cc9922" stroke-width="0.3" opacity="0.3"/>
+  <line x1="114" y1="96" x2="113" y2="97" stroke="#cc9922" stroke-width="0.3" opacity="0.3"/>
+  <!-- VERTICAL SLIT PUPIL -->
+  <ellipse cx="110" cy="98" rx="1.6" ry="5.2" fill="#1a0a00"/>
   <!-- Highlights -->
   <circle cx="107" cy="95" r="1.8" fill="#ffffff" opacity="0.9"/>
   <circle cx="113" cy="96" r="1" fill="#ffffff" opacity="0.6"/>
@@ -181,15 +187,19 @@
   <!-- Eyelash flicks -->
   <path d="M101,96 Q99,93 97,91" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
   <path d="M119,96 Q121,94 122,92" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linecap="round"/>
-  <!-- Half-lid (default: mysterious, half-closed) -->
+  <!-- Half-lid for mysterious look -->
   <path d="M101,97 Q110,94 119,97" fill="url(#skin_shadow)" stroke="#1a1a1a" stroke-width="0.5" opacity="0.7"/>
 
   <!-- Right eye -->
   <path d="M137,97 Q146,92 155,97" fill="none" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
   <path d="M138,100 Q146,104 154,100" fill="none" stroke="#1a1a1a" stroke-width="1" opacity="0.6"/>
   <circle cx="146" cy="98" r="6" fill="url(#eye_grad)"/>
-  <circle cx="146" cy="98" r="5" fill="none" stroke="#aa7711" stroke-width="0.5" opacity="0.4"/>
-  <ellipse cx="146" cy="98" rx="1.8" ry="5" fill="#1a0a00"/>
+  <circle cx="146" cy="98" r="5.2" fill="none" stroke="#aa7711" stroke-width="0.5" opacity="0.4"/>
+  <line x1="146" y1="93" x2="146" y2="95" stroke="#cc9922" stroke-width="0.3" opacity="0.3"/>
+  <line x1="142" y1="96" x2="143" y2="97" stroke="#cc9922" stroke-width="0.3" opacity="0.3"/>
+  <line x1="150" y1="96" x2="149" y2="97" stroke="#cc9922" stroke-width="0.3" opacity="0.3"/>
+  <!-- VERTICAL SLIT PUPIL -->
+  <ellipse cx="146" cy="98" rx="1.6" ry="5.2" fill="#1a0a00"/>
   <circle cx="143" cy="95" r="1.8" fill="#ffffff" opacity="0.9"/>
   <circle cx="149" cy="96" r="1" fill="#ffffff" opacity="0.6"/>
   <circle cx="145" cy="101" r="0.6" fill="#ffffff" opacity="0.3"/>
@@ -198,25 +208,26 @@
   <path d="M137,97 Q146,94 155,97" fill="url(#skin_shadow)" stroke="#1a1a1a" stroke-width="0.5" opacity="0.7"/>
 
   <!-- === LOWER FACE === -->
-  <!-- Small nose -->
   <path d="M126,138 Q128,140 130,138" fill="none" stroke="#c49a78" stroke-width="0.8" opacity="0.5"/>
 
-  <!-- Lips - mysterious slight smile -->
+  <!-- Lips - mysterious slight smirk, knowing expression -->
   <path d="M117,148 Q122,145 128,144 Q134,145 139,148" fill="none" stroke="#cc8877" stroke-width="1.8" stroke-linecap="round"/>
   <path d="M119,149 Q128,152 137,149" fill="none" stroke="#aa6655" stroke-width="1" stroke-linecap="round"/>
-  <!-- Slight smile upturn -->
-  <path d="M117,148 Q115,147 114,146" fill="none" stroke="#cc8877" stroke-width="0.6" opacity="0.4"/>
-  <path d="M139,148 Q141,147 142,146" fill="none" stroke="#cc8877" stroke-width="0.6" opacity="0.4"/>
+  <!-- Slight smirk upturn on right side -->
+  <path d="M139,148 Q141,146 143,145" fill="none" stroke="#cc8877" stroke-width="0.7" opacity="0.5"/>
+  <path d="M117,148 Q115,147 114,147" fill="none" stroke="#cc8877" stroke-width="0.5" opacity="0.3"/>
 
-  <!-- Chin - V shape -->
+  <!-- Chin -->
   <path d="M112,155 Q128,166 144,155" fill="none" stroke="#c49a78" stroke-width="0.8" opacity="0.35"/>
 
   <!-- === EARS === -->
   <ellipse cx="92" cy="105" rx="4" ry="9" fill="url(#skin_base)" stroke="#c49a78" stroke-width="0.5" opacity="0.6"/>
   <ellipse cx="164" cy="105" rx="4" ry="9" fill="url(#skin_base)" stroke="#c49a78" stroke-width="0.5" opacity="0.6"/>
-  <!-- Snake fang earrings -->
-  <path d="M92,115 L90,122 L94,122 Z" fill="#0a2a1a" stroke="#00ff88" stroke-width="0.8" filter="url(#glow)"/>
-  <path d="M164,115 L162,122 L166,122 Z" fill="#0a2a1a" stroke="#00ff88" stroke-width="0.8" filter="url(#glow)"/>
+  <!-- Snake fang earrings with glow -->
+  <path d="M92,115 L89,124 L95,124 Z" fill="#0a2a1a" stroke="#00ff88" stroke-width="0.8" filter="url(#glow)"/>
+  <path d="M164,115 L161,124 L167,124 Z" fill="#0a2a1a" stroke="#00ff88" stroke-width="0.8" filter="url(#glow)"/>
+  <circle cx="92" cy="118" r="1" fill="#00ff88" opacity="0.4"/>
+  <circle cx="164" cy="118" r="1" fill="#00ff88" opacity="0.4"/>
 
   <!-- Ambient glow effects -->
   <ellipse cx="128" cy="98" rx="45" ry="22" fill="#00ff88" opacity="0.025" filter="url(#soft_glow)"/>

@@ -18,10 +18,6 @@
       <stop offset="0%" stop-color="#ff0066" stop-opacity="0.8"/>
       <stop offset="100%" stop-color="#ff0066" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="fearAura" cx="0.5" cy="0.4" r="0.6">
-      <stop offset="0%" stop-color="#ff0033" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#0a0a1a" stop-opacity="0"/>
-    </radialGradient>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="3" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -32,210 +28,155 @@
     </filter>
   </defs>
 
-  <!-- Background -->
+  <!-- Background - slightly more ominous -->
   <rect width="256" height="384" fill="url(#bgGrad)"/>
-  <rect width="256" height="384" fill="url(#fearAura)"/>
-  <ellipse cx="0" cy="200" rx="80" ry="200" fill="#ff0033" opacity="0.04"/>
+  <ellipse cx="0" cy="200" rx="80" ry="200" fill="#ff0066" opacity="0.04"/>
   <ellipse cx="256" cy="180" rx="60" ry="180" fill="#6600ff" opacity="0.04"/>
 
-  <!-- Border frame - slightly glitching -->
+  <!-- Border frame -->
   <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff0066" stroke-width="1.5" opacity="0.5"/>
-  <rect x="6" y="6" width="244" height="372" rx="4" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.2"/>
-  <!-- Glitch offset on frame -->
-  <rect x="5" y="150" width="246" height="3" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.15"/>
+  <rect x="6" y="6" width="244" height="372" rx="4" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.25"/>
 
   <!-- Character name -->
-  <text x="128" y="28" font-family="monospace" font-size="16" fill="#ff0066" text-anchor="middle" filter="url(#neonGlow)" opacity="0.9">美玲</text>
+  <text x="128" y="28" font-family="monospace" font-size="16" fill="#ff0066" text-anchor="middle" filter="url(#neonGlow)" opacity="0.9">美玲 MEI LING</text>
   <line x1="40" y1="35" x2="216" y2="35" stroke="#ff0066" stroke-width="0.5" opacity="0.3"/>
 
-  <!-- === BODY / JACKET - defensive posture === -->
-  <path d="M54,316 Q64,258 87,239 Q100,232 115,228 L128,225 L141,228 Q156,232 169,239 Q192,258 202,316 L202,390 L54,390 Z" fill="#1a1a2e" stroke="#2a2a4e" stroke-width="0.5"/>
-  <!-- Jacket cel-shadow -->
-  <path d="M54,316 Q64,268 87,247 Q97,239 107,234 L128,225 L128,390 L54,390 Z" fill="#12122a" opacity="0.5"/>
+  <!-- === BODY / JACKET - shoulders raised defensively === -->
+  <path d="M50,312 Q60,252 85,232 Q100,224 115,220 L128,217 L141,220 Q156,224 171,232 Q196,252 206,312 L206,390 L50,390 Z" fill="#1a1a2e" stroke="#2a2a4e" stroke-width="0.5"/>
+  <path d="M50,312 Q60,262 85,240 Q95,232 105,227 L128,217 L128,390 L50,390 Z" fill="#12122a" opacity="0.5"/>
+  <path d="M115,220 L108,262 L128,292 L128,217 Z" fill="#222240" stroke="#ff0066" stroke-width="0.3" opacity="0.8"/>
+  <path d="M141,220 L148,262 L128,292 L128,217 Z" fill="#222240" stroke="#ff0066" stroke-width="0.3" opacity="0.8"/>
+  <path d="M105,224 Q110,212 120,210 L128,217 L115,220 Z" fill="#1e1e35"/>
+  <path d="M151,224 Q146,212 136,210 L128,217 L141,220 Z" fill="#1e1e35"/>
+  <line x1="72" y1="252" x2="72" y2="334" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
+  <line x1="184" y1="252" x2="184" y2="334" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
+  <path d="M78,250 L82,250 L82,257 L88,257" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="88" cy="257" r="1.5" fill="#ff0066" opacity="0.5"/>
+  <path d="M178,250 L174,250 L174,257 L168,257" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.5"/>
+  <circle cx="168" cy="257" r="1.5" fill="#ff0066" opacity="0.5"/>
+  <path d="M65,267 L70,267 L70,272 L75,272 L75,280" fill="none" stroke="#ff0066" stroke-width="0.4" opacity="0.3"/>
+  <rect x="73" y="280" width="4" height="2" fill="#ff0066" opacity="0.3"/>
+  <path d="M191,267 L186,267 L186,272 L181,272 L181,280" fill="none" stroke="#ff0066" stroke-width="0.4" opacity="0.3"/>
+  <rect x="179" y="280" width="4" height="2" fill="#ff0066" opacity="0.3"/>
+  <path d="M113,218 Q120,227 128,230 Q136,227 143,218" fill="none" stroke="#333355" stroke-width="1"/>
 
-  <!-- Jacket lapels -->
-  <path d="M115,228 L108,268 L128,298 L128,225 Z" fill="#222240" stroke="#ff0066" stroke-width="0.3" opacity="0.8"/>
-  <path d="M141,228 L148,268 L128,298 L128,225 Z" fill="#222240" stroke="#ff0066" stroke-width="0.3" opacity="0.8"/>
-
-  <!-- Jacket collar -->
-  <path d="M106,232 Q110,220 120,218 L128,225 L115,228 Z" fill="#1e1e35"/>
-  <path d="M150,232 Q146,220 136,218 L128,225 L141,228 Z" fill="#1e1e35"/>
-
-  <!-- Tech stripes -->
-  <line x1="74" y1="258" x2="74" y2="338" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
-  <line x1="182" y1="258" x2="182" y2="338" stroke="#ff0066" stroke-width="1" opacity="0.4"/>
-  <!-- Circuit patterns -->
-  <path d="M80,256 L84,256 L84,263 L90,263" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.5"/>
-  <circle cx="90" cy="263" r="1.5" fill="#ff0066" opacity="0.5"/>
-  <path d="M176,256 L172,256 L172,263 L166,263" fill="none" stroke="#ff0066" stroke-width="0.5" opacity="0.5"/>
-  <circle cx="166" cy="263" r="1.5" fill="#ff0066" opacity="0.5"/>
-  <path d="M67,271 L72,271 L72,276 L77,276 L77,284" fill="none" stroke="#ff0066" stroke-width="0.4" opacity="0.3"/>
-  <rect x="75" y="284" width="4" height="2" fill="#ff0066" opacity="0.3"/>
-
-  <!-- Hand raised near mouth - frightened gesture -->
-  <path d="M156,232 Q168,222 174,208 Q177,198 175,190" fill="#1a1a2e" stroke="#2a2a4e" stroke-width="0.5"/>
-  <!-- Hand shape -->
-  <path d="M168,194 Q165,187 163,182 Q162,178 165,176 Q168,175 170,178 L172,182 Q173,178 175,175 Q177,173 179,175 Q181,177 180,182 L179,186 Q181,182 183,180 Q185,179 187,181 Q188,183 186,188 L183,194 Q185,192 187,191 Q189,190 190,193 Q190,196 187,200 Q182,208 176,212 Q170,216 165,214 Q162,212 163,207 Q164,202 168,194 Z" fill="#f0d5b8"/>
-  <!-- Hand cel-shadow -->
-  <path d="M168,194 Q165,187 163,182 Q162,178 165,176 Q166,175 168,177 L168,194 Z" fill="#d4a878" opacity="0.4"/>
-  <path d="M172,182 Q173,178 175,175 Q176,174 177,175 L177,182 Z" fill="#d4a878" opacity="0.3"/>
-
-  <!-- Inner shirt neckline -->
-  <path d="M113,226 Q120,235 128,238 Q136,235 143,226" fill="none" stroke="#333355" stroke-width="1"/>
-
-  <!-- Neck - very tense -->
-  <path d="M118,218 Q118,200 120,192 L136,192 Q138,200 138,218" fill="#f0d5b8"/>
-  <!-- Neck shadow -->
-  <path d="M118,218 Q120,208 120,192 L128,192 L128,218 Z" fill="#d4a878" opacity="0.45"/>
-  <!-- Neck tendon lines -->
-  <line x1="121" y1="196" x2="120" y2="214" stroke="#d4a878" stroke-width="0.5" opacity="0.35"/>
-  <line x1="135" y1="196" x2="136" y2="214" stroke="#d4a878" stroke-width="0.5" opacity="0.35"/>
+  <!-- Neck - very tense, tendons visible -->
+  <path d="M118,210 Q117,197 119,184 L137,184 Q139,197 138,210" fill="#f0d5b8"/>
+  <path d="M118,210 Q120,202 119,184 L128,184 L128,210 Z" fill="#d4a878" opacity="0.45"/>
+  <path d="M121,196 Q123,203 122,210" fill="none" stroke="#d4a878" stroke-width="0.7" opacity="0.4"/>
+  <path d="M135,196 Q133,203 134,210" fill="none" stroke="#d4a878" stroke-width="0.7" opacity="0.4"/>
 
   <!-- === HAIR (back layer) === -->
-  <path d="M72,130 Q60,180 50,260 Q46,310 50,360 Q52,370 60,365 Q66,340 70,280 Q74,220 78,170 Z" fill="#0d0a15"/>
-  <path d="M184,130 Q196,180 206,260 Q210,310 206,360 Q204,370 196,365 Q190,340 186,280 Q182,220 178,170 Z" fill="#0d0a15"/>
-  <path d="M66,150 Q56,200 48,270 Q44,320 46,365 Q46,370 50,368 Q52,340 54,280 Q58,220 66,170 Z" fill="#0d0a15" opacity="0.7"/>
-  <path d="M190,150 Q200,200 208,270 Q212,320 210,365 Q210,370 206,368 Q204,340 202,280 Q198,220 190,170 Z" fill="#0d0a15" opacity="0.7"/>
-
-  <!-- Purple highlights in back hair -->
-  <path d="M57,200 Q54,240 52,290 Q51,310 52,330" fill="none" stroke="#6b2fa0" stroke-width="3" opacity="0.35"/>
-  <path d="M199,200 Q202,240 204,290 Q205,310 204,330" fill="none" stroke="#6b2fa0" stroke-width="3" opacity="0.35"/>
+  <path d="M72,128 Q60,178 50,258 Q46,308 50,358 Q52,368 60,363 Q66,338 70,278 Q74,218 78,168 Z" fill="#0d0a15"/>
+  <path d="M184,128 Q196,178 206,258 Q210,308 206,358 Q204,368 196,363 Q190,338 186,278 Q182,218 178,168 Z" fill="#0d0a15"/>
+  <path d="M66,148 Q56,198 48,268 Q44,318 46,363 Q46,368 50,366 Q52,338 54,278 Q58,218 66,168 Z" fill="#0d0a15" opacity="0.7"/>
+  <path d="M190,148 Q200,198 208,268 Q212,318 210,363 Q210,368 206,366 Q204,338 202,278 Q198,218 190,168 Z" fill="#0d0a15" opacity="0.7"/>
+  <path d="M57,198 Q54,238 52,288 Q51,308 52,328" fill="none" stroke="#6b2fa0" stroke-width="3" opacity="0.35"/>
+  <path d="M199,198 Q202,238 204,288 Q205,308 204,328" fill="none" stroke="#6b2fa0" stroke-width="3" opacity="0.35"/>
 
   <!-- === HEAD === -->
-  <path d="M86,120 Q84,140 86,158 Q90,175 105,190 Q118,200 128,203 Q138,200 151,190 Q166,175 170,158 Q172,140 170,120 Q168,105 160,100 Q145,92 128,90 Q111,92 96,100 Q88,105 86,120 Z" fill="#f0d5b8"/>
-  <!-- Face shadow -->
-  <path d="M86,120 Q84,140 86,158 Q90,175 105,190 Q115,198 128,203 L128,90 Q111,92 96,100 Q88,105 86,120 Z" fill="#d4a878" opacity="0.28"/>
-  <!-- Pallor from fear -->
-  <ellipse cx="128" cy="165" rx="18" ry="8" fill="#f5e0cc" opacity="0.15"/>
-  <path d="M90,170 Q100,185 115,195 Q122,199 128,203 Q118,200 108,192 Q95,180 90,170 Z" fill="#d4a878" opacity="0.3"/>
-  <path d="M166,170 Q156,185 141,195 Q134,199 128,203 Q138,200 148,192 Q161,178 166,170 Z" fill="#d4a878" opacity="0.2"/>
-
-  <!-- Blush fading from fear (paler) -->
-  <ellipse cx="100" cy="155" rx="12" ry="4" fill="#ff6688" opacity="0.06"/>
-  <ellipse cx="156" cy="155" rx="12" ry="4" fill="#ff6688" opacity="0.06"/>
+  <path d="M86,118 Q84,138 86,156 Q90,173 105,188 Q118,198 128,201 Q138,198 151,188 Q166,173 170,156 Q172,138 170,118 Q168,103 160,98 Q145,90 128,88 Q111,90 96,98 Q88,103 86,118 Z" fill="#f0d5b8"/>
+  <path d="M86,118 Q84,138 86,156 Q90,173 105,188 Q115,196 128,201 L128,88 Q111,90 96,98 Q88,103 86,118 Z" fill="#d4a878" opacity="0.28"/>
+  <path d="M90,168 Q100,183 115,193 Q122,197 128,201 Q118,198 108,190 Q95,178 90,168 Z" fill="#d4a878" opacity="0.3"/>
+  <path d="M166,168 Q156,183 141,193 Q134,197 128,201 Q138,198 148,190 Q161,178 166,168 Z" fill="#d4a878" opacity="0.2"/>
+  <!-- Pale from fright -->
+  <ellipse cx="100" cy="153" rx="12" ry="4" fill="#ff6688" opacity="0.06"/>
+  <ellipse cx="156" cy="153" rx="12" ry="4" fill="#ff6688" opacity="0.06"/>
 
   <!-- === HAIR (front layer) === -->
-  <path d="M75,125 Q72,100 80,78 Q90,58 110,50 Q125,45 128,45 Q131,45 146,50 Q166,58 176,78 Q184,100 181,125 Q178,110 170,100 Q158,90 145,86 Q128,83 111,86 Q98,90 86,100 Q78,110 75,125 Z" fill="#0d0a15"/>
+  <path d="M75,123 Q72,98 80,76 Q90,56 110,48 Q125,43 128,43 Q131,43 146,48 Q166,56 176,76 Q184,98 181,123 Q178,108 170,98 Q158,88 145,84 Q128,81 111,84 Q98,88 86,98 Q78,108 75,123 Z" fill="#0d0a15"/>
+  <path d="M100,70 Q112,60 128,56 Q144,60 156,70 Q148,62 138,57 Q128,54 118,57 Q108,62 100,70 Z" fill="white" opacity="0.4"/>
+  <path d="M86,113 Q90,80 108,66 Q116,61 122,70 Q112,86 106,113 Z" fill="#0d0a15"/>
+  <path d="M102,108 Q108,73 126,60 Q132,56 136,64 Q126,78 120,108 Z" fill="#12101e"/>
+  <path d="M118,106 Q126,70 142,62 Q148,60 150,66 Q142,80 136,106 Z" fill="#0d0a15"/>
+  <path d="M135,110 Q146,78 162,72 Q168,71 167,78 Q158,90 150,113 Z" fill="#12101e"/>
+  <path d="M93,110 Q98,84 113,71 Q118,67 120,73 Q113,88 108,110 Z" fill="#15102a" opacity="0.6"/>
+  <path d="M128,104 Q135,74 150,66 Q155,64 155,70 Q148,83 142,106 Z" fill="#15102a" opacity="0.6"/>
+  <path d="M92,86 Q96,106 98,126" fill="none" stroke="#6b2fa0" stroke-width="2.5" opacity="0.4"/>
+  <path d="M157,84 Q160,104 162,124" fill="none" stroke="#6b2fa0" stroke-width="2.5" opacity="0.4"/>
+  <path d="M110,70 Q113,90 114,110" fill="none" stroke="#5a1f90" stroke-width="1.8" opacity="0.35"/>
+  <path d="M142,68 Q144,88 145,108" fill="none" stroke="#5a1f90" stroke-width="1.8" opacity="0.35"/>
+  <path d="M78,118 Q72,158 66,213 Q64,243 66,273" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
+  <path d="M178,118 Q184,158 190,213 Q192,243 190,273" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
+  <path d="M82,123 Q78,163 74,213 Q73,238 74,263" fill="#12101e" opacity="0.5"/>
+  <path d="M174,123 Q178,163 182,213 Q183,238 182,263" fill="#12101e" opacity="0.5"/>
 
-  <!-- Hair shine band -->
-  <path d="M100,72 Q112,62 128,58 Q144,62 156,72 Q148,64 138,59 Q128,56 118,59 Q108,64 100,72 Z" fill="white" opacity="0.4"/>
+  <!-- === EYES - FRIGHTENED: very wide, small pupils, whites visible all around === -->
 
-  <!-- Bangs - slightly disheveled from recoiling -->
-  <path d="M84,117 Q89,82 108,67 Q116,62 122,71 Q111,87 104,117 Z" fill="#0d0a15"/>
-  <path d="M100,112 Q107,74 126,61 Q132,57 136,65 Q125,79 118,112 Z" fill="#12101e"/>
-  <path d="M116,109 Q125,72 142,63 Q148,61 150,67 Q141,81 134,109 Z" fill="#0d0a15"/>
-  <path d="M133,114 Q145,81 163,74 Q169,73 168,80 Q159,93 151,116 Z" fill="#12101e"/>
-  <path d="M91,114 Q97,85 113,72 Q118,68 120,74 Q112,89 106,114 Z" fill="#15102a" opacity="0.6"/>
-  <path d="M126,108 Q134,77 150,68 Q155,66 155,72 Q147,86 140,110 Z" fill="#15102a" opacity="0.6"/>
+  <!-- Left eye - very wide open -->
+  <path d="M95,129 Q104,120 112,119 Q118,120 125,129" fill="none" stroke="#1a1020" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M96,130 Q104,121 111,120 Q118,121 124,130 Q118,138 111,140 Q104,138 96,130 Z" fill="white"/>
+  <clipPath id="eyeClipL"><path d="M96,130 Q104,121 111,120 Q118,121 124,130 Q118,138 111,140 Q104,138 96,130 Z"/></clipPath>
+  <circle cx="111" cy="131" r="12" fill="url(#irisGradL)" clip-path="url(#eyeClipL)"/>
+  <circle cx="111" cy="131" r="11" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipL)"/>
+  <line x1="111" y1="121" x2="111" y2="125" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
+  <line x1="117" y1="123" x2="115" y2="126" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
+  <line x1="105" y1="123" x2="107" y2="126" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
+  <!-- Tiny pupil from fear -->
+  <circle cx="111" cy="131" r="3" fill="#0a0505" clip-path="url(#eyeClipL)"/>
+  <circle cx="108" cy="127" r="4" fill="white" opacity="0.95" clip-path="url(#eyeClipL)"/>
+  <circle cx="115" cy="134" r="2" fill="white" opacity="0.5" clip-path="url(#eyeClipL)"/>
+  <circle cx="109" cy="135" r="0.8" fill="white" opacity="0.3" clip-path="url(#eyeClipL)"/>
+  <path d="M95,130 Q92,126 90,124" fill="none" stroke="#1a1020" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M96,128 Q94,126 92,125" fill="none" stroke="#1a1020" stroke-width="0.8"/>
+  <path d="M98,134 Q111,139 122,134" fill="none" stroke="#2a2035" stroke-width="0.5" opacity="0.4"/>
 
-  <!-- Purple highlights -->
-  <path d="M92,88 Q96,108 98,130" fill="none" stroke="#6b2fa0" stroke-width="2.5" opacity="0.4"/>
-  <path d="M157,86 Q160,106 162,128" fill="none" stroke="#6b2fa0" stroke-width="2.5" opacity="0.4"/>
-  <path d="M110,72 Q113,92 114,112" fill="none" stroke="#5a1f90" stroke-width="1.8" opacity="0.35"/>
-  <path d="M142,70 Q144,90 145,110" fill="none" stroke="#5a1f90" stroke-width="1.8" opacity="0.35"/>
+  <!-- Right eye - very wide open -->
+  <path d="M131,129 Q140,120 147,119 Q154,120 161,129" fill="none" stroke="#1a1020" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M132,130 Q140,121 147,120 Q154,121 160,130 Q154,138 147,140 Q140,138 132,130 Z" fill="white"/>
+  <clipPath id="eyeClipR"><path d="M132,130 Q140,121 147,120 Q154,121 160,130 Q154,138 147,140 Q140,138 132,130 Z"/></clipPath>
+  <circle cx="147" cy="131" r="12" fill="url(#irisGradR)" clip-path="url(#eyeClipR)"/>
+  <circle cx="147" cy="131" r="11" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipR)"/>
+  <line x1="147" y1="121" x2="147" y2="125" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
+  <line x1="153" y1="123" x2="151" y2="126" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
+  <line x1="141" y1="123" x2="143" y2="126" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
+  <circle cx="147" cy="131" r="3" fill="#0a0505" clip-path="url(#eyeClipR)"/>
+  <circle cx="144" cy="127" r="4" fill="white" opacity="0.95" clip-path="url(#eyeClipR)"/>
+  <circle cx="151" cy="134" r="2" fill="white" opacity="0.5" clip-path="url(#eyeClipR)"/>
+  <circle cx="145" cy="135" r="0.8" fill="white" opacity="0.3" clip-path="url(#eyeClipR)"/>
+  <path d="M161,130 Q164,126 166,124" fill="none" stroke="#1a1020" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M160,128 Q162,126 164,125" fill="none" stroke="#1a1020" stroke-width="0.8"/>
+  <path d="M134,134 Q147,139 158,134" fill="none" stroke="#2a2035" stroke-width="0.5" opacity="0.4"/>
 
-  <!-- Side hair strands -->
-  <path d="M78,120 Q72,160 66,215 Q64,245 66,275" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
-  <path d="M178,120 Q184,160 190,215 Q192,245 190,275" fill="#0d0a15" stroke="#1a0d28" stroke-width="0.5"/>
-  <path d="M82,125 Q78,165 74,215 Q73,240 74,265" fill="#12101e" opacity="0.5"/>
-  <path d="M174,125 Q178,165 182,215 Q183,240 182,265" fill="#12101e" opacity="0.5"/>
-
-  <!-- === EYES - FRIGHTENED: very wide, brows high, bigger iris area === -->
-
-  <!-- Left eye - extra wide open -->
-  <!-- Thick upper eyelid - very high arc -->
-  <path d="M94,131 Q103,121 111,120 Q119,121 126,131" fill="none" stroke="#1a1020" stroke-width="4" stroke-linecap="round"/>
-  <!-- Eye white - much wider -->
-  <path d="M95,132 Q103,122 111,121 Q119,122 125,132 Q119,141 111,142 Q103,141 95,132 Z" fill="white"/>
-  <!-- Iris - slightly larger area visible -->
-  <clipPath id="eyeClipL"><path d="M95,132 Q103,122 111,121 Q119,122 125,132 Q119,141 111,142 Q103,141 95,132 Z"/></clipPath>
-  <circle cx="111" cy="131" r="13" fill="url(#irisGradL)" clip-path="url(#eyeClipL)"/>
-  <circle cx="111" cy="131" r="12" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipL)"/>
-  <!-- Radial lines -->
-  <line x1="111" y1="120" x2="111" y2="124" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <line x1="118" y1="122" x2="116" y2="125" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <line x1="104" y1="122" x2="106" y2="125" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <line x1="122" y1="128" x2="119" y2="129" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <line x1="100" y1="128" x2="103" y2="129" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <!-- Pupil - contracted (fear response) -->
-  <circle cx="111" cy="131" r="5.5" fill="#0a0505" clip-path="url(#eyeClipL)"/>
-  <circle cx="111" cy="131" r="3" fill="#000000" clip-path="url(#eyeClipL)"/>
-  <!-- Highlights - intense -->
-  <circle cx="107" cy="127" r="4.5" fill="white" opacity="0.95" clip-path="url(#eyeClipL)"/>
-  <circle cx="115" cy="135" r="2.5" fill="white" opacity="0.55" clip-path="url(#eyeClipL)"/>
-  <circle cx="109" cy="136" r="1" fill="white" opacity="0.3" clip-path="url(#eyeClipL)"/>
-  <!-- Eyelash flicks -->
-  <path d="M94,132 Q91,127 89,125" fill="none" stroke="#1a1020" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M95,129 Q93,127 91,126" fill="none" stroke="#1a1020" stroke-width="0.8"/>
-  <!-- Lower lid - tense -->
-  <path d="M97,135 Q111,141 123,135" fill="none" stroke="#2a2035" stroke-width="0.5" opacity="0.5"/>
-
-  <!-- Right eye - extra wide open -->
-  <path d="M130,131 Q139,121 147,120 Q155,121 162,131" fill="none" stroke="#1a1020" stroke-width="4" stroke-linecap="round"/>
-  <path d="M131,132 Q139,122 147,121 Q155,122 161,132 Q155,141 147,142 Q139,141 131,132 Z" fill="white"/>
-  <clipPath id="eyeClipR"><path d="M131,132 Q139,122 147,121 Q155,122 161,132 Q155,141 147,142 Q139,141 131,132 Z"/></clipPath>
-  <circle cx="147" cy="131" r="13" fill="url(#irisGradR)" clip-path="url(#eyeClipR)"/>
-  <circle cx="147" cy="131" r="12" fill="none" stroke="#2a1510" stroke-width="0.8" clip-path="url(#eyeClipR)"/>
-  <line x1="147" y1="120" x2="147" y2="124" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <line x1="154" y1="122" x2="152" y2="125" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <line x1="140" y1="122" x2="142" y2="125" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <line x1="158" y1="128" x2="155" y2="129" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <line x1="136" y1="128" x2="139" y2="129" stroke="#1a0a05" stroke-width="0.5" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <!-- Pupil - contracted -->
-  <circle cx="147" cy="131" r="5.5" fill="#0a0505" clip-path="url(#eyeClipR)"/>
-  <circle cx="147" cy="131" r="3" fill="#000000" clip-path="url(#eyeClipR)"/>
-  <!-- Highlights -->
-  <circle cx="143" cy="127" r="4.5" fill="white" opacity="0.95" clip-path="url(#eyeClipR)"/>
-  <circle cx="151" cy="135" r="2.5" fill="white" opacity="0.55" clip-path="url(#eyeClipR)"/>
-  <circle cx="145" cy="136" r="1" fill="white" opacity="0.3" clip-path="url(#eyeClipR)"/>
-  <!-- Eyelash flicks -->
-  <path d="M162,132 Q165,127 167,125" fill="none" stroke="#1a1020" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M161,129 Q163,127 165,126" fill="none" stroke="#1a1020" stroke-width="0.8"/>
-  <!-- Lower lid -->
-  <path d="M133,135 Q147,141 159,135" fill="none" stroke="#2a2035" stroke-width="0.5" opacity="0.5"/>
-
-  <!-- Eyebrows - raised high, arched in fear -->
-  <path d="M95,114 Q104,109 114,111 Q119,112 122,115" fill="none" stroke="#1a1020" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M134,115 Q137,112 142,111 Q152,109 161,114" fill="none" stroke="#1a1020" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Forehead creases -->
-  <path d="M106,103 Q111,100 116,103" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.4"/>
-  <path d="M140,103 Q145,100 150,103" fill="none" stroke="#d4a878" stroke-width="0.5" opacity="0.4"/>
-  <path d="M118,99 Q123,97 128,99" fill="none" stroke="#d4a878" stroke-width="0.4" opacity="0.3"/>
+  <!-- Eyebrows - high, arched upward in fear -->
+  <path d="M96,114 Q106,108 120,112" fill="none" stroke="#1a1020" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M136,112 Q150,108 160,114" fill="none" stroke="#1a1020" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Forehead stress lines -->
+  <line x1="110" y1="106" x2="112" y2="110" stroke="#d4a878" stroke-width="0.5" opacity="0.3"/>
+  <line x1="146" y1="106" x2="144" y2="110" stroke="#d4a878" stroke-width="0.5" opacity="0.3"/>
 
   <!-- Nose -->
-  <path d="M127,150 L126,157 Q128,159 130,157" fill="none" stroke="#d4a878" stroke-width="1" opacity="0.6"/>
+  <path d="M127,148 L126,155 Q128,157 130,155" fill="none" stroke="#d4a878" stroke-width="1" opacity="0.6"/>
 
-  <!-- Mouth - open in gasp -->
-  <path d="M118,170 Q123,167 128,167 Q133,167 138,170" fill="none" stroke="#c47070" stroke-width="1.2"/>
-  <ellipse cx="128" cy="176" rx="9" ry="6" fill="#2a0a0a" stroke="#b06060" stroke-width="0.8"/>
-  <!-- Teeth hint -->
-  <path d="M121,172 L135,172" fill="none" stroke="white" stroke-width="1.5" opacity="0.3"/>
-  <!-- Inner mouth shadow -->
-  <ellipse cx="128" cy="178" rx="6" ry="3.5" fill="#150505" opacity="0.5"/>
+  <!-- Mouth - open gasp -->
+  <ellipse cx="128" cy="174" rx="8" ry="6" fill="#3a1520"/>
+  <path d="M120,172 Q128,168 136,172" fill="none" stroke="#c47070" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M121,177 Q128,181 135,177" fill="none" stroke="#c47070" stroke-width="1" stroke-linecap="round"/>
+  <!-- Teeth visible at top of mouth -->
+  <path d="M122,172 L134,172 L134,175 L122,175 Z" fill="#ddd8d0" opacity="0.5"/>
 
   <!-- Ears -->
-  <path d="M84,130 Q78,130 76,140 Q75,150 80,155" fill="#f0d5b8" stroke="#d4a878" stroke-width="0.5"/>
-  <path d="M172,130 Q178,130 180,140 Q181,150 176,155" fill="#f0d5b8" stroke="#d4a878" stroke-width="0.5"/>
+  <path d="M84,128 Q78,128 76,138 Q75,148 80,153" fill="#f0d5b8" stroke="#d4a878" stroke-width="0.5"/>
+  <path d="M172,128 Q178,128 180,138 Q181,148 176,153" fill="#f0d5b8" stroke="#d4a878" stroke-width="0.5"/>
 
-  <!-- === TECH EARRING - rapid pulse === -->
-  <circle cx="180" cy="150" r="4" fill="none" stroke="#ff0066" stroke-width="1.2" filter="url(#glow)" opacity="0.9"/>
-  <circle cx="180" cy="150" r="2" fill="#ff0066" opacity="0.8"/>
-  <circle cx="180" cy="150" r="10" fill="url(#earringGlow)" opacity="0.5"/>
-  <line x1="180" y1="154" x2="180" y2="162" stroke="#ff0066" stroke-width="0.8" opacity="0.8"/>
-  <path d="M177,162 L180,168 L183,162 Z" fill="#ff0066" opacity="0.6" filter="url(#glow)"/>
-  <circle cx="180" cy="150" r="1.2" fill="#ff99bb" opacity="0.9"/>
+  <!-- Tech earring - flickering from distress -->
+  <circle cx="180" cy="148" r="4" fill="none" stroke="#ff0066" stroke-width="1.2" filter="url(#glow)"/>
+  <circle cx="180" cy="148" r="2" fill="#ff0066" opacity="0.7"/>
+  <circle cx="180" cy="148" r="10" fill="url(#earringGlow)" opacity="0.5"/>
+  <line x1="180" y1="152" x2="180" y2="160" stroke="#ff0066" stroke-width="0.8" opacity="0.7"/>
+  <path d="M177,160 L180,166 L183,160 Z" fill="#ff0066" opacity="0.5" filter="url(#glow)"/>
+  <circle cx="180" cy="148" r="1" fill="#ff99bb" opacity="0.9"/>
 
-  <!-- === AMBIENT EFFECTS === -->
+  <!-- Sweat drops -->
+  <path d="M88,115 Q90,122 88,127 Q86,122 88,115 Z" fill="#88ccff" opacity="0.5"/>
+  <ellipse cx="88" cy="127" rx="2" ry="2.5" fill="#88ccff" opacity="0.35"/>
+  <path d="M168,112 Q170,119 168,124 Q166,119 168,112 Z" fill="#88ccff" opacity="0.4"/>
+  <ellipse cx="168" cy="124" rx="1.8" ry="2.2" fill="#88ccff" opacity="0.3"/>
+
+  <!-- Ambient -->
   <line x1="0" y1="100" x2="256" y2="100" stroke="#ff0066" stroke-width="0.3" opacity="0.1"/>
   <line x1="0" y1="200" x2="256" y2="200" stroke="#ff0066" stroke-width="0.3" opacity="0.1"/>
   <line x1="0" y1="300" x2="256" y2="300" stroke="#ff0066" stroke-width="0.3" opacity="0.1"/>
-
-  <!-- Distress glitch lines -->
-  <line x1="20" y1="138" x2="35" y2="138" stroke="#ff0044" stroke-width="0.8" opacity="0.2"/>
-  <line x1="222" y1="142" x2="240" y2="142" stroke="#ff0044" stroke-width="0.6" opacity="0.2"/>
-  <line x1="15" y1="170" x2="28" y2="170" stroke="#ff0044" stroke-width="0.5" opacity="0.15"/>
-  <line x1="230" y1="125" x2="242" y2="125" stroke="#ff0044" stroke-width="0.5" opacity="0.15"/>
-  <line x1="10" y1="155" x2="22" y2="155" stroke="#ff0044" stroke-width="0.4" opacity="0.12"/>
 
   <!-- Corner accents -->
   <path d="M10,10 L30,10 M10,10 L10,30" fill="none" stroke="#ff0066" stroke-width="1" opacity="0.5"/>

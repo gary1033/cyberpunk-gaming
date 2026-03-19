@@ -12,6 +12,10 @@
       <feGaussianBlur stdDeviation="5" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
     <radialGradient id="iris_grad" cx="40%" cy="35%" r="60%">
       <stop offset="0%" stop-color="#c08040"/>
       <stop offset="100%" stop-color="#5a3018"/>
@@ -21,14 +25,15 @@
   <!-- Background - angry red tint -->
   <rect width="256" height="384" fill="url(#bg_glow)"/>
   <ellipse cx="128" cy="130" rx="100" ry="80" fill="#ff4400" opacity="0.04"/>
-  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff8800" stroke-width="2" opacity="0.6"/>
+  <rect x="3" y="3" width="250" height="378" rx="6" fill="none" stroke="#ff6600" stroke-width="2" opacity="0.6"/>
+  <rect x="6" y="6" width="244" height="372" rx="4" fill="none" stroke="#ff6600" stroke-width="0.5" opacity="0.25"/>
 
   <!-- Character name -->
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle" filter="url(#glow)">阿傑</text>
-  <text x="128" y="30" font-family="'Courier New', monospace" font-size="20" font-weight="bold" fill="#ff8800" text-anchor="middle">阿傑</text>
+  <text x="128" y="30" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#ff6600" text-anchor="middle" filter="url(#neonGlow)">阿傑 AJIE</text>
+  <line x1="40" y1="37" x2="216" y2="37" stroke="#ff6600" stroke-width="0.5" opacity="0.3"/>
 
   <!-- Neck - thick, tensed -->
-  <rect x="100" y="172" width="56" height="35" rx="6" fill="#c8a882"/>
+  <rect x="100" y="172" width="56" height="35" rx="6" fill="#c89068"/>
   <path d="M100,172 L112,172 L112,207 L100,207 Z" fill="#2a1a0a" opacity="0.3"/>
   <!-- Neck tendons visible -->
   <line x1="114" y1="175" x2="114" y2="205" stroke="#2a1a0a" stroke-width="1.5" opacity="0.35"/>
@@ -42,17 +47,17 @@
   <path d="M182,208 Q210,214 224,238 Q230,252 230,258" fill="none" stroke="#2a2a4e" stroke-width="2.5"/>
 
   <!-- Arms - fists at sides -->
-  <path d="M26,258 Q30,288 36,318 Q40,348 44,370" fill="#c8a882"/>
+  <path d="M26,258 Q30,288 36,318 Q40,348 44,370" fill="#c89068"/>
   <path d="M26,258 Q28,280 30,300 L36,300 Q34,280 32,258 Z" fill="#2a1a0a" opacity="0.3"/>
-  <path d="M230,258 Q226,288 220,318 Q216,348 212,370" fill="#c8a882"/>
+  <path d="M230,258 Q226,288 220,318 Q216,348 212,370" fill="#c89068"/>
 
   <!-- Clenched fists -->
-  <ellipse cx="44" cy="374" rx="14" ry="12" fill="#c8a882"/>
+  <ellipse cx="44" cy="374" rx="14" ry="12" fill="#c89068"/>
   <path d="M32,370 Q38,364 50,364 Q56,364 56,372 Q56,380 50,384 Q38,384 32,378 Z" fill="#2a1a0a" opacity="0.2"/>
   <line x1="36" y1="370" x2="36" y2="378" stroke="#a08060" stroke-width="1" opacity="0.4"/>
   <line x1="42" y1="368" x2="42" y2="378" stroke="#a08060" stroke-width="1" opacity="0.4"/>
   <line x1="48" y1="368" x2="48" y2="378" stroke="#a08060" stroke-width="1" opacity="0.4"/>
-  <ellipse cx="212" cy="374" rx="14" ry="12" fill="#c8a882"/>
+  <ellipse cx="212" cy="374" rx="14" ry="12" fill="#c89068"/>
   <line x1="206" y1="370" x2="206" y2="378" stroke="#a08060" stroke-width="1" opacity="0.4"/>
   <line x1="212" y1="368" x2="212" y2="378" stroke="#a08060" stroke-width="1" opacity="0.4"/>
   <line x1="218" y1="368" x2="218" y2="378" stroke="#a08060" stroke-width="1" opacity="0.4"/>
@@ -77,11 +82,15 @@
     <circle cx="210" cy="340" r="3" fill="#ffdd66"/>
   </g>
 
+  <!-- Tech wristbands - glowing brighter -->
+  <rect x="30" y="356" width="28" height="10" rx="2" fill="#2a2a3e" stroke="#ffaa00" stroke-width="1.2" opacity="0.8"/>
+  <rect x="198" y="356" width="28" height="10" rx="2" fill="#2a2a3e" stroke="#ffaa00" stroke-width="1.2" opacity="0.8"/>
+
   <!-- Shirt V-neck -->
   <path d="M94,208 L128,242 L162,208" fill="none" stroke="#2a2a4e" stroke-width="2"/>
 
   <!-- Head - slightly forward, aggressive posture -->
-  <path d="M80,85 Q80,38 128,32 Q176,38 176,85 L176,140 Q176,156 164,166 Q152,178 128,180 Q104,178 92,166 Q80,156 80,140 Z" fill="#c8a882"/>
+  <path d="M80,85 Q80,38 128,32 Q176,38 176,85 L176,140 Q176,156 164,166 Q152,178 128,180 Q104,178 92,166 Q80,156 80,140 Z" fill="#c89068"/>
   <path d="M80,85 L80,140 Q80,156 92,166 Q98,171 104,174 L104,96 Q92,90 80,85 Z" fill="#2a1a0a" opacity="0.25"/>
   <path d="M92,166 Q104,178 128,180 L128,173 Q110,171 100,164 Z" fill="#2a1a0a" opacity="0.2"/>
 
@@ -93,18 +102,18 @@
   <path d="M86,68 Q86,40 128,34 Q170,40 170,68 Q128,54 86,68 Z" fill="#3a2a1a"/>
 
   <!-- Ears - flushed -->
-  <ellipse cx="78" cy="118" rx="8" ry="14" fill="#c8a882"/>
+  <ellipse cx="78" cy="118" rx="8" ry="14" fill="#c89068"/>
   <ellipse cx="78" cy="118" rx="5" ry="9" fill="#c05040" opacity="0.2"/>
-  <ellipse cx="178" cy="118" rx="8" ry="14" fill="#c8a882"/>
+  <ellipse cx="178" cy="118" rx="8" ry="14" fill="#c89068"/>
   <ellipse cx="178" cy="118" rx="5" ry="9" fill="#c05040" opacity="0.2"/>
 
-  <!-- Eyes - narrowed rage slits -->
+  <!-- === EYES - ANGRY: narrowed rage slits === -->
+
   <!-- Left eye -->
   <path d="M90,114 Q108,109 126,114" fill="#f0ece8"/>
   <path d="M90,114 Q108,118 126,114" fill="#f0ece8"/>
   <circle cx="108" cy="114" r="6" fill="url(#iris_grad)"/>
   <circle cx="108" cy="114" r="3" fill="#0a0a0a"/>
-  <!-- Angry glint instead of normal highlights -->
   <circle cx="106" cy="113" r="1.5" fill="#ffaa44" opacity="0.7"/>
   <circle cx="110" cy="115" r="0.8" fill="#ffffff" opacity="0.4"/>
   <path d="M88,114 Q108,107 128,114" fill="none" stroke="#1a0a00" stroke-width="4" stroke-linecap="round"/>
@@ -151,7 +160,7 @@
   <!-- Scar - more visible when angry -->
   <line x1="86" y1="130" x2="95" y2="140" stroke="#c09060" stroke-width="1.5" opacity="0.6"/>
 
-  <!-- Circuit glow on neck - bright pulsing with anger -->
+  <!-- Circuit glow on neck - bright pulsing -->
   <g filter="url(#intense_glow)" opacity="0.9">
     <path d="M108,176 L108,192 L120,192 L120,202" fill="none" stroke="#ffaa00" stroke-width="1.8"/>
     <circle cx="120" cy="202" r="3" fill="#ffdd66"/>
@@ -162,6 +171,12 @@
   <!-- Ambient angry glow -->
   <ellipse cx="128" cy="310" rx="110" ry="50" fill="#ff4400" opacity="0.04"/>
 
+  <!-- Corner accents -->
+  <path d="M10,10 L30,10 M10,10 L10,30" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.5"/>
+  <path d="M246,10 L226,10 M246,10 L246,30" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.5"/>
+  <path d="M10,374 L30,374 M10,374 L10,354" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.5"/>
+  <path d="M246,374 L226,374 M246,374 L246,354" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.5"/>
+
   <!-- Expression label -->
-  <text x="128" y="372" font-family="'Courier New', monospace" font-size="11" fill="#ff8800" text-anchor="middle" opacity="0.6">ANGRY</text>
+  <text x="128" y="372" font-family="'Courier New', monospace" font-size="11" fill="#ff6600" text-anchor="middle" opacity="0.6">[ANGRY]</text>
 </svg>
