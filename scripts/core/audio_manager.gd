@@ -85,6 +85,22 @@ func play_sfx(path: String) -> void:
 	_sfx_players[0].volume_db = linear_to_db(sfx_volume)
 	_sfx_players[0].play()
 
+func play_optional_sfx(path: String) -> void:
+	if not is_runtime_audio_ready(path):
+		return
+	play_sfx(path)
+
+func is_runtime_audio_ready(path: String) -> bool:
+	if path == "" or not FileAccess.file_exists(path):
+		return false
+	if path.get_extension().to_lower() == "ogg":
+		var file := FileAccess.open(path, FileAccess.READ)
+		if file == null or file.get_length() < 4:
+			return false
+		var signature := file.get_buffer(4).get_string_from_ascii()
+		return signature == "OggS"
+	return ResourceLoader.exists(path)
+
 func set_bgm_volume(vol: float) -> void:
 	bgm_volume = clamp(vol, 0.0, 1.0)
 	if _bgm_player.playing:

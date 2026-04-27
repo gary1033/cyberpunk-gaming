@@ -26,6 +26,7 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 							"id": "review_family_memory_clip",
 							"title": "回放家庭記憶片段",
 							"dialogue": "ch1_family_memory_clip",
+							"story_cg": "cg_family_memory_clip",
 							"requires_evidence": "commission_letter"
 						},
 						{

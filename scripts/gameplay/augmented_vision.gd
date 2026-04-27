@@ -10,6 +10,7 @@ const EAGLE_EYE_OVERLAY_PATH := "res://assets/sprites/ui/eagle_eye_scan_overlay_
 const EAGLE_EYE_RETICLE_PATH := "res://assets/sprites/ui/eagle_eye_focus_reticle_ch1.png"
 const EAGLE_EYE_GLITCH_NOISE_PATH := "res://assets/sprites/ui/eagle_eye_glitch_noise_ch1.png"
 const EAGLE_EYE_ACTIVATION_CUTIN_PATH := "res://assets/sprites/cg/ch1/eagle_eye_activation_cutin_ch1.png"
+const EAGLE_EYE_GLITCH_STING_SFX := "res://assets/audio/sfx/eagle_eye_glitch_sting.ogg"
 
 var overlay: ColorRect = null
 var generated_overlay: TextureRect = null
@@ -262,6 +263,8 @@ func _set_overlay_visible(is_visible: bool) -> void:
 
 func trigger_glitch_pulse() -> void:
 	var was_active := GameManager.eagle_eye_active
+	if AudioManager and AudioManager.has_method("play_optional_sfx"):
+		AudioManager.play_optional_sfx(EAGLE_EYE_GLITCH_STING_SFX)
 	_set_overlay_visible(true)
 	if scan_label:
 		scan_label.text = "[ ECHO SIGNATURE DESYNC ]"

@@ -1640,6 +1640,108 @@ def test_ch1_family_memory_branch():
 
 
 # ---------------------------------------------------------------------------
+# 30. Bug regression: Chapter 1 replacement prompts and optional assets must
+# stay ready for formal generation without crashing on missing/placeholder SFX.
+# ---------------------------------------------------------------------------
+def test_ch1_asset_replacement_readiness():
+    print("\n[30] Chapter 1 asset replacement readiness")
+    manifest_paths = [
+        "assets/generated/prompts/image2_ch1_family_memory.jsonl",
+        "assets/generated/prompts/audio_ch1_replacement_prompts.jsonl",
+    ]
+    required_fields = {
+        "id",
+        "asset_type",
+        "target_path",
+        "runtime_usage",
+        "prompt",
+        "negative_prompt",
+        "fallback_path",
+        "acceptance_notes",
+    }
+    records_by_id = {}
+    for rel_path in manifest_paths:
+        path = os.path.join(PROJECT_ROOT, rel_path)
+        if not os.path.exists(path):
+            fail(f"Missing replacement manifest: {rel_path}")
+            continue
+        with open(path, "r", encoding="utf-8") as f:
+            records = [json.loads(line) for line in f if line.strip()]
+        if records:
+            ok(f"Replacement manifest parses: {rel_path}")
+        else:
+            fail(f"Replacement manifest has no records: {rel_path}")
+        for record in records:
+            missing = sorted(field for field in required_fields if not record.get(field))
+            if missing:
+                fail(f"Replacement prompt record missing fields {missing}: {record.get('id')}")
+            else:
+                ok(f"Replacement prompt record complete: {record.get('id')}")
+            records_by_id[record.get("id")] = record
+
+    expected_targets = {
+        "family_memory_clip": "assets/sprites/items/family_memory_clip.png",
+        "cg_family_memory_clip": "assets/sprites/cg/ch1/cg_family_memory_clip.png",
+        "mei_ling_apartment_family_memory_variant": "assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png",
+        "family_memory_fragment": "assets/audio/sfx/family_memory_fragment.ogg",
+        "eagle_eye_glitch_sting": "assets/audio/sfx/eagle_eye_glitch_sting.ogg",
+        "broken_player_scan": "assets/audio/sfx/broken_player_scan.ogg",
+        "memory_signature_reveal": "assets/audio/sfx/memory_signature_reveal.ogg",
+    }
+    for asset_id, target_path in expected_targets.items():
+        record = records_by_id.get(asset_id)
+        if record and record.get("target_path") == target_path:
+            ok(f"Replacement target path stable: {asset_id}")
+        else:
+            fail(f"Replacement target path missing or wrong: {asset_id}")
+
+    family_records = []
+    family_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image2_ch1_family_memory.jsonl")
+    if os.path.exists(family_path):
+        with open(family_path, "r", encoding="utf-8") as f:
+            family_records = [json.loads(line) for line in f if line.strip()]
+    placeholder_records = [record for record in family_records if record.get("status") == "placeholder_connected"]
+    if len(placeholder_records) == len(family_records) and family_records:
+        ok("Family memory manifest marks current assets as placeholder-connected")
+    else:
+        fail("Family memory placeholders are not clearly marked")
+
+    audio_manager = read_file("scripts/core/audio_manager.gd") or ""
+    augmented = read_file("scripts/gameplay/augmented_vision.gd") or ""
+    board = read_file("scripts/gameplay/evidence_board.gd") or ""
+    location = read_file("scripts/ui/location_base.gd") or ""
+    dialogue_system = read_file("scripts/gameplay/dialogue_system.gd") or ""
+    case_content = read_file("scripts/data/case_data.gd") or ""
+
+    runtime_checks = [
+        ("AudioManager exposes optional SFX loader", "func play_optional_sfx" in audio_manager),
+        ("AudioManager skips non-OggS placeholders", 'signature == "OggS"' in audio_manager),
+        ("AugmentedVision wires glitch sting as optional SFX", "EAGLE_EYE_GLITCH_STING_SFX" in augmented and "play_optional_sfx" in augmented),
+        ("EvidenceBoard wires deduction reveal as optional SFX", "MEMORY_SIGNATURE_REVEAL_SFX" in board and "play_optional_sfx" in board),
+        ("LocationBase wires family and scan SFX as optional", "FAMILY_MEMORY_FRAGMENT_SFX" in location and "BROKEN_PLAYER_SCAN_SFX" in location and "play_optional_sfx" in location),
+        ("Family memory action declares story CG", '"story_cg": "cg_family_memory_clip"' in case_content),
+        ("LocationBase can show story CG with missing-file fallback", "func _show_story_cg" in location and "if texture == null:" in location),
+        ("DialogueSystem supports future story CG entries safely", "func _show_story_cg" in dialogue_system and "func _hide_story_cg" in dialogue_system),
+    ]
+    for label, passed_check in runtime_checks:
+        if passed_check:
+            ok(label)
+        else:
+            fail(label)
+
+    family_audio = os.path.join(PROJECT_ROOT, "assets/audio/sfx/family_memory_fragment.ogg")
+    if os.path.exists(family_audio):
+        with open(family_audio, "rb") as f:
+            header = f.read(4)
+        if header != b"OggS" and "placeholder" in (records_by_id.get("family_memory_fragment", {}).get("status", "")):
+            ok("Placeholder family memory SFX is documented and skipped until formal OGG replacement")
+        elif header == b"OggS":
+            ok("Family memory SFX is a formal OGG stream")
+        else:
+            fail("Family memory SFX placeholder state is not documented")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -1681,6 +1783,7 @@ def main():
     test_image_gen_ui_prompt_requests()
     test_ch1_eagle_eye_foreshadowing_wiring()
     test_ch1_family_memory_branch()
+    test_ch1_asset_replacement_readiness()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

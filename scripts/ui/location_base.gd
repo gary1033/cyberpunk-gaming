@@ -9,6 +9,9 @@ extends Node2D
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
 const MEI_LING_EAGLE_EYE_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png"
 const MEI_LING_FAMILY_MEMORY_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png"
+const FAMILY_MEMORY_FRAGMENT_SFX := "res://assets/audio/sfx/family_memory_fragment.ogg"
+const BROKEN_PLAYER_SCAN_SFX := "res://assets/audio/sfx/broken_player_scan.ogg"
+const STORY_CG_DIR := "res://assets/sprites/cg/ch1"
 const EAGLE_EYE_ANOMALY_ACTIONS := {
 	"review_family_memory_clip": true,
 	"scan_broken_memory_player": true,
@@ -506,6 +509,7 @@ func _run_story_action(action_data: Dictionary) -> void:
 		return
 
 	_trigger_eagle_eye_anomaly(action_data)
+	_show_story_cg(action_data.get("story_cg", ""))
 
 	var dialogue_entries: Array = DialogueDataScript.get_dialogue(dialogue_id)
 	if dialogue_entries.is_empty():
@@ -521,8 +525,38 @@ func _trigger_eagle_eye_anomaly(action_data: Dictionary) -> void:
 		return
 	if action_id == "review_family_memory_clip":
 		_show_family_memory_variant()
+		_play_optional_sfx(FAMILY_MEMORY_FRAGMENT_SFX)
+	elif action_id == "scan_broken_memory_player":
+		_play_optional_sfx(BROKEN_PLAYER_SCAN_SFX)
 	if _augmented_vision and _augmented_vision.has_method("trigger_glitch_pulse"):
 		_augmented_vision.trigger_glitch_pulse()
+
+func _play_optional_sfx(path: String) -> void:
+	if AudioManager and AudioManager.has_method("play_optional_sfx"):
+		AudioManager.play_optional_sfx(path)
+
+func _show_story_cg(cg_id: String) -> void:
+	if cg_id == "":
+		return
+	var texture := _load_runtime_texture("%s/%s.png" % [STORY_CG_DIR, cg_id])
+	if texture == null:
+		return
+	var cg_layer := CanvasLayer.new()
+	cg_layer.layer = 5
+	cg_layer.name = "StoryCG_%s" % cg_id
+	var cg_view := TextureRect.new()
+	cg_view.texture = texture
+	cg_view.set_anchors_preset(Control.PRESET_FULL_RECT)
+	cg_view.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	cg_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	cg_view.modulate = Color(1, 1, 1, 0.88)
+	cg_layer.add_child(cg_view)
+	add_child(cg_layer)
+	var timer := get_tree().create_timer(4.0)
+	timer.timeout.connect(func():
+		if is_instance_valid(cg_layer):
+			cg_layer.queue_free()
+	)
 
 func _show_family_memory_variant() -> void:
 	if not _background_texture_rect or not _family_memory_background_texture:

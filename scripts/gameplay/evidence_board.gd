@@ -7,6 +7,7 @@ signal deduction_made(from_id: String, to_id: String, is_correct: bool)
 signal board_closed
 
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
+const MEMORY_SIGNATURE_REVEAL_SFX := "res://assets/audio/sfx/memory_signature_reveal.ogg"
 
 # Node references (resolved in _ready, not @onready, for safe dynamic instantiation)
 var board_container: Control = null
@@ -207,6 +208,8 @@ func _handle_connection(evidence_id: String) -> void:
 			var deduction_flag := _get_connection_flag(from_id, evidence_id)
 			if deduction_flag != "":
 				GameManager.set_dialogue_flag(deduction_flag)
+			if AudioManager and AudioManager.has_method("play_optional_sfx"):
+				AudioManager.play_optional_sfx(MEMORY_SIGNATURE_REVEAL_SFX)
 			_flash_connection(from_id, evidence_id, Color(0.0, 1.0, 0.3))
 		else:
 			# Red flash then fade

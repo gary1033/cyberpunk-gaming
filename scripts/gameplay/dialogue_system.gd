@@ -17,6 +17,8 @@ signal choice_made(choice_index: int)
 @onready var choices_container: VBoxContainer = get_node("DialoguePanel").find_child("ChoicesContainer", true, false) as VBoxContainer
 @onready var continue_indicator: Label = get_node("DialoguePanel").find_child("ContinueIndicator", true, false) as Label
 
+const STORY_CG_DIR := "res://assets/sprites/cg/ch1"
+
 var _current_dialogue: Array = []  # Array of dialogue entries
 var _current_index: int = 0
 var _is_typing: bool = false
@@ -24,6 +26,7 @@ var _is_waiting_for_input: bool = false
 var _full_text: String = ""
 var _visible_chars: int = 0
 var _type_timer: float = 0.0
+var _story_cg_overlay: TextureRect = null
 
 # Dialogue entry format:
 # {
@@ -41,6 +44,7 @@ var _type_timer: float = 0.0
 # }
 
 func _ready() -> void:
+	_ensure_story_cg_overlay()
 	visible = false
 	choices_container.visible = false
 	continue_indicator.visible = false
@@ -69,6 +73,12 @@ func start_dialogue(dialogue_data: Array) -> void:
 	_show_entry(_current_dialogue[_current_index])
 
 func _show_entry(entry: Dictionary) -> void:
+	var story_cg: String = entry.get("show_cg", "")
+	if story_cg != "":
+		_show_story_cg(story_cg)
+	elif entry.get("clear_cg", false):
+		_hide_story_cg()
+
 	# Character name
 	character_name_label.text = entry.get("name", "")
 
@@ -241,8 +251,37 @@ func end_dialogue() -> void:
 	visible = false
 	_current_dialogue.clear()
 	_current_index = 0
+	_hide_story_cg()
 	GameManager.set_state(GameManager.GameState.PLAYING)
 	dialogue_ended.emit()
+
+func _ensure_story_cg_overlay() -> void:
+	if _story_cg_overlay:
+		return
+	_story_cg_overlay = get_node_or_null("StoryCGOverlay") as TextureRect
+	if _story_cg_overlay == null:
+		_story_cg_overlay = TextureRect.new()
+		_story_cg_overlay.name = "StoryCGOverlay"
+		_story_cg_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_story_cg_overlay.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		_story_cg_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_story_cg_overlay.visible = false
+		add_child(_story_cg_overlay)
+		move_child(_story_cg_overlay, 0)
+
+func _show_story_cg(cg_id: String) -> void:
+	_ensure_story_cg_overlay()
+	var texture := _load_runtime_texture("%s/%s.png" % [STORY_CG_DIR, cg_id])
+	if texture == null:
+		return
+	_story_cg_overlay.texture = texture
+	_story_cg_overlay.modulate = Color(1, 1, 1, 0.92)
+	_story_cg_overlay.visible = true
+
+func _hide_story_cg() -> void:
+	if _story_cg_overlay:
+		_story_cg_overlay.visible = false
+		_story_cg_overlay.texture = null
 
 func _update_portrait(speaker: String, mood: String, _side: String) -> void:
 	# Hide both first

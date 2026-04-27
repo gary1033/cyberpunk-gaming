@@ -4,7 +4,7 @@ Date: 2026-04-27
 
 ## Scope
 
-This iteration wires Chapter 1 eagle-eye presentation as prompt-ready and runtime fallback-ready. It does not include generated PNG or OGG outputs.
+This iteration wires Chapter 1 eagle-eye presentation as prompt-ready and runtime fallback-ready. PNG runtime targets are connected; OGG targets remain optional and are skipped safely until formal audio is generated.
 
 ## Prompt Manifest
 
@@ -23,6 +23,12 @@ The manifest includes runtime target paths for:
 - `assets/audio/sfx/eagle_eye_glitch_sting.ogg`
 - `assets/audio/sfx/broken_player_scan.ogg`
 - `assets/audio/sfx/memory_signature_reveal.ogg`
+
+The audio replacement prompts are also mirrored in:
+
+```text
+assets/generated/prompts/audio_ch1_replacement_prompts.jsonl
+```
 
 ## Runtime Wiring
 
@@ -51,3 +57,4 @@ Acceptance for this round:
 ## Next Asset Pass
 
 Generate and copy the real assets into the runtime target paths above, then re-run the validation commands and capture screenshots of eagle-eye mode in `mei_ling_apartment`.
+Audio files must be valid OGG Vorbis streams beginning with `OggS`; placeholder marker files are intentionally skipped by `AudioManager.play_optional_sfx()`.
