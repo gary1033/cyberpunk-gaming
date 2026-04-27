@@ -341,6 +341,13 @@ func _get_evidence_display_name(evidence_id: String) -> String:
 func _load_evidence_icon(evidence_id: String) -> Texture2D:
 	var EvidenceDataScript: GDScript = load("res://scripts/data/evidence_data.gd")
 	var evidence: Dictionary = EvidenceDataScript.get_evidence(evidence_id)
-	var icon_id: String = evidence.get("icon", evidence_id)
-	var icon_path := "res://assets/sprites/items/%s.png" % icon_id
+	var fallback_icon_id: String = evidence.get("icon", evidence_id)
+	var preferred_icon_id: String = evidence.get("preferred_icon", "")
+	if preferred_icon_id != "":
+		var preferred_icon_path := "res://assets/sprites/items/%s.png" % preferred_icon_id
+		var preferred_icon := _load_runtime_texture(preferred_icon_path)
+		if preferred_icon:
+			return preferred_icon
+
+	var icon_path := "res://assets/sprites/items/%s.png" % fallback_icon_id
 	return _load_runtime_texture(icon_path)

@@ -65,13 +65,15 @@ static func get_all_evidence() -> Dictionary:
 			"name": "損壞的記憶播放器",
 			"description": "美玲公寓中被浩然拆開的家用記憶播放器，內部韌體被改成能讀取回聲網路的記憶編碼。",
 			"chapter": 1,
-			"icon": "memory_capsule"
+			"icon": "memory_capsule",
+			"preferred_icon": "broken_memory_player"
 		},
 		"kai_eye_glitch_log": {
 			"name": "凱的鷹眼異常紀錄",
 			"description": "掃描損壞播放器時自動生成的鷹眼錯誤紀錄，顯示義眼與播放器短暫交換了同源加密握手。",
 			"chapter": 1,
 			"icon": "log",
+			"preferred_icon": "kai_eye_glitch_log",
 			"eagle_eye_only": true
 		},
 

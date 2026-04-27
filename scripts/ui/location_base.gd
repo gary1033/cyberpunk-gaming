@@ -7,14 +7,20 @@ extends Node2D
 @export var bg_color: Color = Color(0.05, 0.05, 0.12)
 
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
+const MEI_LING_EAGLE_EYE_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png"
 const CaseDataScript: GDScript = preload("res://scripts/data/case_data.gd")
 const DialogueDataScript: GDScript = preload("res://scripts/data/dialogue_data.gd")
 
 var _dialogue_system_scene: PackedScene = null
+var _augmented_vision: CanvasLayer = null
+var _background_texture_rect: TextureRect = null
+var _base_background_texture: Texture2D = null
+var _eagle_eye_background_texture: Texture2D = null
 
 func _ready() -> void:
 	_setup_background()
 	_setup_ui()
+	_setup_augmented_vision()
 	_setup_location_label()
 	_trigger_initial_dialogue()
 
@@ -30,6 +36,9 @@ func _setup_background() -> void:
 		bg_img.set_anchors_preset(Control.PRESET_FULL_RECT)
 		bg_img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		canvas.add_child(bg_img)
+		_background_texture_rect = bg_img
+		_base_background_texture = bg_texture
+		_eagle_eye_background_texture = _load_runtime_texture(_get_eagle_eye_background_variant_path())
 	else:
 		var bg := ColorRect.new()
 		bg.color = bg_color
@@ -57,8 +66,31 @@ func _load_location_background() -> Texture2D:
 	var bg_path := "res://assets/sprites/locations/%s.png" % location_id
 	return _load_runtime_texture(bg_path)
 
+func _get_eagle_eye_background_variant_path() -> String:
+	if location_id == "mei_ling_apartment":
+		return MEI_LING_EAGLE_EYE_VARIANT
+	return "res://assets/sprites/locations/variants/%s_eye_scan_variant.png" % location_id
+
 func _load_ui_texture(asset_name: String) -> Texture2D:
 	return _load_runtime_texture("%s/%s.png" % [UI_SPRITE_DIR, asset_name])
+
+func _setup_augmented_vision() -> void:
+	var AugmentedVisionScript: GDScript = load("res://scripts/gameplay/augmented_vision.gd")
+	_augmented_vision = AugmentedVisionScript.new()
+	_augmented_vision.name = "AugmentedVision"
+	add_child(_augmented_vision)
+	if _augmented_vision.has_signal("eagle_eye_activated"):
+		_augmented_vision.eagle_eye_activated.connect(func(): _set_eagle_eye_background_active(true))
+	if _augmented_vision.has_signal("eagle_eye_deactivated"):
+		_augmented_vision.eagle_eye_deactivated.connect(func(): _set_eagle_eye_background_active(false))
+
+func _set_eagle_eye_background_active(active: bool) -> void:
+	if not _background_texture_rect:
+		return
+	if active and _eagle_eye_background_texture:
+		_background_texture_rect.texture = _eagle_eye_background_texture
+	else:
+		_background_texture_rect.texture = _base_background_texture
 
 func _create_generated_panel_style(asset_name: String, fallback_color: Color, border_color: Color, margin: int) -> StyleBox:
 	var texture := _load_ui_texture(asset_name)
@@ -507,10 +539,13 @@ func _show_map() -> void:
 	add_child(popup_layer)
 
 func _toggle_eagle_eye() -> void:
-	if GameManager.eagle_eye_active:
-		GameManager.deactivate_eagle_eye()
+	if _augmented_vision and _augmented_vision.has_method("toggle"):
+		_augmented_vision.toggle()
 	else:
-		GameManager.activate_eagle_eye()
+		if GameManager.eagle_eye_active:
+			GameManager.deactivate_eagle_eye()
+		else:
+			GameManager.activate_eagle_eye()
 
 func _open_evidence_board() -> void:
 	var EvidenceBoardScript: GDScript = load("res://scripts/gameplay/evidence_board.gd")

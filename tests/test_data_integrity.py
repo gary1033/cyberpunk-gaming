@@ -1361,7 +1361,8 @@ def test_ch1_eagle_eye_foreshadowing_wiring():
         ok("Chapter 1 eagle-eye prompt manifest covers image and audio prompts")
 
     for record in records:
-        if record.get("prompt") and record.get("output_path") and record.get("output_format"):
+        output_path = record.get("output_path") or record.get("generated_output_path")
+        if record.get("prompt") and output_path and record.get("output_format"):
             ok(f"Chapter 1 prompt complete: {record.get('id')}")
         else:
             fail(f"Incomplete Chapter 1 prompt record: {record}")
