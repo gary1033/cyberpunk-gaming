@@ -788,15 +788,27 @@ def test_main_menu_popup_layout_bounds():
 
     # Bug regression: controls popup right-column text needs room between
     # the keyboard labels and the scrollbar.
-    if "panel_width := minf(760.0, viewport_size.x * 0.92)" in content and 'margin_right", 56' in content:
+    if "panel_width := minf(900.0, viewport_size.x * 0.94)" in content and 'margin_right", 96' in content:
         ok("Controls popup has a wider panel and scrollbar-safe right padding")
     else:
         fail("Controls popup can clip right-column text behind the scrollbar")
 
-    if "key_lbl.custom_minimum_size = Vector2(260, 0)" in content and "key_lbl.autowrap_mode" in content and "compact := get_viewport().get_visible_rect().size.x < 560.0" in content:
+    if "key_lbl.custom_minimum_size = Vector2(360, 0)" in content and "key_lbl.autowrap_mode" in content and "compact := get_viewport().get_visible_rect().size.x < 560.0" in content:
         ok("Controls popup key labels have a stable desktop width and compact mobile layout")
     else:
         fail("Controls popup key labels can overflow the panel")
+
+    # Bug regression: settings and controls popups should be dismissible with
+    # Esc so players are not trapped when focus is inside a selector or slider.
+    if "func _unhandled_input(event: InputEvent)" in content and 'event.is_action_pressed("ui_cancel")' in content and 'add_to_group("dismissible_popup")' in content:
+        ok("Main menu popups can be dismissed with Esc")
+    else:
+        fail("Main menu popups do not handle Esc dismissal")
+
+    if '"Esc 關閉"' in content and '"關閉說明 / 設定", "Esc"' in content:
+        ok("Controls and settings popups show Esc dismissal hints")
+    else:
+        fail("Controls/settings popups do not show Esc dismissal hints")
 
 
 # ---------------------------------------------------------------------------

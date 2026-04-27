@@ -53,6 +53,15 @@ func _animate_title() -> void:
 	tween.tween_property(controls_btn, "modulate:a", 1.0, 0.3)
 	tween.tween_property(settings_btn, "modulate:a", 1.0, 0.3)
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		var popups := get_tree().get_nodes_in_group("dismissible_popup")
+		if not popups.is_empty():
+			var popup := popups.back() as CanvasLayer
+			if popup:
+				popup.queue_free()
+				get_viewport().set_input_as_handled()
+
 func _on_new_game() -> void:
 	# Disable buttons to prevent double-click during transition
 	new_game_btn.disabled = true
@@ -77,6 +86,7 @@ func _on_continue() -> void:
 func _on_controls() -> void:
 	var popup_layer := CanvasLayer.new()
 	popup_layer.layer = 95
+	_configure_dismissible_popup(popup_layer)
 
 	var dimmer := ColorRect.new()
 	dimmer.color = Color(0, 0, 0, 0.7)
@@ -91,17 +101,17 @@ func _on_controls() -> void:
 	style.set_corner_radius_all(8)
 	panel.add_theme_stylebox_override("panel", style)
 	var viewport_size := get_viewport().get_visible_rect().size
-	var panel_width := minf(760.0, viewport_size.x * 0.92)
+	var panel_width := minf(900.0, viewport_size.x * 0.94)
 	panel.custom_minimum_size = Vector2(panel_width, 0)
 
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 32)
-	margin.add_theme_constant_override("margin_right", 56)
+	margin.add_theme_constant_override("margin_right", 96)
 	margin.add_theme_constant_override("margin_top", 24)
 	margin.add_theme_constant_override("margin_bottom", 24)
 
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(panel_width - 88.0, minf(460.0, maxf(240.0, viewport_size.y - 120.0)))
+	scroll.custom_minimum_size = Vector2(panel_width - 128.0, minf(500.0, maxf(260.0, viewport_size.y - 120.0)))
 
 	var vbox := VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 12)
@@ -135,6 +145,7 @@ func _on_controls() -> void:
 	_add_control_row(vbox, "場景移動", "地圖按鈕，消耗 1 行動點")
 	_add_control_row(vbox, "鷹眼能量", "啟動後持續消耗，關閉後自動回充")
 	_add_control_row(vbox, "審訊生物指標", "鷹眼模式下讀取心率與說謊機率")
+	_add_control_row(vbox, "關閉說明 / 設定", "Esc")
 
 	var close_btn := Button.new()
 	close_btn.text = "返回"
@@ -177,7 +188,7 @@ func _add_control_row(parent: VBoxContainer, action: String, key: String) -> voi
 	action_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	action_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	if not compact:
-		action_lbl.custom_minimum_size = Vector2(180, 0)
+		action_lbl.custom_minimum_size = Vector2(220, 0)
 	row.add_child(action_lbl)
 
 	var key_lbl := Label.new()
@@ -187,9 +198,12 @@ func _add_control_row(parent: VBoxContainer, action: String, key: String) -> voi
 	key_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if compact else HORIZONTAL_ALIGNMENT_RIGHT
 	key_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	if not compact:
-		key_lbl.custom_minimum_size = Vector2(260, 0)
+		key_lbl.custom_minimum_size = Vector2(360, 0)
 	row.add_child(key_lbl)
 	parent.add_child(row)
+
+func _configure_dismissible_popup(popup_layer: CanvasLayer) -> void:
+	popup_layer.add_to_group("dismissible_popup")
 
 func _add_centered_popup_panel(popup_layer: CanvasLayer, panel: Control) -> void:
 	var center := CenterContainer.new()
@@ -200,6 +214,7 @@ func _add_centered_popup_panel(popup_layer: CanvasLayer, panel: Control) -> void
 func _on_settings() -> void:
 	var popup_layer := CanvasLayer.new()
 	popup_layer.layer = 95
+	_configure_dismissible_popup(popup_layer)
 
 	var dimmer := ColorRect.new()
 	dimmer.color = Color(0, 0, 0, 0.7)
@@ -214,7 +229,7 @@ func _on_settings() -> void:
 	style.set_corner_radius_all(8)
 	panel.add_theme_stylebox_override("panel", style)
 	var viewport_size := get_viewport().get_visible_rect().size
-	panel.custom_minimum_size = Vector2(minf(350.0, viewport_size.x * 0.9), 0)
+	panel.custom_minimum_size = Vector2(minf(420.0, viewport_size.x * 0.9), 0)
 
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 24)
@@ -231,6 +246,12 @@ func _on_settings() -> void:
 	title.add_theme_font_size_override("font_size", 24)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(title)
+
+	var esc_hint := Label.new()
+	esc_hint.text = "Esc 關閉"
+	esc_hint.add_theme_color_override("font_color", Color(0.45, 0.9, 0.9, 0.8))
+	esc_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(esc_hint)
 
 	# Window Mode
 	var window_label := Label.new()
