@@ -110,7 +110,8 @@ func _process(delta: float) -> void:
 
 	if _is_typing:
 		_type_timer += delta
-		var speed := fast_speed if Input.is_action_pressed("interact") else typewriter_speed
+		var fast_forward := Input.is_action_pressed("interact") or Input.is_key_pressed(KEY_SPACE)
+		var speed := fast_speed if fast_forward else typewriter_speed
 		if _type_timer >= speed:
 			_type_timer = 0.0
 			_visible_chars += 1
@@ -206,6 +207,8 @@ func _input(event: InputEvent) -> void:
 		is_interact = true
 	elif event is InputEventScreenTouch and event.pressed:
 		is_interact = true
+	elif event is InputEventKey and event.pressed and not event.echo:
+		is_interact = event.keycode == KEY_SPACE or event.is_action_pressed("ui_accept")
 
 	if is_interact:
 		if _is_typing:

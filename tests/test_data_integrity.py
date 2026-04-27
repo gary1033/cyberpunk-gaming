@@ -1260,7 +1260,8 @@ def test_runtime_ui_playability_regressions():
     location_base = read_file("scripts/ui/location_base.gd")
     dialogue_system = read_file("scripts/gameplay/dialogue_system.gd")
     evidence_board = read_file("scripts/gameplay/evidence_board.gd")
-    if not location_base or not dialogue_system or not evidence_board:
+    augmented_vision = read_file("scripts/gameplay/augmented_vision.gd")
+    if not location_base or not dialogue_system or not evidence_board or not augmented_vision:
         fail("Required UI runtime files not found")
         return
 
@@ -1295,10 +1296,24 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("DialogueSystem still assumes direct DialoguePanel/VBox node paths")
 
+    # Bug regression: space should work for keyboard players during dialogue,
+    # both for fast-forwarding typewriter text and advancing completed lines.
+    if "Input.is_key_pressed(KEY_SPACE)" in dialogue_system and "event.keycode == KEY_SPACE" in dialogue_system:
+        ok("Dialogue supports Space for fast-forward and advance")
+    else:
+        fail("Dialogue does not support Space for fast-forward and advance")
+
     if "for i in range(evidence_list.size())" in evidence_board and "var row: int = int(i / cols)" in evidence_board:
         ok("EvidenceBoard card grid uses safe range iteration and int row conversion")
     else:
         fail("EvidenceBoard card grid still uses unsafe iteration or row conversion")
+
+    # Bug regression: eagle-eye energy bar should not sit over the top-right AP
+    # label while inactive.
+    if "energy_bar.offset_top = 46" in augmented_vision and "energy_bar.visible = false" in augmented_vision and "energy_bar.visible = is_visible" in augmented_vision:
+        ok("Eagle-eye energy bar stays below AP and is hidden while inactive")
+    else:
+        fail("Eagle-eye energy bar can overlap the AP label")
 
 
 # ---------------------------------------------------------------------------

@@ -62,12 +62,13 @@ func _ensure_runtime_nodes() -> void:
 		energy_bar = ProgressBar.new()
 		energy_bar.name = "EnergyBar"
 		energy_bar.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-		energy_bar.offset_left = -260
+		energy_bar.offset_left = -190
 		energy_bar.offset_right = -24
-		energy_bar.offset_top = 18
-		energy_bar.offset_bottom = 38
+		energy_bar.offset_top = 46
+		energy_bar.offset_bottom = 62
 		energy_bar.show_percentage = false
 		energy_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		energy_bar.visible = false
 		add_child(energy_bar)
 
 	if scan_label == null:
@@ -192,6 +193,8 @@ func _set_overlay_visible(is_visible: bool) -> void:
 		focus_reticle.visible = is_visible
 	if scan_label:
 		scan_label.visible = is_visible
+	if energy_bar:
+		energy_bar.visible = is_visible
 
 func _update_energy_bar() -> void:
 	if energy_bar:
@@ -209,11 +212,16 @@ func _update_energy_bar() -> void:
 
 func _flash_energy_bar() -> void:
 	if energy_bar:
+		energy_bar.visible = true
 		var tween := create_tween()
 		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.0, 0.0), 0.15)
 		tween.tween_property(energy_bar, "modulate", Color.WHITE, 0.15)
 		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.0, 0.0), 0.15)
 		tween.tween_property(energy_bar, "modulate", Color.WHITE, 0.15)
+		tween.tween_callback(func():
+			if not GameManager.eagle_eye_active:
+				energy_bar.visible = false
+		)
 
 ## Get biometric reading for interrogation (returns dict with lie indicators)
 func get_biometric_reading(character_id: String, pressure: int) -> Dictionary:
