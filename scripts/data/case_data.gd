@@ -164,18 +164,21 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"name": "回聲網路總部",
 					"description": "地下第十層的高科技設施。冰冷的白色走廊和嗡嗡作響的伺服器。",
 					"connections": ["secret_lab", "memory_space"],
+					"initial_dialogue": "ch3_opening",
 					"hotspots": ["server_room", "control_panel", "corridor", "locked_door"]
 				},
 				"secret_lab": {
 					"name": "正和科技秘密實驗室",
 					"description": "記憶覆寫技術的核心實驗室。蕭博士的領地。",
 					"connections": ["echo_network_hq", "rooftop"],
+					"initial_dialogue": "ch3_dr_xiao_confrontation",
 					"hotspots": ["overwrite_device", "dr_xiao_desk", "hao_ran_chair", "ai_terminal"]
 				},
 				"memory_space": {
 					"name": "凱的記憶空間",
 					"description": "鷹眼觸發的內心空間。碎片化的記憶在這裡漂浮。",
 					"connections": ["echo_network_hq"],
+					"initial_dialogue": "ch3_echo_ai",
 					"hotspots": ["memory_fragment_1", "memory_fragment_2", "memory_fragment_3"]
 				},
 				"rooftop": {
