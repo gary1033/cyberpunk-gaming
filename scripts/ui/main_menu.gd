@@ -91,16 +91,17 @@ func _on_controls() -> void:
 	style.set_corner_radius_all(8)
 	panel.add_theme_stylebox_override("panel", style)
 	var viewport_size := get_viewport().get_visible_rect().size
-	panel.custom_minimum_size = Vector2(minf(420.0, viewport_size.x * 0.9), 0)
+	var panel_width := minf(760.0, viewport_size.x * 0.92)
+	panel.custom_minimum_size = Vector2(panel_width, 0)
 
 	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 24)
-	margin.add_theme_constant_override("margin_right", 24)
+	margin.add_theme_constant_override("margin_left", 32)
+	margin.add_theme_constant_override("margin_right", 56)
 	margin.add_theme_constant_override("margin_top", 24)
 	margin.add_theme_constant_override("margin_bottom", 24)
 
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(0, minf(400.0, maxf(220.0, viewport_size.y - 120.0)))
+	scroll.custom_minimum_size = Vector2(panel_width - 88.0, minf(460.0, maxf(240.0, viewport_size.y - 120.0)))
 
 	var vbox := VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 12)
@@ -160,19 +161,35 @@ func _add_section(parent: VBoxContainer, text: String) -> void:
 	parent.add_child(lbl)
 
 func _add_control_row(parent: VBoxContainer, action: String, key: String) -> void:
-	var hbox := HBoxContainer.new()
-	hbox.add_theme_constant_override("separation", 12)
+	var compact := get_viewport().get_visible_rect().size.x < 560.0
+	var row: BoxContainer
+	if compact:
+		row = VBoxContainer.new()
+		row.add_theme_constant_override("separation", 4)
+	else:
+		row = HBoxContainer.new()
+		row.add_theme_constant_override("separation", 24)
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
 	var action_lbl := Label.new()
 	action_lbl.text = action
 	action_lbl.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
 	action_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hbox.add_child(action_lbl)
+	action_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if not compact:
+		action_lbl.custom_minimum_size = Vector2(180, 0)
+	row.add_child(action_lbl)
+
 	var key_lbl := Label.new()
 	key_lbl.text = key
 	key_lbl.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-	key_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	hbox.add_child(key_lbl)
-	parent.add_child(hbox)
+	key_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	key_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if compact else HORIZONTAL_ALIGNMENT_RIGHT
+	key_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if not compact:
+		key_lbl.custom_minimum_size = Vector2(260, 0)
+	row.add_child(key_lbl)
+	parent.add_child(row)
 
 func _add_centered_popup_panel(popup_layer: CanvasLayer, panel: Control) -> void:
 	var center := CenterContainer.new()

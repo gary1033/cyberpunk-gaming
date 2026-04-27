@@ -786,6 +786,18 @@ def test_main_menu_popup_layout_bounds():
     else:
         fail("Main menu popups do not clamp scroll height to viewport")
 
+    # Bug regression: controls popup right-column text needs room between
+    # the keyboard labels and the scrollbar.
+    if "panel_width := minf(760.0, viewport_size.x * 0.92)" in content and 'margin_right", 56' in content:
+        ok("Controls popup has a wider panel and scrollbar-safe right padding")
+    else:
+        fail("Controls popup can clip right-column text behind the scrollbar")
+
+    if "key_lbl.custom_minimum_size = Vector2(260, 0)" in content and "key_lbl.autowrap_mode" in content and "compact := get_viewport().get_visible_rect().size.x < 560.0" in content:
+        ok("Controls popup key labels have a stable desktop width and compact mobile layout")
+    else:
+        fail("Controls popup key labels can overflow the panel")
+
 
 # ---------------------------------------------------------------------------
 # 17. Bug regression: No @onready with bare $ in class_name scripts
