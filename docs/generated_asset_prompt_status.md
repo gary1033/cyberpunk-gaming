@@ -10,7 +10,8 @@
 | 證據物品 | `assets/generated/prompts/image2_items.jsonl` | 28 | 已生成 21 張 Image2.0 版本並同步覆蓋到 `assets/sprites/items/`；其餘 7 張沿用既有 PNG |
 | UI 元件 | `assets/generated/prompts/image2_ui.jsonl` | 5 | 已生成 5 張 Image2.0 版本並同步覆蓋到 `assets/sprites/ui/` |
 | 角色概念設定表 | `docs/character_art_prompts.md` | 12 | 已生成並整理到 `assets/generated/characters/reference_sheets/` |
-| 角色透明立繪 | `docs/character_portrait_image2_prompts.md` | 50 | 已整理每個角色 mood 的 image2.0 提示詞；待逐張生成透明 PNG |
+| 角色透明立繪 | `docs/character_portrait_image2_prompts.md` | 50 | 已整理每個角色 mood 的 image2.0 提示詞，並已用 `image_gen` 生成透明 PNG |
+| 角色透明立繪 JSONL | `assets/generated/prompts/image2_character_portraits.jsonl` | 50 | 已由 Markdown 轉出，可供 image2.0 CLI 批次生成 |
 
 Image2.0 原始生成資料夾：
 
@@ -113,7 +114,8 @@ assets/generated/ui/
 | 證據物品 Image2.0 版 | 21 | 21 | 0 | 本輪新增到 `assets/generated/items/` |
 | UI 遊戲圖示 | 5 | 5 | 0 | 已在 `assets/sprites/ui/` |
 | UI Image2.0 版 | 5 | 5 | 0 | 本輪新增到 `assets/generated/ui/` |
-| 角色透明立繪 Image2.0 版 | 50 | 0 | 50 | Prompt 已在 `docs/character_portrait_image2_prompts.md`；建議先輸出到 `assets/generated/characters/transparent_regen/` 驗收 |
+| 角色透明立繪 Image2.0 版 | 50 | 50 | 0 | 已完成到 `assets/generated/characters/transparent_regen/`；來源 chroma-key 圖保留為 `*_chroma.png` |
+| 角色透明立繪總覽 | 1 | 1 | 0 | `assets/generated/characters/transparent_regen_contact_sheet.png` 用於人工檢查一致性 |
 
 ## Runtime 接線確認
 
@@ -127,6 +129,6 @@ assets/generated/ui/
 ## 後續建議
 
 1. 仍未生成 Image2.0 版的 7 個早期物品 icon：`commission_letter`、`work_id`、`receipt`、`data_chip`、`photo`、`log`、`recording`。目前已有 PNG 且已接入，後續可視覺升級。
-2. 角色透明立繪需依 `docs/character_portrait_image2_prompts.md` 逐張生成，先放入 `assets/generated/characters/transparent_regen/` 檢查 alpha、邊緣與角色一致性，再覆蓋 `assets/sprites/characters/`。
+2. 角色透明立繪已依 `docs/character_portrait_image2_prompts.md` 逐張生成，透明 PNG 位於 `assets/generated/characters/transparent_regen/`。正式替換前仍建議人工檢查角色一致性與對話框尺寸。
 3. 場景背景已有 15 張 PNG 並已接入；若要改用更精細 image2 版本，請產出後覆蓋 `assets/sprites/locations/` 並跑 `tests/test_data_integrity.py`。
 4. 不要提交 `.import` 檔案；若 Godot 自動產生 `.png.import`，提交前需排除。
