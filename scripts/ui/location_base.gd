@@ -190,14 +190,22 @@ func _setup_ui() -> void:
 	dialogue_system.add_to_group("dialogue_system")
 
 	# Portraits
+	var portrait_size := Vector2(168, 252)
+	var portrait_margin_x := 24
+	var portrait_bottom_gap := 208
+	if InputManager.is_mobile:
+		portrait_size = Vector2(112, 168)
+		portrait_margin_x = 12
+		portrait_bottom_gap = 188
+
 	var portrait_left := TextureRect.new()
 	portrait_left.name = "PortraitLeft"
 	portrait_left.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	portrait_left.offset_left = 24
-	portrait_left.offset_right = 192
-	portrait_left.offset_top = -330
-	portrait_left.offset_bottom = -78
-	portrait_left.custom_minimum_size = Vector2(168, 252)
+	portrait_left.offset_left = portrait_margin_x
+	portrait_left.offset_right = portrait_margin_x + portrait_size.x
+	portrait_left.offset_top = -portrait_bottom_gap - portrait_size.y
+	portrait_left.offset_bottom = -portrait_bottom_gap
+	portrait_left.custom_minimum_size = portrait_size
 	portrait_left.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait_left.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	portrait_left.z_index = 2
@@ -207,11 +215,11 @@ func _setup_ui() -> void:
 	var portrait_right := TextureRect.new()
 	portrait_right.name = "PortraitRight"
 	portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	portrait_right.offset_right = -24
-	portrait_right.offset_left = -192
-	portrait_right.offset_top = -330
-	portrait_right.offset_bottom = -78
-	portrait_right.custom_minimum_size = Vector2(168, 252)
+	portrait_right.offset_right = -portrait_margin_x
+	portrait_right.offset_left = -portrait_margin_x - portrait_size.x
+	portrait_right.offset_top = -portrait_bottom_gap - portrait_size.y
+	portrait_right.offset_bottom = -portrait_bottom_gap
+	portrait_right.custom_minimum_size = portrait_size
 	portrait_right.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait_right.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	portrait_right.z_index = 2
@@ -263,7 +271,16 @@ func _setup_ui() -> void:
 	continue_indicator.visible = false
 	vbox.add_child(continue_indicator)
 
-	dialogue_panel.add_child(vbox)
+	var dialogue_margin := MarginContainer.new()
+	dialogue_margin.name = "DialogueContentMargin"
+	var side_text_margin := int(portrait_margin_x + portrait_size.x + 28)
+	if InputManager.is_mobile:
+		side_text_margin = int(portrait_margin_x + portrait_size.x + 16)
+	dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)
+	dialogue_margin.add_theme_constant_override("margin_right", side_text_margin)
+	dialogue_margin.add_child(vbox)
+
+	dialogue_panel.add_child(dialogue_margin)
 	dialogue_system.add_child(dialogue_panel)
 
 	ui_layer.add_child(dialogue_system)

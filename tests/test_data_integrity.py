@@ -1191,12 +1191,13 @@ def test_runtime_asset_loader_supports_generated_pngs():
 
 
 # ---------------------------------------------------------------------------
-# 26. Bug regression: Image2 item/UI outputs must be copied into the runtime
+# 26. Bug regression: Image2 background/item/UI outputs must be copied into the runtime
 # sprite directories. Generating files under assets/generated is not enough.
 # ---------------------------------------------------------------------------
 def test_image2_outputs_are_connected_to_runtime_sprites():
     print("\n[26] Image2 outputs are connected to runtime sprites")
     mappings = [
+        ("backgrounds", "assets/generated/backgrounds", "assets/sprites/locations"),
         ("items", "assets/generated/items", "assets/sprites/items"),
         ("ui", "assets/generated/ui", "assets/sprites/ui"),
     ]
@@ -1224,9 +1225,48 @@ def test_image2_outputs_are_connected_to_runtime_sprites():
                 fail(f"Generated {label} image differs from runtime sprite: {file_name}")
 
     if checked > 0:
-        ok(f"Checked {checked} generated item/UI image connections")
+        ok(f"Checked {checked} generated background/item/UI image connections")
     else:
-        fail("No generated item/UI PNG outputs were checked")
+        fail("No generated background/item/UI PNG outputs were checked")
+
+
+# ---------------------------------------------------------------------------
+# 27. Bug regression: Dialogue portraits and evidence board must not block play
+# Portraits previously overlapped speaker text, and evidence board card layout
+# used unsafe Godot integer iteration/conversion when opening the board.
+# ---------------------------------------------------------------------------
+def test_runtime_ui_playability_regressions():
+    print("\n[27] Runtime UI playability regressions")
+    location_base = read_file("scripts/ui/location_base.gd")
+    dialogue_system = read_file("scripts/gameplay/dialogue_system.gd")
+    evidence_board = read_file("scripts/gameplay/evidence_board.gd")
+    if not location_base or not dialogue_system or not evidence_board:
+        fail("Required UI runtime files not found")
+        return
+
+    # Bug regression: dialogue text must reserve horizontal room so visible
+    # character portraits cannot cover the speaker name or line text.
+    if "DialogueContentMargin" in location_base and "side_text_margin" in location_base:
+        ok("Dialogue panel reserves side margins for character portraits")
+    else:
+        fail("Dialogue panel content can overlap character portraits")
+
+    # Bug regression: portraits should sit above the dialogue text area rather
+    # than inside the text flow where they cover Chinese dialogue.
+    if "portrait_bottom_gap" in location_base and "portrait_size" in location_base:
+        ok("Dialogue portraits have fixed responsive bounds above the text area")
+    else:
+        fail("Dialogue portraits do not have fixed responsive bounds")
+
+    if 'find_child("NameLabel", true, false)' in dialogue_system and 'find_child("DialogueText", true, false)' in dialogue_system:
+        ok("DialogueSystem resolves text nodes after margin-container layout")
+    else:
+        fail("DialogueSystem still assumes direct DialoguePanel/VBox node paths")
+
+    if "for i in range(evidence_list.size())" in evidence_board and "var row: int = int(i / cols)" in evidence_board:
+        ok("EvidenceBoard card grid uses safe range iteration and int row conversion")
+    else:
+        fail("EvidenceBoard card grid still uses unsafe iteration or row conversion")
 
 
 # ---------------------------------------------------------------------------
@@ -1267,6 +1307,7 @@ def main():
     test_generated_environment_item_ui_png_assets()
     test_runtime_asset_loader_supports_generated_pngs()
     test_image2_outputs_are_connected_to_runtime_sprites()
+    test_runtime_ui_playability_regressions()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

@@ -6,10 +6,11 @@
 
 | 類型 | Prompt 檔 | 數量 | 狀態 |
 |---|---|---:|---|
-| 場景背景 | `assets/generated/prompts/image2_backgrounds.jsonl` | 15 | 已生成並已整理到 `assets/sprites/locations/` |
+| 場景背景 | `assets/generated/prompts/image2_backgrounds.jsonl` | 15 | 已生成並已整理到 `assets/generated/backgrounds/` 與 `assets/sprites/locations/` |
 | 證據物品 | `assets/generated/prompts/image2_items.jsonl` | 28 | 已生成 21 張 Image2.0 版本並同步覆蓋到 `assets/sprites/items/`；其餘 7 張沿用既有 PNG |
 | UI 元件 | `assets/generated/prompts/image2_ui.jsonl` | 5 | 已生成 5 張 Image2.0 版本並同步覆蓋到 `assets/sprites/ui/` |
 | 角色概念設定表 | `docs/character_art_prompts.md` | 12 | 已生成並整理到 `assets/generated/characters/reference_sheets/` |
+| 角色透明立繪 | `docs/character_portrait_image2_prompts.md` | 50 | 已整理每個角色 mood 的 image2.0 提示詞；待逐張生成透明 PNG |
 
 Image2.0 原始生成資料夾：
 
@@ -18,6 +19,37 @@ C:\Users\gary1\.codex\generated_images\019dca72-c0b6-7a62-8c5d-768e07568751
 ```
 
 ## 本輪新增落地資產
+
+### 場景背景 Image2.0 版
+
+輸出資料夾：
+
+```text
+assets/generated/backgrounds/
+assets/sprites/locations/
+```
+
+共 15 張，皆為 `1280x720` PNG：
+
+```text
+detective_office.png
+mei_ling_apartment.png
+abyss_bar.png
+hao_ran_workshop.png
+east_district_street.png
+bitstorm_cafe.png
+memory_black_market.png
+abandoned_warehouse.png
+zhengtek_exterior.png
+sewer_passage.png
+echo_network_hq.png
+secret_lab.png
+memory_space.png
+rooftop.png
+office_epilogue.png
+```
+
+備註：Image2.0 原始輸出中有 1 張額外的 `detective_office` 重複圖，本輪採用較適合偵探辦公室主場景的版本，略過重複圖。
 
 ### 證據物品 Image2.0 版
 
@@ -76,11 +108,12 @@ assets/generated/ui/
 | 類型 | 目標數 | 已生成 | 缺少 | 備註 |
 |---|---:|---:|---:|---|
 | 角色概念設定表 | 12 | 12 | 0 | 已在 `assets/generated/characters/reference_sheets/` |
-| 場景背景 | 15 | 15 | 0 | 已在 `assets/sprites/locations/` |
+| 場景背景 | 15 | 15 | 0 | 已在 `assets/generated/backgrounds/` 與 `assets/sprites/locations/` |
 | 證據物品遊戲圖示 | 28 | 28 | 0 | 已在 `assets/sprites/items/` |
 | 證據物品 Image2.0 版 | 21 | 21 | 0 | 本輪新增到 `assets/generated/items/` |
 | UI 遊戲圖示 | 5 | 5 | 0 | 已在 `assets/sprites/ui/` |
 | UI Image2.0 版 | 5 | 5 | 0 | 本輪新增到 `assets/generated/ui/` |
+| 角色透明立繪 Image2.0 版 | 50 | 0 | 50 | Prompt 已在 `docs/character_portrait_image2_prompts.md`；建議先輸出到 `assets/generated/characters/transparent_regen/` 驗收 |
 
 ## Runtime 接線確認
 
@@ -94,5 +127,6 @@ assets/generated/ui/
 ## 後續建議
 
 1. 仍未生成 Image2.0 版的 7 個早期物品 icon：`commission_letter`、`work_id`、`receipt`、`data_chip`、`photo`、`log`、`recording`。目前已有 PNG 且已接入，後續可視覺升級。
-2. 場景背景已有 15 張 PNG 並已接入；若要改用更精細 image2 版本，請產出後覆蓋 `assets/sprites/locations/` 並跑 `tests/test_data_integrity.py`。
-3. 不要提交 `.import` 檔案；若 Godot 自動產生 `.png.import`，提交前需排除。
+2. 角色透明立繪需依 `docs/character_portrait_image2_prompts.md` 逐張生成，先放入 `assets/generated/characters/transparent_regen/` 檢查 alpha、邊緣與角色一致性，再覆蓋 `assets/sprites/characters/`。
+3. 場景背景已有 15 張 PNG 並已接入；若要改用更精細 image2 版本，請產出後覆蓋 `assets/sprites/locations/` 並跑 `tests/test_data_integrity.py`。
+4. 不要提交 `.import` 檔案；若 Godot 自動產生 `.png.import`，提交前需排除。

@@ -91,13 +91,13 @@ func _refresh_cards() -> void:
 	var card_size := Vector2(180, 120) if not InputManager.is_mobile else Vector2(140, 100)
 	var padding := 20.0
 
-	for i in evidence_list.size():
+	for i in range(evidence_list.size()):
 		var evidence_id: String = evidence_list[i]
 		var card := _create_card(evidence_id, card_size)
 
 		# Grid layout
 		var col: int = i % cols
-		var row: int = i / cols
+		var row: int = int(i / cols)
 		card.position = Vector2(
 			padding + col * (card_size.x + padding),
 			padding + row * (card_size.y + padding)

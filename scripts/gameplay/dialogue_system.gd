@@ -10,12 +10,12 @@ signal choice_made(choice_index: int)
 @export var fast_speed: float = 0.01
 
 @onready var dialogue_panel: PanelContainer = $DialoguePanel
-@onready var character_name_label: Label = $DialoguePanel/VBox/NameLabel
-@onready var dialogue_text: RichTextLabel = $DialoguePanel/VBox/DialogueText
+@onready var character_name_label: Label = get_node("DialoguePanel").find_child("NameLabel", true, false) as Label
+@onready var dialogue_text: RichTextLabel = get_node("DialoguePanel").find_child("DialogueText", true, false) as RichTextLabel
 @onready var portrait_left: TextureRect = $PortraitLeft
 @onready var portrait_right: TextureRect = $PortraitRight
-@onready var choices_container: VBoxContainer = $DialoguePanel/VBox/ChoicesContainer
-@onready var continue_indicator: Label = $DialoguePanel/VBox/ContinueIndicator
+@onready var choices_container: VBoxContainer = get_node("DialoguePanel").find_child("ChoicesContainer", true, false) as VBoxContainer
+@onready var continue_indicator: Label = get_node("DialoguePanel").find_child("ContinueIndicator", true, false) as Label
 
 var _current_dialogue: Array = []  # Array of dialogue entries
 var _current_index: int = 0
