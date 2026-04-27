@@ -90,8 +90,8 @@ func _on_controls() -> void:
 	style.set_border_width_all(2)
 	style.set_corner_radius_all(8)
 	panel.add_theme_stylebox_override("panel", style)
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(420, 0)
+	var viewport_size := get_viewport().get_visible_rect().size
+	panel.custom_minimum_size = Vector2(minf(420.0, viewport_size.x * 0.9), 0)
 
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 24)
@@ -100,7 +100,7 @@ func _on_controls() -> void:
 	margin.add_theme_constant_override("margin_bottom", 24)
 
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(0, 400)
+	scroll.custom_minimum_size = Vector2(0, minf(400.0, maxf(220.0, viewport_size.y - 120.0)))
 
 	var vbox := VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 12)
@@ -145,7 +145,7 @@ func _on_controls() -> void:
 	scroll.add_child(vbox)
 	margin.add_child(scroll)
 	panel.add_child(margin)
-	popup_layer.add_child(panel)
+	_add_centered_popup_panel(popup_layer, panel)
 	add_child(popup_layer)
 
 func _add_section(parent: VBoxContainer, text: String) -> void:
@@ -174,6 +174,12 @@ func _add_control_row(parent: VBoxContainer, action: String, key: String) -> voi
 	hbox.add_child(key_lbl)
 	parent.add_child(hbox)
 
+func _add_centered_popup_panel(popup_layer: CanvasLayer, panel: Control) -> void:
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.add_child(panel)
+	popup_layer.add_child(center)
+
 func _on_settings() -> void:
 	var popup_layer := CanvasLayer.new()
 	popup_layer.layer = 95
@@ -190,8 +196,8 @@ func _on_settings() -> void:
 	style.set_border_width_all(2)
 	style.set_corner_radius_all(8)
 	panel.add_theme_stylebox_override("panel", style)
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(350, 0)
+	var viewport_size := get_viewport().get_visible_rect().size
+	panel.custom_minimum_size = Vector2(minf(350.0, viewport_size.x * 0.9), 0)
 
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 24)
@@ -326,17 +332,12 @@ func _on_settings() -> void:
 	vbox.add_child(close_btn)
 
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(0, 0)
-	var viewport_h := get_viewport().get_visible_rect().size.y
-	scroll.custom_minimum_size.y = min(vbox.get_combined_minimum_size().y, viewport_h * 0.7)
+	var max_scroll_height: float = minf(440.0, maxf(220.0, viewport_size.y - 120.0))
+	scroll.custom_minimum_size = Vector2(0, max_scroll_height)
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.add_child(vbox)
 
 	margin.add_child(scroll)
 	panel.add_child(margin)
-	popup_layer.add_child(panel)
+	_add_centered_popup_panel(popup_layer, panel)
 	add_child(popup_layer)
-
-	# Recalculate scroll height after layout
-	await get_tree().process_frame
-	scroll.custom_minimum_size.y = min(vbox.size.y, viewport_h * 0.7)

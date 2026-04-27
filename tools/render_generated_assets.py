@@ -124,6 +124,9 @@ def draw_rain(base: Image.Image, rng: random.Random, count: int) -> None:
 def draw_city_background(record: dict) -> Image.Image:
     size = parse_size(record.get("target_size", record["size"]))
     rng = random.Random(seed_for(record["id"]))
+    if record["id"] == "detective_office":
+        return draw_detective_office_background(size, rng)
+
     top = (rng.randrange(5, 15), rng.randrange(8, 18), rng.randrange(28, 48))
     bottom = (rng.randrange(9, 18), rng.randrange(5, 14), rng.randrange(20, 35))
     img = vertical_gradient(size, top, bottom).convert("RGBA")
@@ -161,6 +164,72 @@ def draw_city_background(record: dict) -> Image.Image:
     draw_location_detail(img, draw, rng, record["id"], horizon)
     draw_rain(img, rng, count=max(260, width * height // 3600))
     draw_scanlines(img, alpha=16, step=5)
+    return img.convert("RGB")
+
+
+def draw_detective_office_background(size: tuple[int, int], rng: random.Random) -> Image.Image:
+    width, height = size
+    img = vertical_gradient(size, (8, 10, 20), (18, 9, 18)).convert("RGBA")
+    draw = ImageDraw.Draw(img, "RGBA")
+
+    # Back wall and window blinds.
+    draw.rectangle([0, 0, width, int(height * 0.64)], fill=(9, 11, 22, 235))
+    window = [int(width * 0.58), 42, width - 80, int(height * 0.56)]
+    draw.rectangle(window, fill=(5, 8, 18, 245), outline=(*CYAN, 180), width=3)
+    for y in range(window[1] + 22, window[3] - 12, 18):
+        draw.line([(window[0] + 8, y), (window[2] - 8, y)], fill=(150, 230, 255, 55), width=2)
+    for _ in range(45):
+        x = rng.randrange(window[0] + 10, window[2] - 10)
+        y = rng.randrange(window[1] + 10, window[3] - 10)
+        color = rng.choice([CYAN, MAGENTA, AMBER, GREEN])
+        draw.rectangle([x, y, x + rng.randrange(3, 8), y + rng.randrange(12, 28)], fill=(*color, rng.randrange(80, 180)))
+
+    # Neon spill through the blinds.
+    glow_line(img, [(window[0] + 42, window[1] + 20), (window[0] + 42, window[3] + 70)], CYAN, width=3, glow=18)
+    glow_line(img, [(window[2] - 70, window[1] + 80), (window[2] - 70, window[3] + 40)], MAGENTA, width=2, glow=15)
+
+    # Floor.
+    floor_y = int(height * 0.64)
+    draw.rectangle([0, floor_y, width, height], fill=(6, 7, 12, 245))
+    for y in range(floor_y + 20, height, 38):
+        draw.line([(0, y), (width, y + rng.randrange(-5, 6))], fill=(60, 90, 110, 35), width=2)
+    for x in range(0, width, 140):
+        draw.line([(x, floor_y), (x - 210, height)], fill=(120, 210, 235, 22), width=2)
+
+    # Desk, terminal and case board.
+    desk = [int(width * 0.10), int(height * 0.56), int(width * 0.55), int(height * 0.80)]
+    draw.rounded_rectangle(desk, radius=10, fill=(14, 13, 19, 245), outline=(*CYAN, 130), width=3)
+    draw.rectangle([desk[0] + 24, desk[1] - 78, desk[0] + 210, desk[1] + 10], fill=(5, 10, 18, 230), outline=(*CYAN, 210), width=3)
+    glow_line(img, [(desk[0] + 42, desk[1] - 22), (desk[0] + 190, desk[1] - 22)], CYAN, width=2, glow=10)
+    draw.rectangle([desk[0] + 260, desk[1] - 110, desk[0] + 380, desk[1] - 20], fill=(25, 22, 18, 230), outline=(*AMBER, 140), width=2)
+    for i in range(5):
+        y = desk[1] - 94 + i * 15
+        draw.line([(desk[0] + 276, y), (desk[0] + 360, y)], fill=(230, 210, 150, 80), width=2)
+
+    board = [70, 86, int(width * 0.42), int(height * 0.43)]
+    draw.rounded_rectangle(board, radius=8, fill=(12, 16, 22, 225), outline=(*MAGENTA, 170), width=3)
+    for _ in range(11):
+        px = rng.randrange(board[0] + 24, board[2] - 70)
+        py = rng.randrange(board[1] + 20, board[3] - 44)
+        note_color = rng.choice([(210, 225, 210), (220, 210, 160), (190, 220, 235)])
+        draw.rectangle([px, py, px + 48, py + 34], fill=(*note_color, 165), outline=(0, 0, 0, 70), width=1)
+    for _ in range(8):
+        x0 = rng.randrange(board[0] + 30, board[2] - 50)
+        y0 = rng.randrange(board[1] + 30, board[3] - 40)
+        x1 = rng.randrange(board[0] + 30, board[2] - 50)
+        y1 = rng.randrange(board[1] + 30, board[3] - 40)
+        draw.line([(x0, y0), (x1, y1)], fill=(*MAGENTA, 95), width=2)
+
+    # Foreground silhouettes and rain reflections.
+    draw.rectangle([int(width * 0.64), int(height * 0.67), int(width * 0.92), int(height * 0.72)], fill=(14, 10, 14, 230))
+    draw.ellipse([int(width * 0.72), int(height * 0.61), int(width * 0.82), int(height * 0.77)], fill=(5, 6, 10, 220))
+    for _ in range(42):
+        y = rng.randrange(floor_y + 14, height - 8)
+        x = rng.randrange(0, width)
+        color = rng.choice([CYAN, MAGENTA, AMBER])
+        draw.line([(x, y), (x + rng.randrange(35, 180), y + rng.randrange(-2, 3))], fill=(*color, rng.randrange(24, 70)), width=2)
+
+    draw_scanlines(img, alpha=14, step=5)
     return img.convert("RGB")
 
 

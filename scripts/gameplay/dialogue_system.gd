@@ -76,6 +76,10 @@ func _show_entry(entry: Dictionary) -> void:
 	var speaker: String = entry.get("speaker", "")
 	var mood: String = entry.get("mood", "default")
 	var side: String = entry.get("portrait_side", "left")
+	if speaker == "narrator":
+		speaker = "kai"
+		mood = "thoughtful"
+		side = "right"
 	_update_portrait(speaker, mood, side)
 
 	# Set flag if specified

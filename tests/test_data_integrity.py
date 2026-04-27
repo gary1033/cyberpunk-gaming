@@ -360,6 +360,20 @@ def test_runtime_portrait_loader_supports_png():
         else:
             fail(f"{rel_path}: missing PNG/SVG portrait loader")
 
+    dialogue_system = read_file("scripts/gameplay/dialogue_system.gd") or ""
+    location_base = read_file("scripts/ui/location_base.gd") or ""
+    if 'speaker == "narrator"' in dialogue_system and 'speaker = "kai"' in dialogue_system:
+        ok("Narrator entries fall back to Kai portrait at startup")
+    else:
+        fail("Narrator entries do not show a fallback portrait")
+
+    # Bug regression: left portrait needs an explicit right offset; otherwise
+    # the TextureRect can have zero or negative width when anchored bottom-left.
+    if "portrait_left.offset_right" in location_base and "portrait_right.offset_left" in location_base:
+        ok("Dialogue portraits have explicit left/right bounds")
+    else:
+        fail("Dialogue portrait bounds are incomplete")
+
 
 # ---------------------------------------------------------------------------
 # 7. Location background SVG files
@@ -719,6 +733,33 @@ def test_button_disable_on_transition():
             fail("_on_continue does not disable buttons — risk of double-click crash")
     else:
         fail("_on_continue function not found")
+
+
+# ---------------------------------------------------------------------------
+# 16b. Bug regression: Popup panels should be centered by a full-screen
+# CenterContainer, not by anchoring the panel itself to PRESET_CENTER.
+# ---------------------------------------------------------------------------
+def test_main_menu_popup_layout_bounds():
+    print("\n[16b] Main menu popup layout bounds")
+    content = read_file("scripts/ui/main_menu.gd")
+    if not content:
+        fail("main_menu.gd not found")
+        return
+
+    if "func _add_centered_popup_panel" in content and "CenterContainer.new()" in content:
+        ok("Main menu popups use CenterContainer for viewport-safe centering")
+    else:
+        fail("Main menu popups do not use CenterContainer centering")
+
+    if "panel.set_anchors_preset(Control.PRESET_CENTER)" not in content:
+        ok("Main menu popup panels are not anchored to PRESET_CENTER")
+    else:
+        fail("Main menu popup panels still use PRESET_CENTER and can overflow")
+
+    if "viewport_size.y - 120.0" in content and "ScrollContainer.new()" in content:
+        ok("Main menu popups clamp scroll height to visible viewport")
+    else:
+        fail("Main menu popups do not clamp scroll height to viewport")
 
 
 # ---------------------------------------------------------------------------
@@ -1138,6 +1179,7 @@ def main():
     test_change_scene_error_handling()
     test_lambda_loop_capture()
     test_button_disable_on_transition()
+    test_main_menu_popup_layout_bounds()
     test_no_onready_in_classname_scripts()
     test_ready_null_safety()
     test_dialogue_system_instantiated()

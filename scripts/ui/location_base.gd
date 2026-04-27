@@ -197,23 +197,28 @@ func _setup_ui() -> void:
 	var portrait_left := TextureRect.new()
 	portrait_left.name = "PortraitLeft"
 	portrait_left.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	portrait_left.offset_left = 16
-	portrait_left.offset_top = -280
-	portrait_left.offset_bottom = -80
-	portrait_left.custom_minimum_size = Vector2(120, 200)
+	portrait_left.offset_left = 24
+	portrait_left.offset_right = 192
+	portrait_left.offset_top = -330
+	portrait_left.offset_bottom = -78
+	portrait_left.custom_minimum_size = Vector2(168, 252)
 	portrait_left.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait_left.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait_left.z_index = 2
 	portrait_left.visible = false
 	dialogue_system.add_child(portrait_left)
 
 	var portrait_right := TextureRect.new()
 	portrait_right.name = "PortraitRight"
 	portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	portrait_right.offset_right = -16
-	portrait_right.offset_left = -136
-	portrait_right.offset_top = -280
-	portrait_right.offset_bottom = -80
-	portrait_right.custom_minimum_size = Vector2(120, 200)
+	portrait_right.offset_right = -24
+	portrait_right.offset_left = -192
+	portrait_right.offset_top = -330
+	portrait_right.offset_bottom = -78
+	portrait_right.custom_minimum_size = Vector2(168, 252)
 	portrait_right.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait_right.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait_right.z_index = 2
 	portrait_right.visible = false
 	dialogue_system.add_child(portrait_right)
 
