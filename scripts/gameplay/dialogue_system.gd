@@ -232,12 +232,16 @@ func end_dialogue() -> void:
 	dialogue_ended.emit()
 
 func _update_portrait(speaker: String, mood: String, side: String) -> void:
-	var portrait_path := "res://assets/sprites/characters/%s_%s.svg" % [speaker, mood]
-	var texture := load(portrait_path) as Texture2D
-
 	# Hide both first
 	portrait_left.visible = false
 	portrait_right.visible = false
+
+	if speaker == "":
+		return
+
+	var texture := _load_character_portrait(speaker, mood)
+	if texture == null and mood != "default":
+		texture = _load_character_portrait(speaker, "default")
 
 	if texture:
 		if side == "left":
@@ -246,3 +250,11 @@ func _update_portrait(speaker: String, mood: String, side: String) -> void:
 		else:
 			portrait_right.texture = texture
 			portrait_right.visible = true
+
+func _load_character_portrait(speaker: String, mood: String) -> Texture2D:
+	for extension in ["png", "svg"]:
+		var portrait_path := "res://assets/sprites/characters/%s_%s.%s" % [speaker, mood, extension]
+		var texture := load(portrait_path) as Texture2D
+		if texture:
+			return texture
+	return null

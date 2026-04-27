@@ -71,22 +71,26 @@ func start_interrogation(character_id: String, data: Dictionary) -> void:
 	GameManager.set_state(GameManager.GameState.INTERROGATION)
 
 	# Set up character display
-	character_name_label.text = data.get("name", "")
+	if character_name_label:
+		character_name_label.text = data.get("name", "")
 	_clam_up_threshold = data.get("clam_up_threshold", 80)
 	_broke_threshold = data.get("broke_threshold", 70)
 
 	# Load portrait
-	var portrait_path := "res://assets/sprites/characters/%s_default.png" % character_id
-	var tex := load(portrait_path) as Texture2D
-	if tex:
+	var tex := _load_character_portrait("default")
+	if tex and character_portrait:
 		character_portrait.texture = tex
 
 	# Initial dialogue
-	dialogue_text.text = data.get("opening_line", "...")
+	if dialogue_text:
+		dialogue_text.text = data.get("opening_line", "...")
 	_update_pressure_display()
 	_show_questions()
 
 func _show_questions() -> void:
+	if not questions_container:
+		return
+
 	for child in questions_container.get_children():
 		child.queue_free()
 
@@ -156,7 +160,8 @@ func _on_question_pressed(question_index: int) -> void:
 		response = q.get("response_normal", "...")
 		_update_portrait("default")
 
-	dialogue_text.text = response
+	if dialogue_text:
+		dialogue_text.text = response
 
 	# Update biometric if eagle eye is active
 	if GameManager.eagle_eye_active:
@@ -169,6 +174,9 @@ func _on_question_pressed(question_index: int) -> void:
 	GameManager.spend_action_points(1)
 
 func _on_evidence_pressed() -> void:
+	if not questions_container:
+		return
+
 	# Show evidence selection for presentation
 	# This would open a simplified evidence picker
 	# For now, show collected evidence as buttons
@@ -194,7 +202,8 @@ func _on_present_evidence(evidence_id: String) -> void:
 	var reactions: Dictionary = _character_data.get("evidence_reactions", {})
 	if evidence_id in reactions:
 		var reaction: Dictionary = reactions[evidence_id]
-		dialogue_text.text = reaction.get("response", "...")
+		if dialogue_text:
+			dialogue_text.text = reaction.get("response", "...")
 		_pressure += reaction.get("pressure_change", 0)
 		_pressure = clampi(_pressure, 0, _max_pressure)
 		_update_pressure_display()
@@ -203,7 +212,8 @@ func _on_present_evidence(evidence_id: String) -> void:
 		if reveals != "":
 			_revealed_info.append(reveals)
 	else:
-		dialogue_text.text = _character_data.get("default_evidence_response", "這跟我有什麼關係？")
+		if dialogue_text:
+			dialogue_text.text = _character_data.get("default_evidence_response", "這跟我有什麼關係？")
 
 	_show_questions()
 
@@ -238,10 +248,22 @@ func _update_pressure_display() -> void:
 		pressure_label.text = "壓力: %d / %d" % [_pressure, _max_pressure]
 
 func _update_portrait(mood: String) -> void:
-	var path := "res://assets/sprites/characters/%s_%s.svg" % [_character_id, mood]
-	var tex := load(path) as Texture2D
+	if not character_portrait:
+		return
+
+	var tex := _load_character_portrait(mood)
+	if tex == null and mood != "default":
+		tex = _load_character_portrait("default")
 	if tex:
 		character_portrait.texture = tex
+
+func _load_character_portrait(mood: String) -> Texture2D:
+	for extension in ["png", "svg"]:
+		var path := "res://assets/sprites/characters/%s_%s.%s" % [_character_id, mood, extension]
+		var tex := load(path) as Texture2D
+		if tex:
+			return tex
+	return null
 
 func end_interrogation() -> void:
 	visible = false

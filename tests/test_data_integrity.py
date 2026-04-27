@@ -8,6 +8,7 @@ evidence connections, asset files, and more.
 
 import os
 import re
+import struct
 import sys
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,22 +18,24 @@ failed = 0
 warnings = 0
 
 
+# Bug regression: Keep test status prefixes ASCII-only so Windows cp950
+# terminals do not crash before the actual integrity checks run.
 def ok(msg):
     global passed
     passed += 1
-    print(f"  ✓ {msg}")
+    print(f"  [OK] {msg}")
 
 
 def fail(msg):
     global failed
     failed += 1
-    print(f"  ✗ {msg}")
+    print(f"  [FAIL] {msg}")
 
 
 def warn(msg):
     global warnings
     warnings += 1
-    print(f"  ⚠ {msg}")
+    print(f"  [WARN] {msg}")
 
 
 def read_file(rel_path):
@@ -46,6 +49,14 @@ def read_file(rel_path):
 def res_to_real(res_path):
     """Convert res:// path to filesystem path."""
     return os.path.join(PROJECT_ROOT, res_path.replace("res://", ""))
+
+
+def get_png_size(path):
+    with open(path, "rb") as f:
+        header = f.read(24)
+    if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return struct.unpack(">II", header[16:24])
 
 
 # ---------------------------------------------------------------------------
@@ -234,10 +245,10 @@ def test_evidence_ids():
 
 
 # ---------------------------------------------------------------------------
-# 6. Character portrait SVG files
+# 6. Character portrait files
 # ---------------------------------------------------------------------------
 def test_character_portraits():
-    print("\n[6] Character portrait SVG files")
+    print("\n[6] Character portrait files")
     char_content = read_file("scripts/data/character_data.gd")
     if not char_content:
         fail("character_data.gd not found")
@@ -266,11 +277,87 @@ def test_character_portraits():
         if i < len(mood_blocks):
             moods = re.findall(r'"(\w+)"', mood_blocks[i])
             for mood in moods:
-                svg_path = os.path.join(sprites_dir, f"{char_id}_{mood}.svg")
-                if os.path.exists(svg_path):
-                    ok(f"Portrait: {char_id}_{mood}.svg")
+                candidates = [
+                    os.path.join(sprites_dir, f"{char_id}_{mood}.png"),
+                    os.path.join(sprites_dir, f"{char_id}_{mood}.svg"),
+                ]
+                existing = [path for path in candidates if os.path.exists(path)]
+                if existing:
+                    ok(f"Portrait: {os.path.basename(existing[0])}")
                 else:
-                    fail(f"Missing portrait: {char_id}_{mood}.svg")
+                    fail(f"Missing portrait: {char_id}_{mood}.png or .svg")
+
+
+# ---------------------------------------------------------------------------
+# 6b. Bug regression: Generated PNG portraits cover CharacterData moods
+# Reference-sheet slices must exist as PNG so runtime replaces old SVG art.
+# ---------------------------------------------------------------------------
+def test_generated_png_character_portraits():
+    print("\n[6b] Generated PNG character portraits")
+    char_content = read_file("scripts/data/character_data.gd")
+    if not char_content:
+        fail("character_data.gd not found")
+        return
+
+    chars = []
+    in_func = False
+    for line in char_content.split('\n'):
+        if 'get_all_characters' in line:
+            in_func = True
+        if in_func:
+            m = re.match(r'\s*"(\w+)":\s*\{', line)
+            if m:
+                chars.append(m.group(1))
+    mood_blocks = re.findall(r'"moods":\s*\[([^\]]+)\]', char_content)
+
+    sprites_dir = os.path.join(PROJECT_ROOT, "assets/sprites/characters")
+    missing_png = 0
+    invalid_size = 0
+    for i, char_id in enumerate(chars):
+        if i >= len(mood_blocks):
+            continue
+        moods = re.findall(r'"(\w+)"', mood_blocks[i])
+        for mood in moods:
+            png_path = os.path.join(sprites_dir, f"{char_id}_{mood}.png")
+            if os.path.exists(png_path):
+                ok(f"Generated PNG: {char_id}_{mood}.png")
+                size = get_png_size(png_path)
+                if size == (256, 384):
+                    ok(f"Generated PNG size: {char_id}_{mood}.png is 256x384")
+                else:
+                    fail(f"Generated PNG wrong size: {char_id}_{mood}.png is {size}, expected 256x384")
+                    invalid_size += 1
+            else:
+                fail(f"Missing generated PNG portrait: {char_id}_{mood}.png")
+                missing_png += 1
+
+    if missing_png == 0:
+        ok("Generated PNG portraits cover all CharacterData moods")
+    if invalid_size == 0:
+        ok("Generated PNG portraits all use 256x384 runtime size")
+
+
+# ---------------------------------------------------------------------------
+# 6c. Bug regression: Runtime portrait loaders prefer PNG with SVG fallback
+# New generated art is PNG, while legacy art remains SVG for fallback safety.
+# ---------------------------------------------------------------------------
+def test_runtime_portrait_loader_supports_png():
+    print("\n[6c] Runtime portrait loader supports PNG")
+    required_scripts = [
+        "scripts/gameplay/dialogue_system.gd",
+        "scripts/gameplay/interrogation.gd",
+    ]
+
+    for rel_path in required_scripts:
+        content = read_file(rel_path)
+        if not content:
+            fail(f"{rel_path} not found")
+            continue
+
+        if "_load_character_portrait" in content and '"png"' in content and '"svg"' in content:
+            ok(f"{rel_path}: loads PNG portraits with SVG fallback")
+        else:
+            fail(f"{rel_path}: missing PNG/SVG portrait loader")
 
 
 # ---------------------------------------------------------------------------
@@ -817,6 +904,8 @@ def main():
     test_dialogue_labels()
     test_evidence_ids()
     test_character_portraits()
+    test_generated_png_character_portraits()
+    test_runtime_portrait_loader_supports_png()
     test_location_backgrounds()
     test_evidence_icons()
     test_project_structure()
