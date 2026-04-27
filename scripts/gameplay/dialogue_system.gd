@@ -83,6 +83,10 @@ func _show_entry(entry: Dictionary) -> void:
 	if flag != "":
 		GameManager.set_dialogue_flag(flag)
 
+	var decision_change: Dictionary = entry.get("set_decision", {})
+	for decision_id in decision_change:
+		GameManager.set_decision(decision_id, decision_change[decision_id])
+
 	# Give evidence if specified
 	var evidence: String = entry.get("give_evidence", "")
 	if evidence != "":
@@ -169,6 +173,10 @@ func _on_choice_pressed(index: int) -> void:
 		var flag: String = choice.get("set_flag", "")
 		if flag != "":
 			GameManager.set_dialogue_flag(flag)
+
+		var decision_change: Dictionary = choice.get("set_decision", {})
+		for decision_id in decision_change:
+			GameManager.set_decision(decision_id, decision_change[decision_id])
 
 		# Affect affinity
 		var affinity_change: Dictionary = choice.get("affinity", {})

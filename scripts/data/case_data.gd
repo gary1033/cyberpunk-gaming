@@ -194,11 +194,27 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"name": "屋頂",
 					"description": "正和科技大樓的屋頂。風雨交加。城市的霓虹燈在遠處閃爍。",
 					"connections": ["secret_lab", "office_epilogue"],
+					"story_actions": [
+						{
+							"id": "resolve_case",
+							"title": "結束案件",
+							"use_calculated_ending": true,
+							"ending_dialogues": ["ending_a_justice", "ending_b_grey_deal", "ending_c_memory_rebirth"]
+						}
+					],
 					"hotspots": ["city_view", "confrontation_spot"]
 				},
 				"office_epilogue": {
 					"name": "偵探辦公室（尾聲）",
 					"description": "一切結束後。你的辦公室，雨還在下。",
+					"story_actions": [
+						{
+							"id": "resolve_case_epilogue",
+							"title": "回顧案件",
+							"use_calculated_ending": true,
+							"ending_dialogues": ["ending_a_justice", "ending_b_grey_deal", "ending_c_memory_rebirth"]
+						}
+					],
 					"connections": []
 				}
 			}

@@ -353,7 +353,11 @@ func _run_story_action(action_data: Dictionary) -> void:
 	if evidence != "":
 		GameManager.collect_evidence(evidence)
 
-	var dialogue_id: String = action_data.get("dialogue", "")
+	var dialogue_id: String = ""
+	if action_data.get("use_calculated_ending", false):
+		dialogue_id = GameManager.calculate_ending()
+	else:
+		dialogue_id = action_data.get("dialogue", "")
 	if dialogue_id == "":
 		return
 

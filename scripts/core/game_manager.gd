@@ -168,6 +168,10 @@ func set_dialogue_flag(flag: String, value: bool = true) -> void:
 func get_dialogue_flag(flag: String) -> bool:
 	return dialogue_flags.get(flag, false)
 
+func set_decision(decision_id: String, value: Variant) -> void:
+	if decision_id in decisions:
+		decisions[decision_id] = value
+
 # --- Ending Calculation ---
 
 func calculate_ending() -> String:

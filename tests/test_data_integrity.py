@@ -897,8 +897,10 @@ def test_autoload_process_mode():
 def test_dialogue_flags_update_decisions():
     print("\n[22] Dialogue flags update ending decisions")
     game_manager = read_file("scripts/core/game_manager.gd")
+    dialogue_system = read_file("scripts/gameplay/dialogue_system.gd")
     dialogue_content = read_file("scripts/data/dialogue_data.gd")
-    if not game_manager or not dialogue_content:
+    location_base = read_file("scripts/ui/location_base.gd")
+    if not game_manager or not dialogue_system or not dialogue_content or not location_base:
         fail("Required files not found")
         return
 
@@ -930,6 +932,21 @@ def test_dialogue_flags_update_decisions():
         ok("Kid deal unlocks market gate when fake ID evidence is granted")
     else:
         fail("Kid deal does not pair fake_id_chip with has_fake_id gate flag")
+
+    if "func set_decision" in game_manager and "GameManager.set_decision" in dialogue_system:
+        ok("Dialogue entries and choices can update non-boolean ending decisions")
+    else:
+        fail("Dialogue system cannot update non-boolean ending decisions such as memory_attitude")
+
+    if '"memory_attitude": "accept"' in dialogue_content and '"memory_attitude": "deny"' in dialogue_content:
+        ok("Echo AI memory choice records memory_attitude")
+    else:
+        fail("Echo AI memory choice does not record memory_attitude")
+
+    if "use_calculated_ending" in location_base and "calculate_ending" in location_base:
+        ok("LocationBase can trigger calculated ending story actions")
+    else:
+        fail("LocationBase cannot trigger calculated ending story actions")
 
 
 # ---------------------------------------------------------------------------

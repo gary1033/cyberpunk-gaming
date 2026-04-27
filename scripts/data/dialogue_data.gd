@@ -598,7 +598,21 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "echo_ai", "name": "AI「迴響」", "mood": "default", "portrait_side": "left",
-				"text": "你的記憶被篡改過。我可以幫你恢復——但你必須選擇。恢復真實記憶的代價，是失去成為「凱·川崎」之後的所有經歷。"
+				"text": "你的記憶被篡改過。我可以幫你恢復——但你必須選擇。恢復真實記憶的代價，是失去成為「凱·川崎」之後的所有經歷。",
+				"choices": [
+					{"text": "恢復真實記憶。", "next": "echo_accept_memory", "set_decision": {"memory_attitude": "accept"}},
+					{"text": "保留現在的自己。", "next": "echo_deny_memory", "set_decision": {"memory_attitude": "deny"}}
+				]
+			},
+			{
+				"label": "echo_accept_memory",
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "如果真相會摧毀我，那就讓它摧毀吧。被改寫的人生不該替我做選擇。"
+			},
+			{
+				"label": "echo_deny_memory",
+				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+				"text": "我需要真相，但不是用另一種抹除換來。凱·川崎也是真實存在過的人。"
 			}
 		],
 

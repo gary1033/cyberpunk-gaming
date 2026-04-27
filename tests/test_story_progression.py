@@ -190,6 +190,14 @@ def score_progression(case_content, dialogue_content, evidence_content):
                 if dialogue_id not in dialogue_ids:
                     failures.append(f"{location_id} story action references missing dialogue: {dialogue_id}")
 
+            ending_dialogues = re.findall(r'"(ending_\w+)"', extract_array_block(action, "ending_dialogues"))
+            if '"use_calculated_ending": true' in action and not ending_dialogues:
+                failures.append(f"{location_id} calculated ending action must list ending_dialogues")
+            for dialogue_id in ending_dialogues:
+                reachable_dialogues.add(dialogue_id)
+                if dialogue_id not in dialogue_ids:
+                    failures.append(f"{location_id} ending action references missing dialogue: {dialogue_id}")
+
             for evidence_id in re.findall(r'"requires_evidence"\s*:\s*"(\w+)"', action):
                 if evidence_id not in evidence_ids:
                     failures.append(f"{location_id} story action requires missing evidence: {evidence_id}")
