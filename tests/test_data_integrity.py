@@ -1261,7 +1261,8 @@ def test_runtime_ui_playability_regressions():
     dialogue_system = read_file("scripts/gameplay/dialogue_system.gd")
     evidence_board = read_file("scripts/gameplay/evidence_board.gd")
     augmented_vision = read_file("scripts/gameplay/augmented_vision.gd")
-    if not location_base or not dialogue_system or not evidence_board or not augmented_vision:
+    scanline_shader = read_file("assets/shaders/scanline.gdshader")
+    if not location_base or not dialogue_system or not evidence_board or not augmented_vision or not scanline_shader:
         fail("Required UI runtime files not found")
         return
 
@@ -1314,6 +1315,57 @@ def test_runtime_ui_playability_regressions():
         ok("Eagle-eye energy bar stays below AP and is hidden while inactive")
     else:
         fail("Eagle-eye energy bar can overlap the AP label")
+
+    # Bug regression: AP label callbacks should target a member reference, not
+    # a local label that can become null after scene reloads.
+    if "var _ap_label: Label = null" in location_base and "func _update_ap_label" in location_base and "_update_ap_label(remaining)" in location_base:
+        ok("LocationBase updates AP through a guarded member label")
+    else:
+        fail("LocationBase AP update can assign text on a null local label")
+
+    # Bug regression: prompt-only eagle-eye fallback must stay transparent.
+    # Sampling TEXTURE on a ColorRect shader rendered a white full-screen panel.
+    if "texture(TEXTURE" not in scanline_shader and "COLOR = vec4(tint_color.rgb, alpha)" in scanline_shader:
+        ok("Eagle-eye scanline fallback renders transparent HUD tint")
+    else:
+        fail("Eagle-eye scanline fallback can render as an opaque white panel")
+
+
+# ---------------------------------------------------------------------------
+# 27b. Prompt-only UI generation requests
+# AP bar and title-screen prompts should be tracked separately from generated
+# runtime sprites so tests do not require PNGs before image generation happens.
+# ---------------------------------------------------------------------------
+def test_image_gen_ui_prompt_requests():
+    print("\n[27b] image_gen UI prompt requests")
+    prompt_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image_gen_ui_requests.jsonl")
+    if not os.path.exists(prompt_path):
+        fail("Missing image_gen UI prompt request manifest")
+        return
+
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        records = [json.loads(line) for line in f if line.strip()]
+
+    required = {
+        "ap_status_bar_hitech": "assets/sprites/ui/ap_status_bar.png",
+        "main_menu_start_background": "assets/sprites/ui/main_menu_background.png",
+    }
+    by_id = {record.get("id"): record for record in records}
+    for prompt_id, target_path in required.items():
+        record = by_id.get(prompt_id)
+        if not record:
+            fail(f"Missing image_gen prompt request: {prompt_id}")
+            continue
+        if (
+            record.get("tool") == "image_gen"
+            and record.get("target_runtime_path") == target_path
+            and record.get("status") == "prompt_only"
+            and record.get("prompt")
+            and record.get("negative_prompt")
+        ):
+            ok(f"image_gen prompt request ready: {prompt_id}")
+        else:
+            fail(f"Incomplete image_gen prompt request: {prompt_id}")
 
 
 # ---------------------------------------------------------------------------
@@ -1454,6 +1506,7 @@ def main():
     test_runtime_asset_loader_supports_generated_pngs()
     test_image2_outputs_are_connected_to_runtime_sprites()
     test_runtime_ui_playability_regressions()
+    test_image_gen_ui_prompt_requests()
     test_ch1_eagle_eye_foreshadowing_wiring()
 
     print("\n" + "=" * 60)

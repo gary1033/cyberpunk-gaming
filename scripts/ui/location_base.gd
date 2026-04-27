@@ -16,6 +16,7 @@ var _augmented_vision: CanvasLayer = null
 var _background_texture_rect: TextureRect = null
 var _base_background_texture: Texture2D = null
 var _eagle_eye_background_texture: Texture2D = null
+var _ap_label: Label = null
 
 func _ready() -> void:
 	_setup_background()
@@ -134,12 +135,12 @@ func _setup_ui() -> void:
 	hud.add_child(spacer)
 
 	# Action points
-	var ap_label := Label.new()
-	ap_label.text = "AP: %d/%d" % [GameManager.action_points, GameManager.max_action_points]
-	ap_label.add_theme_color_override("font_color", Color(0.9, 0.6, 0.0))
-	ap_label.add_theme_font_size_override("font_size", 14)
-	ap_label.name = "APLabel"
-	hud.add_child(ap_label)
+	_ap_label = Label.new()
+	_ap_label.name = "APLabel"
+	_ap_label.add_theme_color_override("font_color", Color(0.9, 0.6, 0.0))
+	_ap_label.add_theme_font_size_override("font_size", 14)
+	_update_ap_label(GameManager.action_points)
+	hud.add_child(_ap_label)
 
 	ui_layer.add_child(hud)
 
@@ -319,8 +320,12 @@ func _setup_ui() -> void:
 
 	# Update AP display when it changes
 	GameManager.action_points_changed.connect(func(remaining: int):
-		ap_label.text = "AP: %d/%d" % [remaining, GameManager.max_action_points]
+		_update_ap_label(remaining)
 	)
+
+func _update_ap_label(remaining: int) -> void:
+	if _ap_label:
+		_ap_label.text = "AP: %d/%d" % [remaining, GameManager.max_action_points]
 
 func _setup_location_label() -> void:
 	# Large location name that fades in and out
