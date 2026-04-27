@@ -23,6 +23,8 @@ var valid_connections: Dictionary = {
 	"abyss_receipt": "stranger_photo",
 	"data_chip": "memory_device_log",
 	"comm_recording": "dr_chen_schedule",
+	"broken_memory_player": "memory_device_log",
+	"kai_eye_glitch_log": "data_chip",
 	# Chapter 2
 	"echo_symbol": "warehouse_map",
 	"memory_sample": "victim_list",
@@ -36,6 +38,11 @@ var valid_connections: Dictionary = {
 	"lab_keycard": "authorization_order",
 	"echo_ai_log": "kai_memory_fragment",
 	"dr_xiao_comms": "zhengtek_funding",
+}
+
+var valid_connection_flags: Dictionary = {
+	"broken_memory_player:memory_device_log": "deduced_player_echo_codec",
+	"kai_eye_glitch_log:data_chip": "deduced_eye_echo_signature",
 }
 
 var _cards: Dictionary = {}  # {evidence_id: CardNode}
@@ -196,6 +203,9 @@ func _handle_connection(evidence_id: String) -> void:
 
 		if is_correct:
 			# Green flash
+			var deduction_flag := _get_connection_flag(from_id, evidence_id)
+			if deduction_flag != "":
+				GameManager.set_dialogue_flag(deduction_flag)
 			_flash_connection(from_id, evidence_id, Color(0.0, 1.0, 0.3))
 		else:
 			# Red flash then fade
@@ -207,6 +217,11 @@ func _handle_connection(evidence_id: String) -> void:
 func _check_connection(from_id: String, to_id: String) -> bool:
 	return (valid_connections.get(from_id) == to_id or
 			valid_connections.get(to_id) == from_id)
+
+func _get_connection_flag(from_id: String, to_id: String) -> String:
+	var direct_key := "%s:%s" % [from_id, to_id]
+	var reverse_key := "%s:%s" % [to_id, from_id]
+	return valid_connection_flags.get(direct_key, valid_connection_flags.get(reverse_key, ""))
 
 func _add_connection_line(from_id: String, to_id: String, is_correct: bool) -> void:
 	_connection_lines.append({
@@ -296,6 +311,8 @@ func _get_evidence_display_name(evidence_id: String) -> String:
 		"memory_device_log": "記憶提取設備使用紀錄",
 		"comm_recording": "損壞的通訊錄音",
 		"dr_chen_schedule": "Dr. 陳的預約紀錄",
+		"broken_memory_player": "損壞的記憶播放器",
+		"kai_eye_glitch_log": "凱的鷹眼異常紀錄",
 		# Chapter 2
 		"echo_symbol": "回聲網路標記符號",
 		"memory_sample": "記憶樣本",

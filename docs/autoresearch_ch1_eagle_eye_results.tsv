@@ -1,0 +1,3 @@
+iteration	type	progress_score	data_integrity	godot_headless	decision	notes
+0	baseline	299	not_run	not_run	baseline	Story score before Chapter 1 eagle-eye foreshadowing iteration.
+1	keep	400	pass_504	pass	keep	Added Chapter 1 eagle-eye evidence, story actions, evidence-board deduction flags, prompt manifest, and regression tests.

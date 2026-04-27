@@ -1270,6 +1270,104 @@ def test_runtime_ui_playability_regressions():
 
 
 # ---------------------------------------------------------------------------
+# 28. Bug regression: Chapter 1 eagle-eye foreshadowing must remain playable.
+# The apartment scan should grant evidence, evidence-board deductions should set
+# unlock flags, and prompt-only assets must be ready without requiring PNGs yet.
+# ---------------------------------------------------------------------------
+def test_ch1_eagle_eye_foreshadowing_wiring():
+    print("\n[28] Chapter 1 eagle-eye foreshadowing wiring")
+    case_content = read_file("scripts/data/case_data.gd") or ""
+    dialogue_content = read_file("scripts/data/dialogue_data.gd") or ""
+    evidence_content = read_file("scripts/data/evidence_data.gd") or ""
+    board_content = read_file("scripts/gameplay/evidence_board.gd") or ""
+
+    required_dialogues = [
+        "ch1_kai_eye_glitch_scan",
+        "ch1_eye_signature_decode",
+        "ch1_dr_chen_eye_warning",
+    ]
+    for dialogue_id in required_dialogues:
+        if f'"{dialogue_id}": [' in dialogue_content:
+            ok(f"Chapter 1 eagle-eye dialogue exists: {dialogue_id}")
+        else:
+            fail(f"Missing Chapter 1 eagle-eye dialogue: {dialogue_id}")
+
+    required_evidence = {
+        "broken_memory_player": "memory_capsule",
+        "kai_eye_glitch_log": "log",
+    }
+    for evidence_id, icon_id in required_evidence.items():
+        if f'"{evidence_id}": {{' in evidence_content and f'"icon": "{icon_id}"' in evidence_content:
+            ok(f"Chapter 1 eagle-eye evidence exists with runtime icon: {evidence_id}")
+        else:
+            fail(f"Missing or incomplete Chapter 1 eagle-eye evidence: {evidence_id}")
+
+    if '"dialogue": "ch1_kai_eye_glitch_scan"' in case_content and '"requires_evidence": "commission_letter"' in case_content:
+        ok("Mei Ling apartment scan action is gated by the accepted case evidence")
+    else:
+        fail("Mei Ling apartment scan action is not wired to the case evidence gate")
+
+    if '"dialogue": "ch1_eye_signature_decode"' in case_content and '"requires_flag": "deduced_eye_echo_signature"' in case_content:
+        ok("Workshop eye-signature decode action requires evidence-board deduction")
+    else:
+        fail("Workshop eye-signature decode action is not gated by the deduction flag")
+
+    if '"dialogue": "ch1_dr_chen_eye_warning"' in case_content and '"requires_flag": "deduced_player_echo_codec"' in case_content:
+        ok("Dr. Chen warning action requires player-codec deduction")
+    else:
+        fail("Dr. Chen warning action is not gated by the deduction flag")
+
+    expected_connections = [
+        '"broken_memory_player": "memory_device_log"',
+        '"kai_eye_glitch_log": "data_chip"',
+        '"broken_memory_player:memory_device_log": "deduced_player_echo_codec"',
+        '"kai_eye_glitch_log:data_chip": "deduced_eye_echo_signature"',
+    ]
+    for snippet in expected_connections:
+        if snippet in board_content:
+            ok(f"Evidence board wiring present: {snippet}")
+        else:
+            fail(f"Missing evidence board wiring: {snippet}")
+
+    if "GameManager.set_dialogue_flag(deduction_flag)" in board_content:
+        ok("Correct evidence-board deductions unlock dialogue flags")
+    else:
+        fail("Evidence-board deductions do not unlock dialogue flags")
+
+    prompt_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image2_ch1_eagle_eye.jsonl")
+    if not os.path.exists(prompt_path):
+        fail("Missing Chapter 1 eagle-eye prompt manifest")
+        return
+
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        records = [json.loads(line) for line in f if line.strip()]
+
+    expected_prompt_ids = {
+        "broken_memory_player",
+        "kai_eye_glitch_log",
+        "cg_kai_eye_glitch",
+        "eagle_eye_scan_overlay_ch1",
+        "mei_ling_apartment_eye_scan_variant",
+        "eagle_eye_glitch_sting",
+        "broken_player_scan",
+        "memory_signature_reveal",
+    }
+    actual_ids = {record.get("id") for record in records}
+    missing_ids = expected_prompt_ids - actual_ids
+    if missing_ids:
+        for prompt_id in sorted(missing_ids):
+            fail(f"Missing Chapter 1 eagle-eye prompt record: {prompt_id}")
+    else:
+        ok("Chapter 1 eagle-eye prompt manifest covers image and audio prompts")
+
+    for record in records:
+        if record.get("prompt") and record.get("output_path") and record.get("output_format"):
+            ok(f"Chapter 1 prompt complete: {record.get('id')}")
+        else:
+            fail(f"Incomplete Chapter 1 prompt record: {record}")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -1308,6 +1406,7 @@ def main():
     test_runtime_asset_loader_supports_generated_pngs()
     test_image2_outputs_are_connected_to_runtime_sprites()
     test_runtime_ui_playability_regressions()
+    test_ch1_eagle_eye_foreshadowing_wiring()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

@@ -21,6 +21,14 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"name": "林美玲的公寓",
 					"description": "美玲和浩然合住的公寓。浩然的房間裡可能有線索。",
 					"connections": ["detective_office", "east_district_street"],
+					"story_actions": [
+						{
+							"id": "scan_broken_memory_player",
+							"title": "掃描損壞記憶播放器",
+							"dialogue": "ch1_kai_eye_glitch_scan",
+							"requires_evidence": "commission_letter"
+						}
+					],
 					"hotspots": ["hao_ran_room", "computer", "bookshelf", "drawer"]
 				},
 				"abyss_bar": {
@@ -35,6 +43,22 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"description": "東區第七街地下的「永恆記憶」工作室。門鎖被破壞。",
 					"connections": ["east_district_street"],
 					"initial_dialogue": "ch1_workshop_enter",
+					"story_actions": [
+						{
+							"id": "decode_eye_signature",
+							"title": "比對鷹眼異常訊號",
+							"dialogue": "ch1_eye_signature_decode",
+							"requires_flag": "deduced_eye_echo_signature",
+							"requires_evidence": "data_chip"
+						},
+						{
+							"id": "consult_dr_chen_eye_warning",
+							"title": "聯絡 Dr. 陳解讀播放器協定",
+							"dialogue": "ch1_dr_chen_eye_warning",
+							"requires_flag": "deduced_player_echo_codec",
+							"requires_evidence": "kai_eye_glitch_log"
+						}
+					],
 					"hotspots": ["memory_device", "desk_workshop", "data_chip_spot", "broken_lock"],
 					"requires_flag": "knows_workshop_location"
 				},

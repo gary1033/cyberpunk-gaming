@@ -2,7 +2,7 @@
 """
 NEON MEMORIES - Story Progression Score
 
-Scores how much of the written Chapter 2/3 story content is mechanically
+Scores how much of the written Chapter 1/2/3 story content is mechanically
 reachable from CaseData. The score is the autoresearch metric: higher is better.
 Structural errors still fail the command; missing reachability lowers the score.
 """
@@ -16,6 +16,9 @@ import sys
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 EXPECTED_LOCATION_DIALOGUES = {
+    "detective_office": ["ch1_mei_ling_intro"],
+    "mei_ling_apartment": ["ch1_kai_eye_glitch_scan"],
+    "hao_ran_workshop": ["ch1_workshop_enter", "ch1_eye_signature_decode", "ch1_dr_chen_eye_warning"],
     "bitstorm_cafe": ["ch2_opening", "ch2_kid_encounter"],
     "memory_black_market": ["ch2_memory_market_enter", "ch2_ghost_encounter"],
     "abandoned_warehouse": ["ch2_warehouse_explore"],
@@ -28,11 +31,12 @@ EXPECTED_LOCATION_DIALOGUES = {
 }
 
 CHAPTER_STARTS = {
+    1: "detective_office",
     2: "bitstorm_cafe",
     3: "echo_network_hq",
 }
 
-CHAPTER_DIALOGUE_PREFIXES = ("ch2_", "ch3_", "ending_")
+CHAPTER_DIALOGUE_PREFIXES = ("ch1_", "ch2_", "ch3_", "ending_")
 
 
 def read_file(rel_path):
@@ -136,10 +140,26 @@ def collect_dialogue_effects(dialogue_content):
     return flags, evidence
 
 
-def score_progression(case_content, dialogue_content, evidence_content):
+def collect_board_effects(board_content):
+    flags = set()
+    section = re.search(r'valid_connection_flags\s*:\s*Dictionary\s*=\s*\{(.*?)\}', board_content, re.DOTALL)
+    if section:
+        flags.update(re.findall(r'"\w+:\w+"\s*:\s*"(\w+)"', section.group(1)))
+    return flags
+
+
+def strip_story_actions(location_block):
+    actions_block = extract_array_block(location_block, "story_actions")
+    if not actions_block:
+        return location_block
+    return location_block.replace(actions_block, "")
+
+
+def score_progression(case_content, dialogue_content, evidence_content, board_content):
     dialogue_ids = extract_top_level_ids(dialogue_content, r"(?:ch\d+|ending)_")
     evidence_ids = extract_evidence_ids(evidence_content)
     produced_flags, produced_evidence = collect_dialogue_effects(dialogue_content)
+    produced_flags.update(collect_board_effects(board_content))
     reachable_dialogues = set()
     failures = []
     details = []
@@ -202,6 +222,10 @@ def score_progression(case_content, dialogue_content, evidence_content):
                 if evidence_id not in evidence_ids:
                     failures.append(f"{location_id} story action requires missing evidence: {evidence_id}")
 
+            for flag in re.findall(r'"requires_flag"\s*:\s*"(\w+)"', action):
+                if flag not in produced_flags:
+                    failures.append(f"{location_id} story action requires missing flag producer: {flag}")
+
             for evidence_id in re.findall(r'"give_evidence"\s*:\s*"(\w+)"', action):
                 if evidence_id not in evidence_ids:
                     failures.append(f"{location_id} story action gives missing evidence: {evidence_id}")
@@ -217,7 +241,8 @@ def score_progression(case_content, dialogue_content, evidence_content):
             else:
                 details.append(f"{dialogue_id} not reachable from {location_id}: +0")
 
-        requires_flag = re.search(r'"requires_flag"\s*:\s*"(\w+)"', location_block)
+        location_shell = strip_story_actions(location_block)
+        requires_flag = re.search(r'"requires_flag"\s*:\s*"(\w+)"', location_shell)
         if requires_flag:
             flag = requires_flag.group(1)
             if flag in produced_flags:
@@ -264,8 +289,9 @@ def main():
     case_content = read_file("scripts/data/case_data.gd")
     dialogue_content = read_file("scripts/data/dialogue_data.gd")
     evidence_content = read_file("scripts/data/evidence_data.gd")
+    board_content = read_file("scripts/gameplay/evidence_board.gd")
 
-    score, failures, details = score_progression(case_content, dialogue_content, evidence_content)
+    score, failures, details = score_progression(case_content, dialogue_content, evidence_content, board_content)
 
     print("NEON MEMORIES Story Progression")
     print(f"PROGRESS_SCORE={score}")

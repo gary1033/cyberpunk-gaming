@@ -87,6 +87,38 @@ static func _get_all_dialogues() -> Dictionary:
 			}
 		],
 
+		# --- Mei Ling's apartment: eagle-eye foreshadowing ---
+		"ch1_kai_eye_glitch_scan": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "浩然房間的床邊放著一台被拆開的家用記憶播放器。外殼被撬開，內部的保固封條早就失效。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "這不是普通維修。有人把家用播放器改成了記憶編碼讀取器。",
+				"give_evidence": "broken_memory_player",
+				"set_flag": "found_broken_memory_player"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你啟動鷹眼掃描。播放器殘留的記憶波形忽然反向流入義眼，畫面閃爍了一下：雨夜、白色實驗燈、某個你不記得的地下走廊。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "surprised", "portrait_side": "right",
+				"text": "不對。它不是在回放浩然的記憶，它在呼叫我的鷹眼。",
+				"give_evidence": "kai_eye_glitch_log",
+				"set_flag": "kai_eye_glitch_seen"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "frightened", "portrait_side": "left",
+				"text": "浩然說那台播放器壞了，叫我不要碰。他還說...如果有一天有人問起，就說他從沒修過它。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "我要把這段錯誤紀錄和浩然工作室裡的設備比對。若它們使用同一套握手協定，這件案子就不只是失蹤。"
+			}
+		],
+
 		# --- Abyss Bar ---
 		"ch1_abyss_bar_enter": [
 			{
@@ -219,8 +251,58 @@ static func _get_all_dialogues() -> Dictionary:
 				"text": "工作室內部一片狼藉——桌上的記憶提取設備還在運轉，全息螢幕閃爍著錯誤代碼。有人在這裡搜過東西。"
 			},
 			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "鷹眼掃描到設備日誌還沒完全清除。最近三天內，有大量非授權記憶提取操作，時間點正好接在浩然失蹤前後。",
+				"give_evidence": "memory_device_log"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "桌腳下卡著一枚被踩裂的加密數據晶片。它的外層封包和你剛才在公寓看到的義眼錯誤紀錄有相同雜訊。",
+				"give_evidence": "data_chip"
+			},
+			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "（看來浩然不是自己離開的。該用鷹眼仔細檢查一下...）"
+				"text": "（播放器、設備日誌、資料晶片...這三者之間一定有連線。先把證據板整理出來。）"
+			}
+		],
+
+		"ch1_eye_signature_decode": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你把鷹眼異常紀錄和加密數據晶片放進證據板的同一條推理線。兩段資料的握手序列重疊成一個回聲狀螺旋。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "這不是浩然寫的加密。這是正和科技鷹眼維護協定，被某人改成了回聲網路的鑰匙。",
+				"set_flag": "eye_signature_decoded"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "訊號尾端殘留著一個被遮蔽的維修識別碼。它不是指向浩然，而是指向你的義眼出廠批次。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "如果我的鷹眼能開啟這套協定，浩然可能不是第一個碰到它的人。也許我才是。"
+			}
+		],
+
+		"ch1_dr_chen_eye_warning": [
+			{
+				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "frightened", "portrait_side": "left",
+				"text": "你說播放器和浩然的設備都用了同一套編碼？不，那不是民用協定。那是正和科技早期義眼植入體的維護握手。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "我的鷹眼在掃描時回應了它。"
+			},
+			{
+				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "nervous", "portrait_side": "left",
+				"text": "那就代表它不是單純掃描器。有人在你的義眼裡留下了後門，或者...留下了某段被鎖住的記憶入口。",
+				"set_flag": "dr_chen_warned_eye_backdoor"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "浩然不是隨機失蹤。他碰到的東西，早就在我身上。"
 			}
 		],
 

@@ -9,7 +9,7 @@ static func get_evidence(evidence_id: String) -> Dictionary:
 static func get_all_evidence() -> Dictionary:
 	return {
 		# ============================================
-		# CHAPTER 1: 失蹤的記憶 (8 items)
+		# CHAPTER 1: 失蹤的記憶 (10 items)
 		# ============================================
 		"commission_letter": {
 			"name": "美玲的委託信",
@@ -60,6 +60,19 @@ static func get_all_evidence() -> Dictionary:
 			"description": "浩然同事 Dr. 陳的診所預約表，顯示浩然最後一天有一個「特殊客戶」預約。",
 			"chapter": 1,
 			"icon": "schedule"
+		},
+		"broken_memory_player": {
+			"name": "損壞的記憶播放器",
+			"description": "美玲公寓中被浩然拆開的家用記憶播放器，內部韌體被改成能讀取回聲網路的記憶編碼。",
+			"chapter": 1,
+			"icon": "memory_capsule"
+		},
+		"kai_eye_glitch_log": {
+			"name": "凱的鷹眼異常紀錄",
+			"description": "掃描損壞播放器時自動生成的鷹眼錯誤紀錄，顯示義眼與播放器短暫交換了同源加密握手。",
+			"chapter": 1,
+			"icon": "log",
+			"eagle_eye_only": true
 		},
 
 		# ============================================
