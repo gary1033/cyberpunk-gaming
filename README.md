@@ -23,11 +23,57 @@
 - **基準解析度**: 1280x720 (自適應縮放)
 - **平台**: Windows / macOS / Linux / Android / iOS / HTML5
 
-## 開發
+## 啟動方法
 
-1. 安裝 [Godot 4.2+](https://godotengine.org/)
-2. 打開 `project.godot`
-3. 按 F5 運行
+### 使用 Godot Editor
+
+1. 安裝 Godot 4.6+。
+2. 開啟 Godot，選擇 Import / 匯入專案。
+3. 選取本專案的 `project.godot`。
+4. 進入 Editor 後按 `F5` 執行遊戲。
+
+### Windows PowerShell
+
+使用本機指定的 Godot 4.6.2 console 版本啟動專案：
+
+```powershell
+cd C:\Projects\cyberpunk-gaming
+& 'C:\Users\gary1\OneDrive\桌面\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2-stable_win64_console.exe' --path .
+```
+
+只檢查專案能否載入並立刻退出：
+
+```powershell
+cd C:\Projects\cyberpunk-gaming
+& 'C:\Users\gary1\OneDrive\桌面\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2-stable_win64_console.exe' --headless --path . --quit
+```
+
+直接載入單一地點場景做 smoke test：
+
+```powershell
+cd C:\Projects\cyberpunk-gaming
+& 'C:\Users\gary1\OneDrive\桌面\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2-stable_win64_console.exe' --headless --path . --scene res://scenes/locations/chapter1/detective_office.tscn --quit-after 2
+```
+
+## 測試
+
+資料完整性檢查：
+
+```powershell
+python tests\test_data_integrity.py
+```
+
+劇情進度覆蓋分：
+
+```powershell
+python tests\test_story_progression.py --score
+```
+
+重新產生本地 fallback 圖片資產：
+
+```powershell
+python tools\render_generated_assets.py
+```
 
 ## 專案結構
 
