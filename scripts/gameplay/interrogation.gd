@@ -1,10 +1,9 @@
 extends Control
+class_name Interrogation
 ## Interrogation - Special scene for interrogating suspects with pressure system.
 ## Features pressure gauge, question categories, evidence presentation, and eagle eye integration.
 
 signal interrogation_ended(result: Dictionary)
-
-class_name Interrogation
 
 var character_portrait: TextureRect = null
 var character_name_label: Label = null

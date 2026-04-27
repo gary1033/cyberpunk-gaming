@@ -590,6 +590,14 @@ def test_class_name_placement():
                     fail(f"class_name at line {i+1} in {rel} (should be within first 15 lines)")
                 else:
                     ok(f"class_name at line {i+1} in {rel}")
+                first_signal_index = next(
+                    (idx for idx, candidate in enumerate(lines) if candidate.strip().startswith("signal ")),
+                    None
+                )
+                if first_signal_index is not None and i > first_signal_index:
+                    fail(f"class_name appears after signal declarations in {rel}")
+                elif first_signal_index is not None:
+                    ok(f"class_name appears before signal declarations in {rel}")
                 break
 
 
@@ -1269,6 +1277,18 @@ def test_runtime_ui_playability_regressions():
         ok("Dialogue portraits have fixed responsive bounds above the text area")
     else:
         fail("Dialogue portraits do not have fixed responsive bounds")
+
+    # Bug regression: all dialogue portraits should be anchored to the lower-left
+    # portrait frame so right-side speakers do not cover the room background or choices.
+    if 'portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)' in location_base and '_update_portrait(speaker, mood, "left")' in dialogue_system:
+        ok("Dialogue portraits are forced to the left portrait frame")
+    else:
+        fail("Dialogue portraits can still render on the right side")
+
+    if 'dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)' in location_base and 'dialogue_margin.add_theme_constant_override("margin_right", 32)' in location_base:
+        ok("Dialogue text reserves the left portrait area without wasting right-side width")
+    else:
+        fail("Dialogue text margins can overlap portraits or clip right-side text")
 
     if 'find_child("NameLabel", true, false)' in dialogue_system and 'find_child("DialogueText", true, false)' in dialogue_system:
         ok("DialogueSystem resolves text nodes after margin-container layout")

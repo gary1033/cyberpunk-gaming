@@ -1,11 +1,10 @@
 extends Control
+class_name MemoryPreview
 ## MemoryPreview - Mini-game where player views fragmented memory clips and selects key frames.
 ## Available in chapters 2 and 3.
 
 signal memory_completed(evidence_id: String)
 signal memory_failed
-
-class_name MemoryPreview
 
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
 

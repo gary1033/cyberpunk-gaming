@@ -75,12 +75,10 @@ func _show_entry(entry: Dictionary) -> void:
 	# Portrait
 	var speaker: String = entry.get("speaker", "")
 	var mood: String = entry.get("mood", "default")
-	var side: String = entry.get("portrait_side", "left")
 	if speaker == "narrator":
 		speaker = "kai"
 		mood = "thoughtful"
-		side = "right"
-	_update_portrait(speaker, mood, side)
+	_update_portrait(speaker, mood, "left")
 
 	# Set flag if specified
 	var flag: String = entry.get("set_flag", "")
@@ -243,7 +241,7 @@ func end_dialogue() -> void:
 	GameManager.set_state(GameManager.GameState.PLAYING)
 	dialogue_ended.emit()
 
-func _update_portrait(speaker: String, mood: String, side: String) -> void:
+func _update_portrait(speaker: String, mood: String, _side: String) -> void:
 	# Hide both first
 	portrait_left.visible = false
 	portrait_right.visible = false
@@ -256,12 +254,8 @@ func _update_portrait(speaker: String, mood: String, side: String) -> void:
 		texture = _load_character_portrait(speaker, "default")
 
 	if texture:
-		if side == "left":
-			portrait_left.texture = texture
-			portrait_left.visible = true
-		else:
-			portrait_right.texture = texture
-			portrait_right.visible = true
+		portrait_left.texture = texture
+		portrait_left.visible = true
 
 func _load_character_portrait(speaker: String, mood: String) -> Texture2D:
 	var portrait_path := "res://assets/sprites/characters/%s_%s.png" % [speaker, mood]

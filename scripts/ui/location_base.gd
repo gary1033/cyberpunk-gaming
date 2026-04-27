@@ -246,9 +246,9 @@ func _setup_ui() -> void:
 
 	var portrait_right := TextureRect.new()
 	portrait_right.name = "PortraitRight"
-	portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	portrait_right.offset_right = -portrait_margin_x
-	portrait_right.offset_left = -portrait_margin_x - portrait_size.x
+	portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	portrait_right.offset_left = portrait_margin_x
+	portrait_right.offset_right = portrait_margin_x + portrait_size.x
 	portrait_right.offset_top = -portrait_bottom_gap - portrait_size.y
 	portrait_right.offset_bottom = -portrait_bottom_gap
 	portrait_right.custom_minimum_size = portrait_size
@@ -309,7 +309,7 @@ func _setup_ui() -> void:
 	if InputManager.is_mobile:
 		side_text_margin = int(portrait_margin_x + portrait_size.x + 16)
 	dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)
-	dialogue_margin.add_theme_constant_override("margin_right", side_text_margin)
+	dialogue_margin.add_theme_constant_override("margin_right", 32)
 	dialogue_margin.add_child(vbox)
 
 	dialogue_panel.add_child(dialogue_margin)

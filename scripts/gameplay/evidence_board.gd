@@ -1,11 +1,10 @@
 extends Control
+class_name EvidenceBoard
 ## EvidenceBoard - Full-screen evidence board where players connect clues to form deductions.
 ## Supports mouse drag and touch drag + pinch zoom.
 
 signal deduction_made(from_id: String, to_id: String, is_correct: bool)
 signal board_closed
-
-class_name EvidenceBoard
 
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
 
