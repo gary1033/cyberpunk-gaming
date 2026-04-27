@@ -237,11 +237,11 @@ func _setup_ui() -> void:
 	# Portraits
 	var portrait_size := Vector2(168, 252)
 	var portrait_margin_x := 24
-	var portrait_bottom_gap := 208
+	var portrait_bottom_gap := 112
 	if InputManager.is_mobile:
 		portrait_size = Vector2(112, 168)
 		portrait_margin_x = 12
-		portrait_bottom_gap = 188
+		portrait_bottom_gap = 108
 
 	var portrait_left := TextureRect.new()
 	portrait_left.name = "PortraitLeft"

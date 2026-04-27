@@ -1273,12 +1273,12 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("Dialogue panel content can overlap character portraits")
 
-    # Bug regression: portraits should sit above the dialogue text area rather
-    # than inside the text flow where they cover Chinese dialogue.
-    if "portrait_bottom_gap" in location_base and "portrait_size" in location_base:
-        ok("Dialogue portraits have fixed responsive bounds above the text area")
+    # Bug regression: portraits should sit just above the generated lower
+    # dialogue frame, not high over the room background or inside the text flow.
+    if "portrait_bottom_gap := 112" in location_base and "portrait_bottom_gap = 108" in location_base and "portrait_size" in location_base:
+        ok("Dialogue portraits sit just above the lower dialogue frame")
     else:
-        fail("Dialogue portraits do not have fixed responsive bounds")
+        fail("Dialogue portraits are not aligned above the lower dialogue frame")
 
     # Bug regression: all dialogue portraits should be anchored to the lower-left
     # portrait frame so right-side speakers do not cover the room background or choices.
