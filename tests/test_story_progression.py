@@ -91,6 +91,19 @@ def extract_location_block(case_content, location_id):
     return extract_braced_block(case_content, location_id)
 
 
+def extract_chapter_block(case_content, chapter):
+    # Bug regression: CaseData uses numeric chapter keys (2: {...}), not
+    # quoted dictionary keys, so chapter scoring must parse that shape too.
+    match = re.search(rf'^\s*{chapter}\s*:\s*\{{', case_content, re.MULTILINE)
+    if not match:
+        return ""
+    start = case_content.find("{", match.start())
+    end = find_matching(case_content, start, "{", "}")
+    if end == -1:
+        return ""
+    return case_content[start : end + 1]
+
+
 def extract_top_level_ids(content, prefix_pattern):
     return set(re.findall(rf'^\s*"({prefix_pattern}[^"]+)"\s*:\s*\[', content, re.MULTILINE))
 
@@ -133,7 +146,7 @@ def score_progression(case_content, dialogue_content, evidence_content):
     score = 0
 
     for chapter, start_location in CHAPTER_STARTS.items():
-        chapter_block = extract_braced_block(case_content, str(chapter))
+        chapter_block = extract_chapter_block(case_content, chapter)
         if f'"starting_location": "{start_location}"' in chapter_block:
             score += 10
             details.append(f"chapter {chapter} starts at {start_location}: +10")
