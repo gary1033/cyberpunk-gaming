@@ -78,6 +78,14 @@ func _setup_ui() -> void:
 	toolbar.add_theme_constant_override("separation", 20)
 	toolbar.name = "Toolbar"
 
+	if not _get_location_story_actions().is_empty():
+		var investigate_btn := Button.new()
+		investigate_btn.text = "調查"
+		investigate_btn.custom_minimum_size = Vector2(80, 48)
+		investigate_btn.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6))
+		investigate_btn.pressed.connect(_show_story_actions)
+		toolbar.add_child(investigate_btn)
+
 	# Map button
 	var map_btn := Button.new()
 	map_btn.text = "地圖"
@@ -245,7 +253,117 @@ func _trigger_initial_dialogue() -> void:
 			await get_tree().process_frame
 			var ds := get_tree().get_first_node_in_group("dialogue_system")
 			if ds and ds.has_method("start_dialogue"):
-				ds.start_dialogue(dialogue_entries)
+		ds.start_dialogue(dialogue_entries)
+
+func _get_location_story_actions() -> Array:
+	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)
+	var loc_data: Dictionary = chapter_data.get("locations", {}).get(location_id, {})
+	return loc_data.get("story_actions", [])
+
+func _get_available_story_actions() -> Array:
+	var available: Array = []
+	for action in _get_location_story_actions():
+		var action_data: Dictionary = action
+		var requires_flag: String = action_data.get("requires_flag", "")
+		if requires_flag != "" and not GameManager.get_dialogue_flag(requires_flag):
+			continue
+
+		var requires_evidence: String = action_data.get("requires_evidence", "")
+		if requires_evidence != "" and not GameManager.has_evidence(requires_evidence):
+			continue
+
+		available.append(action_data)
+	return available
+
+func _show_story_actions() -> void:
+	var actions := _get_available_story_actions()
+
+	var popup_layer := CanvasLayer.new()
+	popup_layer.layer = 95
+
+	var dimmer := ColorRect.new()
+	dimmer.color = Color(0, 0, 0, 0.6)
+	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
+	popup_layer.add_child(dimmer)
+
+	var panel := PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
+	style.border_color = Color(1.0, 0.0, 0.6)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	panel.add_theme_stylebox_override("panel", style)
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.custom_minimum_size = Vector2(320, 0)
+
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 20)
+	margin.add_theme_constant_override("margin_right", 20)
+	margin.add_theme_constant_override("margin_top", 20)
+	margin.add_theme_constant_override("margin_bottom", 20)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 12)
+
+	var title := Label.new()
+	title.text = "調查"
+	title.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6))
+	title.add_theme_font_size_override("font_size", 22)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(title)
+
+	if actions.is_empty():
+		var empty_label := Label.new()
+		empty_label.text = "目前沒有新的調查行動"
+		empty_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		vbox.add_child(empty_label)
+	else:
+		for action in actions:
+			var action_data := action
+			var btn := Button.new()
+			btn.text = action_data.get("title", "調查")
+			btn.custom_minimum_size = Vector2(0, 48)
+			btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
+			btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
+			btn.pressed.connect(func():
+				popup_layer.queue_free()
+				_run_story_action(action_data)
+			)
+			vbox.add_child(btn)
+
+	var close_btn := Button.new()
+	close_btn.text = "取消"
+	close_btn.custom_minimum_size = Vector2(0, 48)
+	close_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+	close_btn.pressed.connect(popup_layer.queue_free)
+	vbox.add_child(close_btn)
+
+	margin.add_child(vbox)
+	panel.add_child(margin)
+	popup_layer.add_child(panel)
+	add_child(popup_layer)
+
+func _run_story_action(action_data: Dictionary) -> void:
+	var flag: String = action_data.get("set_flag", "")
+	if flag != "":
+		GameManager.set_dialogue_flag(flag)
+
+	var evidence: String = action_data.get("give_evidence", "")
+	if evidence != "":
+		GameManager.collect_evidence(evidence)
+
+	var dialogue_id: String = action_data.get("dialogue", "")
+	if dialogue_id == "":
+		return
+
+	var dialogue_entries := DialogueData.get_dialogue(dialogue_id)
+	if dialogue_entries.is_empty():
+		return
+
+	var ds := get_tree().get_first_node_in_group("dialogue_system")
+	if ds and ds.has_method("start_dialogue"):
+		ds.start_dialogue(dialogue_entries)
 
 func _show_map() -> void:
 	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)

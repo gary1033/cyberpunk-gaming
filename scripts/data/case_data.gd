@@ -122,6 +122,9 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"description": "駭客聚集的地下網咖，三排老舊電腦散發著藍光。",
 					"connections": ["memory_black_market", "zhengtek_exterior", "sewer_passage"],
 					"initial_dialogue": "ch2_opening",
+					"story_actions": [
+						{"id": "talk_to_kid", "title": "詢問小鬼", "dialogue": "ch2_kid_encounter"}
+					],
 					"hotspots": ["kid_corner", "bulletin_board", "terminal"]
 				},
 				"memory_black_market": {
@@ -130,6 +133,9 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"connections": ["bitstorm_cafe", "sewer_passage"],
 					"requires_flag": "has_fake_id",
 					"initial_dialogue": "ch2_memory_market_enter",
+					"story_actions": [
+						{"id": "meet_ghost", "title": "尋找幽靈", "dialogue": "ch2_ghost_encounter", "requires_flag": "entered_market"}
+					],
 					"hotspots": ["mask_merchant", "memory_stall", "ghost_meeting", "exit_tunnel"]
 				},
 				"abandoned_warehouse": {
@@ -172,6 +178,9 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"description": "記憶覆寫技術的核心實驗室。蕭博士的領地。",
 					"connections": ["echo_network_hq", "rooftop"],
 					"initial_dialogue": "ch3_dr_xiao_confrontation",
+					"story_actions": [
+						{"id": "find_hao_ran", "title": "搜尋浩然", "dialogue": "ch3_hao_ran_found"}
+					],
 					"hotspots": ["overwrite_device", "dr_xiao_desk", "hao_ran_chair", "ai_terminal"]
 				},
 				"memory_space": {
