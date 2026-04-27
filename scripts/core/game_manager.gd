@@ -162,6 +162,8 @@ func set_state(new_state: GameState) -> void:
 
 func set_dialogue_flag(flag: String, value: bool = true) -> void:
 	dialogue_flags[flag] = value
+	if flag in decisions and decisions[flag] is bool:
+		decisions[flag] = value
 
 func get_dialogue_flag(flag: String) -> bool:
 	return dialogue_flags.get(flag, false)

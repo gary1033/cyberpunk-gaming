@@ -891,6 +891,48 @@ def test_autoload_process_mode():
 
 
 # ---------------------------------------------------------------------------
+# 22. Bug regression: Dialogue flags that are also ending decisions must
+# update GameManager.decisions, otherwise choices cannot affect endings.
+# ---------------------------------------------------------------------------
+def test_dialogue_flags_update_decisions():
+    print("\n[22] Dialogue flags update ending decisions")
+    game_manager = read_file("scripts/core/game_manager.gd")
+    dialogue_content = read_file("scripts/data/dialogue_data.gd")
+    if not game_manager or not dialogue_content:
+        fail("Required files not found")
+        return
+
+    set_flag_section = re.search(
+        r'func set_dialogue_flag\(.*?(?=\nfunc |\Z)',
+        game_manager,
+        re.DOTALL
+    )
+    if not set_flag_section:
+        fail("GameManager.set_dialogue_flag not found")
+    else:
+        body = set_flag_section.group(0)
+        if "flag in decisions" in body and "decisions[flag] = value" in body:
+            ok("set_dialogue_flag mirrors matching boolean decisions")
+        else:
+            fail("set_dialogue_flag does not update matching ending decisions")
+
+    if '"set_flag": "trusted_zhao"' in dialogue_content:
+        fail("DialogueData still sets legacy trusted_zhao flag instead of trusted_zhao_ming")
+    else:
+        ok("DialogueData no longer uses legacy trusted_zhao flag")
+
+    if '"set_flag": "trusted_zhao_ming"' in dialogue_content:
+        ok("Zhao trust choice sets trusted_zhao_ming decision flag")
+    else:
+        fail("Zhao trust choice does not set trusted_zhao_ming")
+
+    if '"set_flag": "has_fake_id"' in dialogue_content and '"give_evidence": "fake_id_chip"' in dialogue_content:
+        ok("Kid deal unlocks market gate when fake ID evidence is granted")
+    else:
+        fail("Kid deal does not pair fake_id_chip with has_fake_id gate flag")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -921,6 +963,7 @@ def main():
     test_dialogue_system_instantiated()
     test_classname_load_safety()
     test_autoload_process_mode()
+    test_dialogue_flags_update_decisions()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

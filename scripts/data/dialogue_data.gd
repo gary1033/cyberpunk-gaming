@@ -311,7 +311,7 @@ static func _get_all_dialogues() -> Dictionary:
 				"speaker": "kid", "name": "小鬼", "mood": "default", "portrait_side": "left",
 				"text": "讓我掃描一下你的鷹眼。我想研究一下正和科技的加密協議。三分鐘就好。",
 				"choices": [
-					{"text": "成交。", "next": "kid_deal", "set_flag": "kid_deal_accepted", "give_evidence": "fake_id_chip"},
+					{"text": "成交。", "next": "kid_deal", "set_flag": "has_fake_id", "give_evidence": "fake_id_chip"},
 					{"text": "不行，太冒險了。", "next": "kid_refuse"}
 				]
 			},
@@ -377,7 +377,7 @@ static func _get_all_dialogues() -> Dictionary:
 				"speaker": "zhao_ming", "name": "趙明", "mood": "sincere", "portrait_side": "left",
 				"text": "你知道的，我當年支持你揭發那些腐敗...只是我選擇了從內部改變。你可以信我。",
 				"choices": [
-					{"text": "我信你。", "next": "zhao_trusted", "set_flag": "trusted_zhao"},
+					{"text": "我信你。", "next": "zhao_trusted", "set_flag": "trusted_zhao_ming"},
 					{"text": "我現在誰都不信。", "next": "zhao_untrusted"}
 				]
 			},
