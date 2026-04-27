@@ -8,6 +8,7 @@ evidence connections, asset files, and more.
 
 import os
 import json
+import hashlib
 import re
 import struct
 import sys
@@ -58,6 +59,14 @@ def get_png_size(path):
     if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n":
         return None
     return struct.unpack(">II", header[16:24])
+
+
+def file_sha256(path):
+    hasher = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            hasher.update(chunk)
+    return hasher.hexdigest()
 
 
 # ---------------------------------------------------------------------------
@@ -1170,6 +1179,45 @@ def test_runtime_asset_loader_supports_generated_pngs():
 
 
 # ---------------------------------------------------------------------------
+# 26. Bug regression: Image2 item/UI outputs must be copied into the runtime
+# sprite directories. Generating files under assets/generated is not enough.
+# ---------------------------------------------------------------------------
+def test_image2_outputs_are_connected_to_runtime_sprites():
+    print("\n[26] Image2 outputs are connected to runtime sprites")
+    mappings = [
+        ("items", "assets/generated/items", "assets/sprites/items"),
+        ("ui", "assets/generated/ui", "assets/sprites/ui"),
+    ]
+
+    checked = 0
+    for label, generated_rel, sprite_rel in mappings:
+        generated_dir = os.path.join(PROJECT_ROOT, generated_rel)
+        sprite_dir = os.path.join(PROJECT_ROOT, sprite_rel)
+        if not os.path.isdir(generated_dir):
+            warn(f"No generated {label} directory found: {generated_rel}")
+            continue
+
+        for file_name in sorted(os.listdir(generated_dir)):
+            if not file_name.lower().endswith(".png"):
+                continue
+            generated_path = os.path.join(generated_dir, file_name)
+            sprite_path = os.path.join(sprite_dir, file_name)
+            checked += 1
+            if not os.path.exists(sprite_path):
+                fail(f"Generated {label} image is not in runtime sprites: {file_name}")
+                continue
+            if file_sha256(generated_path) == file_sha256(sprite_path):
+                ok(f"Generated {label} image connected: {file_name}")
+            else:
+                fail(f"Generated {label} image differs from runtime sprite: {file_name}")
+
+    if checked > 0:
+        ok(f"Checked {checked} generated item/UI image connections")
+    else:
+        fail("No generated item/UI PNG outputs were checked")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -1206,6 +1254,7 @@ def main():
     test_image2_asset_prompt_manifests()
     test_generated_environment_item_ui_png_assets()
     test_runtime_asset_loader_supports_generated_pngs()
+    test_image2_outputs_are_connected_to_runtime_sprites()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")
