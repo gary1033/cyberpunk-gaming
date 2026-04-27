@@ -26,6 +26,7 @@ func _ready() -> void:
 
 	# Adapt for mobile
 	_adapt_layout()
+	_style_main_menu_buttons()
 
 	# Title animation
 	_animate_title()
@@ -72,6 +73,51 @@ func _adapt_layout() -> void:
 		# Larger buttons for touch
 		for btn in [new_game_btn, continue_btn, controls_btn, settings_btn]:
 			btn.custom_minimum_size = Vector2(0, 60)
+
+func _style_main_menu_buttons() -> void:
+	var buttons := [new_game_btn, continue_btn, controls_btn, settings_btn]
+	for btn in buttons:
+		btn.custom_minimum_size.x = maxf(btn.custom_minimum_size.x, 560.0 if not InputManager.is_mobile else 0.0)
+		btn.add_theme_color_override("font_color", Color(0.0, 0.92, 0.95))
+		btn.add_theme_color_override("font_hover_color", Color(0.95, 0.05, 0.62))
+		btn.add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0))
+		btn.add_theme_color_override("font_disabled_color", Color(0.36, 0.42, 0.48, 0.72))
+		btn.add_theme_font_size_override("font_size", 24 if not InputManager.is_mobile else 20)
+		btn.add_theme_stylebox_override(
+			"normal",
+			_create_menu_button_style(Color(0.015, 0.028, 0.045, 0.88), Color(0.0, 0.72, 0.76, 0.58), 2)
+		)
+		btn.add_theme_stylebox_override(
+			"hover",
+			_create_menu_button_style(Color(0.02, 0.04, 0.07, 0.96), Color(0.95, 0.05, 0.62, 0.88), 2)
+		)
+		btn.add_theme_stylebox_override(
+			"pressed",
+			_create_menu_button_style(Color(0.0, 0.12, 0.14, 0.98), Color(0.0, 0.95, 0.95, 1.0), 3)
+		)
+		btn.add_theme_stylebox_override(
+			"disabled",
+			_create_menu_button_style(Color(0.01, 0.015, 0.025, 0.72), Color(0.2, 0.26, 0.32, 0.55), 1)
+		)
+		btn.add_theme_stylebox_override(
+			"focus",
+			_create_menu_button_style(Color(0, 0, 0, 0), Color(0.0, 0.95, 0.95, 0.9), 2)
+		)
+
+func _create_menu_button_style(bg_color: Color, border_color: Color, border_width: int) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg_color
+	style.border_color = border_color
+	style.set_border_width_all(border_width)
+	style.set_corner_radius_all(4)
+	style.shadow_color = Color(0.0, 0.95, 0.95, 0.16)
+	style.shadow_size = 8
+	style.shadow_offset = Vector2(0, 0)
+	style.set_content_margin(SIDE_LEFT, 24)
+	style.set_content_margin(SIDE_RIGHT, 24)
+	style.set_content_margin(SIDE_TOP, 14)
+	style.set_content_margin(SIDE_BOTTOM, 14)
+	return style
 
 func _animate_title() -> void:
 	title_label.modulate.a = 0.0

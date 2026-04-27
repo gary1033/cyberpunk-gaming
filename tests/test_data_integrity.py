@@ -819,6 +819,14 @@ def test_main_menu_popup_layout_bounds():
         fail("Controls/settings popups do not show Esc dismissal hints")
 
 
+    # Bug regression: title-screen choices need opaque cyberpunk button panels
+    # so text remains readable over generated city backgrounds.
+    if "func _style_main_menu_buttons" in content and "_create_menu_button_style" in content and "shadow_color" in content and "font_hover_color" in content:
+        ok("Main menu options use deeper cyberpunk button frames")
+    else:
+        fail("Main menu options do not have styled cyberpunk button frames")
+
+
 # ---------------------------------------------------------------------------
 # 17. Bug regression: No @onready with bare $ in class_name scripts
 # Scripts with class_name are registered globally. Using @onready with
