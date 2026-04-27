@@ -278,15 +278,11 @@ def test_character_portraits():
         if i < len(mood_blocks):
             moods = re.findall(r'"(\w+)"', mood_blocks[i])
             for mood in moods:
-                candidates = [
-                    os.path.join(sprites_dir, f"{char_id}_{mood}.png"),
-                    os.path.join(sprites_dir, f"{char_id}_{mood}.svg"),
-                ]
-                existing = [path for path in candidates if os.path.exists(path)]
-                if existing:
-                    ok(f"Portrait: {os.path.basename(existing[0])}")
+                png_path = os.path.join(sprites_dir, f"{char_id}_{mood}.png")
+                if os.path.exists(png_path):
+                    ok(f"Portrait PNG: {char_id}_{mood}.png")
                 else:
-                    fail(f"Missing portrait: {char_id}_{mood}.png or .svg")
+                    fail(f"Missing portrait PNG: {char_id}_{mood}.png")
 
 
 # ---------------------------------------------------------------------------
@@ -339,8 +335,8 @@ def test_generated_png_character_portraits():
 
 
 # ---------------------------------------------------------------------------
-# 6c. Bug regression: Runtime portrait loaders prefer PNG with SVG fallback
-# New generated art is PNG, while legacy art remains SVG for fallback safety.
+# 6c. Bug regression: Runtime portrait loaders use generated PNG portraits.
+# Legacy SVG portraits should not remain as a fallback path.
 # ---------------------------------------------------------------------------
 def test_runtime_portrait_loader_supports_png():
     print("\n[6c] Runtime portrait loader supports PNG")
@@ -355,10 +351,10 @@ def test_runtime_portrait_loader_supports_png():
             fail(f"{rel_path} not found")
             continue
 
-        if "_load_character_portrait" in content and '"png"' in content and '"svg"' in content:
-            ok(f"{rel_path}: loads PNG portraits with SVG fallback")
+        if "_load_character_portrait" in content and ".png" in content and '"svg"' not in content:
+            ok(f"{rel_path}: loads PNG portraits without SVG fallback")
         else:
-            fail(f"{rel_path}: missing PNG/SVG portrait loader")
+            fail(f"{rel_path}: still references SVG portrait fallback")
 
     dialogue_system = read_file("scripts/gameplay/dialogue_system.gd") or ""
     location_base = read_file("scripts/ui/location_base.gd") or ""
@@ -376,10 +372,10 @@ def test_runtime_portrait_loader_supports_png():
 
 
 # ---------------------------------------------------------------------------
-# 7. Location background SVG files
+# 7. Location background PNG files
 # ---------------------------------------------------------------------------
 def test_location_backgrounds():
-    print("\n[7] Location background SVG files")
+    print("\n[7] Location background PNG files")
     scene_content = read_file("scripts/core/scene_manager.gd")
     if not scene_content:
         fail("scene_manager.gd not found")
@@ -393,18 +389,18 @@ def test_location_backgrounds():
     # Extract location IDs (scene_paths keys, excluding main_menu and game)
     location_ids = re.findall(r'"(\w+)":\s*"res://scenes/locations/', scene_content)
     for loc_id in location_ids:
-        svg_path = os.path.join(sprites_dir, f"{loc_id}.svg")
-        if os.path.exists(svg_path):
-            ok(f"Background: {loc_id}.svg")
+        png_path = os.path.join(sprites_dir, f"{loc_id}.png")
+        if os.path.exists(png_path):
+            ok(f"Background PNG: {loc_id}.png")
         else:
-            fail(f"Missing background: {loc_id}.svg")
+            fail(f"Missing background PNG: {loc_id}.png")
 
 
 # ---------------------------------------------------------------------------
-# 8. Evidence icon SVG files
+# 8. Evidence icon PNG files
 # ---------------------------------------------------------------------------
 def test_evidence_icons():
-    print("\n[8] Evidence icon SVG files")
+    print("\n[8] Evidence icon PNG files")
     evidence_content = read_file("scripts/data/evidence_data.gd")
     if not evidence_content:
         fail("evidence_data.gd not found")
@@ -417,11 +413,31 @@ def test_evidence_icons():
 
     icons = re.findall(r'"icon":\s*"(\w+)"', evidence_content)
     for icon in icons:
-        svg_path = os.path.join(sprites_dir, f"{icon}.svg")
-        if os.path.exists(svg_path):
-            ok(f"Icon: {icon}.svg")
+        png_path = os.path.join(sprites_dir, f"{icon}.png")
+        if os.path.exists(png_path):
+            ok(f"Icon PNG: {icon}.png")
         else:
-            fail(f"Missing icon: {icon}.svg")
+            fail(f"Missing icon PNG: {icon}.png")
+
+
+# ---------------------------------------------------------------------------
+# 8b. Bug regression: Legacy SVG assets were removed after generated PNGs
+# replaced character, location, and item art.
+# ---------------------------------------------------------------------------
+def test_no_legacy_svg_assets():
+    print("\n[8b] No legacy SVG assets")
+    assets_dir = os.path.join(PROJECT_ROOT, "assets")
+    svg_files = []
+    for root, _, files in os.walk(assets_dir):
+        for file_name in files:
+            if file_name.lower().endswith(".svg"):
+                svg_files.append(os.path.relpath(os.path.join(root, file_name), PROJECT_ROOT))
+
+    if svg_files:
+        for rel_path in sorted(svg_files):
+            fail(f"Legacy SVG asset still present: {rel_path}")
+    else:
+        ok("No SVG files remain under assets/")
 
 
 # ---------------------------------------------------------------------------
@@ -1095,8 +1111,8 @@ def test_generated_environment_item_ui_png_assets():
 
 
 # ---------------------------------------------------------------------------
-# 25. Bug regression: Runtime loaders prefer generated PNG backgrounds/items
-# and keep SVG fallback for old assets.
+# 25. Bug regression: Runtime loaders use generated PNG backgrounds/items
+# without falling back to legacy SVG assets.
 # ---------------------------------------------------------------------------
 def test_runtime_asset_loader_supports_generated_pngs():
     print("\n[25] Runtime loaders support generated PNG background/item/UI assets")
@@ -1107,15 +1123,15 @@ def test_runtime_asset_loader_supports_generated_pngs():
         fail("Required runtime loader files not found")
         return
 
-    if "_load_location_background" in location_base and '"png"' in location_base and '"svg"' in location_base:
-        ok("LocationBase loads generated PNG backgrounds with SVG fallback")
+    if "_load_location_background" in location_base and ".png" in location_base and '"svg"' not in location_base:
+        ok("LocationBase loads generated PNG backgrounds without SVG fallback")
     else:
-        fail("LocationBase does not support PNG background fallback chain")
+        fail("LocationBase still references SVG background fallback")
 
-    if "_load_evidence_icon" in evidence_board and '"png"' in evidence_board and '"svg"' in evidence_board:
-        ok("EvidenceBoard loads generated PNG item icons with SVG fallback")
+    if "_load_evidence_icon" in evidence_board and ".png" in evidence_board and '"svg"' not in evidence_board:
+        ok("EvidenceBoard loads generated PNG item icons without SVG fallback")
     else:
-        fail("EvidenceBoard does not support PNG item icon fallback chain")
+        fail("EvidenceBoard still references SVG item icon fallback")
 
     if (
         "_create_generated_panel_style" in location_base
@@ -1171,6 +1187,7 @@ def main():
     test_runtime_portrait_loader_supports_png()
     test_location_backgrounds()
     test_evidence_icons()
+    test_no_legacy_svg_assets()
     test_project_structure()
     test_gdscript_quality()
     test_no_invalid_tscn_uids()

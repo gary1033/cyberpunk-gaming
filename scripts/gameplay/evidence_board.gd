@@ -325,9 +325,5 @@ func _load_evidence_icon(evidence_id: String) -> Texture2D:
 	var EvidenceDataScript: GDScript = load("res://scripts/data/evidence_data.gd")
 	var evidence: Dictionary = EvidenceDataScript.get_evidence(evidence_id)
 	var icon_id: String = evidence.get("icon", evidence_id)
-	for extension in ["png", "svg"]:
-		var icon_path := "res://assets/sprites/items/%s.%s" % [icon_id, extension]
-		var texture := _load_runtime_texture(icon_path)
-		if texture:
-			return texture
-	return null
+	var icon_path := "res://assets/sprites/items/%s.png" % icon_id
+	return _load_runtime_texture(icon_path)

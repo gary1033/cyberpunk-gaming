@@ -54,12 +54,8 @@ func _load_runtime_texture(res_path: String) -> Texture2D:
 	return null
 
 func _load_location_background() -> Texture2D:
-	for extension in ["png", "svg"]:
-		var bg_path := "res://assets/sprites/locations/%s.%s" % [location_id, extension]
-		var bg_texture := _load_runtime_texture(bg_path)
-		if bg_texture:
-			return bg_texture
-	return null
+	var bg_path := "res://assets/sprites/locations/%s.png" % location_id
+	return _load_runtime_texture(bg_path)
 
 func _load_ui_texture(asset_name: String) -> Texture2D:
 	return _load_runtime_texture("%s/%s.png" % [UI_SPRITE_DIR, asset_name])
