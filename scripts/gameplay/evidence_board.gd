@@ -128,6 +128,13 @@ func _create_card(evidence_id: String, card_size: Vector2) -> PanelContainer:
 
 	# Evidence name label
 	var vbox := VBoxContainer.new()
+	var icon := TextureRect.new()
+	icon.texture = _load_evidence_icon(evidence_id)
+	icon.custom_minimum_size = Vector2(42, 42)
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	vbox.add_child(icon)
+
 	var name_label := Label.new()
 	name_label.text = _get_evidence_display_name(evidence_id)
 	name_label.add_theme_font_size_override("font_size", 14)
@@ -303,3 +310,14 @@ func _get_evidence_display_name(evidence_id: String) -> String:
 		"dr_xiao_comms": "蕭博士與高層通訊",
 	}
 	return names.get(evidence_id, evidence_id)
+
+func _load_evidence_icon(evidence_id: String) -> Texture2D:
+	var EvidenceDataScript: GDScript = load("res://scripts/data/evidence_data.gd")
+	var evidence: Dictionary = EvidenceDataScript.get_evidence(evidence_id)
+	var icon_id: String = evidence.get("icon", evidence_id)
+	for extension in ["png", "svg"]:
+		var icon_path := "res://assets/sprites/items/%s.%s" % [icon_id, extension]
+		var texture := load(icon_path) as Texture2D
+		if texture:
+			return texture
+	return null

@@ -18,9 +18,7 @@ func _setup_background() -> void:
 	var canvas := CanvasLayer.new()
 	canvas.layer = -10
 
-	# Try to load location background SVG
-	var bg_path := "res://assets/sprites/locations/%s.svg" % location_id
-	var bg_texture := load(bg_path) as Texture2D
+	var bg_texture := _load_location_background()
 
 	if bg_texture:
 		var bg_img := TextureRect.new()
@@ -35,6 +33,14 @@ func _setup_background() -> void:
 		canvas.add_child(bg)
 
 	add_child(canvas)
+
+func _load_location_background() -> Texture2D:
+	for extension in ["png", "svg"]:
+		var bg_path := "res://assets/sprites/locations/%s.%s" % [location_id, extension]
+		var bg_texture := load(bg_path) as Texture2D
+		if bg_texture:
+			return bg_texture
+	return null
 
 func _setup_ui() -> void:
 	var ui_layer := CanvasLayer.new()
@@ -253,7 +259,7 @@ func _trigger_initial_dialogue() -> void:
 			await get_tree().process_frame
 			var ds := get_tree().get_first_node_in_group("dialogue_system")
 			if ds and ds.has_method("start_dialogue"):
-		ds.start_dialogue(dialogue_entries)
+				ds.start_dialogue(dialogue_entries)
 
 func _get_location_story_actions() -> Array:
 	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)

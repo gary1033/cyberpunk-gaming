@@ -7,6 +7,7 @@ evidence connections, asset files, and more.
 """
 
 import os
+import json
 import re
 import struct
 import sys
@@ -816,8 +817,28 @@ def test_dialogue_system_instantiated():
         body = trigger_section.group(0)
         if 'start_dialogue' in body:
             ok("_trigger_initial_dialogue calls start_dialogue")
+            # Bug regression: start_dialogue must stay nested under the ds guard,
+            # otherwise Godot treats the function as malformed or unguarded.
+            body_lines = body.splitlines()
+            guard_index = next(
+                (i for i, line in enumerate(body_lines) if 'if ds and ds.has_method("start_dialogue")' in line),
+                None
+            )
+            call_index = next(
+                (i for i, line in enumerate(body_lines) if 'ds.start_dialogue(dialogue_entries)' in line),
+                None
+            )
+            if guard_index is not None and call_index is not None and call_index > guard_index:
+                guard_indent = len(re.match(r'^\s*', body_lines[guard_index]).group(0))
+                call_indent = len(re.match(r'^\s*', body_lines[call_index]).group(0))
+                if call_indent > guard_indent:
+                    ok("Initial dialogue start call is nested under ds guard")
+                else:
+                    fail("Initial dialogue start call is not nested under ds guard")
+            else:
+                fail("Initial dialogue ds guard or start call not found")
         else:
-            fail("_trigger_initial_dialogue is a stub — initial dialogue will never play")
+            fail("_trigger_initial_dialogue is a stub – initial dialogue will never play")
     else:
         fail("_trigger_initial_dialogue function not found")
 
@@ -950,6 +971,69 @@ def test_dialogue_flags_update_decisions():
 
 
 # ---------------------------------------------------------------------------
+# 23. Bug regression: Generated image2 prompt manifests must cover all
+# backgrounds and evidence item icons before AI asset generation.
+# ---------------------------------------------------------------------------
+def test_image2_asset_prompt_manifests():
+    print("\n[23] image2 asset prompt manifests")
+    required_manifests = {
+        "assets/generated/prompts/image2_backgrounds.jsonl": 15,
+        "assets/generated/prompts/image2_items.jsonl": 28,
+        "assets/generated/prompts/image2_ui.jsonl": 5,
+    }
+
+    for rel_path, min_count in required_manifests.items():
+        path = os.path.join(PROJECT_ROOT, rel_path)
+        if not os.path.exists(path):
+            fail(f"Missing image2 prompt manifest: {rel_path}")
+            continue
+
+        records = []
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    records.append(json.loads(line))
+
+        if len(records) >= min_count:
+            ok(f"{rel_path}: {len(records)} prompt records")
+        else:
+            fail(f"{rel_path}: expected at least {min_count} records, found {len(records)}")
+
+        for record in records:
+            if record.get("prompt", "") and record.get("output_path", ""):
+                ok(f"Prompt ready: {record.get('id', record.get('icon', 'unknown'))}")
+            else:
+                fail(f"Incomplete prompt record in {rel_path}: {record}")
+
+            # Bug regression: gpt-image-2 does not support transparent backgrounds.
+            if record.get("model") == "gpt-image-2" and record.get("background") == "transparent":
+                fail(f"{rel_path}: gpt-image-2 record uses unsupported transparent background")
+
+
+# ---------------------------------------------------------------------------
+# 24. Bug regression: Runtime loaders prefer generated PNG backgrounds/items
+# and keep SVG fallback for old assets.
+# ---------------------------------------------------------------------------
+def test_runtime_asset_loader_supports_generated_pngs():
+    print("\n[24] Runtime loaders support generated PNG background/item assets")
+    location_base = read_file("scripts/ui/location_base.gd")
+    evidence_board = read_file("scripts/gameplay/evidence_board.gd")
+    if not location_base or not evidence_board:
+        fail("Required runtime loader files not found")
+        return
+
+    if "_load_location_background" in location_base and '"png"' in location_base and '"svg"' in location_base:
+        ok("LocationBase loads generated PNG backgrounds with SVG fallback")
+    else:
+        fail("LocationBase does not support PNG background fallback chain")
+
+    if "_load_evidence_icon" in evidence_board and '"png"' in evidence_board and '"svg"' in evidence_board:
+        ok("EvidenceBoard loads generated PNG item icons with SVG fallback")
+    else:
+        fail("EvidenceBoard does not support PNG item icon fallback chain")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -981,6 +1065,8 @@ def main():
     test_classname_load_safety()
     test_autoload_process_mode()
     test_dialogue_flags_update_decisions()
+    test_image2_asset_prompt_manifests()
+    test_runtime_asset_loader_supports_generated_pngs()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")
