@@ -6,6 +6,10 @@ extends Node2D
 @export var location_name: String = ""
 @export var bg_color: Color = Color(0.05, 0.05, 0.12)
 
+const UI_SPRITE_DIR := "res://assets/sprites/ui"
+const CaseDataScript: GDScript = preload("res://scripts/data/case_data.gd")
+const DialogueDataScript: GDScript = preload("res://scripts/data/dialogue_data.gd")
+
 var _dialogue_system_scene: PackedScene = null
 
 func _ready() -> void:
@@ -34,13 +38,48 @@ func _setup_background() -> void:
 
 	add_child(canvas)
 
+func _load_runtime_texture(res_path: String) -> Texture2D:
+	if not FileAccess.file_exists(res_path):
+		return null
+
+	if res_path.get_extension().to_lower() == "png":
+		var image := Image.new()
+		var error := image.load(ProjectSettings.globalize_path(res_path))
+		if error == OK:
+			return ImageTexture.create_from_image(image)
+
+	if ResourceLoader.exists(res_path):
+		return load(res_path) as Texture2D
+
+	return null
+
 func _load_location_background() -> Texture2D:
 	for extension in ["png", "svg"]:
 		var bg_path := "res://assets/sprites/locations/%s.%s" % [location_id, extension]
-		var bg_texture := load(bg_path) as Texture2D
+		var bg_texture := _load_runtime_texture(bg_path)
 		if bg_texture:
 			return bg_texture
 	return null
+
+func _load_ui_texture(asset_name: String) -> Texture2D:
+	return _load_runtime_texture("%s/%s.png" % [UI_SPRITE_DIR, asset_name])
+
+func _create_generated_panel_style(asset_name: String, fallback_color: Color, border_color: Color, margin: int) -> StyleBox:
+	var texture := _load_ui_texture(asset_name)
+	if texture:
+		var generated_style := StyleBoxTexture.new()
+		generated_style.texture = texture
+		generated_style.set_texture_margin_all(24)
+		generated_style.set_content_margin_all(margin)
+		return generated_style
+
+	var flat_style := StyleBoxFlat.new()
+	flat_style.bg_color = fallback_color
+	flat_style.border_color = border_color
+	flat_style.set_border_width_all(2)
+	flat_style.set_corner_radius_all(8)
+	flat_style.set_content_margin_all(margin)
+	return flat_style
 
 func _setup_ui() -> void:
 	var ui_layer := CanvasLayer.new()
@@ -83,6 +122,17 @@ func _setup_ui() -> void:
 	toolbar.alignment = BoxContainer.ALIGNMENT_CENTER
 	toolbar.add_theme_constant_override("separation", 20)
 	toolbar.name = "Toolbar"
+
+	var toolbar_texture := _load_ui_texture("toolbar_buttons")
+	if toolbar_texture:
+		var toolbar_backdrop := TextureRect.new()
+		toolbar_backdrop.texture = toolbar_texture
+		toolbar_backdrop.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+		toolbar_backdrop.offset_top = -64
+		toolbar_backdrop.offset_bottom = 0
+		toolbar_backdrop.stretch_mode = TextureRect.STRETCH_SCALE
+		toolbar_backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		ui_layer.add_child(toolbar_backdrop)
 
 	if not _get_location_story_actions().is_empty():
 		var investigate_btn := Button.new()
@@ -172,12 +222,10 @@ func _setup_ui() -> void:
 	dialogue_panel.name = "DialoguePanel"
 	dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	dialogue_panel.offset_top = -200
-	var panel_style := StyleBoxFlat.new()
-	panel_style.bg_color = Color(0.02, 0.02, 0.08, 0.9)
-	panel_style.border_color = Color(0.0, 0.7, 0.7, 0.8)
-	panel_style.border_width_top = 2
-	panel_style.set_content_margin_all(16)
-	dialogue_panel.add_theme_stylebox_override("panel", panel_style)
+	dialogue_panel.add_theme_stylebox_override(
+		"panel",
+		_create_generated_panel_style("dialogue_panel", Color(0.02, 0.02, 0.08, 0.9), Color(0.0, 0.7, 0.7, 0.8), 16)
+	)
 
 	var vbox := VBoxContainer.new()
 	vbox.name = "VBox"
@@ -248,13 +296,13 @@ func _setup_location_label() -> void:
 	tween.tween_callback(canvas.queue_free)
 
 func _trigger_initial_dialogue() -> void:
-	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)
+	var chapter_data: Dictionary = CaseDataScript.get_chapter_data(GameManager.current_chapter)
 	var loc_data: Dictionary = chapter_data.get("locations", {}).get(location_id, {})
 	var initial_dialogue: String = loc_data.get("initial_dialogue", "")
 
 	if initial_dialogue != "" and not GameManager.get_dialogue_flag("visited_" + location_id):
 		GameManager.set_dialogue_flag("visited_" + location_id)
-		var dialogue_entries := DialogueData.get_dialogue(initial_dialogue)
+		var dialogue_entries: Array = DialogueDataScript.get_dialogue(initial_dialogue)
 		if dialogue_entries.size() > 0:
 			await get_tree().process_frame
 			var ds := get_tree().get_first_node_in_group("dialogue_system")
@@ -262,7 +310,7 @@ func _trigger_initial_dialogue() -> void:
 				ds.start_dialogue(dialogue_entries)
 
 func _get_location_story_actions() -> Array:
-	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)
+	var chapter_data: Dictionary = CaseDataScript.get_chapter_data(GameManager.current_chapter)
 	var loc_data: Dictionary = chapter_data.get("locations", {}).get(location_id, {})
 	return loc_data.get("story_actions", [])
 
@@ -293,12 +341,10 @@ func _show_story_actions() -> void:
 	popup_layer.add_child(dimmer)
 
 	var panel := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
-	style.border_color = Color(1.0, 0.0, 0.6)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(8)
-	panel.add_theme_stylebox_override("panel", style)
+	panel.add_theme_stylebox_override(
+		"panel",
+		_create_generated_panel_style("popup_panel", Color(0.05, 0.05, 0.15, 0.95), Color(1.0, 0.0, 0.6), 20)
+	)
 	panel.set_anchors_preset(Control.PRESET_CENTER)
 	panel.custom_minimum_size = Vector2(320, 0)
 
@@ -326,7 +372,7 @@ func _show_story_actions() -> void:
 		vbox.add_child(empty_label)
 	else:
 		for action in actions:
-			var action_data := action
+			var action_data: Dictionary = action
 			var btn := Button.new()
 			btn.text = action_data.get("title", "調查")
 			btn.custom_minimum_size = Vector2(0, 48)
@@ -367,7 +413,7 @@ func _run_story_action(action_data: Dictionary) -> void:
 	if dialogue_id == "":
 		return
 
-	var dialogue_entries := DialogueData.get_dialogue(dialogue_id)
+	var dialogue_entries: Array = DialogueDataScript.get_dialogue(dialogue_id)
 	if dialogue_entries.is_empty():
 		return
 
@@ -376,7 +422,7 @@ func _run_story_action(action_data: Dictionary) -> void:
 		ds.start_dialogue(dialogue_entries)
 
 func _show_map() -> void:
-	var chapter_data := CaseData.get_chapter_data(GameManager.current_chapter)
+	var chapter_data: Dictionary = CaseDataScript.get_chapter_data(GameManager.current_chapter)
 	var current_loc: Dictionary = chapter_data.get("locations", {}).get(location_id, {})
 	var connections: Array = current_loc.get("connections", [])
 
@@ -389,12 +435,10 @@ func _show_map() -> void:
 	popup_layer.add_child(dimmer)
 
 	var panel := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
-	style.border_color = Color(0.0, 0.7, 0.7)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(8)
-	panel.add_theme_stylebox_override("panel", style)
+	panel.add_theme_stylebox_override(
+		"panel",
+		_create_generated_panel_style("popup_panel", Color(0.05, 0.05, 0.15, 0.95), Color(0.0, 0.7, 0.7), 20)
+	)
 	panel.set_anchors_preset(Control.PRESET_CENTER)
 	panel.custom_minimum_size = Vector2(320, 0)
 
@@ -514,12 +558,10 @@ func _show_pause_menu() -> void:
 	popup_layer.add_child(dimmer)
 
 	var panel := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.05, 0.05, 0.15, 0.95)
-	style.border_color = Color(0.0, 0.7, 0.7)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(8)
-	panel.add_theme_stylebox_override("panel", style)
+	panel.add_theme_stylebox_override(
+		"panel",
+		_create_generated_panel_style("popup_panel", Color(0.05, 0.05, 0.15, 0.95), Color(0.0, 0.7, 0.7), 20)
+	)
 	panel.set_anchors_preset(Control.PRESET_CENTER)
 	panel.custom_minimum_size = Vector2(280, 0)
 

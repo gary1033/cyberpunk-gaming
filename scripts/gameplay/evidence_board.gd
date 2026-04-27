@@ -7,6 +7,8 @@ signal board_closed
 
 class_name EvidenceBoard
 
+const UI_SPRITE_DIR := "res://assets/sprites/ui"
+
 # Node references (resolved in _ready, not @onready, for safe dynamic instantiation)
 var board_container: Control = null
 var cards_layer: Control = null
@@ -111,20 +113,7 @@ func _create_card(evidence_id: String, card_size: Vector2) -> PanelContainer:
 	var card := PanelContainer.new()
 	card.custom_minimum_size = card_size
 	card.size = card_size
-
-	# Style
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.08, 0.08, 0.15, 0.9)
-	style.border_color = Color(0.0, 0.7, 0.7)
-	style.border_width_bottom = 2
-	style.border_width_top = 2
-	style.border_width_left = 2
-	style.border_width_right = 2
-	style.corner_radius_top_left = 4
-	style.corner_radius_top_right = 4
-	style.corner_radius_bottom_left = 4
-	style.corner_radius_bottom_right = 4
-	card.add_theme_stylebox_override("panel", style)
+	card.add_theme_stylebox_override("panel", _create_card_style(Color(0.0, 0.7, 0.7)))
 
 	# Evidence name label
 	var vbox := VBoxContainer.new()
@@ -187,12 +176,7 @@ func _handle_connection(evidence_id: String) -> void:
 		_connecting_from = evidence_id
 		if evidence_id in _cards:
 			var card: PanelContainer = _cards[evidence_id]
-			var style := StyleBoxFlat.new()
-			style.bg_color = Color(0.08, 0.08, 0.15, 0.9)
-			style.border_color = Color(1.0, 0.0, 0.6)  # Magenta highlight
-			style.set_border_width_all(2)
-			style.set_corner_radius_all(4)
-			card.add_theme_stylebox_override("panel", style)
+			card.add_theme_stylebox_override("panel", _create_card_style(Color(1.0, 0.0, 0.6)))
 	else:
 		# Complete connection
 		var from_id := _connecting_from
@@ -248,12 +232,38 @@ func _flash_connection(from_id: String, to_id: String, color: Color) -> void:
 func _refresh_card_style(evidence_id: String) -> void:
 	if evidence_id in _cards:
 		var card: PanelContainer = _cards[evidence_id]
-		var style := StyleBoxFlat.new()
-		style.bg_color = Color(0.08, 0.08, 0.15, 0.9)
-		style.border_color = Color(0.0, 0.7, 0.7)
-		style.set_border_width_all(2)
-		style.set_corner_radius_all(4)
-		card.add_theme_stylebox_override("panel", style)
+		card.add_theme_stylebox_override("panel", _create_card_style(Color(0.0, 0.7, 0.7)))
+
+func _create_card_style(border_color: Color) -> StyleBox:
+	var texture := _load_runtime_texture("%s/evidence_card.png" % UI_SPRITE_DIR)
+	if texture:
+		var generated_style := StyleBoxTexture.new()
+		generated_style.texture = texture
+		generated_style.set_texture_margin_all(24)
+		generated_style.set_content_margin_all(8)
+		return generated_style
+
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.08, 0.08, 0.15, 0.9)
+	style.border_color = border_color
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(4)
+	return style
+
+func _load_runtime_texture(res_path: String) -> Texture2D:
+	if not FileAccess.file_exists(res_path):
+		return null
+
+	if res_path.get_extension().to_lower() == "png":
+		var image := Image.new()
+		var error := image.load(ProjectSettings.globalize_path(res_path))
+		if error == OK:
+			return ImageTexture.create_from_image(image)
+
+	if ResourceLoader.exists(res_path):
+		return load(res_path) as Texture2D
+
+	return null
 
 func _update_progress() -> void:
 	var total_valid := valid_connections.size()
@@ -317,7 +327,7 @@ func _load_evidence_icon(evidence_id: String) -> Texture2D:
 	var icon_id: String = evidence.get("icon", evidence_id)
 	for extension in ["png", "svg"]:
 		var icon_path := "res://assets/sprites/items/%s.%s" % [icon_id, extension]
-		var texture := load(icon_path) as Texture2D
+		var texture := _load_runtime_texture(icon_path)
 		if texture:
 			return texture
 	return null

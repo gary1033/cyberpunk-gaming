@@ -262,7 +262,22 @@ func _update_portrait(speaker: String, mood: String, side: String) -> void:
 func _load_character_portrait(speaker: String, mood: String) -> Texture2D:
 	for extension in ["png", "svg"]:
 		var portrait_path := "res://assets/sprites/characters/%s_%s.%s" % [speaker, mood, extension]
-		var texture := load(portrait_path) as Texture2D
+		var texture := _load_runtime_texture(portrait_path)
 		if texture:
 			return texture
+	return null
+
+func _load_runtime_texture(res_path: String) -> Texture2D:
+	if not FileAccess.file_exists(res_path):
+		return null
+
+	if res_path.get_extension().to_lower() == "png":
+		var image := Image.new()
+		var error := image.load(ProjectSettings.globalize_path(res_path))
+		if error == OK:
+			return ImageTexture.create_from_image(image)
+
+	if ResourceLoader.exists(res_path):
+		return load(res_path) as Texture2D
+
 	return null

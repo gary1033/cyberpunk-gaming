@@ -884,6 +884,13 @@ def test_classname_load_safety():
     else:
         ok("Hotspot accessed via load() (no direct class_name reference)")
 
+    # Bug regression: directly loading a location scene can parse before
+    # data class_names are registered, so LocationBase should use preloads.
+    if "CaseData." not in content and "DialogueData." not in content and "CaseDataScript" in content and "DialogueDataScript" in content:
+        ok("LocationBase data access uses preloaded scripts, not direct class_name identifiers")
+    else:
+        fail("LocationBase still uses direct CaseData/DialogueData identifiers")
+
 
 # ---------------------------------------------------------------------------
 # 21. Bug regression: Autoload singletons must set process_mode = ALWAYS
@@ -1011,14 +1018,51 @@ def test_image2_asset_prompt_manifests():
 
 
 # ---------------------------------------------------------------------------
-# 24. Bug regression: Runtime loaders prefer generated PNG backgrounds/items
+# 24. Bug regression: Generated raster assets must exist after image2/local
+# rendering so runtime PNG loaders do not silently fall back to SVG.
+# ---------------------------------------------------------------------------
+def test_generated_environment_item_ui_png_assets():
+    print("\n[24] Generated environment, item, and UI PNG assets")
+    manifests = [
+        "assets/generated/prompts/image2_backgrounds.jsonl",
+        "assets/generated/prompts/image2_items.jsonl",
+        "assets/generated/prompts/image2_ui.jsonl",
+    ]
+
+    for rel_manifest in manifests:
+        manifest_path = os.path.join(PROJECT_ROOT, rel_manifest)
+        if not os.path.exists(manifest_path):
+            fail(f"Missing manifest for generated assets: {rel_manifest}")
+            continue
+
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            records = [json.loads(line) for line in f if line.strip()]
+
+        for record in records:
+            rel_output = record.get("output_path", "")
+            expected_size = tuple(map(int, record.get("target_size", record.get("size", "0x0")).split("x")))
+            asset_path = os.path.join(PROJECT_ROOT, rel_output)
+            if not os.path.exists(asset_path):
+                fail(f"Generated PNG missing: {rel_output}")
+                continue
+
+            actual_size = get_png_size(asset_path)
+            if actual_size == expected_size:
+                ok(f"Generated PNG ready: {rel_output} ({actual_size[0]}x{actual_size[1]})")
+            else:
+                fail(f"Generated PNG size mismatch: {rel_output}; expected {expected_size}, got {actual_size}")
+
+
+# ---------------------------------------------------------------------------
+# 25. Bug regression: Runtime loaders prefer generated PNG backgrounds/items
 # and keep SVG fallback for old assets.
 # ---------------------------------------------------------------------------
 def test_runtime_asset_loader_supports_generated_pngs():
-    print("\n[24] Runtime loaders support generated PNG background/item assets")
+    print("\n[25] Runtime loaders support generated PNG background/item/UI assets")
     location_base = read_file("scripts/ui/location_base.gd")
     evidence_board = read_file("scripts/gameplay/evidence_board.gd")
-    if not location_base or not evidence_board:
+    memory_preview = read_file("scripts/gameplay/memory_preview.gd")
+    if not location_base or not evidence_board or not memory_preview:
         fail("Required runtime loader files not found")
         return
 
@@ -1031,6 +1075,41 @@ def test_runtime_asset_loader_supports_generated_pngs():
         ok("EvidenceBoard loads generated PNG item icons with SVG fallback")
     else:
         fail("EvidenceBoard does not support PNG item icon fallback chain")
+
+    if (
+        "_create_generated_panel_style" in location_base
+        and "dialogue_panel" in location_base
+        and "popup_panel" in location_base
+        and "toolbar_buttons" in location_base
+    ):
+        ok("LocationBase uses generated dialogue, popup, and toolbar UI PNGs")
+    else:
+        fail("LocationBase does not use generated UI panel/button PNGs")
+
+    if "_create_card_style" in evidence_board and "evidence_card.png" in evidence_board:
+        ok("EvidenceBoard uses generated evidence card UI PNG")
+    else:
+        fail("EvidenceBoard does not use generated evidence card UI PNG")
+
+    if "memory_preview_overlay.png" in memory_preview and "_setup_generated_overlay" in memory_preview:
+        ok("MemoryPreview uses generated memory overlay UI PNG")
+    else:
+        fail("MemoryPreview does not use generated memory overlay UI PNG")
+
+    # Bug regression: generated PNGs are source-controlled without Godot .import
+    # sidecars, so runtime loaders must be able to create ImageTexture directly.
+    runtime_texture_scripts = {
+        "LocationBase": location_base,
+        "EvidenceBoard": evidence_board,
+        "MemoryPreview": memory_preview,
+        "DialogueSystem": read_file("scripts/gameplay/dialogue_system.gd") or "",
+        "Interrogation": read_file("scripts/gameplay/interrogation.gd") or "",
+    }
+    for script_name, content in runtime_texture_scripts.items():
+        if "_load_runtime_texture" in content and "ImageTexture.create_from_image" in content:
+            ok(f"{script_name} can load PNG textures without .import sidecars")
+        else:
+            fail(f"{script_name} cannot load PNG textures without .import sidecars")
 
 
 # ---------------------------------------------------------------------------
@@ -1066,6 +1145,7 @@ def main():
     test_autoload_process_mode()
     test_dialogue_flags_update_decisions()
     test_image2_asset_prompt_manifests()
+    test_generated_environment_item_ui_png_assets()
     test_runtime_asset_loader_supports_generated_pngs()
 
     print("\n" + "=" * 60)

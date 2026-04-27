@@ -8,6 +8,7 @@ These prompts are generated from game data and are intended for image2.0-style b
 - Evidence items: generate at `1024x1024` on opaque image2-compatible backgrounds, then downscale/crop to `512x512` if needed.
 - UI references: generate on opaque image2-compatible canvases, output to `assets/sprites/ui/*.png`.
 - Runtime loaders prefer PNG and keep existing SVG as fallback.
+- Local fallback renderer: `python tools\render_generated_assets.py` creates deterministic PNGs from these manifests when image2 credentials are unavailable.
 
 ## Backgrounds
 

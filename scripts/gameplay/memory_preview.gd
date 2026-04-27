@@ -7,7 +7,10 @@ signal memory_failed
 
 class_name MemoryPreview
 
+const UI_SPRITE_DIR := "res://assets/sprites/ui"
+
 var background: ColorRect = null
+var generated_overlay: TextureRect = null
 var fragment_display: RichTextLabel = null
 var choices_container: HBoxContainer = null
 var timer_bar: ProgressBar = null
@@ -44,6 +47,42 @@ func _ready() -> void:
 
 	if instruction_label:
 		instruction_label.text = "記憶碎片播放中... 選出關鍵畫面"
+
+	_setup_generated_overlay()
+
+func _setup_generated_overlay() -> void:
+	var texture := _load_runtime_texture("%s/memory_preview_overlay.png" % UI_SPRITE_DIR)
+	if not texture:
+		return
+
+	generated_overlay = TextureRect.new()
+	generated_overlay.name = "GeneratedOverlay"
+	generated_overlay.texture = texture
+	generated_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	generated_overlay.stretch_mode = TextureRect.STRETCH_SCALE
+	generated_overlay.modulate = Color(1, 1, 1, 0.28)
+	generated_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(generated_overlay)
+
+	if background:
+		move_child(generated_overlay, min(background.get_index() + 1, get_child_count() - 1))
+	else:
+		move_child(generated_overlay, 0)
+
+func _load_runtime_texture(res_path: String) -> Texture2D:
+	if not FileAccess.file_exists(res_path):
+		return null
+
+	if res_path.get_extension().to_lower() == "png":
+		var image := Image.new()
+		var error := image.load(ProjectSettings.globalize_path(res_path))
+		if error == OK:
+			return ImageTexture.create_from_image(image)
+
+	if ResourceLoader.exists(res_path):
+		return load(res_path) as Texture2D
+
+	return null
 
 func start_memory(memory_data: Dictionary) -> void:
 	_fragments = memory_data.get("fragments", [])
