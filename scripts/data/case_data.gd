@@ -23,6 +23,12 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"connections": ["detective_office", "east_district_street"],
 					"story_actions": [
 						{
+							"id": "review_family_memory_clip",
+							"title": "回放家庭記憶片段",
+							"dialogue": "ch1_family_memory_clip",
+							"requires_evidence": "commission_letter"
+						},
+						{
 							"id": "scan_broken_memory_player",
 							"title": "掃描損壞記憶播放器",
 							"dialogue": "ch1_kai_eye_glitch_scan",
@@ -50,6 +56,13 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 							"dialogue": "ch1_eye_signature_decode",
 							"requires_flag": "deduced_eye_echo_signature",
 							"requires_evidence": "data_chip"
+						},
+						{
+							"id": "reconstruct_hao_ran_motive",
+							"title": "還原浩然的家庭動機",
+							"dialogue": "ch1_hao_ran_family_motive",
+							"requires_flag": "deduced_hao_ran_family_motive",
+							"requires_evidence": "family_memory_clip"
 						},
 						{
 							"id": "consult_dr_chen_eye_warning",

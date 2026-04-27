@@ -119,6 +119,36 @@ static func _get_all_dialogues() -> Dictionary:
 			}
 		],
 
+		"ch1_family_memory_clip": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "播放器的私人槽裡還殘留著一段沒有標題的家庭記憶。影像不完整，只剩晚餐桌、窗外雨聲，和浩然把蠟燭移到美玲面前的手。"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+				"text": "那是我生日。浩然說記憶備份太貴，結果他還是偷偷錄了下來。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你啟動鷹眼校正破損片段。畫面邊緣浮出一行被抹掉的維修註記：如果我回不來，別讓美玲交出原始備份。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "他不是單純接了黑市私活。他在保護某個只剩在家庭記憶裡的東西。",
+				"give_evidence": "family_memory_clip",
+				"set_flag": "found_family_memory_clip"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+				"text": "他最後幾天一直問我，如果有一天記憶可以證明一個人還是自己，我會不會相信它。當時我以為他只是太累了。",
+				"set_flag": "mei_ling_trust_opened"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "我要把這段家庭記憶和那台被拆開的播放器一起看。浩然藏起來的不是回憶，是求救方式。"
+			}
+		],
+
 		# --- Abyss Bar ---
 		"ch1_abyss_bar_enter": [
 			{
@@ -283,6 +313,26 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
 				"text": "如果我的鷹眼能開啟這套協定，浩然可能不是第一個碰到它的人。也許我才是。"
+			}
+		],
+
+		"ch1_hao_ran_family_motive": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你把家庭記憶片段和損壞播放器的維修紀錄重疊。浩然反覆避開的不是付款紀錄，而是美玲的原始記憶備份位置。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "他知道有人會來找美玲。播放器被改成回聲編碼讀取器，是為了確認她的備份還沒有被污染。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "鷹眼短暫失焦。家庭餐桌的燭光和白色實驗燈重疊在一起，像是有人曾經用同一套方法封住你的某段記憶。",
+				"set_flag": "hao_ran_family_motive_reconstructed"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "浩然的動機不是錢。他在替美玲守住一段能證明她還是她自己的記憶。"
 			}
 		],
 

@@ -22,6 +22,7 @@ var valid_connections: Dictionary = {
 	"abyss_receipt": "stranger_photo",
 	"data_chip": "memory_device_log",
 	"comm_recording": "dr_chen_schedule",
+	"family_memory_clip": "broken_memory_player",
 	"broken_memory_player": "memory_device_log",
 	"kai_eye_glitch_log": "data_chip",
 	# Chapter 2
@@ -40,6 +41,7 @@ var valid_connections: Dictionary = {
 }
 
 var valid_connection_flags: Dictionary = {
+	"family_memory_clip:broken_memory_player": "deduced_hao_ran_family_motive",
 	"broken_memory_player:memory_device_log": "deduced_player_echo_codec",
 	"kai_eye_glitch_log:data_chip": "deduced_eye_echo_signature",
 }
@@ -310,6 +312,7 @@ func _get_evidence_display_name(evidence_id: String) -> String:
 		"memory_device_log": "記憶提取設備使用紀錄",
 		"comm_recording": "損壞的通訊錄音",
 		"dr_chen_schedule": "Dr. 陳的預約紀錄",
+		"family_memory_clip": "家庭記憶片段",
 		"broken_memory_player": "損壞的記憶播放器",
 		"kai_eye_glitch_log": "凱的鷹眼異常紀錄",
 		# Chapter 2

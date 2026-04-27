@@ -61,6 +61,13 @@ static func get_all_evidence() -> Dictionary:
 			"chapter": 1,
 			"icon": "schedule"
 		},
+		"family_memory_clip": {
+			"name": "家庭記憶片段",
+			"description": "美玲公寓播放器中殘留的家庭記憶。浩然把一段晚餐與雨聲備份藏在機器深層，像是在提醒美玲自己不是自願失蹤。",
+			"chapter": 1,
+			"icon": "memory_capsule",
+			"preferred_icon": "family_memory_clip"
+		},
 		"broken_memory_player": {
 			"name": "損壞的記憶播放器",
 			"description": "美玲公寓中被浩然拆開的家用記憶播放器，內部韌體被改成能讀取回聲網路的記憶編碼。",

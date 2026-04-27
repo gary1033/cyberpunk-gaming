@@ -8,7 +8,9 @@ extends Node2D
 
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
 const MEI_LING_EAGLE_EYE_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png"
+const MEI_LING_FAMILY_MEMORY_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png"
 const EAGLE_EYE_ANOMALY_ACTIONS := {
+	"review_family_memory_clip": true,
 	"scan_broken_memory_player": true,
 	"decode_eye_signature": true,
 	"consult_dr_chen_eye_warning": true,
@@ -21,6 +23,7 @@ var _augmented_vision: CanvasLayer = null
 var _background_texture_rect: TextureRect = null
 var _base_background_texture: Texture2D = null
 var _eagle_eye_background_texture: Texture2D = null
+var _family_memory_background_texture: Texture2D = null
 var _ap_label: Label = null
 
 func _ready() -> void:
@@ -45,6 +48,7 @@ func _setup_background() -> void:
 		_background_texture_rect = bg_img
 		_base_background_texture = bg_texture
 		_eagle_eye_background_texture = _load_runtime_texture(_get_eagle_eye_background_variant_path())
+		_family_memory_background_texture = _load_runtime_texture(_get_family_memory_background_variant_path())
 	else:
 		var bg := ColorRect.new()
 		bg.color = bg_color
@@ -76,6 +80,11 @@ func _get_eagle_eye_background_variant_path() -> String:
 	if location_id == "mei_ling_apartment":
 		return MEI_LING_EAGLE_EYE_VARIANT
 	return "res://assets/sprites/locations/variants/%s_eye_scan_variant.png" % location_id
+
+func _get_family_memory_background_variant_path() -> String:
+	if location_id == "mei_ling_apartment":
+		return MEI_LING_FAMILY_MEMORY_VARIANT
+	return ""
 
 func _load_ui_texture(asset_name: String) -> Texture2D:
 	return _load_runtime_texture("%s/%s.png" % [UI_SPRITE_DIR, asset_name])
@@ -510,8 +519,24 @@ func _trigger_eagle_eye_anomaly(action_data: Dictionary) -> void:
 	var action_id: String = action_data.get("id", "")
 	if not EAGLE_EYE_ANOMALY_ACTIONS.has(action_id):
 		return
+	if action_id == "review_family_memory_clip":
+		_show_family_memory_variant()
 	if _augmented_vision and _augmented_vision.has_method("trigger_glitch_pulse"):
 		_augmented_vision.trigger_glitch_pulse()
+
+func _show_family_memory_variant() -> void:
+	if not _background_texture_rect or not _family_memory_background_texture:
+		return
+	_background_texture_rect.texture = _family_memory_background_texture
+	var timer := get_tree().create_timer(3.2)
+	timer.timeout.connect(func():
+		if not _background_texture_rect:
+			return
+		if GameManager.eagle_eye_active and _eagle_eye_background_texture:
+			_background_texture_rect.texture = _eagle_eye_background_texture
+		else:
+			_background_texture_rect.texture = _base_background_texture
+	)
 
 func _show_map() -> void:
 	var chapter_data: Dictionary = CaseDataScript.get_chapter_data(GameManager.current_chapter)

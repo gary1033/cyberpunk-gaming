@@ -1540,6 +1540,106 @@ def test_ch1_eagle_eye_foreshadowing_wiring():
 
 
 # ---------------------------------------------------------------------------
+# 29. Bug regression: Chapter 1 family memory branch must be playable.
+# The family-memory clue should grant evidence, connect on the evidence board,
+# trigger a safe eagle-eye anomaly, and keep placeholder assets replaceable.
+# ---------------------------------------------------------------------------
+def test_ch1_family_memory_branch():
+    print("\n[29] Chapter 1 family memory branch")
+    case_content = read_file("scripts/data/case_data.gd") or ""
+    dialogue_content = read_file("scripts/data/dialogue_data.gd") or ""
+    evidence_content = read_file("scripts/data/evidence_data.gd") or ""
+    board_content = read_file("scripts/gameplay/evidence_board.gd") or ""
+    location_content = read_file("scripts/ui/location_base.gd") or ""
+
+    if '"ch1_family_memory_clip": [' in dialogue_content and '"ch1_hao_ran_family_motive": [' in dialogue_content:
+        ok("Family memory dialogues exist")
+    else:
+        fail("Missing family memory dialogue branch")
+
+    if '"family_memory_clip": {' in evidence_content and '"preferred_icon": "family_memory_clip"' in evidence_content:
+        ok("Family memory evidence has preferred runtime icon")
+    else:
+        fail("Family memory evidence is missing or has no preferred icon")
+
+    if '"id": "review_family_memory_clip"' in case_content and '"dialogue": "ch1_family_memory_clip"' in case_content and '"requires_evidence": "commission_letter"' in case_content:
+        ok("Mei Ling apartment family memory story action is reachable")
+    else:
+        fail("Family memory story action is not wired in Mei Ling apartment")
+
+    if '"id": "reconstruct_hao_ran_motive"' in case_content and '"requires_flag": "deduced_hao_ran_family_motive"' in case_content and '"requires_evidence": "family_memory_clip"' in case_content:
+        ok("Hao Ran motive follow-up is gated by family memory deduction")
+    else:
+        fail("Hao Ran motive follow-up is not gated by the family memory deduction")
+
+    if '"family_memory_clip": "broken_memory_player"' in board_content and '"family_memory_clip:broken_memory_player": "deduced_hao_ran_family_motive"' in board_content:
+        ok("Evidence board links family memory to broken player motive")
+    else:
+        fail("Evidence board does not unlock the Hao Ran family motive flag")
+
+    if '"give_evidence": "family_memory_clip"' in dialogue_content and '"set_flag": "found_family_memory_clip"' in dialogue_content and '"set_flag": "mei_ling_trust_opened"' in dialogue_content:
+        ok("Family memory dialogue grants evidence and trust flags")
+    else:
+        fail("Family memory dialogue does not grant required evidence or flags")
+
+    if "review_family_memory_clip" in location_content and "trigger_glitch_pulse" in location_content and "mei_ling_apartment_family_memory_variant.png" in location_content:
+        ok("Family memory action triggers safe eagle-eye anomaly and scene variant")
+    else:
+        fail("Family memory action is not wired to eagle-eye anomaly presentation")
+
+    prompt_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image2_ch1_family_memory.jsonl")
+    if not os.path.exists(prompt_path):
+        fail("Missing Chapter 1 family memory prompt manifest")
+        return
+
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        records = [json.loads(line) for line in f if line.strip()]
+    expected_ids = {
+        "family_memory_clip",
+        "cg_family_memory_clip",
+        "mei_ling_apartment_family_memory_variant",
+        "family_memory_fragment",
+    }
+    actual_ids = {record.get("id") for record in records}
+    for prompt_id in sorted(expected_ids - actual_ids):
+        fail(f"Missing family memory prompt record: {prompt_id}")
+    if expected_ids.issubset(actual_ids):
+        ok("Family memory prompt manifest covers image and audio placeholders")
+
+    required_png_assets = {
+        "assets/sprites/items/family_memory_clip.png": (512, 512),
+        "assets/sprites/cg/ch1/cg_family_memory_clip.png": (1280, 720),
+        "assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png": (1280, 720),
+    }
+    for rel_path, expected_size in required_png_assets.items():
+        real_path = os.path.join(PROJECT_ROOT, rel_path)
+        if os.path.exists(real_path) and get_png_size(real_path) == expected_size:
+            ok(f"Family memory placeholder PNG ready: {rel_path}")
+        else:
+            fail(f"Missing or wrong-size family memory placeholder PNG: {rel_path}")
+
+    audio_path = os.path.join(PROJECT_ROOT, "assets/audio/sfx/family_memory_fragment.ogg")
+    if os.path.exists(audio_path) and os.path.getsize(audio_path) > 0:
+        ok("Family memory placeholder audio target exists")
+    else:
+        fail("Missing family memory placeholder audio target")
+
+    generated_pairs = {
+        "assets/generated/items/ch1/family_memory_clip.png": "assets/sprites/items/family_memory_clip.png",
+        "assets/generated/cg/ch1/cg_family_memory_clip.png": "assets/sprites/cg/ch1/cg_family_memory_clip.png",
+        "assets/generated/backgrounds/variants/mei_ling_apartment_family_memory_variant.png": "assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png",
+        "assets/generated/audio/ch1/family_memory_fragment.ogg": "assets/audio/sfx/family_memory_fragment.ogg",
+    }
+    for generated_rel, runtime_rel in generated_pairs.items():
+        generated_path = os.path.join(PROJECT_ROOT, generated_rel)
+        runtime_path = os.path.join(PROJECT_ROOT, runtime_rel)
+        if os.path.exists(generated_path) and os.path.exists(runtime_path) and file_sha256(generated_path) == file_sha256(runtime_path):
+            ok(f"Family memory generated source matches runtime target: {runtime_rel}")
+        else:
+            fail(f"Family memory generated source does not match runtime target: {runtime_rel}")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -1580,6 +1680,7 @@ def main():
     test_runtime_ui_playability_regressions()
     test_image_gen_ui_prompt_requests()
     test_ch1_eagle_eye_foreshadowing_wiring()
+    test_ch1_family_memory_branch()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")
