@@ -121,6 +121,7 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"name": "比特風暴網咖",
 					"description": "駭客聚集的地下網咖，三排老舊電腦散發著藍光。",
 					"connections": ["memory_black_market", "zhengtek_exterior", "sewer_passage"],
+					"initial_dialogue": "ch2_opening",
 					"hotspots": ["kid_corner", "bulletin_board", "terminal"]
 				},
 				"memory_black_market": {
@@ -128,18 +129,21 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"description": "隱藏在廢棄地鐵站的地下市場。各種非法記憶在這裡交易。",
 					"connections": ["bitstorm_cafe", "sewer_passage"],
 					"requires_flag": "has_fake_id",
+					"initial_dialogue": "ch2_memory_market_enter",
 					"hotspots": ["mask_merchant", "memory_stall", "ghost_meeting", "exit_tunnel"]
 				},
 				"abandoned_warehouse": {
 					"name": "廢棄倉庫",
 					"description": "回聲網路的據點之一。裡面堆滿了記憶提取設備。",
 					"connections": ["sewer_passage"],
+					"initial_dialogue": "ch2_warehouse_explore",
 					"hotspots": ["equipment", "desk_warehouse", "hidden_room", "diary_spot"]
 				},
 				"zhengtek_exterior": {
 					"name": "正和科技大樓外圍",
 					"description": "正和科技總部的後門區域。趙明在這裡等你。",
 					"connections": ["bitstorm_cafe", "sewer_passage"],
+					"initial_dialogue": "ch2_zhao_ming_meeting",
 					"hotspots": ["back_entrance", "zhao_meeting_spot", "surveillance_camera"]
 				},
 				"sewer_passage": {
