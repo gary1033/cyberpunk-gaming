@@ -8,8 +8,11 @@ extends Control
 @onready var title_label: Label = $TitleContainer/Title
 @onready var subtitle_label: Label = $TitleContainer/Subtitle
 
+const MAIN_MENU_BACKGROUND_PATH := "res://assets/sprites/ui/main_menu_background.png"
+
 func _ready() -> void:
 	GameManager.set_state(GameManager.GameState.MAIN_MENU)
+	_setup_generated_background()
 
 	new_game_btn.pressed.connect(_on_new_game)
 	continue_btn.pressed.connect(_on_continue)
@@ -26,6 +29,40 @@ func _ready() -> void:
 
 	# Title animation
 	_animate_title()
+
+func _setup_generated_background() -> void:
+	var texture := _load_runtime_texture(MAIN_MENU_BACKGROUND_PATH)
+	if not texture:
+		return
+
+	var generated_bg := TextureRect.new()
+	generated_bg.name = "GeneratedBackground"
+	generated_bg.texture = texture
+	generated_bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	generated_bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	generated_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(generated_bg)
+	move_child(generated_bg, 0)
+
+	var fallback_tint := get_node_or_null("Background") as ColorRect
+	if fallback_tint:
+		fallback_tint.color = Color(0.0, 0.0, 0.0, 0.34)
+		move_child(fallback_tint, 1)
+
+func _load_runtime_texture(res_path: String) -> Texture2D:
+	if not FileAccess.file_exists(res_path):
+		return null
+
+	if res_path.get_extension().to_lower() == "png":
+		var image := Image.new()
+		var error := image.load(ProjectSettings.globalize_path(res_path))
+		if error == OK:
+			return ImageTexture.create_from_image(image)
+
+	if ResourceLoader.exists(res_path):
+		return load(res_path) as Texture2D
+
+	return null
 
 func _adapt_layout() -> void:
 	if InputManager.is_mobile:

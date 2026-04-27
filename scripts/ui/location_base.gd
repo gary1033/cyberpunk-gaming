@@ -8,6 +8,11 @@ extends Node2D
 
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
 const MEI_LING_EAGLE_EYE_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png"
+const EAGLE_EYE_ANOMALY_ACTIONS := {
+	"scan_broken_memory_player": true,
+	"decode_eye_signature": true,
+	"consult_dr_chen_eye_warning": true,
+}
 const CaseDataScript: GDScript = preload("res://scripts/data/case_data.gd")
 const DialogueDataScript: GDScript = preload("res://scripts/data/dialogue_data.gd")
 
@@ -135,12 +140,7 @@ func _setup_ui() -> void:
 	hud.add_child(spacer)
 
 	# Action points
-	_ap_label = Label.new()
-	_ap_label.name = "APLabel"
-	_ap_label.add_theme_color_override("font_color", Color(0.9, 0.6, 0.0))
-	_ap_label.add_theme_font_size_override("font_size", 14)
-	_update_ap_label(GameManager.action_points)
-	hud.add_child(_ap_label)
+	hud.add_child(_create_ap_widget())
 
 	ui_layer.add_child(hud)
 
@@ -327,6 +327,34 @@ func _update_ap_label(remaining: int) -> void:
 	if _ap_label:
 		_ap_label.text = "AP: %d/%d" % [remaining, GameManager.max_action_points]
 
+func _create_ap_widget() -> Control:
+	var widget := Control.new()
+	widget.name = "APWidget"
+	widget.custom_minimum_size = Vector2(180, 36)
+
+	var ap_texture := _load_ui_texture("ap_status_bar")
+	if ap_texture:
+		var backdrop := TextureRect.new()
+		backdrop.name = "APStatusBar"
+		backdrop.texture = ap_texture
+		backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+		backdrop.stretch_mode = TextureRect.STRETCH_SCALE
+		backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		widget.add_child(backdrop)
+
+	_ap_label = Label.new()
+	_ap_label.name = "APLabel"
+	_ap_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_ap_label.offset_left = 12
+	_ap_label.offset_right = -12
+	_ap_label.add_theme_color_override("font_color", Color(0.95, 0.66, 0.05))
+	_ap_label.add_theme_font_size_override("font_size", 14)
+	_ap_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_ap_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_update_ap_label(GameManager.action_points)
+	widget.add_child(_ap_label)
+	return widget
+
 func _setup_location_label() -> void:
 	# Large location name that fades in and out
 	var canvas := CanvasLayer.new()
@@ -468,6 +496,8 @@ func _run_story_action(action_data: Dictionary) -> void:
 	if dialogue_id == "":
 		return
 
+	_trigger_eagle_eye_anomaly(action_data)
+
 	var dialogue_entries: Array = DialogueDataScript.get_dialogue(dialogue_id)
 	if dialogue_entries.is_empty():
 		return
@@ -475,6 +505,13 @@ func _run_story_action(action_data: Dictionary) -> void:
 	var ds := get_tree().get_first_node_in_group("dialogue_system")
 	if ds and ds.has_method("start_dialogue"):
 		ds.start_dialogue(dialogue_entries)
+
+func _trigger_eagle_eye_anomaly(action_data: Dictionary) -> void:
+	var action_id: String = action_data.get("id", "")
+	if not EAGLE_EYE_ANOMALY_ACTIONS.has(action_id):
+		return
+	if _augmented_vision and _augmented_vision.has_method("trigger_glitch_pulse"):
+		_augmented_vision.trigger_glitch_pulse()
 
 func _show_map() -> void:
 	var chapter_data: Dictionary = CaseDataScript.get_chapter_data(GameManager.current_chapter)

@@ -7,9 +7,15 @@ signal eagle_eye_deactivated
 signal energy_changed(energy: float, max_energy: float)
 
 const EAGLE_EYE_OVERLAY_PATH := "res://assets/sprites/ui/eagle_eye_scan_overlay_ch1.png"
+const EAGLE_EYE_RETICLE_PATH := "res://assets/sprites/ui/eagle_eye_focus_reticle_ch1.png"
+const EAGLE_EYE_GLITCH_NOISE_PATH := "res://assets/sprites/ui/eagle_eye_glitch_noise_ch1.png"
+const EAGLE_EYE_ACTIVATION_CUTIN_PATH := "res://assets/sprites/cg/ch1/eagle_eye_activation_cutin_ch1.png"
 
 var overlay: ColorRect = null
 var generated_overlay: TextureRect = null
+var generated_reticle: TextureRect = null
+var glitch_noise: TextureRect = null
+var activation_cutin: TextureRect = null
 var energy_bar: ProgressBar = null
 var toggle_button: Button = null
 var scan_label: Label = null
@@ -44,6 +50,32 @@ func _ensure_runtime_nodes() -> void:
 		generated_overlay.visible = false
 		add_child(generated_overlay)
 
+	if glitch_noise == null:
+		glitch_noise = TextureRect.new()
+		glitch_noise.name = "GlitchNoise"
+		glitch_noise.set_anchors_preset(Control.PRESET_FULL_RECT)
+		glitch_noise.stretch_mode = TextureRect.STRETCH_SCALE
+		glitch_noise.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		glitch_noise.modulate = Color(1, 1, 1, 0.0)
+		glitch_noise.visible = false
+		add_child(glitch_noise)
+
+	if generated_reticle == null:
+		generated_reticle = TextureRect.new()
+		generated_reticle.name = "GeneratedFocusReticle"
+		generated_reticle.set_anchors_preset(Control.PRESET_CENTER)
+		generated_reticle.offset_left = -96
+		generated_reticle.offset_right = 96
+		generated_reticle.offset_top = -96
+		generated_reticle.offset_bottom = 96
+		generated_reticle.custom_minimum_size = Vector2(192, 192)
+		generated_reticle.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		generated_reticle.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		generated_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		generated_reticle.modulate = Color(1, 1, 1, 0.0)
+		generated_reticle.visible = false
+		add_child(generated_reticle)
+
 	if focus_reticle == null:
 		focus_reticle = ColorRect.new()
 		focus_reticle.name = "FallbackFocusReticle"
@@ -57,6 +89,16 @@ func _ensure_runtime_nodes() -> void:
 		focus_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		focus_reticle.visible = false
 		add_child(focus_reticle)
+
+	if activation_cutin == null:
+		activation_cutin = TextureRect.new()
+		activation_cutin.name = "ActivationCutin"
+		activation_cutin.set_anchors_preset(Control.PRESET_FULL_RECT)
+		activation_cutin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		activation_cutin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		activation_cutin.modulate = Color(1, 1, 1, 0.0)
+		activation_cutin.visible = false
+		add_child(activation_cutin)
 
 	if energy_bar == null:
 		energy_bar = ProgressBar.new()
@@ -116,6 +158,15 @@ func _setup_generated_overlay() -> void:
 	var texture := _load_runtime_texture(EAGLE_EYE_OVERLAY_PATH)
 	if texture:
 		generated_overlay.texture = texture
+	var reticle_texture := _load_runtime_texture(EAGLE_EYE_RETICLE_PATH)
+	if reticle_texture:
+		generated_reticle.texture = reticle_texture
+	var glitch_texture := _load_runtime_texture(EAGLE_EYE_GLITCH_NOISE_PATH)
+	if glitch_texture:
+		glitch_noise.texture = glitch_texture
+	var cutin_texture := _load_runtime_texture(EAGLE_EYE_ACTIVATION_CUTIN_PATH)
+	if cutin_texture:
+		activation_cutin.texture = cutin_texture
 
 func _load_runtime_texture(res_path: String) -> Texture2D:
 	if not FileAccess.file_exists(res_path):
@@ -168,6 +219,9 @@ func _activate() -> void:
 		tween.tween_property(overlay, "modulate:a", 1.0, 0.3)
 		if generated_overlay and generated_overlay.texture:
 			tween.parallel().tween_property(generated_overlay, "modulate:a", 0.34, 0.3)
+		if generated_reticle and generated_reticle.texture:
+			tween.parallel().tween_property(generated_reticle, "modulate:a", 0.9, 0.3)
+		_play_activation_cutin()
 
 		eagle_eye_activated.emit()
 
@@ -178,6 +232,10 @@ func _deactivate() -> void:
 	tween.tween_property(overlay, "modulate:a", 0.0, 0.2)
 	if generated_overlay:
 		tween.parallel().tween_property(generated_overlay, "modulate:a", 0.0, 0.2)
+	if generated_reticle:
+		tween.parallel().tween_property(generated_reticle, "modulate:a", 0.0, 0.2)
+	if glitch_noise:
+		tween.parallel().tween_property(glitch_noise, "modulate:a", 0.0, 0.2)
 	tween.tween_callback(func():
 		_set_overlay_visible(false)
 	)
@@ -189,12 +247,63 @@ func _set_overlay_visible(is_visible: bool) -> void:
 		overlay.visible = is_visible
 	if generated_overlay:
 		generated_overlay.visible = is_visible and generated_overlay.texture != null
+	if generated_reticle:
+		generated_reticle.visible = is_visible and generated_reticle.texture != null
 	if focus_reticle:
-		focus_reticle.visible = is_visible
+		focus_reticle.visible = is_visible and (not generated_reticle or generated_reticle.texture == null)
+	if glitch_noise:
+		glitch_noise.visible = false
+	if activation_cutin:
+		activation_cutin.visible = false
 	if scan_label:
 		scan_label.visible = is_visible
 	if energy_bar:
 		energy_bar.visible = is_visible
+
+func trigger_glitch_pulse() -> void:
+	var was_active := GameManager.eagle_eye_active
+	_set_overlay_visible(true)
+	if scan_label:
+		scan_label.text = "[ ECHO SIGNATURE DESYNC ]"
+	if generated_overlay and generated_overlay.texture:
+		generated_overlay.modulate.a = maxf(generated_overlay.modulate.a, 0.34)
+	if generated_reticle and generated_reticle.texture:
+		generated_reticle.modulate.a = maxf(generated_reticle.modulate.a, 0.9)
+
+	if not glitch_noise or glitch_noise.texture == null:
+		_flash_energy_bar()
+		if not was_active:
+			var fallback_tween := create_tween()
+			fallback_tween.tween_interval(0.35)
+			fallback_tween.tween_callback(func(): _set_overlay_visible(false))
+		return
+
+	glitch_noise.visible = true
+	glitch_noise.modulate.a = 0.0
+	var tween := create_tween()
+	tween.tween_property(glitch_noise, "modulate:a", 0.58, 0.08)
+	tween.tween_property(glitch_noise, "modulate:a", 0.16, 0.14)
+	tween.tween_property(glitch_noise, "modulate:a", 0.42, 0.08)
+	tween.tween_property(glitch_noise, "modulate:a", 0.0, 0.18)
+	tween.tween_callback(func():
+		if scan_label:
+			scan_label.text = "[ EAGLE EYE ACTIVE ]"
+		if not was_active:
+			_set_overlay_visible(false)
+	)
+
+func _play_activation_cutin() -> void:
+	if not activation_cutin or activation_cutin.texture == null:
+		return
+	activation_cutin.visible = true
+	activation_cutin.modulate.a = 0.0
+	var tween := create_tween()
+	tween.tween_property(activation_cutin, "modulate:a", 0.68, 0.08)
+	tween.tween_property(activation_cutin, "modulate:a", 0.0, 0.22)
+	tween.tween_callback(func():
+		if activation_cutin:
+			activation_cutin.visible = false
+	)
 
 func _update_energy_bar() -> void:
 	if energy_bar:

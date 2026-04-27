@@ -1330,6 +1330,19 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("Eagle-eye scanline fallback can render as an opaque white panel")
 
+    # Bug regression: generated AP and title-screen PNGs should be consumed by
+    # runtime UI, not only stored as generated assets.
+    main_menu = read_file("scripts/ui/main_menu.gd") or ""
+    if "main_menu_background.png" in main_menu and "_setup_generated_background" in main_menu and "ColorRect" in main_menu:
+        ok("Main menu loads generated background with ColorRect fallback")
+    else:
+        fail("Main menu generated background is not wired with fallback")
+
+    if "ap_status_bar" in location_base and "APWidget" in location_base and "_update_ap_label" in location_base:
+        ok("LocationBase AP widget uses generated status bar")
+    else:
+        fail("LocationBase AP widget does not use generated AP status bar")
+
 
 # ---------------------------------------------------------------------------
 # 27b. Prompt-only UI generation requests
@@ -1347,23 +1360,26 @@ def test_image_gen_ui_prompt_requests():
         records = [json.loads(line) for line in f if line.strip()]
 
     required = {
-        "ap_status_bar_hitech": "assets/sprites/ui/ap_status_bar.png",
-        "main_menu_start_background": "assets/sprites/ui/main_menu_background.png",
+        "ap_status_bar_hitech": ("assets/sprites/ui/ap_status_bar.png", (512, 96)),
+        "main_menu_start_background": ("assets/sprites/ui/main_menu_background.png", (1280, 720)),
     }
     by_id = {record.get("id"): record for record in records}
-    for prompt_id, target_path in required.items():
+    for prompt_id, (target_path, expected_size) in required.items():
         record = by_id.get(prompt_id)
         if not record:
             fail(f"Missing image_gen prompt request: {prompt_id}")
             continue
+        real_path = os.path.join(PROJECT_ROOT, target_path)
         if (
             record.get("tool") == "image_gen"
             and record.get("target_runtime_path") == target_path
-            and record.get("status") == "prompt_only"
+            and record.get("status") == "generated_connected"
             and record.get("prompt")
             and record.get("negative_prompt")
+            and os.path.exists(real_path)
+            and get_png_size(real_path) == expected_size
         ):
-            ok(f"image_gen prompt request ready: {prompt_id}")
+            ok(f"image_gen prompt request generated and connected: {prompt_id}")
         else:
             fail(f"Incomplete image_gen prompt request: {prompt_id}")
 
@@ -1445,8 +1461,11 @@ def test_ch1_eagle_eye_foreshadowing_wiring():
         "broken_memory_player",
         "kai_eye_glitch_log",
         "cg_kai_eye_glitch",
+        "eagle_eye_activation_cutin_ch1",
         "eagle_eye_scan_overlay_ch1",
         "mei_ling_apartment_eye_scan_variant",
+        "eagle_eye_focus_reticle_ch1",
+        "eagle_eye_glitch_noise_ch1",
         "eagle_eye_glitch_sting",
         "broken_player_scan",
         "memory_signature_reveal",
@@ -1465,6 +1484,59 @@ def test_ch1_eagle_eye_foreshadowing_wiring():
             ok(f"Chapter 1 prompt complete: {record.get('id')}")
         else:
             fail(f"Incomplete Chapter 1 prompt record: {record}")
+
+    required_assets = {
+        "assets/sprites/ui/eagle_eye_scan_overlay_ch1.png": (1280, 720),
+        "assets/sprites/ui/eagle_eye_focus_reticle_ch1.png": (512, 512),
+        "assets/sprites/ui/eagle_eye_glitch_noise_ch1.png": (1280, 720),
+        "assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png": (1280, 720),
+        "assets/sprites/cg/ch1/cg_kai_eye_glitch.png": (1280, 720),
+        "assets/sprites/cg/ch1/eagle_eye_activation_cutin_ch1.png": (1280, 720),
+        "assets/sprites/items/broken_memory_player.png": (512, 512),
+        "assets/sprites/items/kai_eye_glitch_log.png": (512, 512),
+    }
+    for rel_path, expected_size in required_assets.items():
+        real_path = os.path.join(PROJECT_ROOT, rel_path)
+        if not os.path.exists(real_path):
+            fail(f"Missing generated eagle-eye runtime asset: {rel_path}")
+            continue
+        if get_png_size(real_path) == expected_size:
+            ok(f"Generated eagle-eye asset ready: {rel_path}")
+        else:
+            fail(f"Generated eagle-eye asset has wrong size: {rel_path}")
+
+    generated_pairs = {
+        "assets/generated/ui/eagle_eye_scan_overlay_ch1.png": "assets/sprites/ui/eagle_eye_scan_overlay_ch1.png",
+        "assets/generated/ui/eagle_eye_focus_reticle_ch1.png": "assets/sprites/ui/eagle_eye_focus_reticle_ch1.png",
+        "assets/generated/ui/eagle_eye_glitch_noise_ch1.png": "assets/sprites/ui/eagle_eye_glitch_noise_ch1.png",
+        "assets/generated/backgrounds/variants/mei_ling_apartment_eye_scan_variant.png": "assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png",
+        "assets/generated/cg/ch1/cg_kai_eye_glitch.png": "assets/sprites/cg/ch1/cg_kai_eye_glitch.png",
+        "assets/generated/cg/ch1/eagle_eye_activation_cutin_ch1.png": "assets/sprites/cg/ch1/eagle_eye_activation_cutin_ch1.png",
+        "assets/generated/items/ch1/broken_memory_player.png": "assets/sprites/items/broken_memory_player.png",
+        "assets/generated/items/ch1/kai_eye_glitch_log.png": "assets/sprites/items/kai_eye_glitch_log.png",
+    }
+    for generated_rel, runtime_rel in generated_pairs.items():
+        generated_path = os.path.join(PROJECT_ROOT, generated_rel)
+        runtime_path = os.path.join(PROJECT_ROOT, runtime_rel)
+        if os.path.exists(generated_path) and os.path.exists(runtime_path) and file_sha256(generated_path) == file_sha256(runtime_path):
+            ok(f"Generated eagle-eye source matches runtime asset: {runtime_rel}")
+        else:
+            fail(f"Generated eagle-eye source does not match runtime asset: {runtime_rel}")
+
+    augmented_content = read_file("scripts/gameplay/augmented_vision.gd") or ""
+    location_content = read_file("scripts/ui/location_base.gd") or ""
+    runtime_checks = [
+        ("AugmentedVision loads generated reticle", "eagle_eye_focus_reticle_ch1.png" in augmented_content),
+        ("AugmentedVision loads glitch noise", "eagle_eye_glitch_noise_ch1.png" in augmented_content),
+        ("AugmentedVision loads activation cut-in", "eagle_eye_activation_cutin_ch1.png" in augmented_content),
+        ("LocationBase triggers key clue anomaly", "trigger_glitch_pulse" in location_content),
+        ("Evidence prefers dedicated eagle-eye icons", '"preferred_icon": "broken_memory_player"' in evidence_content and '"preferred_icon": "kai_eye_glitch_log"' in evidence_content),
+    ]
+    for label, passed_check in runtime_checks:
+        if passed_check:
+            ok(label)
+        else:
+            fail(label)
 
 
 # ---------------------------------------------------------------------------

@@ -48,6 +48,7 @@ def score_manifest(records, errors, details):
         "broken_memory_player",
         "kai_eye_glitch_log",
         "cg_kai_eye_glitch",
+        "eagle_eye_activation_cutin_ch1",
         "eagle_eye_scan_overlay_ch1",
         "mei_ling_apartment_eye_scan_variant",
         "eagle_eye_focus_reticle_ch1",
@@ -104,10 +105,15 @@ def score_runtime(details):
     runtime_checks = [
         ("AugmentedVision creates runtime nodes", "_ensure_runtime_nodes" in augmented, 12),
         ("AugmentedVision loads PNG overlay", "eagle_eye_scan_overlay_ch1.png" in augmented and "_load_runtime_texture" in augmented, 10),
+        ("AugmentedVision loads generated reticle", "eagle_eye_focus_reticle_ch1.png" in augmented and "GeneratedFocusReticle" in augmented, 8),
+        ("AugmentedVision loads glitch noise", "eagle_eye_glitch_noise_ch1.png" in augmented and "GlitchNoise" in augmented, 8),
+        ("AugmentedVision loads activation cut-in", "eagle_eye_activation_cutin_ch1.png" in augmented and "ActivationCutin" in augmented, 8),
+        ("AugmentedVision exposes key-clue glitch pulse", "func trigger_glitch_pulse" in augmented and "ECHO SIGNATURE DESYNC" in augmented, 10),
         ("AugmentedVision has shader fallback", "scanline.gdshader" in augmented and "_setup_shader_fallback" in augmented, 8),
         ("LocationBase installs AugmentedVision", "_setup_augmented_vision" in location_base and "augmented_vision.gd" in location_base, 12),
         ("Toolbar calls AugmentedVision toggle", "_augmented_vision" in location_base and ".toggle()" in location_base, 10),
         ("LocationBase supports eagle-eye background variant", "mei_ling_apartment_eye_scan_variant.png" in location_base and "_set_eagle_eye_background_active" in location_base, 10),
+        ("LocationBase triggers anomaly only from key actions", "EAGLE_EYE_ANOMALY_ACTIONS" in location_base and "trigger_glitch_pulse" in location_base, 10),
         ("Evidence data names preferred eagle-eye icons", '"preferred_icon": "broken_memory_player"' in evidence_data and '"preferred_icon": "kai_eye_glitch_log"' in evidence_data, 8),
         ("EvidenceBoard falls back when preferred icon is missing", "preferred_icon" in evidence_board and "fallback_icon_id" in evidence_board, 10),
     ]

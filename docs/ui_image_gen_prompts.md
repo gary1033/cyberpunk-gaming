@@ -2,14 +2,22 @@
 
 Date: 2026-04-27
 
-These prompts are for image_gen / image2-style generation. They are prompt-only until the generated PNGs are copied into the runtime target paths.
+These prompts are for image_gen / image2-style generation. The listed PNGs have been copied into the runtime target paths and are wired in game UI.
 
 ## AP Status Bar
+
+Status: generated and connected to the in-location AP widget.
 
 Runtime target:
 
 ```text
 assets/sprites/ui/ap_status_bar.png
+```
+
+Generated copy:
+
+```text
+assets/generated/ui/ap_status_bar.png
 ```
 
 Prompt:
@@ -26,10 +34,18 @@ no words, no AP letters, no numbers, no watermark, no brand logo, no large opaqu
 
 ## Main Menu Start Background
 
+Status: generated and connected to the main menu background, with ColorRect fallback.
+
 Runtime target:
 
 ```text
 assets/sprites/ui/main_menu_background.png
+```
+
+Generated copy:
+
+```text
+assets/generated/ui/main_menu_background.png
 ```
 
 Prompt:
