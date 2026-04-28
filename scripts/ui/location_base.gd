@@ -305,7 +305,8 @@ func _setup_ui() -> void:
 
 	var choices_container := VBoxContainer.new()
 	choices_container.name = "ChoicesContainer"
-	choices_container.add_theme_constant_override("separation", 6)
+	choices_container.add_theme_constant_override("separation", 4)
+	choices_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	choices_container.visible = false
 	vbox.add_child(choices_container)
 

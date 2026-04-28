@@ -1319,6 +1319,13 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("DialogueSystem does not paginate long text before overflow")
 
+    # Bug regression: dialogue choices should render as contained button frames
+    # inside the generated text panel, not as loose text below the frame.
+    if "_create_choice_button_style" in dialogue_system and "CHOICE_PROMPT_TEXT_HEIGHT" in dialogue_system and "choices_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL" in location_base:
+        ok("Dialogue choices are boxed inside the generated dialogue frame")
+    else:
+        fail("Dialogue choices can render outside the generated dialogue frame")
+
     if "for i in range(evidence_list.size())" in evidence_board and "var row: int = int(i / cols)" in evidence_board:
         ok("EvidenceBoard card grid uses safe range iteration and int row conversion")
     else:

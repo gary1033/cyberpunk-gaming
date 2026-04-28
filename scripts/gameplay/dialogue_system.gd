@@ -20,6 +20,8 @@ signal choice_made(choice_index: int)
 const STORY_CG_DIR := "res://assets/sprites/cg/ch1"
 const DESKTOP_DIALOGUE_PAGE_CHARS := 54
 const MOBILE_DIALOGUE_PAGE_CHARS := 34
+const DIALOGUE_TEXT_HEIGHT := 96
+const CHOICE_PROMPT_TEXT_HEIGHT := 44
 const DIALOGUE_SPLIT_PUNCTUATION := "，。！？；：、,.!?;: "
 
 var _current_dialogue: Array = []  # Array of dialogue entries
@@ -119,6 +121,7 @@ func _show_entry_page(entry: Dictionary, page_text: String, apply_effects: bool)
 	_full_text = page_text
 	dialogue_text.text = _full_text
 	dialogue_text.visible_characters = 0
+	dialogue_text.custom_minimum_size = Vector2(0, DIALOGUE_TEXT_HEIGHT)
 	_visible_chars = 0
 	_is_typing = true
 	_is_waiting_for_input = false
@@ -158,6 +161,7 @@ func _finish_typing() -> void:
 		continue_indicator.visible = true
 	else:
 		# Show choices
+		dialogue_text.custom_minimum_size = Vector2(0, CHOICE_PROMPT_TEXT_HEIGHT)
 		_show_choices(choices)
 
 func _show_choices(choices: Array) -> void:
@@ -182,14 +186,47 @@ func _show_choices(choices: Array) -> void:
 
 		var btn := Button.new()
 		btn.text = choice.get("text", "...")
-		btn.custom_minimum_size = InputManager.get_min_touch_target_size()
+		btn.custom_minimum_size = Vector2(0, 42 if not InputManager.is_mobile else 38)
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.pressed.connect(_on_choice_pressed.bind(i))
 
 		# Style the button for cyberpunk look
 		btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
 		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
+		btn.add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0))
+		btn.add_theme_font_size_override("font_size", 18 if not InputManager.is_mobile else 15)
+		btn.add_theme_stylebox_override(
+			"normal",
+			_create_choice_button_style(Color(0.01, 0.018, 0.026, 0.9), Color(0.0, 0.78, 0.82, 0.74), 1)
+		)
+		btn.add_theme_stylebox_override(
+			"hover",
+			_create_choice_button_style(Color(0.015, 0.032, 0.045, 0.98), Color(1.0, 0.0, 0.6, 0.88), 2)
+		)
+		btn.add_theme_stylebox_override(
+			"pressed",
+			_create_choice_button_style(Color(0.0, 0.12, 0.14, 0.98), Color(0.0, 0.95, 0.95, 1.0), 2)
+		)
+		btn.add_theme_stylebox_override(
+			"focus",
+			_create_choice_button_style(Color(0, 0, 0, 0), Color(0.0, 0.95, 0.95, 0.9), 2)
+		)
 
 		choices_container.add_child(btn)
+
+func _create_choice_button_style(bg_color: Color, border_color: Color, border_width: int) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg_color
+	style.border_color = border_color
+	style.set_border_width_all(border_width)
+	style.set_corner_radius_all(3)
+	style.shadow_color = Color(0.0, 0.95, 0.95, 0.12)
+	style.shadow_size = 6
+	style.set_content_margin(SIDE_LEFT, 18)
+	style.set_content_margin(SIDE_RIGHT, 18)
+	style.set_content_margin(SIDE_TOP, 8)
+	style.set_content_margin(SIDE_BOTTOM, 8)
+	return style
 
 func _on_choice_pressed(index: int) -> void:
 	var entry: Dictionary = _current_dialogue[_current_index]
