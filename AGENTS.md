@@ -38,13 +38,14 @@
 ## 開發規則
 
 ### 劇情製作規則
-- 每次新增、改寫或延伸劇情、對話、證據、結局、角色支線前，必須先閱讀 `C:\Users\gary1\OneDrive\桌面\obsidian\project開發\NEON MEMORIES\NEON MEMORIES 目前進度與劇情缺口.md`。
+- 每次新增、改寫或延伸劇情、對話、證據、結局、角色支線、程式碼前，必須先閱讀 `C:\Users\gary1\OneDrive\桌面\obsidian\project開發\NEON MEMORIES\NEON MEMORIES 目前進度與劇情缺口.md`。
 - 劇情改動應優先補該檔案列出的缺口，並確認新內容有明確用途：人物動機、玩家選擇代價、證據解鎖、地點推進或結局條件。
-- 新增劇情後，同步更新上述 Obsidian 檔案的目前狀態、缺口或更新紀錄，避免後續 agent 重複規劃同一段內容。
+- 新增劇情後，同步更新上述 Obsidian 檔案的目前狀態、缺口或更新紀錄，避免後續 agent 重複規劃同一段內容，然後規劃下一步該做什麼。
 
 ### 程式碼品質
 - 每次 push 前必須檢視程式碼是否乾淨（無除錯用的 print、無未使用的變數、無註解掉的程式碼區塊）
 - Push 後會交給 Codex 進行自動化程式碼檢查
+- 結束後會交給Claude code檢測
 
 ### 專案結構
 - `scripts/core/` — 核心系統（autoload 單例）
@@ -65,3 +66,9 @@
 - 分支: `Codex/cyberpunk-game-ideas-Mok3L`
 - Commit 訊息使用 conventional commits 格式（feat/fix/refactor/docs）
 - 不要提交 `.godot/` 目錄或 `.import` 檔案
+
+### 圖片生成規則
+- 任何與圖片、素材、UI 圖、背景、角色圖、物品圖、CG、icon、overlay 或 image2/image_gen 相關的需求，不可只停在文字描述。
+- 執行前必須先整理可直接使用的生成提示詞，明確包含目標檔名、用途、尺寸、透明或不透明背景、風格、禁止項與驗收標準。
+- 整理提示詞後，必須實際呼叫 `image_gen` 生成圖片；若生成結果需要接入專案，保留原始生成檔，並複製到對應 runtime 路徑。
+- 若因安全、工具或環境限制無法呼叫 `image_gen`，必須在回覆中明確說明原因，並保留可重試的完整提示詞。

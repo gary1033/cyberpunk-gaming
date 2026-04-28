@@ -235,13 +235,13 @@ func _setup_ui() -> void:
 	dialogue_system.add_to_group("dialogue_system")
 
 	# Portraits
-	var portrait_size := Vector2(124, 150)
-	var portrait_margin_x := 66
-	var portrait_bottom_gap := 30
+	var portrait_size := Vector2(170, 170)
+	var portrait_margin_x := 92
+	var portrait_bottom_gap := 38
 	if InputManager.is_mobile:
-		portrait_size = Vector2(88, 112)
-		portrait_margin_x = 34
-		portrait_bottom_gap = 24
+		portrait_size = Vector2(112, 112)
+		portrait_margin_x = 58
+		portrait_bottom_gap = 36
 
 	var portrait_left := TextureRect.new()
 	portrait_left.name = "PortraitLeft"
@@ -275,7 +275,7 @@ func _setup_ui() -> void:
 	var dialogue_panel := PanelContainer.new()
 	dialogue_panel.name = "DialoguePanel"
 	dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	dialogue_panel.offset_top = -220
+	dialogue_panel.offset_top = -240
 	dialogue_panel.add_theme_stylebox_override(
 		"panel",
 		_create_generated_panel_style("dialogue_panel", Color(0.02, 0.02, 0.08, 0.9), Color(0.0, 0.7, 0.7, 0.8), 16)
@@ -320,11 +320,11 @@ func _setup_ui() -> void:
 
 	var dialogue_margin := MarginContainer.new()
 	dialogue_margin.name = "DialogueContentMargin"
-	var side_text_margin := int(portrait_margin_x + portrait_size.x + 74)
+	var side_text_margin := 370
 	if InputManager.is_mobile:
-		side_text_margin = int(portrait_margin_x + portrait_size.x + 38)
+		side_text_margin = 226
 	dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)
-	dialogue_margin.add_theme_constant_override("margin_right", 18)
+	dialogue_margin.add_theme_constant_override("margin_right", 36)
 	dialogue_margin.add_child(vbox)
 
 	dialogue_panel.add_child(dialogue_margin)

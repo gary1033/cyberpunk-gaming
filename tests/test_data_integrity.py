@@ -1283,7 +1283,7 @@ def test_runtime_ui_playability_regressions():
 
     # Bug regression: portraits should be scaled into the generated red portrait
     # frame instead of floating above the dialogue panel.
-    if "portrait_size := Vector2(124, 150)" in location_base and "portrait_bottom_gap := 30" in location_base and "dialogue_panel.offset_top = -220" in location_base:
+    if "portrait_size := Vector2(170, 170)" in location_base and "portrait_bottom_gap := 38" in location_base and "dialogue_panel.offset_top = -240" in location_base:
         ok("Dialogue portraits fit inside the generated portrait frame")
     else:
         fail("Dialogue portraits are not fitted into the generated portrait frame")
@@ -1295,7 +1295,7 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("Dialogue portraits can still render on the right side")
 
-    if 'dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)' in location_base and 'dialogue_margin.add_theme_constant_override("margin_right", 18)' in location_base and "dialogue_text.clip_contents = true" in location_base:
+    if "var side_text_margin := 370" in location_base and 'dialogue_margin.add_theme_constant_override("margin_right", 36)' in location_base and "dialogue_text.clip_contents = true" in location_base:
         ok("Dialogue text stays inside the widened generated dialogue frame")
     else:
         fail("Dialogue text margins can overlap portraits or overflow the frame")
