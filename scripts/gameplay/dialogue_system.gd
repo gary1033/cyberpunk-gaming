@@ -18,9 +18,14 @@ signal choice_made(choice_index: int)
 @onready var continue_indicator: Label = get_node("DialoguePanel").find_child("ContinueIndicator", true, false) as Label
 
 const STORY_CG_DIR := "res://assets/sprites/cg/ch1"
+const DESKTOP_DIALOGUE_PAGE_CHARS := 54
+const MOBILE_DIALOGUE_PAGE_CHARS := 34
+const DIALOGUE_SPLIT_PUNCTUATION := "，。！？；：、,.!?;: "
 
 var _current_dialogue: Array = []  # Array of dialogue entries
 var _current_index: int = 0
+var _current_entry_pages: Array = []
+var _current_page_index: int = 0
 var _is_typing: bool = false
 var _is_waiting_for_input: bool = false
 var _full_text: String = ""
@@ -73,12 +78,11 @@ func start_dialogue(dialogue_data: Array) -> void:
 	_show_entry(_current_dialogue[_current_index])
 
 func _show_entry(entry: Dictionary) -> void:
-	var story_cg: String = entry.get("show_cg", "")
-	if story_cg != "":
-		_show_story_cg(story_cg)
-	elif entry.get("clear_cg", false):
-		_hide_story_cg()
+	_current_entry_pages = _split_dialogue_pages(entry.get("text", ""))
+	_current_page_index = 0
+	_show_entry_page(entry, _current_entry_pages[_current_page_index], true)
 
+func _show_entry_page(entry: Dictionary, page_text: String, apply_effects: bool) -> void:
 	# Character name
 	character_name_label.text = entry.get("name", "")
 
@@ -90,22 +94,29 @@ func _show_entry(entry: Dictionary) -> void:
 		mood = "thoughtful"
 	_update_portrait(speaker, mood, "left")
 
-	# Set flag if specified
-	var flag: String = entry.get("set_flag", "")
-	if flag != "":
-		GameManager.set_dialogue_flag(flag)
+	if apply_effects:
+		var story_cg: String = entry.get("show_cg", "")
+		if story_cg != "":
+			_show_story_cg(story_cg)
+		elif entry.get("clear_cg", false):
+			_hide_story_cg()
 
-	var decision_change: Dictionary = entry.get("set_decision", {})
-	for decision_id in decision_change:
-		GameManager.set_decision(decision_id, decision_change[decision_id])
+		# Set flag if specified
+		var flag: String = entry.get("set_flag", "")
+		if flag != "":
+			GameManager.set_dialogue_flag(flag)
 
-	# Give evidence if specified
-	var evidence: String = entry.get("give_evidence", "")
-	if evidence != "":
-		GameManager.collect_evidence(evidence)
+		var decision_change: Dictionary = entry.get("set_decision", {})
+		for decision_id in decision_change:
+			GameManager.set_decision(decision_id, decision_change[decision_id])
+
+		# Give evidence if specified
+		var evidence: String = entry.get("give_evidence", "")
+		if evidence != "":
+			GameManager.collect_evidence(evidence)
 
 	# Start typewriter effect
-	_full_text = entry.get("text", "")
+	_full_text = page_text
 	dialogue_text.text = _full_text
 	dialogue_text.visible_characters = 0
 	_visible_chars = 0
@@ -132,6 +143,11 @@ func _process(delta: float) -> void:
 func _finish_typing() -> void:
 	_is_typing = false
 	dialogue_text.visible_characters = -1  # Show all
+
+	if _has_more_pages():
+		_is_waiting_for_input = true
+		continue_indicator.visible = true
+		return
 
 	var entry: Dictionary = _current_dialogue[_current_index]
 	var choices: Array = entry.get("choices", [])
@@ -232,11 +248,53 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func _advance() -> void:
+	if _has_more_pages():
+		_current_page_index += 1
+		_show_entry_page(_current_dialogue[_current_index], _current_entry_pages[_current_page_index], false)
+		return
+
 	_current_index += 1
 	if _current_index >= _current_dialogue.size():
 		end_dialogue()
 	else:
 		_show_entry(_current_dialogue[_current_index])
+
+func _has_more_pages() -> bool:
+	return _current_page_index + 1 < _current_entry_pages.size()
+
+func _split_dialogue_pages(text: String) -> Array:
+	if text == "":
+		return [""]
+
+	var limit := MOBILE_DIALOGUE_PAGE_CHARS if InputManager.is_mobile else DESKTOP_DIALOGUE_PAGE_CHARS
+	if text.length() <= limit:
+		return [text]
+
+	var pages: Array = []
+	var start := 0
+	while start < text.length():
+		var end := mini(start + limit, text.length())
+		if end < text.length():
+			end = _find_dialogue_page_break(text, start, end)
+
+		var page := text.substr(start, end - start).strip_edges()
+		if page != "":
+			pages.append(page)
+
+		start = end
+		while start < text.length() and text.substr(start, 1) == " ":
+			start += 1
+
+	if pages.is_empty():
+		return [text]
+	return pages
+
+func _find_dialogue_page_break(text: String, start: int, hard_end: int) -> int:
+	var min_break := start + int(float(hard_end - start) * 0.55)
+	for i in range(hard_end - 1, min_break - 1, -1):
+		if DIALOGUE_SPLIT_PUNCTUATION.contains(text.substr(i, 1)):
+			return i + 1
+	return hard_end
 
 func _jump_to_label(label: String) -> void:
 	for i in _current_dialogue.size():
@@ -251,6 +309,8 @@ func end_dialogue() -> void:
 	visible = false
 	_current_dialogue.clear()
 	_current_index = 0
+	_current_entry_pages.clear()
+	_current_page_index = 0
 	_hide_story_cg()
 	GameManager.set_state(GameManager.GameState.PLAYING)
 	dialogue_ended.emit()

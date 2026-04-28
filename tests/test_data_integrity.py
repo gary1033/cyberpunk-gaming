@@ -1281,12 +1281,12 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("Dialogue panel content can overlap character portraits")
 
-    # Bug regression: portraits should sit just above the generated lower
-    # dialogue frame, not high over the room background or inside the text flow.
-    if "portrait_bottom_gap := 112" in location_base and "portrait_bottom_gap = 108" in location_base and "portrait_size" in location_base:
-        ok("Dialogue portraits sit just above the lower dialogue frame")
+    # Bug regression: portraits should be scaled into the generated red portrait
+    # frame instead of floating above the dialogue panel.
+    if "portrait_size := Vector2(124, 150)" in location_base and "portrait_bottom_gap := 30" in location_base and "dialogue_panel.offset_top = -220" in location_base:
+        ok("Dialogue portraits fit inside the generated portrait frame")
     else:
-        fail("Dialogue portraits are not aligned above the lower dialogue frame")
+        fail("Dialogue portraits are not fitted into the generated portrait frame")
 
     # Bug regression: all dialogue portraits should be anchored to the lower-left
     # portrait frame so right-side speakers do not cover the room background or choices.
@@ -1295,10 +1295,10 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("Dialogue portraits can still render on the right side")
 
-    if 'dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)' in location_base and 'dialogue_margin.add_theme_constant_override("margin_right", 32)' in location_base:
-        ok("Dialogue text reserves the left portrait area without wasting right-side width")
+    if 'dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)' in location_base and 'dialogue_margin.add_theme_constant_override("margin_right", 18)' in location_base and "dialogue_text.clip_contents = true" in location_base:
+        ok("Dialogue text stays inside the widened generated dialogue frame")
     else:
-        fail("Dialogue text margins can overlap portraits or clip right-side text")
+        fail("Dialogue text margins can overlap portraits or overflow the frame")
 
     if 'find_child("NameLabel", true, false)' in dialogue_system and 'find_child("DialogueText", true, false)' in dialogue_system:
         ok("DialogueSystem resolves text nodes after margin-container layout")
@@ -1311,6 +1311,13 @@ def test_runtime_ui_playability_regressions():
         ok("Dialogue supports Space for fast-forward and advance")
     else:
         fail("Dialogue does not support Space for fast-forward and advance")
+
+    # Bug regression: long dialogue lines must paginate before they overflow
+    # the generated right-side text frame.
+    if "_split_dialogue_pages" in dialogue_system and "DESKTOP_DIALOGUE_PAGE_CHARS" in dialogue_system and "_has_more_pages()" in dialogue_system:
+        ok("DialogueSystem paginates long text into follow-up pages")
+    else:
+        fail("DialogueSystem does not paginate long text before overflow")
 
     if "for i in range(evidence_list.size())" in evidence_board and "var row: int = int(i / cols)" in evidence_board:
         ok("EvidenceBoard card grid uses safe range iteration and int row conversion")

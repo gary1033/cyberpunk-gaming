@@ -235,13 +235,13 @@ func _setup_ui() -> void:
 	dialogue_system.add_to_group("dialogue_system")
 
 	# Portraits
-	var portrait_size := Vector2(168, 252)
-	var portrait_margin_x := 24
-	var portrait_bottom_gap := 112
+	var portrait_size := Vector2(124, 150)
+	var portrait_margin_x := 66
+	var portrait_bottom_gap := 30
 	if InputManager.is_mobile:
-		portrait_size = Vector2(112, 168)
-		portrait_margin_x = 12
-		portrait_bottom_gap = 108
+		portrait_size = Vector2(88, 112)
+		portrait_margin_x = 34
+		portrait_bottom_gap = 24
 
 	var portrait_left := TextureRect.new()
 	portrait_left.name = "PortraitLeft"
@@ -275,7 +275,7 @@ func _setup_ui() -> void:
 	var dialogue_panel := PanelContainer.new()
 	dialogue_panel.name = "DialoguePanel"
 	dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	dialogue_panel.offset_top = -200
+	dialogue_panel.offset_top = -220
 	dialogue_panel.add_theme_stylebox_override(
 		"panel",
 		_create_generated_panel_style("dialogue_panel", Color(0.02, 0.02, 0.08, 0.9), Color(0.0, 0.7, 0.7, 0.8), 16)
@@ -294,12 +294,13 @@ func _setup_ui() -> void:
 	var dialogue_text := RichTextLabel.new()
 	dialogue_text.name = "DialogueText"
 	dialogue_text.bbcode_enabled = true
-	dialogue_text.fit_content = true
+	dialogue_text.fit_content = false
+	dialogue_text.clip_contents = true
 	dialogue_text.scroll_active = false
 	dialogue_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	dialogue_text.add_theme_color_override("default_color", Color(0.9, 0.9, 0.9))
 	dialogue_text.add_theme_font_size_override("normal_font_size", 18)
-	dialogue_text.custom_minimum_size = Vector2(0, 80)
+	dialogue_text.custom_minimum_size = Vector2(0, 96)
 	vbox.add_child(dialogue_text)
 
 	var choices_container := VBoxContainer.new()
@@ -318,11 +319,11 @@ func _setup_ui() -> void:
 
 	var dialogue_margin := MarginContainer.new()
 	dialogue_margin.name = "DialogueContentMargin"
-	var side_text_margin := int(portrait_margin_x + portrait_size.x + 28)
+	var side_text_margin := int(portrait_margin_x + portrait_size.x + 74)
 	if InputManager.is_mobile:
-		side_text_margin = int(portrait_margin_x + portrait_size.x + 16)
+		side_text_margin = int(portrait_margin_x + portrait_size.x + 38)
 	dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)
-	dialogue_margin.add_theme_constant_override("margin_right", 32)
+	dialogue_margin.add_theme_constant_override("margin_right", 18)
 	dialogue_margin.add_child(vbox)
 
 	dialogue_panel.add_child(dialogue_margin)
