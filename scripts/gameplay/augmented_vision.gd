@@ -17,12 +17,26 @@ var generated_overlay: TextureRect = null
 var generated_reticle: TextureRect = null
 var glitch_noise: TextureRect = null
 var activation_cutin: TextureRect = null
-var energy_bar: ProgressBar = null
+var energy_bar: Control = null
 var toggle_button: Button = null
 var scan_label: Label = null
 var focus_reticle: ColorRect = null
 
 var _shader_material: ShaderMaterial = null
+var _energy_segments: Array = []
+var _energy_orb: Panel = null
+var _drain_timer: float = 0.0
+var _energy_pulse_phase: float = 0.0
+var _reticle_position: Vector2 = Vector2.ZERO
+var _reticle_target_position: Vector2 = Vector2.ZERO
+var _reticle_initialized: bool = false
+var _reticle_scan_timer: float = 0.0
+var _last_focused_hotspot: Node = null
+
+const EAGLE_EYE_SEGMENT_COUNT := 8
+const EAGLE_EYE_DRAIN_INTERVAL := 1.0
+const EAGLE_EYE_RETICLE_SIZE := Vector2(192, 192)
+const EAGLE_EYE_RETICLE_SCAN_RADIUS := 72.0
 
 func _ready() -> void:
 	layer = 50
@@ -64,12 +78,8 @@ func _ensure_runtime_nodes() -> void:
 	if generated_reticle == null:
 		generated_reticle = TextureRect.new()
 		generated_reticle.name = "GeneratedFocusReticle"
-		generated_reticle.set_anchors_preset(Control.PRESET_CENTER)
-		generated_reticle.offset_left = -96
-		generated_reticle.offset_right = 96
-		generated_reticle.offset_top = -96
-		generated_reticle.offset_bottom = 96
-		generated_reticle.custom_minimum_size = Vector2(192, 192)
+		generated_reticle.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		generated_reticle.custom_minimum_size = EAGLE_EYE_RETICLE_SIZE
 		generated_reticle.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		generated_reticle.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		generated_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -82,11 +92,7 @@ func _ensure_runtime_nodes() -> void:
 		focus_reticle.name = "FallbackFocusReticle"
 		focus_reticle.color = Color(0.0, 0.95, 0.95, 0.16)
 		focus_reticle.custom_minimum_size = Vector2(180, 2)
-		focus_reticle.set_anchors_preset(Control.PRESET_CENTER)
-		focus_reticle.offset_left = -90
-		focus_reticle.offset_right = 90
-		focus_reticle.offset_top = -1
-		focus_reticle.offset_bottom = 1
+		focus_reticle.set_anchors_preset(Control.PRESET_TOP_LEFT)
 		focus_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		focus_reticle.visible = false
 		add_child(focus_reticle)
@@ -102,17 +108,17 @@ func _ensure_runtime_nodes() -> void:
 		add_child(activation_cutin)
 
 	if energy_bar == null:
-		energy_bar = ProgressBar.new()
+		energy_bar = Control.new()
 		energy_bar.name = "EnergyBar"
 		energy_bar.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-		energy_bar.offset_left = -190
+		energy_bar.offset_left = -378
 		energy_bar.offset_right = -24
 		energy_bar.offset_top = 46
-		energy_bar.offset_bottom = 62
-		energy_bar.show_percentage = false
+		energy_bar.offset_bottom = 92
 		energy_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		energy_bar.visible = false
 		add_child(energy_bar)
+		_build_energy_widget()
 
 	if scan_label == null:
 		scan_label = Label.new()
@@ -141,6 +147,65 @@ func _ensure_runtime_nodes() -> void:
 		toggle_button.visible = InputManager.is_mobile
 		toggle_button.pressed.connect(toggle)
 		add_child(toggle_button)
+
+func _build_energy_widget() -> void:
+	if energy_bar == null:
+		return
+
+	var frame := Panel.new()
+	frame.name = "TechEnergyFrame"
+	frame.set_anchors_preset(Control.PRESET_FULL_RECT)
+	frame.add_theme_stylebox_override(
+		"panel",
+		_create_panel_style(Color(0.012, 0.018, 0.026, 0.88), Color(0.0, 0.82, 0.88, 0.66), 2, 8)
+	)
+	energy_bar.add_child(frame)
+
+	_energy_orb = Panel.new()
+	_energy_orb.name = "EnergyOrb"
+	_energy_orb.set_anchors_preset(Control.PRESET_LEFT_WIDE)
+	_energy_orb.offset_left = 8
+	_energy_orb.offset_right = 52
+	_energy_orb.offset_top = 4
+	_energy_orb.offset_bottom = -4
+	_energy_orb.add_theme_stylebox_override(
+		"panel",
+		_create_panel_style(Color(1.0, 0.56, 0.02, 0.92), Color(1.0, 0.76, 0.08, 0.95), 2, 22)
+	)
+	frame.add_child(_energy_orb)
+
+	var segment_row := HBoxContainer.new()
+	segment_row.name = "EnergySegments"
+	segment_row.set_anchors_preset(Control.PRESET_FULL_RECT)
+	segment_row.offset_left = 66
+	segment_row.offset_right = -14
+	segment_row.offset_top = 10
+	segment_row.offset_bottom = -10
+	segment_row.add_theme_constant_override("separation", 5)
+	frame.add_child(segment_row)
+
+	_energy_segments.clear()
+	for i in range(EAGLE_EYE_SEGMENT_COUNT):
+		var segment := Panel.new()
+		segment.name = "EnergySegment%02d" % i
+		segment.custom_minimum_size = Vector2(28, 0)
+		segment.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		segment.add_theme_stylebox_override(
+			"panel",
+			_create_panel_style(Color(0.15, 0.1, 0.03, 0.78), Color(0.9, 0.58, 0.08, 0.42), 1, 3)
+		)
+		segment_row.add_child(segment)
+		_energy_segments.append(segment)
+
+func _create_panel_style(bg_color: Color, border_color: Color, border_width: int, radius: int) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = bg_color
+	style.border_color = border_color
+	style.set_border_width_all(border_width)
+	style.set_corner_radius_all(radius)
+	style.shadow_color = Color(0.0, 0.95, 0.95, 0.14)
+	style.shadow_size = 6
+	return style
 
 func _setup_shader_fallback() -> void:
 	if overlay == null:
@@ -186,17 +251,37 @@ func _load_runtime_texture(res_path: String) -> Texture2D:
 
 func _process(delta: float) -> void:
 	if GameManager.eagle_eye_active:
-		GameManager.consume_eagle_eye_energy(delta)
+		_drain_timer += delta
+		while _drain_timer >= EAGLE_EYE_DRAIN_INTERVAL:
+			_drain_timer -= EAGLE_EYE_DRAIN_INTERVAL
+			GameManager.consume_eagle_eye_energy(EAGLE_EYE_DRAIN_INTERVAL)
 		if GameManager.eagle_eye_energy <= 0:
 			_deactivate()
+		_update_reticle_motion(delta)
+		_scan_hotspots_under_reticle(delta)
 	else:
+		_drain_timer = 0.0
 		GameManager.recharge_eagle_eye(delta)
 
+	_animate_energy_widget(delta)
 	_update_energy_bar()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_eagle_eye"):
 		toggle()
+		return
+
+	if not GameManager.eagle_eye_active:
+		return
+
+	if event is InputEventMouseMotion:
+		_set_reticle_target(event.position)
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_set_reticle_target(event.position)
+	elif event is InputEventScreenDrag:
+		_set_reticle_target(event.position)
+	elif event is InputEventScreenTouch and event.pressed:
+		_set_reticle_target(event.position)
 
 func toggle() -> void:
 	if GameManager.eagle_eye_active:
@@ -210,6 +295,8 @@ func _activate() -> void:
 		return
 
 	if GameManager.activate_eagle_eye():
+		_drain_timer = 0.0
+		_center_reticle_if_needed()
 		_set_overlay_visible(true)
 		scan_label.text = "[ EAGLE EYE ACTIVE ]"
 
@@ -228,6 +315,8 @@ func _activate() -> void:
 
 func _deactivate() -> void:
 	GameManager.deactivate_eagle_eye()
+	_drain_timer = 0.0
+	_last_focused_hotspot = null
 
 	var tween := create_tween()
 	tween.tween_property(overlay, "modulate:a", 0.0, 0.2)
@@ -260,6 +349,8 @@ func _set_overlay_visible(is_visible: bool) -> void:
 		scan_label.visible = is_visible
 	if energy_bar:
 		energy_bar.visible = is_visible
+	if is_visible:
+		_apply_reticle_position(_reticle_position)
 
 func trigger_glitch_pulse() -> void:
 	var was_active := GameManager.eagle_eye_active
@@ -308,27 +399,116 @@ func _play_activation_cutin() -> void:
 			activation_cutin.visible = false
 	)
 
+func _center_reticle_if_needed() -> void:
+	if _reticle_initialized:
+		return
+	var viewport_size := get_viewport().get_visible_rect().size
+	_reticle_position = viewport_size * 0.5
+	_reticle_target_position = _reticle_position
+	_reticle_initialized = true
+	_apply_reticle_position(_reticle_position)
+
+func _set_reticle_target(screen_position: Vector2) -> void:
+	var viewport_size := get_viewport().get_visible_rect().size
+	_reticle_target_position = Vector2(
+		clampf(screen_position.x, EAGLE_EYE_RETICLE_SIZE.x * 0.5, viewport_size.x - EAGLE_EYE_RETICLE_SIZE.x * 0.5),
+		clampf(screen_position.y, EAGLE_EYE_RETICLE_SIZE.y * 0.5, viewport_size.y - EAGLE_EYE_RETICLE_SIZE.y * 0.5)
+	)
+	if not _reticle_initialized:
+		_reticle_position = _reticle_target_position
+		_reticle_initialized = true
+	_apply_reticle_position(_reticle_position)
+
+func _update_reticle_motion(delta: float) -> void:
+	if not _reticle_initialized:
+		_center_reticle_if_needed()
+		return
+	_reticle_position = _reticle_position.lerp(_reticle_target_position, clampf(delta * 12.0, 0.0, 1.0))
+	_apply_reticle_position(_reticle_position)
+
+func _apply_reticle_position(screen_position: Vector2) -> void:
+	if generated_reticle:
+		generated_reticle.offset_left = screen_position.x - EAGLE_EYE_RETICLE_SIZE.x * 0.5
+		generated_reticle.offset_right = screen_position.x + EAGLE_EYE_RETICLE_SIZE.x * 0.5
+		generated_reticle.offset_top = screen_position.y - EAGLE_EYE_RETICLE_SIZE.y * 0.5
+		generated_reticle.offset_bottom = screen_position.y + EAGLE_EYE_RETICLE_SIZE.y * 0.5
+	if focus_reticle:
+		focus_reticle.offset_left = screen_position.x - 90
+		focus_reticle.offset_right = screen_position.x + 90
+		focus_reticle.offset_top = screen_position.y - 1
+		focus_reticle.offset_bottom = screen_position.y + 1
+
+func _scan_hotspots_under_reticle(delta: float) -> void:
+	_reticle_scan_timer += delta
+	if _reticle_scan_timer < 0.18:
+		return
+	_reticle_scan_timer = 0.0
+
+	var closest_hotspot: Node = null
+	var closest_distance := EAGLE_EYE_RETICLE_SCAN_RADIUS
+	for hotspot in get_tree().get_nodes_in_group("hotspots"):
+		if not (hotspot is Node2D):
+			continue
+		if not (hotspot as Node2D).visible:
+			continue
+		var hotspot_screen_pos := (hotspot as Node2D).get_global_transform_with_canvas().origin
+		var distance := hotspot_screen_pos.distance_to(_reticle_position)
+		if distance <= closest_distance:
+			closest_distance = distance
+			closest_hotspot = hotspot
+
+	if closest_hotspot != null and closest_hotspot != _last_focused_hotspot:
+		_last_focused_hotspot = closest_hotspot
+		_pulse_scanned_hotspot(closest_hotspot)
+
+func _pulse_scanned_hotspot(hotspot: Node) -> void:
+	var sprite := hotspot.get_node_or_null("Sprite2D") as Sprite2D
+	if sprite == null:
+		return
+	var tween := sprite.create_tween()
+	tween.tween_property(sprite, "modulate", Color(0.0, 0.95, 0.95, 1.0), 0.08)
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.22)
+
 func _update_energy_bar() -> void:
 	if energy_bar:
-		energy_bar.max_value = GameManager.eagle_eye_max_energy
-		energy_bar.value = GameManager.eagle_eye_energy
 		energy_changed.emit(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy)
 
 		var ratio := GameManager.eagle_eye_energy / GameManager.eagle_eye_max_energy
-		if ratio > 0.5:
-			energy_bar.modulate = Color(0.0, 0.9, 0.9)
-		elif ratio > 0.2:
-			energy_bar.modulate = Color(0.9, 0.9, 0.0)
-		else:
-			energy_bar.modulate = Color(0.9, 0.2, 0.2)
+		var active_segments := ceili(ratio * EAGLE_EYE_SEGMENT_COUNT)
+		for i in range(_energy_segments.size()):
+			var segment := _energy_segments[i] as Panel
+			if segment == null:
+				continue
+			var filled := i < active_segments
+			var fill_color := Color(1.0, 0.58, 0.03, 0.96)
+			var border_color := Color(1.0, 0.78, 0.08, 0.95)
+			if ratio <= 0.25:
+				fill_color = Color(1.0, 0.12, 0.08, 0.94)
+				border_color = Color(1.0, 0.32, 0.2, 0.92)
+			elif ratio <= 0.5:
+				fill_color = Color(0.96, 0.82, 0.08, 0.94)
+				border_color = Color(1.0, 0.9, 0.32, 0.9)
+			segment.add_theme_stylebox_override(
+				"panel",
+				_create_panel_style(fill_color if filled else Color(0.06, 0.07, 0.08, 0.72), border_color if filled else Color(0.0, 0.45, 0.5, 0.3), 1, 3)
+			)
+
+func _animate_energy_widget(delta: float) -> void:
+	if not energy_bar:
+		return
+	_energy_pulse_phase += delta * 5.0
+	var pulse := 0.82 + sin(_energy_pulse_phase) * 0.16
+	if _energy_orb:
+		_energy_orb.modulate = Color(1.0, 0.82, 0.28, pulse)
+	energy_bar.modulate = Color(1.0, 1.0, 1.0, 0.92 + sin(_energy_pulse_phase * 0.5) * 0.08)
 
 func _flash_energy_bar() -> void:
 	if energy_bar:
 		energy_bar.visible = true
 		var tween := create_tween()
-		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.0, 0.0), 0.15)
+		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.22, 0.12), 0.15)
 		tween.tween_property(energy_bar, "modulate", Color.WHITE, 0.15)
-		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.0, 0.0), 0.15)
+		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.22, 0.12), 0.15)
 		tween.tween_property(energy_bar, "modulate", Color.WHITE, 0.15)
 		tween.tween_callback(func():
 			if not GameManager.eagle_eye_active:

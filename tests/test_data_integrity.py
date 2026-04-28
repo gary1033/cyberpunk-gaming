@@ -1331,12 +1331,19 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("EvidenceBoard card grid still uses unsafe iteration or row conversion")
 
-    # Bug regression: eagle-eye energy bar should not sit over the top-right AP
-    # label while inactive.
-    if "energy_bar.offset_top = 46" in augmented_vision and "energy_bar.visible = false" in augmented_vision and "energy_bar.visible = is_visible" in augmented_vision:
-        ok("Eagle-eye energy bar stays below AP and is hidden while inactive")
+    # Bug regression: eagle-eye energy should render as a contained segmented
+    # tech widget below the AP label and stay hidden while inactive.
+    if "EAGLE_EYE_SEGMENT_COUNT := 8" in augmented_vision and "_build_energy_widget" in augmented_vision and "energy_bar.offset_top = 46" in augmented_vision and "energy_bar.visible = is_visible" in augmented_vision:
+        ok("Eagle-eye energy uses a segmented tech widget below AP")
     else:
-        fail("Eagle-eye energy bar can overlap the AP label")
+        fail("Eagle-eye energy widget can overlap AP or regress to a plain bar")
+
+    # Bug regression: eagle-eye should spend energy in timed segments and allow
+    # the reticle to move over the scene to scan visible hotspots.
+    if "EAGLE_EYE_DRAIN_INTERVAL := 1.0" in augmented_vision and "_set_reticle_target(event.position)" in augmented_vision and "_scan_hotspots_under_reticle" in augmented_vision and 'add_to_group("hotspots")' in read_file("scripts/gameplay/hotspot.gd"):
+        ok("Eagle-eye drains timed energy segments and moves the scanner reticle")
+    else:
+        fail("Eagle-eye lacks timed drain or movable reticle scanning")
 
     # Bug regression: AP label callbacks should target a member reference, not
     # a local label that can become null after scene reloads.

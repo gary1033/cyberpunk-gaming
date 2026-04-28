@@ -28,6 +28,7 @@ var _highlight_color: Color = Color(0.0, 0.9, 0.9, 1.0)  # Cyan neon
 @onready var collision: CollisionShape2D = $CollisionShape2D if has_node("CollisionShape2D") else null
 
 func _ready() -> void:
+	add_to_group("hotspots")
 	input_pickable = true
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
