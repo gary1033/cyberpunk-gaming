@@ -1771,6 +1771,112 @@ def test_ch1_asset_replacement_readiness():
 
 
 # ---------------------------------------------------------------------------
+# 31. Bug regression: Chapter 1 opening and Mei Ling trust path should be
+# longer, playable, and connected to generated image assets.
+# ---------------------------------------------------------------------------
+def test_ch1_opening_and_mei_ling_trust_expansion():
+    print("\n[31] Chapter 1 opening and Mei Ling trust expansion")
+    case_content = read_file("scripts/data/case_data.gd") or ""
+    dialogue_content = read_file("scripts/data/dialogue_data.gd") or ""
+    evidence_content = read_file("scripts/data/evidence_data.gd") or ""
+    board_content = read_file("scripts/gameplay/evidence_board.gd") or ""
+
+    if '"show_cg": "cg_kai_office_prologue"' in dialogue_content and "正和科技安全調查員" in dialogue_content:
+        ok("New-game opening shows Kai office prologue CG before Mei Ling enters")
+    else:
+        fail("Opening still lacks the Kai office prologue CG setup")
+
+    expected_dialogues = [
+        "ch1_hao_ran_drawer_search",
+        "ch1_original_backup_album",
+        "ch1_hao_ran_encrypted_message",
+    ]
+    for dialogue_id in expected_dialogues:
+        if f'"{dialogue_id}": [' in dialogue_content:
+            ok(f"Chapter 1 expanded dialogue exists: {dialogue_id}")
+        else:
+            fail(f"Missing expanded Chapter 1 dialogue: {dialogue_id}")
+
+    expected_actions = {
+        "inspect_hao_ran_drawer": "ch1_hao_ran_drawer_search",
+        "inspect_original_backup_album": "ch1_original_backup_album",
+        "decode_hao_ran_last_message": "ch1_hao_ran_encrypted_message",
+    }
+    for action_id, dialogue_id in expected_actions.items():
+        if f'"id": "{action_id}"' in case_content and f'"dialogue": "{dialogue_id}"' in case_content:
+            ok(f"Expanded story action wired: {action_id}")
+        else:
+            fail(f"Expanded story action missing or miswired: {action_id}")
+
+    expected_evidence = {
+        "hao_ran_drawer_note": "hao_ran_drawer_note",
+        "original_backup_hint": "original_backup_hint",
+        "hao_ran_encrypted_message": "log",
+    }
+    for evidence_id, preferred_or_icon in expected_evidence.items():
+        if f'"{evidence_id}": {{' not in evidence_content:
+            fail(f"Missing expanded Chapter 1 evidence: {evidence_id}")
+            continue
+        if f'"preferred_icon": "{preferred_or_icon}"' in evidence_content or f'"icon": "{preferred_or_icon}"' in evidence_content:
+            ok(f"Expanded evidence has runtime icon/fallback: {evidence_id}")
+        else:
+            fail(f"Expanded evidence lacks runtime icon/fallback: {evidence_id}")
+
+    if '"original_backup_hint": "hao_ran_encrypted_message"' in board_content and '"original_backup_hint:hao_ran_encrypted_message": "deduced_mei_ling_original_backup"' in board_content:
+        ok("Evidence board connects original backup hint to Hao Ran message")
+    else:
+        fail("Evidence board does not unlock the Mei Ling original-backup deduction")
+
+    required_assets = {
+        "assets/sprites/cg/ch1/cg_kai_office_prologue.png": (1280, 720),
+        "assets/sprites/cg/ch1/cg_mei_ling_apartment_memory_trace.png": (1280, 720),
+        "assets/sprites/cg/ch1/cg_hao_ran_encrypted_message.png": (1280, 720),
+        "assets/sprites/items/hao_ran_drawer_note.png": (512, 512),
+        "assets/sprites/items/original_backup_hint.png": (512, 512),
+    }
+    for rel_path, expected_size in required_assets.items():
+        real_path = os.path.join(PROJECT_ROOT, rel_path)
+        if os.path.exists(real_path) and get_png_size(real_path) == expected_size:
+            ok(f"Generated trust-path asset connected: {rel_path}")
+        else:
+            fail(f"Missing or wrong-size trust-path asset: {rel_path}")
+
+    generated_pairs = {
+        "assets/generated/cg/ch1/cg_kai_office_prologue.png": "assets/sprites/cg/ch1/cg_kai_office_prologue.png",
+        "assets/generated/cg/ch1/cg_mei_ling_apartment_memory_trace.png": "assets/sprites/cg/ch1/cg_mei_ling_apartment_memory_trace.png",
+        "assets/generated/cg/ch1/cg_hao_ran_encrypted_message.png": "assets/sprites/cg/ch1/cg_hao_ran_encrypted_message.png",
+        "assets/generated/items/ch1/hao_ran_drawer_note.png": "assets/sprites/items/hao_ran_drawer_note.png",
+        "assets/generated/items/ch1/original_backup_hint.png": "assets/sprites/items/original_backup_hint.png",
+    }
+    for generated_rel, runtime_rel in generated_pairs.items():
+        generated_path = os.path.join(PROJECT_ROOT, generated_rel)
+        runtime_path = os.path.join(PROJECT_ROOT, runtime_rel)
+        if os.path.exists(generated_path) and os.path.exists(runtime_path) and file_sha256(generated_path) == file_sha256(runtime_path):
+            ok(f"Generated trust-path source matches runtime target: {runtime_rel}")
+        else:
+            fail(f"Generated trust-path source does not match runtime target: {runtime_rel}")
+
+    prompt_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image_gen_ch1_opening_trust_path.jsonl")
+    if not os.path.exists(prompt_path):
+        fail("Missing image_gen prompt manifest for Chapter 1 trust expansion")
+        return
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        records = [json.loads(line) for line in f if line.strip()]
+    expected_prompt_ids = {
+        "cg_kai_office_prologue",
+        "hao_ran_drawer_note",
+        "original_backup_hint",
+        "cg_hao_ran_encrypted_message",
+        "cg_mei_ling_apartment_memory_trace",
+    }
+    actual_prompt_ids = {record.get("id") for record in records}
+    for prompt_id in sorted(expected_prompt_ids - actual_prompt_ids):
+        fail(f"Missing image_gen trust-path prompt record: {prompt_id}")
+    if expected_prompt_ids.issubset(actual_prompt_ids):
+        ok("image_gen trust-path manifest covers all generated assets")
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -1813,6 +1919,7 @@ def main():
     test_ch1_eagle_eye_foreshadowing_wiring()
     test_ch1_family_memory_branch()
     test_ch1_asset_replacement_readiness()
+    test_ch1_opening_and_mei_ling_trust_expansion()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

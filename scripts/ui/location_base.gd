@@ -14,8 +14,10 @@ const BROKEN_PLAYER_SCAN_SFX := "res://assets/audio/sfx/broken_player_scan.ogg"
 const STORY_CG_DIR := "res://assets/sprites/cg/ch1"
 const EAGLE_EYE_ANOMALY_ACTIONS := {
 	"review_family_memory_clip": true,
+	"inspect_original_backup_album": true,
 	"scan_broken_memory_player": true,
 	"decode_eye_signature": true,
+	"decode_hao_ran_last_message": true,
 	"consult_dr_chen_eye_warning": true,
 }
 const CaseDataScript: GDScript = preload("res://scripts/data/case_data.gd")

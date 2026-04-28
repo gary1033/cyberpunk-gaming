@@ -23,6 +23,20 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"connections": ["detective_office", "east_district_street"],
 					"story_actions": [
 						{
+							"id": "inspect_hao_ran_drawer",
+							"title": "調查浩然上鎖抽屜",
+							"dialogue": "ch1_hao_ran_drawer_search",
+							"story_cg": "cg_mei_ling_apartment_memory_trace",
+							"requires_evidence": "commission_letter"
+						},
+						{
+							"id": "inspect_original_backup_album",
+							"title": "檢視家庭相簿與原始備份提示",
+							"dialogue": "ch1_original_backup_album",
+							"story_cg": "cg_mei_ling_apartment_memory_trace",
+							"requires_evidence": "hao_ran_drawer_note"
+						},
+						{
 							"id": "review_family_memory_clip",
 							"title": "回放家庭記憶片段",
 							"dialogue": "ch1_family_memory_clip",
@@ -64,6 +78,13 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 							"dialogue": "ch1_hao_ran_family_motive",
 							"requires_flag": "deduced_hao_ran_family_motive",
 							"requires_evidence": "family_memory_clip"
+						},
+						{
+							"id": "decode_hao_ran_last_message",
+							"title": "解讀浩然留給美玲的加密留言",
+							"dialogue": "ch1_hao_ran_encrypted_message",
+							"story_cg": "cg_hao_ran_encrypted_message",
+							"requires_evidence": "original_backup_hint"
 						},
 						{
 							"id": "consult_dr_chen_eye_warning",

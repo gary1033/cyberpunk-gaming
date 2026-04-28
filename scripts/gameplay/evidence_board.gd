@@ -24,6 +24,7 @@ var valid_connections: Dictionary = {
 	"data_chip": "memory_device_log",
 	"comm_recording": "dr_chen_schedule",
 	"family_memory_clip": "broken_memory_player",
+	"original_backup_hint": "hao_ran_encrypted_message",
 	"broken_memory_player": "memory_device_log",
 	"kai_eye_glitch_log": "data_chip",
 	# Chapter 2
@@ -43,6 +44,7 @@ var valid_connections: Dictionary = {
 
 var valid_connection_flags: Dictionary = {
 	"family_memory_clip:broken_memory_player": "deduced_hao_ran_family_motive",
+	"original_backup_hint:hao_ran_encrypted_message": "deduced_mei_ling_original_backup",
 	"broken_memory_player:memory_device_log": "deduced_player_echo_codec",
 	"kai_eye_glitch_log:data_chip": "deduced_eye_echo_signature",
 }
@@ -316,6 +318,9 @@ func _get_evidence_display_name(evidence_id: String) -> String:
 		"comm_recording": "損壞的通訊錄音",
 		"dr_chen_schedule": "Dr. 陳的預約紀錄",
 		"family_memory_clip": "家庭記憶片段",
+		"hao_ran_drawer_note": "浩然抽屜裡的維修便條",
+		"original_backup_hint": "原始記憶備份提示",
+		"hao_ran_encrypted_message": "浩然留給美玲的加密留言",
 		"broken_memory_player": "損壞的記憶播放器",
 		"kai_eye_glitch_log": "凱的鷹眼異常紀錄",
 		# Chapter 2

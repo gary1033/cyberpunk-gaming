@@ -9,7 +9,7 @@ static func get_evidence(evidence_id: String) -> Dictionary:
 static func get_all_evidence() -> Dictionary:
 	return {
 		# ============================================
-		# CHAPTER 1: 失蹤的記憶 (10 items)
+		# CHAPTER 1: 失蹤的記憶
 		# ============================================
 		"commission_letter": {
 			"name": "美玲的委託信",
@@ -67,6 +67,27 @@ static func get_all_evidence() -> Dictionary:
 			"chapter": 1,
 			"icon": "memory_capsule",
 			"preferred_icon": "family_memory_clip"
+		},
+		"hao_ran_drawer_note": {
+			"name": "浩然抽屜裡的維修便條",
+			"description": "浩然藏在上鎖抽屜裡的便條，反覆記下美玲原始備份的位置與播放器校正步驟。紙角被雨水浸濕，像是曾被匆忙帶出又塞回去。",
+			"chapter": 1,
+			"icon": "memo",
+			"preferred_icon": "hao_ran_drawer_note"
+		},
+		"original_backup_hint": {
+			"name": "原始記憶備份提示",
+			"description": "家庭相簿夾層裡的備份提示，指向美玲一段未被壓縮、未被交易市場污染的原始記憶。浩然把它和家庭照片放在一起，像是在替她留下身份錨點。",
+			"chapter": 1,
+			"icon": "memory_capsule",
+			"preferred_icon": "original_backup_hint"
+		},
+		"hao_ran_encrypted_message": {
+			"name": "浩然留給美玲的加密留言",
+			"description": "在浩然工作室中解出的短留言。它沒有直接說明浩然去了哪裡，只警告凱不要讓任何人拿走美玲的原始備份。",
+			"chapter": 1,
+			"icon": "log",
+			"preferred_icon": "log"
 		},
 		"broken_memory_player": {
 			"name": "損壞的記憶播放器",

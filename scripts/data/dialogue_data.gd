@@ -17,73 +17,111 @@ static func _get_all_dialogues() -> Dictionary:
 		"ch1_mei_ling_intro": [
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "雨水敲打著窗戶，霓虹燈的光芒透過百葉窗在牆上投射出彩色的條紋。你的義眼左眼微微嗡鳴——這是你從正和科技離開時唯一帶走的東西。"
+				"show_cg": "cg_kai_office_prologue",
+				"text": "雨水敲打著九龍延伸區的窗。你的辦公室只剩一盞壞掉的檯燈、一台過期咖啡機，以及牆上還沒拆掉的正和科技安全調查員識別框。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "門被推開了。一個穿著深色外套的年輕女子站在門口，雨水從她的衣角滴落。"
+				"text": "上一件案子剛結束：走失的仿生寵物、拖欠三週的尾款、以及一名客戶堅持把你叫成「前企業狗」。你沒有反駁。那是履歷上最接近事實的形容。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "（正和科技留下的義眼又在低鳴。不是疼痛，比較像有人在門外測試舊鎖。）",
+				"choices": [
+					{"text": "按掉義眼警示，整理委託紀錄。", "next": "kai_office_after_warning", "set_flag": "kai_suppressed_eye_warning"},
+					{"text": "讓鷹眼掃過辦公室一次。", "next": "kai_office_after_warning", "set_flag": "kai_checked_office_with_eagle_eye"}
+				]
+			},
+			{
+				"label": "kai_office_after_warning",
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你把舊案照片翻面，讓桌面看起來像一個還能營業的地方。抽屜裡的止痛藥瓶碰到金屬義眼維護盒，發出細小的聲響。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "敲門聲在第三下才變得急促。來人很克制，但克制不是平靜；那是把恐懼折好，藏進濕透外套裡的聲音。"
 			},
 			{
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
-				"text": "你是川崎偵探嗎？我...我需要你的幫助。"
+				"clear_cg": true,
+				"text": "你是川崎凱嗎？我在舊城警署外面等了四個小時，他們叫我回家等通知。可是我不能再等了。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "看情況。坐下來說吧。",
+				"text": "失蹤案？警署不立案通常有兩種原因：時間太短，或者他們不想碰。",
 				"choices": [
-					{"text": "什麼事讓你找到這種地方來？", "next": "mei_ling_case_intro", "affinity": {"mei_ling": 1}},
-					{"text": "先說好，我收費不便宜。", "next": "mei_ling_case_intro", "affinity": {"mei_ling": -1}},
+					{"text": "先坐下，把你知道的照順序說。", "next": "mei_ling_case_intro", "affinity": {"mei_ling": 1}},
+					{"text": "如果只是家人失聯，我不一定接。", "next": "mei_ling_prove_case", "affinity": {"mei_ling": -1}},
+					{"text": "你怎麼知道該來找我？", "next": "mei_ling_found_kai"}
 				]
 			},
 			{
 				"label": "mei_ling_case_intro",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
-				"text": "我弟弟浩然...他三天前失蹤了。他是一名記憶技師，在東區有一間工作室。"
+				"text": "我弟弟浩然三天前失蹤。他是一名記憶技師，在東區經營「永恆記憶」工作室。警察說成年人三天不回家不算失蹤。"
 			},
 			{
+				"label": "mei_ling_prove_case",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
-				"text": "警察說要等七天才能立案。但我知道出了什麼事——浩然從不會不接我的電話。",
+				"text": "浩然不是會消失的人。他每天晚上十一點會打給我，確認我有沒有吃藥，有沒有關掉窗邊的漏電燈。失蹤那晚，電話只響了一聲就被切掉。",
+				"give_evidence": "commission_letter"
+			},
+			{
+				"label": "mei_ling_found_kai",
+				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+				"text": "浩然以前提過你。他說如果有一天他出事，不要找警察，找那個被正和科技趕出去、但還知道怎麼看記憶傷口的人。",
 				"give_evidence": "commission_letter"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "記憶技師...幫人備份記憶的那種？",
+				"text": "他知道我的名字，卻從沒找過我。這通常代表他怕我也在某張名單上。",
 				"choices": [
-					{"text": "他有沒有什麼不正常的行為？", "next": "mei_ling_abnormal"},
+					{"text": "他失蹤前有沒有反常行為？", "next": "mei_ling_abnormal"},
 					{"text": "他的工作室在哪？", "next": "mei_ling_workshop"},
-					{"text": "我接下這個案子。", "next": "mei_ling_accept", "set_flag": "accepted_case"}
+					{"text": "你還沒說為什麼信任我。", "next": "mei_ling_trust_test"}
 				]
 			},
 			{
 				"label": "mei_ling_abnormal",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
-				"text": "他...最近幾個月變得很奇怪。經常深夜外出，說是在加班。手機裡有很多加密的訊息。",
+				"text": "他最近幾個月變得很奇怪。經常深夜外出，說是在加班。手機裡有很多加密訊息，還把家裡那台舊記憶播放器鎖進房間。",
 				"set_flag": "knows_hao_ran_abnormal"
 			},
 			{
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
-				"text": "我在他房間裡找到了一張深淵酒吧的收據。那種地方...不是浩然會去的。",
+				"text": "我在他房間裡找到了一張深淵酒吧的收據。那種地方不是浩然會去的。他怕吵，怕人群，連生日都只肯在家裡吃飯。",
 				"give_evidence": "abyss_receipt",
 				"choices": [
-					{"text": "我接下這個案子。", "next": "mei_ling_accept", "set_flag": "accepted_case"},
-					{"text": "他的工作室在哪？", "next": "mei_ling_workshop"}
+					{"text": "我接下這個案子。", "next": "mei_ling_accept", "set_flag": "accepted_case", "affinity": {"mei_ling": 1}},
+					{"text": "先給我他的工作室地址。", "next": "mei_ling_workshop"}
 				]
 			},
 			{
 				"label": "mei_ling_workshop",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "default", "portrait_side": "left",
-				"text": "在東區第七街的地下層，「永恆記憶」工作室。這是他的工作證。",
+				"text": "在東區第七街的地下層，「永恆記憶」工作室。這是他的工作證。我沒有鑰匙，但他房間裡也許還有備份。",
 				"give_evidence": "work_id",
 				"set_flag": "knows_workshop_location"
 			},
 			{
+				"label": "mei_ling_trust_test",
+				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+				"text": "我不確定我能信任你。但浩然說你討厭正和科技，卻不會把被害者當籌碼。這句話我記得很清楚。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "那他對我的評價比大部分人好。把地址和你找到的東西留下，我會先去你們公寓。"
+			},
+			{
 				"label": "mei_ling_accept",
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "我會調查這件事的。如果有任何發現，我會聯繫你。"
+				"text": "我接下這個案子。但你也要配合：不要交出任何備份，不要回撥陌生號碼，不要讓警署把你的東西帶走。",
+				"give_evidence": "work_id",
+				"set_flag": "knows_workshop_location"
 			},
 			{
 				"speaker": "mei_ling", "name": "林美玲", "mood": "relieved", "portrait_side": "left",
-				"text": "謝謝你，川崎先生。請...一定要找到他。"
+				"text": "謝謝你，川崎先生。請一定要找到他。如果浩然真的留下了什麼，我想親耳聽見。"
 			}
 		],
 
@@ -146,6 +184,74 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
 				"text": "我要把這段家庭記憶和那台被拆開的播放器一起看。浩然藏起來的不是回憶，是求救方式。"
+			}
+		],
+
+		"ch1_hao_ran_drawer_search": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "浩然房間的抽屜上有兩道鎖。一道是便宜的機械鎖，另一道藏在把手內側，會在開啟時刪除夾層裡的資料晶片。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "他不是防小偷，是防熟人。"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+				"text": "我試過打開。浩然以前不會對我鎖東西，至少不會鎖得像在防公司稽核。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "抽屜底部貼著一張維修便條：播放器校正失敗時，不要重啟，不要連網，把原始備份藏回相簿。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "這不是遺言，但已經很接近了。浩然把下一步調查留在你家裡，而不是工作室。",
+				"give_evidence": "hao_ran_drawer_note",
+				"set_flag": "found_hao_ran_drawer_note"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+				"text": "原始備份...他是說我的？為什麼有人會想要我的記憶？"
+			}
+		],
+
+		"ch1_original_backup_album": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "家庭相簿被放在書架最普通的位置，普通到像是刻意要讓它看起來不重要。封底夾層裡嵌著一枚薄到幾乎透明的備份標籤。"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+				"text": "那本相簿是媽媽留下來的。浩然說實體照片比較安全，不會被雲端服務拿去訓練什麼情感模型。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "他把原始備份提示藏在這裡，是因為你一定會保留它。浩然很了解你。"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+				"text": "他一直說我太念舊。可如果他真的在保護我的記憶，那我是不是害他被盯上了？",
+				"choices": [
+					{"text": "不是你害他，是有人盯上你們。", "next": "backup_reassure", "affinity": {"mei_ling": 2}},
+					{"text": "現在先別下結論，證據還不夠。", "next": "backup_cautious", "affinity": {"mei_ling": 1}}
+				]
+			},
+			{
+				"label": "backup_reassure",
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "責任在拿記憶當貨物的人身上。浩然留下線索，是因為他相信你會活著把它交給對的人。"
+			},
+			{
+				"label": "backup_cautious",
+				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+				"text": "愧疚會讓人漏看細節。先把它當作線索，不要急著把自己放進罪名裡。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你把備份標籤掃進證據板。它不包含完整記憶，只保留一串座標式雜訊，像是等著和另一段留言拼合。",
+				"give_evidence": "original_backup_hint",
+				"set_flag": "mei_ling_trust_deepened"
 			}
 		],
 
@@ -333,6 +439,35 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
 				"text": "浩然的動機不是錢。他在替美玲守住一段能證明她還是她自己的記憶。"
+			}
+		],
+
+		"ch1_hao_ran_encrypted_message": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "你把原始備份提示接到浩然工作室的離線終端。螢幕沒有連上網路，卻像被人從另一端喚醒，逐行吐出破碎的加密留言。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "他用美玲的備份提示當解鎖鑰匙。這封留言不是給我，是給她。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "留言被刻意切成不完整片段：不要相信回聲網路的買家。不要把原始備份交出去。如果我回不來，就讓凱看到播放器。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "他知道我的鷹眼會回應播放器。浩然不是偶然把我拖進來，他在用自己失蹤後唯一能控制的方式選擇調查者。",
+				"give_evidence": "hao_ran_encrypted_message",
+				"set_flag": "hao_ran_message_decoded"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "frightened", "portrait_side": "left",
+				"text": "所以他早就知道自己可能回不來？他為什麼不直接告訴我？"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "因為知道的人越少，你活下來的機率越高。現在我們要做的是把這段留言和原始備份提示連起來，找出他真正藏起來的位置。"
 			}
 		],
 
