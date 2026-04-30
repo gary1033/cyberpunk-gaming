@@ -2,6 +2,7 @@
 
 ## 專案資訊
 - **引擎**: Godot 4 (GDScript)
+- **Godot 執行檔**: `C:\Users\gary1\OneDrive\桌面\Godot_v4.6.1-stable_win64.exe\Godot_v4.6.1-stable_win64.exe`
 - **類型**: 賽博龐克黑色偵探冒險遊戲
 - **平台**: 電腦 / 手機 / 網頁
 
@@ -71,6 +72,9 @@
 - 任何與圖片、素材、UI 圖、背景、角色圖、物品圖、CG、icon、overlay 或 image2/image_gen 相關的需求，不可只停在文字描述。
 - 執行前必須先整理可直接使用的生成提示詞，明確包含目標檔名、用途、尺寸、透明或不透明背景、風格、禁止項與驗收標準。
 - 整理提示詞後，必須實際呼叫 `image_gen` 生成圖片；若生成結果需要接入專案，保留原始生成檔，並複製到對應 runtime 路徑。
+- 生成任何人物圖或道具圖時，預設必須產出去背 PNG；若使用 built-in `image_gen` 無法直接得到透明背景，必須用純色 chroma-key 背景生成後本地去背，驗收時確認 PNG 為 RGBA、四角透明且有實際透明像素。
+- 專案使用的圖片不可只停留在 `$CODEX_HOME/generated_images`；必須保留原始生成檔，並同步寫入 `assets/generated/...` 的 generated-source 路徑與 `assets/sprites/...` 的 runtime 路徑。
+- 人物、道具或可疊加 UI 若無法完成去背與 runtime/source 雙路徑落地，必須停止並保留可重試的完整 prompt，不得以不透明底圖或 placeholder 交付。
 - 若因安全、工具或環境限制無法呼叫 `image_gen`，必須在回覆中明確說明原因，並保留可重試的完整提示詞。
 
 ### Obsidian 專案維護規則
