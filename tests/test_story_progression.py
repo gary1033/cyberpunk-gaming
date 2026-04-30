@@ -17,8 +17,13 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 EXPECTED_LOCATION_DIALOGUES = {
     "detective_office": ["ch1_mei_ling_intro"],
-    "mei_ling_apartment": ["ch1_hao_ran_drawer_search", "ch1_original_backup_album", "ch1_family_memory_clip", "ch1_kai_eye_glitch_scan"],
-    "hao_ran_workshop": ["ch1_workshop_enter", "ch1_eye_signature_decode", "ch1_hao_ran_family_motive", "ch1_hao_ran_encrypted_message", "ch1_dr_chen_eye_warning"],
+    "mei_ling_apartment": ["ch1_hao_ran_drawer_search", "ch1_original_backup_album", "ch1_family_memory_clip", "ch1_kai_eye_glitch_scan", "ch1_eleven_pm_call_log"],
+    "east_district_street": ["ch1_street_camera_gap"],
+    "old_city_police_outpost": ["ch1_old_city_police_outpost_enter", "ch1_old_city_queue_ticket", "ch1_old_city_police_outpost"],
+    "dr_chen_clinic": ["ch1_dr_chen_encounter", "ch1_clinic_anonymous_case_note", "ch1_dr_chen_clinic_followup"],
+    "abyss_bar": ["ch1_abyss_bar_enter", "ch1_snake_encounter", "ch1_snake_data_chip_choice"],
+    "abyss_bar_backroom": ["ch1_abyss_bar_backroom_enter", "ch1_abyss_surveillance_delay_log", "ch1_abyss_backroom_investigation"],
+    "hao_ran_workshop": ["ch1_workshop_enter", "ch1_eye_signature_decode", "ch1_hao_ran_family_motive", "ch1_hao_ran_encrypted_message", "ch1_dr_chen_eye_warning", "ch1_three_evidence_inference"],
     "bitstorm_cafe": ["ch2_opening", "ch2_kid_encounter"],
     "memory_black_market": ["ch2_memory_market_enter", "ch2_ghost_encounter"],
     "abandoned_warehouse": ["ch2_warehouse_explore"],

@@ -12,6 +12,7 @@ import hashlib
 import re
 import struct
 import sys
+import zlib
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -59,6 +60,86 @@ def get_png_size(path):
     if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n":
         return None
     return struct.unpack(">II", header[16:24])
+
+
+def png_has_alpha(path):
+    with open(path, "rb") as f:
+        header = f.read(26)
+    if len(header) < 26 or header[:8] != b"\x89PNG\r\n\x1a\n":
+        return False
+    color_type = header[25]
+    return color_type in (4, 6)
+
+
+def png_alpha_stats(path):
+    with open(path, "rb") as f:
+        data = f.read()
+    if data[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    pos = 8
+    width = height = bit_depth = color_type = interlace = None
+    idat = bytearray()
+    while pos + 8 <= len(data):
+        length = struct.unpack(">I", data[pos:pos + 4])[0]
+        chunk_type = data[pos + 4:pos + 8]
+        chunk_data = data[pos + 8:pos + 8 + length]
+        pos += 12 + length
+        if chunk_type == b"IHDR":
+            width, height, bit_depth, color_type, _, _, interlace = struct.unpack(">IIBBBBB", chunk_data)
+        elif chunk_type == b"IDAT":
+            idat.extend(chunk_data)
+        elif chunk_type == b"IEND":
+            break
+    if bit_depth != 8 or color_type != 6 or interlace != 0:
+        return None
+
+    raw = zlib.decompress(bytes(idat))
+    stride = width * 4
+    rows = []
+    cursor = 0
+    prev = [0] * stride
+    for _ in range(height):
+        filter_type = raw[cursor]
+        cursor += 1
+        scan = list(raw[cursor:cursor + stride])
+        cursor += stride
+        recon = [0] * stride
+        for i, value in enumerate(scan):
+            left = recon[i - 4] if i >= 4 else 0
+            up = prev[i]
+            up_left = prev[i - 4] if i >= 4 else 0
+            if filter_type == 0:
+                recon[i] = value
+            elif filter_type == 1:
+                recon[i] = (value + left) & 0xFF
+            elif filter_type == 2:
+                recon[i] = (value + up) & 0xFF
+            elif filter_type == 3:
+                recon[i] = (value + ((left + up) // 2)) & 0xFF
+            elif filter_type == 4:
+                p = left + up - up_left
+                pa = abs(p - left)
+                pb = abs(p - up)
+                pc = abs(p - up_left)
+                predictor = left if pa <= pb and pa <= pc else (up if pb <= pc else up_left)
+                recon[i] = (value + predictor) & 0xFF
+            else:
+                return None
+        rows.append(recon)
+        prev = recon
+
+    alpha_values = [row[i] for row in rows for i in range(3, stride, 4)]
+    corners = [
+        rows[0][3],
+        rows[0][stride - 1],
+        rows[height - 1][3],
+        rows[height - 1][stride - 1],
+    ]
+    return {
+        "size": (width, height),
+        "corners": corners,
+        "transparent_pixels": sum(1 for value in alpha_values if value < 8),
+    }
 
 
 def file_sha256(path):
@@ -316,31 +397,34 @@ def test_generated_png_character_portraits():
                 chars.append(m.group(1))
     mood_blocks = re.findall(r'"moods":\s*\[([^\]]+)\]', char_content)
 
+    generated_dir = os.path.join(PROJECT_ROOT, "assets/generated/characters")
     sprites_dir = os.path.join(PROJECT_ROOT, "assets/sprites/characters")
     missing_png = 0
-    invalid_size = 0
+    invalid_runtime_copy = 0
     for i, char_id in enumerate(chars):
         if i >= len(mood_blocks):
             continue
         moods = re.findall(r'"(\w+)"', mood_blocks[i])
         for mood in moods:
+            generated_path = os.path.join(generated_dir, f"{char_id}_{mood}.png")
             png_path = os.path.join(sprites_dir, f"{char_id}_{mood}.png")
-            if os.path.exists(png_path):
+            if os.path.exists(generated_path) and os.path.exists(png_path):
                 ok(f"Generated PNG: {char_id}_{mood}.png")
-                size = get_png_size(png_path)
-                if size == (256, 384):
-                    ok(f"Generated PNG size: {char_id}_{mood}.png is 256x384")
+                generated_size = get_png_size(generated_path)
+                runtime_size = get_png_size(png_path)
+                if generated_size == runtime_size and file_sha256(generated_path) == file_sha256(png_path):
+                    ok(f"Runtime portrait matches generated source: {char_id}_{mood}.png ({runtime_size[0]}x{runtime_size[1]})")
                 else:
-                    fail(f"Generated PNG wrong size: {char_id}_{mood}.png is {size}, expected 256x384")
-                    invalid_size += 1
+                    fail(f"Runtime portrait does not match generated source: {char_id}_{mood}.png generated={generated_size} runtime={runtime_size}")
+                    invalid_runtime_copy += 1
             else:
-                fail(f"Missing generated PNG portrait: {char_id}_{mood}.png")
+                fail(f"Missing generated/runtime PNG portrait: {char_id}_{mood}.png")
                 missing_png += 1
 
     if missing_png == 0:
         ok("Generated PNG portraits cover all CharacterData moods")
-    if invalid_size == 0:
-        ok("Generated PNG portraits all use 256x384 runtime size")
+    if invalid_runtime_copy == 0:
+        ok("Runtime character portraits mirror generated high-resolution sources")
 
 
 # ---------------------------------------------------------------------------
@@ -372,10 +456,10 @@ def test_runtime_portrait_loader_supports_png():
     else:
         fail("Narrator entries do not show a fallback portrait")
 
-    # Bug regression: left portrait needs an explicit right offset; otherwise
-    # the TextureRect can have zero or negative width when anchored bottom-left.
-    if "portrait_left.offset_right" in location_base and "portrait_right.offset_left" in location_base:
-        ok("Dialogue portraits have explicit left/right bounds")
+    # Bug regression: portraits need explicit source-image bounds; otherwise
+    # the TextureRect can have zero or negative width in the frame-root layout.
+    if "DIALOGUE_PORTRAIT_RECT" in location_base and "_apply_source_rect(portrait_left, DIALOGUE_PORTRAIT_RECT" in location_base and "_apply_source_rect(portrait_right, DIALOGUE_PORTRAIT_RECT" in location_base:
+        ok("Dialogue portraits have explicit source-frame bounds")
     else:
         fail("Dialogue portrait bounds are incomplete")
 
@@ -1225,13 +1309,16 @@ def test_runtime_asset_loader_supports_generated_pngs():
 def test_image2_outputs_are_connected_to_runtime_sprites():
     print("\n[26] Image2 outputs are connected to runtime sprites")
     mappings = [
-        ("backgrounds", "assets/generated/backgrounds", "assets/sprites/locations"),
-        ("items", "assets/generated/items", "assets/sprites/items"),
-        ("ui", "assets/generated/ui", "assets/sprites/ui"),
+        ("backgrounds", "assets/generated/backgrounds", "assets/sprites/locations", ""),
+        ("items", "assets/generated/items", "assets/sprites/items", "ch1_"),
+        ("ui", "assets/generated/ui", "assets/sprites/ui", ""),
     ]
+    source_only_images = {
+        "ui": {"energy_bar_states_sheet.png"},
+    }
 
     checked = 0
-    for label, generated_rel, sprite_rel in mappings:
+    for label, generated_rel, sprite_rel, runtime_prefix in mappings:
         generated_dir = os.path.join(PROJECT_ROOT, generated_rel)
         sprite_dir = os.path.join(PROJECT_ROOT, sprite_rel)
         if not os.path.isdir(generated_dir):
@@ -1241,8 +1328,13 @@ def test_image2_outputs_are_connected_to_runtime_sprites():
         for file_name in sorted(os.listdir(generated_dir)):
             if not file_name.lower().endswith(".png"):
                 continue
+            if file_name in source_only_images.get(label, set()):
+                continue
+            if runtime_prefix and not file_name.startswith(runtime_prefix):
+                continue
             generated_path = os.path.join(generated_dir, file_name)
-            sprite_path = os.path.join(sprite_dir, file_name)
+            sprite_name = file_name[len(runtime_prefix):] if runtime_prefix else file_name
+            sprite_path = os.path.join(sprite_dir, sprite_name)
             checked += 1
             if not os.path.exists(sprite_path):
                 fail(f"Generated {label} image is not in runtime sprites: {file_name}")
@@ -1259,6 +1351,115 @@ def test_image2_outputs_are_connected_to_runtime_sprites():
 
 
 # ---------------------------------------------------------------------------
+# 26b. Bug regression: Project-bound item icons and overlay UI must be
+# transparent runtime sprites, not opaque generated previews.
+# ---------------------------------------------------------------------------
+def test_transparent_item_and_overlay_ui_assets():
+    print("\n[26b] Transparent item and overlay UI assets")
+
+    item_runtime_dir = os.path.join(PROJECT_ROOT, "assets/sprites/items")
+    item_source_dir = os.path.join(PROJECT_ROOT, "assets/generated/items")
+    item_names = sorted(name for name in os.listdir(item_runtime_dir) if name.endswith(".png"))
+    item_records_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl")
+    if os.path.exists(item_records_path):
+        item_records = [json.loads(line) for line in open(item_records_path, encoding="utf-8") if line.strip()]
+        if len(item_records) == len(item_names):
+            ok("Transparent item manifest covers every runtime item PNG")
+        else:
+            fail("Transparent item manifest count does not match runtime item PNG count")
+    else:
+        fail("Missing transparent item image_gen manifest")
+
+    for name in item_names:
+        source_path = os.path.join(item_source_dir, f"ch1_{name}")
+        runtime_path = os.path.join(item_runtime_dir, name)
+        if os.path.exists(source_path) and file_sha256(source_path) == file_sha256(runtime_path):
+            ok(f"Transparent item source matches runtime: {name}")
+        else:
+            fail(f"Transparent item source/runtime mismatch: {name}")
+            continue
+        stats = png_alpha_stats(runtime_path)
+        if stats and stats["size"] == (512, 512) and max(stats["corners"]) <= 8 and stats["transparent_pixels"] >= 1000:
+            ok(f"Transparent item has real alpha: {name}")
+        else:
+            fail(f"Transparent item is opaque or wrong size: {name}")
+
+    ui_specs = {
+        "ap_status_bar.png": (512, 96),
+        "dialogue_panel.png": (1280, 240),
+        "eagle_eye_focus_reticle_ch1.png": (512, 512),
+        "eagle_eye_glitch_noise_ch1.png": (1280, 720),
+        "eagle_eye_scan_overlay_ch1.png": (1280, 720),
+        "evidence_card.png": (512, 384),
+        "memory_preview_overlay.png": (1280, 720),
+        "popup_panel.png": (768, 768),
+        "toolbar_buttons.png": (1024, 256),
+        **{f"energy_bar_{i:02d}.png": (512, 96) for i in range(1, 13)},
+    }
+    ui_records_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl")
+    if os.path.exists(ui_records_path):
+        ui_records = [json.loads(line) for line in open(ui_records_path, encoding="utf-8") if line.strip()]
+        if len(ui_records) == len(ui_specs):
+            ok("Transparent UI manifest covers every overlay UI PNG")
+        else:
+            fail("Transparent UI manifest count does not match overlay UI PNG count")
+    else:
+        fail("Missing transparent UI image_gen manifest")
+
+    for rel_path, expected_size in ui_specs.items():
+        source_path = os.path.join(PROJECT_ROOT, "assets/generated/ui", rel_path)
+        runtime_path = os.path.join(PROJECT_ROOT, "assets/sprites/ui", rel_path)
+        if os.path.exists(source_path) and os.path.exists(runtime_path) and file_sha256(source_path) == file_sha256(runtime_path):
+            ok(f"Transparent UI source matches runtime: {rel_path}")
+        else:
+            fail(f"Transparent UI source/runtime mismatch: {rel_path}")
+            continue
+        stats = png_alpha_stats(runtime_path)
+        if stats and stats["size"] == expected_size and max(stats["corners"]) <= 8 and stats["transparent_pixels"] >= 100:
+            ok(f"Transparent UI has real alpha: {rel_path}")
+        else:
+            fail(f"Transparent UI is opaque or wrong size: {rel_path}")
+
+
+# ---------------------------------------------------------------------------
+# 26c. Bug regression: Image assets must stay in flat category roots.
+# Deep chapter/variant/state folders made source/runtime wiring drift.
+# ---------------------------------------------------------------------------
+def test_image_assets_stay_in_flat_category_roots():
+    print("\n[26c] Image assets stay in flat category roots")
+
+    disallowed_image_dirs = [
+        "assets/generated/characters/transparent_regen",
+        "assets/generated/characters/reference_sheets",
+        "assets/generated/backgrounds/ch1",
+        "assets/generated/backgrounds/variants",
+        "assets/generated/cg/ch1",
+        "assets/generated/items/ch1",
+        "assets/generated/ui/energy_bar_states",
+        "assets/sprites/cg/ch1",
+        "assets/sprites/locations/variants",
+        "assets/sprites/ui/energy_bar_states",
+    ]
+    image_exts = {".png", ".jpg", ".jpeg", ".webp", ".svg"}
+
+    for rel_dir in disallowed_image_dirs:
+        abs_dir = os.path.join(PROJECT_ROOT, rel_dir)
+        if not os.path.isdir(abs_dir):
+            ok(f"Removed deep image directory: {rel_dir}")
+            continue
+
+        images = [
+            name
+            for name in os.listdir(abs_dir)
+            if os.path.splitext(name)[1].lower() in image_exts
+        ]
+        if images:
+            fail(f"Deep image directory still contains images: {rel_dir} -> {', '.join(sorted(images)[:5])}")
+        else:
+            ok(f"No image files remain in deep directory: {rel_dir}")
+
+
+# ---------------------------------------------------------------------------
 # 27. Bug regression: Dialogue portraits and evidence board must not block play
 # Portraits previously overlapped speaker text, and evidence board card layout
 # used unsafe Godot integer iteration/conversion when opening the board.
@@ -1269,39 +1470,109 @@ def test_runtime_ui_playability_regressions():
     dialogue_system = read_file("scripts/gameplay/dialogue_system.gd")
     evidence_board = read_file("scripts/gameplay/evidence_board.gd")
     augmented_vision = read_file("scripts/gameplay/augmented_vision.gd")
+    game_manager = read_file("scripts/core/game_manager.gd")
     scanline_shader = read_file("assets/shaders/scanline.gdshader")
-    if not location_base or not dialogue_system or not evidence_board or not augmented_vision or not scanline_shader:
+    if not location_base or not dialogue_system or not evidence_board or not augmented_vision or not game_manager or not scanline_shader:
         fail("Required UI runtime files not found")
         return
 
-    # Bug regression: dialogue text must reserve horizontal room so visible
-    # character portraits cannot cover the speaker name or line text.
-    if "DialogueContentMargin" in location_base and "side_text_margin" in location_base:
-        ok("Dialogue panel reserves side margins for character portraits")
+    # Bug regression: dialogue_panel.png must render as one complete HUD texture,
+    # not as a stretched StyleBoxTexture that distorts red/blue frame alignment.
+    if (
+        "DIALOGUE_FRAME_SOURCE_SIZE := Vector2(1280.0, 240.0)" in location_base
+        and "DialogueFrameRoot" in location_base
+        and "DialogueFrameTexture" in location_base
+        and 'dialogue_frame_texture.texture = _load_ui_texture("dialogue_panel")' in location_base
+        and "dialogue_frame_texture.stretch_mode = TextureRect.STRETCH_SCALE" in location_base
+        and '_create_generated_panel_style("dialogue_panel"' not in location_base
+    ):
+        ok("Dialogue HUD uses the complete generated texture as a single aligned frame")
     else:
-        fail("Dialogue panel content can overlap character portraits")
+        fail("Dialogue HUD can still distort dialogue_panel.png as a panel stylebox")
 
-    # Bug regression: portraits should be scaled into the generated red portrait
-    # frame instead of floating above the dialogue panel.
-    if "portrait_size := Vector2(170, 170)" in location_base and "portrait_bottom_gap := 38" in location_base and "dialogue_panel.offset_top = -240" in location_base:
-        ok("Dialogue portraits fit inside the generated portrait frame")
+    # Bug regression: portraits should be positioned in the source-image red
+    # portrait cell so the lower name plate remains available.
+    if (
+        "DIALOGUE_PORTRAIT_RECT := Rect2(34.0, 26.0, 174.0, 134.0)" in location_base
+        and "_apply_source_rect(portrait_left, DIALOGUE_PORTRAIT_RECT, dialogue_frame_scale)" in location_base
+        and "_apply_source_rect(portrait_right, DIALOGUE_PORTRAIT_RECT, dialogue_frame_scale)" in location_base
+        and "dialogue_frame_root.add_child(portrait_left)" in location_base
+        and "dialogue_frame_root.add_child(portrait_right)" in location_base
+        and "portrait_left.clip_contents = true" in location_base
+    ):
+        ok("Dialogue portraits fit inside the source-image red portrait frame")
     else:
-        fail("Dialogue portraits are not fitted into the generated portrait frame")
+        fail("Dialogue portraits are not bound to the source-image red frame")
 
-    # Bug regression: all dialogue portraits should be anchored to the lower-left
-    # portrait frame so right-side speakers do not cover the room background or choices.
-    if 'portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)' in location_base and '_update_portrait(speaker, mood, "left")' in dialogue_system:
+    # Bug regression: all dialogue portraits should stay in the left portrait
+    # frame so right-side speakers do not cover the room background or choices.
+    if 'portrait_right.name = "PortraitRight"' in location_base and '_update_portrait(speaker, mood, "left")' in dialogue_system:
         ok("Dialogue portraits are forced to the left portrait frame")
     else:
         fail("Dialogue portraits can still render on the right side")
 
-    if "var side_text_margin := 370" in location_base and 'dialogue_margin.add_theme_constant_override("margin_right", 36)' in location_base and "dialogue_text.clip_contents = true" in location_base:
-        ok("Dialogue text stays inside the widened generated dialogue frame")
+    # Bug regression: the speaker name belongs in the lower red name plate, not
+    # in the blue dialogue text frame.
+    if (
+        "DIALOGUE_NAME_RECT := Rect2(24.0, 181.0, 184.0, 34.0)" in location_base
+        and "_apply_source_rect(name_label, DIALOGUE_NAME_RECT, dialogue_frame_scale)" in location_base
+        and "dialogue_frame_root.add_child(name_label)" in location_base
+        and 'character_name_label: Label = find_child("NameLabel", true, false)' in dialogue_system
+    ):
+        ok("Speaker name renders in the source-image lower red name plate")
+    else:
+        fail("Speaker name can render inside the blue dialogue text frame")
+
+    # Bug regression: narrator/opening entries often leave name blank, but the
+    # red name plate should not disappear while Kai's portrait is shown.
+    if "_get_display_name" in dialogue_system and 'return "凱"' in dialogue_system:
+        ok("Opening narrator dialogue falls back to Kai name plate text")
+    else:
+        fail("Opening narrator dialogue can leave the red name plate blank")
+
+    # Bug regression: dialogue text and choices must share the source-image blue
+    # frame coordinate system, not independent screen-bottom offsets.
+    if (
+        "DIALOGUE_BLUE_CONTENT_RECT := Rect2(282.0, 38.0, 910.0, 158.0)" in location_base
+        and "_apply_source_rect(dialogue_panel, DIALOGUE_BLUE_CONTENT_RECT, dialogue_frame_scale)" in location_base
+        and "dialogue_frame_root.add_child(dialogue_panel)" in location_base
+        and "dialogue_panel.clip_contents = true" in location_base
+        and "dialogue_margin.set_anchors_preset(Control.PRESET_FULL_RECT)" in location_base
+        and "dialogue_text.clip_contents = true" in location_base
+    ):
+        ok("Dialogue text and choices are constrained to the source-image blue frame")
     else:
         fail("Dialogue text margins can overlap portraits or overflow the frame")
 
-    if 'find_child("NameLabel", true, false)' in dialogue_system and 'find_child("DialogueText", true, false)' in dialogue_system:
-        ok("DialogueSystem resolves text nodes after margin-container layout")
+    # Bug regression: dialogue pages without visible choices should sit lower in
+    # the blue frame, while choice pages keep top room for the buttons.
+    if (
+        'dialogue_content_margin: MarginContainer = find_child("DialogueContentMargin", true, false)' in dialogue_system
+        and "NO_CHOICE_DIALOGUE_TOP_MARGIN := 28" in dialogue_system
+        and "CHOICE_DIALOGUE_TOP_MARGIN := 0" in dialogue_system
+        and "_entry_page_will_show_choices(entry)" in dialogue_system
+        and "_set_dialogue_content_layout(false)" in dialogue_system
+        and "_set_dialogue_content_layout(true)" in dialogue_system
+    ):
+        ok("No-choice dialogue text is lowered without moving choice layouts")
+    else:
+        fail("No-choice dialogue text can remain stuck to the top of the blue frame")
+
+    # Bug regression: dialogue text should stay readable without making the
+    # compact panel feel oversized.
+    if 'name_label.add_theme_font_size_override("font_size", 18 if not InputManager.is_mobile else 14)' in location_base and 'dialogue_text.add_theme_font_size_override("normal_font_size", 24 if not InputManager.is_mobile else 19)' in location_base:
+        ok("Speaker name and dialogue text use readable compact typography")
+    else:
+        fail("Speaker name or dialogue text can regress to small typography")
+
+    if (
+        'dialogue_panel: Control = find_child("DialoguePanel", true, false)' in dialogue_system
+        and 'find_child("NameLabel", true, false)' in dialogue_system
+        and 'find_child("DialogueText", true, false)' in dialogue_system
+        and 'find_child("PortraitLeft", true, false)' in dialogue_system
+        and 'find_child("ChoicesContainer", true, false)' in dialogue_system
+    ):
+        ok("DialogueSystem resolves text nodes inside the frame-root layout")
     else:
         fail("DialogueSystem still assumes direct DialoguePanel/VBox node paths")
 
@@ -1321,29 +1592,112 @@ def test_runtime_ui_playability_regressions():
 
     # Bug regression: dialogue choices should render as contained button frames
     # inside the generated text panel, not as loose text below the frame.
-    if "_create_choice_button_style" in dialogue_system and "CHOICE_PROMPT_TEXT_HEIGHT" in dialogue_system and "choices_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL" in location_base:
-        ok("Dialogue choices are boxed inside the generated dialogue frame")
+    if "_create_choice_button_style" in dialogue_system and "COMPACT_CHOICE_PROMPT_TEXT_HEIGHT := 34" in dialogue_system and "COMPACT_CHOICE_BUTTON_HEIGHT := 32" in dialogue_system and "choices_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL" in location_base and "DIALOGUE_BLUE_CONTENT_RECT" in location_base:
+        ok("Dialogue choices stay boxed inside the blue dialogue frame")
     else:
         fail("Dialogue choices can render outside the generated dialogue frame")
+
+    # Bug regression: three visible choices previously pushed the third button
+    # below the blue frame. DialogueSystem should filter choices first, then
+    # switch to a compact layout when three choices are visible.
+    if "_get_available_choices" in dialogue_system and "compact_choices := choices.size() >= 3" in dialogue_system and 'choices_container.add_theme_constant_override("separation", COMPACT_CHOICE_GAP if compact_layout else NORMAL_CHOICE_GAP)' in dialogue_system:
+        ok("DialogueSystem uses compact in-blue-frame layout for three choices")
+    else:
+        fail("Three-choice dialogue can overflow outside the blue frame")
 
     if "for i in range(evidence_list.size())" in evidence_board and "var row: int = int(i / cols)" in evidence_board:
         ok("EvidenceBoard card grid uses safe range iteration and int row conversion")
     else:
         fail("EvidenceBoard card grid still uses unsafe iteration or row conversion")
 
-    # Bug regression: eagle-eye energy should render as a contained segmented
-    # tech widget below the AP label and stay hidden while inactive.
-    if "EAGLE_EYE_SEGMENT_COUNT := 8" in augmented_vision and "_build_energy_widget" in augmented_vision and "energy_bar.offset_top = 46" in augmented_vision and "energy_bar.visible = is_visible" in augmented_vision:
-        ok("Eagle-eye energy uses a segmented tech widget below AP")
+    # Bug regression: eagle-eye/AP energy should use the generated 10-state
+    # cyberpunk PNG HUDs, not shader masks or simplified runtime Panel segments.
+    energy_state_names = [f"energy_bar_{i:02d}.png" for i in range(1, 11)]
+    energy_source_dir = os.path.join(PROJECT_ROOT, "assets/generated/ui")
+    energy_runtime_dir = os.path.join(PROJECT_ROOT, "assets/sprites/ui")
+    energy_geometry_path = os.path.join(energy_source_dir, "energy_bar_10_equal_slots_geometry.json")
+    energy_assets_ok = True
+    for name in energy_state_names:
+        source_path = os.path.join(energy_source_dir, name)
+        runtime_path = os.path.join(energy_runtime_dir, name)
+        if not os.path.exists(source_path) or not os.path.exists(runtime_path):
+            energy_assets_ok = False
+            fail(f"Missing 10-state energy HUD asset: {name}")
+            continue
+        if get_png_size(source_path) != (512, 96) or get_png_size(runtime_path) != (512, 96):
+            energy_assets_ok = False
+            fail(f"10-state energy HUD asset has unstable size: {name}")
+        if not png_has_alpha(runtime_path):
+            energy_assets_ok = False
+            fail(f"10-state energy HUD runtime asset lacks alpha: {name}")
+        if file_sha256(source_path) != file_sha256(runtime_path):
+            energy_assets_ok = False
+            fail(f"10-state energy HUD source/runtime SHA mismatch: {name}")
+    if energy_assets_ok:
+        ok("All 10 texture-swap energy HUD states exist in generated and runtime paths")
+
+    equal_slot_geometry_ok = False
+    if os.path.exists(energy_geometry_path):
+        with open(energy_geometry_path, "r", encoding="utf-8") as f:
+            energy_geometry = json.load(f)
+        equal_slot_geometry_ok = (
+            energy_geometry.get("slot_count") == 10
+            and energy_geometry.get("slot_width") == 25
+            and energy_geometry.get("slot_height") == 22
+            and energy_geometry.get("slot_gap") == 3
+            and energy_geometry.get("slot_origin") == [142, 36]
+            and energy_geometry.get("output_size") == [512, 96]
+        )
+    if equal_slot_geometry_ok:
+        ok("10-state energy HUD records equal slot geometry")
     else:
-        fail("Eagle-eye energy widget can overlap AP or regress to a plain bar")
+        fail("10-state energy HUD slot geometry is missing or inconsistent")
+
+    if (
+        'ENERGY_BAR_STATE_DIR := "res://assets/sprites/ui"' in augmented_vision
+        and "EAGLE_EYE_SEGMENT_COUNT := 10" in augmented_vision
+        and "EAGLE_EYE_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)" in augmented_vision
+        and "TechEnergyTexture" in augmented_vision
+        and "_set_energy_state_texture" in augmented_vision
+        and "energy_bar_%02d.png" in augmented_vision
+        and "energy_bar.offset_left = EAGLE_EYE_ENERGY_BAR_RECT.position.x" in augmented_vision
+        and "energy_bar.offset_right = EAGLE_EYE_ENERGY_BAR_RECT.position.x + EAGLE_EYE_ENERGY_BAR_RECT.size.x" in augmented_vision
+        and "energy_bar.visible = is_visible" in augmented_vision
+        and "_create_energy_bar_material" not in augmented_vision
+        and "_energy_bar_material" not in augmented_vision
+        and "_build_energy_widget" not in augmented_vision
+        and "Panel.new()" not in augmented_vision
+    ):
+        ok("Eagle-eye energy swaps 10 generated tech HUD textures without clipping")
+    else:
+        fail("Eagle-eye energy can regress to shader/Panel segments or clipped HUD")
 
     # Bug regression: eagle-eye should spend energy in timed segments and allow
     # the reticle to move over the scene to scan visible hotspots.
-    if "EAGLE_EYE_DRAIN_INTERVAL := 1.0" in augmented_vision and "_set_reticle_target(event.position)" in augmented_vision and "_scan_hotspots_under_reticle" in augmented_vision and 'add_to_group("hotspots")' in read_file("scripts/gameplay/hotspot.gd"):
-        ok("Eagle-eye drains timed energy segments and moves the scanner reticle")
+    if (
+        "EAGLE_EYE_DRAIN_INTERVAL := 1.0" in augmented_vision
+        and "consume_eagle_eye_energy_amount(GameManager.eagle_eye_max_energy / float(EAGLE_EYE_SEGMENT_COUNT))" in augmented_vision
+        and "func consume_eagle_eye_energy_amount(amount: float)" in game_manager
+        and "_set_reticle_target(event.position)" in augmented_vision
+        and "_scan_hotspots_under_reticle" in augmented_vision
+        and 'add_to_group("hotspots")' in read_file("scripts/gameplay/hotspot.gd")
+    ):
+        ok("Eagle-eye drains timed 10-state energy segments and moves the scanner reticle")
     else:
         fail("Eagle-eye lacks timed drain or movable reticle scanning")
+
+    # Bug regression: the low-energy pressure should come from image states
+    # that move from yellow full-charge art toward red low-charge art.
+    if (
+        "_get_energy_state_index" in augmented_vision
+        and "_load_energy_state_texture" in augmented_vision
+        and "floori(ratio * EAGLE_EYE_SEGMENT_COUNT)" in augmented_vision
+        and energy_assets_ok
+        and equal_slot_geometry_ok
+    ):
+        ok("Eagle-eye energy HUD uses yellow-to-red 10-state texture logic")
+    else:
+        fail("Eagle-eye energy HUD lacks yellow-to-red texture-state logic")
 
     # Bug regression: AP label callbacks should target a member reference, not
     # a local label that can become null after scene reloads.
@@ -1367,10 +1721,20 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("Main menu generated background is not wired with fallback")
 
-    if "ap_status_bar" in location_base and "APWidget" in location_base and "_update_ap_label" in location_base:
-        ok("LocationBase AP widget uses generated status bar")
+    if (
+        "APWidget" in location_base
+        and "var _ap_status_bar: TextureRect = null" in location_base
+        and "_update_ap_status_bar" in location_base
+        and "_get_hud_energy_state" in location_base
+        and "HUD_ENERGY_SEGMENT_COUNT := 10" in location_base
+        and "HUD_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)" in location_base
+        and "energy_bar_%02d.png" in location_base
+        and "_set_ap_widget_visible(false)" in location_base
+        and "_set_ap_widget_visible(true)" in location_base
+    ):
+        ok("LocationBase AP widget swaps generated 10-state status-bar textures")
     else:
-        fail("LocationBase AP widget does not use generated AP status bar")
+        fail("LocationBase AP widget does not swap generated 10-state status-bar textures")
 
 
 # ---------------------------------------------------------------------------
@@ -1389,6 +1753,7 @@ def test_image_gen_ui_prompt_requests():
         records = [json.loads(line) for line in f if line.strip()]
 
     required = {
+        "dialogue_panel_compact_name_plate": ("assets/sprites/ui/dialogue_panel.png", (1280, 240)),
         "ap_status_bar_hitech": ("assets/sprites/ui/ap_status_bar.png", (512, 96)),
         "main_menu_start_background": ("assets/sprites/ui/main_menu_background.png", (1280, 720)),
     }
@@ -1411,6 +1776,27 @@ def test_image_gen_ui_prompt_requests():
             ok(f"image_gen prompt request generated and connected: {prompt_id}")
         else:
             fail(f"Incomplete image_gen prompt request: {prompt_id}")
+
+    energy_record = by_id.get("energy_bar_states_10_equal_slots")
+    energy_runtime_paths = [
+        os.path.join(PROJECT_ROOT, "assets/sprites/ui", f"energy_bar_{i:02d}.png")
+        for i in range(1, 11)
+    ]
+    energy_geometry_path = os.path.join(PROJECT_ROOT, "assets/generated/ui/energy_bar_10_equal_slots_geometry.json")
+    if (
+        energy_record
+        and energy_record.get("tool") == "image_gen+deterministic_normalization"
+        and energy_record.get("status") == "generated_equalized_connected"
+        and energy_record.get("source_imagegen_path")
+        and energy_record.get("geometry_path") == "assets/generated/ui/energy_bar_10_equal_slots_geometry.json"
+        and energy_record.get("prompt")
+        and energy_record.get("negative_prompt")
+        and os.path.exists(energy_geometry_path)
+        and all(os.path.exists(path) and get_png_size(path) == (512, 96) for path in energy_runtime_paths)
+    ):
+        ok("image_gen prompt request generated and connected: energy_bar_states_10_equal_slots")
+    else:
+        fail("Incomplete image_gen prompt request: energy_bar_states_10_equal_slots")
 
 
 # ---------------------------------------------------------------------------
@@ -1518,9 +1904,9 @@ def test_ch1_eagle_eye_foreshadowing_wiring():
         "assets/sprites/ui/eagle_eye_scan_overlay_ch1.png": (1280, 720),
         "assets/sprites/ui/eagle_eye_focus_reticle_ch1.png": (512, 512),
         "assets/sprites/ui/eagle_eye_glitch_noise_ch1.png": (1280, 720),
-        "assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png": (1280, 720),
-        "assets/sprites/cg/ch1/cg_kai_eye_glitch.png": (1280, 720),
-        "assets/sprites/cg/ch1/eagle_eye_activation_cutin_ch1.png": (1280, 720),
+        "assets/sprites/locations/mei_ling_apartment_eye_scan_variant.png": (1280, 720),
+        "assets/sprites/cg/cg_kai_eye_glitch.png": (1280, 720),
+        "assets/sprites/cg/eagle_eye_activation_cutin_ch1.png": (1280, 720),
         "assets/sprites/items/broken_memory_player.png": (512, 512),
         "assets/sprites/items/kai_eye_glitch_log.png": (512, 512),
     }
@@ -1538,11 +1924,11 @@ def test_ch1_eagle_eye_foreshadowing_wiring():
         "assets/generated/ui/eagle_eye_scan_overlay_ch1.png": "assets/sprites/ui/eagle_eye_scan_overlay_ch1.png",
         "assets/generated/ui/eagle_eye_focus_reticle_ch1.png": "assets/sprites/ui/eagle_eye_focus_reticle_ch1.png",
         "assets/generated/ui/eagle_eye_glitch_noise_ch1.png": "assets/sprites/ui/eagle_eye_glitch_noise_ch1.png",
-        "assets/generated/backgrounds/variants/mei_ling_apartment_eye_scan_variant.png": "assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png",
-        "assets/generated/cg/ch1/cg_kai_eye_glitch.png": "assets/sprites/cg/ch1/cg_kai_eye_glitch.png",
-        "assets/generated/cg/ch1/eagle_eye_activation_cutin_ch1.png": "assets/sprites/cg/ch1/eagle_eye_activation_cutin_ch1.png",
-        "assets/generated/items/ch1/broken_memory_player.png": "assets/sprites/items/broken_memory_player.png",
-        "assets/generated/items/ch1/kai_eye_glitch_log.png": "assets/sprites/items/kai_eye_glitch_log.png",
+        "assets/generated/backgrounds/mei_ling_apartment_eye_scan_variant.png": "assets/sprites/locations/mei_ling_apartment_eye_scan_variant.png",
+        "assets/generated/cg/cg_kai_eye_glitch.png": "assets/sprites/cg/cg_kai_eye_glitch.png",
+        "assets/generated/cg/eagle_eye_activation_cutin_ch1.png": "assets/sprites/cg/eagle_eye_activation_cutin_ch1.png",
+        "assets/generated/items/ch1_broken_memory_player.png": "assets/sprites/items/broken_memory_player.png",
+        "assets/generated/items/ch1_kai_eye_glitch_log.png": "assets/sprites/items/kai_eye_glitch_log.png",
     }
     for generated_rel, runtime_rel in generated_pairs.items():
         generated_path = os.path.join(PROJECT_ROOT, generated_rel)
@@ -1637,8 +2023,8 @@ def test_ch1_family_memory_branch():
 
     required_png_assets = {
         "assets/sprites/items/family_memory_clip.png": (512, 512),
-        "assets/sprites/cg/ch1/cg_family_memory_clip.png": (1280, 720),
-        "assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png": (1280, 720),
+        "assets/sprites/cg/cg_family_memory_clip.png": (1280, 720),
+        "assets/sprites/locations/mei_ling_apartment_family_memory_variant.png": (1280, 720),
     }
     for rel_path, expected_size in required_png_assets.items():
         real_path = os.path.join(PROJECT_ROOT, rel_path)
@@ -1654,9 +2040,9 @@ def test_ch1_family_memory_branch():
         fail("Missing family memory placeholder audio target")
 
     generated_pairs = {
-        "assets/generated/items/ch1/family_memory_clip.png": "assets/sprites/items/family_memory_clip.png",
-        "assets/generated/cg/ch1/cg_family_memory_clip.png": "assets/sprites/cg/ch1/cg_family_memory_clip.png",
-        "assets/generated/backgrounds/variants/mei_ling_apartment_family_memory_variant.png": "assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png",
+        "assets/generated/items/ch1_family_memory_clip.png": "assets/sprites/items/family_memory_clip.png",
+        "assets/generated/cg/cg_family_memory_clip.png": "assets/sprites/cg/cg_family_memory_clip.png",
+        "assets/generated/backgrounds/mei_ling_apartment_family_memory_variant.png": "assets/sprites/locations/mei_ling_apartment_family_memory_variant.png",
         "assets/generated/audio/ch1/family_memory_fragment.ogg": "assets/audio/sfx/family_memory_fragment.ogg",
     }
     for generated_rel, runtime_rel in generated_pairs.items():
@@ -1710,8 +2096,8 @@ def test_ch1_asset_replacement_readiness():
 
     expected_targets = {
         "family_memory_clip": "assets/sprites/items/family_memory_clip.png",
-        "cg_family_memory_clip": "assets/sprites/cg/ch1/cg_family_memory_clip.png",
-        "mei_ling_apartment_family_memory_variant": "assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png",
+        "cg_family_memory_clip": "assets/sprites/cg/cg_family_memory_clip.png",
+        "mei_ling_apartment_family_memory_variant": "assets/sprites/locations/mei_ling_apartment_family_memory_variant.png",
         "family_memory_fragment": "assets/audio/sfx/family_memory_fragment.ogg",
         "eagle_eye_glitch_sting": "assets/audio/sfx/eagle_eye_glitch_sting.ogg",
         "broken_player_scan": "assets/audio/sfx/broken_player_scan.ogg",
@@ -1828,9 +2214,9 @@ def test_ch1_opening_and_mei_ling_trust_expansion():
         fail("Evidence board does not unlock the Mei Ling original-backup deduction")
 
     required_assets = {
-        "assets/sprites/cg/ch1/cg_kai_office_prologue.png": (1280, 720),
-        "assets/sprites/cg/ch1/cg_mei_ling_apartment_memory_trace.png": (1280, 720),
-        "assets/sprites/cg/ch1/cg_hao_ran_encrypted_message.png": (1280, 720),
+        "assets/sprites/cg/cg_kai_office_prologue.png": (1280, 720),
+        "assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png": (1280, 720),
+        "assets/sprites/cg/cg_hao_ran_encrypted_message.png": (1280, 720),
         "assets/sprites/items/hao_ran_drawer_note.png": (512, 512),
         "assets/sprites/items/original_backup_hint.png": (512, 512),
     }
@@ -1842,11 +2228,11 @@ def test_ch1_opening_and_mei_ling_trust_expansion():
             fail(f"Missing or wrong-size trust-path asset: {rel_path}")
 
     generated_pairs = {
-        "assets/generated/cg/ch1/cg_kai_office_prologue.png": "assets/sprites/cg/ch1/cg_kai_office_prologue.png",
-        "assets/generated/cg/ch1/cg_mei_ling_apartment_memory_trace.png": "assets/sprites/cg/ch1/cg_mei_ling_apartment_memory_trace.png",
-        "assets/generated/cg/ch1/cg_hao_ran_encrypted_message.png": "assets/sprites/cg/ch1/cg_hao_ran_encrypted_message.png",
-        "assets/generated/items/ch1/hao_ran_drawer_note.png": "assets/sprites/items/hao_ran_drawer_note.png",
-        "assets/generated/items/ch1/original_backup_hint.png": "assets/sprites/items/original_backup_hint.png",
+        "assets/generated/cg/cg_kai_office_prologue.png": "assets/sprites/cg/cg_kai_office_prologue.png",
+        "assets/generated/cg/cg_mei_ling_apartment_memory_trace.png": "assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png",
+        "assets/generated/cg/cg_hao_ran_encrypted_message.png": "assets/sprites/cg/cg_hao_ran_encrypted_message.png",
+        "assets/generated/items/ch1_hao_ran_drawer_note.png": "assets/sprites/items/hao_ran_drawer_note.png",
+        "assets/generated/items/ch1_original_backup_hint.png": "assets/sprites/items/original_backup_hint.png",
     }
     for generated_rel, runtime_rel in generated_pairs.items():
         generated_path = os.path.join(PROJECT_ROOT, generated_rel)
@@ -1874,6 +2260,442 @@ def test_ch1_opening_and_mei_ling_trust_expansion():
         fail(f"Missing image_gen trust-path prompt record: {prompt_id}")
     if expected_prompt_ids.issubset(actual_prompt_ids):
         ok("image_gen trust-path manifest covers all generated assets")
+
+
+# ---------------------------------------------------------------------------
+# 32. Bug regression: Chapter 1 expanded branch must preserve the three-proof
+# gate, dual Chapter 2 route flags, and eagle-eye second readings.
+# ---------------------------------------------------------------------------
+def test_ch1_expanded_dual_route_and_eagle_eye_readings():
+    print("\n[32] Chapter 1 expanded dual-route and eagle-eye readings")
+    case_content = read_file("scripts/data/case_data.gd") or ""
+    dialogue_content = read_file("scripts/data/dialogue_data.gd") or ""
+    evidence_content = read_file("scripts/data/evidence_data.gd") or ""
+    board_content = read_file("scripts/gameplay/evidence_board.gd") or ""
+    game_manager = read_file("scripts/core/game_manager.gd") or ""
+    decision_tracker = read_file("scripts/gameplay/decision_tracker.gd") or ""
+    location_content = read_file("scripts/ui/location_base.gd") or ""
+
+    expected_dialogues = [
+        "ch1_eleven_pm_call_log",
+        "ch1_old_city_police_outpost",
+        "ch1_street_camera_gap",
+        "ch1_abyss_backroom_investigation",
+        "ch1_snake_data_chip_choice",
+        "ch1_dr_chen_clinic_followup",
+        "ch1_three_evidence_inference",
+    ]
+    for dialogue_id in expected_dialogues:
+        if f'"{dialogue_id}": [' in dialogue_content:
+            ok(f"Expanded Chapter 1 dialogue exists: {dialogue_id}")
+        else:
+            fail(f"Missing expanded Chapter 1 dialogue: {dialogue_id}")
+
+    expected_actions = {
+        "inspect_eleven_pm_call_log": "ch1_eleven_pm_call_log",
+        "visit_old_city_police_outpost": "ch1_old_city_police_outpost",
+        "review_east_district_camera_gap": "ch1_street_camera_gap",
+        "investigate_abyss_backroom": "ch1_abyss_backroom_investigation",
+        "negotiate_snake_data_chip": "ch1_snake_data_chip_choice",
+        "visit_dr_chen_clinic": "ch1_dr_chen_clinic_followup",
+        "compile_ch1_three_evidence_inference": "ch1_three_evidence_inference",
+    }
+    for action_id, dialogue_id in expected_actions.items():
+        if f'"id": "{action_id}"' in case_content and f'"dialogue": "{dialogue_id}"' in case_content:
+            ok(f"Expanded story action wired: {action_id}")
+        else:
+            fail(f"Expanded story action missing or miswired: {action_id}")
+
+    expected_evidence = [
+        "eleven_pm_call_log",
+        "rejected_missing_person_report",
+        "street_camera_gap",
+        "masked_client_receipt",
+        "clinic_eye_warning_log",
+        "black_market_entry_hint",
+    ]
+    for evidence_id in expected_evidence:
+        if f'"{evidence_id}": {{' in evidence_content:
+            ok(f"Expanded Chapter 1 evidence exists: {evidence_id}")
+        else:
+            fail(f"Missing expanded Chapter 1 evidence: {evidence_id}")
+
+    eye_reading_count = evidence_content.count('"eye_reading"')
+    if eye_reading_count >= 10:
+        ok("Chapter 1 evidence has broad eagle-eye second readings")
+    else:
+        fail("Chapter 1 evidence lacks enough eagle-eye second readings")
+
+    required_board_flags = [
+        '"eleven_pm_call_log:rejected_missing_person_report": "deduced_police_suppression"',
+        '"rejected_missing_person_report:street_camera_gap": "deduced_city_system_suppression"',
+        '"masked_client_receipt:stranger_photo": "deduced_ch1_black_market_route"',
+        '"clinic_eye_warning_log:masked_client_receipt": "deduced_ch1_three_evidence_gate"',
+    ]
+    for expected in required_board_flags:
+        if expected in board_content:
+            ok(f"Expanded evidence-board flag wired: {expected}")
+        else:
+            fail(f"Missing expanded evidence-board flag: {expected}")
+
+    required_route_flags = [
+        "accepted_snake_deal",
+        "rejected_snake_deal",
+        "black_market_route_opened",
+        "clinic_route_opened",
+        "echo_trust_axis_seeded",
+    ]
+    for flag in required_route_flags:
+        if flag in dialogue_content or flag in game_manager:
+            ok(f"Expanded route flag present: {flag}")
+        else:
+            fail(f"Missing expanded route flag: {flag}")
+
+    if "eagle_eye_overuse_count" in game_manager and "kai_eye_overuse_warning" in game_manager:
+        ok("Eagle-eye overuse count and warning flag are tracked")
+    else:
+        fail("Eagle-eye overuse count or warning flag is missing")
+
+    if "_get_evidence_reading_text" in board_content and '"eye_reading"' in board_content and "GameManager.eagle_eye_active" in board_content:
+        ok("Evidence board displays alternate evidence readings in eagle-eye mode")
+    else:
+        fail("Evidence board does not expose eagle-eye alternate evidence readings")
+
+    if "/ 37.0" in game_manager and "/ 37.0" in decision_tracker:
+        ok("Ending evidence ratio denominator matches expanded evidence count")
+    else:
+        fail("Ending evidence ratio denominator was not updated for expanded evidence")
+
+    if "compile_ch1_three_evidence_inference" in location_content and "trigger_glitch_pulse" in location_content:
+        ok("Expanded Chapter 1 final inference triggers eagle-eye anomaly presentation")
+    else:
+        fail("Expanded Chapter 1 final inference lacks eagle-eye anomaly presentation")
+
+
+# ---------------------------------------------------------------------------
+# 33. Bug regression: Chapter 1 missing visual assets must be generated,
+# runtime-connected, and protected from placeholder fallback.
+# ---------------------------------------------------------------------------
+def test_ch1_missing_visual_assets_connected():
+    print("\n[33] Chapter 1 missing visual assets connected")
+    case_content = read_file("scripts/data/case_data.gd") or ""
+    evidence_content = read_file("scripts/data/evidence_data.gd") or ""
+
+    background_pairs = {
+        "assets/generated/backgrounds/old_city_police_outpost.png": "assets/sprites/locations/old_city_police_outpost.png",
+        "assets/generated/backgrounds/dr_chen_clinic.png": "assets/sprites/locations/dr_chen_clinic.png",
+        "assets/generated/backgrounds/abyss_bar_backroom.png": "assets/sprites/locations/abyss_bar_backroom.png",
+        "assets/generated/backgrounds/east_district_street_camera_gap_variant.png": "assets/sprites/locations/east_district_street_camera_gap_variant.png",
+        "assets/generated/backgrounds/hao_ran_workshop_three_evidence_variant.png": "assets/sprites/locations/hao_ran_workshop_three_evidence_variant.png",
+    }
+    icon_pairs = {
+        "assets/generated/items/ch1_commission_letter.png": "assets/sprites/items/commission_letter.png",
+        "assets/generated/items/ch1_work_id.png": "assets/sprites/items/work_id.png",
+        "assets/generated/items/ch1_receipt.png": "assets/sprites/items/receipt.png",
+        "assets/generated/items/ch1_data_chip.png": "assets/sprites/items/data_chip.png",
+        "assets/generated/items/ch1_recording.png": "assets/sprites/items/recording.png",
+        "assets/generated/items/ch1_photo.png": "assets/sprites/items/photo.png",
+        "assets/generated/items/ch1_kai_eye_glitch_log.png": "assets/sprites/items/kai_eye_glitch_log.png",
+        "assets/generated/items/ch1_family_memory_clip.png": "assets/sprites/items/family_memory_clip.png",
+        "assets/generated/items/ch1_broken_memory_player.png": "assets/sprites/items/broken_memory_player.png",
+        "assets/generated/items/ch1_eleven_pm_call_log.png": "assets/sprites/items/eleven_pm_call_log.png",
+        "assets/generated/items/ch1_rejected_missing_person_report.png": "assets/sprites/items/rejected_missing_person_report.png",
+        "assets/generated/items/ch1_street_camera_gap.png": "assets/sprites/items/street_camera_gap.png",
+        "assets/generated/items/ch1_masked_client_receipt.png": "assets/sprites/items/masked_client_receipt.png",
+        "assets/generated/items/ch1_clinic_eye_warning_log.png": "assets/sprites/items/clinic_eye_warning_log.png",
+        "assets/generated/items/ch1_black_market_entry_hint.png": "assets/sprites/items/black_market_entry_hint.png",
+    }
+    cg_pairs = {
+        "assets/generated/cg/cg_ch1_snake_trade_choice.png": "assets/sprites/cg/cg_ch1_snake_trade_choice.png",
+        "assets/generated/cg/cg_ch1_three_evidence_inference.png": "assets/sprites/cg/cg_ch1_three_evidence_inference.png",
+        "assets/generated/cg/cg_ch1_police_report_rejection.png": "assets/sprites/cg/cg_ch1_police_report_rejection.png",
+        "assets/generated/cg/cg_ch1_street_camera_gap.png": "assets/sprites/cg/cg_ch1_street_camera_gap.png",
+        "assets/generated/cg/cg_ch1_dr_chen_warning.png": "assets/sprites/cg/cg_ch1_dr_chen_warning.png",
+    }
+
+    for generated_rel, runtime_rel in background_pairs.items():
+        generated_path = os.path.join(PROJECT_ROOT, generated_rel)
+        runtime_path = os.path.join(PROJECT_ROOT, runtime_rel)
+        if os.path.exists(generated_path) and os.path.exists(runtime_path):
+            ok(f"Chapter 1 background source and runtime exist: {runtime_rel}")
+        else:
+            fail(f"Missing Chapter 1 background source/runtime pair: {runtime_rel}")
+            continue
+        if get_png_size(generated_path) == (1280, 720) and get_png_size(runtime_path) == (1280, 720):
+            ok(f"Chapter 1 background size stable: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 background size mismatch: {runtime_rel}")
+        if file_sha256(generated_path) == file_sha256(runtime_path):
+            ok(f"Chapter 1 background source matches runtime: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 background source/runtime mismatch: {runtime_rel}")
+
+    for generated_rel, runtime_rel in icon_pairs.items():
+        generated_path = os.path.join(PROJECT_ROOT, generated_rel)
+        runtime_path = os.path.join(PROJECT_ROOT, runtime_rel)
+        if os.path.exists(generated_path) and os.path.exists(runtime_path):
+            ok(f"Chapter 1 evidence icon source and runtime exist: {runtime_rel}")
+        else:
+            fail(f"Missing Chapter 1 evidence icon source/runtime pair: {runtime_rel}")
+            continue
+        if get_png_size(generated_path) == (512, 512) and get_png_size(runtime_path) == (512, 512):
+            ok(f"Chapter 1 evidence icon size stable: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 evidence icon size mismatch: {runtime_rel}")
+        if png_has_alpha(generated_path) and png_has_alpha(runtime_path):
+            ok(f"Chapter 1 evidence icon keeps alpha channel: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 evidence icon lacks alpha channel: {runtime_rel}")
+        if file_sha256(generated_path) == file_sha256(runtime_path):
+            ok(f"Chapter 1 evidence icon source matches runtime: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 evidence icon source/runtime mismatch: {runtime_rel}")
+        # Bug regression: placeholder line-art item icons were accidentally left in runtime.
+        if os.path.getsize(generated_path) >= 100_000 and os.path.getsize(runtime_path) >= 100_000:
+            ok(f"Chapter 1 evidence icon is image-gen replacement quality: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 evidence icon still looks like a tiny placeholder: {runtime_rel}")
+
+    for generated_rel, runtime_rel in cg_pairs.items():
+        generated_path = os.path.join(PROJECT_ROOT, generated_rel)
+        runtime_path = os.path.join(PROJECT_ROOT, runtime_rel)
+        if os.path.exists(generated_path) and os.path.exists(runtime_path):
+            ok(f"Chapter 1 story CG source and runtime exist: {runtime_rel}")
+        else:
+            fail(f"Missing Chapter 1 story CG source/runtime pair: {runtime_rel}")
+            continue
+        if get_png_size(generated_path) == (1280, 720) and get_png_size(runtime_path) == (1280, 720):
+            ok(f"Chapter 1 story CG size stable: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 story CG size mismatch: {runtime_rel}")
+        if file_sha256(generated_path) == file_sha256(runtime_path):
+            ok(f"Chapter 1 story CG source matches runtime: {runtime_rel}")
+        else:
+            fail(f"Chapter 1 story CG source/runtime mismatch: {runtime_rel}")
+
+    expected_icon_fields = {
+        "eleven_pm_call_log": "eleven_pm_call_log",
+        "rejected_missing_person_report": "rejected_missing_person_report",
+        "street_camera_gap": "street_camera_gap",
+        "masked_client_receipt": "masked_client_receipt",
+        "clinic_eye_warning_log": "clinic_eye_warning_log",
+        "black_market_entry_hint": "black_market_entry_hint",
+    }
+    for evidence_id, icon_id in expected_icon_fields.items():
+        pattern = rf'"{evidence_id}": \{{[\s\S]*?"icon": "{icon_id}"'
+        if re.search(pattern, evidence_content):
+            ok(f"Chapter 1 evidence uses dedicated icon: {evidence_id}")
+        else:
+            fail(f"Chapter 1 evidence still uses placeholder icon: {evidence_id}")
+
+    expected_story_cgs = {
+        "investigate_abyss_backroom": "cg_ch1_snake_trade_choice",
+        "negotiate_snake_data_chip": "cg_ch1_snake_trade_choice",
+        "compile_ch1_three_evidence_inference": "cg_ch1_three_evidence_inference",
+        "visit_old_city_police_outpost": "cg_ch1_police_report_rejection",
+        "review_east_district_camera_gap": "cg_ch1_street_camera_gap",
+        "visit_dr_chen_clinic": "cg_ch1_dr_chen_warning",
+    }
+    for action_id, cg_id in expected_story_cgs.items():
+        pattern = rf'"id": "{action_id}"[\s\S]*?"story_cg": "{cg_id}"'
+        if re.search(pattern, case_content):
+            ok(f"Chapter 1 story action declares CG: {action_id}")
+        else:
+            fail(f"Chapter 1 story action missing CG: {action_id}")
+
+
+# ---------------------------------------------------------------------------
+# 34. Bug regression: Chapter 1 locationization must keep the new police,
+# clinic, and backroom locations playable without duplicating moved actions.
+# ---------------------------------------------------------------------------
+def test_ch1_locationization_and_side_evidence():
+    print("\n[34] Chapter 1 locationization and side evidence")
+    scene_content = read_file("scripts/core/scene_manager.gd") or ""
+    case_content = read_file("scripts/data/case_data.gd") or ""
+    dialogue_content = read_file("scripts/data/dialogue_data.gd") or ""
+    evidence_content = read_file("scripts/data/evidence_data.gd") or ""
+    board_content = read_file("scripts/gameplay/evidence_board.gd") or ""
+    location_base = read_file("scripts/ui/location_base.gd") or ""
+    dialogue_system = read_file("scripts/gameplay/dialogue_system.gd") or ""
+    game_manager = read_file("scripts/core/game_manager.gd") or ""
+    decision_tracker = read_file("scripts/gameplay/decision_tracker.gd") or ""
+    prompt_doc = read_file("docs/ch1_locationization_evidence_image_prompts.md") or ""
+
+    expected_locations = {
+        "old_city_police_outpost": {
+            "scene": "scenes/locations/chapter1/old_city_police_outpost.tscn",
+            "background": "assets/sprites/locations/old_city_police_outpost.png",
+            "parent": "east_district_street",
+            "gate": "eleven_pm_call_log",
+        },
+        "dr_chen_clinic": {
+            "scene": "scenes/locations/chapter1/dr_chen_clinic.tscn",
+            "background": "assets/sprites/locations/dr_chen_clinic.png",
+            "parent": "east_district_street",
+            "gate": "kai_eye_glitch_log",
+        },
+        "abyss_bar_backroom": {
+            "scene": "scenes/locations/chapter1/abyss_bar_backroom.tscn",
+            "background": "assets/sprites/locations/abyss_bar_backroom.png",
+            "parent": "abyss_bar",
+            "gate": "stranger_photo",
+        },
+    }
+
+    for loc_id, data in expected_locations.items():
+        if f'"{loc_id}": "res://{data["scene"]}"' in scene_content:
+            ok(f"Chapter 1 location scene path registered: {loc_id}")
+        else:
+            fail(f"Missing Chapter 1 location scene path: {loc_id}")
+
+        if os.path.exists(os.path.join(PROJECT_ROOT, data["scene"])):
+            ok(f"Chapter 1 location scene exists: {loc_id}")
+        else:
+            fail(f"Missing Chapter 1 location scene file: {loc_id}")
+
+        if os.path.exists(os.path.join(PROJECT_ROOT, data["background"])):
+            ok(f"Chapter 1 location background exists: {loc_id}")
+        else:
+            fail(f"Missing Chapter 1 location background: {loc_id}")
+
+        block = re.search(rf'"{loc_id}"\s*:\s*\{{[\s\S]*?"requires_evidence": "{data["gate"]}"[\s\S]*?\n\t\t\t\t\}}', case_content)
+        if block and f'"connections": ["{data["parent"]}"]' in block.group(0):
+            ok(f"Chapter 1 location gate and parent-only connection wired: {loc_id}")
+        else:
+            fail(f"Chapter 1 location gate or parent-only connection missing: {loc_id}")
+
+    moved_actions = {
+        "visit_old_city_police_outpost": "old_city_police_outpost",
+        "visit_dr_chen_clinic": "dr_chen_clinic",
+        "investigate_abyss_backroom": "abyss_bar_backroom",
+    }
+    for action_id, loc_id in moved_actions.items():
+        if case_content.count(f'"id": "{action_id}"') == 1 and re.search(rf'"{loc_id}"\s*:\s*\{{[\s\S]*?"id": "{action_id}"', case_content):
+            ok(f"Moved story action has a single new-location owner: {action_id}")
+        else:
+            fail(f"Moved story action is missing or duplicated: {action_id}")
+
+    new_dialogues = [
+        "ch1_old_city_police_outpost_enter",
+        "ch1_old_city_queue_ticket",
+        "ch1_abyss_bar_backroom_enter",
+        "ch1_abyss_surveillance_delay_log",
+        "ch1_clinic_anonymous_case_note",
+    ]
+    for dialogue_id in new_dialogues:
+        if f'"{dialogue_id}": [' in dialogue_content:
+            ok(f"Chapter 1 locationization dialogue exists: {dialogue_id}")
+        else:
+            fail(f"Missing Chapter 1 locationization dialogue: {dialogue_id}")
+
+    side_evidence = [
+        "old_city_queue_ticket",
+        "clinic_anonymous_case_note",
+        "abyss_surveillance_delay_log",
+    ]
+    for evidence_id in side_evidence:
+        source_path = os.path.join(PROJECT_ROOT, "assets/generated/items", f"ch1_{evidence_id}.png")
+        runtime_path = os.path.join(PROJECT_ROOT, "assets/sprites/items", f"{evidence_id}.png")
+        if f'"{evidence_id}": {{' in evidence_content and f'"icon": "{evidence_id}"' in evidence_content and '"eye_reading"' in evidence_content:
+            ok(f"Chapter 1 side evidence data has dedicated icon and eye reading: {evidence_id}")
+        else:
+            fail(f"Chapter 1 side evidence data incomplete: {evidence_id}")
+
+        if os.path.exists(source_path) and os.path.exists(runtime_path):
+            ok(f"Chapter 1 side evidence icon source and runtime exist: {evidence_id}")
+            if get_png_size(runtime_path) == (512, 512):
+                ok(f"Chapter 1 side evidence icon size stable: {evidence_id}")
+            else:
+                fail(f"Chapter 1 side evidence icon size mismatch: {evidence_id}")
+            if png_has_alpha(runtime_path):
+                ok(f"Chapter 1 side evidence icon keeps alpha channel: {evidence_id}")
+            else:
+                fail(f"Chapter 1 side evidence icon lacks alpha channel: {evidence_id}")
+            if file_sha256(source_path) == file_sha256(runtime_path):
+                ok(f"Chapter 1 side evidence icon source matches runtime: {evidence_id}")
+            else:
+                fail(f"Chapter 1 side evidence icon source/runtime SHA mismatch: {evidence_id}")
+        else:
+            fail(f"Missing Chapter 1 side evidence icon source or runtime: {evidence_id}")
+
+        if evidence_id in prompt_doc:
+            ok(f"Chapter 1 locationization prompt documented: {evidence_id}")
+        else:
+            fail(f"Chapter 1 locationization prompt missing: {evidence_id}")
+
+    optional_connections = [
+        '"old_city_queue_ticket": "rejected_missing_person_report"',
+        '"clinic_anonymous_case_note": "clinic_eye_warning_log"',
+        '"abyss_surveillance_delay_log": "masked_client_receipt"',
+        '"old_city_queue_ticket:rejected_missing_person_report": "deduced_old_city_system_delay"',
+        '"clinic_anonymous_case_note:clinic_eye_warning_log": "deduced_clinic_pattern_warning"',
+        '"abyss_surveillance_delay_log:masked_client_receipt": "deduced_abyss_paid_silence"',
+    ]
+    for expected in optional_connections:
+        if expected in board_content:
+            ok(f"Optional Chapter 1 evidence-board connection wired: {expected}")
+        else:
+            fail(f"Missing optional Chapter 1 evidence-board connection: {expected}")
+
+    if "hide_after_flag" in location_base and "GameManager.get_dialogue_flag(hide_after_flag)" in location_base:
+        ok("LocationBase supports one-shot story actions")
+    else:
+        fail("LocationBase missing one-shot story action support")
+
+    if "requires_evidence" in location_base and "GameManager.has_evidence(req_evidence)" in location_base:
+        ok("LocationBase supports evidence-gated map destinations")
+    else:
+        fail("LocationBase missing evidence-gated map destination support")
+
+    if "requires_missing_flags" in dialogue_system and "set_flags" in dialogue_system:
+        ok("DialogueSystem supports route fallback and multi-flag setting")
+    else:
+        fail("DialogueSystem missing route fallback or multi-flag support")
+
+    # Bug regression: Snake's first encounter must remain reachable without resolving the route choice.
+    snake_intro_action = (
+        '"id": "meet_snake_information_broker"' in case_content
+        and '"dialogue": "ch1_snake_encounter"' in case_content
+        and '"hide_after_flag": "snake_broker_met"' in case_content
+    )
+    snake_intro_safe = (
+        '"ch1_snake_encounter": [' in dialogue_content
+        and "snake_broker_met" in dialogue_content
+        and "snake_requested_data_chip" in dialogue_content
+        and "snake_deal_accepted" not in dialogue_content
+    )
+    if snake_intro_action and snake_intro_safe:
+        ok("Snake first encounter is reachable and separate from route selection")
+    else:
+        fail("Snake first encounter is unreachable or still mutates route-selection state")
+
+    if "requires_missing_flags" in dialogue_content and "route_unresolved" in dialogue_content:
+        ok("Chapter 1 final inference has unresolved-route fallback")
+    else:
+        fail("Chapter 1 final inference lacks unresolved-route fallback")
+
+    # Bug regression: Snake deal route selection must be one-shot and mutually exclusive.
+    snake_action_one_shot = (
+        '"id": "negotiate_snake_data_chip"' in case_content
+        and '"hide_after_flag": "snake_data_chip_choice_resolved"' in case_content
+    )
+    snake_accept_guard = re.search(
+        r'"next": "snake_trade_accept"[\s\S]*?"requires_missing_flags": \["rejected_snake_deal"\][\s\S]*?"set_flags": \["snake_data_chip_choice_resolved"\]',
+        dialogue_content,
+    )
+    snake_reject_guard = re.search(
+        r'"next": "snake_trade_reject"[\s\S]*?"requires_missing_flags": \["accepted_snake_deal"\][\s\S]*?"set_flags": \["snake_data_chip_choice_resolved"\]',
+        dialogue_content,
+    )
+    if snake_action_one_shot and snake_accept_guard and snake_reject_guard:
+        ok("Snake data-chip trade is one-shot and route choices are mutually exclusive")
+    else:
+        fail("Snake data-chip trade can be repeated or route choices are not mutually exclusive")
+
+    if "chapter_1_complete" in game_manager and "chapter_1_route_chosen" in game_manager and "/ 37.0" in game_manager and "/ 37.0" in decision_tracker:
+        ok("Chapter 1 completion decisions and 37-evidence denominator wired")
+    else:
+        fail("Chapter 1 completion decisions or 37-evidence denominator missing")
 
 
 # ---------------------------------------------------------------------------
@@ -1920,6 +2742,9 @@ def main():
     test_ch1_family_memory_branch()
     test_ch1_asset_replacement_readiness()
     test_ch1_opening_and_mei_ling_trust_expansion()
+    test_ch1_expanded_dual_route_and_eagle_eye_readings()
+    test_ch1_missing_visual_assets_connected()
+    test_ch1_locationization_and_side_evidence()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")

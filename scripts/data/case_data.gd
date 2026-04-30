@@ -48,6 +48,12 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 							"title": "掃描損壞記憶播放器",
 							"dialogue": "ch1_kai_eye_glitch_scan",
 							"requires_evidence": "commission_letter"
+						},
+						{
+							"id": "inspect_eleven_pm_call_log",
+							"title": "查閱浩然最後一通電話",
+							"dialogue": "ch1_eleven_pm_call_log",
+							"requires_evidence": "commission_letter"
 						}
 					],
 					"hotspots": ["hao_ran_room", "computer", "bookshelf", "drawer"]
@@ -55,8 +61,25 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 				"abyss_bar": {
 					"name": "深淵酒吧",
 					"description": "東區地下三層的酒吧，霓虹紫色燈光和合成音樂。",
-					"connections": ["detective_office", "east_district_street"],
+					"connections": ["detective_office", "east_district_street", "abyss_bar_backroom"],
 					"initial_dialogue": "ch1_abyss_bar_enter",
+					"story_actions": [
+						{
+							"id": "meet_snake_information_broker",
+							"title": "與蛇女探口風",
+							"dialogue": "ch1_snake_encounter",
+							"requires_evidence": "abyss_receipt",
+							"hide_after_flag": "snake_broker_met"
+						},
+						{
+							"id": "negotiate_snake_data_chip",
+							"title": "與蛇女談資料晶片交易",
+							"dialogue": "ch1_snake_data_chip_choice",
+							"story_cg": "cg_ch1_snake_trade_choice",
+							"requires_evidence": "data_chip",
+							"hide_after_flag": "snake_data_chip_choice_resolved"
+						}
+					],
 					"hotspots": ["bar_counter", "booth", "snake_corner", "back_door"]
 				},
 				"hao_ran_workshop": {
@@ -92,6 +115,14 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 							"dialogue": "ch1_dr_chen_eye_warning",
 							"requires_flag": "deduced_player_echo_codec",
 							"requires_evidence": "kai_eye_glitch_log"
+						},
+						{
+							"id": "compile_ch1_three_evidence_inference",
+							"title": "整理家庭備份、義眼握手與黑市入口",
+							"dialogue": "ch1_three_evidence_inference",
+							"story_cg": "cg_ch1_three_evidence_inference",
+							"requires_flag": "deduced_ch1_three_evidence_gate",
+							"requires_evidence": "family_memory_clip"
 						}
 					],
 					"hotspots": ["memory_device", "desk_workshop", "data_chip_spot", "broken_lock"],
@@ -100,7 +131,97 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 				"east_district_street": {
 					"name": "東區街道",
 					"description": "雨中的東區街道。霓虹招牌照亮濕漉漉的路面。",
-					"connections": ["detective_office", "mei_ling_apartment", "abyss_bar", "hao_ran_workshop"]
+					"connections": ["detective_office", "mei_ling_apartment", "abyss_bar", "hao_ran_workshop", "old_city_police_outpost", "dr_chen_clinic"],
+					"story_actions": [
+						{
+							"id": "review_east_district_camera_gap",
+							"title": "比對東區監控空窗",
+							"dialogue": "ch1_street_camera_gap",
+							"story_cg": "cg_ch1_street_camera_gap",
+							"requires_evidence": "rejected_missing_person_report"
+						}
+					]
+				},
+				"old_city_police_outpost": {
+					"name": "舊城警署前哨",
+					"description": "燈光刺眼、流程清楚，卻把美玲恐懼排成號碼的城市執法節點。",
+					"connections": ["east_district_street"],
+					"initial_dialogue": "ch1_old_city_police_outpost_enter",
+					"story_actions": [
+						{
+							"id": "inspect_old_city_queue_ticket",
+							"title": "檢視濕掉的等候號碼單",
+							"dialogue": "ch1_old_city_queue_ticket",
+							"requires_evidence": "eleven_pm_call_log",
+							"set_flag": "old_city_queue_ticket_collected",
+							"hide_after_flag": "old_city_queue_ticket_collected"
+						},
+						{
+							"id": "visit_old_city_police_outpost",
+							"title": "查詢美玲被退回的報案",
+							"dialogue": "ch1_old_city_police_outpost",
+							"story_cg": "cg_ch1_police_report_rejection",
+							"requires_evidence": "eleven_pm_call_log",
+							"set_flag": "old_city_police_outpost_reviewed",
+							"hide_after_flag": "old_city_police_outpost_reviewed"
+						}
+					],
+					"hotspots": ["front_counter", "case_terminal", "queue_machine", "corporate_window"],
+					"requires_evidence": "eleven_pm_call_log"
+				},
+				"dr_chen_clinic": {
+					"name": "Dr. 陳診所",
+					"description": "消毒燈太亮的小型義體診所，承接那些不能進正式病歷的記憶傷口。",
+					"connections": ["east_district_street"],
+					"initial_dialogue": "ch1_dr_chen_encounter",
+					"story_actions": [
+						{
+							"id": "inspect_clinic_anonymous_case_note",
+							"title": "翻查匿名記憶污染病歷",
+							"dialogue": "ch1_clinic_anonymous_case_note",
+							"requires_evidence": "kai_eye_glitch_log",
+							"set_flag": "clinic_anonymous_case_note_collected",
+							"hide_after_flag": "clinic_anonymous_case_note_collected"
+						},
+						{
+							"id": "visit_dr_chen_clinic",
+							"title": "請 Dr. 陳解讀義眼握手",
+							"dialogue": "ch1_dr_chen_clinic_followup",
+							"story_cg": "cg_ch1_dr_chen_warning",
+							"requires_evidence": "kai_eye_glitch_log",
+							"set_flag": "dr_chen_clinic_warning_reviewed",
+							"hide_after_flag": "dr_chen_clinic_warning_reviewed"
+						}
+					],
+					"hotspots": ["waiting_room", "case_cabinet", "eye_calibration_unit", "offline_records"],
+					"requires_evidence": "kai_eye_glitch_log"
+				},
+				"abyss_bar_backroom": {
+					"name": "深淵酒吧後室",
+					"description": "包廂監控、隔音牆與清場紀錄都指向同一個事實：有人付錢讓浩然消失在沉默裡。",
+					"connections": ["abyss_bar"],
+					"initial_dialogue": "ch1_abyss_bar_backroom_enter",
+					"story_actions": [
+						{
+							"id": "inspect_abyss_surveillance_delay",
+							"title": "調閱包廂監控延遲紀錄",
+							"dialogue": "ch1_abyss_surveillance_delay_log",
+							"requires_evidence": "stranger_photo",
+							"set_flag": "abyss_surveillance_delay_log_collected",
+							"hide_after_flag": "abyss_surveillance_delay_log_collected"
+						},
+						{
+							"id": "investigate_abyss_backroom",
+							"title": "調查遮罩客戶包廂紀錄",
+							"dialogue": "ch1_abyss_backroom_investigation",
+							"story_cg": "cg_ch1_snake_trade_choice",
+							"requires_evidence": "stranger_photo",
+							"set_flag": "abyss_backroom_investigated",
+							"hide_after_flag": "abyss_backroom_investigated"
+						}
+					],
+					"hotspots": ["booth_terminal", "surveillance_panel", "service_corridor", "soundproof_door"],
+					"requires_evidence": "stranger_photo"
 				}
 			},
 			"interrogations": {

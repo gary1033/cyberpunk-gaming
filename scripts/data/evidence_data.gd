@@ -15,7 +15,9 @@ static func get_all_evidence() -> Dictionary:
 			"name": "美玲的委託信",
 			"description": "林美玲寫的委託書，詳述弟弟林浩然三天前失蹤的情況。",
 			"chapter": 1,
-			"icon": "commission_letter"
+			"icon": "commission_letter",
+			"eye_reading": "鷹眼讀到被反覆刪改的壓痕：美玲曾寫下「浩然在替非法客戶修記憶」，又把那行刪掉。核心資訊可信，但文字邊緣混入凱記憶缺口造成的雨夜殘影。",
+			"eye_flags": ["eagle_eye_overuse_count", "echo_trust_axis_seeded"]
 		},
 		"work_id": {
 			"name": "浩然的工作證",
@@ -27,14 +29,16 @@ static func get_all_evidence() -> Dictionary:
 			"name": "深淵酒吧的收據",
 			"description": "三天前在深淵酒吧的消費收據，有一間包廂的預約紀錄。",
 			"chapter": 1,
-			"icon": "receipt"
+			"icon": "receipt",
+			"eye_reading": "鷹眼從熱感墨水殘留中補出一段包廂 hash。付款人身份被面具協定遮蔽，但路由格式接近記憶黑市的預約系統。"
 		},
 		"data_chip": {
 			"name": "加密的數據晶片",
 			"description": "在浩然工作室中找到的加密晶片，內容無法直接讀取。",
 			"chapter": 1,
 			"icon": "data_chip",
-			"eagle_eye_only": true
+			"eagle_eye_only": true,
+			"eye_reading": "晶片外層不是一般加密，而是回聲網路常用的螺旋簽章。義眼能讀到方向，卻會把簽章短暫投射成凱不認得的白色診療燈。"
 		},
 		"stranger_photo": {
 			"name": "陌生人的全息照片",
@@ -66,7 +70,8 @@ static func get_all_evidence() -> Dictionary:
 			"description": "美玲公寓播放器中殘留的家庭記憶。浩然把一段晚餐與雨聲備份藏在機器深層，像是在提醒美玲自己不是自願失蹤。",
 			"chapter": 1,
 			"icon": "memory_capsule",
-			"preferred_icon": "family_memory_clip"
+			"preferred_icon": "family_memory_clip",
+			"eye_reading": "晚餐記憶中有一幀不屬於公寓的白色實驗室燈光。義眼標記它為真實異常，但畫面裡凱的視角明顯被污染。"
 		},
 		"hao_ran_drawer_note": {
 			"name": "浩然抽屜裡的維修便條",
@@ -94,7 +99,8 @@ static func get_all_evidence() -> Dictionary:
 			"description": "美玲公寓中被浩然拆開的家用記憶播放器，內部韌體被改成能讀取回聲網路的記憶編碼。",
 			"chapter": 1,
 			"icon": "memory_capsule",
-			"preferred_icon": "broken_memory_player"
+			"preferred_icon": "broken_memory_player",
+			"eye_reading": "播放器殘留一段鄭泰早期義眼維修握手協定。它不像使用紀錄，更像是浩然故意留下的鑰匙孔。"
 		},
 		"kai_eye_glitch_log": {
 			"name": "凱的鷹眼異常紀錄",
@@ -102,7 +108,74 @@ static func get_all_evidence() -> Dictionary:
 			"chapter": 1,
 			"icon": "log",
 			"preferred_icon": "kai_eye_glitch_log",
-			"eagle_eye_only": true
+			"eagle_eye_only": true,
+			"eye_reading": "錯誤紀錄顯示握手協定曾被手動喚醒。浩然不是隨機留下線索，他知道凱的義眼能讀到這一層。"
+		},
+		"eleven_pm_call_log": {
+			"name": "十一點未接來電紀錄",
+			"description": "美玲家用終端裡的通話紀錄。浩然失蹤前最後一通電話只響了一聲，隨即被遠端切斷。",
+			"chapter": 1,
+			"icon": "eleven_pm_call_log",
+			"eye_reading": "鷹眼補出來電路由：通話曾經過舊城警署附近的公共節點，又在東區監控空窗開始前被強制終止。",
+			"eye_reveals": ["rejected_missing_person_report"],
+			"eye_flags": ["echo_trust_axis_seeded"]
+		},
+		"rejected_missing_person_report": {
+			"name": "被退回的失蹤通報",
+			"description": "舊城警署前哨退回美玲通報的文件，上面蓋著「成年人自願離開，暫不受理」的章。",
+			"chapter": 1,
+			"icon": "rejected_missing_person_report",
+			"eye_reading": "義眼在文件底層讀到企業風險分類碼。警署不是沒看見案件，而是把它放進不碰的抽屜。",
+			"eye_reveals": ["street_camera_gap"]
+		},
+		"street_camera_gap": {
+			"name": "東區監控空窗",
+			"description": "東區街道監控在 23:04 到 23:11 之間同時失去畫面，時間正好包住浩然最後一通電話。",
+			"chapter": 1,
+			"icon": "street_camera_gap",
+			"eye_reading": "空窗不是設備故障，而是被遠端下達的同步遮蔽命令。指令格式沒有署名，只留下回聲式的封包節奏。"
+		},
+		"masked_client_receipt": {
+			"name": "遮罩客戶包廂紀錄",
+			"description": "深淵酒吧包廂系統殘留的匿名付款紀錄。客戶身份被全息面具協定覆蓋，只剩一段黑市預約 hash。",
+			"chapter": 1,
+			"icon": "masked_client_receipt",
+			"eye_reading": "鷹眼能讀出 hash 的前綴：它不是一般黑市帳號，而是被回聲網路轉介過的臨時身份。"
+		},
+		"clinic_eye_warning_log": {
+			"name": "Dr. 陳的義眼警告紀錄",
+			"description": "Dr. 陳診所裡被刪除的維修紀錄，標記凱的義眼仍保留鄭泰早期維修握手協定。",
+			"chapter": 1,
+			"icon": "clinic_eye_warning_log",
+			"eye_reading": "紀錄裡有一行被覆寫的警告：握手協定可由外部播放器喚醒。凱的義眼既是鑰匙，也可能是後門。"
+		},
+		"old_city_queue_ticket": {
+			"name": "舊城警署等候號碼單",
+			"description": "美玲在舊城警署前哨等候時拿到的濕掉號碼單。紙面只剩半個號碼，背面印著自動受理系統的案件分類流程。",
+			"chapter": 1,
+			"icon": "old_city_queue_ticket",
+			"eye_reading": "號碼單底層殘留四小時的排隊時間戳。系統不是沒有收到美玲的恐懼，而是把它排進一串永遠輪不到人工審查的序列。"
+		},
+		"clinic_anonymous_case_note": {
+			"name": "匿名記憶污染病歷",
+			"description": "Dr. 陳離線病歷櫃裡的匿名病例摘要，記錄多名患者在記憶回放後出現同源眩暈、白光殘影與義眼握手錯誤。",
+			"chapter": 1,
+			"icon": "clinic_anonymous_case_note",
+			"eye_reading": "病例姓名被遮掉，但症狀時間線和凱的義眼錯誤紀錄重疊。這不是單一故障，而是一批被制度外診所悄悄接住的傷口。"
+		},
+		"abyss_surveillance_delay_log": {
+			"name": "深淵酒吧監控延遲紀錄",
+			"description": "深淵酒吧後室終端殘留的監控延遲紀錄。二號包廂附近在浩然會面當晚被手動延遲三分鐘，理由欄只寫著「清場」。",
+			"chapter": 1,
+			"icon": "abyss_surveillance_delay_log",
+			"eye_reading": "延遲命令不是事故，而是付費服務。鷹眼讀到阿傑的權限碼和一組黑市臨時 hash 同時出現，像兩個人一起把燈調暗。"
+		},
+		"black_market_entry_hint": {
+			"name": "記憶黑市入口提示",
+			"description": "由家庭備份、義眼握手與遮罩客戶紀錄交叉後整理出的入口線索。接受蛇女交易會指向黑市拍賣，拒絕交易則指向診所與義眼追查。",
+			"chapter": 1,
+			"icon": "black_market_entry_hint",
+			"eye_reading": "提示本身不等於真相。義眼只能證明有人把浩然、凱與回聲格式接在同一條線上，不能證明迴響可信或不可信。"
 		},
 
 		# ============================================

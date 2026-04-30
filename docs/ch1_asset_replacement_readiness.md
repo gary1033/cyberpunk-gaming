@@ -12,8 +12,8 @@ Each replacement record includes `asset_type`, `target_path`, `runtime_usage`, `
 ## Ready-To-Replace Targets
 
 - `assets/sprites/items/family_memory_clip.png`
-- `assets/sprites/cg/ch1/cg_family_memory_clip.png`
-- `assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png`
+- `assets/sprites/cg/cg_family_memory_clip.png`
+- `assets/sprites/locations/mei_ling_apartment_family_memory_variant.png`
 - `assets/audio/sfx/family_memory_fragment.ogg`
 - `assets/audio/sfx/eagle_eye_glitch_sting.ogg`
 - `assets/audio/sfx/broken_player_scan.ogg`

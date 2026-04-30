@@ -28,11 +28,17 @@ func record_decision(decision_id: String, choice: String, weight: DecisionWeight
 
 func get_ending_factors() -> Dictionary:
 	var factors := {
-		"evidence_ratio": float(GameManager.decisions["total_evidence_collected"]) / 28.0,
+		"evidence_ratio": float(GameManager.decisions["total_evidence_collected"]) / 37.0,
 		"correct_deductions": GameManager.decisions["correct_deductions"],
 		"trusted_zhao": GameManager.decisions["trusted_zhao_ming"],
 		"identity_exposed": GameManager.decisions["identity_exposed_market"],
 		"memory_attitude": GameManager.decisions["memory_attitude"],
+		"accepted_snake_deal": GameManager.decisions.get("accepted_snake_deal", false),
+		"rejected_snake_deal": GameManager.decisions.get("rejected_snake_deal", false),
+		"chapter_1_complete": GameManager.decisions.get("chapter_1_complete", false),
+		"chapter_1_route_chosen": GameManager.decisions.get("chapter_1_route_chosen", "none"),
+		"black_market_compromise_count": GameManager.decisions.get("black_market_compromise_count", 0),
+		"eagle_eye_overuse_count": GameManager.decisions.get("eagle_eye_overuse_count", 0),
 		"ajie_pressure": GameManager.decisions["interrogation_pressure_ajie"],
 		"ghost_pressure": GameManager.decisions["interrogation_pressure_ghost"],
 		"xiao_pressure": GameManager.decisions["interrogation_pressure_dr_xiao"],

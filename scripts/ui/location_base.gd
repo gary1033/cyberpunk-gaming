@@ -7,11 +7,19 @@ extends Node2D
 @export var bg_color: Color = Color(0.05, 0.05, 0.12)
 
 const UI_SPRITE_DIR := "res://assets/sprites/ui"
-const MEI_LING_EAGLE_EYE_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png"
-const MEI_LING_FAMILY_MEMORY_VARIANT := "res://assets/sprites/locations/variants/mei_ling_apartment_family_memory_variant.png"
+const ENERGY_BAR_STATE_DIR := "res://assets/sprites/ui"
+const HUD_ENERGY_SEGMENT_COUNT := 10
+const HUD_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)
+const DIALOGUE_FRAME_SOURCE_SIZE := Vector2(1280.0, 240.0)
+const DIALOGUE_FRAME_OFFSET := Vector2(0.0, -18.0)
+const DIALOGUE_PORTRAIT_RECT := Rect2(34.0, 26.0, 174.0, 134.0)
+const DIALOGUE_NAME_RECT := Rect2(24.0, 181.0, 184.0, 34.0)
+const DIALOGUE_BLUE_CONTENT_RECT := Rect2(282.0, 38.0, 910.0, 158.0)
+const MEI_LING_EAGLE_EYE_VARIANT := "res://assets/sprites/locations/mei_ling_apartment_eye_scan_variant.png"
+const MEI_LING_FAMILY_MEMORY_VARIANT := "res://assets/sprites/locations/mei_ling_apartment_family_memory_variant.png"
 const FAMILY_MEMORY_FRAGMENT_SFX := "res://assets/audio/sfx/family_memory_fragment.ogg"
 const BROKEN_PLAYER_SCAN_SFX := "res://assets/audio/sfx/broken_player_scan.ogg"
-const STORY_CG_DIR := "res://assets/sprites/cg/ch1"
+const STORY_CG_DIR := "res://assets/sprites/cg"
 const EAGLE_EYE_ANOMALY_ACTIONS := {
 	"review_family_memory_clip": true,
 	"inspect_original_backup_album": true,
@@ -19,6 +27,10 @@ const EAGLE_EYE_ANOMALY_ACTIONS := {
 	"decode_eye_signature": true,
 	"decode_hao_ran_last_message": true,
 	"consult_dr_chen_eye_warning": true,
+	"inspect_eleven_pm_call_log": true,
+	"review_east_district_camera_gap": true,
+	"visit_dr_chen_clinic": true,
+	"compile_ch1_three_evidence_inference": true,
 }
 const CaseDataScript: GDScript = preload("res://scripts/data/case_data.gd")
 const DialogueDataScript: GDScript = preload("res://scripts/data/dialogue_data.gd")
@@ -29,7 +41,10 @@ var _background_texture_rect: TextureRect = null
 var _base_background_texture: Texture2D = null
 var _eagle_eye_background_texture: Texture2D = null
 var _family_memory_background_texture: Texture2D = null
+var _ap_widget: Control = null
+var _ap_status_bar: TextureRect = null
 var _ap_label: Label = null
+var _ap_energy_state: int = -1
 
 func _ready() -> void:
 	_setup_background()
@@ -84,7 +99,7 @@ func _load_location_background() -> Texture2D:
 func _get_eagle_eye_background_variant_path() -> String:
 	if location_id == "mei_ling_apartment":
 		return MEI_LING_EAGLE_EYE_VARIANT
-	return "res://assets/sprites/locations/variants/%s_eye_scan_variant.png" % location_id
+	return "res://assets/sprites/locations/%s_eye_scan_variant.png" % location_id
 
 func _get_family_memory_background_variant_path() -> String:
 	if location_id == "mei_ling_apartment":
@@ -100,9 +115,15 @@ func _setup_augmented_vision() -> void:
 	_augmented_vision.name = "AugmentedVision"
 	add_child(_augmented_vision)
 	if _augmented_vision.has_signal("eagle_eye_activated"):
-		_augmented_vision.eagle_eye_activated.connect(func(): _set_eagle_eye_background_active(true))
+		_augmented_vision.eagle_eye_activated.connect(func():
+			_set_eagle_eye_background_active(true)
+			_set_ap_widget_visible(false)
+		)
 	if _augmented_vision.has_signal("eagle_eye_deactivated"):
-		_augmented_vision.eagle_eye_deactivated.connect(func(): _set_eagle_eye_background_active(false))
+		_augmented_vision.eagle_eye_deactivated.connect(func():
+			_set_eagle_eye_background_active(false)
+			_set_ap_widget_visible(true)
+		)
 
 func _set_eagle_eye_background_active(active: bool) -> void:
 	if not _background_texture_rect:
@@ -111,6 +132,10 @@ func _set_eagle_eye_background_active(active: bool) -> void:
 		_background_texture_rect.texture = _eagle_eye_background_texture
 	else:
 		_background_texture_rect.texture = _base_background_texture
+
+func _set_ap_widget_visible(is_visible: bool) -> void:
+	if _ap_widget:
+		_ap_widget.visible = is_visible
 
 func _create_generated_panel_style(asset_name: String, fallback_color: Color, border_color: Color, margin: int) -> StyleBox:
 	var texture := _load_ui_texture(asset_name)
@@ -128,6 +153,22 @@ func _create_generated_panel_style(asset_name: String, fallback_color: Color, bo
 	flat_style.set_corner_radius_all(8)
 	flat_style.set_content_margin_all(margin)
 	return flat_style
+
+func _get_dialogue_frame_scale() -> float:
+	var viewport_width := get_viewport_rect().size.x
+	if viewport_width <= 0.0:
+		return 1.0
+	var frame_scale := minf(viewport_width / DIALOGUE_FRAME_SOURCE_SIZE.x, 1.0)
+	if InputManager.is_mobile:
+		frame_scale = minf(frame_scale, 0.86)
+	return maxf(frame_scale, 0.62)
+
+func _apply_source_rect(control: Control, source_rect: Rect2, frame_scale: float) -> void:
+	control.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	control.offset_left = source_rect.position.x * frame_scale
+	control.offset_top = source_rect.position.y * frame_scale
+	control.offset_right = (source_rect.position.x + source_rect.size.x) * frame_scale
+	control.offset_bottom = (source_rect.position.y + source_rect.size.y) * frame_scale
 
 func _setup_ui() -> void:
 	var ui_layer := CanvasLayer.new()
@@ -153,10 +194,16 @@ func _setup_ui() -> void:
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hud.add_child(spacer)
 
-	# Action points
-	hud.add_child(_create_ap_widget())
-
 	ui_layer.add_child(hud)
+
+	# Action points are kept outside the HBox so the 512x96 tech frame is not clipped.
+	_ap_widget = _create_ap_widget()
+	_ap_widget.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	_ap_widget.offset_left = HUD_ENERGY_BAR_RECT.position.x
+	_ap_widget.offset_top = HUD_ENERGY_BAR_RECT.position.y
+	_ap_widget.offset_right = HUD_ENERGY_BAR_RECT.position.x + HUD_ENERGY_BAR_RECT.size.x
+	_ap_widget.offset_bottom = HUD_ENERGY_BAR_RECT.position.y + HUD_ENERGY_BAR_RECT.size.y
+	ui_layer.add_child(_ap_widget)
 
 	# Bottom toolbar
 	var toolbar := HBoxContainer.new()
@@ -236,62 +283,71 @@ func _setup_ui() -> void:
 	dialogue_system.set_script(load("res://scripts/gameplay/dialogue_system.gd"))
 	dialogue_system.add_to_group("dialogue_system")
 
-	# Portraits
-	var portrait_size := Vector2(170, 170)
-	var portrait_margin_x := 92
-	var portrait_bottom_gap := 38
-	if InputManager.is_mobile:
-		portrait_size = Vector2(112, 112)
-		portrait_margin_x = 58
-		portrait_bottom_gap = 36
+	var dialogue_frame_scale := _get_dialogue_frame_scale()
+	var dialogue_frame_size := DIALOGUE_FRAME_SOURCE_SIZE * dialogue_frame_scale
+
+	var dialogue_frame_root := Control.new()
+	dialogue_frame_root.name = "DialogueFrameRoot"
+	dialogue_frame_root.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	dialogue_frame_root.offset_left = DIALOGUE_FRAME_OFFSET.x
+	dialogue_frame_root.offset_right = DIALOGUE_FRAME_OFFSET.x + dialogue_frame_size.x
+	dialogue_frame_root.offset_top = DIALOGUE_FRAME_OFFSET.y - dialogue_frame_size.y
+	dialogue_frame_root.offset_bottom = DIALOGUE_FRAME_OFFSET.y
+	dialogue_frame_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dialogue_system.add_child(dialogue_frame_root)
+
+	var dialogue_frame_texture := TextureRect.new()
+	dialogue_frame_texture.name = "DialogueFrameTexture"
+	dialogue_frame_texture.texture = _load_ui_texture("dialogue_panel")
+	dialogue_frame_texture.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dialogue_frame_texture.stretch_mode = TextureRect.STRETCH_SCALE
+	dialogue_frame_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dialogue_frame_root.add_child(dialogue_frame_texture)
 
 	var portrait_left := TextureRect.new()
 	portrait_left.name = "PortraitLeft"
-	portrait_left.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	portrait_left.offset_left = portrait_margin_x
-	portrait_left.offset_right = portrait_margin_x + portrait_size.x
-	portrait_left.offset_top = -portrait_bottom_gap - portrait_size.y
-	portrait_left.offset_bottom = -portrait_bottom_gap
-	portrait_left.custom_minimum_size = portrait_size
+	_apply_source_rect(portrait_left, DIALOGUE_PORTRAIT_RECT, dialogue_frame_scale)
+	portrait_left.custom_minimum_size = DIALOGUE_PORTRAIT_RECT.size * dialogue_frame_scale
 	portrait_left.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait_left.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait_left.clip_contents = true
 	portrait_left.z_index = 2
 	portrait_left.visible = false
-	dialogue_system.add_child(portrait_left)
+	dialogue_frame_root.add_child(portrait_left)
 
 	var portrait_right := TextureRect.new()
 	portrait_right.name = "PortraitRight"
-	portrait_right.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	portrait_right.offset_left = portrait_margin_x
-	portrait_right.offset_right = portrait_margin_x + portrait_size.x
-	portrait_right.offset_top = -portrait_bottom_gap - portrait_size.y
-	portrait_right.offset_bottom = -portrait_bottom_gap
-	portrait_right.custom_minimum_size = portrait_size
+	_apply_source_rect(portrait_right, DIALOGUE_PORTRAIT_RECT, dialogue_frame_scale)
+	portrait_right.custom_minimum_size = DIALOGUE_PORTRAIT_RECT.size * dialogue_frame_scale
 	portrait_right.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait_right.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait_right.clip_contents = true
 	portrait_right.z_index = 2
 	portrait_right.visible = false
-	dialogue_system.add_child(portrait_right)
-
-	# Dialogue panel (bottom of screen)
-	var dialogue_panel := PanelContainer.new()
-	dialogue_panel.name = "DialoguePanel"
-	dialogue_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	dialogue_panel.offset_top = -240
-	dialogue_panel.add_theme_stylebox_override(
-		"panel",
-		_create_generated_panel_style("dialogue_panel", Color(0.02, 0.02, 0.08, 0.9), Color(0.0, 0.7, 0.7, 0.8), 16)
-	)
-
-	var vbox := VBoxContainer.new()
-	vbox.name = "VBox"
-	vbox.add_theme_constant_override("separation", 4)
+	dialogue_frame_root.add_child(portrait_right)
 
 	var name_label := Label.new()
 	name_label.name = "NameLabel"
+	_apply_source_rect(name_label, DIALOGUE_NAME_RECT, dialogue_frame_scale)
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	name_label.z_index = 4
 	name_label.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6))
-	name_label.add_theme_font_size_override("font_size", 16)
-	vbox.add_child(name_label)
+	name_label.add_theme_font_size_override("font_size", 18 if not InputManager.is_mobile else 14)
+	dialogue_frame_root.add_child(name_label)
+
+	# Dialogue panel content is positioned in the source image's blue frame.
+	var dialogue_panel := Control.new()
+	dialogue_panel.name = "DialoguePanel"
+	_apply_source_rect(dialogue_panel, DIALOGUE_BLUE_CONTENT_RECT, dialogue_frame_scale)
+	dialogue_panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	dialogue_panel.clip_contents = true
+
+	var vbox := VBoxContainer.new()
+	vbox.name = "VBox"
+	vbox.set_anchors_preset(Control.PRESET_FULL_RECT)
+	vbox.add_theme_constant_override("separation", 4)
 
 	var dialogue_text := RichTextLabel.new()
 	dialogue_text.name = "DialogueText"
@@ -301,13 +357,13 @@ func _setup_ui() -> void:
 	dialogue_text.scroll_active = false
 	dialogue_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	dialogue_text.add_theme_color_override("default_color", Color(0.9, 0.9, 0.9))
-	dialogue_text.add_theme_font_size_override("normal_font_size", 18)
-	dialogue_text.custom_minimum_size = Vector2(0, 96)
+	dialogue_text.add_theme_font_size_override("normal_font_size", 24 if not InputManager.is_mobile else 19)
+	dialogue_text.custom_minimum_size = Vector2(0, 106 if not InputManager.is_mobile else 76)
 	vbox.add_child(dialogue_text)
 
 	var choices_container := VBoxContainer.new()
 	choices_container.name = "ChoicesContainer"
-	choices_container.add_theme_constant_override("separation", 4)
+	choices_container.add_theme_constant_override("separation", 5)
 	choices_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	choices_container.visible = false
 	vbox.add_child(choices_container)
@@ -322,15 +378,15 @@ func _setup_ui() -> void:
 
 	var dialogue_margin := MarginContainer.new()
 	dialogue_margin.name = "DialogueContentMargin"
-	var side_text_margin := 370
-	if InputManager.is_mobile:
-		side_text_margin = 226
-	dialogue_margin.add_theme_constant_override("margin_left", side_text_margin)
-	dialogue_margin.add_theme_constant_override("margin_right", 36)
+	dialogue_margin.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dialogue_margin.add_theme_constant_override("margin_left", 0)
+	dialogue_margin.add_theme_constant_override("margin_right", 0)
+	dialogue_margin.add_theme_constant_override("margin_top", 0)
+	dialogue_margin.add_theme_constant_override("margin_bottom", 0)
 	dialogue_margin.add_child(vbox)
 
 	dialogue_panel.add_child(dialogue_margin)
-	dialogue_system.add_child(dialogue_panel)
+	dialogue_frame_root.add_child(dialogue_panel)
 
 	ui_layer.add_child(dialogue_system)
 
@@ -342,31 +398,61 @@ func _setup_ui() -> void:
 func _update_ap_label(remaining: int) -> void:
 	if _ap_label:
 		_ap_label.text = "AP: %d/%d" % [remaining, GameManager.max_action_points]
+	_update_ap_status_bar(remaining)
+
+func _get_hud_energy_state(remaining: int, max_value: int) -> int:
+	if max_value <= 0:
+		return 1
+	var ratio := clampf(float(remaining) / float(max_value), 0.0, 1.0)
+	if ratio >= 1.0:
+		return HUD_ENERGY_SEGMENT_COUNT
+	return clampi(floori(ratio * HUD_ENERGY_SEGMENT_COUNT), 1, HUD_ENERGY_SEGMENT_COUNT)
+
+func _get_hud_energy_state_path(state: int) -> String:
+	return "%s/energy_bar_%02d.png" % [ENERGY_BAR_STATE_DIR, clampi(state, 1, HUD_ENERGY_SEGMENT_COUNT)]
+
+func _load_hud_energy_state_texture(state: int) -> Texture2D:
+	return _load_runtime_texture(_get_hud_energy_state_path(state))
+
+func _update_ap_status_bar(remaining: int) -> void:
+	if _ap_status_bar == null:
+		return
+	var state := _get_hud_energy_state(remaining, GameManager.max_action_points)
+	if state == _ap_energy_state and _ap_status_bar.texture != null:
+		return
+	var texture := _load_hud_energy_state_texture(state)
+	if texture:
+		_ap_status_bar.texture = texture
+		_ap_energy_state = state
 
 func _create_ap_widget() -> Control:
 	var widget := Control.new()
 	widget.name = "APWidget"
-	widget.custom_minimum_size = Vector2(180, 36)
+	widget.custom_minimum_size = HUD_ENERGY_BAR_RECT.size
 
-	var ap_texture := _load_ui_texture("ap_status_bar")
+	var ap_texture := _load_hud_energy_state_texture(_get_hud_energy_state(GameManager.action_points, GameManager.max_action_points))
+	if ap_texture == null:
+		ap_texture = _load_ui_texture("ap_status_bar")
 	if ap_texture:
-		var backdrop := TextureRect.new()
-		backdrop.name = "APStatusBar"
-		backdrop.texture = ap_texture
-		backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
-		backdrop.stretch_mode = TextureRect.STRETCH_SCALE
-		backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		widget.add_child(backdrop)
+		_ap_status_bar = TextureRect.new()
+		_ap_status_bar.name = "APStatusBar"
+		_ap_status_bar.texture = ap_texture
+		_ap_status_bar.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_ap_status_bar.stretch_mode = TextureRect.STRETCH_SCALE
+		_ap_status_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		widget.add_child(_ap_status_bar)
 
 	_ap_label = Label.new()
 	_ap_label.name = "APLabel"
 	_ap_label.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_ap_label.offset_left = 12
-	_ap_label.offset_right = -12
+	_ap_label.offset_left = 24
+	_ap_label.offset_right = -32
+	_ap_label.offset_top = 8
+	_ap_label.offset_bottom = 40
 	_ap_label.add_theme_color_override("font_color", Color(0.95, 0.66, 0.05))
-	_ap_label.add_theme_font_size_override("font_size", 14)
+	_ap_label.add_theme_font_size_override("font_size", 18)
 	_ap_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_ap_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_ap_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	_update_ap_label(GameManager.action_points)
 	widget.add_child(_ap_label)
 	return widget
@@ -417,6 +503,10 @@ func _get_available_story_actions() -> Array:
 	var available: Array = []
 	for action in _get_location_story_actions():
 		var action_data: Dictionary = action
+		var hide_after_flag: String = action_data.get("hide_after_flag", "")
+		if hide_after_flag != "" and GameManager.get_dialogue_flag(hide_after_flag):
+			continue
+
 		var requires_flag: String = action_data.get("requires_flag", "")
 		if requires_flag != "" and not GameManager.get_dialogue_flag(requires_flag):
 			continue
@@ -499,6 +589,10 @@ func _run_story_action(action_data: Dictionary) -> void:
 	var flag: String = action_data.get("set_flag", "")
 	if flag != "":
 		GameManager.set_dialogue_flag(flag)
+
+	var flags: Array = action_data.get("set_flags", [])
+	for flag_id in flags:
+		GameManager.set_dialogue_flag(str(flag_id))
 
 	var evidence: String = action_data.get("give_evidence", "")
 	if evidence != "":
@@ -617,6 +711,9 @@ func _show_map() -> void:
 		var loc: Dictionary = chapter_data.get("locations", {}).get(conn_id, {})
 		var req_flag: String = loc.get("requires_flag", "")
 		if req_flag != "" and not GameManager.get_dialogue_flag(req_flag):
+			continue
+		var req_evidence: String = loc.get("requires_evidence", "")
+		if req_evidence != "" and not GameManager.has_evidence(req_evidence):
 			continue
 
 		var btn := Button.new()

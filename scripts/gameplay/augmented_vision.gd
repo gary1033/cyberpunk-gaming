@@ -9,8 +9,10 @@ signal energy_changed(energy: float, max_energy: float)
 const EAGLE_EYE_OVERLAY_PATH := "res://assets/sprites/ui/eagle_eye_scan_overlay_ch1.png"
 const EAGLE_EYE_RETICLE_PATH := "res://assets/sprites/ui/eagle_eye_focus_reticle_ch1.png"
 const EAGLE_EYE_GLITCH_NOISE_PATH := "res://assets/sprites/ui/eagle_eye_glitch_noise_ch1.png"
-const EAGLE_EYE_ACTIVATION_CUTIN_PATH := "res://assets/sprites/cg/ch1/eagle_eye_activation_cutin_ch1.png"
+const EAGLE_EYE_ACTIVATION_CUTIN_PATH := "res://assets/sprites/cg/eagle_eye_activation_cutin_ch1.png"
 const EAGLE_EYE_GLITCH_STING_SFX := "res://assets/audio/sfx/eagle_eye_glitch_sting.ogg"
+const ENERGY_BAR_STATE_DIR := "res://assets/sprites/ui"
+const EAGLE_EYE_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)
 
 var overlay: ColorRect = null
 var generated_overlay: TextureRect = null
@@ -18,22 +20,22 @@ var generated_reticle: TextureRect = null
 var glitch_noise: TextureRect = null
 var activation_cutin: TextureRect = null
 var energy_bar: Control = null
+var energy_bar_texture: TextureRect = null
 var toggle_button: Button = null
 var scan_label: Label = null
 var focus_reticle: ColorRect = null
 
 var _shader_material: ShaderMaterial = null
-var _energy_segments: Array = []
-var _energy_orb: Panel = null
 var _drain_timer: float = 0.0
 var _energy_pulse_phase: float = 0.0
+var _current_energy_state: int = -1
 var _reticle_position: Vector2 = Vector2.ZERO
 var _reticle_target_position: Vector2 = Vector2.ZERO
 var _reticle_initialized: bool = false
 var _reticle_scan_timer: float = 0.0
 var _last_focused_hotspot: Node = null
 
-const EAGLE_EYE_SEGMENT_COUNT := 8
+const EAGLE_EYE_SEGMENT_COUNT := 10
 const EAGLE_EYE_DRAIN_INTERVAL := 1.0
 const EAGLE_EYE_RETICLE_SIZE := Vector2(192, 192)
 const EAGLE_EYE_RETICLE_SCAN_RADIUS := 72.0
@@ -111,14 +113,14 @@ func _ensure_runtime_nodes() -> void:
 		energy_bar = Control.new()
 		energy_bar.name = "EnergyBar"
 		energy_bar.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-		energy_bar.offset_left = -378
-		energy_bar.offset_right = -24
-		energy_bar.offset_top = 46
-		energy_bar.offset_bottom = 92
+		energy_bar.offset_left = EAGLE_EYE_ENERGY_BAR_RECT.position.x
+		energy_bar.offset_top = EAGLE_EYE_ENERGY_BAR_RECT.position.y
+		energy_bar.offset_right = EAGLE_EYE_ENERGY_BAR_RECT.position.x + EAGLE_EYE_ENERGY_BAR_RECT.size.x
+		energy_bar.offset_bottom = EAGLE_EYE_ENERGY_BAR_RECT.position.y + EAGLE_EYE_ENERGY_BAR_RECT.size.y
 		energy_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		energy_bar.visible = false
 		add_child(energy_bar)
-		_build_energy_widget()
+		_build_energy_texture_widget()
 
 	if scan_label == null:
 		scan_label = Label.new()
@@ -148,64 +150,44 @@ func _ensure_runtime_nodes() -> void:
 		toggle_button.pressed.connect(toggle)
 		add_child(toggle_button)
 
-func _build_energy_widget() -> void:
+func _build_energy_texture_widget() -> void:
 	if energy_bar == null:
 		return
 
-	var frame := Panel.new()
-	frame.name = "TechEnergyFrame"
-	frame.set_anchors_preset(Control.PRESET_FULL_RECT)
-	frame.add_theme_stylebox_override(
-		"panel",
-		_create_panel_style(Color(0.012, 0.018, 0.026, 0.88), Color(0.0, 0.82, 0.88, 0.66), 2, 8)
-	)
-	energy_bar.add_child(frame)
+	energy_bar_texture = TextureRect.new()
+	energy_bar_texture.name = "TechEnergyTexture"
+	energy_bar_texture.set_anchors_preset(Control.PRESET_FULL_RECT)
+	energy_bar_texture.stretch_mode = TextureRect.STRETCH_SCALE
+	energy_bar_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	energy_bar_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	energy_bar_texture.texture = _load_energy_state_texture(EAGLE_EYE_SEGMENT_COUNT)
+	_current_energy_state = EAGLE_EYE_SEGMENT_COUNT
+	energy_bar.add_child(energy_bar_texture)
 
-	_energy_orb = Panel.new()
-	_energy_orb.name = "EnergyOrb"
-	_energy_orb.set_anchors_preset(Control.PRESET_LEFT_WIDE)
-	_energy_orb.offset_left = 8
-	_energy_orb.offset_right = 52
-	_energy_orb.offset_top = 4
-	_energy_orb.offset_bottom = -4
-	_energy_orb.add_theme_stylebox_override(
-		"panel",
-		_create_panel_style(Color(1.0, 0.56, 0.02, 0.92), Color(1.0, 0.76, 0.08, 0.95), 2, 22)
-	)
-	frame.add_child(_energy_orb)
+func _get_energy_state_path(state: int) -> String:
+	return "%s/energy_bar_%02d.png" % [ENERGY_BAR_STATE_DIR, clampi(state, 1, EAGLE_EYE_SEGMENT_COUNT)]
 
-	var segment_row := HBoxContainer.new()
-	segment_row.name = "EnergySegments"
-	segment_row.set_anchors_preset(Control.PRESET_FULL_RECT)
-	segment_row.offset_left = 66
-	segment_row.offset_right = -14
-	segment_row.offset_top = 10
-	segment_row.offset_bottom = -10
-	segment_row.add_theme_constant_override("separation", 5)
-	frame.add_child(segment_row)
+func _get_energy_state_index(energy: float, max_energy: float) -> int:
+	if max_energy <= 0.0:
+		return 1
+	var ratio := clampf(energy / max_energy, 0.0, 1.0)
+	if ratio >= 1.0:
+		return EAGLE_EYE_SEGMENT_COUNT
+	return clampi(floori(ratio * EAGLE_EYE_SEGMENT_COUNT), 1, EAGLE_EYE_SEGMENT_COUNT)
 
-	_energy_segments.clear()
-	for i in range(EAGLE_EYE_SEGMENT_COUNT):
-		var segment := Panel.new()
-		segment.name = "EnergySegment%02d" % i
-		segment.custom_minimum_size = Vector2(28, 0)
-		segment.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		segment.add_theme_stylebox_override(
-			"panel",
-			_create_panel_style(Color(0.15, 0.1, 0.03, 0.78), Color(0.9, 0.58, 0.08, 0.42), 1, 3)
-		)
-		segment_row.add_child(segment)
-		_energy_segments.append(segment)
+func _load_energy_state_texture(state: int) -> Texture2D:
+	return _load_runtime_texture(_get_energy_state_path(state))
 
-func _create_panel_style(bg_color: Color, border_color: Color, border_width: int, radius: int) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = bg_color
-	style.border_color = border_color
-	style.set_border_width_all(border_width)
-	style.set_corner_radius_all(radius)
-	style.shadow_color = Color(0.0, 0.95, 0.95, 0.14)
-	style.shadow_size = 6
-	return style
+func _set_energy_state_texture(state: int) -> void:
+	if energy_bar_texture == null:
+		return
+	state = clampi(state, 1, EAGLE_EYE_SEGMENT_COUNT)
+	if state == _current_energy_state and energy_bar_texture.texture != null:
+		return
+	var texture := _load_energy_state_texture(state)
+	if texture:
+		energy_bar_texture.texture = texture
+		_current_energy_state = state
 
 func _setup_shader_fallback() -> void:
 	if overlay == null:
@@ -254,7 +236,7 @@ func _process(delta: float) -> void:
 		_drain_timer += delta
 		while _drain_timer >= EAGLE_EYE_DRAIN_INTERVAL:
 			_drain_timer -= EAGLE_EYE_DRAIN_INTERVAL
-			GameManager.consume_eagle_eye_energy(EAGLE_EYE_DRAIN_INTERVAL)
+			GameManager.consume_eagle_eye_energy_amount(GameManager.eagle_eye_max_energy / float(EAGLE_EYE_SEGMENT_COUNT))
 		if GameManager.eagle_eye_energy <= 0:
 			_deactivate()
 		_update_reticle_motion(delta)
@@ -290,7 +272,7 @@ func toggle() -> void:
 		_activate()
 
 func _activate() -> void:
-	if GameManager.eagle_eye_energy <= 5.0:
+	if GameManager.eagle_eye_energy <= GameManager.eagle_eye_max_energy / float(EAGLE_EYE_SEGMENT_COUNT):
 		_flash_energy_bar()
 		return
 
@@ -472,35 +454,17 @@ func _pulse_scanned_hotspot(hotspot: Node) -> void:
 func _update_energy_bar() -> void:
 	if energy_bar:
 		energy_changed.emit(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy)
-
-		var ratio := GameManager.eagle_eye_energy / GameManager.eagle_eye_max_energy
-		var active_segments := ceili(ratio * EAGLE_EYE_SEGMENT_COUNT)
-		for i in range(_energy_segments.size()):
-			var segment := _energy_segments[i] as Panel
-			if segment == null:
-				continue
-			var filled := i < active_segments
-			var fill_color := Color(1.0, 0.58, 0.03, 0.96)
-			var border_color := Color(1.0, 0.78, 0.08, 0.95)
-			if ratio <= 0.25:
-				fill_color = Color(1.0, 0.12, 0.08, 0.94)
-				border_color = Color(1.0, 0.32, 0.2, 0.92)
-			elif ratio <= 0.5:
-				fill_color = Color(0.96, 0.82, 0.08, 0.94)
-				border_color = Color(1.0, 0.9, 0.32, 0.9)
-			segment.add_theme_stylebox_override(
-				"panel",
-				_create_panel_style(fill_color if filled else Color(0.06, 0.07, 0.08, 0.72), border_color if filled else Color(0.0, 0.45, 0.5, 0.3), 1, 3)
-			)
+		_set_energy_state_texture(_get_energy_state_index(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy))
 
 func _animate_energy_widget(delta: float) -> void:
 	if not energy_bar:
 		return
 	_energy_pulse_phase += delta * 5.0
-	var pulse := 0.82 + sin(_energy_pulse_phase) * 0.16
-	if _energy_orb:
-		_energy_orb.modulate = Color(1.0, 0.82, 0.28, pulse)
-	energy_bar.modulate = Color(1.0, 1.0, 1.0, 0.92 + sin(_energy_pulse_phase * 0.5) * 0.08)
+	var state := _get_energy_state_index(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy)
+	var low_energy_pulse := 0.0
+	if GameManager.eagle_eye_active and state <= 3:
+		low_energy_pulse = 0.06 + sin(_energy_pulse_phase) * 0.04
+	energy_bar.modulate = Color(1.0, 1.0, 1.0, clampf(0.94 + sin(_energy_pulse_phase * 0.5) * 0.04 + low_energy_pulse, 0.88, 1.0))
 
 func _flash_energy_bar() -> void:
 	if energy_bar:

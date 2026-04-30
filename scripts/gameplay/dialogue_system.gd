@@ -9,19 +9,31 @@ signal choice_made(choice_index: int)
 @export var typewriter_speed: float = 0.03  # Seconds per character
 @export var fast_speed: float = 0.01
 
-@onready var dialogue_panel: PanelContainer = $DialoguePanel
-@onready var character_name_label: Label = get_node("DialoguePanel").find_child("NameLabel", true, false) as Label
-@onready var dialogue_text: RichTextLabel = get_node("DialoguePanel").find_child("DialogueText", true, false) as RichTextLabel
-@onready var portrait_left: TextureRect = $PortraitLeft
-@onready var portrait_right: TextureRect = $PortraitRight
-@onready var choices_container: VBoxContainer = get_node("DialoguePanel").find_child("ChoicesContainer", true, false) as VBoxContainer
-@onready var continue_indicator: Label = get_node("DialoguePanel").find_child("ContinueIndicator", true, false) as Label
+@onready var dialogue_panel: Control = find_child("DialoguePanel", true, false) as Control
+@onready var character_name_label: Label = find_child("NameLabel", true, false) as Label
+@onready var dialogue_text: RichTextLabel = find_child("DialogueText", true, false) as RichTextLabel
+@onready var portrait_left: TextureRect = find_child("PortraitLeft", true, false) as TextureRect
+@onready var portrait_right: TextureRect = find_child("PortraitRight", true, false) as TextureRect
+@onready var choices_container: VBoxContainer = find_child("ChoicesContainer", true, false) as VBoxContainer
+@onready var continue_indicator: Label = find_child("ContinueIndicator", true, false) as Label
+@onready var dialogue_content_margin: MarginContainer = find_child("DialogueContentMargin", true, false) as MarginContainer
 
-const STORY_CG_DIR := "res://assets/sprites/cg/ch1"
-const DESKTOP_DIALOGUE_PAGE_CHARS := 54
-const MOBILE_DIALOGUE_PAGE_CHARS := 34
+const STORY_CG_DIR := "res://assets/sprites/cg"
+const DESKTOP_DIALOGUE_PAGE_CHARS := 50
+const MOBILE_DIALOGUE_PAGE_CHARS := 30
 const DIALOGUE_TEXT_HEIGHT := 96
-const CHOICE_PROMPT_TEXT_HEIGHT := 44
+const CHOICE_PROMPT_TEXT_HEIGHT := 48
+const COMPACT_CHOICE_PROMPT_TEXT_HEIGHT := 34
+const NO_CHOICE_DIALOGUE_TOP_MARGIN := 28
+const NO_CHOICE_DIALOGUE_BOTTOM_MARGIN := 4
+const CHOICE_DIALOGUE_TOP_MARGIN := 0
+const CHOICE_DIALOGUE_BOTTOM_MARGIN := 0
+const NORMAL_CHOICE_BUTTON_HEIGHT := 40
+const COMPACT_CHOICE_BUTTON_HEIGHT := 32
+const NORMAL_CHOICE_GAP := 5
+const COMPACT_CHOICE_GAP := 3
+const NORMAL_CHOICE_FONT_SIZE := 18
+const COMPACT_CHOICE_FONT_SIZE := 15
 const DIALOGUE_SPLIT_PUNCTUATION := "，。！？；：、,.!?;: "
 
 var _current_dialogue: Array = []  # Array of dialogue entries
@@ -86,10 +98,10 @@ func _show_entry(entry: Dictionary) -> void:
 
 func _show_entry_page(entry: Dictionary, page_text: String, apply_effects: bool) -> void:
 	# Character name
-	character_name_label.text = entry.get("name", "")
+	var speaker: String = entry.get("speaker", "")
+	character_name_label.text = _get_display_name(entry, speaker)
 
 	# Portrait
-	var speaker: String = entry.get("speaker", "")
 	var mood: String = entry.get("mood", "default")
 	if speaker == "narrator":
 		speaker = "kai"
@@ -108,6 +120,10 @@ func _show_entry_page(entry: Dictionary, page_text: String, apply_effects: bool)
 		if flag != "":
 			GameManager.set_dialogue_flag(flag)
 
+		var flags: Array = entry.get("set_flags", [])
+		for flag_id in flags:
+			GameManager.set_dialogue_flag(str(flag_id))
+
 		var decision_change: Dictionary = entry.get("set_decision", {})
 		for decision_id in decision_change:
 			GameManager.set_decision(decision_id, decision_change[decision_id])
@@ -118,6 +134,8 @@ func _show_entry_page(entry: Dictionary, page_text: String, apply_effects: bool)
 			GameManager.collect_evidence(evidence)
 
 	# Start typewriter effect
+	var will_show_choices := _entry_page_will_show_choices(entry)
+	_set_dialogue_content_layout(will_show_choices)
 	_full_text = page_text
 	dialogue_text.text = _full_text
 	dialogue_text.visible_characters = 0
@@ -153,48 +171,47 @@ func _finish_typing() -> void:
 		return
 
 	var entry: Dictionary = _current_dialogue[_current_index]
-	var choices: Array = entry.get("choices", [])
+	var choices: Array = _get_available_choices(entry.get("choices", []))
 
 	if choices.is_empty():
 		# No choices, wait for click to continue
+		_set_dialogue_content_layout(false)
 		_is_waiting_for_input = true
 		continue_indicator.visible = true
 	else:
-		# Show choices
-		dialogue_text.custom_minimum_size = Vector2(0, CHOICE_PROMPT_TEXT_HEIGHT)
-		_show_choices(choices)
+		_set_dialogue_content_layout(true)
+		var compact_choices := choices.size() >= 3
+		dialogue_text.custom_minimum_size = Vector2(
+			0,
+			COMPACT_CHOICE_PROMPT_TEXT_HEIGHT if compact_choices else CHOICE_PROMPT_TEXT_HEIGHT
+		)
+		_show_choices(choices, compact_choices)
 
-func _show_choices(choices: Array) -> void:
+func _show_choices(available_choices: Array, compact_layout: bool) -> void:
 	# Clear old choices
 	for child in choices_container.get_children():
 		child.queue_free()
 
 	choices_container.visible = true
+	choices_container.add_theme_constant_override("separation", COMPACT_CHOICE_GAP if compact_layout else NORMAL_CHOICE_GAP)
+	var button_height := COMPACT_CHOICE_BUTTON_HEIGHT if compact_layout else NORMAL_CHOICE_BUTTON_HEIGHT
+	var font_size := COMPACT_CHOICE_FONT_SIZE if compact_layout else NORMAL_CHOICE_FONT_SIZE
 
-	for i in choices.size():
-		var choice: Dictionary = choices[i]
-
-		# Check if choice requires evidence
-		var requires: String = choice.get("requires_evidence", "")
-		if requires != "" and not GameManager.has_evidence(requires):
-			continue
-
-		# Check if choice requires a flag
-		var requires_flag: String = choice.get("requires_flag", "")
-		if requires_flag != "" and not GameManager.get_dialogue_flag(requires_flag):
-			continue
+	for available in available_choices:
+		var choice: Dictionary = available.get("choice", {})
+		var choice_index := int(available.get("index", 0))
 
 		var btn := Button.new()
 		btn.text = choice.get("text", "...")
-		btn.custom_minimum_size = Vector2(0, 42 if not InputManager.is_mobile else 38)
+		btn.custom_minimum_size = Vector2(0, button_height if not InputManager.is_mobile else 34)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		btn.pressed.connect(_on_choice_pressed.bind(i))
+		btn.pressed.connect(_on_choice_pressed.bind(choice_index))
 
 		# Style the button for cyberpunk look
 		btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
 		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
 		btn.add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0))
-		btn.add_theme_font_size_override("font_size", 18 if not InputManager.is_mobile else 15)
+		btn.add_theme_font_size_override("font_size", font_size if not InputManager.is_mobile else 14)
 		btn.add_theme_stylebox_override(
 			"normal",
 			_create_choice_button_style(Color(0.01, 0.018, 0.026, 0.9), Color(0.0, 0.78, 0.82, 0.74), 1)
@@ -210,9 +227,26 @@ func _show_choices(choices: Array) -> void:
 		btn.add_theme_stylebox_override(
 			"focus",
 			_create_choice_button_style(Color(0, 0, 0, 0), Color(0.0, 0.95, 0.95, 0.9), 2)
-		)
+			)
 
 		choices_container.add_child(btn)
+
+func _entry_page_will_show_choices(entry: Dictionary) -> bool:
+	if _has_more_pages():
+		return false
+	return not _get_available_choices(entry.get("choices", [])).is_empty()
+
+func _set_dialogue_content_layout(has_visible_choices: bool) -> void:
+	if dialogue_content_margin == null:
+		return
+	dialogue_content_margin.add_theme_constant_override(
+		"margin_top",
+		CHOICE_DIALOGUE_TOP_MARGIN if has_visible_choices else NO_CHOICE_DIALOGUE_TOP_MARGIN
+	)
+	dialogue_content_margin.add_theme_constant_override(
+		"margin_bottom",
+		CHOICE_DIALOGUE_BOTTOM_MARGIN if has_visible_choices else NO_CHOICE_DIALOGUE_BOTTOM_MARGIN
+	)
 
 func _create_choice_button_style(bg_color: Color, border_color: Color, border_width: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
@@ -228,6 +262,52 @@ func _create_choice_button_style(bg_color: Color, border_color: Color, border_wi
 	style.set_content_margin(SIDE_BOTTOM, 8)
 	return style
 
+func _get_display_name(entry: Dictionary, speaker: String) -> String:
+	var display_name: String = entry.get("name", "")
+	if display_name != "":
+		return display_name
+
+	match speaker:
+		"narrator", "kai":
+			return "凱"
+		"mei_ling":
+			return "林美玲"
+		"ajie":
+			return "阿傑"
+		"snake":
+			return "蛇女"
+		"dr_chen":
+			return "陳醫師"
+		_:
+			return ""
+
+func _get_available_choices(choices: Array) -> Array:
+	var available_choices: Array = []
+	for i in choices.size():
+		var choice: Dictionary = choices[i]
+		if _is_choice_available(choice):
+			available_choices.append({
+				"index": i,
+				"choice": choice,
+			})
+	return available_choices
+
+func _is_choice_available(choice: Dictionary) -> bool:
+	var requires: String = choice.get("requires_evidence", "")
+	if requires != "" and not GameManager.has_evidence(requires):
+		return false
+
+	var requires_flag: String = choice.get("requires_flag", "")
+	if requires_flag != "" and not GameManager.get_dialogue_flag(requires_flag):
+		return false
+
+	var requires_missing_flags: Array = choice.get("requires_missing_flags", [])
+	for missing_flag in requires_missing_flags:
+		if GameManager.get_dialogue_flag(str(missing_flag)):
+			return false
+
+	return true
+
 func _on_choice_pressed(index: int) -> void:
 	var entry: Dictionary = _current_dialogue[_current_index]
 	var choices: Array = entry.get("choices", [])
@@ -239,6 +319,10 @@ func _on_choice_pressed(index: int) -> void:
 		var flag: String = choice.get("set_flag", "")
 		if flag != "":
 			GameManager.set_dialogue_flag(flag)
+
+		var flags: Array = choice.get("set_flags", [])
+		for flag_id in flags:
+			GameManager.set_dialogue_flag(str(flag_id))
 
 		var decision_change: Dictionary = choice.get("set_decision", {})
 		for decision_id in decision_change:

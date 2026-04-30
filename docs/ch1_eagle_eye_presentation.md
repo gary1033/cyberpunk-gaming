@@ -17,7 +17,7 @@ assets/generated/prompts/image2_ch1_eagle_eye.jsonl
 The manifest includes runtime target paths for:
 
 - `assets/sprites/ui/eagle_eye_scan_overlay_ch1.png`
-- `assets/sprites/locations/variants/mei_ling_apartment_eye_scan_variant.png`
+- `assets/sprites/locations/mei_ling_apartment_eye_scan_variant.png`
 - `assets/sprites/items/broken_memory_player.png`
 - `assets/sprites/items/kai_eye_glitch_log.png`
 - `assets/audio/sfx/eagle_eye_glitch_sting.ogg`

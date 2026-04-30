@@ -27,6 +27,13 @@ var valid_connections: Dictionary = {
 	"original_backup_hint": "hao_ran_encrypted_message",
 	"broken_memory_player": "memory_device_log",
 	"kai_eye_glitch_log": "data_chip",
+	"eleven_pm_call_log": "rejected_missing_person_report",
+	"rejected_missing_person_report": "street_camera_gap",
+	"masked_client_receipt": "stranger_photo",
+	"clinic_eye_warning_log": "masked_client_receipt",
+	"old_city_queue_ticket": "rejected_missing_person_report",
+	"clinic_anonymous_case_note": "clinic_eye_warning_log",
+	"abyss_surveillance_delay_log": "masked_client_receipt",
 	# Chapter 2
 	"echo_symbol": "warehouse_map",
 	"memory_sample": "victim_list",
@@ -47,6 +54,13 @@ var valid_connection_flags: Dictionary = {
 	"original_backup_hint:hao_ran_encrypted_message": "deduced_mei_ling_original_backup",
 	"broken_memory_player:memory_device_log": "deduced_player_echo_codec",
 	"kai_eye_glitch_log:data_chip": "deduced_eye_echo_signature",
+	"eleven_pm_call_log:rejected_missing_person_report": "deduced_police_suppression",
+	"rejected_missing_person_report:street_camera_gap": "deduced_city_system_suppression",
+	"masked_client_receipt:stranger_photo": "deduced_ch1_black_market_route",
+	"clinic_eye_warning_log:masked_client_receipt": "deduced_ch1_three_evidence_gate",
+	"old_city_queue_ticket:rejected_missing_person_report": "deduced_old_city_system_delay",
+	"clinic_anonymous_case_note:clinic_eye_warning_log": "deduced_clinic_pattern_warning",
+	"abyss_surveillance_delay_log:masked_client_receipt": "deduced_abyss_paid_silence",
 }
 
 var _cards: Dictionary = {}  # {evidence_id: CardNode}
@@ -141,6 +155,16 @@ func _create_card(evidence_id: String, card_size: Vector2) -> PanelContainer:
 	name_label.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	vbox.add_child(name_label)
+
+	var reading_text := _get_evidence_reading_text(evidence_id)
+	if reading_text != "":
+		card.tooltip_text = reading_text
+		var reading_label := Label.new()
+		reading_label.text = _summarize_reading(reading_text)
+		reading_label.add_theme_font_size_override("font_size", 10 if not InputManager.is_mobile else 9)
+		reading_label.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6) if GameManager.eagle_eye_active else Color(0.55, 0.62, 0.68))
+		reading_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+		vbox.add_child(reading_label)
 
 	card.add_child(vbox)
 	card.set_meta("evidence_id", evidence_id)
@@ -323,6 +347,15 @@ func _get_evidence_display_name(evidence_id: String) -> String:
 		"hao_ran_encrypted_message": "浩然留給美玲的加密留言",
 		"broken_memory_player": "損壞的記憶播放器",
 		"kai_eye_glitch_log": "凱的鷹眼異常紀錄",
+		"eleven_pm_call_log": "十一點未接來電紀錄",
+		"rejected_missing_person_report": "被退回的失蹤通報",
+		"street_camera_gap": "東區監控空窗",
+		"masked_client_receipt": "遮罩客戶包廂紀錄",
+		"clinic_eye_warning_log": "Dr. 陳的義眼警告紀錄",
+		"old_city_queue_ticket": "舊城警署等候號碼單",
+		"clinic_anonymous_case_note": "匿名記憶污染病歷",
+		"abyss_surveillance_delay_log": "深淵酒吧監控延遲紀錄",
+		"black_market_entry_hint": "記憶黑市入口提示",
 		# Chapter 2
 		"echo_symbol": "回聲網路標記符號",
 		"memory_sample": "記憶樣本",
@@ -347,6 +380,21 @@ func _get_evidence_display_name(evidence_id: String) -> String:
 		"dr_xiao_comms": "蕭博士與高層通訊",
 	}
 	return names.get(evidence_id, evidence_id)
+
+func _get_evidence_reading_text(evidence_id: String) -> String:
+	var EvidenceDataScript: GDScript = load("res://scripts/data/evidence_data.gd")
+	var evidence: Dictionary = EvidenceDataScript.get_evidence(evidence_id)
+	if evidence.is_empty():
+		return ""
+	if GameManager.eagle_eye_active and evidence.get("eye_reading", "") != "":
+		return "鷹眼讀取：" + evidence.get("eye_reading", "")
+	return evidence.get("description", "")
+
+func _summarize_reading(reading_text: String) -> String:
+	var limit := 44 if not InputManager.is_mobile else 30
+	if reading_text.length() <= limit:
+		return reading_text
+	return reading_text.substr(0, limit - 1) + "..."
 
 func _load_evidence_icon(evidence_id: String) -> Texture2D:
 	var EvidenceDataScript: GDScript = load("res://scripts/data/evidence_data.gd")

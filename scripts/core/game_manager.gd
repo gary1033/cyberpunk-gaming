@@ -31,7 +31,16 @@ var decisions: Dictionary = {
 	"identity_exposed_market": false,
 	"memory_attitude": "neutral",           # "accept", "deny", "neutral"
 	"correct_deductions": 0,
-	"total_evidence_collected": 0
+	"total_evidence_collected": 0,
+	"accepted_snake_deal": false,
+	"rejected_snake_deal": false,
+	"black_market_route_opened": false,
+	"clinic_route_opened": false,
+	"chapter_1_complete": false,
+	"chapter_1_route_chosen": "none",
+	"echo_trust_axis_seeded": false,
+	"black_market_compromise_count": 0,
+	"eagle_eye_overuse_count": 0
 }
 
 # Character affinity
@@ -83,7 +92,16 @@ func _reset_decisions() -> void:
 		"identity_exposed_market": false,
 		"memory_attitude": "neutral",
 		"correct_deductions": 0,
-		"total_evidence_collected": 0
+		"total_evidence_collected": 0,
+		"accepted_snake_deal": false,
+		"rejected_snake_deal": false,
+		"black_market_route_opened": false,
+		"clinic_route_opened": false,
+		"chapter_1_complete": false,
+		"chapter_1_route_chosen": "none",
+		"echo_trust_axis_seeded": false,
+		"black_market_compromise_count": 0,
+		"eagle_eye_overuse_count": 0
 	}
 
 func _reset_affinity() -> void:
@@ -134,6 +152,9 @@ func advance_chapter() -> void:
 func activate_eagle_eye() -> bool:
 	if eagle_eye_energy > 0 and not eagle_eye_active:
 		eagle_eye_active = true
+		decisions["eagle_eye_overuse_count"] = decisions.get("eagle_eye_overuse_count", 0) + 1
+		if decisions["eagle_eye_overuse_count"] >= 7:
+			set_dialogue_flag("kai_eye_overuse_warning")
 		return true
 	return false
 
@@ -142,7 +163,11 @@ func deactivate_eagle_eye() -> void:
 
 func consume_eagle_eye_energy(delta: float) -> void:
 	if eagle_eye_active:
-		eagle_eye_energy -= delta * 10.0  # Drains over ~10 seconds
+		consume_eagle_eye_energy_amount(delta * 10.0)  # Legacy continuous drain path
+
+func consume_eagle_eye_energy_amount(amount: float) -> void:
+	if eagle_eye_active:
+		eagle_eye_energy -= amount
 		if eagle_eye_energy <= 0:
 			eagle_eye_energy = 0
 			deactivate_eagle_eye()
@@ -175,7 +200,7 @@ func set_decision(decision_id: String, value: Variant) -> void:
 # --- Ending Calculation ---
 
 func calculate_ending() -> String:
-	var evidence_ratio: float = float(decisions["total_evidence_collected"]) / 28.0
+	var evidence_ratio: float = float(decisions["total_evidence_collected"]) / 37.0
 	var deduction_score: int = decisions["correct_deductions"]
 	var trusted_zhao: bool = decisions["trusted_zhao_ming"]
 	var memory_attitude: String = decisions["memory_attitude"]

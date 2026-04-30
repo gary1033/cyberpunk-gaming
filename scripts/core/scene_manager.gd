@@ -21,6 +21,9 @@ var scene_paths: Dictionary = {
 	"abyss_bar": "res://scenes/locations/chapter1/abyss_bar.tscn",
 	"hao_ran_workshop": "res://scenes/locations/chapter1/hao_ran_workshop.tscn",
 	"east_district_street": "res://scenes/locations/chapter1/east_district_street.tscn",
+	"old_city_police_outpost": "res://scenes/locations/chapter1/old_city_police_outpost.tscn",
+	"dr_chen_clinic": "res://scenes/locations/chapter1/dr_chen_clinic.tscn",
+	"abyss_bar_backroom": "res://scenes/locations/chapter1/abyss_bar_backroom.tscn",
 	# Chapter 2
 	"memory_black_market": "res://scenes/locations/chapter2/memory_black_market.tscn",
 	"abandoned_warehouse": "res://scenes/locations/chapter2/abandoned_warehouse.tscn",

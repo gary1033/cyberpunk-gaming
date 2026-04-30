@@ -255,6 +255,81 @@ static func _get_all_dialogues() -> Dictionary:
 			}
 		],
 
+		"ch1_eleven_pm_call_log": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "美玲家的終端機還亮著未讀通話紀錄。浩然失蹤那晚，十一點整有一通只響了一聲的來電，來源被抹成公共節點。"
+			},
+			{
+				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+				"text": "我以為那只是騷擾電話。可是浩然以前說過，如果有一天他只打一聲就掛，表示他被人盯上，不能留下聲音。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "這不是騷擾電話。來電路由被切斷得太乾淨，像有人不想讓警署留下通報時間。",
+				"give_evidence": "eleven_pm_call_log",
+				"set_flag": "found_eleven_pm_call_log"
+			}
+		],
+
+		"ch1_old_city_police_outpost_enter": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "舊城警署前哨的白燈亮得刺眼。排隊號碼、企業協調窗口與自動受理機排成一條冷冰冰的動線，像是每個人都能說自己只是照程序辦事。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+				"text": "美玲不是沒找過人。她只是被這套系統慢慢推出門外。"
+			}
+		],
+
+		"ch1_old_city_queue_ticket": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "自動受理機旁的失物盒裡，夾著一張濕掉的等候號碼單。紙面被雨水泡開，背面仍印著美玲報案當晚的時間戳。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "四小時。她坐在這裡，看著號碼跳過企業協調、義體事故、身份晶片糾紛，最後只換到一張退案章。",
+				"give_evidence": "old_city_queue_ticket",
+				"set_flag": "old_city_queue_ticket_found"
+			}
+		],
+
+		"ch1_old_city_police_outpost": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "舊城警署前哨只有一盞壞掉的藍燈。值班窗口後方堆著未處理案件，螢幕上卻優先跳出企業風險分類。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+				"text": "林美玲的報案紀錄在哪裡？"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "窗口吐出一張薄薄的紙。上面蓋著「成年人自願離開，暫不受理」。鷹眼掃過印泥，底層還有一個被遮住的企業風險碼。",
+				"give_evidence": "rejected_missing_person_report",
+				"set_flag": "police_report_seen"
+			}
+		],
+
+		"ch1_street_camera_gap": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "東區街口的監控桿在雨裡發出低鳴。公共查詢端只顯示一行故障紀錄：23:04 到 23:11，整段街區同步掉線。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "七分鐘。剛好能讓一個人從公寓外被帶走，也剛好能讓一通電話失去來源。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "鷹眼補出封包節奏。這不是設備老化，而是遠端遮蔽；指令沒有署名，只留下一種像回音般重複的節拍。",
+				"give_evidence": "street_camera_gap",
+				"set_flag": "street_camera_gap_found"
+			}
+		],
+
 		# --- Abyss Bar ---
 		"ch1_abyss_bar_enter": [
 			{
@@ -318,6 +393,86 @@ static func _get_all_dialogues() -> Dictionary:
 			}
 		],
 
+		"ch1_abyss_bar_backroom_enter": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "深淵酒吧後室比前場安靜得多。隔音牆把音樂壓成低頻心跳，包廂門上的感應燈一明一滅，像在替每段沉默計價。"
+			},
+			{
+				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
+				"text": "你要看的都在裡面。但有些紀錄不是消失，是有人付錢讓它慢一點出現。"
+			}
+		],
+
+		"ch1_abyss_backroom_investigation": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "阿傑把包廂紀錄推到吧台邊緣，手指沒有離開紙面。那不是交出證據的姿勢，比較像在確認自己還能不能反悔。"
+			},
+			{
+				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
+				"text": "浩然那晚不是一個人來。他見的人戴全息面具，用的是臨時 hash。這種客人我通常不問名字，也最好不要記得臉。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "你不是忘了，是有人付錢讓你忘。"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "包廂紀錄裡只剩遮罩客戶的付款殘影。鷹眼讀到黑市預約格式，卻同時閃過一段不屬於酒吧的白色走廊。",
+				"give_evidence": "masked_client_receipt",
+				"set_flag": "masked_client_receipt_found"
+			}
+		],
+
+		"ch1_abyss_surveillance_delay_log": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "後室監控終端還保留著一段無人認領的維護紀錄。浩然進入二號包廂後，附近三支鏡頭被手動延遲三分鐘，理由欄只剩「清場」。"
+			},
+			{
+				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
+				"text": "我收過錢讓那一段安靜一點。這件事我認。但我沒收過錢，把一個發抖的小子送去死。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "沉默不一定是共犯，但有人很懂怎麼把沉默做成服務。",
+				"give_evidence": "abyss_surveillance_delay_log",
+				"set_flag": "abyss_surveillance_delay_log_found"
+			}
+		],
+
+		"ch1_snake_data_chip_choice": [
+			{
+				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
+				"text": "你手上的晶片聞起來像回聲網路。我要一份副本，給你一條入口。拒絕也可以，只是你得用自己的眼睛慢慢找。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "副本會流到哪裡？"
+			},
+			{
+				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+				"text": "情報從來不免費。你現在要買的是速度，代價是誰先知道你在查這件事。",
+				"choices": [
+					{"text": "交出晶片副本，換黑市拍賣入口。", "next": "snake_trade_accept", "requires_missing_flags": ["rejected_snake_deal"], "set_flag": "accepted_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"accepted_snake_deal": true, "black_market_route_opened": true, "black_market_compromise_count": 1}, "affinity": {"snake": 2}},
+					{"text": "拒絕交易，改走診所與義眼追查。", "next": "snake_trade_reject", "requires_missing_flags": ["accepted_snake_deal"], "set_flag": "rejected_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"rejected_snake_deal": true, "clinic_route_opened": true}, "affinity": {"snake": -1}}
+				]
+			},
+			{
+				"label": "snake_trade_accept",
+				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
+				"text": "聰明。第二章你會收到拍賣邀請。記得，拍賣場賣的不是物品，是人們以為自己還擁有的過去。",
+				"set_flag": "black_market_route_opened"
+			},
+			{
+				"label": "snake_trade_reject",
+				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+				"text": "也行。去找會替義眼擦血的人吧。只是診所能告訴你的，通常是你已經受傷之後的事。",
+				"set_flag": "clinic_route_opened"
+			}
+		],
+
 		# --- Snake the information broker ---
 		"ch1_snake_encounter": [
 			{
@@ -358,21 +513,42 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "snake_deal",
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "幫我一個小忙。浩然的工作室裡有一個加密數據晶片——把它的內容複製一份給我，我就告訴你他跟什麼人來往。",
+				"text": "幫我一個小忙。浩然的工作室裡有一個加密數據晶片。等你真的拿到它，再來談你願意用什麼代價換入口。",
 				"choices": [
-					{"text": "成交。", "next": "snake_deal_accept", "set_flag": "snake_deal_accepted", "affinity": {"snake": 2}},
-					{"text": "我不做這種交易。", "next": "snake_deal_reject", "affinity": {"snake": -1}},
+					{"text": "我會先找到晶片，再決定要不要交易。", "next": "snake_deal_accept", "set_flags": ["snake_broker_met", "snake_requested_data_chip"], "affinity": {"snake": 1}},
+					{"text": "我不替情報販子跑腿。", "next": "snake_deal_reject", "set_flag": "snake_broker_met", "affinity": {"snake": -1}},
 				]
 			},
 			{
 				"label": "snake_deal_accept",
 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
-				"text": "很明智。去浩然的工作室找到那個晶片，我們再見面。"
+				"text": "謹慎比忠誠值錢。去浩然的工作室找到那個晶片，我們再見面；到時候你會知道自己想買的是速度，還是乾淨。"
 			},
 			{
 				"label": "snake_deal_reject",
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "那真可惜。如果改變主意，你知道在哪找我。"
+				"text": "那真可惜。不過拒絕第一次報價的人，通常只是還沒看見時間多貴。如果改變主意，你知道在哪找我。"
+			}
+		],
+
+		"ch1_dr_chen_clinic_followup": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "Dr. 陳的診所藏在東區招牌後方。門口沒有診療科別，只有一行褪色字：義體維修，現金優先。"
+			},
+			{
+				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "worried", "portrait_side": "left",
+				"text": "我看過這種握手協定。鄭泰早期義眼維修用的，後來被禁掉，因為外部設備可以把它叫醒。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "也就是說，浩然留下的播放器不是線索，是鑰匙孔。"
+			},
+			{
+				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "default", "portrait_side": "left",
+				"text": "鑰匙孔，或者後門。凱，你每次開鷹眼，不只是在看別人的秘密，也可能是在讓別人看見你。",
+				"give_evidence": "clinic_eye_warning_log",
+				"set_flag": "clinic_eye_warning_seen"
 			}
 		],
 
@@ -491,11 +667,56 @@ static func _get_all_dialogues() -> Dictionary:
 			}
 		],
 
+		"ch1_three_evidence_inference": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "證據板上三條線終於交會：家庭備份證明浩然想保護美玲，義眼握手證明他知道凱能讀懂訊號，遮罩客戶紀錄則把失蹤案推向記憶黑市。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+				"text": "浩然不是單純求救。他把線索留給會看見第二層的人。問題是，他把我當偵探，還是當鑰匙？"
+			},
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "鷹眼在資料晶片、診所警告與家庭記憶之間標出同一種回聲式節拍。它沒有說話，只留下痕跡。",
+				"give_evidence": "black_market_entry_hint",
+				"set_flag": "echo_trust_axis_seeded"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "第一章的答案不是浩然在哪裡，而是浩然為什麼選我。第二章，入口已經分岔。",
+				"choices": [
+					{"text": "追查蛇女提供的黑市拍賣入口。", "next": "route_black_market", "requires_flag": "accepted_snake_deal"},
+					{"text": "沿著 Dr. 陳的義眼警告追查。", "next": "route_clinic", "requires_flag": "rejected_snake_deal"},
+					{"text": "先回深淵酒吧處理蛇女的交易條件。", "next": "route_unresolved", "requires_missing_flags": ["accepted_snake_deal", "rejected_snake_deal"]}
+				]
+			},
+			{
+				"label": "route_black_market",
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "蛇女的訊息在終端亮起：拍賣會只認副本，不認名字。你已經買到速度，也把自己的調查交給黑市聞到。",
+				"set_flags": ["chapter_1_complete", "chapter_1_route_chosen"],
+				"set_decision": {"chapter_1_complete": true, "chapter_1_route_chosen": "black_market"}
+			},
+			{
+				"label": "route_clinic",
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "Dr. 陳留下的診所通道仍然開著。你沒有把晶片交出去，但接下來每一步都得靠義眼讀取更深，也承擔更深的失真。",
+				"set_flags": ["chapter_1_complete", "chapter_1_route_chosen"],
+				"set_decision": {"chapter_1_complete": true, "chapter_1_route_chosen": "clinic"}
+			},
+			{
+				"label": "route_unresolved",
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "路線還沒分岔。資料晶片要不要交給蛇女，必須先在深淵酒吧做決定；否則第二章只是另一個沒有出口的走廊。"
+			}
+		],
+
 		# --- Dr. Chen ---
 		"ch1_dr_chen_encounter": [
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "在浩然的工作室附近，你找到了他的同事 Dr. 陳的診所。"
+				"text": "Dr. 陳診所的候診區亮著過白的消毒燈。幾名義體工人低頭避開你的視線，像是每個人都怕自己的病歷被寫進正式系統。"
 			},
 			{
 				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "nervous", "portrait_side": "left",
@@ -529,6 +750,23 @@ static func _get_all_dialogues() -> Dictionary:
 				"label": "chen_nervous",
 				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "frightened", "portrait_side": "left",
 				"text": "有人來過了。問我同樣的問題——但他們不像你這麼客氣。請你...別告訴任何人我跟你說過這些。"
+			}
+		],
+
+		"ch1_clinic_anonymous_case_note": [
+			{
+				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "離線病歷櫃裡有幾份被遮去姓名的病例。症狀欄反覆出現同一句話：記憶回放後短暫看見白色走廊，義眼或神經接口回報不明握手。"
+			},
+			{
+				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "frightened", "portrait_side": "left",
+				"text": "那些人不是浩然的客戶。至少不是同一批。但症狀太像了，所以我把它們留在離線櫃，沒有上傳。"
+			},
+			{
+				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+				"text": "你不是第一次看見這種握手。只是第一次有人把它留在我的義眼裡。",
+				"give_evidence": "clinic_anonymous_case_note",
+				"set_flag": "clinic_anonymous_case_note_found"
 			}
 		],
 
