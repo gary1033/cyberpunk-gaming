@@ -48,6 +48,13 @@ func _ready() -> void:
 	_update_energy_bar()
 
 func _ensure_runtime_nodes() -> void:
+	_ensure_overlay_nodes()
+	_ensure_reticle_nodes()
+	_ensure_activation_cutin()
+	_ensure_energy_bar()
+	_ensure_status_controls()
+
+func _ensure_overlay_nodes() -> void:
 	if overlay == null:
 		overlay = ColorRect.new()
 		overlay.name = "Overlay"
@@ -77,6 +84,7 @@ func _ensure_runtime_nodes() -> void:
 		glitch_noise.visible = false
 		add_child(glitch_noise)
 
+func _ensure_reticle_nodes() -> void:
 	if generated_reticle == null:
 		generated_reticle = TextureRect.new()
 		generated_reticle.name = "GeneratedFocusReticle"
@@ -99,6 +107,7 @@ func _ensure_runtime_nodes() -> void:
 		focus_reticle.visible = false
 		add_child(focus_reticle)
 
+func _ensure_activation_cutin() -> void:
 	if activation_cutin == null:
 		activation_cutin = TextureRect.new()
 		activation_cutin.name = "ActivationCutin"
@@ -109,6 +118,7 @@ func _ensure_runtime_nodes() -> void:
 		activation_cutin.visible = false
 		add_child(activation_cutin)
 
+func _ensure_energy_bar() -> void:
 	if energy_bar == null:
 		energy_bar = Control.new()
 		energy_bar.name = "EnergyBar"
@@ -122,6 +132,7 @@ func _ensure_runtime_nodes() -> void:
 		add_child(energy_bar)
 		_build_energy_texture_widget()
 
+func _ensure_status_controls() -> void:
 	if scan_label == null:
 		scan_label = Label.new()
 		scan_label.name = "ScanLabel"

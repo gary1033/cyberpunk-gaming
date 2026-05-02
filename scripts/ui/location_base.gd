@@ -176,27 +176,33 @@ func _setup_ui() -> void:
 	ui_layer.name = "UILayer"
 	add_child(ui_layer)
 
-	# HUD - top bar
+	_setup_hud(ui_layer)
+	_setup_toolbar(ui_layer)
+	_setup_dialogue_system(ui_layer)
+
+	# Update AP display when it changes
+	GameManager.action_points_changed.connect(func(remaining: int):
+		_update_ap_label(remaining)
+	)
+
+func _setup_hud(ui_layer: CanvasLayer) -> void:
 	var hud := HBoxContainer.new()
 	hud.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	hud.offset_bottom = 40
 	hud.name = "HUD"
 
-	# Chapter & Location label
 	var info_label := Label.new()
 	info_label.text = "第%d章 | %s" % [GameManager.current_chapter, location_name]
 	info_label.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9, 0.8))
 	info_label.add_theme_font_size_override("font_size", 14)
 	hud.add_child(info_label)
 
-	# Spacer
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hud.add_child(spacer)
 
 	ui_layer.add_child(hud)
 
-	# Action points are kept outside the HBox so the 512x96 tech frame is not clipped.
 	_ap_widget = _create_ap_widget()
 	_ap_widget.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	_ap_widget.offset_left = HUD_ENERGY_BAR_RECT.position.x
@@ -205,7 +211,7 @@ func _setup_ui() -> void:
 	_ap_widget.offset_bottom = HUD_ENERGY_BAR_RECT.position.y + HUD_ENERGY_BAR_RECT.size.y
 	ui_layer.add_child(_ap_widget)
 
-	# Bottom toolbar
+func _setup_toolbar(ui_layer: CanvasLayer) -> void:
 	var toolbar := HBoxContainer.new()
 	toolbar.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	toolbar.offset_top = -56
@@ -225,58 +231,37 @@ func _setup_ui() -> void:
 		ui_layer.add_child(toolbar_backdrop)
 
 	if not _get_location_story_actions().is_empty():
-		var investigate_btn := Button.new()
-		investigate_btn.text = "調查"
-		investigate_btn.custom_minimum_size = Vector2(80, 48)
-		investigate_btn.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6))
-		investigate_btn.pressed.connect(_show_story_actions)
+		var investigate_btn := _create_toolbar_button("調查", Color(1.0, 0.0, 0.6), Callable(self, "_show_story_actions"))
 		toolbar.add_child(investigate_btn)
 
-	# Map button
-	var map_btn := Button.new()
-	map_btn.text = "地圖"
-	map_btn.custom_minimum_size = Vector2(80, 48)
-	map_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-	map_btn.pressed.connect(_show_map)
+	var map_btn := _create_toolbar_button("地圖", Color(0.0, 0.9, 0.9), Callable(self, "_show_map"))
 	toolbar.add_child(map_btn)
 
-	# Eagle eye button
-	var eye_btn := Button.new()
-	eye_btn.text = "鷹眼"
-	eye_btn.custom_minimum_size = Vector2(80, 48)
-	eye_btn.add_theme_color_override("font_color", Color(0.9, 0.9, 0.0))
-	eye_btn.pressed.connect(_toggle_eagle_eye)
+	var eye_btn := _create_toolbar_button("鷹眼", Color(0.9, 0.9, 0.0), Callable(self, "_toggle_eagle_eye"))
 	toolbar.add_child(eye_btn)
 
-	# Evidence board button
-	var board_btn := Button.new()
-	board_btn.text = "證據板"
-	board_btn.custom_minimum_size = Vector2(80, 48)
-	board_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-	board_btn.pressed.connect(_open_evidence_board)
+	var board_btn := _create_toolbar_button("證據板", Color(0.0, 0.9, 0.9), Callable(self, "_open_evidence_board"))
 	toolbar.add_child(board_btn)
 
-	# Hint button (mobile)
 	if InputManager.is_mobile:
-		var hint_btn := Button.new()
-		hint_btn.text = "提示"
-		hint_btn.custom_minimum_size = Vector2(80, 48)
-		hint_btn.add_theme_color_override("font_color", Color(0.5, 0.9, 0.5))
 		var HotspotScript: GDScript = load("res://scripts/gameplay/hotspot.gd")
-		hint_btn.pressed.connect(func(): HotspotScript.pulse_all_hotspots(get_tree()))
+		var hint_btn := _create_toolbar_button("提示", Color(0.5, 0.9, 0.5), func(): HotspotScript.pulse_all_hotspots(get_tree()))
 		toolbar.add_child(hint_btn)
 
-	# Menu button
-	var menu_btn := Button.new()
-	menu_btn.text = "選單"
-	menu_btn.custom_minimum_size = Vector2(80, 48)
-	menu_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
-	menu_btn.pressed.connect(_show_pause_menu)
+	var menu_btn := _create_toolbar_button("選單", Color(0.5, 0.5, 0.5), Callable(self, "_show_pause_menu"))
 	toolbar.add_child(menu_btn)
 
 	ui_layer.add_child(toolbar)
 
-	# Dialogue system
+func _create_toolbar_button(text: String, color: Color, callback: Callable) -> Button:
+	var button := Button.new()
+	button.text = text
+	button.custom_minimum_size = Vector2(80, 48)
+	button.add_theme_color_override("font_color", color)
+	button.pressed.connect(callback)
+	return button
+
+func _setup_dialogue_system(ui_layer: CanvasLayer) -> void:
 	var dialogue_system := Control.new()
 	dialogue_system.name = "DialogueSystem"
 	dialogue_system.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -389,11 +374,6 @@ func _setup_ui() -> void:
 	dialogue_frame_root.add_child(dialogue_panel)
 
 	ui_layer.add_child(dialogue_system)
-
-	# Update AP display when it changes
-	GameManager.action_points_changed.connect(func(remaining: int):
-		_update_ap_label(remaining)
-	)
 
 func _update_ap_label(remaining: int) -> void:
 	if _ap_label:
@@ -518,24 +498,25 @@ func _get_available_story_actions() -> Array:
 		available.append(action_data)
 	return available
 
-func _show_story_actions() -> void:
-	var actions := _get_available_story_actions()
-
+func _create_popup_layer(dim_alpha: float) -> CanvasLayer:
 	var popup_layer := CanvasLayer.new()
 	popup_layer.layer = 95
 
 	var dimmer := ColorRect.new()
-	dimmer.color = Color(0, 0, 0, 0.6)
+	dimmer.color = Color(0, 0, 0, dim_alpha)
 	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
 	popup_layer.add_child(dimmer)
 
+	return popup_layer
+
+func _create_popup_content(popup_layer: CanvasLayer, min_width: float, border_color: Color, title_text: String, title_color: Color) -> VBoxContainer:
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override(
 		"panel",
-		_create_generated_panel_style("popup_panel", Color(0.05, 0.05, 0.15, 0.95), Color(1.0, 0.0, 0.6), 20)
+		_create_generated_panel_style("popup_panel", Color(0.05, 0.05, 0.15, 0.95), border_color, 20)
 	)
 	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(320, 0)
+	panel.custom_minimum_size = Vector2(min_width, 0)
 
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 20)
@@ -547,11 +528,31 @@ func _show_story_actions() -> void:
 	vbox.add_theme_constant_override("separation", 12)
 
 	var title := Label.new()
-	title.text = "調查"
-	title.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6))
+	title.text = title_text
+	title.add_theme_color_override("font_color", title_color)
 	title.add_theme_font_size_override("font_size", 22)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(title)
+
+	margin.add_child(vbox)
+	panel.add_child(margin)
+	popup_layer.add_child(panel)
+
+	return vbox
+
+func _create_popup_button(text: String, color: Color, callback: Callable) -> Button:
+	var button := Button.new()
+	button.text = text
+	button.custom_minimum_size = Vector2(0, 48)
+	button.add_theme_color_override("font_color", color)
+	button.pressed.connect(callback)
+	return button
+
+func _show_story_actions() -> void:
+	var actions := _get_available_story_actions()
+
+	var popup_layer := _create_popup_layer(0.6)
+	var vbox := _create_popup_content(popup_layer, 320.0, Color(1.0, 0.0, 0.6), "調查", Color(1.0, 0.0, 0.6))
 
 	if actions.is_empty():
 		var empty_label := Label.new()
@@ -562,27 +563,16 @@ func _show_story_actions() -> void:
 	else:
 		for action in actions:
 			var action_data: Dictionary = action
-			var btn := Button.new()
-			btn.text = action_data.get("title", "調查")
-			btn.custom_minimum_size = Vector2(0, 48)
-			btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-			btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
-			btn.pressed.connect(func():
+			var btn := _create_popup_button(str(action_data.get("title", "調查")), Color(0.0, 0.9, 0.9), func():
 				popup_layer.queue_free()
 				_run_story_action(action_data)
 			)
+			btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
 			vbox.add_child(btn)
 
-	var close_btn := Button.new()
-	close_btn.text = "取消"
-	close_btn.custom_minimum_size = Vector2(0, 48)
-	close_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
-	close_btn.pressed.connect(popup_layer.queue_free)
+	var close_btn := _create_popup_button("取消", Color(0.5, 0.5, 0.5), Callable(popup_layer, "queue_free"))
 	vbox.add_child(close_btn)
 
-	margin.add_child(vbox)
-	panel.add_child(margin)
-	popup_layer.add_child(panel)
 	add_child(popup_layer)
 
 func _run_story_action(action_data: Dictionary) -> void:
@@ -675,40 +665,12 @@ func _show_map() -> void:
 	var current_loc: Dictionary = chapter_data.get("locations", {}).get(location_id, {})
 	var connections: Array = current_loc.get("connections", [])
 
-	var popup_layer := CanvasLayer.new()
-	popup_layer.layer = 95
-
-	var dimmer := ColorRect.new()
-	dimmer.color = Color(0, 0, 0, 0.6)
-	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
-	popup_layer.add_child(dimmer)
-
-	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override(
-		"panel",
-		_create_generated_panel_style("popup_panel", Color(0.05, 0.05, 0.15, 0.95), Color(0.0, 0.7, 0.7), 20)
-	)
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(320, 0)
-
-	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 20)
-	margin.add_theme_constant_override("margin_right", 20)
-	margin.add_theme_constant_override("margin_top", 20)
-	margin.add_theme_constant_override("margin_bottom", 20)
-
-	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 12)
-
-	var title := Label.new()
-	title.text = "前往目的地"
-	title.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-	title.add_theme_font_size_override("font_size", 22)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vbox.add_child(title)
+	var popup_layer := _create_popup_layer(0.6)
+	var vbox := _create_popup_content(popup_layer, 320.0, Color(0.0, 0.7, 0.7), "前往目的地", Color(0.0, 0.9, 0.9))
 
 	for conn_id in connections:
-		var loc: Dictionary = chapter_data.get("locations", {}).get(conn_id, {})
+		var target_location_id := str(conn_id)
+		var loc: Dictionary = chapter_data.get("locations", {}).get(target_location_id, {})
 		var req_flag: String = loc.get("requires_flag", "")
 		if req_flag != "" and not GameManager.get_dialogue_flag(req_flag):
 			continue
@@ -716,28 +678,17 @@ func _show_map() -> void:
 		if req_evidence != "" and not GameManager.has_evidence(req_evidence):
 			continue
 
-		var btn := Button.new()
-		btn.text = loc.get("name", conn_id)
-		btn.custom_minimum_size = Vector2(0, 48)
-		btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
-		btn.pressed.connect(func():
+		var btn := _create_popup_button(str(loc.get("name", target_location_id)), Color(0.0, 0.9, 0.9), func():
 			popup_layer.queue_free()
 			GameManager.spend_action_points(1)
-			await SceneManager.change_scene(conn_id)
+			await SceneManager.change_scene(target_location_id)
 		)
+		btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
 		vbox.add_child(btn)
 
-	var close_btn := Button.new()
-	close_btn.text = "取消"
-	close_btn.custom_minimum_size = Vector2(0, 48)
-	close_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
-	close_btn.pressed.connect(popup_layer.queue_free)
+	var close_btn := _create_popup_button("取消", Color(0.5, 0.5, 0.5), Callable(popup_layer, "queue_free"))
 	vbox.add_child(close_btn)
 
-	margin.add_child(vbox)
-	panel.add_child(margin)
-	popup_layer.add_child(panel)
 	add_child(popup_layer)
 
 func _toggle_eagle_eye() -> void:
@@ -804,66 +755,25 @@ func _open_evidence_board() -> void:
 	board.open()
 
 func _show_pause_menu() -> void:
-	var popup_layer := CanvasLayer.new()
-	popup_layer.layer = 95
+	var popup_layer := _create_popup_layer(0.7)
+	var vbox := _create_popup_content(popup_layer, 280.0, Color(0.0, 0.7, 0.7), "NEON MEMORIES", Color(0.0, 0.9, 0.9))
+	var title := vbox.get_child(0) as Label
+	if title:
+		title.add_theme_font_size_override("font_size", 20)
 
-	var dimmer := ColorRect.new()
-	dimmer.color = Color(0, 0, 0, 0.7)
-	dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
-	popup_layer.add_child(dimmer)
-
-	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override(
-		"panel",
-		_create_generated_panel_style("popup_panel", Color(0.05, 0.05, 0.15, 0.95), Color(0.0, 0.7, 0.7), 20)
-	)
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(280, 0)
-
-	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 20)
-	margin.add_theme_constant_override("margin_right", 20)
-	margin.add_theme_constant_override("margin_top", 20)
-	margin.add_theme_constant_override("margin_bottom", 20)
-
-	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 12)
-
-	var title := Label.new()
-	title.text = "NEON MEMORIES"
-	title.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-	title.add_theme_font_size_override("font_size", 20)
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vbox.add_child(title)
-
-	var save_btn := Button.new()
-	save_btn.text = "存檔"
-	save_btn.custom_minimum_size = Vector2(0, 48)
-	save_btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-	save_btn.pressed.connect(func():
+	var save_btn := _create_popup_button("存檔", Color(0.0, 0.9, 0.9), func():
 		SaveManager.save_game(1)
 		popup_layer.queue_free()
 	)
 	vbox.add_child(save_btn)
 
-	var main_menu_btn := Button.new()
-	main_menu_btn.text = "回到主選單"
-	main_menu_btn.custom_minimum_size = Vector2(0, 48)
-	main_menu_btn.add_theme_color_override("font_color", Color(0.9, 0.5, 0.0))
-	main_menu_btn.pressed.connect(func():
+	var main_menu_btn := _create_popup_button("回到主選單", Color(0.9, 0.5, 0.0), func():
 		popup_layer.queue_free()
 		await SceneManager.change_scene("main_menu")
 	)
 	vbox.add_child(main_menu_btn)
 
-	var resume_btn := Button.new()
-	resume_btn.text = "繼續遊戲"
-	resume_btn.custom_minimum_size = Vector2(0, 48)
-	resume_btn.add_theme_color_override("font_color", Color(0.5, 0.9, 0.5))
-	resume_btn.pressed.connect(popup_layer.queue_free)
+	var resume_btn := _create_popup_button("繼續遊戲", Color(0.5, 0.9, 0.5), Callable(popup_layer, "queue_free"))
 	vbox.add_child(resume_btn)
 
-	margin.add_child(vbox)
-	panel.add_child(margin)
-	popup_layer.add_child(panel)
 	add_child(popup_layer)
