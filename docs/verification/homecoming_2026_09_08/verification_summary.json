@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-08",
+  "full_integrity": {
+    "passed": 959,
+    "failed": 0,
+    "warnings": 0
+  },
+  "actual_new_game_endings": 3,
+  "saved_epilogue_combinations": 27,
+  "gpu_dialogue_layout_checks": 36,
+  "bgm_checks": 21,
+  "energy_checks": 141,
+  "story_progression_score": 838,
+  "eagle_eye_presentation_score": 273,
+  "limits": [
+    "Mobile sizes were simulated on desktop, not tested on physical phones.",
+    "Family memory SFX placeholder is skipped; real SFX is still missing.",
+    "Scores are checker metrics, not completion percentages."
+  ]
+}

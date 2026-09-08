@@ -1,0 +1,2567 @@
+{
+  "files": [
+    {
+      "path": "scripts/core/responsive_ui.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 2303,
+      "sha256": "06d364f5ea979956120e38cb32ec268fb7000739c0f7677135bc52cf7558541d"
+    },
+    {
+      "path": "scripts/core/responsive_ui.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 20,
+      "sha256": "e9d247d12df3903f5a7d6e82ac11dc7c74de5550e5a9df8d4e9215ada5ff547e"
+    },
+    {
+      "path": "scripts/gameplay/interrogation.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 9957,
+      "sha256": "2978335f5f05c52921edbb12500506f8decad5b7921ac443904e812246faba1f"
+    },
+    {
+      "path": "scripts/gameplay/interrogation.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 20,
+      "sha256": "cc3a1859667bdacae8df327d06f02a2dbbe30cf5ed3e857d51a6af026062b93a"
+    },
+    {
+      "path": "scripts/gameplay/investigation.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 4454,
+      "sha256": "231cbe8fd65e901012a222533737d9263df420ef10b48fe857244cae496a407c"
+    },
+    {
+      "path": "scripts/gameplay/investigation.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 19,
+      "sha256": "9514512f33956a240fef765408a8cb49e6848d892f1c7c924ce7581d9674ce95"
+    },
+    {
+      "path": "scripts/gameplay/memory_preview.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 6034,
+      "sha256": "16f0f869d1a75ce72364db3884e6115b267e0cbe419ef38a271852c90b54a596"
+    },
+    {
+      "path": "scripts/gameplay/memory_preview.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 19,
+      "sha256": "12d9c7b0caaf2b83a01c2763b6e5aa346381cd0662c3058d9f6f8c22fff57a38"
+    },
+    {
+      "path": "scripts/gameplay/time_budget.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 1561,
+      "sha256": "1bac15bc1143d93964b7519bafef7708f9efd7499e0540beb1ef6b84daf7e22e"
+    },
+    {
+      "path": "scripts/gameplay/time_budget.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 20,
+      "sha256": "385c8e49eaca027b2b87063102aa8851265494ee96ee525351ae7381f8538f69"
+    },
+    {
+      "path": "scripts/gameplay/decision_tracker.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 3164,
+      "sha256": "f29408acfc984fd6914e2a219cd7eadfd7f1e9f500fb8df95fc4ec15ead29f1d"
+    },
+    {
+      "path": "scripts/gameplay/decision_tracker.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 20,
+      "sha256": "79ad46bcdad5482e4b9556f253647c5603df84dd5067aed09fd86c75eec3276e"
+    },
+    {
+      "path": "scripts/ui/game_scene.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 594,
+      "sha256": "595a6bd7a68ac0a5af528958161a298011227beb9dfc1cdf9a4e6d8360ba80f1"
+    },
+    {
+      "path": "scripts/ui/game_scene.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 20,
+      "sha256": "2a0c91fca1c70db2d3ef5e3963ee693fb933419062030d721eed374f805d4280"
+    },
+    {
+      "path": "scripts/data/character_design.gd",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 21332,
+      "sha256": "22c13b4518fbdd2e01fd03433191b2b0b316de2d4469af2cc6c09d541a9a64bd"
+    },
+    {
+      "path": "scripts/data/character_design.gd.uid",
+      "reason": "UID for removed script",
+      "bytes": 20,
+      "sha256": "8648174581d0e1d6bc535fb72952620b88f2900f3853188b448ba15214fd3c97"
+    },
+    {
+      "path": "scenes/game.tscn",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 174,
+      "sha256": "850074546ab2684332aa0f5f90e94a0958f7813df5e5bccf7468493755a0a8fe"
+    },
+    {
+      "path": "tools/generate_audio_previews.py",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 4262,
+      "sha256": "e8ca5ff1dfb1d449682cb50bb824dbd14ced5f96ac90404937469640f7df499d"
+    },
+    {
+      "path": "tools/render_generated_assets.py",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 24102,
+      "sha256": "5372fa3f9685fe32c0b920e7c8b5eee52443c5c47b23d52dc7d0c040d55b2bc7"
+    },
+    {
+      "path": "tools/build_image2_asset_prompts.py",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 11049,
+      "sha256": "b67e929ffbb69d853a72c4bb07974a868632e41b725ad980f52029890d4d46c1"
+    },
+    {
+      "path": "docs/audio_preview_2026_09_08.html",
+      "reason": "unconnected or superseded prototype",
+      "bytes": 1684,
+      "sha256": "dbb484269bd74bdfe88856a10458a04702508dbcef3d3c0166ce66003db67728"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/broken_player_scan.wav",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 441044,
+      "sha256": "016c1006fe1468182c8736397880fefee2e8f2e4f98c544a380597b382404474"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/broken_player_scan.wav.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 554,
+      "sha256": "be6f7552cedd2ce7fdb10447fa53f18fb8bf58be79cf05aadc70a7528d2596e0"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/eagle_eye_glitch_sting.wav",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 264644,
+      "sha256": "8588251b4f9812587b7aa20e92884a852f0df1d98cb155bf7419f1beaa4a5ac3"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/eagle_eye_glitch_sting.wav.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 566,
+      "sha256": "fc618f6caa7917c3df72ef8b01cbb6409d4f87b24b58222a7fb5ea76a56b2e32"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/family_memory_fragment.wav",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 529244,
+      "sha256": "15b13044beaff112934d1d5972e3ce9ef778c4ad5652105f2a9047e262960448"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/family_memory_fragment.wav.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 566,
+      "sha256": "2f56f23ff177510ba4cfc95ba295dab33623b03fed3356a683da91d04a4d76f0"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/manifest.json",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 1557,
+      "sha256": "c304c1ea1ca52475fc204989188478e340bbb541a975f7e531dce66e86828f7a"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/memory_signature_reveal.wav",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 352844,
+      "sha256": "e5f3d224efb7faf0d692c98ab7e0163ffb04a5b1e0bc44052a51eedf0b5a6967"
+    },
+    {
+      "path": "assets/generated/audio/previews_2026_09_08/memory_signature_reveal.wav.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 570,
+      "sha256": "50d06da4cd4b3ec143f7a3fcfc345d4ea8f5bc045742f7a2d7068f8661de98eb"
+    },
+    {
+      "path": "tests/__pycache__/test_data_integrity.cpython-313.pyc",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 148743,
+      "sha256": "f8dc57297ea348f039219eabdd6c844b76e1266332df4a347ee55ec92c6a61e3"
+    },
+    {
+      "path": "tests/__pycache__/test_story_progression.cpython-313.pyc",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 16594,
+      "sha256": "d0f64f39389f0d658989b89cdcd8a750eb02c1c76ad623db0c3108618bd9e477"
+    },
+    {
+      "path": "tools/__pycache__/audit_assets.cpython-313.pyc",
+      "reason": "rejected audio preview or local cache",
+      "bytes": 7315,
+      "sha256": "a66f3d5fabf1006458bed97fd5c4977e748598ae56f3d61edc79cae1f06691e0"
+    },
+    {
+      "path": "assets/sprites/ui/ap_status_bar.png",
+      "reason": "superseded UI art",
+      "bytes": 62260,
+      "sha256": "b1fb61f758600268c63ad8db35abb1366568c31f4c5c8508e80daededeb2d1a5"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_01.png",
+      "reason": "superseded UI art",
+      "bytes": 26109,
+      "sha256": "91456a33aeede5a64364d60905da4060b9d01ef3a964eff919ee0564758d863c"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_01.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "a1138aaa5b10e8df188ffac4b8358ef6d52454ff3db04cecac99b3d83b96f0b2"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_02.png",
+      "reason": "superseded UI art",
+      "bytes": 26804,
+      "sha256": "4a874b3406c2b798af36d6c76775ad1b383ba1f39e627d1b0ae3d414b7cf1eca"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_02.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "ad37903f55ce2063a73de705d6e2b5014a3cf00c1e46edd58d3b78592b3bfc6a"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_03.png",
+      "reason": "superseded UI art",
+      "bytes": 29884,
+      "sha256": "df02edab22b0680576c7525a5dc9cc8e36e3a070024f63fe46b1c225d07550b9"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_03.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 960,
+      "sha256": "e5e88ac44b9706ca94205c85d865836ccf7ad2d77942c30e552f6b7c28c08da0"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_04.png",
+      "reason": "superseded UI art",
+      "bytes": 29773,
+      "sha256": "f8fe71ef6ee54b91335c5235471c08ca3b187ea7f4986079baf76d5ef02b11d9"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_04.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "6df3a6ca6f6e37e3aa0ed130b2a3c6e850981eb2898e2923ebf1d830087bd323"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_05.png",
+      "reason": "superseded UI art",
+      "bytes": 32095,
+      "sha256": "737acfbf0b5178ad52daa3f5147fa9c8df23ffe544bf4230976ea63084e30a71"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_05.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "bf16c537ff366df3581997be4cf3ecdc96ec4d577c36b6dd402a6dad6a28793d"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_06.png",
+      "reason": "superseded UI art",
+      "bytes": 30055,
+      "sha256": "5401fb91c603a9bcfb74a2e70def7a49e341f56286aa8338a1279943c754b5e4"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_06.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "f86e232933ddca2242e4431d6b644dd5c42787fa521a4d7f3750bb4b8874ec2d"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_07.png",
+      "reason": "superseded UI art",
+      "bytes": 27269,
+      "sha256": "ba2a29dc497b11f2fbfd0bb63114481390109f4ecb51e08be420d97d40d1016f"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_07.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "d787e55832c214892f1a9f8f2e0d61a678bafe1f462207d8f265ea5c5a9de4d6"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_08.png",
+      "reason": "superseded UI art",
+      "bytes": 29586,
+      "sha256": "b01cd2d27312a77e4a6f5e838fd4aef93940079c351c8aa428d61d8d654f7fd9"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_08.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "10f19f375a23da465c1936a96bd5a6a07b4d06c00218a97e4e5a6074327bd119"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_09.png",
+      "reason": "superseded UI art",
+      "bytes": 28695,
+      "sha256": "13be65cd3d4bd5f52d3687c749cb0ca9cc4ec77992ed0ba0b3673fbf35a18235"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_09.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 960,
+      "sha256": "2107bd7825c519d83a53112e0ae70aae759c7ff24092c407778b685cd2179e58"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_10.png",
+      "reason": "superseded UI art",
+      "bytes": 38366,
+      "sha256": "021e8528f1e5520b64894f27df68c6b49026824856fd29225f0c2d4a87f31645"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_10.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "0f36cd03aa57de0b3e19feebe00f607d08346166f16d4b8022e8669bba8e603c"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_11.png",
+      "reason": "superseded UI art",
+      "bytes": 30739,
+      "sha256": "d3116a20f88540632202afba1c5e2b8f64f7e4b7679e52048dccdfbfe30e8e60"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_11.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "91e90d49dd1510e092307ecc9258ae80eec1444006f47fbbd677e3c8877c1789"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_12.png",
+      "reason": "superseded UI art",
+      "bytes": 32887,
+      "sha256": "24677157f8f4dc16e30a6f242ec08b523ecf04f827734fbe76b5eb9a6d53ef20"
+    },
+    {
+      "path": "assets/sprites/ui/energy_bar_12.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "89fe4259e14894d46e1c3e6d9ecdffe0aa4f0f24b36503053fcc537dd4b24bd7"
+    },
+    {
+      "path": "assets/sprites/ui/memory_preview_overlay.png",
+      "reason": "superseded UI art",
+      "bytes": 639446,
+      "sha256": "7bf1cfb5bd4bc7178c4bd59cdd5c269f16666ebaa9cadbcb08b4f8dc23b2d25b"
+    },
+    {
+      "path": "assets/generated/ui/ap_status_bar.png",
+      "reason": "superseded UI art",
+      "bytes": 62260,
+      "sha256": "b1fb61f758600268c63ad8db35abb1366568c31f4c5c8508e80daededeb2d1a5"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_01.png",
+      "reason": "superseded UI art",
+      "bytes": 26109,
+      "sha256": "91456a33aeede5a64364d60905da4060b9d01ef3a964eff919ee0564758d863c"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_01.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "a2f789d19bfba68b39f99c4c49b4c06858a5f90ef4d4a3c5992d510cfd74d9d8"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_02.png",
+      "reason": "superseded UI art",
+      "bytes": 26804,
+      "sha256": "4a874b3406c2b798af36d6c76775ad1b383ba1f39e627d1b0ae3d414b7cf1eca"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_02.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "c2a294bec4ddc77efe9412612b6df64cd90ee8f75bf0d3e7a017f6242cb322e9"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_03.png",
+      "reason": "superseded UI art",
+      "bytes": 29884,
+      "sha256": "df02edab22b0680576c7525a5dc9cc8e36e3a070024f63fe46b1c225d07550b9"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_03.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "891aa20abd9dfa3314a1dc000fb53f86479f97ad3d6a853775b5268f75503653"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_04.png",
+      "reason": "superseded UI art",
+      "bytes": 29773,
+      "sha256": "f8fe71ef6ee54b91335c5235471c08ca3b187ea7f4986079baf76d5ef02b11d9"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_04.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "64e915d684e230541fc1cd165dcd22f6596273019dd7e15dc0233265ebf36194"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_05.png",
+      "reason": "superseded UI art",
+      "bytes": 32095,
+      "sha256": "737acfbf0b5178ad52daa3f5147fa9c8df23ffe544bf4230976ea63084e30a71"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_05.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "93d5069cff5d1ac4f2eb412a70679c200ad53e5f9fa079ad0ccfb849fa091b4c"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_06.png",
+      "reason": "superseded UI art",
+      "bytes": 30055,
+      "sha256": "5401fb91c603a9bcfb74a2e70def7a49e341f56286aa8338a1279943c754b5e4"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_06.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "f0ab2b56e61471c8034d44f77e5e38b8b9c86760d748efd4d1a9a56d1f933fbb"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_07.png",
+      "reason": "superseded UI art",
+      "bytes": 27269,
+      "sha256": "ba2a29dc497b11f2fbfd0bb63114481390109f4ecb51e08be420d97d40d1016f"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_07.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "5b4ecb1630d63e5db52e4b8cdc7199b2d4cf830df37e332419592a0ec1318266"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_08.png",
+      "reason": "superseded UI art",
+      "bytes": 29586,
+      "sha256": "b01cd2d27312a77e4a6f5e838fd4aef93940079c351c8aa428d61d8d654f7fd9"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_08.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "15efb7fbd980d607098cbeff8b31d290241dd1fcf02714668685c9ec6b21290b"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_09.png",
+      "reason": "superseded UI art",
+      "bytes": 28695,
+      "sha256": "13be65cd3d4bd5f52d3687c749cb0ca9cc4ec77992ed0ba0b3673fbf35a18235"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_09.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "93e4638a854d2d639d933d7ddd3dbbb2e2b3a5d3d4a791327eae20a3224a8f0e"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_10.png",
+      "reason": "superseded UI art",
+      "bytes": 38366,
+      "sha256": "021e8528f1e5520b64894f27df68c6b49026824856fd29225f0c2d4a87f31645"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_10.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "4236c84a3fda5f587478096467ce5cb5e688b6ab1da22b9187f09d45178d4f77"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_10_equal_slots_geometry.json",
+      "reason": "superseded UI art",
+      "bytes": 478,
+      "sha256": "49c34aaed13133cd6bce9451a7a6ca62a85857f8f20be13cce0874eaee6d0345"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_11.png",
+      "reason": "superseded UI art",
+      "bytes": 30739,
+      "sha256": "d3116a20f88540632202afba1c5e2b8f64f7e4b7679e52048dccdfbfe30e8e60"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_11.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "8b996ca1a33e4776856fde351a78f7610a483c91f0203074395dc0792cfddb5c"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_12.png",
+      "reason": "superseded UI art",
+      "bytes": 32887,
+      "sha256": "24677157f8f4dc16e30a6f242ec08b523ecf04f827734fbe76b5eb9a6d53ef20"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_12.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "f2e5b8588df1634881e5fefe6b3184e8d127486be7ff9026ddeb94a06c322147"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_states_sheet.png",
+      "reason": "superseded UI art",
+      "bytes": 1975034,
+      "sha256": "b96f070dcfc1bda26dfc84dba726640097624e89523a93d75ce9b42ec25ea9d4"
+    },
+    {
+      "path": "assets/generated/ui/energy_bar_states_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 991,
+      "sha256": "fa5928bec33b0b730c99b68da1ce7a1746b1a10f8036ebb19790e65517ee0397"
+    },
+    {
+      "path": "assets/generated/ui/memory_preview_overlay.png",
+      "reason": "superseded UI art",
+      "bytes": 639446,
+      "sha256": "7bf1cfb5bd4bc7178c4bd59cdd5c269f16666ebaa9cadbcb08b4f8dc23b2d25b"
+    },
+    {
+      "path": "assets/generated/characters/01_kai_kawasaki_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2225827,
+      "sha256": "7adf44ed0d4d827ee58815426e906865332d7726385d59067730a69865d66446"
+    },
+    {
+      "path": "assets/generated/characters/02_mei_ling_lin_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1972814,
+      "sha256": "ba5eb2ccabc77f397ac809099102159b28bbacdec267d8aaece518565a52792b"
+    },
+    {
+      "path": "assets/generated/characters/03_ajie_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1853027,
+      "sha256": "da8728fb0b6b172a624c07c2705c5b4afdc6affa7ec3373e03fc59b50d672d7b"
+    },
+    {
+      "path": "assets/generated/characters/04_snake_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2263672,
+      "sha256": "1854bfeeca14f56d32348e9b4e058003f5fb83155882f3bcd79458be9cd254ad"
+    },
+    {
+      "path": "assets/generated/characters/05_dr_chen_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2090511,
+      "sha256": "9d54f31d20d910932d667ee7d6339ccbe5fc3c500328096fe393798b8e77c063"
+    },
+    {
+      "path": "assets/generated/characters/06_ghost_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1791456,
+      "sha256": "987fb9f68b6c3b33d66a47d9d8b022b392fa573ec3edffead22bec624851d359"
+    },
+    {
+      "path": "assets/generated/characters/07_zhao_ming_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1829543,
+      "sha256": "1bde75b5e79fc866cdb0970a08ab126bd962ba246cc8dbd1b7eec122d263d414"
+    },
+    {
+      "path": "assets/generated/characters/08_kid_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2217338,
+      "sha256": "dc1bb647c92ed62945ade8254e71b5ef792d332a0e29444e4b0df8d4421518c4"
+    },
+    {
+      "path": "assets/generated/characters/09_mask_merchant_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2250589,
+      "sha256": "74a5832341ea56a908f01c9a92401bd3322eb4cdf0f4c26c82ff21356aa3a91d"
+    },
+    {
+      "path": "assets/generated/characters/10_dr_xiao_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2210643,
+      "sha256": "5596e5b131d369b6d8ac26727343a84b327069be7574c742d5b99471dee9c433"
+    },
+    {
+      "path": "assets/generated/characters/11_hao_ran_lin_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2146414,
+      "sha256": "a870bb36e59673d83b904073f5244fd6b1009daff8b84e2b1fcdb06095457079"
+    },
+    {
+      "path": "assets/generated/characters/12_echo_ai_reference_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2160750,
+      "sha256": "c5226a10af876bc3a3a2cb4ba40ee6005eace1990639bdf66ad0c2595492ee62"
+    },
+    {
+      "path": "assets/generated/characters/ajie_angry_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2363236,
+      "sha256": "0a79553ae041e22e23f724f3a09ccf9cc5e33f343359dfe6405fbdf012342a4c"
+    },
+    {
+      "path": "assets/generated/characters/ajie_cooperative_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2303403,
+      "sha256": "d78ec4ffb5d5bef9d58c984eade7d1c74ab7875c09c7b363884e18e6f22fd018"
+    },
+    {
+      "path": "assets/generated/characters/ajie_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2231213,
+      "sha256": "b9f2826f197633dae948172958301bdf88a2dd6a6ce67979cfa6091d6273a63b"
+    },
+    {
+      "path": "assets/generated/characters/ajie_nervous_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2273812,
+      "sha256": "7392f535380637ea26bca5c095242ac5e71b30d0bf32beae803864ec52e10459"
+    },
+    {
+      "path": "assets/generated/characters/ajie_suspicious_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2323576,
+      "sha256": "1669a784aa5b84c0a49e9a40a73115e5b49f2ea6955ed4c53c750c293a9d09d0"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2389085,
+      "sha256": "9188bcda41d3ae00e9b6f6d8ebb53099df59e17525f9d9863f4edc5030d03d1e"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_frightened_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2532299,
+      "sha256": "ebf5ce5f03468e01d7e7abce54bf878568e1109225b431dac6061fae766be630"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_nervous_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2260145,
+      "sha256": "32687ef3f2f0c4c15c2892c96aa86ba1fa13ee52d0293c5e9f889fe84a57c54e"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_relieved_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2305394,
+      "sha256": "f7cab0d4f12048b2fed65bcdf1d347c40635c6839cba952ceecac8b7550c2e46"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_amused_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2287757,
+      "sha256": "0f182273722cfcc526c9c39d7cff4dfbfeb657b488d0cca21ca9d1fe36375c4c"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_calm_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2298703,
+      "sha256": "9c0799b648a34ae8cbbe60b2687912e15164cd24eca2c672bb7002eeb4ce8683"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_cracking_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2571539,
+      "sha256": "788d0ae7beea3ebc7614fc364c3f5e88b8cd6bf8d96bed7df29141d61e4a1f42"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2291512,
+      "sha256": "4c938af2d577d8ed9291052d6c29a8608c58dd4e7d3749d932c11c62c87b47b1"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_intense_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2387429,
+      "sha256": "16fafd63c1d3166df3ea5a04140b3d8312498777330e2dd81e70fd30f9cf928f"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_philosophical_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2432224,
+      "sha256": "23eb8dd7bf94cf54cbc4339341ed9e93c13d7bdf6872e7ae379d4514869dafc8"
+    },
+    {
+      "path": "assets/generated/characters/echo_ai_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 3400529,
+      "sha256": "d0bdf3e212dd26da0cfc78142ccbd52d50e6fe4bc04d869f8ed902d07540f1d8"
+    },
+    {
+      "path": "assets/generated/characters/ghost_cautious_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2536600,
+      "sha256": "0c48e9254a5bef5f3cf743799ebec06373281f0abbfdff2186b1929946ae2ae9"
+    },
+    {
+      "path": "assets/generated/characters/ghost_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2764359,
+      "sha256": "cda7accc0328531b4c59399d6069d7a2ec9dd25fce6134c25cdc15aa7ca2a218"
+    },
+    {
+      "path": "assets/generated/characters/ghost_hostile_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2664205,
+      "sha256": "7ad665d2629c57572f25f02b976b751943e3a249fa9a319a81caff245c5f963f"
+    },
+    {
+      "path": "assets/generated/characters/ghost_revealed_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 3119983,
+      "sha256": "3af3a6d44c00049f9f2d6a756b560b16a21cddec2631227177b6cb9600221d36"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_confused_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2521037,
+      "sha256": "3ece7b474aa11f15a0e344ec5c89ca6f59b04525bdecd8a0639652dc522f08ef"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_dazed_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2318401,
+      "sha256": "1c46d5db05e41a18ccf8a4f7f18f03ac84af0875f794cc8e9f3f23ba4543f0cf"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2413697,
+      "sha256": "c2aa8460f8b270c8b3c6af17220724375e84964026c1524549ed61852522ad10"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_hopeful_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2541763,
+      "sha256": "15cd8affe55e08c677be2156459a8848cfb6b29037195f0ba3736fdb627bbcda"
+    },
+    {
+      "path": "assets/generated/characters/kai_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1981790,
+      "sha256": "3d28319af2f72ec8a5c07f340e2ac675fa597771804993e92141c36d718e2021"
+    },
+    {
+      "path": "assets/generated/characters/kai_serious_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2080373,
+      "sha256": "8fc293cb677a20d6d9bc0dc946d59f76664744dc919db8d1f9916df39a6b00ca"
+    },
+    {
+      "path": "assets/generated/characters/kai_surprised_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2029964,
+      "sha256": "ba4e03d96c58998bc1411078f498d8a6ceae13a3819efef9e5101272618be1ea"
+    },
+    {
+      "path": "assets/generated/characters/kai_thoughtful_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2140874,
+      "sha256": "d540dfcaed6347e6d755ea6f84b3b6843e0fc4a8b12ca0f41f03dff1cfffc873"
+    },
+    {
+      "path": "assets/generated/characters/kid_angry_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2506979,
+      "sha256": "a839687b07bf23a9f08e472151fd41b001f34c666d40d720655c2bf8dbae385d"
+    },
+    {
+      "path": "assets/generated/characters/kid_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2317802,
+      "sha256": "5a639ce7aeefcacc85bd7d9b4975ecc786d9a841797b85a5bb70c52e795eb41c"
+    },
+    {
+      "path": "assets/generated/characters/kid_excited_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2467138,
+      "sha256": "ccfa11dbb75912ad8dfd83489da3d06553bd8d59bf80546c018f6dda3d382fb1"
+    },
+    {
+      "path": "assets/generated/characters/kid_serious_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2444581,
+      "sha256": "e455c04b348a5f8cde6b7969ee7f8ae4acf9d6eed95d1c728738e27c4fdc3d6a"
+    },
+    {
+      "path": "assets/generated/characters/mask_merchant_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2538118,
+      "sha256": "a88065d7e90ef34b51780ceffce30a6660f75bd8d3074bf9fcb4fad17c075ba0"
+    },
+    {
+      "path": "assets/generated/characters/mask_merchant_interested_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2465486,
+      "sha256": "fd20eefd78216fd4d5c9f2c360bd8f2188027165a5f99f779dea9a7994cfe212"
+    },
+    {
+      "path": "assets/generated/characters/mask_merchant_suspicious_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2601082,
+      "sha256": "00c1047d8c6e011ba5e6c82c1bc04a40d0e2f3038641acf505f9227ea859bdc0"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2224875,
+      "sha256": "c59924f43585fd2ef6983dd1beb10fd1b2335c215ce9215f60fed12717b4142b"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_frightened_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2326267,
+      "sha256": "f34b196c0943daa9a9bb01cfd937684966527322aa31828d04ef145008573ca7"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_nervous_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2083300,
+      "sha256": "977fb3aad1a0da2222f1743eb8a0c209f81125657db540a24b7c3e5a3198a9dd"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_relieved_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2198859,
+      "sha256": "27eda1323aeb51d6945a84c3dcbd98f4ed5804f5516f5a6c1d61309adf2f664a"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_worried_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1919046,
+      "sha256": "2c5610a0e5cb8d101470851bd429da16a90eed05c30741d513c3979e11525e07"
+    },
+    {
+      "path": "assets/generated/characters/snake_amused_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2457227,
+      "sha256": "827b5f6fe985cfdc408a0f8e5a9b50264e237bb5ff9ef2b6da29d5e7d3da35fd"
+    },
+    {
+      "path": "assets/generated/characters/snake_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2368969,
+      "sha256": "8a886237793496f9ee466d373165e6fcf7da3e1bbbfd4c8efb6478beb1222160"
+    },
+    {
+      "path": "assets/generated/characters/snake_serious_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2486784,
+      "sha256": "5355c9fbdc7b447d69ef321bd4078e04aba7ca9fb2940eb7b49d7a6782898ba4"
+    },
+    {
+      "path": "assets/generated/characters/snake_threatening_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2605344,
+      "sha256": "c524f5d04bbe83ef429fb367459ef10ee0e5939217159a06fdcde3fc4b0b1fbe"
+    },
+    {
+      "path": "assets/generated/characters/transparent_regen_contact_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2488732,
+      "sha256": "334241c0deb9d5b9ea1c052e4a4503496a885f59559cab99c9917c903b888f1c"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_angry.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1748216,
+      "sha256": "d9b84b83f535c1782536483e704788d5ce8433ca2906f5c83e395815a06beec8"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_cooperative.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1741601,
+      "sha256": "43fd9bc6f9e7694dc5960b051c5874618993f13703b2b5a50421dbdfc1836e1e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1748371,
+      "sha256": "4753457582275346826f9c240a70883fac73e9d5c46a00e80b22b59b1c2624c7"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_nervous.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1743223,
+      "sha256": "0d53e8920d728f9bb51fecae6ca922b527c0771412e93cbac647a0f823af1df2"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_suspicious.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1756299,
+      "sha256": "c21b4be8676bd44b108a045536f06d5b00bcac895df31e169696fd92d27ace8f"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1683055,
+      "sha256": "8872784b216b840f0af76f014c972f7429b9776e178b19b6770a5d8aac45a6f9"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_frightened.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1719235,
+      "sha256": "c64c8951b8b025af02f3dfb8004a28a9d426928acba43b69157658ee71c5e0be"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_nervous.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1710035,
+      "sha256": "12419defc70932b71bd3ab32d82b35d3d26174074caea41d21df38e67817bb5d"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_relieved.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1697914,
+      "sha256": "5f1715396c5048e7151794e62ec626ad9012d4b34449c3d4d05dada35d216041"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_amused.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1648680,
+      "sha256": "b8dc9c97b5429f02b4df80f842b58df9bb4380e01847b9c8439831e7a7873408"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_calm.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1632871,
+      "sha256": "1c41ef3405e949ad61c8302e7a739bffb623f36ed90ef567dc94b3fe3cc18e77"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_calm_framing_attempt_raw.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1946820,
+      "sha256": "d58781ca8bfc5635f771eabc9fe6be35e6aa48266100e490e7ff086e50dd418e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_cracking.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1660055,
+      "sha256": "727b0d8321de1eaea932756e85ab09c289b40ccc2c11cea2d805bf781e6e3eeb"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1648682,
+      "sha256": "5c3660d04c4d7772b3b7db4ceb4f2d683dc391afeeae78436dbf9876a64bd6e7"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_intense.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1654544,
+      "sha256": "2464cef760d2a942ba0d8b7c1a9af66694ccc42caea91e8f60a5775e58a352b4"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_philosophical.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1657044,
+      "sha256": "032b96897834980b66c602ffdba559e1b319d662c7f74db84944a3dfbac34f45"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_echo_ai_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2381590,
+      "sha256": "df34441f3ebf5b4c50e423b35e4304475888c26e87a1e65db73bbc1c1fab810f"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_cautious.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2162183,
+      "sha256": "0f2d06d8688f8cf990466d723bf9f747082fecd249a8904eea124f3d727cb411"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_cautious_subtle_attempt_raw.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2149789,
+      "sha256": "1b3c42c5ccbc8138d941b79d3a5b7f46e1cac95bdc9a118330641fe9241fd75e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2189178,
+      "sha256": "a342b1affb5d7f4c732a36e63b20c21e3e2cafdc14932b2097206c11224f15ed"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_hostile.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2148579,
+      "sha256": "569b60a95de49f02b9422c1d95fbb00c64a9f454a36bb72a0f70a43aaef68f3b"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_revealed.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2178590,
+      "sha256": "6f500aa2baad5ea7d6fe70c714994ca9f5fb811550ace7edbabde74785e3d48c"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_confused.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1426952,
+      "sha256": "a91c8a9be023494170f650991e049742849156bad9671cf0cf0f9a97d8600f1c"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_dazed.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1411666,
+      "sha256": "0e883e41db77a1929f37ed9b6c855a66eac4920b2614a11e9a6bc4fc1efb2216"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1437608,
+      "sha256": "222216b319306cfe0ada02e457ac5b195b752a0a5db03997e0eed20cddf9fd19"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_hopeful.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1443276,
+      "sha256": "1da203680aacd939c964dbdd64d545983b14724dd3db061c6199ae0a62bc1b76"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1452133,
+      "sha256": "5420a0fca3170ddab332fbec45f90c936601b937ab3c8c9d6d5119b8a6b465a6"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_serious.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1446737,
+      "sha256": "f28065d993c323004f6035b5cb5dc1bbb607b196f9da8156b13a61bf2e97fae7"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_surprised.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1444428,
+      "sha256": "9efd954e77eb660663398fad6c5928ad5adbfc349a606ebe17c2d2bc3083cd26"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_thoughtful.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1432134,
+      "sha256": "b7f30688ad184b59e1fcbb6c1580c182d42ccafbfdee03d1a04fdf8a162f494e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_angry.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1835344,
+      "sha256": "519bdcee789aa7fb4de94da4119674f493eb892253007a233e8ab7b67ba25855"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1886041,
+      "sha256": "54cdd2b55ee7c402250026d05cf333e6203ba8e21f81ed3deee68e7f47cf4072"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_excited.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1855340,
+      "sha256": "449fb7e606cd47bc52f9665c3c81f421a83140c5c00cc4e89b2b688e931d843e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_serious.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1857050,
+      "sha256": "d69114d0e3c6064a3af6562a8574359c6bce42e8e3da47aac16181b27f9b0b7c"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1624507,
+      "sha256": "255c10201252a1d9652cf7e25830d6f26a77588242f520c88372924e2b5c5a69"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_interested.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1588846,
+      "sha256": "030737c8fa9d35d74171531b7bd5972e638bfcc8a4432897486e6c30aece5a24"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_interested_subtle_attempt_raw.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1820687,
+      "sha256": "0624c7e2ce78096ebb709e3b50f20d467a2a56ea4b5501ddd926d7324a22ce87"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_suspicious.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1556992,
+      "sha256": "1faf0ae1609e4b24256fc06678b223eb2e661f89e8bc00e8a20eb6ace1ccdefa"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1916574,
+      "sha256": "5897f0f3bd7268020a1dfeacbf2e92f997d530cf50cda152625efe18a8554dfc"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_frightened.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1881631,
+      "sha256": "ee8269b9748fbb4b2555882ec49e44c092675634eda9836e155b47e343babc6a"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_nervous.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1844519,
+      "sha256": "5c56e11bfc5d758f5e5a0a00e7762bbd9968d52eaf7e863a5fa547d4bc5b6af6"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_relieved.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1876435,
+      "sha256": "42d391f0913b73f1db0b57a0bc91380b6a37ff61b71d3190b846e5b07dd8770f"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_worried.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1834871,
+      "sha256": "100856ba1c83ae2b4a7a0c6e84f0dce1b0d362863a6979472de4aaf80df6f35c"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_amused.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1892982,
+      "sha256": "46d82b47551c97e0a763a3379ab33028d4c1c7c2762209afe52a906e52b90190"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1936756,
+      "sha256": "34159e31c5668143265598242a90f220222363e1e1231aa3853a2f68e0fbbc4d"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_serious.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1899052,
+      "sha256": "4581edbf66b5e8942bfdeb448f8bf4496890b81de2ec302dc0914873aecc33b4"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_threatening.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1898322,
+      "sha256": "d5fd64d502fe2b0eea77237d43cffb28a3bb87c5108df1a00fdb2d80249027ea"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_conflicted.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1403359,
+      "sha256": "beef81d5a4bf901970d0c6b476af5a72e0867300d1c44813cbb749f10f9ad2f0"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1386363,
+      "sha256": "415545379f03c0f72986c3b29450d5d9e08a4f918b1917ff141da2b47a2a5bc7"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_default_framing_attempt_raw.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1847108,
+      "sha256": "217f31bb42903fd9459cd9ffe9c086278791849997af9499f9803441830dd80b"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_determined.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1381933,
+      "sha256": "6c06c50d16c60b25940e7e13c755633baf5d6e6b0581ccfa8b40b0e8f59f771a"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_determined_framing_attempt_raw.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1500936,
+      "sha256": "c8977cd72ce106f1648fa4f5b247f98d9dfe759dd62889f9ab1fe58b31aff0f0"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_nervous.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1399729,
+      "sha256": "18a25c5f168ff01acbb5a1f500c9067c737c8bbc7ae01ebde6453e2726e3ca19"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_sad.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1357460,
+      "sha256": "e98d473de8708652a1d15c99213cb71e564f7db2d9b061d0736c87899900c94b"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_sincere.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1370309,
+      "sha256": "9cc0a2de3b2a84dda0af1139b7d009146aada99645c0709a0ec6d26eae9a0883"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_conflicted_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2258220,
+      "sha256": "5890934bc22834e99488da9107f25518a4bd212cfb99b64ca1f9a88b4950c577"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_default_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2043669,
+      "sha256": "1cf66ed98ec872033f69319c93e3a653ed17904f2301db71e3868c601ca0bb21"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_determined_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2135745,
+      "sha256": "d73c93a94c70eddf156d5c27445ae0c1b9375bc40281c49c51ab9be09ce055ef"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_nervous_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2026858,
+      "sha256": "fbc4fab852a6a209c0a4c1ee8808b6a571ca3f7e55875b1698d3d5670efce0fd"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_sad_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2168762,
+      "sha256": "27fd366a19bf06991f43ff6df5fd70b47f0302413e6713aaf3d9289f7ad15c2d"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_sincere_chroma.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2104274,
+      "sha256": "7c30d79090a8701d01fca28139cd9fd2bf7469865229f240984ceb008741800e"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_angry.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1766972,
+      "sha256": "698371423d27731012c94893160e421ec89b980cf435804a0cbfa3a8fbc60d81"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_default.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1706695,
+      "sha256": "78c00e46eca2fc358d8f44b80ad5a94bd5d0bb21bcd1724d07f95731ea7e7585"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_focused.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1720762,
+      "sha256": "6e609d5ac4e5bcde0e827a20beac0d75ea43ba3bc57ead1ecbfa7f7a0af11216"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_hurt.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1747391,
+      "sha256": "53b68aa83aa346bbd35ab65962eb5cd8c9b8b87d9432b028e89ce46d4480ebea"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_shocked.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1699154,
+      "sha256": "3410eebe130b8aa963e708a874d531e37ce0b3e1fed471e8945b50725ee86cd2"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_suspicious.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1642144,
+      "sha256": "2d5789c56ea69d67d605950ff3bd07db23748fbf75de695db74ebbfd243384b8"
+    },
+    {
+      "path": "assets/generated/items/ai_log.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 469127,
+      "sha256": "b88679b08630119b744d89cf866bb0a93dcb80d5f300a8378a841953a80791a7"
+    },
+    {
+      "path": "assets/generated/items/authorization.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 484807,
+      "sha256": "44b6e4ef61758db1d5933dd684e14c20603217218547723c5a31d0c029a30ee6"
+    },
+    {
+      "path": "assets/generated/items/comms.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 496782,
+      "sha256": "945c08ed458a43dc89992a9726cf4ea1750c0c007a3b05f0a1b595a5e176d10b"
+    },
+    {
+      "path": "assets/generated/items/diary.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 460825,
+      "sha256": "8f8379bbc4371daf8010808fe851ccb7607d365f8e6830d793b89cb69c608fc8"
+    },
+    {
+      "path": "assets/generated/items/frequency.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 485269,
+      "sha256": "aaeacc4fb905c0fd2f8cbc1d7896013c18bc43bccc178dd4157405f78279f9f2"
+    },
+    {
+      "path": "assets/generated/items/funding.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 518828,
+      "sha256": "c2f462acb25d708e3957811e156d59c0333c7520addf9996ad98b020cbf72018"
+    },
+    {
+      "path": "assets/generated/items/id_chip.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 492284,
+      "sha256": "961a61b970dac3f8c904a7690009e2d81dbc98dcadbdc146c0f2cbc51e6ff87d"
+    },
+    {
+      "path": "assets/generated/items/journal.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 438124,
+      "sha256": "d2847922bb75acd8ca319f6895d761f40de54db8422120a437e6d6d8697898ee"
+    },
+    {
+      "path": "assets/generated/items/key.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 460189,
+      "sha256": "73a2421936d960fdd618b68c52aa821616d13f82b7b2d51ea6372af99658dc91"
+    },
+    {
+      "path": "assets/generated/items/keycard.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 465980,
+      "sha256": "1bc2267b7778b3754df39ebd871cc4deeb1aa7e0d93553cc857e9dfdf1034405"
+    },
+    {
+      "path": "assets/generated/items/ledger.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 490369,
+      "sha256": "ccf0851fadafcb10e16279523f38b59f87174d5ee6bf58d6769555295b86d80c"
+    },
+    {
+      "path": "assets/generated/items/list.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 481705,
+      "sha256": "8e12dbbe181d87c3dd5e0012c70bc891d413879d6fde586badfc967b940e2a0a"
+    },
+    {
+      "path": "assets/generated/items/map.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 525404,
+      "sha256": "41b4a82c6da12d7072afbec32cebc8b656c8308535b6af1bb38f8204eac4c3e9"
+    },
+    {
+      "path": "assets/generated/items/memo.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 458390,
+      "sha256": "366b096138d6aff0ed7cb22c88d678d403c04ac5442294a37bd389d6e019adc0"
+    },
+    {
+      "path": "assets/generated/items/memory_capsule.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 473027,
+      "sha256": "4cef5d87322787e5ebea9112ea0d72641957b987c83ec8db1594f5344fcbaa09"
+    },
+    {
+      "path": "assets/generated/items/memory_fragment.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 506616,
+      "sha256": "bf978ec06c388cc2615d898150f9023e4c55a8fbf722c236f231590e059de44c"
+    },
+    {
+      "path": "assets/generated/items/profiles.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 515651,
+      "sha256": "198278aa869d9ba84e83b9597d9a2bc893d82c788b3bb425b5a663785f27b952"
+    },
+    {
+      "path": "assets/generated/items/report.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 512622,
+      "sha256": "fce9a0fcd5ed2afc26bf5aebf6e76626389799775e8a70baa54effc26d0290a8"
+    },
+    {
+      "path": "assets/generated/items/schedule.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 442543,
+      "sha256": "1d44c1ae0848926fb6c5849626282aa7b2dc63eeaa71aa5bf40e09f12450e6c7"
+    },
+    {
+      "path": "assets/generated/items/sos.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 517608,
+      "sha256": "db734c6c7e84464a548b0a896fc1b9ad1070faa29e845d597acb460dd04d15bd"
+    },
+    {
+      "path": "assets/generated/items/symbol.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 475750,
+      "sha256": "f29fab096ef536935ea3622971f1a337bb068448d48f18b76ee7d86ca9e2f9aa"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_ch1_opening_trust_path/hao_ran_drawer_note.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1847442,
+      "sha256": "68121e057e5050823517d3f00cd3f285e8d7c8036bfdab58c54445bfc2224fd4"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_ch1_opening_trust_path/original_backup_hint.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2068815,
+      "sha256": "25eeb102410dadb0f116278f40df8a14a9e1d7e744a9623ef0de5f2578a3d73e"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/broken_memory_player.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2640054,
+      "sha256": "4067acad51750f3f587b13e013099994b3349f780bee010c604ba6f5594c1a76"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/commission_letter.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2798207,
+      "sha256": "0603381a1f91eb3e2479ebcceb7453b87856d7ebad6abb665e40708c994f30c8"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/data_chip.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2610129,
+      "sha256": "e3aa84079a05cc7bd3cb81970beb3d5e4704bc0336354df31ee0080a92d588e4"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/family_memory_clip.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2592828,
+      "sha256": "327973d7b86d1b6de28f6ef9e523cf73cc4e388f61ef97da6980255fef660278"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/kai_eye_glitch_log.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2712137,
+      "sha256": "b4297adac6794cf37475bb958818578e4ef0153559de1940d903982b620bb6a1"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/photo.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2717901,
+      "sha256": "0e67b61f7255e6f578ec5a49ac5d58a1098ba8c181ac10b445e5409fe7f44807"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/receipt.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2410037,
+      "sha256": "2aacdb0da0f62541b0e610ec4f07723e43c537a9ff381f7053f6538d32cc8270"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/recording.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2586292,
+      "sha256": "b3a04bb8e76312c74f380274f089700807f8d9016fc13c0351840d8e9f2f7b3f"
+    },
+    {
+      "path": "assets/generated/items/raw/image_gen_placeholder_item_replacements_2026_04_29/work_id.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 2716153,
+      "sha256": "19718e8692fccba5fe0324c7e49503fb423b1ab463bd3f73e0724d539b271563"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_requests/dialogue_panel_compact_name_plate.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 849552,
+      "sha256": "c1827d66664e94d78bddbd05ed209819000f21f91a06aed7bb3a7aa9f2b75856"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_requests/dialogue_panel_half_clipped_left.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 902399,
+      "sha256": "9a313df467eaeb166a5bea84bafb414d6ec6518460b0a8d79a6aaad192904769"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_requests/energy_bar_states_10_equal_slots.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1845220,
+      "sha256": "baa26b0a9b097cffd14d4678d49cdf625cf0c7aa85e1512b880dfd70c0b5aae4"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_requests/energy_bar_states_12_frame_sheet.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1975034,
+      "sha256": "b96f070dcfc1bda26dfc84dba726640097624e89523a93d75ce9b42ec25ea9d4"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/ap_status_bar.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1375706,
+      "sha256": "9e3dc7503d0ac24d640fd56a038548a9b5e8e5b3747bcd3164292b17bc07a8ac"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_01.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1181847,
+      "sha256": "1ba8f2c2dec75298ed493dbe8b1cec8e0ae9a95a000bc81b15c47ff4e69f1aa8"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_02.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1235921,
+      "sha256": "1956d00e3cd2a786ae62a3ca418950134a0e819fd956c27c7caf0755f900d36f"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_03.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1620866,
+      "sha256": "078d7449204b34eb074361de9c2961c3579e7c0cd186f64ec76e4f4717488d21"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_04.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1357997,
+      "sha256": "4fd22f43969439ccf2cc1c074e5c58050dfa5f3bc74c359899f3a08384c107c9"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_05.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1427264,
+      "sha256": "9268cd2e2bd84c1b134df5915487a2b372f997d17d2c6aed68846f6b77da515b"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_06.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1336144,
+      "sha256": "8d467b1a6ea7aae11ad0fbf44cd0f505b022aec931e5fc74478ca4d18b42ce65"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_07.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1304321,
+      "sha256": "05369e7513f8c601bbdc3a5aa9a8352fe0997784af93a6f6f2b7f46109f5d8c2"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_08.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1502505,
+      "sha256": "ac80ff21da27e7b88f18f63ba2fe33b91cd6ad6dfa14a792f09597dd37c572d6"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_09.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1300530,
+      "sha256": "b56ca910dafbfc5de5f5e2285396af9b9c4975fbfce8c1716f49cf143509c9bd"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_10.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1592991,
+      "sha256": "117136e918cf6d273e8dd587d0cbd96992c820d98ffc1553c8f7c03233b9f0c9"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_11.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1524919,
+      "sha256": "53d6cae0dd80602d51257c9c7e76fd33d69569ecc5c635cfbdfca7699be6643f"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/energy_bar_12.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1347530,
+      "sha256": "d20d1f6ab6788fd0d804004198f062c89d7d5d4ddbd4f163f51e645d9d181ea3"
+    },
+    {
+      "path": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/memory_preview_overlay.png",
+      "reason": "superseded source, unused attempt, or duplicate staging copy",
+      "bytes": 1783441,
+      "sha256": "3e00b7d1a9be986ab2af428c88fee7683e8be2bf8746b78ac1570ccdf7b177f0"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_expression_retries.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 4490,
+      "sha256": "98ba92929e57d486b277df8af8c6468c7fba2ae0660054bd4ba189b6030eab0a"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_group_a.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 56513,
+      "sha256": "36a2ed9cfcafcfb17766741f1e86464e8a5ff1790dfc74c10e4a7d35d98ba5d1"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_group_b.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 47408,
+      "sha256": "12b0bcb3c718daa1a22b197d74731ad959f03906b1ddf15e6f9c5d9262afd96f"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_group_c.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 62051,
+      "sha256": "0a5cceec1741b37038e02b805f0b5f89e12c6a777d12d56ce1c5dd52012bfe14"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_group_d.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 17812,
+      "sha256": "072a0d68bedf6937ee4aa7b571c98a0552f5f1d1c9a7ec615d6d1526d0e81057"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_initial_attempt.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 2593,
+      "sha256": "6762d85574fc5922dcebb043c3e1d311cdeaf8bf074e9a08f127f347ce24739c"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_kai_expressions.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 6259,
+      "sha256": "b83eb26915a1313d37cf7cda5edfe494d84a4b092d946e2d9b7899f6f015e3f9"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_character_unification_2026_09_08_kai_retry.jsonl",
+      "reason": "superseded by consolidated complete prompts",
+      "bytes": 1732,
+      "sha256": "b41d9a606ffd7120ebdef3467a3c73c5f72c6d8b940ffc5ec1849bc3baf348d4"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_kai_hard_edge_sixpack_2026_04_30.jsonl",
+      "reason": "superseded generation instructions",
+      "bytes": 4161,
+      "sha256": "d2f39c18f2386d720266d29577d8c97d2072fa4d035875c860912c59f7257cce"
+    },
+    {
+      "path": "assets/generated/prompts/image_gen_placeholder_item_replacements_2026_04_29.jsonl",
+      "reason": "superseded generation instructions",
+      "bytes": 14680,
+      "sha256": "e942884e6e1ac671e0fb70ad079ec42b671e458a63f2ca5ca09c7dec9ba78c10"
+    },
+    {
+      "path": "assets/sprites/ui/ap_status_bar.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 961,
+      "sha256": "0f681511c469c300d501572e0c433db971e7ea2b8d276bb5e543c1cb4daddaf0"
+    },
+    {
+      "path": "assets/sprites/ui/memory_preview_overlay.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 988,
+      "sha256": "43866b1ff20798166cf7f610fa1c9893e15d48934a273b056e0952f650862453"
+    },
+    {
+      "path": "assets/generated/ui/ap_status_bar.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 963,
+      "sha256": "20540bfdcfda843eadd9b117a8e885b17f1b492bbd786607d6736937ee494e88"
+    },
+    {
+      "path": "assets/generated/ui/memory_preview_overlay.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 990,
+      "sha256": "cff60fbcf1a68040c3c6c45427790d68a4bbc790648b1b3466792533dd57f68e"
+    },
+    {
+      "path": "assets/generated/characters/01_kai_kawasaki_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1024,
+      "sha256": "39a29a90c369f7abee62945fb90632319c3ec92c78090881d772fe45ef610114"
+    },
+    {
+      "path": "assets/generated/characters/02_mei_ling_lin_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1025,
+      "sha256": "d8bd8d4180e8699b5fb8e7d60d38fedf22c5b40c4d27e4e643ead9e613009d2a"
+    },
+    {
+      "path": "assets/generated/characters/03_ajie_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1001,
+      "sha256": "621fc7ae041b24989cad9685808aaf7655e5ea944a86f8333429fa4764f6ccb1"
+    },
+    {
+      "path": "assets/generated/characters/04_snake_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1004,
+      "sha256": "a1c3c99bc789295aae2b30eb53e8822777a2a96fd2e893d3ef1ebb747bd02392"
+    },
+    {
+      "path": "assets/generated/characters/05_dr_chen_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1010,
+      "sha256": "1a643eac5e59fc2071bdc58552a38e3c087abaaaf8ff0a435eaeac6a876f5dcf"
+    },
+    {
+      "path": "assets/generated/characters/06_ghost_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1004,
+      "sha256": "f5e570d8075afc94653aa8ac7b1df8789ccc4f12fa1121559c7b8aebcb904f15"
+    },
+    {
+      "path": "assets/generated/characters/07_zhao_ming_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1016,
+      "sha256": "14dba2732949532b46b470a2eadcb6ba87a6b6c9ee0329efa317c4834c4452c9"
+    },
+    {
+      "path": "assets/generated/characters/08_kid_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 998,
+      "sha256": "7a6af5dd130797a053d7cecf8cb6adc85a53b72312328ae7803a05addabdf8d7"
+    },
+    {
+      "path": "assets/generated/characters/09_mask_merchant_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1028,
+      "sha256": "46746123275402965215573451a5cdc3d9de8e682329d002dcc5c986e0a83967"
+    },
+    {
+      "path": "assets/generated/characters/10_dr_xiao_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1009,
+      "sha256": "427b4916d13437d9c338e0542bfe175de9db5d1f97dbddc97269fdc6cb6e67b0"
+    },
+    {
+      "path": "assets/generated/characters/11_hao_ran_lin_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1021,
+      "sha256": "6b63b39c48aa83bec745f1fba59ae47ed9fd77b2367df12a2fbef7bd5f2b5160"
+    },
+    {
+      "path": "assets/generated/characters/12_echo_ai_reference_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1010,
+      "sha256": "1b7c3154b09125e0947f2fc0b2510b5680b96a9aa2846ff2aa640dfc87241400"
+    },
+    {
+      "path": "assets/generated/characters/ajie_angry_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 982,
+      "sha256": "4452613f59a7d7d513e1eb5276f08824e119ddf5c5d6d82f314b0731daa69088"
+    },
+    {
+      "path": "assets/generated/characters/ajie_cooperative_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1001,
+      "sha256": "43a0715704127ab022e44253c6c42951af96d172dd2211060449890142ce70e6"
+    },
+    {
+      "path": "assets/generated/characters/ajie_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 988,
+      "sha256": "e6e8cea4c3f06806bf91fde4d2e3e3fe6c6ea3d6ee1ed156d5ff674905d294a3"
+    },
+    {
+      "path": "assets/generated/characters/ajie_nervous_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 989,
+      "sha256": "7d2a00ae1c4f3af2c6d0e3167db9f164759bcb209b2e55d5cc0666dc707a0fe8"
+    },
+    {
+      "path": "assets/generated/characters/ajie_suspicious_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 998,
+      "sha256": "2f3ede62ae0576845b88295b40e0d5db5fe204fe37e6aa493e1f06410047ceed"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 998,
+      "sha256": "abf6283ddf27bb27689045b08586e291e177b335c020cdb95bf5dfb4b2d9fdf6"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_frightened_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1006,
+      "sha256": "e6d6072d8dd4892d6a4225c43864fe93a68ee9246df74d2013e1768e30f4ae7f"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_nervous_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 997,
+      "sha256": "dfada679b210697bd451ff0811440b12a4c82f4afb4ce6b4db80f431f53d50e5"
+    },
+    {
+      "path": "assets/generated/characters/dr_chen_relieved_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1001,
+      "sha256": "38f36556c0e9c8fd545c7b15119ff9b799531f92df0883b07d60f4006a258116"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_amused_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 994,
+      "sha256": "74c3eeed5b8618c9e94a3810df49659b85dc5ab333dbc9990d8b377c515eb1a6"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_calm_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 989,
+      "sha256": "1bdba7296e44b85686c90d32d0346020e5ee5c2f38034e2640e5cfcaa1bd9eee"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_cracking_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1000,
+      "sha256": "a9ef277331e8816b5c15b661a39fad293e5b6b263f4c2c4390c86c99d611af87"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 997,
+      "sha256": "9285414c4aa725462700a822d8dae0b5852112d2700de80b23f296598f8228a6"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_intense_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 998,
+      "sha256": "24a4db5283076739ad0260c55c88731a76f954e4841ad16db85e40b2df0c04fb"
+    },
+    {
+      "path": "assets/generated/characters/dr_xiao_philosophical_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1016,
+      "sha256": "ca4452dc83f15dbec5edea0bd5b2de53a797d05308b5c443e34816ec2501633e"
+    },
+    {
+      "path": "assets/generated/characters/echo_ai_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 998,
+      "sha256": "bb3f4a7006b1d60551392e47b18f22ca70acfe35ea193c44921fc374827139a2"
+    },
+    {
+      "path": "assets/generated/characters/ghost_cautious_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 995,
+      "sha256": "1e88e820c0fbfe6589054acbf65ca82577825f4ce0f170c4a656a401ddec7bc5"
+    },
+    {
+      "path": "assets/generated/characters/ghost_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 991,
+      "sha256": "6ff61a6dc1e195220af151fd0d4dfcdb1314bea82568e763260ccccd3497a61b"
+    },
+    {
+      "path": "assets/generated/characters/ghost_hostile_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 992,
+      "sha256": "4cef46b222657d3a3a98a2890bb28a775beab2ea33ee9d23f9a5b8a54bd0fb27"
+    },
+    {
+      "path": "assets/generated/characters/ghost_revealed_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 995,
+      "sha256": "305d633c2c86ea85326ee0bc8b9803c8bf51c8e03cdabca3779a337d8b8d9dd8"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_confused_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1001,
+      "sha256": "ecb403622453dcafbb3cd1a992671555dda6b671e46774d5a68aeafb86980e1a"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_dazed_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 992,
+      "sha256": "98b0fce345a8b429c9ffdbb04e2ad9fffaecd89d6422a265468095ad46d0a392"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 997,
+      "sha256": "fec153da3c9c57960ad783521b4aa0d6df69a3c8e4c7d8dcdb2f95b954642b19"
+    },
+    {
+      "path": "assets/generated/characters/hao_ran_hopeful_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 998,
+      "sha256": "a66a09e1de140693b8355a6fd41bc8daa10025ec9bbb7f7cff5c097d898d7708"
+    },
+    {
+      "path": "assets/generated/characters/kai_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 986,
+      "sha256": "f4f2b2efaddbcf8e116ccd50e28221bff833531cff9b78144992297c160af48f"
+    },
+    {
+      "path": "assets/generated/characters/kai_serious_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 986,
+      "sha256": "565601cb996b8e56e8b72c62fc15680ba1a7cdad457fadf49a5167af83cfbbcc"
+    },
+    {
+      "path": "assets/generated/characters/kai_surprised_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 992,
+      "sha256": "7bfda563d8066b76aab2d92f6ccb49d58ee3c7e9fba4d96f8874ba504a688390"
+    },
+    {
+      "path": "assets/generated/characters/kai_thoughtful_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 995,
+      "sha256": "8cfc9209fece39e742bb68d5891b34209b0d47df49b7f739faf6701556e482f4"
+    },
+    {
+      "path": "assets/generated/characters/kid_angry_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 980,
+      "sha256": "49653aa79b47001a59a468a60739d9b42426b16f1e789706c49eb49b98d35a2b"
+    },
+    {
+      "path": "assets/generated/characters/kid_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 986,
+      "sha256": "865fc7de3d965d627fb5af132bcfd9fee455113c283fab7e03864ab9a69a8b03"
+    },
+    {
+      "path": "assets/generated/characters/kid_excited_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 986,
+      "sha256": "9893b64dcda03d6126f03fcc8bd55132a51e10b5837e4342227f508516cad0cb"
+    },
+    {
+      "path": "assets/generated/characters/kid_serious_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 986,
+      "sha256": "2f8267657d39bd5518012734d5acbd7cbeb90ae546961bb60c3e4d498cccd5ba"
+    },
+    {
+      "path": "assets/generated/characters/mask_merchant_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1015,
+      "sha256": "be6be47647a12451cdd1bed672c202d3a4124ec49ef57db1c40a749b45cb8035"
+    },
+    {
+      "path": "assets/generated/characters/mask_merchant_interested_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1025,
+      "sha256": "cb9ec3bc1dff68b763a5dbc90715f953c4336074cb06bd4a9b788928013f4715"
+    },
+    {
+      "path": "assets/generated/characters/mask_merchant_suspicious_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1025,
+      "sha256": "a22be9aa7f3285ac046d6705e34f355c9ba4157e2d4fc22b95be0d510c40fbfe"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1001,
+      "sha256": "cb6350633ab8c2ccc8927ff11f083ebd8641ce2a7f72a05358fe39bbf2e5fbff"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_frightened_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1010,
+      "sha256": "13d33795607601f7d8c2ac5a6343c9fe8cc649d7df8bbac09533c7f698907179"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_nervous_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1001,
+      "sha256": "42d734f037fddcb5e0656ad9469e731571c48f521e84ce87e26484920f347eb2"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_relieved_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1003,
+      "sha256": "242830de7cb81242d5fecf4df592e9cd0e022a19d527dc4ac5753b633952fcd3"
+    },
+    {
+      "path": "assets/generated/characters/mei_ling_worried_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1001,
+      "sha256": "d807ee0600203e34da6cd11bb27cf1c3526ff0590e36ac27815e839e342a8405"
+    },
+    {
+      "path": "assets/generated/characters/snake_amused_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 988,
+      "sha256": "0f97a99c465b2746ec2a7d2617e4374a9bdd3b63d3eaa335f19158620b4ce7a7"
+    },
+    {
+      "path": "assets/generated/characters/snake_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 992,
+      "sha256": "983936e6ed5af3effb7fca2e7edeba04c38ee3752cb56e45c7f48816469f9c27"
+    },
+    {
+      "path": "assets/generated/characters/snake_serious_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 992,
+      "sha256": "725a9070920fffef52c7bdae493d9f577a6534beefd9f0d3676adaf198b69ce6"
+    },
+    {
+      "path": "assets/generated/characters/snake_threatening_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1004,
+      "sha256": "0f608ac53052bb33cef426b268107d0c5b00a3520357f1c35062037e88fcb162"
+    },
+    {
+      "path": "assets/generated/characters/transparent_regen_contact_sheet.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1024,
+      "sha256": "9bc06b004c01b7f2533ce201709e846bd5079cc43aa587250e411d0a4d7ad5b8"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_angry.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1019,
+      "sha256": "b6a2157eed705ed37aa82ea593a0ee8abe31cc35554b452ea11a3a84a8a3819e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_cooperative.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1036,
+      "sha256": "2e6c23c21d45b4adfb12c62942fe0dbf44d5b6fcd6f1ac18023a3ee837aa445f"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1025,
+      "sha256": "72889a3cc09098a6c77b1b9dcfa6ca415951fc398de0cf64cf5b89f80c050836"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_nervous.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1025,
+      "sha256": "f643d89106e1700fb680bdcd1709d8dc20a7e58c3081778751cbac4b5b6bef1a"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ajie_suspicious.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1034,
+      "sha256": "5299d09d35e326d2777d8fb21f8349e3eeb4b532eda86841d57a4bf957a48038"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1034,
+      "sha256": "73d79e217856616c520087ec7b59127e7d5f71b1d117c2ff079c3138bc438cea"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_frightened.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1043,
+      "sha256": "1d7874c2d40fee7f5f840f20b95ac4716b242fff5269f082fa34bd0da781edf4"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_nervous.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1034,
+      "sha256": "b78f3acf45e6650095a839a7ffca5eb8841ead8f43bca96bd5fcd803981b87c2"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_chen_relieved.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1037,
+      "sha256": "e6fb70f3086dc23550ec5d4bfa18c6ff7a13d908e42a763b62cafbab8ea99ca8"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_amused.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1031,
+      "sha256": "59d555b1a616c5040cc6c79b636aab21a0eae4c09e52dfc922f96aa64336322e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_calm.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1025,
+      "sha256": "3db48c6a6a0e238e3e35bdff3874473512f8cc5d7da842ca37aaaaa843199238"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_calm_framing_attempt_raw.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1085,
+      "sha256": "9335595a97be074eb779beffa412e456945798905e7f36169de07dfe1b326a9d"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_cracking.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1037,
+      "sha256": "3346083ce3c328b8939a7950601e319694363c5d21e577615d7c7a74ad8d6a57"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1033,
+      "sha256": "110536f786a546b26e6c5e46af96d91c245f95def4f48166c999d8e466f37a82"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_intense.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1033,
+      "sha256": "997a476433ac463283b413dce1cc74ccf36234d43f2e058841f38e789496b62d"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_dr_xiao_philosophical.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1052,
+      "sha256": "495693f76337d9f093e90914c9b08dc5a82fed6a8fae3ab1e45b3c13d1c380c2"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_echo_ai_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1034,
+      "sha256": "a8efc86f87e1fb7276ddfa6d2f5197d2b287377923dbc1ca3f582c0ce8edfe04"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_cautious.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1031,
+      "sha256": "936dffc2d890854832e089aebc77d78426809c250ae64f20897e6b2a2c28c2aa"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_cautious_subtle_attempt_raw.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1088,
+      "sha256": "157978cacac7eaf50d2841d91e77ca3e90f8317022654ba04bdc5f1dd0649f35"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1028,
+      "sha256": "1e245ec31199db9e518d05ea7b937037fcdac50addf02950c66ebc435302c326"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_hostile.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1028,
+      "sha256": "4ca0374003b69a8108193e9236b83e29b0f27bc5a37dfd352d9e819f37a40818"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_ghost_revealed.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1031,
+      "sha256": "4d14c2cf253374cc82159694f484aec7fe34deeab8aba3e9bd21e1d911e897af"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_confused.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1036,
+      "sha256": "1460ac66d3bbec5ef61ced88a17ca1447b3c46cac9adc215ef242b7375a46e23"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_dazed.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1028,
+      "sha256": "46fd3c6df0f8d4f72fde81ae81d63ee5906833c8e9b156a296351d9b85bd90d6"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1033,
+      "sha256": "517c8dc82244761d424d324e2efeb9ec1cced70f8d16757b269bb4eca63f9f8f"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_hao_ran_hopeful.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1034,
+      "sha256": "533d4aec62e98c90366b220f7bdd630027a406829d9d66d73b4da381178ca7fd"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1022,
+      "sha256": "69adf5ba6e05589fa8879758d60f6cffe86433591e8a4ccfde7613b005727c92"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_serious.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1022,
+      "sha256": "54e56e70f38d76674a835b37104c8dda3713031a66431c4ee1a19be88d7d9f07"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_surprised.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1028,
+      "sha256": "013581efb496c9573b8371c7caaa89f1ef3c9e76ea0f22b4d40ddc5e6904c33a"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kai_thoughtful.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1031,
+      "sha256": "fd12f05bb9831cb891f4894a7f40d959d1932adc4b4cf3772ea94a2ab58ffec5"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_angry.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1016,
+      "sha256": "d16c3cb48225bdf3973b98c71f326c2ec3c3e82569295d13eb50e87058026173"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1022,
+      "sha256": "a6b62b8b4f72410d7a75fd31880900217c55fce10ba2f0ca0b50d4bc882b7438"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_excited.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1021,
+      "sha256": "4e7551c8e11baeaf011b1152ac06493d29ae52a38088244b973c37d9ac4bae8d"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_kid_serious.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1022,
+      "sha256": "f5111288d72adad4f8f12a885a4e6eb3bd1a726df32ea556b6c0ebd865ff8a16"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1051,
+      "sha256": "ad0858df347cc620215ee1db7f50ffdf98984097f332ffaa2a150e80d2d16d50"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_interested.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1061,
+      "sha256": "6ba7e5055b9f396e330abfc921101d7568185a6833c214093b225e87d7c0e1e9"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_interested_subtle_attempt_raw.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1117,
+      "sha256": "2ad93e41df61c6a874ee62af72f3c268c702caebdaa56550ef151ffbc51c1a43"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mask_merchant_suspicious.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1061,
+      "sha256": "2bee92881bb2395122e7cb4e7af441bb9dcc3c151b88acc9a450d9177bb22349"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1037,
+      "sha256": "0756541eaf17f8cc441d1373af903a824b30dae1a1e9d652d44c66e001e261e3"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_frightened.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1046,
+      "sha256": "4e30b5db58cc6b7b556ded4259da34dcea744dfb155286370951a1c50558d052"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_nervous.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1037,
+      "sha256": "9732d02c15c5ba001ac28c48132846396388627bfd2f3dc9ce92c2da31f43375"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_relieved.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1039,
+      "sha256": "cfa8148b58039b2cbeb4cd1839854624d94007e6b86aad42b3c969a58f06cdaf"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_mei_ling_worried.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1037,
+      "sha256": "68e4c21410f5d3739ebf819e243339fe4a910a33018025ac817900948aa12155"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_amused.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1025,
+      "sha256": "dfdb852e56db2bb073ccf564c062a8194cf4e77ae01c0194f487269bdc5cbf17"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1027,
+      "sha256": "ee032aa58c63d261b2a6412c4cb55c46b4ffd9b21bf747f190090f03c6d4732e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_serious.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1028,
+      "sha256": "e48bcb393283bc0b14ccb75682fc3462254b3af31a7eda3ec7abfc472823951a"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_snake_threatening.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1040,
+      "sha256": "94f8b4c731c30e5433586edbbe4447fd750402471d5ba12bcc10600bc6461827"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_conflicted.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1048,
+      "sha256": "631b3f90af1aca11f5393a8fff9f7eb5182c4505331f99abc00be7b21cc3b359"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1040,
+      "sha256": "683ecacf3a696642194c1fa337726eba769798f04bd96bf24a223b108ef5ff3e"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_default_framing_attempt_raw.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1100,
+      "sha256": "14ab5c2e36d7d1154cc05dd50e48fe23925c1c6dc2abef88c2ce3c9e7e891413"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_determined.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1049,
+      "sha256": "9a5a8dc4157691c63ec2c64d47410e7872880e6d5fb45dc8b7ccbab956d05260"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_determined_framing_attempt_raw.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1109,
+      "sha256": "298b3bbe1732b2e4f08447a46418a7819d0800945a46869af7418fdfb7307711"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_nervous.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1040,
+      "sha256": "192e5a75eaacdcdae1fdccbba27582f6f6b625a9ac73a72724e488ba3d4a1d0b"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_sad.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1028,
+      "sha256": "3076f28eb83982ad61919fdb0d2fb3b6e4a71b7835c07bf8b37d7cebc34a02ea"
+    },
+    {
+      "path": "assets/generated/characters/unified_2026_09_08_zhao_ming_sincere.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1040,
+      "sha256": "e132ff4a69826f7e36122360ee06e383786547d62975e1676a98c2cd9892c040"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_conflicted_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1013,
+      "sha256": "1f6b44887f71094cd74fcb28795ef1e3612a523155413aab70489f46b0ba3061"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_default_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1004,
+      "sha256": "be3dd50c5f52ed19ba19009d7bda2c76af8f85c5a22b6bad795aa55031c61364"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_determined_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1012,
+      "sha256": "9dd77de64ffaf683f9b656f84745300105f7392dee0f9a5a74e2a43aa1fd88cf"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_nervous_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1004,
+      "sha256": "5e26a2a0673b8adc89fe0b26c7cc8e7b8c45a81ddead38227c1e4b3d76b853dd"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_sad_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 992,
+      "sha256": "67a16c99438a6f2b738c404c6f3cf2333f7dd2a7da5a55c3a5de359f034788e8"
+    },
+    {
+      "path": "assets/generated/characters/zhao_ming_sincere_chroma.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 1003,
+      "sha256": "4e90358887e65981917417284c327e2e9d8cf979483f2ca856681a01946ab7dc"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_angry.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 981,
+      "sha256": "333ff1aa0ff01a98c7558663c18802b9cbd47bfc2103cdf152eb68f5a919c8a9"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_default.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 987,
+      "sha256": "d790b83e7065fe2687f34dead0a5409fd2176b7f800edbe7aee73d638fb1669e"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_focused.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 986,
+      "sha256": "1c402520d5aaa0498303fa8b1c80b3b17f908063d8f245f68e49b5878195c068"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_hurt.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 977,
+      "sha256": "68c8989d302a199a597f43b5bc54c3a3633bc5067a48689d4ea8005ba18fa0a2"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_shocked.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 987,
+      "sha256": "0e00b1c8f6f142b76a37b63c85e09b9be3ebf84b8088d8052ff249f8deb17149"
+    },
+    {
+      "path": "assets/generated/characters/kai_hard_edge_sixpack/kai_suspicious.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 995,
+      "sha256": "67514314ee412a59a2417a92f9072f9ea34faddecfb0b7ded18173433504fae8"
+    },
+    {
+      "path": "assets/generated/items/ai_log.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 945,
+      "sha256": "d3e1e9f8b60182a5c502733c038533fd9f2a12ea877d7221711f2baa9122325b"
+    },
+    {
+      "path": "assets/generated/items/authorization.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 965,
+      "sha256": "166e93381854b975d62ef7ef67cdf0025e3bebfdaf6c4c0575ab38bd3afde5e5"
+    },
+    {
+      "path": "assets/generated/items/comms.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 942,
+      "sha256": "216b4263403ba89cb6633eb2f9c4cac251459b3eef39250ea191b80ee0829a61"
+    },
+    {
+      "path": "assets/generated/items/diary.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 942,
+      "sha256": "035988150c63a9c0310ad06697789528dfb0f3c7aede3c543d115b1724420fab"
+    },
+    {
+      "path": "assets/generated/items/frequency.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 954,
+      "sha256": "e1838626b261191563c841c339f1dd79f5f0537c25bac6d729e06b0460e5bb02"
+    },
+    {
+      "path": "assets/generated/items/funding.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 948,
+      "sha256": "ab43a0f2bc5848ce5cb58e978d7de95974b427903c41c00c9376481f20671c4e"
+    },
+    {
+      "path": "assets/generated/items/id_chip.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 948,
+      "sha256": "db58fb39df7a0e4ff9484453a030542a28e1f3a11e91638c6f09aa2a0c2626b0"
+    },
+    {
+      "path": "assets/generated/items/journal.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 947,
+      "sha256": "9bc497583909c31d1ef1eb24bead2e99438aa5074dfe1c7942c052f6d37ac202"
+    },
+    {
+      "path": "assets/generated/items/key.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 936,
+      "sha256": "98d52b49a6c36ca9f32cbb24fcc7943218d204f1a75a28557bfcf5e5ef5feee3"
+    },
+    {
+      "path": "assets/generated/items/keycard.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 947,
+      "sha256": "10ca4dc21ed171ecebc96322b56dff9c8e35a6324eaa66c86bc72276282a802a"
+    },
+    {
+      "path": "assets/generated/items/ledger.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 945,
+      "sha256": "e29bb9f26bddb0556e98d412fd9d461790fe512b530f964fc601bbadc59fcaf1"
+    },
+    {
+      "path": "assets/generated/items/list.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 939,
+      "sha256": "d385e78ae27a0127d7ff1be07c084c13a5dc15061dbce4f1795a988c4ca8f879"
+    },
+    {
+      "path": "assets/generated/items/map.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 936,
+      "sha256": "d903a607ef8a16d15bfd2a9f647f694db7b86f97537232f1d43fb6fd0321ca93"
+    },
+    {
+      "path": "assets/generated/items/memo.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 939,
+      "sha256": "ffff2cad1d340962171d646e604b5dce0c45e7c82c92866e6571a1e07bcb303a"
+    },
+    {
+      "path": "assets/generated/items/memory_capsule.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 968,
+      "sha256": "4df43eb00304980e9ba7d2b3b92ede3f888ba1b8ed764c755490f74e3ec59e74"
+    },
+    {
+      "path": "assets/generated/items/memory_fragment.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 972,
+      "sha256": "2390a49d50e4a4caeb5a74cda3e0f000dbae271386dc827804306f332179c3cd"
+    },
+    {
+      "path": "assets/generated/items/profiles.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 951,
+      "sha256": "4dcc872fc69fd27fbeb9f8134cfbe3435f7fe69c0330195a5fa2b3dad8b273cf"
+    },
+    {
+      "path": "assets/generated/items/report.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 945,
+      "sha256": "d683b289fc10490e1b5473e11afea940f050449d32936738aa08b1642487ed09"
+    },
+    {
+      "path": "assets/generated/items/schedule.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 951,
+      "sha256": "0b96536a206214f12a9e144842bad85acca6fc0cb6eb30eb348c4d758bf57afb"
+    },
+    {
+      "path": "assets/generated/items/sos.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 936,
+      "sha256": "ce3b86afca09857f99aacdf4a915e41e474c67c03f03469d7eec80028f9d35ed"
+    },
+    {
+      "path": "assets/generated/items/symbol.png.import",
+      "reason": "sidecar of retired asset",
+      "bytes": 945,
+      "sha256": "98da89c1e2db05cfff810c40ed35b701e03c56cfe168833e0d8c7ed0d0f9fdba"
+    },
+    {
+      "path": "assets/audio/sfx/family_memory_fragment.ogg",
+      "reason": "invalid 55-byte audio placeholder; optional sound safely skips missing files",
+      "bytes": 55,
+      "sha256": "ea1e104a48c3cc30625a0330cb7f421bb7a50ddf5d26bd42f3f9e6f4c16c7f6f"
+    },
+    {
+      "path": "assets/generated/audio/ch1/family_memory_fragment.ogg",
+      "reason": "invalid 55-byte audio placeholder; optional sound safely skips missing files",
+      "bytes": 55,
+      "sha256": "ea1e104a48c3cc30625a0330cb7f421bb7a50ddf5d26bd42f3f9e6f4c16c7f6f"
+    },
+    {
+      "path": "tools/slice_character_reference_sheets.py",
+      "reason": "obsolete 256x384 sheet slicer would overwrite current 1024x1536 portraits; source sheets retired",
+      "bytes": 8227,
+      "sha256": "2c88d5835a4b5d98f2b861fac781c6ddd2077393557359fb5d79eda99bbf8049"
+    },
+    {
+      "path": "assets/audio/sfx/family_memory_fragment.ogg.import",
+      "reason": "invalid import sidecar left by removed fake OGG; must not advertise a nonexistent audio resource",
+      "bytes": 239,
+      "sha256": "0fc95ed74f4aa3328483b2e73cccaa7aeadb04f9ebb630fdcbc370a06c9963ef"
+    },
+    {
+      "path": "assets/generated/audio/ch1/family_memory_fragment.ogg.import",
+      "reason": "invalid import sidecar left by removed fake OGG; must not advertise a nonexistent audio resource",
+      "bytes": 249,
+      "sha256": "a071d27a2ec5339c78a5cea57c6ed8960eb80a1cef19ed145a450c42a0752217"
+    }
+  ],
+  "total_files": 426,
+  "bytes": 320748538,
+  "status": "completed_recycle_bin",
+  "deleted_files": 426,
+  "reason": "All listed obsolete files were removed from the project via the safer reversible Recycle Bin operation, after permanent deletion was blocked. References, provenance records and regression tests were updated together.",
+  "method": "Windows Recycle Bin; recoverable deletion",
+  "remaining_files": []
+}

@@ -1,0 +1,401 @@
+{
+	"eye_only_metadata": [
+		"data_chip",
+		"memory_device_log",
+		"kai_eye_glitch_log",
+		"rusty_key",
+		"kai_memory_fragment"
+	],
+	"narrative_effect_actions": [
+		{
+			"location": "mei_ling_apartment",
+			"name": "林美玲的公寓",
+			"title": "檢視家庭相簿與原始備份提示"
+		},
+		{
+			"location": "mei_ling_apartment",
+			"name": "林美玲的公寓",
+			"title": "回放家庭記憶片段"
+		},
+		{
+			"location": "mei_ling_apartment",
+			"name": "林美玲的公寓",
+			"title": "掃描損壞記憶播放器"
+		},
+		{
+			"location": "mei_ling_apartment",
+			"name": "林美玲的公寓",
+			"title": "查閱浩然最後一通電話"
+		},
+		{
+			"location": "hao_ran_workshop",
+			"name": "浩然的工作室",
+			"title": "比對鷹眼異常訊號"
+		},
+		{
+			"location": "hao_ran_workshop",
+			"name": "浩然的工作室",
+			"title": "解讀浩然留給美玲的加密留言"
+		},
+		{
+			"location": "hao_ran_workshop",
+			"name": "浩然的工作室",
+			"title": "聯絡 Dr. 陳解讀播放器協定"
+		},
+		{
+			"location": "hao_ran_workshop",
+			"name": "浩然的工作室",
+			"title": "整理家庭備份、義眼握手與黑市入口"
+		},
+		{
+			"location": "east_district_street",
+			"name": "東區街道",
+			"title": "比對東區監控空窗"
+		},
+		{
+			"location": "dr_chen_clinic",
+			"name": "Dr. 陳診所",
+			"title": "請 Dr. 陳解讀義眼握手"
+		}
+	],
+	"readings": [
+		{
+			"chapter": 1,
+			"id": "commission_letter",
+			"name": "美玲的委託信",
+			"text": "鷹眼讀到被反覆刪改的壓痕：美玲曾寫下「浩然在替非法客戶修記憶」，又把那行刪掉。核心資訊可信，但文字邊緣混入凱記憶缺口造成的雨夜殘影。"
+		},
+		{
+			"chapter": 1,
+			"id": "abyss_receipt",
+			"name": "深淵酒吧的收據",
+			"text": "鷹眼從熱感墨水殘留中補出一段包廂 hash。付款人身份被面具協定遮蔽，但路由格式接近記憶黑市的預約系統。"
+		},
+		{
+			"chapter": 1,
+			"id": "data_chip",
+			"name": "加密的數據晶片",
+			"text": "晶片外層不是一般加密，而是回聲網路常用的螺旋簽章。義眼能讀到方向，卻會把簽章短暫投射成凱不認得的白色診療燈。"
+		},
+		{
+			"chapter": 1,
+			"id": "family_memory_clip",
+			"name": "家庭記憶片段",
+			"text": "晚餐記憶中有一幀不屬於公寓的白色實驗室燈光。義眼標記它為真實異常，但畫面裡凱的視角明顯被污染。"
+		},
+		{
+			"chapter": 1,
+			"id": "broken_memory_player",
+			"name": "損壞的記憶播放器",
+			"text": "播放器殘留一段鄭泰早期義眼維修握手協定。它不像使用紀錄，更像是浩然故意留下的鑰匙孔。"
+		},
+		{
+			"chapter": 1,
+			"id": "kai_eye_glitch_log",
+			"name": "凱的鷹眼異常紀錄",
+			"text": "錯誤紀錄顯示握手協定曾被手動喚醒。浩然不是隨機留下線索，他知道凱的義眼能讀到這一層。"
+		},
+		{
+			"chapter": 1,
+			"id": "eleven_pm_call_log",
+			"name": "十一點未接來電紀錄",
+			"text": "鷹眼補出來電路由：通話曾經過舊城警署附近的公共節點，又在東區監控空窗開始前被強制終止。"
+		},
+		{
+			"chapter": 1,
+			"id": "rejected_missing_person_report",
+			"name": "被退回的失蹤通報",
+			"text": "義眼在文件底層讀到企業風險分類碼。警署不是沒看見案件，而是把它放進不碰的抽屜。"
+		},
+		{
+			"chapter": 1,
+			"id": "street_camera_gap",
+			"name": "東區監控空窗",
+			"text": "空窗不是設備故障，而是被遠端下達的同步遮蔽命令。指令格式沒有署名，只留下回聲式的封包節奏。"
+		},
+		{
+			"chapter": 1,
+			"id": "masked_client_receipt",
+			"name": "遮罩客戶包廂紀錄",
+			"text": "鷹眼能讀出 hash 的前綴：它不是一般黑市帳號，而是被回聲網路轉介過的臨時身份。"
+		},
+		{
+			"chapter": 1,
+			"id": "clinic_eye_warning_log",
+			"name": "Dr. 陳的義眼警告紀錄",
+			"text": "紀錄裡有一行被覆寫的警告：握手協定可由外部播放器喚醒。凱的義眼既是鑰匙，也可能是後門。"
+		},
+		{
+			"chapter": 1,
+			"id": "old_city_queue_ticket",
+			"name": "舊城警署等候號碼單",
+			"text": "號碼單底層殘留四小時的排隊時間戳。系統不是沒有收到美玲的恐懼，而是把它排進一串永遠輪不到人工審查的序列。"
+		},
+		{
+			"chapter": 1,
+			"id": "clinic_anonymous_case_note",
+			"name": "匿名記憶污染病歷",
+			"text": "病例姓名被遮掉，但症狀時間線和凱的義眼錯誤紀錄重疊。這不是單一故障，而是一批被制度外診所悄悄接住的傷口。"
+		},
+		{
+			"chapter": 1,
+			"id": "abyss_surveillance_delay_log",
+			"name": "深淵酒吧監控延遲紀錄",
+			"text": "延遲命令不是事故，而是付費服務。鷹眼讀到阿傑的權限碼和一組黑市臨時 hash 同時出現，像兩個人一起把燈調暗。"
+		},
+		{
+			"chapter": 1,
+			"id": "black_market_entry_hint",
+			"name": "記憶黑市入口提示",
+			"text": "提示本身不等於真相。義眼只能證明有人把浩然、凱與回聲格式接在同一條線上，不能證明迴響可信或不可信。"
+		},
+		{
+			"chapter": 2,
+			"id": "warehouse_map",
+			"name": "廢棄倉庫位置地圖",
+			"text": "維修動線通往同一組接收設備。位置圖只能引路，設備底座批號才可核對是否同一批器材。"
+		},
+		{
+			"chapter": 2,
+			"id": "hao_ran_diary",
+			"name": "浩然的個人日記",
+			"text": "段落的修改時間晚於建立時間。浩然補寫了撤回申請，不能把早期加入計畫的意願當成永久同意。"
+		},
+		{
+			"chapter": 2,
+			"id": "trade_ledger",
+			"name": "交易帳本副本",
+			"text": "報價時間與實際交貨時間分列。先有報價不代表交易完成，也不能由同名帳戶直接推定同一個人。"
+		},
+		{
+			"chapter": 2,
+			"id": "zhengtek_memo",
+			"name": "正和科技內部備忘錄",
+			"text": "停用欄位只指測試方案，沒有宣告停止出貨。後門滾輪保留的簽收計數可以檢查企業是否仍在移動設備。"
+		},
+		{
+			"chapter": 2,
+			"id": "victim_list",
+			"name": "受害者名單",
+			"text": "接收代碼與姓名是分開儲存的欄位。可先核對照護去向，無須將受害者私人資料一起傳出。"
+		},
+		{
+			"chapter": 2,
+			"id": "comm_frequency",
+			"name": "回聲網路通訊頻率",
+			"text": "這是訊息抵達的通道，不是接收者已閱讀的證明。送達、覆核與實際操作應分別核對。"
+		},
+		{
+			"chapter": 3,
+			"id": "overwrite_report",
+			"name": "覆寫技術研究報告",
+			"text": "維持生命與記憶寫入有獨立控制欄位。停止寫入不等於直接拔除維持設備，救援仍需依照隔離程序。"
+		},
+		{
+			"chapter": 3,
+			"id": "zhengtek_funding",
+			"name": "正和科技資金流向",
+			"text": "付款方與操作簽章並非同一欄。資金流向證明企業參與，不能替代誰在何時按下繼續的紀錄。"
+		},
+		{
+			"chapter": 3,
+			"id": "dr_xiao_journal",
+			"name": "蕭博士個人日誌",
+			"text": "日誌裡的「待覆核」被重複套用。真正的接收與繼續寫入時間，要回到實驗室終端找本地簽章。"
+		},
+		{
+			"chapter": 3,
+			"id": "overwritten_profiles",
+			"name": "被覆寫者前後對比",
+			"text": "比較表略去了測量時間與撤回紀錄。人格分數的變動不等於本人同意，也不是治療成功的完整證明。"
+		},
+		{
+			"chapter": 3,
+			"id": "echo_ai_log",
+			"name": "AI迴響對話紀錄",
+			"text": "迴響保留匯入順序，未必保留事件發生順序。將某段記憶放在較前的位置，不能自動證明那是較早的自己。"
+		},
+		{
+			"chapter": 3,
+			"id": "kai_memory_fragment",
+			"name": "凱的記憶碎片",
+			"text": "匯入標記與工單日期相差一天。可以核對時間來源，不能靠清晰度或熟悉感決定真偽。"
+		},
+		{
+			"chapter": 3,
+			"id": "authorization_order",
+			"name": "正和科技授權令",
+			"text": "企業層級授權與個人同意分屬不同簽章。上級允許計畫執行，不代表能覆蓋當事人的撤回。"
+		},
+		{
+			"chapter": 3,
+			"id": "dr_xiao_comms",
+			"name": "蕭博士與高層通訊",
+			"text": "訊息標為已送達後，仍有一段人工覆核空窗。市政紙本回執、終端接收與本地簽章能拼成三段時間線。"
+		}
+	],
+	"scan_actions": [
+		{
+			"action": {
+				"dialogue": "ch1_eye_ajie_statement",
+				"hide_after_flag": "ajie_statement_resolved",
+				"id": "scan_ajie_receipt",
+				"requires_evidence": "abyss_receipt",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_ajie_receipt_scanned",
+				"title": "核對酒吧時間戳"
+			},
+			"chapter": 1,
+			"location": "abyss_bar",
+			"name": "深淵酒吧"
+		},
+		{
+			"action": {
+				"dialogue": "ch1_scan_grid",
+				"hide_after_flag": "grid_review_resolved",
+				"id": "scan_grid_clock",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_grid_scanned",
+				"title": "比對配電箱與監控時鐘"
+			},
+			"chapter": 1,
+			"location": "east_district_street",
+			"name": "東區街道"
+		},
+		{
+			"action": {
+				"dialogue": "ch2_eye_unsent_backup",
+				"hide_after_flag": "backup_handling_resolved",
+				"id": "scan_unsent_backup",
+				"requires_evidences": [
+					"original_backup_hint",
+					"hao_ran_diary"
+				],
+				"requires_flag": "warehouse_investigated",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_backup_scanned",
+				"title": "核對未寄出備份"
+			},
+			"chapter": 2,
+			"location": "bitstorm_cafe",
+			"name": "比特風暴網咖"
+		},
+		{
+			"action": {
+				"dialogue": "ch2_eye_market_claim",
+				"hide_after_flag": "market_claim_resolved",
+				"id": "scan_market_claim",
+				"requires_flag": "market_trade_resolved",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_market_claim_scanned",
+				"title": "核對市場追討權"
+			},
+			"chapter": 2,
+			"location": "memory_black_market",
+			"name": "記憶黑市"
+		},
+		{
+			"action": {
+				"dialogue": "ch2_scan_warehouse_batch",
+				"hide_after_flag": "warehouse_batch_resolved",
+				"id": "scan_warehouse_batch",
+				"requires_flag": "warehouse_investigated",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_batch_scanned",
+				"title": "掃描設備底座的維修批號"
+			},
+			"chapter": 2,
+			"location": "abandoned_warehouse",
+			"name": "廢棄倉庫"
+		},
+		{
+			"action": {
+				"dialogue": "ch2_scan_dispatch_clock",
+				"hide_after_flag": "dispatch_record_resolved",
+				"id": "scan_dispatch_clock",
+				"requires_evidence": "zhengtek_memo",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_dispatch_scanned",
+				"title": "掃描後門出貨滾輪"
+			},
+			"chapter": 2,
+			"location": "zhengtek_exterior",
+			"name": "正和科技大樓外圍"
+		},
+		{
+			"action": {
+				"dialogue": "ch2_scan_withdrawal_queue",
+				"hide_after_flag": "archive_route_resolved",
+				"id": "scan_withdrawal_queue",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_withdrawal_scanned",
+				"scan_position": [
+					0.295,
+					0.385
+				],
+				"title": "讀取撤回申請的壓印回執"
+			},
+			"chapter": 2,
+			"location": "civic_archive",
+			"name": "市政離線檔案室"
+		},
+		{
+			"action": {
+				"dialogue": "ch3_scan_override_console",
+				"hide_after_flag": "override_console_reviewed",
+				"id": "scan_override_console",
+				"requires_flag": "xiao_confronted",
+				"scan_cost": 20.0,
+				"scan_flag": "eye_override_scanned",
+				"set_flag": "override_console_reviewed",
+				"title": "掃描覆核站的本地簽章"
+			},
+			"chapter": 3,
+			"location": "secret_lab",
+			"name": "正和科技秘密實驗室"
+		},
+		{
+			"action": {
+				"dialogue": "ch3_scan_memory_anchor",
+				"hide_after_flag": "memory_anchor_resolved",
+				"id": "scan_memory_anchor",
+				"requires_flags": [
+					"kai_memory_truth_reviewed",
+					"hao_ran_rescued"
+				],
+				"requires_missing_flags": [
+					"final_choice_resolved",
+					"case_resolved"
+				],
+				"scan_cost": 20.0,
+				"scan_flag": "eye_anchor_scanned",
+				"title": "掃描記憶時間標記，留下甦醒紀錄"
+			},
+			"chapter": 3,
+			"location": "memory_space",
+			"name": "凱的記憶空間"
+		},
+		{
+			"action": {
+				"dialogue": "ch3_scan_recovery_route",
+				"hide_after_flag": "recovery_route_resolved",
+				"id": "scan_recovery_route",
+				"requires_missing_flags": [
+					"final_choice_resolved",
+					"case_resolved"
+				],
+				"scan_cost": 20.0,
+				"scan_flag": "eye_recovery_scanned",
+				"scan_position": [
+					0.855,
+					0.24
+				],
+				"title": "核對轉運終端的待送收件者"
+			},
+			"chapter": 3,
+			"location": "recovery_annex",
+			"name": "復健轉運間"
+		}
+	],
+	"scene_hotspot_nodes": 0
+}

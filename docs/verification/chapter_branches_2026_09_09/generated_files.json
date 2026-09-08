@@ -1,0 +1,22 @@
+[
+  {
+    "file": "referral_waiting_station.png",
+    "kind": "locations",
+    "path": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-97b63e97-d39f-41b4-87db-e3b535a08e64.png"
+  },
+  {
+    "file": "auction_handover_room.png",
+    "kind": "locations",
+    "path": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-f35cbd16-8b8a-4631-8727-c58b3911b2f2.png"
+  },
+  {
+    "file": "referral_routing_stub.png",
+    "kind": "items",
+    "path": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-e2f8c25c-a8bf-455f-8b02-17acb136bb93.png"
+  },
+  {
+    "file": "auction_dispatch_seal.png",
+    "kind": "items",
+    "path": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-5601ba51-45f0-48ae-8686-98a3c4ad06e5.png"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "civic_archive",
+    "size": [
+      1672,
+      941
+    ],
+    "png_color_type": 2,
+    "opaque_rgb": true,
+    "sha256": "5a417f12eefdff1f4a079b839272b7f28a2fc9339afc6b70731040946450dd4c"
+  },
+  {
+    "name": "recovery_annex",
+    "size": [
+      1672,
+      941
+    ],
+    "png_color_type": 2,
+    "opaque_rgb": true,
+    "sha256": "2540a06b729c37b9ec7829e6495e883efbf921ff81c11a2fc4baf2c6caeae273"
+  }
+]
