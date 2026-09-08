@@ -14,6 +14,9 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
 
 func save_game(slot: int) -> void:
+	if GameManager.current_state != GameManager.GameState.PLAYING or SceneManager.is_transitioning():
+		save_failed.emit(slot, "請等目前對話或操作結束後再存檔。")
+		return
 	var save_data := {
 		"version": 1,
 		"timestamp": Time.get_datetime_string_from_system(),

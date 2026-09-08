@@ -1,4 +1,6 @@
 extends Control
+
+const RuntimeAssetsScript = preload("res://scripts/core/runtime_assets.gd")
 ## Main Menu - Title screen with responsive layout for desktop and mobile.
 
 @onready var new_game_btn: Button = $TitleContainer/NewGameButton
@@ -9,8 +11,10 @@ extends Control
 @onready var subtitle_label: Label = $TitleContainer/Subtitle
 
 const MAIN_MENU_BACKGROUND_PATH := "res://assets/sprites/ui/main_menu_background.png"
+const CaseDataScript: GDScript = preload("res://scripts/data/case_data.gd")
 
 func _ready() -> void:
+	AudioManager.play_location_bgm("main_menu")
 	GameManager.set_state(GameManager.GameState.MAIN_MENU)
 	_setup_generated_background()
 
@@ -32,13 +36,14 @@ func _ready() -> void:
 	_animate_title()
 
 func _setup_generated_background() -> void:
-	var texture := _load_runtime_texture(MAIN_MENU_BACKGROUND_PATH)
+	var texture := RuntimeAssetsScript.load_texture(MAIN_MENU_BACKGROUND_PATH)
 	if not texture:
 		return
 
 	var generated_bg := TextureRect.new()
 	generated_bg.name = "GeneratedBackground"
 	generated_bg.texture = texture
+	generated_bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	generated_bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	generated_bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	generated_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -49,21 +54,6 @@ func _setup_generated_background() -> void:
 	if fallback_tint:
 		fallback_tint.color = Color(0.0, 0.0, 0.0, 0.34)
 		move_child(fallback_tint, 1)
-
-func _load_runtime_texture(res_path: String) -> Texture2D:
-	if not FileAccess.file_exists(res_path):
-		return null
-
-	if res_path.get_extension().to_lower() == "png":
-		var image := Image.new()
-		var error := image.load(ProjectSettings.globalize_path(res_path))
-		if error == OK:
-			return ImageTexture.create_from_image(image)
-
-	if ResourceLoader.exists(res_path):
-		return load(res_path) as Texture2D
-
-	return null
 
 func _adapt_layout() -> void:
 	if InputManager.is_mobile:
@@ -146,6 +136,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 
 func _on_new_game() -> void:
+	if new_game_btn.disabled or SceneManager.is_transitioning():
+		return
 	# Disable buttons to prevent double-click during transition
 	new_game_btn.disabled = true
 	continue_btn.disabled = true
@@ -153,18 +145,34 @@ func _on_new_game() -> void:
 	settings_btn.disabled = true
 
 	GameManager.new_game()
-	await SceneManager.change_scene_with_chapter_title(
-		"detective_office", 1, "失蹤的記憶"
+	var chapter_data: Dictionary = CaseDataScript.get_chapter_data(1)
+	SceneManager.transition_failed.connect(_on_scene_transition_failed, CONNECT_ONE_SHOT)
+	SceneManager.change_scene_with_chapter_title(
+		str(chapter_data.get("starting_location", "")), 1, str(chapter_data.get("title", ""))
 	)
 
 func _on_continue() -> void:
+	if continue_btn.disabled or SceneManager.is_transitioning():
+		return
 	if SaveManager.load_game(1):
 		new_game_btn.disabled = true
 		continue_btn.disabled = true
 		controls_btn.disabled = true
 		settings_btn.disabled = true
 		var location := GameManager.current_location
-		await SceneManager.change_scene(location)
+		SceneManager.transition_failed.connect(_on_scene_transition_failed, CONNECT_ONE_SHOT)
+		SceneManager.change_scene(location)
+	else:
+		subtitle_label.text = "無法讀取存檔，請選擇新遊戲。"
+
+func _on_scene_transition_failed(_scene_name: String) -> void:
+	GameManager.set_state(GameManager.GameState.MAIN_MENU)
+	new_game_btn.disabled = false
+	continue_btn.disabled = not SaveManager.has_save(1)
+	continue_btn.modulate.a = 0.4 if continue_btn.disabled else 1.0
+	controls_btn.disabled = false
+	settings_btn.disabled = false
+	subtitle_label.text = "無法開啟場景，請重試。"
 
 func _on_controls() -> void:
 	var popup_layer := CanvasLayer.new()

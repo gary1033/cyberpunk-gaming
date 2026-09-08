@@ -1,4 +1,6 @@
 extends Control
+
+const RuntimeAssetsScript = preload("res://scripts/core/runtime_assets.gd")
 ## DialogueSystem - Handles dialogue display with typewriter effect, branching choices,
 ## and character portrait management.
 
@@ -15,15 +17,17 @@ signal choice_made(choice_index: int)
 @onready var portrait_left: TextureRect = find_child("PortraitLeft", true, false) as TextureRect
 @onready var portrait_right: TextureRect = find_child("PortraitRight", true, false) as TextureRect
 @onready var choices_container: VBoxContainer = find_child("ChoicesContainer", true, false) as VBoxContainer
+@onready var choices_scroll: ScrollContainer = find_child("ChoicesScroll", true, false) as ScrollContainer
 @onready var continue_indicator: Label = find_child("ContinueIndicator", true, false) as Label
 @onready var dialogue_content_margin: MarginContainer = find_child("DialogueContentMargin", true, false) as MarginContainer
 
 const STORY_CG_DIR := "res://assets/sprites/cg"
 const DESKTOP_DIALOGUE_PAGE_CHARS := 50
 const MOBILE_DIALOGUE_PAGE_CHARS := 30
+const CHOICE_DIALOGUE_PAGE_CHARS := 32
 const DIALOGUE_TEXT_HEIGHT := 96
 const CHOICE_PROMPT_TEXT_HEIGHT := 48
-const COMPACT_CHOICE_PROMPT_TEXT_HEIGHT := 34
+const COMPACT_CHOICE_PROMPT_TEXT_HEIGHT := 58
 const NO_CHOICE_DIALOGUE_TOP_MARGIN := 28
 const NO_CHOICE_DIALOGUE_BOTTOM_MARGIN := 4
 const CHOICE_DIALOGUE_TOP_MARGIN := 0
@@ -33,7 +37,7 @@ const COMPACT_CHOICE_BUTTON_HEIGHT := 32
 const NORMAL_CHOICE_GAP := 5
 const COMPACT_CHOICE_GAP := 3
 const NORMAL_CHOICE_FONT_SIZE := 18
-const COMPACT_CHOICE_FONT_SIZE := 15
+const COMPACT_CHOICE_FONT_SIZE := 18
 const DIALOGUE_SPLIT_PUNCTUATION := "，。！？；：、,.!?;: "
 
 var _current_dialogue: Array = []  # Array of dialogue entries
@@ -92,7 +96,17 @@ func start_dialogue(dialogue_data: Array) -> void:
 	_show_entry(_current_dialogue[_current_index])
 
 func _show_entry(entry: Dictionary) -> void:
-	_current_entry_pages = _split_dialogue_pages(entry.get("text", ""))
+	while not GameManager.meets_story_conditions(entry):
+		_current_index += 1
+		if _current_index >= _current_dialogue.size():
+			end_dialogue()
+			return
+		entry = _current_dialogue[_current_index]
+	var entry_text: String = entry.get("text", "")
+	if entry.get("show_public_record", false):
+		var facts := GameManager.get_public_record_facts()
+		entry_text += "\n" + ("\n".join(facts) if not facts.is_empty() else "沒有額外交易或資料外流；仍須對原件與署名負責。")
+	_current_entry_pages = _split_dialogue_pages(entry_text, not _get_available_choices(entry.get("choices", [])).is_empty())
 	_current_page_index = 0
 	_show_entry_page(entry, _current_entry_pages[_current_page_index], true)
 
@@ -119,18 +133,18 @@ func _apply_entry_effects(entry: Dictionary) -> void:
 	_apply_entry_cg_effect(entry)
 	_apply_dialogue_state_changes(entry)
 
-	var evidence: String = entry.get("give_evidence", "")
-	if evidence != "":
-		GameManager.collect_evidence(evidence)
-
 func _apply_entry_cg_effect(entry: Dictionary) -> void:
 	var story_cg: String = entry.get("show_cg", "")
-	if story_cg != "":
+	if entry.has("show_item"):
+		_show_story_cg(str(entry.show_item), true)
+	elif story_cg != "":
 		_show_story_cg(story_cg)
 	elif entry.get("clear_cg", false):
 		_hide_story_cg()
 
 func _apply_dialogue_state_changes(source: Dictionary) -> void:
+	if source.get("review_public_record", false):
+		GameManager.review_public_record()
 	var flag: String = source.get("set_flag", "")
 	if flag != "":
 		GameManager.set_dialogue_flag(flag)
@@ -143,16 +157,27 @@ func _apply_dialogue_state_changes(source: Dictionary) -> void:
 	for decision_id in decision_change:
 		GameManager.set_decision(decision_id, decision_change[decision_id])
 
+	var decision_additions: Dictionary = source.get("add_decision", {})
+	for decision_id in decision_additions:
+		GameManager.set_decision(decision_id, int(GameManager.decisions.get(decision_id, 0)) + int(decision_additions[decision_id]))
+
+	var evidence: String = source.get("give_evidence", "")
+	if evidence != "":
+		GameManager.collect_evidence(evidence)
+
 func _start_typewriter_page(page_text: String, will_show_choices: bool) -> void:
 	_set_dialogue_content_layout(will_show_choices)
 	_full_text = page_text
 	dialogue_text.text = _full_text
 	dialogue_text.visible_characters = 0
 	dialogue_text.custom_minimum_size = Vector2(0, DIALOGUE_TEXT_HEIGHT)
+	dialogue_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_visible_chars = 0
 	_is_typing = true
 	_is_waiting_for_input = false
 	choices_container.visible = false
+	if choices_scroll:
+		choices_scroll.visible = false
 	continue_indicator.visible = false
 
 func _process(delta: float) -> void:
@@ -196,6 +221,7 @@ func _wait_for_dialogue_advance() -> void:
 
 func _show_entry_choices(choices: Array) -> void:
 	_set_dialogue_content_layout(true)
+	dialogue_text.size_flags_vertical = Control.SIZE_FILL
 	var compact_choices := choices.size() >= 3
 	dialogue_text.custom_minimum_size = Vector2(
 		0,
@@ -206,6 +232,9 @@ func _show_entry_choices(choices: Array) -> void:
 func _show_choices(available_choices: Array, compact_layout: bool) -> void:
 	_clear_choices()
 	choices_container.visible = true
+	if choices_scroll:
+		choices_scroll.visible = true
+		choices_scroll.scroll_vertical = 0
 	choices_container.add_theme_constant_override("separation", COMPACT_CHOICE_GAP if compact_layout else NORMAL_CHOICE_GAP)
 	var button_height := COMPACT_CHOICE_BUTTON_HEIGHT if compact_layout else NORMAL_CHOICE_BUTTON_HEIGHT
 	var font_size := COMPACT_CHOICE_FONT_SIZE if compact_layout else NORMAL_CHOICE_FONT_SIZE
@@ -233,7 +262,7 @@ func _apply_choice_button_style(btn: Button, font_size: int) -> void:
 	btn.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
 	btn.add_theme_color_override("font_hover_color", Color(1.0, 0.0, 0.6))
 	btn.add_theme_color_override("font_pressed_color", Color(1.0, 1.0, 1.0))
-	btn.add_theme_font_size_override("font_size", font_size if not InputManager.is_mobile else 14)
+	btn.add_theme_font_size_override("font_size", font_size)
 	btn.add_theme_stylebox_override(
 		"normal",
 		_create_choice_button_style(Color(0.01, 0.018, 0.026, 0.9), Color(0.0, 0.78, 0.82, 0.74), 1)
@@ -278,8 +307,8 @@ func _create_choice_button_style(bg_color: Color, border_color: Color, border_wi
 	style.shadow_size = 6
 	style.set_content_margin(SIDE_LEFT, 18)
 	style.set_content_margin(SIDE_RIGHT, 18)
-	style.set_content_margin(SIDE_TOP, 8)
-	style.set_content_margin(SIDE_BOTTOM, 8)
+	style.set_content_margin(SIDE_TOP, 4)
+	style.set_content_margin(SIDE_BOTTOM, 4)
 	return style
 
 func _get_display_name(entry: Dictionary, speaker: String) -> String:
@@ -299,7 +328,7 @@ func _get_display_name(entry: Dictionary, speaker: String) -> String:
 		"dr_chen":
 			return "陳醫師"
 		_:
-			return ""
+			return str(CharacterData.get_character(speaker).get("name", ""))
 
 func _get_available_choices(choices: Array) -> Array:
 	var available_choices: Array = []
@@ -313,27 +342,18 @@ func _get_available_choices(choices: Array) -> Array:
 	return available_choices
 
 func _is_choice_available(choice: Dictionary) -> bool:
-	var requires: String = choice.get("requires_evidence", "")
-	if requires != "" and not GameManager.has_evidence(requires):
-		return false
-
-	var requires_flag: String = choice.get("requires_flag", "")
-	if requires_flag != "" and not GameManager.get_dialogue_flag(requires_flag):
-		return false
-
-	var requires_missing_flags: Array = choice.get("requires_missing_flags", [])
-	for missing_flag in requires_missing_flags:
-		if GameManager.get_dialogue_flag(str(missing_flag)):
-			return false
-
-	return true
+	return GameManager.meets_story_conditions(choice)
 
 func _on_choice_pressed(index: int) -> void:
+	if not visible or _is_typing or not choices_container.visible or _current_dialogue.is_empty():
+		return
 	var entry: Dictionary = _current_dialogue[_current_index]
 	var choices: Array = entry.get("choices", [])
 
-	if index < choices.size():
+	if index >= 0 and index < choices.size():
 		var choice: Dictionary = choices[index]
+		if not _is_choice_available(choice):
+			return
 		_apply_choice_effects(choice)
 		choice_made.emit(index)
 		_follow_choice_next(choice)
@@ -353,7 +373,7 @@ func _follow_choice_next(choice: Dictionary) -> void:
 	elif next != "":
 		_jump_to_label(next)
 	else:
-		_advance()
+		_advance(true)
 
 func _input(event: InputEvent) -> void:
 	if not visible:
@@ -378,10 +398,25 @@ func _input(event: InputEvent) -> void:
 			_advance()
 			get_viewport().set_input_as_handled()
 
-func _advance() -> void:
+func _advance(choice_selected: bool = false) -> void:
+	if _current_dialogue.is_empty():
+		return
 	if _has_more_pages():
 		_current_page_index += 1
 		_show_entry_page(_current_dialogue[_current_index], _current_entry_pages[_current_page_index], false)
+		return
+
+	var entry: Dictionary = _current_dialogue[_current_index]
+	if entry.has("choices") and not choice_selected:
+		if _get_available_choices(entry["choices"]).is_empty():
+			end_dialogue()
+		return
+	var next: String = entry.get("next", "")
+	if next == "end":
+		end_dialogue()
+		return
+	if next != "":
+		_jump_to_label(next)
 		return
 
 	_current_index += 1
@@ -393,11 +428,13 @@ func _advance() -> void:
 func _has_more_pages() -> bool:
 	return _current_page_index + 1 < _current_entry_pages.size()
 
-func _split_dialogue_pages(text: String) -> Array:
+func _split_dialogue_pages(text: String, has_choices: bool = false) -> Array:
 	if text == "":
 		return [""]
 
 	var limit := MOBILE_DIALOGUE_PAGE_CHARS if InputManager.is_mobile else DESKTOP_DIALOGUE_PAGE_CHARS
+	if has_choices:
+		limit = mini(limit, CHOICE_DIALOGUE_PAGE_CHARS)
 	if text.length() <= limit:
 		return [text]
 
@@ -433,8 +470,8 @@ func _jump_to_label(label: String) -> void:
 			_current_index = i
 			_show_entry(_current_dialogue[_current_index])
 			return
-	# Label not found, just advance
-	_advance()
+	push_error("Dialogue label not found: %s" % label)
+	end_dialogue()
 
 func end_dialogue() -> void:
 	visible = false
@@ -459,14 +496,23 @@ func _ensure_story_cg_overlay() -> void:
 		_story_cg_overlay.visible = false
 		add_child(_story_cg_overlay)
 		move_child(_story_cg_overlay, 0)
+	_story_cg_overlay.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 
-func _show_story_cg(cg_id: String) -> void:
+func _show_story_cg(cg_id: String, is_item: bool = false) -> void:
 	_ensure_story_cg_overlay()
-	var texture := _load_runtime_texture("%s/%s.png" % [STORY_CG_DIR, cg_id])
+	var folder := "res://assets/sprites/items" if is_item else STORY_CG_DIR
+	var texture := RuntimeAssetsScript.load_texture("%s/%s.png" % [folder, cg_id])
 	if texture == null:
 		return
+	_story_cg_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_story_cg_overlay.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED if is_item else TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	if is_item:
+		_story_cg_overlay.anchor_left = 0.36
+		_story_cg_overlay.anchor_right = 0.64
+		_story_cg_overlay.anchor_top = 0.08
+		_story_cg_overlay.anchor_bottom = minf(0.48, (dialogue_panel.get_global_rect().position.y - 12.0) / get_viewport_rect().size.y)
 	_story_cg_overlay.texture = texture
-	_story_cg_overlay.modulate = Color(1, 1, 1, 0.92)
+	_story_cg_overlay.modulate = Color.WHITE
 	_story_cg_overlay.visible = true
 
 func _hide_story_cg() -> void:
@@ -487,24 +533,13 @@ func _update_portrait(speaker: String, mood: String, _side: String) -> void:
 		texture = _load_character_portrait(speaker, "default")
 
 	if texture:
-		portrait_left.texture = texture
+		# Show the head and shoulders instead of shrinking the full bust into the portrait cell.
+		var headshot := AtlasTexture.new()
+		headshot.atlas = texture
+		headshot.region = Rect2(Vector2(0.20, 0.075) * texture.get_size(), Vector2(0.60, 0.39) * texture.get_size())
+		portrait_left.texture = headshot
 		portrait_left.visible = true
 
 func _load_character_portrait(speaker: String, mood: String) -> Texture2D:
 	var portrait_path := "res://assets/sprites/characters/%s_%s.png" % [speaker, mood]
-	return _load_runtime_texture(portrait_path)
-
-func _load_runtime_texture(res_path: String) -> Texture2D:
-	if not FileAccess.file_exists(res_path):
-		return null
-
-	if res_path.get_extension().to_lower() == "png":
-		var image := Image.new()
-		var error := image.load(ProjectSettings.globalize_path(res_path))
-		if error == OK:
-			return ImageTexture.create_from_image(image)
-
-	if ResourceLoader.exists(res_path):
-		return load(res_path) as Texture2D
-
-	return null
+	return RuntimeAssetsScript.load_texture(portrait_path)

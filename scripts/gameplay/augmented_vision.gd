@@ -1,4 +1,6 @@
 extends CanvasLayer
+
+const RuntimeAssetsScript = preload("res://scripts/core/runtime_assets.gd")
 ## AugmentedVision (Eagle Eye) - Toggleable enhanced vision mode.
 ## Builds its own runtime UI so every location can mount it safely.
 
@@ -11,7 +13,7 @@ const EAGLE_EYE_RETICLE_PATH := "res://assets/sprites/ui/eagle_eye_focus_reticle
 const EAGLE_EYE_GLITCH_NOISE_PATH := "res://assets/sprites/ui/eagle_eye_glitch_noise_ch1.png"
 const EAGLE_EYE_ACTIVATION_CUTIN_PATH := "res://assets/sprites/cg/eagle_eye_activation_cutin_ch1.png"
 const EAGLE_EYE_GLITCH_STING_SFX := "res://assets/audio/sfx/eagle_eye_glitch_sting.ogg"
-const ENERGY_BAR_STATE_DIR := "res://assets/sprites/ui"
+const SegmentedEnergyBarScript: GDScript = preload("res://scripts/ui/segmented_energy_bar.gd")
 const EAGLE_EYE_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)
 
 var overlay: ColorRect = null
@@ -20,23 +22,19 @@ var generated_reticle: TextureRect = null
 var glitch_noise: TextureRect = null
 var activation_cutin: TextureRect = null
 var energy_bar: Control = null
-var energy_bar_texture: TextureRect = null
+var energy_bar_texture: SegmentedEnergyBarScript = null
 var toggle_button: Button = null
 var scan_label: Label = null
 var focus_reticle: ColorRect = null
 
 var _shader_material: ShaderMaterial = null
-var _drain_timer: float = 0.0
-var _energy_pulse_phase: float = 0.0
-var _current_energy_state: int = -1
+var _overlay_tween: Tween = null
 var _reticle_position: Vector2 = Vector2.ZERO
 var _reticle_target_position: Vector2 = Vector2.ZERO
 var _reticle_initialized: bool = false
 var _reticle_scan_timer: float = 0.0
 var _last_focused_hotspot: Node = null
 
-const EAGLE_EYE_SEGMENT_COUNT := 10
-const EAGLE_EYE_DRAIN_INTERVAL := 1.0
 const EAGLE_EYE_RETICLE_SIZE := Vector2(192, 192)
 const EAGLE_EYE_RETICLE_SCAN_RADIUS := 72.0
 
@@ -46,6 +44,11 @@ func _ready() -> void:
 	_setup_shader_fallback()
 	_setup_generated_overlay()
 	_update_energy_bar()
+	if GameManager.eagle_eye_active:
+		_center_reticle_if_needed()
+		if generated_reticle:
+			generated_reticle.modulate.a = 0.9
+	_set_overlay_visible(GameManager.eagle_eye_active)
 
 func _ensure_runtime_nodes() -> void:
 	_ensure_overlay_nodes()
@@ -139,9 +142,9 @@ func _ensure_status_controls() -> void:
 		scan_label.text = "[ EAGLE EYE ACTIVE ]"
 		scan_label.set_anchors_preset(Control.PRESET_TOP_LEFT)
 		scan_label.offset_left = 24
-		scan_label.offset_top = 18
+		scan_label.offset_top = 58
 		scan_label.offset_right = 420
-		scan_label.offset_bottom = 48
+		scan_label.offset_bottom = 88
 		scan_label.add_theme_color_override("font_color", Color(0.0, 0.95, 0.95, 0.9))
 		scan_label.add_theme_font_size_override("font_size", 14)
 		scan_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -155,50 +158,29 @@ func _ensure_status_controls() -> void:
 		toggle_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 		toggle_button.offset_left = -116
 		toggle_button.offset_right = -24
-		toggle_button.offset_top = 48
-		toggle_button.offset_bottom = 92
+		toggle_button.offset_top = 120
+		toggle_button.offset_bottom = 164
 		toggle_button.visible = InputManager.is_mobile
 		toggle_button.pressed.connect(toggle)
 		add_child(toggle_button)
+		GameManager.game_state_changed.connect(func(state: String):
+			toggle_button.visible = InputManager.is_mobile and state == "playing"
+			energy_bar.visible = state != "dialogue" and GameManager.eagle_eye_active
+		)
 
 func _build_energy_texture_widget() -> void:
 	if energy_bar == null:
 		return
 
-	energy_bar_texture = TextureRect.new()
+	energy_bar_texture = SegmentedEnergyBarScript.new()
 	energy_bar_texture.name = "TechEnergyTexture"
+	energy_bar_texture.spectrum_enabled = true
 	energy_bar_texture.set_anchors_preset(Control.PRESET_FULL_RECT)
 	energy_bar_texture.stretch_mode = TextureRect.STRETCH_SCALE
 	energy_bar_texture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	energy_bar_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	energy_bar_texture.texture = _load_energy_state_texture(EAGLE_EYE_SEGMENT_COUNT)
-	_current_energy_state = EAGLE_EYE_SEGMENT_COUNT
+	energy_bar_texture.set_energy(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy)
 	energy_bar.add_child(energy_bar_texture)
-
-func _get_energy_state_path(state: int) -> String:
-	return "%s/energy_bar_%02d.png" % [ENERGY_BAR_STATE_DIR, clampi(state, 1, EAGLE_EYE_SEGMENT_COUNT)]
-
-func _get_energy_state_index(energy: float, max_energy: float) -> int:
-	if max_energy <= 0.0:
-		return 1
-	var ratio := clampf(energy / max_energy, 0.0, 1.0)
-	if ratio >= 1.0:
-		return EAGLE_EYE_SEGMENT_COUNT
-	return clampi(floori(ratio * EAGLE_EYE_SEGMENT_COUNT), 1, EAGLE_EYE_SEGMENT_COUNT)
-
-func _load_energy_state_texture(state: int) -> Texture2D:
-	return _load_runtime_texture(_get_energy_state_path(state))
-
-func _set_energy_state_texture(state: int) -> void:
-	if energy_bar_texture == null:
-		return
-	state = clampi(state, 1, EAGLE_EYE_SEGMENT_COUNT)
-	if state == _current_energy_state and energy_bar_texture.texture != null:
-		return
-	var texture := _load_energy_state_texture(state)
-	if texture:
-		energy_bar_texture.texture = texture
-		_current_energy_state = state
 
 func _setup_shader_fallback() -> void:
 	if overlay == null:
@@ -214,49 +196,29 @@ func _setup_generated_overlay() -> void:
 	if generated_overlay == null:
 		return
 
-	var texture := _load_runtime_texture(EAGLE_EYE_OVERLAY_PATH)
+	var texture := RuntimeAssetsScript.load_texture(EAGLE_EYE_OVERLAY_PATH)
 	if texture:
 		generated_overlay.texture = texture
-	var reticle_texture := _load_runtime_texture(EAGLE_EYE_RETICLE_PATH)
+	var reticle_texture := RuntimeAssetsScript.load_texture(EAGLE_EYE_RETICLE_PATH)
 	if reticle_texture:
 		generated_reticle.texture = reticle_texture
-	var glitch_texture := _load_runtime_texture(EAGLE_EYE_GLITCH_NOISE_PATH)
+	var glitch_texture := RuntimeAssetsScript.load_texture(EAGLE_EYE_GLITCH_NOISE_PATH)
 	if glitch_texture:
 		glitch_noise.texture = glitch_texture
-	var cutin_texture := _load_runtime_texture(EAGLE_EYE_ACTIVATION_CUTIN_PATH)
+	var cutin_texture := RuntimeAssetsScript.load_texture(EAGLE_EYE_ACTIVATION_CUTIN_PATH)
 	if cutin_texture:
 		activation_cutin.texture = cutin_texture
 
-func _load_runtime_texture(res_path: String) -> Texture2D:
-	if not FileAccess.file_exists(res_path):
-		return null
-
-	if res_path.get_extension().to_lower() == "png":
-		var image := Image.new()
-		var error := image.load(ProjectSettings.globalize_path(res_path))
-		if error == OK:
-			return ImageTexture.create_from_image(image)
-
-	if ResourceLoader.exists(res_path):
-		return load(res_path) as Texture2D
-
-	return null
-
 func _process(delta: float) -> void:
 	if GameManager.eagle_eye_active:
-		_drain_timer += delta
-		while _drain_timer >= EAGLE_EYE_DRAIN_INTERVAL:
-			_drain_timer -= EAGLE_EYE_DRAIN_INTERVAL
-			GameManager.consume_eagle_eye_energy_amount(GameManager.eagle_eye_max_energy / float(EAGLE_EYE_SEGMENT_COUNT))
+		GameManager.consume_eagle_eye_energy(delta)
 		if GameManager.eagle_eye_energy <= 0:
 			_deactivate()
 		_update_reticle_motion(delta)
 		_scan_hotspots_under_reticle(delta)
 	else:
-		_drain_timer = 0.0
 		GameManager.recharge_eagle_eye(delta)
 
-	_animate_energy_widget(delta)
 	_update_energy_bar()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -283,12 +245,12 @@ func toggle() -> void:
 		_activate()
 
 func _activate() -> void:
-	if GameManager.eagle_eye_energy <= GameManager.eagle_eye_max_energy / float(EAGLE_EYE_SEGMENT_COUNT):
-		_flash_energy_bar()
+	if GameManager.eagle_eye_energy <= 0.0:
+		_show_recharge_notice()
 		return
 
 	if GameManager.activate_eagle_eye():
-		_drain_timer = 0.0
+		_cancel_overlay_transition()
 		_center_reticle_if_needed()
 		_set_overlay_visible(true)
 		scan_label.text = "[ EAGLE EYE ACTIVE ]"
@@ -296,34 +258,40 @@ func _activate() -> void:
 		overlay.modulate.a = 0.0
 		if generated_overlay:
 			generated_overlay.modulate.a = 0.0
-		var tween := create_tween()
-		tween.tween_property(overlay, "modulate:a", 1.0, 0.3)
+		_overlay_tween = create_tween()
+		_overlay_tween.tween_property(overlay, "modulate:a", 1.0, 0.3)
 		if generated_overlay and generated_overlay.texture:
-			tween.parallel().tween_property(generated_overlay, "modulate:a", 0.34, 0.3)
+			_overlay_tween.parallel().tween_property(generated_overlay, "modulate:a", 0.34, 0.3)
 		if generated_reticle and generated_reticle.texture:
-			tween.parallel().tween_property(generated_reticle, "modulate:a", 0.9, 0.3)
+			_overlay_tween.parallel().tween_property(generated_reticle, "modulate:a", 0.9, 0.3)
 		_play_activation_cutin()
 
 		eagle_eye_activated.emit()
 
 func _deactivate() -> void:
 	GameManager.deactivate_eagle_eye()
-	_drain_timer = 0.0
+	_cancel_overlay_transition()
 	_last_focused_hotspot = null
 
-	var tween := create_tween()
-	tween.tween_property(overlay, "modulate:a", 0.0, 0.2)
+	_overlay_tween = create_tween()
+	_overlay_tween.tween_property(overlay, "modulate:a", 0.0, 0.2)
 	if generated_overlay:
-		tween.parallel().tween_property(generated_overlay, "modulate:a", 0.0, 0.2)
+		_overlay_tween.parallel().tween_property(generated_overlay, "modulate:a", 0.0, 0.2)
 	if generated_reticle:
-		tween.parallel().tween_property(generated_reticle, "modulate:a", 0.0, 0.2)
+		_overlay_tween.parallel().tween_property(generated_reticle, "modulate:a", 0.0, 0.2)
 	if glitch_noise:
-		tween.parallel().tween_property(glitch_noise, "modulate:a", 0.0, 0.2)
-	tween.tween_callback(func():
-		_set_overlay_visible(false)
+		_overlay_tween.parallel().tween_property(glitch_noise, "modulate:a", 0.0, 0.2)
+	_overlay_tween.tween_callback(func():
+		if not GameManager.eagle_eye_active:
+			_set_overlay_visible(false)
 	)
 
 	eagle_eye_deactivated.emit()
+
+func _cancel_overlay_transition() -> void:
+	if _overlay_tween and _overlay_tween.is_valid():
+		_overlay_tween.kill()
+	_overlay_tween = null
 
 func _set_overlay_visible(is_visible: bool) -> void:
 	if overlay:
@@ -341,7 +309,7 @@ func _set_overlay_visible(is_visible: bool) -> void:
 	if scan_label:
 		scan_label.visible = is_visible
 	if energy_bar:
-		energy_bar.visible = is_visible
+		energy_bar.visible = is_visible and GameManager.current_state != GameManager.GameState.DIALOGUE
 	if is_visible:
 		_apply_reticle_position(_reticle_position)
 
@@ -358,11 +326,13 @@ func trigger_glitch_pulse() -> void:
 		generated_reticle.modulate.a = maxf(generated_reticle.modulate.a, 0.9)
 
 	if not glitch_noise or glitch_noise.texture == null:
-		_flash_energy_bar()
 		if not was_active:
 			var fallback_tween := create_tween()
 			fallback_tween.tween_interval(0.35)
-			fallback_tween.tween_callback(func(): _set_overlay_visible(false))
+			fallback_tween.tween_callback(func():
+				if not GameManager.eagle_eye_active:
+					_set_overlay_visible(false)
+			)
 		return
 
 	glitch_noise.visible = true
@@ -375,7 +345,7 @@ func trigger_glitch_pulse() -> void:
 	tween.tween_callback(func():
 		if scan_label:
 			scan_label.text = "[ EAGLE EYE ACTIVE ]"
-		if not was_active:
+		if not GameManager.eagle_eye_active:
 			_set_overlay_visible(false)
 	)
 
@@ -463,32 +433,21 @@ func _pulse_scanned_hotspot(hotspot: Node) -> void:
 	tween.tween_property(sprite, "modulate", Color.WHITE, 0.22)
 
 func _update_energy_bar() -> void:
-	if energy_bar:
+	if energy_bar_texture:
 		energy_changed.emit(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy)
-		_set_energy_state_texture(_get_energy_state_index(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy))
+		energy_bar_texture.set_energy(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy)
 
-func _animate_energy_widget(delta: float) -> void:
-	if not energy_bar:
+func _show_recharge_notice() -> void:
+	if scan_label == null:
 		return
-	_energy_pulse_phase += delta * 5.0
-	var state := _get_energy_state_index(GameManager.eagle_eye_energy, GameManager.eagle_eye_max_energy)
-	var low_energy_pulse := 0.0
-	if GameManager.eagle_eye_active and state <= 3:
-		low_energy_pulse = 0.06 + sin(_energy_pulse_phase) * 0.04
-	energy_bar.modulate = Color(1.0, 1.0, 1.0, clampf(0.94 + sin(_energy_pulse_phase * 0.5) * 0.04 + low_energy_pulse, 0.88, 1.0))
-
-func _flash_energy_bar() -> void:
-	if energy_bar:
-		energy_bar.visible = true
-		var tween := create_tween()
-		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.22, 0.12), 0.15)
-		tween.tween_property(energy_bar, "modulate", Color.WHITE, 0.15)
-		tween.tween_property(energy_bar, "modulate", Color(1.0, 0.22, 0.12), 0.15)
-		tween.tween_property(energy_bar, "modulate", Color.WHITE, 0.15)
-		tween.tween_callback(func():
-			if not GameManager.eagle_eye_active:
-				energy_bar.visible = false
-		)
+	scan_label.text = "[ 鷹眼充能中 ]"
+	scan_label.visible = true
+	var notice_tween := create_tween()
+	notice_tween.tween_interval(0.6)
+	notice_tween.tween_callback(func():
+		scan_label.text = "[ EAGLE EYE ACTIVE ]"
+		scan_label.visible = GameManager.eagle_eye_active
+	)
 
 ## Get biometric reading for interrogation (returns dict with lie indicators)
 func get_biometric_reading(character_id: String, pressure: int) -> Dictionary:
