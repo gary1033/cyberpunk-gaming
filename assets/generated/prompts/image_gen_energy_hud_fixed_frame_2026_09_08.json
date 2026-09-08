@@ -1,0 +1,39 @@
+{
+  "id": "energy_hud_fixed_frame_2026_09_08",
+  "tool": "image_gen",
+  "reference": "assets/generated/ui/raw/energy_hud_reference.png",
+  "raw_source": "assets/generated/ui/energy_hud_frame_2026_09_08_raw.png",
+  "generated_source": "assets/generated/ui/energy_hud_frame.png",
+  "runtime": "assets/sprites/ui/energy_hud_frame.png",
+  "runtime_size": [
+    512,
+    96
+  ],
+  "background": "transparent RGBA outside the chassis; opaque near-black empty interior channel",
+  "purpose": "One invariant chassis shared by the AP and eagle-eye HUD; identical energy cells are rendered by Godot and are not baked into separate state images.",
+  "prompt": "Edit the referenced cyberpunk game energy bar into one production-ready EMPTY energy-bar chassis. Target filename energy_hud_frame.png, intended runtime size exactly 512 x 96 pixels. Deliver a single very wide horizontal bar, front view, no perspective, fully centered and completely visible, preserving the reference's black gunmetal housing, thin crisp cyan rim, tiny restrained magenta accents and cyan lightning medallion on the left. Keep one fixed lightning icon and one fixed chassis. The long energy channel to the right of the medallion must be EMPTY, straight, flat, uniform opaque near-black (#07131a), without glowing fill, segments, dividing marks, diagonal end caps, highlights, numbers or text. Make this empty channel generous and uninterrupted so ten equal-sized illuminated cells can be placed there by the game. At the intended 512x96 runtime scale, the channel should safely contain rectangle x=120 to 452, y=34 to 61. Outer silhouette about x=16 to 496 and y=20 to 77, with transparent padding all around. Preserve clear small-size readability and the restrained neon noir game style. Background outside the chassis must be genuinely transparent alpha, not black, white or a checkerboard. No sprite sheet, no alternate states, no duplicates, no text, no watermark, no scene backdrop. Acceptance: a single complete transparent PNG chassis, identical rim/icon/shape for every future energy value, an empty dark horizontal channel, four transparent corners, no light emitting energy fill anywhere inside that channel. A larger output is acceptable if it keeps the same wide bar proportions with transparent padding for lossless alpha-preserving crop and downscale.",
+  "acceptance": [
+    "Generated raw output is preserved; source and runtime copies both exist.",
+    "Runtime image is 512x96 RGBA with transparent corners and actual alpha pixels.",
+    "Only one frame texture is consumed for all 0-10 energy states.",
+    "All ten runtime cells have identical geometry; empty state has no illuminated cells.",
+    "Pixel comparison across rendered states finds changes only inside cell regions."
+  ],
+  "status": "generated_connected",
+  "mode": "built-in image_gen",
+  "chroma_retry_prompt": "Precise background replacement only. Keep this ONE empty cyberpunk HUD chassis exactly unchanged: same shape, proportions, black housing, empty dark channel, cyan edge, magenta details and lightning emblem. Replace every white/checkerboard background pixel OUTSIDE the chassis with perfectly uniform flat vivid chroma-key green RGB(0,255,0), hex #00FF00, no variation, no shadows, no gradient, no checkerboard. Keep the opaque near-black channel inside the chassis unchanged. No new marks, no text, no energy fill, no other objects. Output PNG at the same framing and size. Target raw energy_hud_frame_2026_09_08_raw.png; this will be locally keyed to transparent RGBA and cropped/downscaled to 512x96 for the game's fixed frame. Acceptance: all four corners pure uniform green; complete original chassis unchanged; empty channel remains dark.",
+  "conversion": "tools/prepare_energy_hud.ps1",
+  "cell_geometry": {
+    "origin": [
+      120,
+      36
+    ],
+    "size": [
+      29,
+      26
+    ],
+    "gap": 4,
+    "count": 10
+  },
+  "first_attempt": "assets/generated/ui/energy_hud_frame_transparency_attempt_raw.png"
+}

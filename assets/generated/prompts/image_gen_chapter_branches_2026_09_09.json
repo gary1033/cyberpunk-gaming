@@ -1,0 +1,89 @@
+{
+  "status": "generated_connected",
+  "assets": [
+    {
+      "file": "referral_waiting_station.png",
+      "kind": "locations",
+      "ref": "civic_archive",
+      "prompt": "NEON MEMORIES, hand-inked 2D noir cyberpunk adventure art. Match the reference's restrained dark teal shadows, warm amber practical light, hard-edged drawn shading, imperfect ink lines and worn materials. No photorealism, no 3D render, no bloom, no text, no logos, no watermark, no people. Create a NEW environment, not the reference archive. Target filename referral_waiting_station.png; runtime game background, target1920x1080 landscape opaque PNG. Eye-level view of an old offline medical referral waiting station in rainy Kowloon. Left third a worn mechanical queue ticket dispenser and low counter holding an open paper receiving ledger; center three empty mismatched chairs, right a frosted glass handover door with a small amber service lamp. Wiring, repaired plaster, restrained medical context. Clearly readable counter and ledger at normalized x .3 y .48. Keep upper left 20% calm for location title, lower 25% quiet for dialogue. Acceptance: distinct believable waiting room, consistent inked style and lighting, no humans, no readable lettering.",
+      "original": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-97b63e97-d39f-41b4-87db-e3b535a08e64.png",
+      "raw": "assets/generated/locations/raw/referral_waiting_station.png",
+      "status": "accepted",
+      "actual_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "auction_handover_room.png",
+      "kind": "locations",
+      "ref": "civic_archive",
+      "prompt": "NEON MEMORIES, hand-inked 2D noir cyberpunk adventure art. Match the reference's restrained dark teal shadows, warm amber practical light, hard-edged drawn shading, imperfect ink lines and worn materials. No photorealism, no 3D render, no bloom, no text, no logos, no watermark, no people. Create a NEW environment. Target filename auction_handover_room.png; runtime game background, target1920x1080 landscape opaque PNG. Eye-level black-market memory auction handover backroom, a restrained clandestine trading space with closed opaque sample cases, a waist-high metal inspection counter on right half with a copper mechanical seal and packing slips, overhead industrial amber lamp. Left rear shuttered delivery hatch, dark shelves and a discreet cyan light. No visible memories or body parts. Counter at x .7 y .48. Upper left20% calm for HUD, lower25% quiet dialogue zone. Acceptance: distinct from archive and clinic, grounded illustrated noir perspective, no people or readable text.",
+      "original": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-f35cbd16-8b8a-4631-8727-c58b3911b2f2.png",
+      "raw": "assets/generated/locations/raw/auction_handover_room.png",
+      "status": "accepted",
+      "actual_size": [
+        1672,
+        941
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "referral_routing_stub.png",
+      "kind": "items",
+      "ref": "ghost_relay_token",
+      "prompt": "NEON MEMORIES, hand-inked 2D noir cyberpunk adventure art. Match the reference's restrained dark teal shadows, warm amber practical light, hard-edged drawn shading, imperfect ink lines and worn materials. No photorealism, no 3D render, no bloom, no text, no logos, no watermark, no people. Target filename referral_routing_stub.png. Single inventory inspection prop: a folded cream paper medical referral routing stub with two perforated detachable tabs, blue ink timestamp boxes WITHOUT readable text and a small dull brass receipt clip. Three quarter front view, ink-drawn paper folds, sparse scuffs; different from a technology token. Output square512x512 target, isolated centered object fills75%, 10% margins, REAL TRANSPARENT BACKGROUND PNG with alpha. No surface, no rectangular backdrop, no checkerboard painted pattern, no cast shadow outside object. Acceptance: complete uncut prop, genuinely transparent corners, consistent amber from upper left and subtle teal edge.",
+      "original": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-309ae0d7-85f2-4242-9a33-fc7a854ccc71.png",
+      "raw": "assets/generated/items/raw/referral_routing_stub.png",
+      "status": "accepted",
+      "actual_size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "retry_prompt_record": "assets/generated/prompts/referral_routing_stub_retry_2026_09_09.txt",
+      "processing": "Pure green removed locally with System.Drawing; resized to 512 RGBA; first checkerboard attempt rejected, first retry returned HTTP 500, second succeeded.",
+      "rejected_original": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-e2f8c25c-a8bf-455f-8b02-17acb136bb93.png",
+      "alpha_validation": {
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    },
+    {
+      "file": "auction_dispatch_seal.png",
+      "kind": "items",
+      "ref": "ghost_relay_token",
+      "prompt": "NEON MEMORIES, hand-inked 2D noir cyberpunk adventure art. Match the reference's restrained dark teal shadows, warm amber practical light, hard-edged drawn shading, imperfect ink lines and worn materials. No photorealism, no 3D render, no bloom, no text, no logos, no watermark, no people. Target filename auction_dispatch_seal.png. Single inventory inspection prop: a tamper-evident dark steel dispatch clasp with a short bent copper wire loop and a torn paper batch tab. Small orange witness lacquer mark over clasp seam, tiny cyan inactive slot. Clearly a physical shipping seal, NOT a hexagonal token. Three quarter view with strong hand-drawn contours, worn edge detail. Square512x512 target, isolated centered object75%,10% margins, REAL TRANSPARENT BACKGROUND PNG alpha. No surface, no backdrop, no painted checkerboard, no cast shadow outside prop. Acceptance: full uncut object, genuinely transparent corners, legible functional shape and noir illustrated style.",
+      "original": "C:\\Users\\gary1\\.codex\\generated_images\\01a07ecc-70d6-7f12-875f-57c57eaf0653\\exec-5601ba51-45f0-48ae-8686-98a3c4ad06e5.png",
+      "raw": "assets/generated/items/raw/auction_dispatch_seal.png",
+      "status": "accepted",
+      "actual_size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "processing": "Native transparent RGBA resized locally with System.Drawing to 512x512.",
+      "alpha_validation": {
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "range": [
+          0,
+          255
+        ]
+      }
+    }
+  ]
+}
