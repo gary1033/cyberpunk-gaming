@@ -1,0 +1,41 @@
+[
+  {
+    "file": "welcome_mix_110bpm.ogg",
+    "title": "Welcome Mix",
+    "bpm": 110,
+    "author": "Alexander Ehlers (tricksntraps)",
+    "license": "CC0-1.0",
+    "source": "https://opengameart.org/content/t-t-free-cyberpunk-pack-2",
+    "download": "https://opengameart.org/sites/default/files/welcome_mix_110bpm.ogg",
+    "sha256": "babf397ec1e18b2a6ac7a95303cfe4e58c139830c253bd01e6b7012ddbdecb05",
+    "bytes": 22678911,
+    "modifications": "None; original OGG retained",
+    "retrieved": "2026-09-08"
+  },
+  {
+    "file": "night_club_chill_100bpm.ogg",
+    "title": "Night Club Chill",
+    "bpm": 100,
+    "author": "Alexander Ehlers (tricksntraps)",
+    "license": "CC0-1.0",
+    "source": "https://opengameart.org/content/t-t-free-cyberpunk-pack-2",
+    "download": "https://opengameart.org/sites/default/files/night_club_chill_100bpm.ogg",
+    "sha256": "c7f02e74ab9e11af9909db2b1a28905bcb309742c1528fcab67eff931a360ac4",
+    "bytes": 17066025,
+    "modifications": "None; original OGG retained",
+    "retrieved": "2026-09-08"
+  },
+  {
+    "file": "strange_experiments_80bpm.ogg",
+    "title": "Strange Experiments",
+    "bpm": 80,
+    "author": "Alexander Ehlers (tricksntraps)",
+    "license": "CC0-1.0",
+    "source": "https://opengameart.org/content/t-t-free-cyberpunk-pack-2",
+    "download": "https://opengameart.org/sites/default/files/strange_experiments_80bpm.ogg",
+    "sha256": "2e38cfcdc0d44bf6d67d95a2ba33883cf3d316d650f6e9352914afb956bcd14e",
+    "bytes": 13071885,
+    "modifications": "None; original OGG retained",
+    "retrieved": "2026-09-08"
+  }
+]

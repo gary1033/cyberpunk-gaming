@@ -1,0 +1,1290 @@
+{
+  "schema_version": 1,
+  "scope": "All PNGs in assets/sprites and the three adopted BGM files. Raw generation paths are recorded only when provenance is available. Legacy runtime-directory images may be unused.",
+  "assets": [
+    {
+      "runtime": "assets/audio/bgm/night_club_chill_100bpm.ogg",
+      "source": "assets/audio/bgm/night_club_chill_100bpm.ogg",
+      "sha256": "c7f02e74ab9e11af9909db2b1a28905bcb309742c1528fcab67eff931a360ac4",
+      "bytes": 17066025,
+      "license_record": "assets/audio/bgm/LICENSE.md",
+      "prompt_record": "assets/audio/bgm/manifest.json",
+      "usage": "original_download_also_used_at_runtime"
+    },
+    {
+      "runtime": "assets/audio/bgm/strange_experiments_80bpm.ogg",
+      "source": "assets/audio/bgm/strange_experiments_80bpm.ogg",
+      "sha256": "2e38cfcdc0d44bf6d67d95a2ba33883cf3d316d650f6e9352914afb956bcd14e",
+      "bytes": 13071885,
+      "license_record": "assets/audio/bgm/LICENSE.md",
+      "prompt_record": "assets/audio/bgm/manifest.json",
+      "usage": "original_download_also_used_at_runtime"
+    },
+    {
+      "runtime": "assets/audio/bgm/welcome_mix_110bpm.ogg",
+      "source": "assets/audio/bgm/welcome_mix_110bpm.ogg",
+      "sha256": "babf397ec1e18b2a6ac7a95303cfe4e58c139830c253bd01e6b7012ddbdecb05",
+      "bytes": 22678911,
+      "license_record": "assets/audio/bgm/LICENSE.md",
+      "prompt_record": "assets/audio/bgm/manifest.json",
+      "usage": "original_download_also_used_at_runtime"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_ch1_dr_chen_warning.png",
+      "source": "assets/generated/cg/cg_ch1_dr_chen_warning.png",
+      "sha256": "1c8553caf3ad0e377814384617d935c52506323f72d20f7d551c9b81127a0507",
+      "bytes": 1111219
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_ch1_police_report_rejection.png",
+      "source": "assets/generated/cg/cg_ch1_police_report_rejection.png",
+      "sha256": "5c6cfaf23165b0328908fad9c8c6a415429742eb4de05744afd968990364ad60",
+      "bytes": 1555357
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_ch1_snake_trade_choice.png",
+      "source": "assets/generated/cg/cg_ch1_snake_trade_choice.png",
+      "sha256": "151182de499dd0728c9961350ba90ad144764c8dc9f20a2941753606c510a14c",
+      "bytes": 1060132
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_ch1_street_camera_gap.png",
+      "source": "assets/generated/cg/cg_ch1_street_camera_gap.png",
+      "sha256": "2c0248f6212b44d53d6b4ddb224b90ba9579d896ba9c1faba65b7770db52f776",
+      "bytes": 1425927
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_ch1_three_evidence_inference.png",
+      "source": "assets/generated/cg/cg_ch1_three_evidence_inference.png",
+      "sha256": "74624b910127b2e1b24e2db5982e7006758a469af9629b9e6a6f0f4fd938ac09",
+      "bytes": 1427539
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_family_memory_clip.png",
+      "source": "assets/generated/cg/cg_family_memory_clip.png",
+      "sha256": "67f1910044b74424713e6521a964351db1c3146bb0c2ab10bdf28fa6189e4757",
+      "bytes": 14455,
+      "prompt_record": "assets/generated/prompts/image2_ch1_family_memory.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_hao_ran_encrypted_message.png",
+      "source": "assets/generated/cg/cg_hao_ran_encrypted_message.png",
+      "sha256": "d14611ffc2b0836700c017ed076a67dea9036140baf3e2382177a0bade856280",
+      "bytes": 1342560,
+      "prompt_record": "assets/generated/prompts/image_gen_ch1_opening_trust_path.jsonl",
+      "raw": "assets/generated/cg/raw/image_gen_ch1_opening_trust_path/cg_hao_ran_encrypted_message.png",
+      "raw_sha256": "a3cb313eee7d7db9098a885d49fbba11a128b04781a9ec8cb589155b8d860a72"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_kai_eye_glitch.png",
+      "source": "assets/generated/cg/cg_kai_eye_glitch.png",
+      "sha256": "faea6d7487328e23c7c18e94c13ed826e25c59aab9c8c5fa07635b03eea2fa6f",
+      "bytes": 739083,
+      "prompt_record": "assets/generated/prompts/image2_ch1_eagle_eye.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_kai_office_prologue.png",
+      "source": "assets/generated/cg/cg_kai_office_prologue.png",
+      "sha256": "b086244c93e46cf98c7115d5a8475b747c45cb1ac8b95219946df626313204e3",
+      "bytes": 1114920,
+      "prompt_record": "assets/generated/prompts/image_gen_ch1_opening_trust_path.jsonl",
+      "raw": "assets/generated/cg/raw/image_gen_ch1_opening_trust_path/cg_kai_office_prologue.png",
+      "raw_sha256": "30f09b439c08bf65e85135e862214638caa60a4f07120f9646a552670cb4a964"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png",
+      "source": "assets/generated/cg/cg_mei_ling_apartment_memory_trace.png",
+      "sha256": "0e2fdc8153427fde94a603c37782647a22964b0c7e1c1c671842f1e4448bb107",
+      "bytes": 1306598,
+      "prompt_record": "assets/generated/prompts/image_gen_ch1_opening_trust_path.jsonl",
+      "raw": "assets/generated/cg/raw/image_gen_ch1_opening_trust_path/cg_mei_ling_apartment_memory_trace.png",
+      "raw_sha256": "3f7acd02e5916a7911abf8f5d97280ae8f1e400f011c9d0749a32d31630c3d64"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_public_evidence_handover.png",
+      "source": "assets/generated/cg/cg_public_evidence_handover.png",
+      "raw": "assets/generated/cg/raw/cg_public_evidence_handover_handdrawn_v2.png",
+      "raw_sha256": "6f6309d3389045a780c6a57c3ed1177285c009c2c0d523f4b916be9f40800bf3",
+      "sha256": "15cae1d6e79a006aae967a016800089ac5f1824b8af3e17e3aa51108f1209948",
+      "bytes": 3365947,
+      "prompt_record": "assets/generated/prompts/image_gen_zhao_handdrawn_v2_2026_09_08.txt"
+    },
+    {
+      "runtime": "assets/sprites/cg/eagle_eye_activation_cutin_ch1.png",
+      "source": "assets/generated/cg/eagle_eye_activation_cutin_ch1.png",
+      "sha256": "16a2a437f64b5f18216748c0cf4f2f05e0e95e59cb464bf8362c9757e6ed2af8",
+      "bytes": 11613,
+      "prompt_record": "assets/generated/prompts/image2_ch1_eagle_eye.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/characters/ajie_angry.png",
+      "source": "assets/generated/characters/ajie_angry.png",
+      "sha256": "d9b84b83f535c1782536483e704788d5ce8433ca2906f5c83e395815a06beec8",
+      "bytes": 1748216,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ajie_angry_raw.png",
+      "raw_sha256": "faa87030e6a554ecadcb1314e8b3d7ef3b24f26d35bb9d9106e936875f9200d0"
+    },
+    {
+      "runtime": "assets/sprites/characters/ajie_cooperative.png",
+      "source": "assets/generated/characters/ajie_cooperative.png",
+      "sha256": "43fd9bc6f9e7694dc5960b051c5874618993f13703b2b5a50421dbdfc1836e1e",
+      "bytes": 1741601,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ajie_cooperative_raw.png",
+      "raw_sha256": "fdc1a4fb7ab775bbe0cf59105b413f7d3936294bc4b6f8739f516f1bb7ed0821"
+    },
+    {
+      "runtime": "assets/sprites/characters/ajie_default.png",
+      "source": "assets/generated/characters/ajie_default.png",
+      "sha256": "4753457582275346826f9c240a70883fac73e9d5c46a00e80b22b59b1c2624c7",
+      "bytes": 1748371,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ajie_default_raw.png",
+      "raw_sha256": "0e907ef119c1c99b979e1e1f08d676d9d4d13ba337f2c1592170c3e886673898"
+    },
+    {
+      "runtime": "assets/sprites/characters/ajie_nervous.png",
+      "source": "assets/generated/characters/ajie_nervous.png",
+      "sha256": "0d53e8920d728f9bb51fecae6ca922b527c0771412e93cbac647a0f823af1df2",
+      "bytes": 1743223,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ajie_nervous_raw.png",
+      "raw_sha256": "d400a7797f3c3739c06d27a773819366aa430463f159069bdc8e8c979b284a24"
+    },
+    {
+      "runtime": "assets/sprites/characters/ajie_suspicious.png",
+      "source": "assets/generated/characters/ajie_suspicious.png",
+      "sha256": "c21b4be8676bd44b108a045536f06d5b00bcac895df31e169696fd92d27ace8f",
+      "bytes": 1756299,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ajie_suspicious_raw.png",
+      "raw_sha256": "87abe993649e6b1125081245c1b339e8100fbd0f21baaa4613e55ff339cd2739"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_chen_default.png",
+      "source": "assets/generated/characters/dr_chen_default.png",
+      "sha256": "8872784b216b840f0af76f014c972f7429b9776e178b19b6770a5d8aac45a6f9",
+      "bytes": 1683055,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_chen_default_raw.png",
+      "raw_sha256": "0067dde57ba9665fb728be663724ab7f82aaf9bce383e63587516050c6b341e9"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_chen_frightened.png",
+      "source": "assets/generated/characters/dr_chen_frightened.png",
+      "sha256": "c64c8951b8b025af02f3dfb8004a28a9d426928acba43b69157658ee71c5e0be",
+      "bytes": 1719235,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_chen_frightened_raw.png",
+      "raw_sha256": "4bf157d092c7e17f29f1000c606050d88540591ac167ab86f70281e475383ec7"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_chen_nervous.png",
+      "source": "assets/generated/characters/dr_chen_nervous.png",
+      "sha256": "12419defc70932b71bd3ab32d82b35d3d26174074caea41d21df38e67817bb5d",
+      "bytes": 1710035,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_chen_nervous_raw.png",
+      "raw_sha256": "b35a4fec850b6f636e9d2d288dc93c29768ecc0bf70696a9e47a9b6748b79356"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_chen_relieved.png",
+      "source": "assets/generated/characters/dr_chen_relieved.png",
+      "sha256": "5f1715396c5048e7151794e62ec626ad9012d4b34449c3d4d05dada35d216041",
+      "bytes": 1697914,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_chen_relieved_raw.png",
+      "raw_sha256": "14d2369e4cf2187b6d6dc7730d885d27f73cd71d41b51b266d26e84d4fd55d15"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_xiao_amused.png",
+      "source": "assets/generated/characters/dr_xiao_amused.png",
+      "sha256": "b8dc9c97b5429f02b4df80f842b58df9bb4380e01847b9c8439831e7a7873408",
+      "bytes": 1648680,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_xiao_amused_raw.png",
+      "raw_sha256": "94d1026f511702b96a4bbb5391b6fab4e0f4dcfc5cae08e878d9b416a71b9060"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_xiao_calm.png",
+      "source": "assets/generated/characters/dr_xiao_calm.png",
+      "sha256": "1c41ef3405e949ad61c8302e7a739bffb623f36ed90ef567dc94b3fe3cc18e77",
+      "bytes": 1632871,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_xiao_calm_raw.png",
+      "raw_sha256": "d00c12dda2402e68d1723ed00b90a2dfb8d46758e06319c20f78f1d53570a5a1"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_xiao_cracking.png",
+      "source": "assets/generated/characters/dr_xiao_cracking.png",
+      "sha256": "727b0d8321de1eaea932756e85ab09c289b40ccc2c11cea2d805bf781e6e3eeb",
+      "bytes": 1660055,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_xiao_cracking_raw.png",
+      "raw_sha256": "b3bebf07b360252b7fd1028e16e26f74cc9c4d14121e3bfdd9255b3653f3dd14"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_xiao_default.png",
+      "source": "assets/generated/characters/dr_xiao_default.png",
+      "sha256": "5c3660d04c4d7772b3b7db4ceb4f2d683dc391afeeae78436dbf9876a64bd6e7",
+      "bytes": 1648682,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_xiao_default_raw.png",
+      "raw_sha256": "f14be0731b3aa16b5778d55ed54665c5372b3b67a42ca887d435ab78ac029031"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_xiao_intense.png",
+      "source": "assets/generated/characters/dr_xiao_intense.png",
+      "sha256": "2464cef760d2a942ba0d8b7c1a9af66694ccc42caea91e8f60a5775e58a352b4",
+      "bytes": 1654544,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_xiao_intense_raw.png",
+      "raw_sha256": "3a5910e70777e0d06c84a56792b8ae91133aff2067c71e776f03065ddd472c67"
+    },
+    {
+      "runtime": "assets/sprites/characters/dr_xiao_philosophical.png",
+      "source": "assets/generated/characters/dr_xiao_philosophical.png",
+      "sha256": "032b96897834980b66c602ffdba559e1b319d662c7f74db84944a3dfbac34f45",
+      "bytes": 1657044,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_dr_xiao_philosophical_raw.png",
+      "raw_sha256": "72dfc273e6fd242bf56bc0f669120f498a01da48b10a4fcf9471c04cbe123f5d"
+    },
+    {
+      "runtime": "assets/sprites/characters/echo_ai_default.png",
+      "source": "assets/generated/characters/echo_ai_default.png",
+      "sha256": "df34441f3ebf5b4c50e423b35e4304475888c26e87a1e65db73bbc1c1fab810f",
+      "bytes": 2381590,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_echo_ai_default_raw.png",
+      "raw_sha256": "af42c253296e92b5e624011b16ef34597ddfe44c15c1c907c9c172c4fd55c878"
+    },
+    {
+      "runtime": "assets/sprites/characters/ghost_cautious.png",
+      "source": "assets/generated/characters/ghost_cautious.png",
+      "sha256": "0f2d06d8688f8cf990466d723bf9f747082fecd249a8904eea124f3d727cb411",
+      "bytes": 2162183,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ghost_cautious_raw.png",
+      "raw_sha256": "5170f23ebc37d9e96fe521af3b4e59900c07e9bf84368077c40b8543f870acf8"
+    },
+    {
+      "runtime": "assets/sprites/characters/ghost_default.png",
+      "source": "assets/generated/characters/ghost_default.png",
+      "sha256": "a342b1affb5d7f4c732a36e63b20c21e3e2cafdc14932b2097206c11224f15ed",
+      "bytes": 2189178,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ghost_default_raw.png",
+      "raw_sha256": "a7c2ddcbca37c905fd02c89d364a60b056982db8d64cde2cc38dec99c7d28f95"
+    },
+    {
+      "runtime": "assets/sprites/characters/ghost_hostile.png",
+      "source": "assets/generated/characters/ghost_hostile.png",
+      "sha256": "569b60a95de49f02b9422c1d95fbb00c64a9f454a36bb72a0f70a43aaef68f3b",
+      "bytes": 2148579,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ghost_hostile_raw.png",
+      "raw_sha256": "db3ad7771728ba0eebc239e5a9ef73180dc329b97582e202f2a5b3913efac798"
+    },
+    {
+      "runtime": "assets/sprites/characters/ghost_revealed.png",
+      "source": "assets/generated/characters/ghost_revealed.png",
+      "sha256": "6f500aa2baad5ea7d6fe70c714994ca9f5fb811550ace7edbabde74785e3d48c",
+      "bytes": 2178590,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_ghost_revealed_raw.png",
+      "raw_sha256": "f45655aa72442f0e0826dca373958ab3c28e37ff32756dcb32c22a429af3c2b9"
+    },
+    {
+      "runtime": "assets/sprites/characters/hao_ran_confused.png",
+      "source": "assets/generated/characters/hao_ran_confused.png",
+      "sha256": "a91c8a9be023494170f650991e049742849156bad9671cf0cf0f9a97d8600f1c",
+      "bytes": 1426952,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_hao_ran_confused_raw.png",
+      "raw_sha256": "80d5d4b73cb4c4e5c9098d8f9618b0e87ae506c4ab8c70e9b192159f0e6bafed"
+    },
+    {
+      "runtime": "assets/sprites/characters/hao_ran_dazed.png",
+      "source": "assets/generated/characters/hao_ran_dazed.png",
+      "sha256": "0e883e41db77a1929f37ed9b6c855a66eac4920b2614a11e9a6bc4fc1efb2216",
+      "bytes": 1411666,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_hao_ran_dazed_raw.png",
+      "raw_sha256": "541aaa2c4f05e8d16383434645b761b4700248f5cee840f0123ff27ce08c8fb8"
+    },
+    {
+      "runtime": "assets/sprites/characters/hao_ran_default.png",
+      "source": "assets/generated/characters/hao_ran_default.png",
+      "sha256": "222216b319306cfe0ada02e457ac5b195b752a0a5db03997e0eed20cddf9fd19",
+      "bytes": 1437608,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_hao_ran_default_raw.png",
+      "raw_sha256": "70ea49db8a17a926d9d2fc848e3aec46b0b506d7706a95a948641599c20f0f2a"
+    },
+    {
+      "runtime": "assets/sprites/characters/hao_ran_hopeful.png",
+      "source": "assets/generated/characters/hao_ran_hopeful.png",
+      "sha256": "1da203680aacd939c964dbdd64d545983b14724dd3db061c6199ae0a62bc1b76",
+      "bytes": 1443276,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_hao_ran_hopeful_raw.png",
+      "raw_sha256": "79096522298709bd39fe90ca07e690921b52a44b312f6f605f2225c5e4744acd"
+    },
+    {
+      "runtime": "assets/sprites/characters/kai_default.png",
+      "source": "assets/generated/characters/kai_default.png",
+      "sha256": "5420a0fca3170ddab332fbec45f90c936601b937ab3c8c9d6d5119b8a6b465a6",
+      "bytes": 1452133,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kai_default_raw.png",
+      "raw_sha256": "6c4f48757e03601164b122f051aa782a689625c7b7a0df410e78d6d641bd476a"
+    },
+    {
+      "runtime": "assets/sprites/characters/kai_serious.png",
+      "source": "assets/generated/characters/kai_serious.png",
+      "sha256": "f28065d993c323004f6035b5cb5dc1bbb607b196f9da8156b13a61bf2e97fae7",
+      "bytes": 1446737,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kai_serious_raw.png",
+      "raw_sha256": "61bc6d238669bbdc1f83de8a657632af926d655d2a3f5104b805adba1d012c81"
+    },
+    {
+      "runtime": "assets/sprites/characters/kai_surprised.png",
+      "source": "assets/generated/characters/kai_surprised.png",
+      "sha256": "9efd954e77eb660663398fad6c5928ad5adbfc349a606ebe17c2d2bc3083cd26",
+      "bytes": 1444428,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kai_surprised_raw.png",
+      "raw_sha256": "5116cf6e1729bb9f9ed75b9f8c795f750de3f95b88d62a156e8fb30555e0b972"
+    },
+    {
+      "runtime": "assets/sprites/characters/kai_thoughtful.png",
+      "source": "assets/generated/characters/kai_thoughtful.png",
+      "sha256": "b7f30688ad184b59e1fcbb6c1580c182d42ccafbfdee03d1a04fdf8a162f494e",
+      "bytes": 1432134,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kai_thoughtful_raw.png",
+      "raw_sha256": "561a00265e9e2a7338daba79068bb89db7ff6a0083edfa12fa995e73fc216135"
+    },
+    {
+      "runtime": "assets/sprites/characters/kid_angry.png",
+      "source": "assets/generated/characters/kid_angry.png",
+      "sha256": "519bdcee789aa7fb4de94da4119674f493eb892253007a233e8ab7b67ba25855",
+      "bytes": 1835344,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kid_angry_raw.png",
+      "raw_sha256": "ca26a7ff34ccfda52f710211d5da5ee4e9939650f54275a1c6a82b02651483cd"
+    },
+    {
+      "runtime": "assets/sprites/characters/kid_default.png",
+      "source": "assets/generated/characters/kid_default.png",
+      "sha256": "54cdd2b55ee7c402250026d05cf333e6203ba8e21f81ed3deee68e7f47cf4072",
+      "bytes": 1886041,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kid_default_raw.png",
+      "raw_sha256": "d5a7b4bb904c3924e91bbb11291c0a59a34e517cfd349e9048ae6e0212a252ed"
+    },
+    {
+      "runtime": "assets/sprites/characters/kid_excited.png",
+      "source": "assets/generated/characters/kid_excited.png",
+      "sha256": "449fb7e606cd47bc52f9665c3c81f421a83140c5c00cc4e89b2b688e931d843e",
+      "bytes": 1855340,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kid_excited_raw.png",
+      "raw_sha256": "9b51e8e37d0d2eb3279709008e890eb840544331fc04ea6b3c79c10bf66125aa"
+    },
+    {
+      "runtime": "assets/sprites/characters/kid_serious.png",
+      "source": "assets/generated/characters/kid_serious.png",
+      "sha256": "d69114d0e3c6064a3af6562a8574359c6bce42e8e3da47aac16181b27f9b0b7c",
+      "bytes": 1857050,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_kid_serious_raw.png",
+      "raw_sha256": "2ce897baafef3d5fc6fb5db5c65aa79ea4424239334c1d23267e250a454525f5"
+    },
+    {
+      "runtime": "assets/sprites/characters/mask_merchant_default.png",
+      "source": "assets/generated/characters/mask_merchant_default.png",
+      "sha256": "255c10201252a1d9652cf7e25830d6f26a77588242f520c88372924e2b5c5a69",
+      "bytes": 1624507,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mask_merchant_default_raw.png",
+      "raw_sha256": "dc97cbfd3b6d9ffd25f66b34f2ddc16c5f79fc9a884c2ae7c9cfd7ebb485d30b"
+    },
+    {
+      "runtime": "assets/sprites/characters/mask_merchant_interested.png",
+      "source": "assets/generated/characters/mask_merchant_interested.png",
+      "sha256": "030737c8fa9d35d74171531b7bd5972e638bfcc8a4432897486e6c30aece5a24",
+      "bytes": 1588846,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mask_merchant_interested_raw.png",
+      "raw_sha256": "26faaa5933c29183455e53271257ff5867fc8dc764da110b9462f306f1a1e496"
+    },
+    {
+      "runtime": "assets/sprites/characters/mask_merchant_suspicious.png",
+      "source": "assets/generated/characters/mask_merchant_suspicious.png",
+      "sha256": "1faf0ae1609e4b24256fc06678b223eb2e661f89e8bc00e8a20eb6ace1ccdefa",
+      "bytes": 1556992,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mask_merchant_suspicious_raw.png",
+      "raw_sha256": "3f1b62c6a65d233071f73673db7edc60d6e42338c912c8f6716700cb2a55df36"
+    },
+    {
+      "runtime": "assets/sprites/characters/mei_ling_default.png",
+      "source": "assets/generated/characters/mei_ling_default.png",
+      "sha256": "5897f0f3bd7268020a1dfeacbf2e92f997d530cf50cda152625efe18a8554dfc",
+      "bytes": 1916574,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mei_ling_default_raw.png",
+      "raw_sha256": "c7e200b1805c79ff21a3a45fc882514b61f4563dd068c0a4815aeb17c284c890"
+    },
+    {
+      "runtime": "assets/sprites/characters/mei_ling_frightened.png",
+      "source": "assets/generated/characters/mei_ling_frightened.png",
+      "sha256": "ee8269b9748fbb4b2555882ec49e44c092675634eda9836e155b47e343babc6a",
+      "bytes": 1881631,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mei_ling_frightened_raw.png",
+      "raw_sha256": "a66fb62d0d23e581e06cf25e1585c4bbd8c0b2ce54d0251050ab8f82de632fdd"
+    },
+    {
+      "runtime": "assets/sprites/characters/mei_ling_nervous.png",
+      "source": "assets/generated/characters/mei_ling_nervous.png",
+      "sha256": "5c56e11bfc5d758f5e5a0a00e7762bbd9968d52eaf7e863a5fa547d4bc5b6af6",
+      "bytes": 1844519,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mei_ling_nervous_raw.png",
+      "raw_sha256": "d06492a4a6ab6cee584fe90b7b07786db3d96fcd262e2077960f7073f2e11c5f"
+    },
+    {
+      "runtime": "assets/sprites/characters/mei_ling_relieved.png",
+      "source": "assets/generated/characters/mei_ling_relieved.png",
+      "sha256": "42d391f0913b73f1db0b57a0bc91380b6a37ff61b71d3190b846e5b07dd8770f",
+      "bytes": 1876435,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mei_ling_relieved_raw.png",
+      "raw_sha256": "d971e40a072bc11cf3bcfc7963d777d91cd6f03158df6ddb16a39682fd881066"
+    },
+    {
+      "runtime": "assets/sprites/characters/mei_ling_worried.png",
+      "source": "assets/generated/characters/mei_ling_worried.png",
+      "sha256": "100856ba1c83ae2b4a7a0c6e84f0dce1b0d362863a6979472de4aaf80df6f35c",
+      "bytes": 1834871,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_mei_ling_worried_raw.png",
+      "raw_sha256": "24cfa79f88edd6b25524192248edfd949ba6e69fd46a9febda33175c7324328f"
+    },
+    {
+      "runtime": "assets/sprites/characters/snake_amused.png",
+      "source": "assets/generated/characters/snake_amused.png",
+      "sha256": "46d82b47551c97e0a763a3379ab33028d4c1c7c2762209afe52a906e52b90190",
+      "bytes": 1892982,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_snake_amused_raw.png",
+      "raw_sha256": "18ede77b05a4da58fefb041612674aa1729f5242291d4676bcfcbb5e7d72dcee"
+    },
+    {
+      "runtime": "assets/sprites/characters/snake_default.png",
+      "source": "assets/generated/characters/snake_default.png",
+      "sha256": "34159e31c5668143265598242a90f220222363e1e1231aa3853a2f68e0fbbc4d",
+      "bytes": 1936756,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_snake_default_raw.png",
+      "raw_sha256": "c330f8dacd280dacda0d34bc2ba1fa0dadc46c2d0a431b4dba82bc4e3a055911"
+    },
+    {
+      "runtime": "assets/sprites/characters/snake_serious.png",
+      "source": "assets/generated/characters/snake_serious.png",
+      "sha256": "4581edbf66b5e8942bfdeb448f8bf4496890b81de2ec302dc0914873aecc33b4",
+      "bytes": 1899052,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_snake_serious_raw.png",
+      "raw_sha256": "acda223c3c885a06304311a4021266cdc3fbf786e14393c93fcad623c981b464"
+    },
+    {
+      "runtime": "assets/sprites/characters/snake_threatening.png",
+      "source": "assets/generated/characters/snake_threatening.png",
+      "sha256": "d5fd64d502fe2b0eea77237d43cffb28a3bb87c5108df1a00fdb2d80249027ea",
+      "bytes": 1898322,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_snake_threatening_raw.png",
+      "raw_sha256": "b8e20d334dfc2d6a3a9d5e7b99acb4e2adde6e1b147028193b76fe5da809e640"
+    },
+    {
+      "runtime": "assets/sprites/characters/zhao_ming_conflicted.png",
+      "source": "assets/generated/characters/zhao_ming_conflicted.png",
+      "sha256": "beef81d5a4bf901970d0c6b476af5a72e0867300d1c44813cbb749f10f9ad2f0",
+      "bytes": 1403359,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_zhao_ming_conflicted_raw.png",
+      "raw_sha256": "51e9011b883d783d9c18dfd74cafd39c320f8308e5a89a5a302af92aecfd997b"
+    },
+    {
+      "runtime": "assets/sprites/characters/zhao_ming_default.png",
+      "source": "assets/generated/characters/zhao_ming_default.png",
+      "sha256": "415545379f03c0f72986c3b29450d5d9e08a4f918b1917ff141da2b47a2a5bc7",
+      "bytes": 1386363,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_zhao_ming_default_raw.png",
+      "raw_sha256": "625d46357b96eff9929a9ec11611bce7a6224772bde5d7ae122cb17e1399ef67"
+    },
+    {
+      "runtime": "assets/sprites/characters/zhao_ming_determined.png",
+      "source": "assets/generated/characters/zhao_ming_determined.png",
+      "sha256": "6c06c50d16c60b25940e7e13c755633baf5d6e6b0581ccfa8b40b0e8f59f771a",
+      "bytes": 1381933,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_zhao_ming_determined_raw.png",
+      "raw_sha256": "1143e415c140d8b1b6b628699a412448c5c1d2bdcc2b2f1060cbb2bfa46991cc"
+    },
+    {
+      "runtime": "assets/sprites/characters/zhao_ming_nervous.png",
+      "source": "assets/generated/characters/zhao_ming_nervous.png",
+      "sha256": "18a25c5f168ff01acbb5a1f500c9067c737c8bbc7ae01ebde6453e2726e3ca19",
+      "bytes": 1399729,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_zhao_ming_nervous_raw.png",
+      "raw_sha256": "150cd9f91ef058e39f9b9489e998f85194d317ce7fb62d5c73d0678d95faf60f"
+    },
+    {
+      "runtime": "assets/sprites/characters/zhao_ming_sad.png",
+      "source": "assets/generated/characters/zhao_ming_sad.png",
+      "sha256": "e98d473de8708652a1d15c99213cb71e564f7db2d9b061d0736c87899900c94b",
+      "bytes": 1357460,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_zhao_ming_sad_raw.png",
+      "raw_sha256": "526134bbbaf2b8268e9a38f7e7127355a408c831d638de1c24de90af9a015043"
+    },
+    {
+      "runtime": "assets/sprites/characters/zhao_ming_sincere.png",
+      "source": "assets/generated/characters/zhao_ming_sincere.png",
+      "sha256": "9cc0a2de3b2a84dda0af1139b7d009146aada99645c0709a0ec6d26eae9a0883",
+      "bytes": 1370309,
+      "prompt_record": "assets/generated/prompts/image_gen_character_unification_2026_09_08.jsonl",
+      "raw": "assets/generated/characters/unified_2026_09_08_zhao_ming_sincere_raw.png",
+      "raw_sha256": "c7c0ea8d378a644565750afa2625759f01078c6881215a2d04546e8c5343d0cf"
+    },
+    {
+      "runtime": "assets/sprites/items/abyss_surveillance_delay_log.png",
+      "source": "assets/generated/items/ch1_abyss_surveillance_delay_log.png",
+      "sha256": "3b14bacacf361242f19b9d12bdd3febde25ac90efd51cd5759c8634174ba3ce2",
+      "bytes": 366725,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/abyss_surveillance_delay_log.png",
+      "raw_sha256": "3100ceafd0e0be1f5fd30ee168864414e690c8bce156f47312107d42c4729f87"
+    },
+    {
+      "runtime": "assets/sprites/items/ai_log.png",
+      "source": "assets/generated/items/ch1_ai_log.png",
+      "sha256": "76356e597f3c353cae9165816c1415395097db668c62f0e04a76b9e811965338",
+      "bytes": 245165,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/ai_log.png",
+      "raw_sha256": "c3bd4e2075d708c842e5bee2e9851081483de9db76cb9f648ddb71e9874908da"
+    },
+    {
+      "runtime": "assets/sprites/items/authorization.png",
+      "source": "assets/generated/items/ch1_authorization.png",
+      "sha256": "937d44fe391d0130ebe4689045e9a78daefdf4dcf11fda565476381e5a908293",
+      "bytes": 365748,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/authorization.png",
+      "raw_sha256": "f66772801fb62f19df7716f614ee4d4402002f709cd7e685cf2da87d3af3b721"
+    },
+    {
+      "runtime": "assets/sprites/items/black_market_entry_hint.png",
+      "source": "assets/generated/items/ch1_black_market_entry_hint.png",
+      "sha256": "7bf9e576d6d76f847215ac3ea557252bb52de1fffcd7cb80111f4f8e06a26a6c",
+      "bytes": 348173,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/black_market_entry_hint.png",
+      "raw_sha256": "59ed7f2673197540c3cce7a076c3c635a4f9975488f2e67e4705d9f0980ba9ae"
+    },
+    {
+      "runtime": "assets/sprites/items/broken_memory_player.png",
+      "source": "assets/generated/items/ch1_broken_memory_player.png",
+      "sha256": "2019d4231f1d1c35efb1c621fddc8f03c7226f71b5c76e38399771632ed2d5c5",
+      "bytes": 383899,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/broken_memory_player.png",
+      "raw_sha256": "5d13cafe19e5793f193984ae222885088b8bf25e13f700f8cb0c7ac67b78263b"
+    },
+    {
+      "runtime": "assets/sprites/items/clinic_anonymous_case_note.png",
+      "source": "assets/generated/items/ch1_clinic_anonymous_case_note.png",
+      "sha256": "f668d51e494f9b573ee599247e168fe624378d080b7cf5dc4ad357851eeb376b",
+      "bytes": 353451,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/clinic_anonymous_case_note.png",
+      "raw_sha256": "67bbbb638df8be270ea6bed54f43db8e150f464e444ca234f078e1dee2574edc"
+    },
+    {
+      "runtime": "assets/sprites/items/clinic_eye_warning_log.png",
+      "source": "assets/generated/items/ch1_clinic_eye_warning_log.png",
+      "sha256": "8a330971fe29c2fabae697325a57f5164a5b577a6095b81c9d3fdb6e0164066b",
+      "bytes": 371537,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/clinic_eye_warning_log.png",
+      "raw_sha256": "13a093ec3f0e6c05e0bc98285a88e088b6ba8ebe16d985236a72dc28e7c32b44"
+    },
+    {
+      "runtime": "assets/sprites/items/commission_letter.png",
+      "source": "assets/generated/items/ch1_commission_letter.png",
+      "sha256": "329e79102766009ba6417b67ad941172866dd94c82312e8cea370591f4fcd565",
+      "bytes": 411111,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/commission_letter.png",
+      "raw_sha256": "0d51762eed251a6c8599d24f2a4a4a7d1823d69af0f07755681e47480f300a3c"
+    },
+    {
+      "runtime": "assets/sprites/items/comms.png",
+      "source": "assets/generated/items/ch1_comms.png",
+      "sha256": "334f02125abc31d07ceb4093ebc090032509f899e7b7be0f6d949b1de5a4ae0c",
+      "bytes": 282453,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/comms.png",
+      "raw_sha256": "d3b7f95a51b9910477a13acb48262ff7ff2169f162996634c3876067e33290cd"
+    },
+    {
+      "runtime": "assets/sprites/items/data_chip.png",
+      "source": "assets/generated/items/ch1_data_chip.png",
+      "sha256": "0637a2e3275b4cd98036c4e107e50cd0c355616e2916ee9d3373ebf9e43cc768",
+      "bytes": 342058,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/data_chip.png",
+      "raw_sha256": "27935d838f23b3fddba86dc2b967ba0f8480414bc4512904e4a70f85944f6b60"
+    },
+    {
+      "runtime": "assets/sprites/items/diary.png",
+      "source": "assets/generated/items/ch1_diary.png",
+      "sha256": "0b9acd70430eb4ca2b759166397adb29682eadb8b7423a3bbdf5df631b93d0e3",
+      "bytes": 366237,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/diary.png",
+      "raw_sha256": "1516bb9d2ccc16be88e4d943ee365710a0457f1a110fe354a231a249b2e87eee"
+    },
+    {
+      "runtime": "assets/sprites/items/eleven_pm_call_log.png",
+      "source": "assets/generated/items/ch1_eleven_pm_call_log.png",
+      "sha256": "60d46e877dda4f5a95c6fdc8629b15f95dcbca2622f90db08d384e329dd5ca06",
+      "bytes": 326885,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/eleven_pm_call_log.png",
+      "raw_sha256": "38ae27824ea7cf309fc4158e395bdc659f54615d5685217fc369920f107e13a8"
+    },
+    {
+      "runtime": "assets/sprites/items/family_memory_clip.png",
+      "source": "assets/generated/items/ch1_family_memory_clip.png",
+      "sha256": "f623a49f1620f888d3c96c82b0608a6d341c6f302ead994076e17432f5b39c7c",
+      "bytes": 396907,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/family_memory_clip.png",
+      "raw_sha256": "bd5bfd73f49634c5f4912c5ed3c608e996070cc1e35f6dc4731379db032a4758"
+    },
+    {
+      "runtime": "assets/sprites/items/frequency.png",
+      "source": "assets/generated/items/ch1_frequency.png",
+      "sha256": "13c6f20cb818e498b94377ffef4431ce1e9a248b4d3f5d86ce6dbd8676fcbf06",
+      "bytes": 286539,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/frequency.png",
+      "raw_sha256": "062921e5d86771f5690664569ff57962e06b389949a311a4159d942d9e9686ed"
+    },
+    {
+      "runtime": "assets/sprites/items/funding.png",
+      "source": "assets/generated/items/ch1_funding.png",
+      "sha256": "53027141f346f265fc11f4a6dfb5de46e93f27be47e2fc647ea3ed5b3f54dbce",
+      "bytes": 359510,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/funding.png",
+      "raw_sha256": "3ce806c1f783b25742b19a0f2a96b1683b4db10adb9b57a3d9c135d4fa8f27d2"
+    },
+    {
+      "runtime": "assets/sprites/items/ghost_identity_trace.png",
+      "source": "assets/generated/items/ghost_identity_trace.png",
+      "raw": "assets/generated/items/raw/ghost_identity_trace.png",
+      "raw_sha256": "3ea3be3c45ae8e481aab8618cb18703fc345ace048b15efa159307a920bc1fbe",
+      "sha256": "d76618b0131bcbeff2d547ce16b731df7323fe241d8c167349b3c39207f9b867",
+      "bytes": 286671,
+      "prompt_record": "assets/generated/prompts/image_gen_story_expansion_2026_09_08.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/items/ghost_relay_token.png",
+      "source": "assets/generated/items/ghost_relay_token.png",
+      "raw": "assets/generated/items/raw/ghost_relay_token.png",
+      "raw_sha256": "ccd5cfb384ff83a307acdc948d9982d8e9b6008385e56ac54dc18cf15951918f",
+      "sha256": "7743586f11c601fa1e874ab47a777a4a5cf9e2f5e9bf92c3cb7b5ef0029c7bf6",
+      "bytes": 257731,
+      "prompt_record": "assets/generated/prompts/image_gen_story_expansion_2026_09_08.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/items/hao_ran_drawer_note.png",
+      "source": "assets/generated/items/ch1_hao_ran_drawer_note.png",
+      "sha256": "6e8475419e9805a10bc34812a95efae0496f2a0e350a5e530b6994daa94f7c59",
+      "bytes": 427354,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/hao_ran_drawer_note.png",
+      "raw_sha256": "ee8347d15d6fb29d460fc30678fcf9bdf1af1d169eb922d154fce00743cee8c4"
+    },
+    {
+      "runtime": "assets/sprites/items/id_chip.png",
+      "source": "assets/generated/items/ch1_id_chip.png",
+      "sha256": "e31ab482c6cc228a3b45bcca6508bc8aecbbe0d949f6f7a4b328c35baeb8b1ed",
+      "bytes": 340792,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/id_chip.png",
+      "raw_sha256": "aa2dcaa10df5e58e0bc7f96fc8e041f6c14473c58738de27a426092141d5e8da"
+    },
+    {
+      "runtime": "assets/sprites/items/journal.png",
+      "source": "assets/generated/items/ch1_journal.png",
+      "sha256": "afdfd7144ba9b1fd9dc0304c8b7903788e3b7810470152936baa7c1f4f3cd65c",
+      "bytes": 377475,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/journal.png",
+      "raw_sha256": "990fc11c09d90cb3c38d550d20b4974a53c1e724523f011fc4e81ee3019457f6"
+    },
+    {
+      "runtime": "assets/sprites/items/kai_eye_glitch_log.png",
+      "source": "assets/generated/items/ch1_kai_eye_glitch_log.png",
+      "sha256": "60ef8d43e1bfc93dce52b374b1532b391f7c634e684de915656b9794e967c9b7",
+      "bytes": 347471,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/kai_eye_glitch_log.png",
+      "raw_sha256": "03b659c519d5eb5570a5a4fd35d5b7ed6f846894b521645a729325c817924d0e"
+    },
+    {
+      "runtime": "assets/sprites/items/key.png",
+      "source": "assets/generated/items/ch1_key.png",
+      "sha256": "63ddbaad5a059c24ab2a4b27b453570e38335b9242e07d4a90507ea04a8d90cd",
+      "bytes": 223187,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/key.png",
+      "raw_sha256": "2e9d1e3c7f1908c1fd39c5317a6977a4b57503a4c0bb6a012ad9ea4f31ad2063"
+    },
+    {
+      "runtime": "assets/sprites/items/keycard.png",
+      "source": "assets/generated/items/ch1_keycard.png",
+      "sha256": "86c898c7689fc8f62edd3523098af65ba547957449ae209ec8196682130bdbfb",
+      "bytes": 386444,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/keycard.png",
+      "raw_sha256": "fdc4610b900ee9921d234b46653ee60068f9f129791530181b3ef3c6503dc87b"
+    },
+    {
+      "runtime": "assets/sprites/items/ledger.png",
+      "source": "assets/generated/items/ch1_ledger.png",
+      "sha256": "a3aeaf7b8020431d6b3f6b4ace8b3af33caf3f73784c53c19e7f3c70ba39fb45",
+      "bytes": 393130,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/ledger.png",
+      "raw_sha256": "30134a3e441996c80099fdfe9d906d1f03a22684596b0750e3e305f10903328c"
+    },
+    {
+      "runtime": "assets/sprites/items/list.png",
+      "source": "assets/generated/items/ch1_list.png",
+      "sha256": "6aebd52e622f758f305bcfa65f0525f03fe9967c1be4639f9e9910e9882489b9",
+      "bytes": 427973,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/list.png",
+      "raw_sha256": "43b08b81d40912c14ceb04d4df306de3726205e1e427a79b30c8b845737cd2eb"
+    },
+    {
+      "runtime": "assets/sprites/items/log.png",
+      "source": "assets/generated/items/ch1_log.png",
+      "sha256": "5c1cb03fb04509c4f80a97bef830e7ac7253d726d21c09a9d247bd2260fff9e8",
+      "bytes": 377572,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/log.png",
+      "raw_sha256": "85d2a21ea5e3a5f761089a8293e20f9d8af6347a4aec1d52380f96cf4a21b91c"
+    },
+    {
+      "runtime": "assets/sprites/items/map.png",
+      "source": "assets/generated/items/ch1_map.png",
+      "sha256": "1e076a3a3fbb863fc1b4aab7982ac26503e4ef40b4aa57fb2dede005882e9168",
+      "bytes": 409382,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/map.png",
+      "raw_sha256": "2759771e3ca8d956aedb085e4c5966d674935b49ae55b901f050a3c87ba3fb6c"
+    },
+    {
+      "runtime": "assets/sprites/items/masked_client_receipt.png",
+      "source": "assets/generated/items/ch1_masked_client_receipt.png",
+      "sha256": "31a2ec4c45ba934e03c9036ad49e0374e82d9504961995d54f975e1802d60fcf",
+      "bytes": 397958,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/masked_client_receipt.png",
+      "raw_sha256": "2b7d437faefcb28d3443277f731d8e070855348a1b01b742ca31379a26dec741"
+    },
+    {
+      "runtime": "assets/sprites/items/memo.png",
+      "source": "assets/generated/items/ch1_memo.png",
+      "sha256": "8c05d506955b9fefb2b8565beb778ea0c9d5f8476176cee1e8ad2bf57bb17648",
+      "bytes": 368194,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/memo.png",
+      "raw_sha256": "64d552ee8464afcf4162db43bf6333fead61fb2cae2aa5a0f1256a5d1b31b957"
+    },
+    {
+      "runtime": "assets/sprites/items/memory_capsule.png",
+      "source": "assets/generated/items/ch1_memory_capsule.png",
+      "sha256": "40f62d98435d35098f12e4cd7cdc242bc104bcc7c69f446a170e55fac9d73500",
+      "bytes": 230688,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/memory_capsule.png",
+      "raw_sha256": "22561e3aa00e71eaea9c984b5b2916d368079052626bf6b753fa96126cdde7fa"
+    },
+    {
+      "runtime": "assets/sprites/items/memory_fragment.png",
+      "source": "assets/generated/items/ch1_memory_fragment.png",
+      "sha256": "5351bd98351022c810c327c71864da13c83e0a87730b8ef11b8c75656977cdc1",
+      "bytes": 299135,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/memory_fragment.png",
+      "raw_sha256": "255f7120ae387773679f736f9920e3ec8f75fc83ef46a67a170f71528bf4ab28"
+    },
+    {
+      "runtime": "assets/sprites/items/old_city_queue_ticket.png",
+      "source": "assets/generated/items/ch1_old_city_queue_ticket.png",
+      "sha256": "d9b0482007b069ae1da8914c7e8617e3610918b05df061112c018e2aa31ed515",
+      "bytes": 406474,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/old_city_queue_ticket.png",
+      "raw_sha256": "236d8a6df9d368bc18d56f763ce4f8f54775b7b20f0f6830d27df8ff30b64d7a"
+    },
+    {
+      "runtime": "assets/sprites/items/original_backup_hint.png",
+      "source": "assets/generated/items/ch1_original_backup_hint.png",
+      "sha256": "0e328bad7c7f7f3a01e21b0e5bbb331f286b2b00b529ad984fb0156f1040add8",
+      "bytes": 421635,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/original_backup_hint.png",
+      "raw_sha256": "32f267be9ebd1bdaf719b622c0fa45b5ea7004babad2047832f60858d2056710"
+    },
+    {
+      "runtime": "assets/sprites/items/photo.png",
+      "source": "assets/generated/items/ch1_photo.png",
+      "sha256": "bcbf0d33cb57af04ad9884cc45412fba1dc47eb0d188f6128886906968525e95",
+      "bytes": 395147,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/photo.png",
+      "raw_sha256": "a2f2e9c11bfd664c22a758bb28eca0e0901a4716bfdc0317fe075438f35f431f"
+    },
+    {
+      "runtime": "assets/sprites/items/profiles.png",
+      "source": "assets/generated/items/ch1_profiles.png",
+      "sha256": "c96768ccf0bbcd15291f3da6b17e464873efaccb092098f00cf678fb6b942f76",
+      "bytes": 398241,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/profiles.png",
+      "raw_sha256": "7b4b1796b126cd545c4ae717614321152ebe72585727cea73f5ce85f571260fc"
+    },
+    {
+      "runtime": "assets/sprites/items/receipt.png",
+      "source": "assets/generated/items/ch1_receipt.png",
+      "sha256": "e181ba9300dfa581c88d8976006d9cfe06433b5646bd5e1c3f06231f87045ef6",
+      "bytes": 418398,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/receipt.png",
+      "raw_sha256": "dd528adc077dc49791ae2f669b02f14be2443fbe97fe0ca88b799f3daf28a718"
+    },
+    {
+      "runtime": "assets/sprites/items/recording.png",
+      "source": "assets/generated/items/ch1_recording.png",
+      "sha256": "7d2b9f97bc9e12373f435ab2bc3671bfbb81b749a2f1c3d417794d3a783fdf96",
+      "bytes": 274604,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/recording.png",
+      "raw_sha256": "f8044923a816298b18575fed72477ac4fae47ff92a50e1e0c7dc931b58f265b0"
+    },
+    {
+      "runtime": "assets/sprites/items/rejected_missing_person_report.png",
+      "source": "assets/generated/items/ch1_rejected_missing_person_report.png",
+      "sha256": "a4fde27e90995f2a3723b105d95157092de0d02fa51375250fea2f81b5f2501b",
+      "bytes": 430456,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/rejected_missing_person_report.png",
+      "raw_sha256": "480dc9ccad9f582ce6b8ed217a14488ad2ee6d25f8db8ede756ccf03308afd1e"
+    },
+    {
+      "runtime": "assets/sprites/items/report.png",
+      "source": "assets/generated/items/ch1_report.png",
+      "sha256": "72627effa353a4537a0b4ede58c83458ac37f717a27cacf2a4ad359168214156",
+      "bytes": 391516,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/report.png",
+      "raw_sha256": "8443596c74650c1340961c7d666164568d1a4152bcc2a19bc4719b5bdd2bc2f0"
+    },
+    {
+      "runtime": "assets/sprites/items/schedule.png",
+      "source": "assets/generated/items/ch1_schedule.png",
+      "sha256": "b6f32b262252d7111518d7b33251e6d8c32175f291f1db76692b2bead3a96d67",
+      "bytes": 416572,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/schedule.png",
+      "raw_sha256": "2652d9dbe2ef6c83883e80bc1cfff3e4dec5b35e12b0b2b34d8f9620cc4c773f"
+    },
+    {
+      "runtime": "assets/sprites/items/sos.png",
+      "source": "assets/generated/items/ch1_sos.png",
+      "sha256": "97e8516f48829a179a798768c4a9830f06dd2657941d0e87a68c72835e05d4c0",
+      "bytes": 327129,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/sos.png",
+      "raw_sha256": "b9aab14cea81edc7adae96c91650f09758d68e515df8f71113fae38cadd4a0d7"
+    },
+    {
+      "runtime": "assets/sprites/items/street_camera_gap.png",
+      "source": "assets/generated/items/ch1_street_camera_gap.png",
+      "sha256": "eaa4d64bc4da0a9655cd474bc9499dad7b6d86ca2aaf4954e3a3260d9f9280b0",
+      "bytes": 379685,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/street_camera_gap.png",
+      "raw_sha256": "c865174b90caa3dd8ba95680fea4fac6802938cdf1696be500693afcd0805cd7"
+    },
+    {
+      "runtime": "assets/sprites/items/symbol.png",
+      "source": "assets/generated/items/ch1_symbol.png",
+      "sha256": "246a41ecbce9203d43424dfbc4309235f2352951f226247bdf9c1404a9c80563",
+      "bytes": 353745,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/symbol.png",
+      "raw_sha256": "c1956d9fbfaf7e4b87de670b8cb3cda51c0b29e2cf375acbb87b05eb499eb295"
+    },
+    {
+      "runtime": "assets/sprites/items/work_id.png",
+      "source": "assets/generated/items/ch1_work_id.png",
+      "sha256": "25e124965d5a5ee5c2228c3e52012efe0f3524d86df696d468d2f48af1c98086",
+      "bytes": 386749,
+      "prompt_record": "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/items/raw/image_gen_items_transparent_2026_04_30/work_id.png",
+      "raw_sha256": "72a230394708e0c66df5222880349b2934468e5ed0582cd536fb7fe95c5a2a78"
+    },
+    {
+      "runtime": "assets/sprites/locations/abandoned_warehouse.png",
+      "source": "assets/generated/backgrounds/abandoned_warehouse.png",
+      "sha256": "c4ce993996b33c5f18ea992ddef533eb758bcb35ba9d30225385574235f7f966",
+      "bytes": 1905241,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/abyss_bar.png",
+      "source": "assets/generated/backgrounds/abyss_bar.png",
+      "sha256": "f11a79a204b84195c3e9a7095b30e716af54290dc18fa278aaff9f02e27e42d9",
+      "bytes": 1817811,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/abyss_bar_backroom.png",
+      "source": "assets/generated/backgrounds/abyss_bar_backroom.png",
+      "sha256": "e3f7362cb39805358c5e472bb6be82bab22ac8ddea7d027169426f23d7ce4a7f",
+      "bytes": 1391209
+    },
+    {
+      "runtime": "assets/sprites/locations/bitstorm_cafe.png",
+      "source": "assets/generated/backgrounds/bitstorm_cafe.png",
+      "sha256": "e9caa0578eaa9521407f1745e65d48315c1f6f3880dc99fc295d26495481f390",
+      "bytes": 1930342,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/civic_archive.png",
+      "source": "assets/generated/locations/civic_archive.png",
+      "raw": "assets/generated/locations/raw/civic_archive.png",
+      "sha256": "5a417f12eefdff1f4a079b839272b7f28a2fc9339afc6b70731040946450dd4c",
+      "raw_sha256": "5a417f12eefdff1f4a079b839272b7f28a2fc9339afc6b70731040946450dd4c",
+      "bytes": 2160611,
+      "prompt_record": "assets/generated/prompts/image_gen_scan_maps_2026_09_08.jsonl",
+      "usage": "chapter_location_background",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "runtime": "assets/sprites/locations/detective_office.png",
+      "source": "assets/generated/backgrounds/detective_office.png",
+      "sha256": "589dbec1a4d2b05525fcdcb2e94af09be489d9e5c2baf9f1d0c149bdfe0dce65",
+      "bytes": 1855293,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/dr_chen_clinic.png",
+      "source": "assets/generated/backgrounds/dr_chen_clinic.png",
+      "sha256": "54fcfa4724dd9cde37b948fbd294bc1ea9d586bfceb0c29625f6f7a42cf27d81",
+      "bytes": 1544978
+    },
+    {
+      "runtime": "assets/sprites/locations/east_district_street.png",
+      "source": "assets/generated/backgrounds/east_district_street.png",
+      "sha256": "f8f91c51ea0034abe32ddfa3aeed62a87cb0cff886781f20bb36ceaaa1452b3f",
+      "bytes": 2318198,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/east_district_street_camera_gap_variant.png",
+      "source": "assets/generated/backgrounds/east_district_street_camera_gap_variant.png",
+      "sha256": "924fe0e2af8c3a652821dfd4d8619395d786b3c3352cc2a0b80ad95641f2c52a",
+      "bytes": 1538787
+    },
+    {
+      "runtime": "assets/sprites/locations/echo_network_hq.png",
+      "source": "assets/generated/backgrounds/echo_network_hq.png",
+      "sha256": "adb3825b65076fbdb35d0e79116fdb4b515a4c63013b8abfc6e9edea3c3bc3b1",
+      "bytes": 1840077,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/hao_ran_workshop.png",
+      "source": "assets/generated/backgrounds/hao_ran_workshop.png",
+      "sha256": "d6495139eb596f4aa94fdb443d3ca6355d31a812aafad9ebedf4e5558aef5e54",
+      "bytes": 1884137,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/hao_ran_workshop_three_evidence_variant.png",
+      "source": "assets/generated/backgrounds/hao_ran_workshop_three_evidence_variant.png",
+      "sha256": "21969dea8d355f020574b2f8aad26078031a06bddabe2235b653b9fccfadfda5",
+      "bytes": 1296585
+    },
+    {
+      "runtime": "assets/sprites/locations/mei_ling_apartment.png",
+      "source": "assets/generated/backgrounds/mei_ling_apartment.png",
+      "sha256": "fce95ab9576a2c8224046afc7cc1107552e2f3a698743b679d2c174496b3212b",
+      "bytes": 1881997,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/mei_ling_apartment_eye_scan_variant.png",
+      "source": "assets/generated/backgrounds/mei_ling_apartment_eye_scan_variant.png",
+      "sha256": "d432fb7c445a897f50e3d7062affec662374a4ab1ca05b237808fcae58036116",
+      "bytes": 936426,
+      "prompt_record": "assets/generated/prompts/image2_ch1_eagle_eye.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/mei_ling_apartment_family_memory_variant.png",
+      "source": "assets/generated/backgrounds/mei_ling_apartment_family_memory_variant.png",
+      "sha256": "15c8a7d30e44734936c95b5034f436ba54edeb344976dca04dc0e085533b8e73",
+      "bytes": 844629,
+      "prompt_record": "assets/generated/prompts/image2_ch1_family_memory.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/mei_ling_apartment_memory_trace.png",
+      "source": "assets/generated/backgrounds/mei_ling_apartment_memory_trace.png",
+      "sha256": "0e2fdc8153427fde94a603c37782647a22964b0c7e1c1c671842f1e4448bb107",
+      "bytes": 1306598
+    },
+    {
+      "runtime": "assets/sprites/locations/memory_black_market.png",
+      "source": "assets/generated/backgrounds/memory_black_market.png",
+      "sha256": "51139b3ae12df31d428adac7970f6fd88f851769055d04aa00f2b2eca469b02d",
+      "bytes": 2037168,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/memory_space.png",
+      "source": "assets/generated/backgrounds/memory_space.png",
+      "sha256": "48ef433cca459df33b281a655bfd791d5c5699dd0b8a9f4e77c6d05caeea36cd",
+      "bytes": 2203138,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/office_epilogue.png",
+      "source": "assets/generated/backgrounds/office_epilogue.png",
+      "sha256": "cf016a06fca65a7bab25127ea81a6b20fa6f41229fcb2fbaf62c55a74698a0a9",
+      "bytes": 1712422,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/old_city_police_outpost.png",
+      "source": "assets/generated/backgrounds/old_city_police_outpost.png",
+      "sha256": "f907e2e9f25f8247a78ff4bed6e3a56ea6ca0ffac154f1c780b4b052cc20992b",
+      "bytes": 1506554
+    },
+    {
+      "runtime": "assets/sprites/locations/recovery_annex.png",
+      "source": "assets/generated/locations/recovery_annex.png",
+      "raw": "assets/generated/locations/raw/recovery_annex.png",
+      "sha256": "2540a06b729c37b9ec7829e6495e883efbf921ff81c11a2fc4baf2c6caeae273",
+      "raw_sha256": "2540a06b729c37b9ec7829e6495e883efbf921ff81c11a2fc4baf2c6caeae273",
+      "bytes": 2223553,
+      "prompt_record": "assets/generated/prompts/image_gen_scan_maps_2026_09_08.jsonl",
+      "usage": "chapter_location_background",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "runtime": "assets/sprites/locations/rooftop.png",
+      "source": "assets/generated/backgrounds/rooftop.png",
+      "sha256": "194f1f6bd69048387fc949d390f3d28f4e7fb2dfa9f6ea2a19c08a37ad025eb6",
+      "bytes": 2023140,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/secret_lab.png",
+      "source": "assets/generated/backgrounds/secret_lab.png",
+      "sha256": "15d426c95efd8287bc0bf9217c6f15ae89efbab4c49b5303ee64a34fadafca46",
+      "bytes": 1926931,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/sewer_passage.png",
+      "source": "assets/generated/backgrounds/sewer_passage.png",
+      "sha256": "3f7316b4857251fd8e0c997f73d05624e13bc5f2d8df8a1c0daf3b12eded582d",
+      "bytes": 1821792,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/locations/zhengtek_exterior.png",
+      "source": "assets/generated/backgrounds/zhengtek_exterior.png",
+      "sha256": "23d2b38f6b664e0e21b70c9a87c6dcb5b1a22422bdd1b3cde39fbd3f8606f47f",
+      "bytes": 1720365,
+      "prompt_record": "assets/generated/prompts/image2_backgrounds.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/ui/dialogue_panel.png",
+      "source": "assets/generated/ui/dialogue_panel.png",
+      "sha256": "7027b69f8bce25b4052947b9421fd2ca17208ac386ce778f1f1cf0d1e35392c3",
+      "bytes": 275791,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/dialogue_panel.png",
+      "raw_sha256": "370e5f2b055993ddd79e9469870e5c66f4a65f39a8138f1240a87fbcb7f1687e"
+    },
+    {
+      "runtime": "assets/sprites/ui/eagle_eye_focus_reticle_ch1.png",
+      "source": "assets/generated/ui/eagle_eye_focus_reticle_ch1.png",
+      "sha256": "b27bf8a7231de76ed28377f14e3dc5c7a35324b8a380e33f322991fac5034d6d",
+      "bytes": 96051,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/eagle_eye_focus_reticle_ch1.png",
+      "raw_sha256": "8546ae52d2a4673b9ec47f809ad29e0561e7da8d9e6419348559d6583a943c33"
+    },
+    {
+      "runtime": "assets/sprites/ui/eagle_eye_glitch_noise_ch1.png",
+      "source": "assets/generated/ui/eagle_eye_glitch_noise_ch1.png",
+      "sha256": "8aa8ca5296ded5e06b2a13abccf26701981af3c7c5bcf8dd6de77026fd39c4f6",
+      "bytes": 131312,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/eagle_eye_glitch_noise_ch1.png",
+      "raw_sha256": "a7a324bee321aee11f73c86b6af28a0d06af4942d146e8b7ce5529ac0813ceb9"
+    },
+    {
+      "runtime": "assets/sprites/ui/eagle_eye_scan_overlay_ch1.png",
+      "source": "assets/generated/ui/eagle_eye_scan_overlay_ch1.png",
+      "sha256": "ee1002412ee6fc473c7716e59ccd2a2be486b3d8e8f2eacd7037e1ea9320f91d",
+      "bytes": 104688,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/eagle_eye_scan_overlay_ch1.png",
+      "raw_sha256": "bd1febc51d373935559050fd9553d8baf06081acfba397b0f070e04f3285ad2a"
+    },
+    {
+      "runtime": "assets/sprites/ui/energy_hud_frame.png",
+      "source": "assets/generated/ui/energy_hud_frame.png",
+      "sha256": "fc1e93d6e01613813f7df8f119425fcdd3292535c81f10aa979243c842d8a3f5",
+      "bytes": 57082,
+      "prompt_record": "assets/generated/prompts/image_gen_energy_hud_fixed_frame_2026_09_08.json",
+      "raw": "assets/generated/ui/energy_hud_frame_2026_09_08_raw.png",
+      "raw_sha256": "348d485f47552699cc74bd80400caf31cbeb8b00b2c8d35507e3850d94070015"
+    },
+    {
+      "runtime": "assets/sprites/ui/evidence_card.png",
+      "source": "assets/generated/ui/evidence_card.png",
+      "sha256": "65b405d6d55f6fd1b8b83b57487986415926b9e88066cad260096027ebdcaf0a",
+      "bytes": 187784,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/evidence_card.png",
+      "raw_sha256": "51596c3fb814e09ef992d384ba5d69b3f4993df86acf7fac25522f20ec159c06"
+    },
+    {
+      "runtime": "assets/sprites/ui/main_menu_background.png",
+      "source": "assets/generated/ui/main_menu_background.png",
+      "sha256": "e41d3e602faa50f1738a849b4a991a1ee4341548f340b669a49d64b687bd1635",
+      "bytes": 1615176,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_requests.jsonl"
+    },
+    {
+      "runtime": "assets/sprites/ui/popup_panel.png",
+      "source": "assets/generated/ui/popup_panel.png",
+      "sha256": "fffc4bc2970b72f1ba895dce95747818a18f77615061adb38d787e0bcd6baf53",
+      "bytes": 625673,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/popup_panel.png",
+      "raw_sha256": "3a2f4561b7bcd06abc769e77bad68c3e9965940ba5cdaf75be04cd6f0e5d6e76"
+    },
+    {
+      "runtime": "assets/sprites/ui/toolbar_buttons.png",
+      "source": "assets/generated/ui/toolbar_buttons.png",
+      "sha256": "a54e9625851b35faa8d139a22a7f22f5e831c0ef96c6a8bd677a7f9822bef057",
+      "bytes": 168922,
+      "prompt_record": "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl",
+      "raw": "assets/generated/ui/raw/image_gen_ui_transparent_2026_04_30/toolbar_buttons.png",
+      "raw_sha256": "3c74479078fb098164cabd0deb655b74c94940826d8fb143c1f42c7539a85b0c"
+    },
+    {
+      "runtime": "assets/sprites/locations/referral_waiting_station.png",
+      "source": "assets/generated/locations/referral_waiting_station.png",
+      "raw": "assets/generated/locations/raw/referral_waiting_station.png",
+      "sha256": "29b89b96c5ef3baff729454275b54a29ce6a9363309f33998d308eaa5403f318",
+      "bytes": 2330338,
+      "prompt_record": "assets/generated/prompts/image_gen_chapter_branches_2026_09_09.json",
+      "width": 1672,
+      "height": 941,
+      "raw_sha256": "29b89b96c5ef3baff729454275b54a29ce6a9363309f33998d308eaa5403f318"
+    },
+    {
+      "runtime": "assets/sprites/locations/auction_handover_room.png",
+      "source": "assets/generated/locations/auction_handover_room.png",
+      "raw": "assets/generated/locations/raw/auction_handover_room.png",
+      "sha256": "0ba21a80423334c478cd4ab15a55f15b7ca76d2e9c2c1ddacc2f173b85097510",
+      "bytes": 2242878,
+      "prompt_record": "assets/generated/prompts/image_gen_chapter_branches_2026_09_09.json",
+      "width": 1672,
+      "height": 941,
+      "raw_sha256": "0ba21a80423334c478cd4ab15a55f15b7ca76d2e9c2c1ddacc2f173b85097510"
+    },
+    {
+      "runtime": "assets/sprites/items/auction_dispatch_seal.png",
+      "source": "assets/generated/items/auction_dispatch_seal.png",
+      "raw": "assets/generated/items/raw/auction_dispatch_seal.png",
+      "sha256": "5eededc63c62f95e2b0bc4b34176cecb20fa7ad1636fded9af1cb66e60af145c",
+      "bytes": 271915,
+      "prompt_record": "assets/generated/prompts/image_gen_chapter_branches_2026_09_09.json",
+      "width": 512,
+      "height": 512,
+      "raw_sha256": "83d924b664f795077786f99feb136f1050b3c54deacd6582f565e1fb5e5d7d70"
+    },
+    {
+      "runtime": "assets/sprites/items/referral_routing_stub.png",
+      "source": "assets/generated/items/referral_routing_stub.png",
+      "raw": "assets/generated/items/raw/referral_routing_stub.png",
+      "prompt_record": "assets/generated/prompts/image_gen_chapter_branches_2026_09_09.json",
+      "sha256": "931b9cb4867924090ec9a9acbd1b01baa017b4287f387d5b4092312d095dce73",
+      "bytes": 319012,
+      "raw_sha256": "cb41559ab64d716c1dc6dfeddbf7553eaab5d8753a1b1f39e6c6c39da1161ffe",
+      "width": 512,
+      "height": 512
+    }
+  ],
+  "optional_audio": [
+    {
+      "runtime": "assets/audio/sfx/family_memory_fragment.ogg",
+      "status": "missing"
+    },
+    {
+      "runtime": "assets/audio/sfx/broken_player_scan.ogg",
+      "status": "missing"
+    },
+    {
+      "runtime": "assets/audio/sfx/eagle_eye_glitch_sting.ogg",
+      "status": "missing"
+    },
+    {
+      "runtime": "assets/audio/sfx/memory_signature_reveal.ogg",
+      "status": "missing"
+    }
+  ]
+}

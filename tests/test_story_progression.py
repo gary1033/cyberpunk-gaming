@@ -141,6 +141,9 @@ def extract_story_actions(location_block):
 
 def collect_dialogue_effects(dialogue_content):
     flags = set(re.findall(r'"set_flag"\s*:\s*"(\w+)"', dialogue_content))
+    # Bug regression: multi-flag dialogue effects are real producers too.
+    for block in re.findall(r'"set_flags"\s*:\s*\[([^\]]*)\]', dialogue_content):
+        flags.update(re.findall(r'"(\w+)"', block))
     evidence = set(re.findall(r'"give_evidence"\s*:\s*"(\w+)"', dialogue_content))
     return flags, evidence
 
@@ -160,11 +163,14 @@ def strip_story_actions(location_block):
     return location_block.replace(actions_block, "")
 
 
-def score_progression(case_content, dialogue_content, evidence_content, board_content):
+def score_progression(case_content, dialogue_content, evidence_content, board_content, manager_content=""):
     dialogue_ids = extract_top_level_ids(dialogue_content, r"(?:ch\d+|ending)_")
     evidence_ids = extract_evidence_ids(evidence_content)
     produced_flags, produced_evidence = collect_dialogue_effects(dialogue_content)
+    produced_flags.update(collect_dialogue_effects(case_content)[0])
+    produced_flags.update(re.findall(r'"scan_flag"\s*:\s*"(\w+)"', case_content))
     produced_flags.update(collect_board_effects(board_content))
+    produced_flags.update(re.findall(r'set_dialogue_flag\("(\w+)"\s*(?:,\s*true\s*)?\)', manager_content))
     reachable_dialogues = set()
     failures = []
     details = []
@@ -223,11 +229,15 @@ def score_progression(case_content, dialogue_content, evidence_content, board_co
                 if dialogue_id not in dialogue_ids:
                     failures.append(f"{location_id} ending action references missing dialogue: {dialogue_id}")
 
-            for evidence_id in re.findall(r'"requires_evidence"\s*:\s*"(\w+)"', action):
+            required_evidence = re.findall(r'"requires_evidence"\s*:\s*"(\w+)"', action)
+            required_evidence += re.findall(r'"(\w+)"', extract_array_block(action, "requires_evidences"))
+            for evidence_id in required_evidence:
                 if evidence_id not in evidence_ids:
                     failures.append(f"{location_id} story action requires missing evidence: {evidence_id}")
 
-            for flag in re.findall(r'"requires_flag"\s*:\s*"(\w+)"', action):
+            required_flags = re.findall(r'"requires_flag"\s*:\s*"(\w+)"', action)
+            required_flags += re.findall(r'"(\w+)"', extract_array_block(action, "requires_flags"))
+            for flag in required_flags:
                 if flag not in produced_flags:
                     failures.append(f"{location_id} story action requires missing flag producer: {flag}")
 
@@ -296,7 +306,8 @@ def main():
     evidence_content = read_file("scripts/data/evidence_data.gd")
     board_content = read_file("scripts/gameplay/evidence_board.gd")
 
-    score, failures, details = score_progression(case_content, dialogue_content, evidence_content, board_content)
+    manager_content = read_file("scripts/core/game_manager.gd")
+    score, failures, details = score_progression(case_content, dialogue_content, evidence_content, board_content, manager_content)
 
     print("NEON MEMORIES Story Progression")
     print(f"PROGRESS_SCORE={score}")

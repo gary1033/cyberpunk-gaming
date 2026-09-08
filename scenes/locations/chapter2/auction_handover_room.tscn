@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/location_base.gd" id="1"]
+
+[node name="AuctionHandoverRoom" type="Node2D"]
+script = ExtResource("1")
+location_id = "auction_handover_room"
+location_name = "拍賣交割後室"
+bg_color = Color(0.04, 0.06, 0.06, 1)

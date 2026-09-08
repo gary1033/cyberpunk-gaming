@@ -1,0 +1,1874 @@
+[
+	{
+		"ap": 20,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "kai_office_after_warning",
+		"evidence_count": 0,
+		"kind": "choice",
+		"location": "detective_office"
+	},
+	{
+		"ap": 20,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "mei_ling_case_intro",
+		"evidence_count": 0,
+		"kind": "choice",
+		"location": "detective_office"
+	},
+	{
+		"ap": 20,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "mei_ling_abnormal",
+		"evidence_count": 1,
+		"kind": "choice",
+		"location": "detective_office"
+	},
+	{
+		"ap": 20,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "mei_ling_accept",
+		"evidence_count": 2,
+		"kind": "choice",
+		"location": "detective_office"
+	},
+	{
+		"ap": 19,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "mei_ling_apartment",
+		"evidence_count": 3,
+		"kind": "move",
+		"location": "mei_ling_apartment"
+	},
+	{
+		"ap": 19,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_hao_ran_drawer_search",
+		"evidence_count": 3,
+		"kind": "action",
+		"location": "mei_ling_apartment"
+	},
+	{
+		"ap": 19,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_original_backup_album",
+		"evidence_count": 4,
+		"kind": "action",
+		"location": "mei_ling_apartment"
+	},
+	{
+		"ap": 19,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "backup_reassure",
+		"evidence_count": 4,
+		"kind": "choice",
+		"location": "mei_ling_apartment"
+	},
+	{
+		"ap": 19,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_family_memory_clip",
+		"evidence_count": 5,
+		"kind": "action",
+		"location": "mei_ling_apartment"
+	},
+	{
+		"ap": 19,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_kai_eye_glitch_scan",
+		"evidence_count": 6,
+		"kind": "action",
+		"location": "mei_ling_apartment"
+	},
+	{
+		"ap": 19,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_eleven_pm_call_log",
+		"evidence_count": 8,
+		"kind": "action",
+		"location": "mei_ling_apartment"
+	},
+	{
+		"ap": 18,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "east_district_street",
+		"evidence_count": 9,
+		"kind": "move",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 17,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "old_city_police_outpost",
+		"evidence_count": 9,
+		"kind": "move",
+		"location": "old_city_police_outpost"
+	},
+	{
+		"ap": 17,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_old_city_queue_ticket",
+		"evidence_count": 9,
+		"kind": "action",
+		"location": "old_city_police_outpost"
+	},
+	{
+		"ap": 17,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_old_city_police_outpost",
+		"evidence_count": 10,
+		"kind": "action",
+		"location": "old_city_police_outpost"
+	},
+	{
+		"ap": 16,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "east_district_street",
+		"evidence_count": 11,
+		"kind": "move",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 16,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_street_camera_gap",
+		"evidence_count": 11,
+		"kind": "action",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 16,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_scan_grid",
+		"evidence_count": 12,
+		"kind": "action",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 16,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "grid_sabotage",
+		"evidence_count": 12,
+		"kind": "choice",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 15,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "dr_chen_clinic",
+		"evidence_count": 12,
+		"kind": "move",
+		"location": "dr_chen_clinic"
+	},
+	{
+		"ap": 15,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "chen_details",
+		"evidence_count": 13,
+		"kind": "choice",
+		"location": "dr_chen_clinic"
+	},
+	{
+		"ap": 15,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_clinic_anonymous_case_note",
+		"evidence_count": 13,
+		"kind": "action",
+		"location": "dr_chen_clinic"
+	},
+	{
+		"ap": 15,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "ch1_dr_chen_clinic_followup",
+		"evidence_count": 14,
+		"kind": "action",
+		"location": "dr_chen_clinic"
+	},
+	{
+		"ap": 14,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "east_district_street",
+		"evidence_count": 15,
+		"kind": "move",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 0,
+		"detail": "hao_ran_workshop",
+		"evidence_count": 15,
+		"kind": "move",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 1,
+		"detail": "commission_letter:work_id",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 2,
+		"detail": "data_chip:memory_device_log",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 3,
+		"detail": "family_memory_clip:broken_memory_player",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 4,
+		"detail": "broken_memory_player:memory_device_log",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 5,
+		"detail": "kai_eye_glitch_log:data_chip",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 6,
+		"detail": "eleven_pm_call_log:rejected_missing_person_report",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 7,
+		"detail": "rejected_missing_person_report:street_camera_gap",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 8,
+		"detail": "old_city_queue_ticket:rejected_missing_person_report",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "clinic_anonymous_case_note:clinic_eye_warning_log",
+		"evidence_count": 17,
+		"kind": "deduction",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_eye_signature_decode",
+		"evidence_count": 17,
+		"kind": "action",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_hao_ran_family_motive",
+		"evidence_count": 17,
+		"kind": "action",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_hao_ran_encrypted_message",
+		"evidence_count": 17,
+		"kind": "action",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 13,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_dr_chen_eye_warning",
+		"evidence_count": 18,
+		"kind": "action",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 12,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "east_district_street",
+		"evidence_count": 18,
+		"kind": "move",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "abyss_bar",
+		"evidence_count": 18,
+		"kind": "move",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ajie_ask",
+		"evidence_count": 18,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ajie_receipt",
+		"evidence_count": 18,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_eye_ajie_statement",
+		"evidence_count": 19,
+		"kind": "action",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "statement_coerced",
+		"evidence_count": 19,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_eye_ajie_statement",
+		"evidence_count": 19,
+		"kind": "locked_action",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_ajie_retraction",
+		"evidence_count": 19,
+		"kind": "action",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "statement_retracted",
+		"evidence_count": 19,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_snake_encounter",
+		"evidence_count": 19,
+		"kind": "action",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "snake_info",
+		"evidence_count": 19,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "snake_deal",
+		"evidence_count": 19,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "snake_deal_accept",
+		"evidence_count": 19,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_snake_data_chip_choice",
+		"evidence_count": 19,
+		"kind": "action",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 11,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "snake_trade_reject",
+		"evidence_count": 19,
+		"kind": "choice",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "abyss_bar_backroom",
+		"evidence_count": 19,
+		"kind": "move",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_abyss_surveillance_delay_log",
+		"evidence_count": 19,
+		"kind": "action",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 9,
+		"detail": "ch1_abyss_backroom_investigation",
+		"evidence_count": 20,
+		"kind": "action",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 10,
+		"detail": "abyss_receipt:stranger_photo",
+		"evidence_count": 21,
+		"kind": "deduction",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 11,
+		"detail": "original_backup_hint:hao_ran_encrypted_message",
+		"evidence_count": 21,
+		"kind": "deduction",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 12,
+		"detail": "masked_client_receipt:stranger_photo",
+		"evidence_count": 21,
+		"kind": "deduction",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 13,
+		"detail": "clinic_eye_warning_log:masked_client_receipt",
+		"evidence_count": 21,
+		"kind": "deduction",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 10,
+		"chapter": 1,
+		"deductions": 14,
+		"detail": "abyss_surveillance_delay_log:masked_client_receipt",
+		"evidence_count": 21,
+		"kind": "deduction",
+		"location": "abyss_bar_backroom"
+	},
+	{
+		"ap": 9,
+		"chapter": 1,
+		"deductions": 14,
+		"detail": "abyss_bar",
+		"evidence_count": 21,
+		"kind": "move",
+		"location": "abyss_bar"
+	},
+	{
+		"ap": 8,
+		"chapter": 1,
+		"deductions": 14,
+		"detail": "east_district_street",
+		"evidence_count": 21,
+		"kind": "move",
+		"location": "east_district_street"
+	},
+	{
+		"ap": 7,
+		"chapter": 1,
+		"deductions": 14,
+		"detail": "hao_ran_workshop",
+		"evidence_count": 21,
+		"kind": "move",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 7,
+		"chapter": 1,
+		"deductions": 14,
+		"detail": "ch1_three_evidence_inference",
+		"evidence_count": 21,
+		"kind": "action",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 7,
+		"chapter": 1,
+		"deductions": 14,
+		"detail": "route_clinic",
+		"evidence_count": 22,
+		"kind": "choice",
+		"location": "hao_ran_workshop"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "2",
+		"evidence_count": 22,
+		"kind": "chapter",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_conclude_investigation",
+		"evidence_count": 22,
+		"kind": "locked_action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_family_update",
+		"evidence_count": 22,
+		"kind": "locked_action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_kid_encounter",
+		"evidence_count": 22,
+		"kind": "action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "kid_echo_info",
+		"evidence_count": 22,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_kid_encounter",
+		"evidence_count": 23,
+		"kind": "action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "kid_market_info",
+		"evidence_count": 23,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "kid_price",
+		"evidence_count": 23,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "kid_deal",
+		"evidence_count": 23,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 19,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "memory_black_market",
+		"evidence_count": 24,
+		"kind": "move",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 19,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "market_special",
+		"evidence_count": 24,
+		"kind": "choice",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 19,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "market_supplier",
+		"evidence_count": 24,
+		"kind": "choice",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 19,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_memory_trade_choice",
+		"evidence_count": 24,
+		"kind": "action",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 19,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "trade_buy",
+		"evidence_count": 24,
+		"kind": "choice",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 19,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_encounter",
+		"evidence_count": 26,
+		"kind": "action",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 19,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ghost_confront",
+		"evidence_count": 26,
+		"kind": "choice",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 18,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "sewer_passage",
+		"evidence_count": 27,
+		"kind": "move",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 17,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "abandoned_warehouse",
+		"evidence_count": 27,
+		"kind": "move",
+		"location": "abandoned_warehouse"
+	},
+	{
+		"ap": 17,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_scan_warehouse_batch",
+		"evidence_count": 29,
+		"kind": "action",
+		"location": "abandoned_warehouse"
+	},
+	{
+		"ap": 17,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "batch_provenance",
+		"evidence_count": 29,
+		"kind": "choice",
+		"location": "abandoned_warehouse"
+	},
+	{
+		"ap": 16,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "sewer_passage",
+		"evidence_count": 29,
+		"kind": "move",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 15,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "memory_black_market",
+		"evidence_count": 29,
+		"kind": "move",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 15,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_eye_market_claim",
+		"evidence_count": 29,
+		"kind": "action",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 15,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "claim_pledge",
+		"evidence_count": 29,
+		"kind": "choice",
+		"location": "memory_black_market"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "sewer_passage",
+		"evidence_count": 29,
+		"kind": "move",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_identity_reveal",
+		"evidence_count": 29,
+		"kind": "action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ghost_expose",
+		"evidence_count": 29,
+		"kind": "choice",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_followup",
+		"evidence_count": 30,
+		"kind": "locked_action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_trace",
+		"evidence_count": 30,
+		"kind": "action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "trace_wrong",
+		"evidence_count": 30,
+		"kind": "choice",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "end",
+		"evidence_count": 30,
+		"kind": "choice",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_trace",
+		"evidence_count": 30,
+		"kind": "action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "trace_verify",
+		"evidence_count": 30,
+		"kind": "choice",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_trace",
+		"evidence_count": 31,
+		"kind": "locked_action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_followup",
+		"evidence_count": 31,
+		"kind": "action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "end",
+		"evidence_count": 31,
+		"kind": "choice",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_followup",
+		"evidence_count": 31,
+		"kind": "action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "followup_repair",
+		"evidence_count": 31,
+		"kind": "choice",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 14,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_ghost_followup",
+		"evidence_count": 32,
+		"kind": "locked_action",
+		"location": "sewer_passage"
+	},
+	{
+		"ap": 13,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "zhengtek_exterior",
+		"evidence_count": 32,
+		"kind": "move",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 13,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "zhao_trust",
+		"evidence_count": 32,
+		"kind": "choice",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 13,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "zhao_trusted",
+		"evidence_count": 32,
+		"kind": "choice",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 13,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_scan_dispatch_clock",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 13,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "dispatch_redacted",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 12,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "civic_archive",
+		"evidence_count": 33,
+		"kind": "move",
+		"location": "civic_archive"
+	},
+	{
+		"ap": 12,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_archive_returned_index",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "civic_archive"
+	},
+	{
+		"ap": 12,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "index_wrong",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "civic_archive"
+	},
+	{
+		"ap": 12,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_archive_returned_index",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "civic_archive"
+	},
+	{
+		"ap": 12,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "index_checked",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "civic_archive"
+	},
+	{
+		"ap": 12,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_scan_withdrawal_queue",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "civic_archive"
+	},
+	{
+		"ap": 12,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "archive_observed",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "civic_archive"
+	},
+	{
+		"ap": 11,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "zhengtek_exterior",
+		"evidence_count": 33,
+		"kind": "move",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 11,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "ch2_verify_zhengtek_memo",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 11,
+		"chapter": 2,
+		"deductions": 14,
+		"detail": "verify_public",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 11,
+		"chapter": 2,
+		"deductions": 15,
+		"detail": "echo_symbol:warehouse_map",
+		"evidence_count": 33,
+		"kind": "deduction",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 11,
+		"chapter": 2,
+		"deductions": 16,
+		"detail": "memory_sample:victim_list",
+		"evidence_count": 33,
+		"kind": "deduction",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 11,
+		"chapter": 2,
+		"deductions": 17,
+		"detail": "hao_ran_diary:trade_ledger",
+		"evidence_count": 33,
+		"kind": "deduction",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 11,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "zhengtek_memo:comm_frequency",
+		"evidence_count": 33,
+		"kind": "deduction",
+		"location": "zhengtek_exterior"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "bitstorm_cafe",
+		"evidence_count": 33,
+		"kind": "move",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "ch2_eye_unsent_backup",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "backup_copied",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "ch2_eye_unsent_backup",
+		"evidence_count": 33,
+		"kind": "locked_action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "ch2_family_update",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "end",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "ch2_family_update",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "family_update_candid",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "ch2_family_update",
+		"evidence_count": 33,
+		"kind": "locked_action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "ch2_conclude_investigation",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 10,
+		"chapter": 2,
+		"deductions": 18,
+		"detail": "ch2_confirmed",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "bitstorm_cafe"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "3",
+		"evidence_count": 33,
+		"kind": "chapter",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_memory_corridor",
+		"evidence_count": 33,
+		"kind": "locked_action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_hq_entry",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "end",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_hq_entry",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "entry_ghost",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "entry_ghost_ok",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_hq_entry",
+		"evidence_count": 33,
+		"kind": "locked_action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_secure_core_evidence",
+		"evidence_count": 33,
+		"kind": "locked_action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_memory_corridor",
+		"evidence_count": 33,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "corridor_aligned",
+		"evidence_count": 33,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_secure_core_evidence",
+		"evidence_count": 34,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 20,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "core_secured",
+		"evidence_count": 34,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "secret_lab",
+		"evidence_count": 35,
+		"kind": "move",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "xiao_kai_memory",
+		"evidence_count": 35,
+		"kind": "choice",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_scan_override_console",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_xiao_record_challenge",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "challenge_funding",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_xiao_record_challenge",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "challenge_disputed",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_rescue_hao_ran",
+		"evidence_count": 36,
+		"kind": "locked_action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_hao_ran_found",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_rescue_hao_ran",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "rescue_disconnect",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 19,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "rescue_evacuated",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 18,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "recovery_annex",
+		"evidence_count": 36,
+		"kind": "move",
+		"location": "recovery_annex"
+	},
+	{
+		"ap": 18,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_recovery_quiet",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "recovery_annex"
+	},
+	{
+		"ap": 18,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "quiet_space",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "recovery_annex"
+	},
+	{
+		"ap": 18,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_scan_recovery_route",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "recovery_annex"
+	},
+	{
+		"ap": 18,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "recovery_direct",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "recovery_annex"
+	},
+	{
+		"ap": 17,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "secret_lab",
+		"evidence_count": 36,
+		"kind": "move",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 17,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_backup_permission",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 17,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "custody_owner",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 17,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_backup_permission",
+		"evidence_count": 36,
+		"kind": "locked_action",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "echo_network_hq",
+		"evidence_count": 36,
+		"kind": "move",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_verify_public_sources",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "sources_wrong",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "end",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_verify_public_sources",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "sources_verified",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_review_public_record",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "end",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_review_public_record",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "record_confirm",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_zhao_whistleblower",
+		"evidence_count": 36,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 16,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "whistleblower_prepare",
+		"evidence_count": 36,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "memory_space",
+		"evidence_count": 36,
+		"kind": "move",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_kai_fragment_3",
+		"evidence_count": 37,
+		"kind": "locked_action",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_kai_fragment_1",
+		"evidence_count": 37,
+		"kind": "action",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_kai_fragment_2",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_kai_fragment_3",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_scan_memory_anchor",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "anchor_private",
+		"evidence_count": 38,
+		"kind": "choice",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "ch3_echo_release_choice",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 18,
+		"detail": "echo_release",
+		"evidence_count": 38,
+		"kind": "choice",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 19,
+		"detail": "overwrite_report:zhengtek_funding",
+		"evidence_count": 38,
+		"kind": "deduction",
+		"location": "memory_space"
+	},
+	{
+		"ap": 15,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "echo_ai_log:kai_memory_fragment",
+		"evidence_count": 38,
+		"kind": "deduction",
+		"location": "memory_space"
+	},
+	{
+		"ap": 14,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "echo_network_hq",
+		"evidence_count": 38,
+		"kind": "move",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 14,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ch3_review_public_record",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 14,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "record_confirm",
+		"evidence_count": 38,
+		"kind": "choice",
+		"location": "echo_network_hq"
+	},
+	{
+		"ap": 13,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "secret_lab",
+		"evidence_count": 38,
+		"kind": "move",
+		"location": "secret_lab"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "rooftop",
+		"evidence_count": 38,
+		"kind": "move",
+		"location": "rooftop"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ch3_hao_ran_aftercare",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "rooftop"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "aftercare_ask",
+		"evidence_count": 38,
+		"kind": "choice",
+		"location": "rooftop"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "aftercare_record",
+		"evidence_count": 38,
+		"kind": "choice",
+		"location": "rooftop"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ch3_hao_ran_aftercare",
+		"evidence_count": 38,
+		"kind": "locked_action",
+		"location": "rooftop"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ch3_rooftop_choice",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "rooftop"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "rooftop_public",
+		"evidence_count": 38,
+		"kind": "choice",
+		"location": "rooftop"
+	},
+	{
+		"ap": 12,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ch3_hao_ran_aftercare",
+		"evidence_count": 38,
+		"kind": "locked_action",
+		"location": "rooftop"
+	},
+	{
+		"ap": 11,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "office_epilogue",
+		"evidence_count": 38,
+		"kind": "move",
+		"location": "office_epilogue"
+	},
+	{
+		"ap": 11,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ch3_epilogue_contacts",
+		"evidence_count": 38,
+		"kind": "action",
+		"location": "office_epilogue"
+	},
+	{
+		"ap": 11,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ch3_epilogue_contacts",
+		"evidence_count": 38,
+		"kind": "locked_action",
+		"location": "office_epilogue"
+	},
+	{
+		"ap": 11,
+		"chapter": 3,
+		"deductions": 20,
+		"detail": "ending_a_justice",
+		"evidence_count": 38,
+		"kind": "ending_complete",
+		"location": "office_epilogue"
+	}
+]

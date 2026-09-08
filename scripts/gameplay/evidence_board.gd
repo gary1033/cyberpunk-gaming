@@ -1,5 +1,7 @@
 extends Control
 class_name EvidenceBoard
+
+const RuntimeAssetsScript = preload("res://scripts/core/runtime_assets.gd")
 ## EvidenceBoard - Full-screen evidence board where players connect clues to form deductions.
 ## Supports mouse drag and touch drag + pinch zoom.
 
@@ -69,6 +71,19 @@ var _drag_offset: Vector2 = Vector2.ZERO
 var _connecting_from: String = ""
 var _connection_lines: Array = []
 var _zoom_level: float = 1.0
+var _reading_eye_active := false
+
+func _process(_delta: float) -> void:
+	if not visible or _reading_eye_active == GameManager.eagle_eye_active:
+		return
+	_reading_eye_active = GameManager.eagle_eye_active
+	for evidence_id in _cards:
+		var card: PanelContainer = _cards[evidence_id]
+		var reading := card.find_child("ReadingText", true, false) as Label
+		if reading:
+			card.tooltip_text = _get_evidence_reading_text(evidence_id)
+			reading.text = _summarize_reading(card.tooltip_text)
+			reading.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6) if _reading_eye_active else Color(0.55, 0.62, 0.68))
 
 func _ready() -> void:
 	visible = false
@@ -102,6 +117,7 @@ func close() -> void:
 	board_closed.emit()
 
 func _refresh_cards() -> void:
+	_reading_eye_active = GameManager.eagle_eye_active
 	if not cards_layer:
 		return
 
@@ -160,6 +176,7 @@ func _create_card(evidence_id: String, card_size: Vector2) -> PanelContainer:
 	if reading_text != "":
 		card.tooltip_text = reading_text
 		var reading_label := Label.new()
+		reading_label.name = "ReadingText"
 		reading_label.text = _summarize_reading(reading_text)
 		reading_label.add_theme_font_size_override("font_size", 10 if not InputManager.is_mobile else 9)
 		reading_label.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6) if GameManager.eagle_eye_active else Color(0.55, 0.62, 0.68))
@@ -280,7 +297,7 @@ func _refresh_card_style(evidence_id: String) -> void:
 		card.add_theme_stylebox_override("panel", _create_card_style(Color(0.0, 0.7, 0.7)))
 
 func _create_card_style(border_color: Color) -> StyleBox:
-	var texture := _load_runtime_texture("%s/evidence_card.png" % UI_SPRITE_DIR)
+	var texture := RuntimeAssetsScript.load_texture("%s/evidence_card.png" % UI_SPRITE_DIR)
 	if texture:
 		var generated_style := StyleBoxTexture.new()
 		generated_style.texture = texture
@@ -294,21 +311,6 @@ func _create_card_style(border_color: Color) -> StyleBox:
 	style.set_border_width_all(2)
 	style.set_corner_radius_all(4)
 	return style
-
-func _load_runtime_texture(res_path: String) -> Texture2D:
-	if not FileAccess.file_exists(res_path):
-		return null
-
-	if res_path.get_extension().to_lower() == "png":
-		var image := Image.new()
-		var error := image.load(ProjectSettings.globalize_path(res_path))
-		if error == OK:
-			return ImageTexture.create_from_image(image)
-
-	if ResourceLoader.exists(res_path):
-		return load(res_path) as Texture2D
-
-	return null
 
 func _update_progress() -> void:
 	var total_valid := valid_connections.size()
@@ -403,9 +405,9 @@ func _load_evidence_icon(evidence_id: String) -> Texture2D:
 	var preferred_icon_id: String = evidence.get("preferred_icon", "")
 	if preferred_icon_id != "":
 		var preferred_icon_path := "res://assets/sprites/items/%s.png" % preferred_icon_id
-		var preferred_icon := _load_runtime_texture(preferred_icon_path)
+		var preferred_icon := RuntimeAssetsScript.load_texture(preferred_icon_path)
 		if preferred_icon:
 			return preferred_icon
 
 	var icon_path := "res://assets/sprites/items/%s.png" % fallback_icon_id
-	return _load_runtime_texture(icon_path)
+	return RuntimeAssetsScript.load_texture(icon_path)

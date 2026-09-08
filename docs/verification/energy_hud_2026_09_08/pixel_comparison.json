@@ -1,0 +1,387 @@
+{
+	"comparisons": [
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 1
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 2
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 3
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					0,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 4
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					0,
+					0,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					600,
+					600,
+					0,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 5
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					600,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					0,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 6
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					600,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					0,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 7
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					600,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					0,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 8
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					600,
+					0
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					0
+				],
+				"outside_cells": 0
+			},
+			"state": 9
+		},
+		{
+			"from_previous": {
+				"cell_changed_pixels": [
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					600
+				],
+				"outside_cells": 0
+			},
+			"from_zero": {
+				"cell_changed_pixels": [
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600,
+					600
+				],
+				"outside_cells": 0
+			},
+			"state": 10
+		}
+	],
+	"display_driver": "Windows",
+	"failures": [],
+	"frame_size": [
+		512,
+		96
+	],
+	"outside_frame_visible_pixels": 18681,
+	"states": [
+		{
+			"file": "energy_00.png",
+			"lit_segments": 0
+		},
+		{
+			"file": "energy_01.png",
+			"lit_segments": 1
+		},
+		{
+			"file": "energy_02.png",
+			"lit_segments": 2
+		},
+		{
+			"file": "energy_03.png",
+			"lit_segments": 3
+		},
+		{
+			"file": "energy_04.png",
+			"lit_segments": 4
+		},
+		{
+			"file": "energy_05.png",
+			"lit_segments": 5
+		},
+		{
+			"file": "energy_06.png",
+			"lit_segments": 6
+		},
+		{
+			"file": "energy_07.png",
+			"lit_segments": 7
+		},
+		{
+			"file": "energy_08.png",
+			"lit_segments": 8
+		},
+		{
+			"file": "energy_09.png",
+			"lit_segments": 9
+		},
+		{
+			"file": "energy_10.png",
+			"lit_segments": 10
+		}
+	]
+}

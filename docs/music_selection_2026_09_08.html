@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEON MEMORIES 配樂試聽</title>
+<style>
+body{background:#101b22;color:#e7eff2;font:17px/1.65 system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 22px}h1{font-size:28px}h2{font-size:21px;margin-bottom:6px}p{color:#b0c3cc}section{border-top:1px solid #304651;padding:18px 0}audio{width:100%}a{color:#75dfdd}label{display:block;margin-bottom:16px}
+</style>
+<h1>NEON MEMORIES · 三首配樂</h1>
+<p>Alexander Ehlers 原作，CC0 免費商用。已接入遊戲，保留完整曲目；以下場景安排依曲名、節奏與作者風格選定，尚待實際聆聽後調整。</p>
+<label>試聽音量 <input id="volume" aria-label="試聽音量" type="range" min="0" max="1" step="0.01" value="0.18"> <output id="level">18%</output></label>
+<section><h2>Welcome Mix · 110 BPM</h2><p>主選單、屋頂、事務所尾聲。作為開場與收束共用主題。</p><audio controls preload="metadata" src="../assets/audio/bgm/welcome_mix_110bpm.ogg"></audio></section>
+<section><h2>Night Club Chill · 100 BPM</h2><p>深淵酒吧、後室、記憶黑市、比特風暴網咖。讓地下交易場所共用一組配樂。</p><audio controls preload="metadata" src="../assets/audio/bgm/night_club_chill_100bpm.ogg"></audio></section>
+<section><h2>Strange Experiments · 80 BPM</h2><p>事務所、一般調查地點、實驗室與記憶空間。三首中節奏最慢，安排給閱讀與調查。</p><audio controls preload="metadata" src="../assets/audio/bgm/strange_experiments_80bpm.ogg"></audio></section>
+<p>播放一首會暫停其他曲目。遊戲內可在設定調整「背景音樂」。本次替換的是配樂，先前四段合成短音效已淘汰，未接入。</p>
+<p><a href="https://opengameart.org/content/t-t-free-cyberpunk-pack-2">作者原始素材頁</a> · <a href="../assets/audio/bgm/LICENSE.md">授權與來源</a></p>
+<script>
+const players = [...document.querySelectorAll('audio')];
+const volume = document.querySelector('#volume');
+function setVolume(){players.forEach(p=>p.volume=Number(volume.value));document.querySelector('#level').textContent=Math.round(volume.value*100)+'%'}
+volume.addEventListener('input',setVolume);setVolume();
+players.forEach(p=>p.addEventListener('play',()=>players.forEach(other=>{if(other!==p)other.pause()})));
+</script>
+</html>

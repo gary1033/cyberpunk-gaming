@@ -101,38 +101,24 @@ def score_runtime(details):
     location_base = read_file("scripts/ui/location_base.gd")
     evidence_data = read_file("scripts/data/evidence_data.gd")
     evidence_board = read_file("scripts/gameplay/evidence_board.gd")
-    energy_state_files = [
-        os.path.join(PROJECT_ROOT, "assets/sprites/ui", f"energy_bar_{i:02d}.png")
-        for i in range(1, 11)
-    ]
-    energy_geometry_path = os.path.join(PROJECT_ROOT, "assets/generated/ui/energy_bar_10_equal_slots_geometry.json")
-    energy_assets_ready = all(os.path.exists(path) for path in energy_state_files)
-    equal_slot_geometry_ready = False
-    if os.path.exists(energy_geometry_path):
-        with open(energy_geometry_path, "r", encoding="utf-8") as f:
-            energy_geometry = json.load(f)
-        equal_slot_geometry_ready = (
-            energy_geometry.get("slot_count") == 10
-            and energy_geometry.get("slot_width") == 25
-            and energy_geometry.get("slot_gap") == 3
-            and energy_geometry.get("output_size") == [512, 96]
-        )
+    energy_widget = read_file("scripts/ui/segmented_energy_bar.gd")
+    fixed_frame_ready = os.path.isfile(os.path.join(PROJECT_ROOT, "assets/sprites/ui/energy_hud_frame.png"))
 
     runtime_checks = [
         ("AugmentedVision creates runtime nodes", "_ensure_runtime_nodes" in augmented, 12),
-        ("AugmentedVision loads PNG overlay", "eagle_eye_scan_overlay_ch1.png" in augmented and "_load_runtime_texture" in augmented, 10),
+        ("AugmentedVision loads PNG overlay", "eagle_eye_scan_overlay_ch1.png" in augmented and "RuntimeAssetsScript.load_texture" in augmented, 10),
         ("AugmentedVision loads generated reticle", "eagle_eye_focus_reticle_ch1.png" in augmented and "GeneratedFocusReticle" in augmented, 8),
         ("AugmentedVision loads glitch noise", "eagle_eye_glitch_noise_ch1.png" in augmented and "GlitchNoise" in augmented, 8),
         ("AugmentedVision loads activation cut-in", "eagle_eye_activation_cutin_ch1.png" in augmented and "ActivationCutin" in augmented, 8),
         ("AugmentedVision exposes key-clue glitch pulse", "func trigger_glitch_pulse" in augmented and "ECHO SIGNATURE DESYNC" in augmented, 10),
-        ("AugmentedVision renders texture-swapped 10-state tech energy", "ENERGY_BAR_STATE_DIR" in augmented and "EAGLE_EYE_SEGMENT_COUNT := 10" in augmented and "TechEnergyTexture" in augmented and "_set_energy_state_texture" in augmented and "_create_energy_bar_material" not in augmented, 8),
-        ("AugmentedVision drains one 10-state energy segment per tick", "EAGLE_EYE_DRAIN_INTERVAL := 1.0" in augmented and "consume_eagle_eye_energy_amount(GameManager.eagle_eye_max_energy / float(EAGLE_EYE_SEGMENT_COUNT))" in augmented, 6),
-        ("AugmentedVision uses yellow-to-red equal-slot energy images", energy_assets_ready and equal_slot_geometry_ready and "_get_energy_state_index" in augmented and "floori(ratio * EAGLE_EYE_SEGMENT_COUNT)" in augmented, 6),
+        ("AugmentedVision uses one fixed generated energy chassis", "segmented_energy_bar.gd" in augmented and "TechEnergyTexture" in augmented and "energy_bar_%02d.png" not in augmented, 8),
+        ("AugmentedVision charges partial use without resettable timers", "GameManager.consume_eagle_eye_energy(delta)" in augmented and "_drain_timer" not in augmented, 6),
+        ("Energy widget renders identical cells including true zero", fixed_frame_ready and "range(SEGMENT_COUNT)" in energy_widget and "ceili(" in energy_widget and "return 0" in energy_widget, 6),
         ("AugmentedVision moves scanner reticle", "_set_reticle_target(event.position)" in augmented and "_apply_reticle_position" in augmented, 8),
         ("AugmentedVision scans hotspots under reticle", "_scan_hotspots_under_reticle" in augmented and "get_nodes_in_group(\"hotspots\")" in augmented, 8),
         ("AugmentedVision has shader fallback", "scanline.gdshader" in augmented and "_setup_shader_fallback" in augmented, 8),
         ("LocationBase installs AugmentedVision", "_setup_augmented_vision" in location_base and "augmented_vision.gd" in location_base, 12),
-        ("LocationBase swaps AP status-bar textures", "HUD_ENERGY_SEGMENT_COUNT := 10" in location_base and "HUD_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)" in location_base and "_update_ap_status_bar" in location_base and "APStatusBar" in location_base, 8),
+        ("LocationBase uses the shared fixed-frame AP widget", "segmented_energy_bar.gd" in location_base and "HUD_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)" in location_base and "_update_ap_status_bar" in location_base and "APStatusBar" in location_base, 8),
         ("Toolbar calls AugmentedVision toggle", "_augmented_vision" in location_base and ".toggle()" in location_base, 10),
         ("LocationBase supports eagle-eye background variant", "mei_ling_apartment_eye_scan_variant.png" in location_base and "_set_eagle_eye_background_active" in location_base, 10),
         ("LocationBase triggers anomaly only from key actions", "EAGLE_EYE_ANOMALY_ACTIONS" in location_base and "trigger_glitch_pulse" in location_base, 10),

@@ -8,6 +8,8 @@ static func get_evidence(evidence_id: String) -> Dictionary:
 
 static func get_all_evidence() -> Dictionary:
 	return {
+		"ghost_identity_trace": {"name": "身份轉用核對紀錄", "description": "比對採樣時間與兩台終端的簽署摘要，證明同一身份出現在矛盾的位置；不能單憑編號指認使用者。", "chapter": 2, "icon": "ghost_identity_trace"},
+		"ghost_relay_token": {"name": "幽靈的離線接應器", "description": "一次性接應的實體信物。三號維修門、排水停機後回送短脈衝。它是通行協助，不是原諒或作證同意。", "chapter": 2, "icon": "ghost_relay_token"},
 		# ============================================
 		# CHAPTER 1: 失蹤的記憶
 		# ============================================
@@ -197,37 +199,43 @@ static func get_all_evidence() -> Dictionary:
 			"name": "廢棄倉庫位置地圖",
 			"description": "標記了回聲網路在東區廢棄倉庫據點位置的地圖。",
 			"chapter": 2,
-			"icon": "map"
+			"icon": "map",
+			"eye_reading": "維修動線通往同一組接收設備。位置圖只能引路，設備底座批號才可核對是否同一批器材。"
 		},
 		"hao_ran_diary": {
 			"name": "浩然的個人日記",
 			"description": "部分加密的電子日記，記錄了浩然加入回聲網路的經過和越來越深的不安。",
 			"chapter": 2,
-			"icon": "diary"
+			"icon": "diary",
+			"eye_reading": "段落的修改時間晚於建立時間。浩然補寫了撤回申請，不能把早期加入計畫的意願當成永久同意。"
 		},
 		"trade_ledger": {
 			"name": "交易帳本副本",
 			"description": "記憶黑市的交易記錄副本，記載了大量記憶買賣的細節和金額。",
 			"chapter": 2,
-			"icon": "ledger"
+			"icon": "ledger",
+			"eye_reading": "報價時間與實際交貨時間分列。先有報價不代表交易完成，也不能由同名帳戶直接推定同一個人。"
 		},
 		"zhengtek_memo": {
 			"name": "正和科技內部備忘錄",
 			"description": "正和科技關於「回聲計畫」的內部備忘錄，提到了記憶技術的「特殊應用」。",
 			"chapter": 2,
-			"icon": "memo"
+			"icon": "memo",
+			"eye_reading": "停用欄位只指測試方案，沒有宣告停止出貨。後門滾輪保留的簽收計數可以檢查企業是否仍在移動設備。"
 		},
 		"victim_list": {
 			"name": "受害者名單",
 			"description": "被提取記憶的受害者名單，有些人標記為「已完全提取」。",
 			"chapter": 2,
-			"icon": "list"
+			"icon": "list",
+			"eye_reading": "接收代碼與姓名是分開儲存的欄位。可先核對照護去向，無須將受害者私人資料一起傳出。"
 		},
 		"comm_frequency": {
 			"name": "回聲網路通訊頻率",
 			"description": "回聲網路內部通訊的加密頻率，可用於追蹤他們的活動。",
 			"chapter": 2,
-			"icon": "frequency"
+			"icon": "frequency",
+			"eye_reading": "這是訊息抵達的通道，不是接收者已閱讀的證明。送達、覆核與實際操作應分別核對。"
 		},
 		"rusty_key": {
 			"name": "生鏽的電子鑰匙",
@@ -250,19 +258,22 @@ static func get_all_evidence() -> Dictionary:
 			"name": "覆寫技術研究報告",
 			"description": "蕭博士的記憶覆寫技術完整研究報告，詳述如何覆寫一個人的記憶和人格。",
 			"chapter": 3,
-			"icon": "report"
+			"icon": "report",
+			"eye_reading": "維持生命與記憶寫入有獨立控制欄位。停止寫入不等於直接拔除維持設備，救援仍需依照隔離程序。"
 		},
 		"zhengtek_funding": {
 			"name": "正和科技資金流向",
 			"description": "正和科技向回聲網路秘密轉移資金的文件，證明了公司的直接參與。",
 			"chapter": 3,
-			"icon": "funding"
+			"icon": "funding",
+			"eye_reading": "付款方與操作簽章並非同一欄。資金流向證明企業參與，不能替代誰在何時按下繼續的紀錄。"
 		},
 		"dr_xiao_journal": {
 			"name": "蕭博士個人日誌",
 			"description": "蕭博士的個人日誌，記錄了他從理想主義神經科學家到瘋狂研究者的心路歷程。",
 			"chapter": 3,
-			"icon": "journal"
+			"icon": "journal",
+			"eye_reading": "日誌裡的「待覆核」被重複套用。真正的接收與繼續寫入時間，要回到實驗室終端找本地簽章。"
 		},
 		"hao_ran_sos": {
 			"name": "浩然的求救訊息",
@@ -280,31 +291,36 @@ static func get_all_evidence() -> Dictionary:
 			"name": "被覆寫者前後對比",
 			"description": "數份被覆寫記憶的受害者資料，包含覆寫前後的人格對比。令人不寒而慄。",
 			"chapter": 3,
-			"icon": "profiles"
+			"icon": "profiles",
+			"eye_reading": "比較表略去了測量時間與撤回紀錄。人格分數的變動不等於本人同意，也不是治療成功的完整證明。"
 		},
 		"echo_ai_log": {
 			"name": "AI迴響對話紀錄",
 			"description": "實驗室中覺醒的人工智慧「迴響」與研究人員的對話紀錄。它聲稱擁有數千人的記憶碎片。",
 			"chapter": 3,
-			"icon": "ai_log"
+			"icon": "ai_log",
+			"eye_reading": "迴響保留匯入順序，未必保留事件發生順序。將某段記憶放在較前的位置，不能自動證明那是較早的自己。"
 		},
 		"kai_memory_fragment": {
 			"name": "凱的記憶碎片",
 			"description": "屬於凱·川崎的被篡改記憶碎片。你的過去可能不是你以為的那樣。",
 			"chapter": 3,
 			"icon": "memory_fragment",
-			"eagle_eye_only": true
+			"eagle_eye_only": true,
+			"eye_reading": "匯入標記與工單日期相差一天。可以核對時間來源，不能靠清晰度或熟悉感決定真偽。"
 		},
 		"authorization_order": {
 			"name": "正和科技授權令",
 			"description": "正和科技高層簽署的「回聲計畫」正式授權令，蓋有最高執行長印章。",
 			"chapter": 3,
-			"icon": "authorization"
+			"icon": "authorization",
+			"eye_reading": "企業層級授權與個人同意分屬不同簽章。上級允許計畫執行，不代表能覆蓋當事人的撤回。"
 		},
 		"dr_xiao_comms": {
 			"name": "蕭博士與高層通訊",
 			"description": "蕭博士與正和科技高層的加密通訊紀錄，討論記憶覆寫技術的「目標名單」。",
 			"chapter": 3,
-			"icon": "comms"
+			"icon": "comms",
+			"eye_reading": "訊息標為已送達後，仍有一段人工覆核空窗。市政紙本回執、終端接收與本地簽章能拼成三段時間線。"
 		},
 	}

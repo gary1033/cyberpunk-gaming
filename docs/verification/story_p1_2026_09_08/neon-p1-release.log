@@ -1,0 +1,1012 @@
+============================================================
+NEON MEMORIES — Data Integrity Tests
+============================================================
+
+[1] SceneManager scene paths
+  [OK] Scene exists: res://scenes/main_menu.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/detective_office.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/mei_ling_apartment.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/abyss_bar.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/hao_ran_workshop.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/east_district_street.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/old_city_police_outpost.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/dr_chen_clinic.tscn
+  [OK] Scene exists: res://scenes/locations/chapter1/abyss_bar_backroom.tscn
+  [OK] Scene exists: res://scenes/locations/chapter2/memory_black_market.tscn
+  [OK] Scene exists: res://scenes/locations/chapter2/abandoned_warehouse.tscn
+  [OK] Scene exists: res://scenes/locations/chapter2/zhengtek_exterior.tscn
+  [OK] Scene exists: res://scenes/locations/chapter2/sewer_passage.tscn
+  [OK] Scene exists: res://scenes/locations/chapter2/bitstorm_cafe.tscn
+  [OK] Scene exists: res://scenes/locations/chapter3/echo_network_hq.tscn
+  [OK] Scene exists: res://scenes/locations/chapter3/secret_lab.tscn
+  [OK] Scene exists: res://scenes/locations/chapter3/memory_space.tscn
+  [OK] Scene exists: res://scenes/locations/chapter3/rooftop.tscn
+  [OK] Scene exists: res://scenes/locations/chapter3/office_epilogue.tscn
+
+[2] CaseData location connections
+  [OK] Connection target valid: abandoned_warehouse
+  [OK] Connection target valid: abyss_bar
+  [OK] Connection target valid: abyss_bar_backroom
+  [OK] Connection target valid: bitstorm_cafe
+  [OK] Connection target valid: detective_office
+  [OK] Connection target valid: dr_chen_clinic
+  [OK] Connection target valid: east_district_street
+  [OK] Connection target valid: echo_network_hq
+  [OK] Connection target valid: hao_ran_workshop
+  [OK] Connection target valid: mei_ling_apartment
+  [OK] Connection target valid: memory_black_market
+  [OK] Connection target valid: memory_space
+  [OK] Connection target valid: office_epilogue
+  [OK] Connection target valid: old_city_police_outpost
+  [OK] Connection target valid: rooftop
+  [OK] Connection target valid: secret_lab
+  [OK] Connection target valid: sewer_passage
+  [OK] Connection target valid: zhengtek_exterior
+
+[3] CaseData initial_dialogue → DialogueData
+  [OK] Dialogue exists: ch1_mei_ling_intro
+  [OK] Dialogue exists: ch1_abyss_bar_enter
+  [OK] Dialogue exists: ch1_workshop_enter
+  [OK] Dialogue exists: ch1_old_city_police_outpost_enter
+  [OK] Dialogue exists: ch1_dr_chen_encounter
+  [OK] Dialogue exists: ch1_abyss_bar_backroom_enter
+  [OK] Dialogue exists: ch2_opening
+  [OK] Dialogue exists: ch2_memory_market_enter
+  [OK] Dialogue exists: ch2_warehouse_explore
+  [OK] Dialogue exists: ch2_zhao_ming_meeting
+  [OK] Dialogue exists: ch3_opening
+  [OK] Dialogue exists: ch3_dr_xiao_confrontation
+  [OK] Dialogue exists: ch3_echo_ai
+  [OK] Dialogue exists: ch3_epilogue_family
+
+[4] DialogueData label jump targets
+  [OK] All 91 jump targets stay within their dialogue
+
+[5] Evidence IDs consistency
+  [OK] Found 45 evidence IDs
+  [OK] No duplicate evidence IDs
+
+[6] Character portrait files
+  [OK] Portrait PNG: kai_default.png
+  [OK] Portrait PNG: kai_serious.png
+  [OK] Portrait PNG: kai_surprised.png
+  [OK] Portrait PNG: kai_thoughtful.png
+  [OK] Portrait PNG: mei_ling_default.png
+  [OK] Portrait PNG: mei_ling_worried.png
+  [OK] Portrait PNG: mei_ling_nervous.png
+  [OK] Portrait PNG: mei_ling_relieved.png
+  [OK] Portrait PNG: mei_ling_frightened.png
+  [OK] Portrait PNG: ajie_default.png
+  [OK] Portrait PNG: ajie_suspicious.png
+  [OK] Portrait PNG: ajie_nervous.png
+  [OK] Portrait PNG: ajie_angry.png
+  [OK] Portrait PNG: ajie_cooperative.png
+  [OK] Portrait PNG: snake_default.png
+  [OK] Portrait PNG: snake_amused.png
+  [OK] Portrait PNG: snake_serious.png
+  [OK] Portrait PNG: snake_threatening.png
+  [OK] Portrait PNG: dr_chen_default.png
+  [OK] Portrait PNG: dr_chen_nervous.png
+  [OK] Portrait PNG: dr_chen_frightened.png
+  [OK] Portrait PNG: dr_chen_relieved.png
+  [OK] Portrait PNG: ghost_default.png
+  [OK] Portrait PNG: ghost_hostile.png
+  [OK] Portrait PNG: ghost_cautious.png
+  [OK] Portrait PNG: ghost_revealed.png
+  [OK] Portrait PNG: zhao_ming_default.png
+  [OK] Portrait PNG: zhao_ming_conflicted.png
+  [OK] Portrait PNG: zhao_ming_nervous.png
+  [OK] Portrait PNG: zhao_ming_determined.png
+  [OK] Portrait PNG: zhao_ming_sincere.png
+  [OK] Portrait PNG: zhao_ming_sad.png
+  [OK] Portrait PNG: kid_default.png
+  [OK] Portrait PNG: kid_excited.png
+  [OK] Portrait PNG: kid_serious.png
+  [OK] Portrait PNG: kid_angry.png
+  [OK] Portrait PNG: mask_merchant_default.png
+  [OK] Portrait PNG: mask_merchant_interested.png
+  [OK] Portrait PNG: mask_merchant_suspicious.png
+  [OK] Portrait PNG: dr_xiao_default.png
+  [OK] Portrait PNG: dr_xiao_calm.png
+  [OK] Portrait PNG: dr_xiao_intense.png
+  [OK] Portrait PNG: dr_xiao_philosophical.png
+  [OK] Portrait PNG: dr_xiao_amused.png
+  [OK] Portrait PNG: dr_xiao_cracking.png
+  [OK] Portrait PNG: hao_ran_default.png
+  [OK] Portrait PNG: hao_ran_dazed.png
+  [OK] Portrait PNG: hao_ran_confused.png
+  [OK] Portrait PNG: hao_ran_hopeful.png
+  [OK] Portrait PNG: echo_ai_default.png
+
+[6b] Generated PNG character portraits
+  [OK] Generated PNG: kai_default.png
+  [OK] Runtime portrait matches generated source: kai_default.png (1024x1536)
+  [OK] Generated PNG: kai_serious.png
+  [OK] Runtime portrait matches generated source: kai_serious.png (1024x1536)
+  [OK] Generated PNG: kai_surprised.png
+  [OK] Runtime portrait matches generated source: kai_surprised.png (1024x1536)
+  [OK] Generated PNG: kai_thoughtful.png
+  [OK] Runtime portrait matches generated source: kai_thoughtful.png (1024x1536)
+  [OK] Generated PNG: mei_ling_default.png
+  [OK] Runtime portrait matches generated source: mei_ling_default.png (1024x1536)
+  [OK] Generated PNG: mei_ling_worried.png
+  [OK] Runtime portrait matches generated source: mei_ling_worried.png (1024x1536)
+  [OK] Generated PNG: mei_ling_nervous.png
+  [OK] Runtime portrait matches generated source: mei_ling_nervous.png (1024x1536)
+  [OK] Generated PNG: mei_ling_relieved.png
+  [OK] Runtime portrait matches generated source: mei_ling_relieved.png (1024x1536)
+  [OK] Generated PNG: mei_ling_frightened.png
+  [OK] Runtime portrait matches generated source: mei_ling_frightened.png (1024x1536)
+  [OK] Generated PNG: ajie_default.png
+  [OK] Runtime portrait matches generated source: ajie_default.png (1024x1536)
+  [OK] Generated PNG: ajie_suspicious.png
+  [OK] Runtime portrait matches generated source: ajie_suspicious.png (1024x1536)
+  [OK] Generated PNG: ajie_nervous.png
+  [OK] Runtime portrait matches generated source: ajie_nervous.png (1024x1536)
+  [OK] Generated PNG: ajie_angry.png
+  [OK] Runtime portrait matches generated source: ajie_angry.png (1024x1536)
+  [OK] Generated PNG: ajie_cooperative.png
+  [OK] Runtime portrait matches generated source: ajie_cooperative.png (1024x1536)
+  [OK] Generated PNG: snake_default.png
+  [OK] Runtime portrait matches generated source: snake_default.png (1024x1536)
+  [OK] Generated PNG: snake_amused.png
+  [OK] Runtime portrait matches generated source: snake_amused.png (1024x1536)
+  [OK] Generated PNG: snake_serious.png
+  [OK] Runtime portrait matches generated source: snake_serious.png (1024x1536)
+  [OK] Generated PNG: snake_threatening.png
+  [OK] Runtime portrait matches generated source: snake_threatening.png (1024x1536)
+  [OK] Generated PNG: dr_chen_default.png
+  [OK] Runtime portrait matches generated source: dr_chen_default.png (1024x1536)
+  [OK] Generated PNG: dr_chen_nervous.png
+  [OK] Runtime portrait matches generated source: dr_chen_nervous.png (1024x1536)
+  [OK] Generated PNG: dr_chen_frightened.png
+  [OK] Runtime portrait matches generated source: dr_chen_frightened.png (1024x1536)
+  [OK] Generated PNG: dr_chen_relieved.png
+  [OK] Runtime portrait matches generated source: dr_chen_relieved.png (1024x1536)
+  [OK] Generated PNG: ghost_default.png
+  [OK] Runtime portrait matches generated source: ghost_default.png (1024x1536)
+  [OK] Generated PNG: ghost_hostile.png
+  [OK] Runtime portrait matches generated source: ghost_hostile.png (1024x1536)
+  [OK] Generated PNG: ghost_cautious.png
+  [OK] Runtime portrait matches generated source: ghost_cautious.png (1024x1536)
+  [OK] Generated PNG: ghost_revealed.png
+  [OK] Runtime portrait matches generated source: ghost_revealed.png (1024x1536)
+  [OK] Generated PNG: zhao_ming_default.png
+  [OK] Runtime portrait matches generated source: zhao_ming_default.png (1024x1536)
+  [OK] Generated PNG: zhao_ming_conflicted.png
+  [OK] Runtime portrait matches generated source: zhao_ming_conflicted.png (1024x1536)
+  [OK] Generated PNG: zhao_ming_nervous.png
+  [OK] Runtime portrait matches generated source: zhao_ming_nervous.png (1024x1536)
+  [OK] Generated PNG: zhao_ming_determined.png
+  [OK] Runtime portrait matches generated source: zhao_ming_determined.png (1024x1536)
+  [OK] Generated PNG: zhao_ming_sincere.png
+  [OK] Runtime portrait matches generated source: zhao_ming_sincere.png (1024x1536)
+  [OK] Generated PNG: zhao_ming_sad.png
+  [OK] Runtime portrait matches generated source: zhao_ming_sad.png (1024x1536)
+  [OK] Generated PNG: kid_default.png
+  [OK] Runtime portrait matches generated source: kid_default.png (1024x1536)
+  [OK] Generated PNG: kid_excited.png
+  [OK] Runtime portrait matches generated source: kid_excited.png (1024x1536)
+  [OK] Generated PNG: kid_serious.png
+  [OK] Runtime portrait matches generated source: kid_serious.png (1024x1536)
+  [OK] Generated PNG: kid_angry.png
+  [OK] Runtime portrait matches generated source: kid_angry.png (1024x1536)
+  [OK] Generated PNG: mask_merchant_default.png
+  [OK] Runtime portrait matches generated source: mask_merchant_default.png (1024x1536)
+  [OK] Generated PNG: mask_merchant_interested.png
+  [OK] Runtime portrait matches generated source: mask_merchant_interested.png (1024x1536)
+  [OK] Generated PNG: mask_merchant_suspicious.png
+  [OK] Runtime portrait matches generated source: mask_merchant_suspicious.png (1024x1536)
+  [OK] Generated PNG: dr_xiao_default.png
+  [OK] Runtime portrait matches generated source: dr_xiao_default.png (1024x1536)
+  [OK] Generated PNG: dr_xiao_calm.png
+  [OK] Runtime portrait matches generated source: dr_xiao_calm.png (1024x1536)
+  [OK] Generated PNG: dr_xiao_intense.png
+  [OK] Runtime portrait matches generated source: dr_xiao_intense.png (1024x1536)
+  [OK] Generated PNG: dr_xiao_philosophical.png
+  [OK] Runtime portrait matches generated source: dr_xiao_philosophical.png (1024x1536)
+  [OK] Generated PNG: dr_xiao_amused.png
+  [OK] Runtime portrait matches generated source: dr_xiao_amused.png (1024x1536)
+  [OK] Generated PNG: dr_xiao_cracking.png
+  [OK] Runtime portrait matches generated source: dr_xiao_cracking.png (1024x1536)
+  [OK] Generated PNG: hao_ran_default.png
+  [OK] Runtime portrait matches generated source: hao_ran_default.png (1024x1536)
+  [OK] Generated PNG: hao_ran_dazed.png
+  [OK] Runtime portrait matches generated source: hao_ran_dazed.png (1024x1536)
+  [OK] Generated PNG: hao_ran_confused.png
+  [OK] Runtime portrait matches generated source: hao_ran_confused.png (1024x1536)
+  [OK] Generated PNG: hao_ran_hopeful.png
+  [OK] Runtime portrait matches generated source: hao_ran_hopeful.png (1024x1536)
+  [OK] Generated PNG: echo_ai_default.png
+  [OK] Runtime portrait matches generated source: echo_ai_default.png (1024x1536)
+  [OK] Generated PNG portraits cover all CharacterData moods
+  [OK] Runtime character portraits mirror generated high-resolution sources
+
+[Portraits] Unified size and actual transparency
+  [OK] Portrait has real alpha and unified dimensions: ajie_angry.png
+  [OK] Portrait has real alpha and unified dimensions: ajie_cooperative.png
+  [OK] Portrait has real alpha and unified dimensions: ajie_default.png
+  [OK] Portrait has real alpha and unified dimensions: ajie_nervous.png
+  [OK] Portrait has real alpha and unified dimensions: ajie_suspicious.png
+  [OK] Portrait has real alpha and unified dimensions: dr_chen_default.png
+  [OK] Portrait has real alpha and unified dimensions: dr_chen_frightened.png
+  [OK] Portrait has real alpha and unified dimensions: dr_chen_nervous.png
+  [OK] Portrait has real alpha and unified dimensions: dr_chen_relieved.png
+  [OK] Portrait has real alpha and unified dimensions: dr_xiao_amused.png
+  [OK] Portrait has real alpha and unified dimensions: dr_xiao_calm.png
+  [OK] Portrait has real alpha and unified dimensions: dr_xiao_cracking.png
+  [OK] Portrait has real alpha and unified dimensions: dr_xiao_default.png
+  [OK] Portrait has real alpha and unified dimensions: dr_xiao_intense.png
+  [OK] Portrait has real alpha and unified dimensions: dr_xiao_philosophical.png
+  [OK] Portrait has real alpha and unified dimensions: echo_ai_default.png
+  [OK] Portrait has real alpha and unified dimensions: ghost_cautious.png
+  [OK] Portrait has real alpha and unified dimensions: ghost_default.png
+  [OK] Portrait has real alpha and unified dimensions: ghost_hostile.png
+  [OK] Portrait has real alpha and unified dimensions: ghost_revealed.png
+  [OK] Portrait has real alpha and unified dimensions: hao_ran_confused.png
+  [OK] Portrait has real alpha and unified dimensions: hao_ran_dazed.png
+  [OK] Portrait has real alpha and unified dimensions: hao_ran_default.png
+  [OK] Portrait has real alpha and unified dimensions: hao_ran_hopeful.png
+  [OK] Portrait has real alpha and unified dimensions: kai_default.png
+  [OK] Portrait has real alpha and unified dimensions: kai_serious.png
+  [OK] Portrait has real alpha and unified dimensions: kai_surprised.png
+  [OK] Portrait has real alpha and unified dimensions: kai_thoughtful.png
+  [OK] Portrait has real alpha and unified dimensions: kid_angry.png
+  [OK] Portrait has real alpha and unified dimensions: kid_default.png
+  [OK] Portrait has real alpha and unified dimensions: kid_excited.png
+  [OK] Portrait has real alpha and unified dimensions: kid_serious.png
+  [OK] Portrait has real alpha and unified dimensions: mask_merchant_default.png
+  [OK] Portrait has real alpha and unified dimensions: mask_merchant_interested.png
+  [OK] Portrait has real alpha and unified dimensions: mask_merchant_suspicious.png
+  [OK] Portrait has real alpha and unified dimensions: mei_ling_default.png
+  [OK] Portrait has real alpha and unified dimensions: mei_ling_frightened.png
+  [OK] Portrait has real alpha and unified dimensions: mei_ling_nervous.png
+  [OK] Portrait has real alpha and unified dimensions: mei_ling_relieved.png
+  [OK] Portrait has real alpha and unified dimensions: mei_ling_worried.png
+  [OK] Portrait has real alpha and unified dimensions: snake_amused.png
+  [OK] Portrait has real alpha and unified dimensions: snake_default.png
+  [OK] Portrait has real alpha and unified dimensions: snake_serious.png
+  [OK] Portrait has real alpha and unified dimensions: snake_threatening.png
+  [OK] Portrait has real alpha and unified dimensions: zhao_ming_conflicted.png
+  [OK] Portrait has real alpha and unified dimensions: zhao_ming_default.png
+  [OK] Portrait has real alpha and unified dimensions: zhao_ming_determined.png
+  [OK] Portrait has real alpha and unified dimensions: zhao_ming_nervous.png
+  [OK] Portrait has real alpha and unified dimensions: zhao_ming_sad.png
+  [OK] Portrait has real alpha and unified dimensions: zhao_ming_sincere.png
+  [OK] Portrait converter preserves green materials, alpha, and source images
+
+[6c] Runtime portrait loader supports PNG
+  [OK] scripts/gameplay/dialogue_system.gd: loads PNG portraits without SVG fallback
+  [OK] Narrator entries fall back to Kai portrait at startup
+  [OK] Dialogue portraits have explicit source-frame bounds
+
+[7] Location background PNG files
+  [OK] Background PNG: detective_office.png
+  [OK] Background PNG: mei_ling_apartment.png
+  [OK] Background PNG: abyss_bar.png
+  [OK] Background PNG: hao_ran_workshop.png
+  [OK] Background PNG: east_district_street.png
+  [OK] Background PNG: old_city_police_outpost.png
+  [OK] Background PNG: dr_chen_clinic.png
+  [OK] Background PNG: abyss_bar_backroom.png
+  [OK] Background PNG: memory_black_market.png
+  [OK] Background PNG: abandoned_warehouse.png
+  [OK] Background PNG: zhengtek_exterior.png
+  [OK] Background PNG: sewer_passage.png
+  [OK] Background PNG: bitstorm_cafe.png
+  [OK] Background PNG: echo_network_hq.png
+  [OK] Background PNG: secret_lab.png
+  [OK] Background PNG: memory_space.png
+  [OK] Background PNG: rooftop.png
+  [OK] Background PNG: office_epilogue.png
+
+[8] Evidence icon PNG files
+  [OK] Icon PNG: ghost_identity_trace.png
+  [OK] Icon PNG: ghost_relay_token.png
+  [OK] Icon PNG: commission_letter.png
+  [OK] Icon PNG: work_id.png
+  [OK] Icon PNG: receipt.png
+  [OK] Icon PNG: data_chip.png
+  [OK] Icon PNG: photo.png
+  [OK] Icon PNG: log.png
+  [OK] Icon PNG: recording.png
+  [OK] Icon PNG: schedule.png
+  [OK] Icon PNG: memory_capsule.png
+  [OK] Icon PNG: memo.png
+  [OK] Icon PNG: memory_capsule.png
+  [OK] Icon PNG: log.png
+  [OK] Icon PNG: memory_capsule.png
+  [OK] Icon PNG: log.png
+  [OK] Icon PNG: eleven_pm_call_log.png
+  [OK] Icon PNG: rejected_missing_person_report.png
+  [OK] Icon PNG: street_camera_gap.png
+  [OK] Icon PNG: masked_client_receipt.png
+  [OK] Icon PNG: clinic_eye_warning_log.png
+  [OK] Icon PNG: old_city_queue_ticket.png
+  [OK] Icon PNG: clinic_anonymous_case_note.png
+  [OK] Icon PNG: abyss_surveillance_delay_log.png
+  [OK] Icon PNG: black_market_entry_hint.png
+  [OK] Icon PNG: symbol.png
+  [OK] Icon PNG: memory_capsule.png
+  [OK] Icon PNG: map.png
+  [OK] Icon PNG: diary.png
+  [OK] Icon PNG: ledger.png
+  [OK] Icon PNG: memo.png
+  [OK] Icon PNG: list.png
+  [OK] Icon PNG: frequency.png
+  [OK] Icon PNG: key.png
+  [OK] Icon PNG: id_chip.png
+  [OK] Icon PNG: report.png
+  [OK] Icon PNG: funding.png
+  [OK] Icon PNG: journal.png
+  [OK] Icon PNG: sos.png
+  [OK] Icon PNG: keycard.png
+  [OK] Icon PNG: profiles.png
+  [OK] Icon PNG: ai_log.png
+  [OK] Icon PNG: memory_fragment.png
+  [OK] Icon PNG: authorization.png
+  [OK] Icon PNG: comms.png
+
+[8b] No legacy SVG assets
+  [OK] No SVG files remain under assets/
+
+[9] Project structure
+  [OK] File exists: project.godot
+  [OK] File exists: CLAUDE.md
+  [OK] File exists: scripts/core/game_manager.gd
+  [OK] File exists: scripts/core/scene_manager.gd
+  [OK] File exists: scripts/core/save_manager.gd
+  [OK] File exists: scripts/core/audio_manager.gd
+  [OK] File exists: scripts/core/input_manager.gd
+  [OK] File exists: scripts/data/dialogue_data.gd
+  [OK] File exists: scripts/data/evidence_data.gd
+  [OK] File exists: scripts/data/case_data.gd
+  [OK] File exists: scripts/data/character_data.gd
+  [OK] File exists: scripts/gameplay/dialogue_system.gd
+  [OK] File exists: scripts/gameplay/evidence_board.gd
+  [OK] File exists: scripts/gameplay/augmented_vision.gd
+  [OK] File exists: scripts/gameplay/hotspot.gd
+  [OK] Directory exists: scenes
+  [OK] Directory exists: assets/shaders
+  [OK] Directory exists: assets/sprites/characters
+  [OK] Directory exists: assets/sprites/locations
+  [OK] Directory exists: assets/sprites/items
+
+[10] GDScript quality checks
+  [OK] No debug print statements found
+  [OK] Scanned 17 GDScript files
+
+[11] No invalid UIDs in .tscn files
+  [OK] No invalid string-based UIDs in .tscn files
+
+[12] class_name placement (should be near top of file)
+  [OK] class_name at line 3 in scripts\data\case_data.gd
+  [OK] class_name at line 3 in scripts\data\character_data.gd
+  [OK] class_name at line 3 in scripts\data\dialogue_data.gd
+  [OK] class_name at line 3 in scripts\data\evidence_data.gd
+  [OK] class_name at line 2 in scripts\gameplay\evidence_board.gd
+  [OK] class_name appears before signal declarations in scripts\gameplay\evidence_board.gd
+  [OK] class_name at line 5 in scripts\gameplay\hotspot.gd
+  [OK] class_name appears before signal declarations in scripts\gameplay\hotspot.gd
+
+[13] Scene transition coroutine ownership
+  [OK] Transition owned by persistent autoload in scripts\core\game_manager.gd:156
+  [OK] Transition owned by persistent autoload in scripts\ui\location_base.gd:703
+  [OK] Transition owned by persistent autoload in scripts\ui\location_base.gd:814
+  [OK] Transition owned by persistent autoload in scripts\ui\main_menu.gd:149
+  [OK] Transition owned by persistent autoload in scripts\ui\main_menu.gd:163
+
+[14] change_scene_to_file() error handling
+  [OK] change_scene_to_file result checked at line 124
+
+[15] Lambda loop variable capture safety
+  [OK] No unsafe lambda loop variable captures detected
+
+[16] Buttons disabled during scene transitions
+  [OK] _on_new_game disables buttons before transition
+  [OK] _on_continue disables buttons before transition
+
+[16b] Main menu popup layout bounds
+  [OK] Main menu popups use CenterContainer for viewport-safe centering
+  [OK] Main menu popup panels are not anchored to PRESET_CENTER
+  [OK] Main menu popups clamp scroll height to visible viewport
+  [OK] Controls popup has a wider panel and scrollbar-safe right padding
+  [OK] Controls popup key labels have a stable desktop width and compact mobile layout
+  [OK] Main menu popups can be dismissed with Esc
+  [OK] Controls and settings popups show Esc dismissal hints
+  [OK] Main menu options use deeper cyberpunk button frames
+
+[17] No @onready with bare $ in class_name scripts
+  [OK] scripts\data\case_data.gd: No unsafe @onready patterns
+  [OK] scripts\data\character_data.gd: No unsafe @onready patterns
+  [OK] scripts\data\dialogue_data.gd: No unsafe @onready patterns
+  [OK] scripts\data\evidence_data.gd: No unsafe @onready patterns
+  [OK] scripts\gameplay\evidence_board.gd: No unsafe @onready patterns
+  [OK] scripts\gameplay\hotspot.gd: No unsafe @onready patterns
+
+[18] Null safety in class_name script _ready() methods
+  [OK] scripts/gameplay/evidence_board.gd: Uses safe node resolution
+
+[19] DialogueSystem instantiated in LocationBase
+  [OK] LocationBase loads dialogue_system.gd script
+  [OK] DialogueSystem added to 'dialogue_system' group
+  [OK] _trigger_initial_dialogue calls start_dialogue
+  [OK] Initial dialogue start call is nested under ds guard
+
+[20] class_name references use load() in location_base
+  [OK] EvidenceBoard loaded via load() (no direct class_name reference)
+  [OK] Hotspot accessed via load() (no direct class_name reference)
+  [OK] LocationBase data access uses preloaded scripts, not direct class_name identifiers
+
+[21] Autoload singletons set process_mode = ALWAYS
+  [OK] scripts/core/game_manager.gd: process_mode = ALWAYS set
+  [OK] scripts/core/scene_manager.gd: process_mode = ALWAYS set
+  [OK] scripts/core/input_manager.gd: process_mode = ALWAYS set
+
+[22] Dialogue flags update ending decisions
+  [OK] set_dialogue_flag mirrors matching boolean decisions
+  [OK] DialogueData no longer uses legacy trusted_zhao flag
+  [OK] Zhao trust choice sets trusted_zhao_ming decision flag
+  [OK] Kid deal unlocks market gate when fake ID evidence is granted
+  [OK] Dialogue entries and choices can update non-boolean ending decisions
+  [OK] Echo AI memory choice records memory_attitude
+  [OK] LocationBase can trigger calculated ending story actions
+
+[23] image2 asset prompt manifests
+  [OK] assets/generated/prompts/image2_backgrounds.jsonl: 15 prompt records
+  [OK] Prompt ready: detective_office
+  [OK] Prompt ready: mei_ling_apartment
+  [OK] Prompt ready: abyss_bar
+  [OK] Prompt ready: hao_ran_workshop
+  [OK] Prompt ready: east_district_street
+  [OK] Prompt ready: bitstorm_cafe
+  [OK] Prompt ready: memory_black_market
+  [OK] Prompt ready: abandoned_warehouse
+  [OK] Prompt ready: zhengtek_exterior
+  [OK] Prompt ready: sewer_passage
+  [OK] Prompt ready: echo_network_hq
+  [OK] Prompt ready: secret_lab
+  [OK] Prompt ready: memory_space
+  [OK] Prompt ready: rooftop
+  [OK] Prompt ready: office_epilogue
+  [OK] assets/generated/prompts/image2_items.jsonl: 28 prompt records
+  [OK] Prompt ready: commission_letter
+  [OK] Prompt ready: work_id
+  [OK] Prompt ready: abyss_receipt
+  [OK] Prompt ready: data_chip
+  [OK] Prompt ready: stranger_photo
+  [OK] Prompt ready: memory_device_log
+  [OK] Prompt ready: comm_recording
+  [OK] Prompt ready: dr_chen_schedule
+  [OK] Prompt ready: echo_symbol
+  [OK] Prompt ready: memory_sample
+  [OK] Prompt ready: warehouse_map
+  [OK] Prompt ready: hao_ran_diary
+  [OK] Prompt ready: trade_ledger
+  [OK] Prompt ready: zhengtek_memo
+  [OK] Prompt ready: victim_list
+  [OK] Prompt ready: comm_frequency
+  [OK] Prompt ready: rusty_key
+  [OK] Prompt ready: fake_id_chip
+  [OK] Prompt ready: overwrite_report
+  [OK] Prompt ready: zhengtek_funding
+  [OK] Prompt ready: dr_xiao_journal
+  [OK] Prompt ready: hao_ran_sos
+  [OK] Prompt ready: lab_keycard
+  [OK] Prompt ready: overwritten_profiles
+  [OK] Prompt ready: echo_ai_log
+  [OK] Prompt ready: kai_memory_fragment
+  [OK] Prompt ready: authorization_order
+  [OK] Prompt ready: dr_xiao_comms
+  [OK] assets/generated/prompts/image2_ui.jsonl: 4 prompt records
+  [OK] Prompt ready: dialogue_panel
+  [OK] Prompt ready: evidence_card
+  [OK] Prompt ready: popup_panel
+  [OK] Prompt ready: toolbar_buttons
+
+[24] Generated environment, item, and UI PNG assets
+  [OK] Generated PNG ready: assets/sprites/locations/detective_office.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/mei_ling_apartment.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/abyss_bar.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/hao_ran_workshop.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/east_district_street.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/bitstorm_cafe.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/memory_black_market.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/abandoned_warehouse.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/zhengtek_exterior.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/sewer_passage.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/echo_network_hq.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/secret_lab.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/memory_space.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/rooftop.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/locations/office_epilogue.png (1280x720)
+  [OK] Generated PNG ready: assets/sprites/items/commission_letter.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/work_id.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/receipt.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/data_chip.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/photo.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/log.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/recording.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/schedule.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/symbol.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/memory_capsule.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/map.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/diary.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/ledger.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/memo.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/list.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/frequency.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/key.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/id_chip.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/report.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/funding.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/journal.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/sos.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/keycard.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/profiles.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/ai_log.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/memory_fragment.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/authorization.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/items/comms.png (512x512)
+  [OK] Generated PNG ready: assets/sprites/ui/dialogue_panel.png (1280x240)
+  [OK] Generated PNG ready: assets/sprites/ui/evidence_card.png (512x384)
+  [OK] Generated PNG ready: assets/sprites/ui/popup_panel.png (768x768)
+  [OK] Generated PNG ready: assets/sprites/ui/toolbar_buttons.png (1024x256)
+
+[25] Runtime loaders support generated PNG background/item/UI assets
+  [OK] LocationBase loads generated PNG backgrounds without SVG fallback
+  [OK] EvidenceBoard loads generated PNG item icons without SVG fallback
+  [OK] LocationBase uses generated dialogue, popup, and toolbar UI PNGs
+  [OK] EvidenceBoard uses generated evidence card UI PNG
+  [OK] LocationBase can load PNG textures without .import sidecars
+  [OK] EvidenceBoard can load PNG textures without .import sidecars
+  [OK] DialogueSystem can load PNG textures without .import sidecars
+
+[26] Image2 outputs are connected to runtime sprites
+  [OK] Generated backgrounds image connected: abandoned_warehouse.png
+  [OK] Generated backgrounds image connected: abyss_bar.png
+  [OK] Generated backgrounds image connected: abyss_bar_backroom.png
+  [OK] Generated backgrounds image connected: bitstorm_cafe.png
+  [OK] Generated backgrounds image connected: detective_office.png
+  [OK] Generated backgrounds image connected: dr_chen_clinic.png
+  [OK] Generated backgrounds image connected: east_district_street.png
+  [OK] Generated backgrounds image connected: east_district_street_camera_gap_variant.png
+  [OK] Generated backgrounds image connected: echo_network_hq.png
+  [OK] Generated backgrounds image connected: hao_ran_workshop.png
+  [OK] Generated backgrounds image connected: hao_ran_workshop_three_evidence_variant.png
+  [OK] Generated backgrounds image connected: mei_ling_apartment.png
+  [OK] Generated backgrounds image connected: mei_ling_apartment_eye_scan_variant.png
+  [OK] Generated backgrounds image connected: mei_ling_apartment_family_memory_variant.png
+  [OK] Generated backgrounds image connected: mei_ling_apartment_memory_trace.png
+  [OK] Generated backgrounds image connected: memory_black_market.png
+  [OK] Generated backgrounds image connected: memory_space.png
+  [OK] Generated backgrounds image connected: office_epilogue.png
+  [OK] Generated backgrounds image connected: old_city_police_outpost.png
+  [OK] Generated backgrounds image connected: rooftop.png
+  [OK] Generated backgrounds image connected: secret_lab.png
+  [OK] Generated backgrounds image connected: sewer_passage.png
+  [OK] Generated backgrounds image connected: zhengtek_exterior.png
+  [OK] Generated items image connected: ch1_abyss_surveillance_delay_log.png
+  [OK] Generated items image connected: ch1_ai_log.png
+  [OK] Generated items image connected: ch1_authorization.png
+  [OK] Generated items image connected: ch1_black_market_entry_hint.png
+  [OK] Generated items image connected: ch1_broken_memory_player.png
+  [OK] Generated items image connected: ch1_clinic_anonymous_case_note.png
+  [OK] Generated items image connected: ch1_clinic_eye_warning_log.png
+  [OK] Generated items image connected: ch1_commission_letter.png
+  [OK] Generated items image connected: ch1_comms.png
+  [OK] Generated items image connected: ch1_data_chip.png
+  [OK] Generated items image connected: ch1_diary.png
+  [OK] Generated items image connected: ch1_eleven_pm_call_log.png
+  [OK] Generated items image connected: ch1_family_memory_clip.png
+  [OK] Generated items image connected: ch1_frequency.png
+  [OK] Generated items image connected: ch1_funding.png
+  [OK] Generated items image connected: ch1_hao_ran_drawer_note.png
+  [OK] Generated items image connected: ch1_id_chip.png
+  [OK] Generated items image connected: ch1_journal.png
+  [OK] Generated items image connected: ch1_kai_eye_glitch_log.png
+  [OK] Generated items image connected: ch1_key.png
+  [OK] Generated items image connected: ch1_keycard.png
+  [OK] Generated items image connected: ch1_ledger.png
+  [OK] Generated items image connected: ch1_list.png
+  [OK] Generated items image connected: ch1_log.png
+  [OK] Generated items image connected: ch1_map.png
+  [OK] Generated items image connected: ch1_masked_client_receipt.png
+  [OK] Generated items image connected: ch1_memo.png
+  [OK] Generated items image connected: ch1_memory_capsule.png
+  [OK] Generated items image connected: ch1_memory_fragment.png
+  [OK] Generated items image connected: ch1_old_city_queue_ticket.png
+  [OK] Generated items image connected: ch1_original_backup_hint.png
+  [OK] Generated items image connected: ch1_photo.png
+  [OK] Generated items image connected: ch1_profiles.png
+  [OK] Generated items image connected: ch1_receipt.png
+  [OK] Generated items image connected: ch1_recording.png
+  [OK] Generated items image connected: ch1_rejected_missing_person_report.png
+  [OK] Generated items image connected: ch1_report.png
+  [OK] Generated items image connected: ch1_schedule.png
+  [OK] Generated items image connected: ch1_sos.png
+  [OK] Generated items image connected: ch1_street_camera_gap.png
+  [OK] Generated items image connected: ch1_symbol.png
+  [OK] Generated items image connected: ch1_work_id.png
+  [OK] Generated ui image connected: dialogue_panel.png
+  [OK] Generated ui image connected: eagle_eye_focus_reticle_ch1.png
+  [OK] Generated ui image connected: eagle_eye_glitch_noise_ch1.png
+  [OK] Generated ui image connected: eagle_eye_scan_overlay_ch1.png
+  [OK] Generated ui image connected: energy_hud_frame.png
+  [OK] Generated ui image connected: evidence_card.png
+  [OK] Generated ui image connected: main_menu_background.png
+  [OK] Generated ui image connected: popup_panel.png
+  [OK] Generated ui image connected: toolbar_buttons.png
+  [OK] Checked 74 generated background/item/UI image connections
+
+[27] Runtime UI playability regressions
+  [OK] Dialogue HUD uses the complete generated texture as a single aligned frame
+  [OK] Dialogue portraits fit inside the source-image red portrait frame
+  [OK] Dialogue portraits are forced to the left portrait frame
+  [OK] Speaker name renders in the source-image lower red name plate
+  [OK] Opening narrator dialogue falls back to Kai name plate text
+  [OK] Dialogue text and choices are constrained to the source-image blue frame
+  [OK] No-choice dialogue text is lowered without moving choice layouts
+  [OK] Speaker name and dialogue text use readable compact typography
+  [OK] DialogueSystem resolves text nodes inside the frame-root layout
+  [OK] Dialogue supports Space for fast-forward and advance
+  [OK] DialogueSystem paginates long text into follow-up pages
+  [OK] Dialogue choices stay boxed inside the blue dialogue frame
+  [OK] DialogueSystem uses compact in-blue-frame layout for three choices
+  [OK] EvidenceBoard card grid uses safe range iteration and int row conversion
+  [OK] AP and eagle-eye share a fixed-frame energy widget
+  [OK] Eagle-eye keeps its HUD bounds and visibility control
+  [OK] Eagle-eye charges partial use without resettable timers and retains scanner motion
+  [OK] Energy cells use shared geometry, true zero and cell-only low-energy colors
+  [OK] LocationBase updates AP through a guarded member label
+  [OK] Eagle-eye scanline fallback renders transparent HUD tint
+  [OK] Main menu loads generated background with ColorRect fallback
+  [OK] LocationBase AP widget preserves its bounds and eagle-eye visibility handoff
+
+[27b] image_gen UI prompt requests
+  [OK] image_gen prompt request generated and connected: main_menu_start_background
+  [OK] Fixed energy-frame image_gen prompts and raw source are retained
+
+[28] Chapter 1 eagle-eye foreshadowing wiring
+  [OK] Chapter 1 eagle-eye dialogue exists: ch1_kai_eye_glitch_scan
+  [OK] Chapter 1 eagle-eye dialogue exists: ch1_eye_signature_decode
+  [OK] Chapter 1 eagle-eye dialogue exists: ch1_dr_chen_eye_warning
+  [OK] Chapter 1 eagle-eye evidence exists with runtime icon: broken_memory_player
+  [OK] Chapter 1 eagle-eye evidence exists with runtime icon: kai_eye_glitch_log
+  [OK] Mei Ling apartment scan action is gated by the accepted case evidence
+  [OK] Workshop eye-signature decode action requires evidence-board deduction
+  [OK] Dr. Chen warning action requires player-codec deduction
+  [OK] Evidence board wiring present: "broken_memory_player": "memory_device_log"
+  [OK] Evidence board wiring present: "kai_eye_glitch_log": "data_chip"
+  [OK] Evidence board wiring present: "broken_memory_player:memory_device_log": "deduced_player_echo_codec"
+  [OK] Evidence board wiring present: "kai_eye_glitch_log:data_chip": "deduced_eye_echo_signature"
+  [OK] Correct evidence-board deductions unlock dialogue flags
+  [OK] Chapter 1 eagle-eye prompt manifest covers image and audio prompts
+  [OK] Chapter 1 prompt complete: broken_memory_player
+  [OK] Chapter 1 prompt complete: kai_eye_glitch_log
+  [OK] Chapter 1 prompt complete: cg_kai_eye_glitch
+  [OK] Chapter 1 prompt complete: eagle_eye_activation_cutin_ch1
+  [OK] Chapter 1 prompt complete: eagle_eye_scan_overlay_ch1
+  [OK] Chapter 1 prompt complete: mei_ling_apartment_eye_scan_variant
+  [OK] Chapter 1 prompt complete: eagle_eye_focus_reticle_ch1
+  [OK] Chapter 1 prompt complete: eagle_eye_glitch_noise_ch1
+  [OK] Chapter 1 prompt complete: eagle_eye_glitch_sting
+  [OK] Chapter 1 prompt complete: broken_player_scan
+  [OK] Chapter 1 prompt complete: memory_signature_reveal
+  [OK] Generated eagle-eye asset ready: assets/sprites/ui/eagle_eye_scan_overlay_ch1.png
+  [OK] Generated eagle-eye asset ready: assets/sprites/ui/eagle_eye_focus_reticle_ch1.png
+  [OK] Generated eagle-eye asset ready: assets/sprites/ui/eagle_eye_glitch_noise_ch1.png
+  [OK] Generated eagle-eye asset ready: assets/sprites/locations/mei_ling_apartment_eye_scan_variant.png
+  [OK] Generated eagle-eye asset ready: assets/sprites/cg/cg_kai_eye_glitch.png
+  [OK] Generated eagle-eye asset ready: assets/sprites/cg/eagle_eye_activation_cutin_ch1.png
+  [OK] Generated eagle-eye asset ready: assets/sprites/items/broken_memory_player.png
+  [OK] Generated eagle-eye asset ready: assets/sprites/items/kai_eye_glitch_log.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/ui/eagle_eye_scan_overlay_ch1.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/ui/eagle_eye_focus_reticle_ch1.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/ui/eagle_eye_glitch_noise_ch1.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/locations/mei_ling_apartment_eye_scan_variant.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/cg/cg_kai_eye_glitch.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/cg/eagle_eye_activation_cutin_ch1.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/items/broken_memory_player.png
+  [OK] Generated eagle-eye source matches runtime asset: assets/sprites/items/kai_eye_glitch_log.png
+  [OK] AugmentedVision loads generated reticle
+  [OK] AugmentedVision loads glitch noise
+  [OK] AugmentedVision loads activation cut-in
+  [OK] LocationBase triggers key clue anomaly
+  [OK] Evidence prefers dedicated eagle-eye icons
+
+[29] Chapter 1 family memory branch
+  [OK] Family memory dialogues exist
+  [OK] Family memory evidence has preferred runtime icon
+  [OK] Mei Ling apartment family memory story action is reachable
+  [OK] Hao Ran motive follow-up is gated by family memory deduction
+  [OK] Evidence board links family memory to broken player motive
+  [OK] Family memory dialogue grants evidence and trust flags
+  [OK] Family memory action triggers safe eagle-eye anomaly and scene variant
+  [OK] Family memory prompt manifest covers image and audio placeholders
+  [OK] Family memory placeholder PNG ready: assets/sprites/items/family_memory_clip.png
+  [OK] Family memory placeholder PNG ready: assets/sprites/cg/cg_family_memory_clip.png
+  [OK] Family memory placeholder PNG ready: assets/sprites/locations/mei_ling_apartment_family_memory_variant.png
+  [OK] Undelivered optional family audio is absent rather than a fake OGG
+  [OK] Family memory generated source matches runtime target: assets/sprites/items/family_memory_clip.png
+  [OK] Family memory generated source matches runtime target: assets/sprites/cg/cg_family_memory_clip.png
+  [OK] Family memory generated source matches runtime target: assets/sprites/locations/mei_ling_apartment_family_memory_variant.png
+
+[30] Chapter 1 asset replacement readiness
+  [OK] Replacement manifest parses: assets/generated/prompts/image2_ch1_family_memory.jsonl
+  [OK] Replacement prompt record complete: family_memory_clip
+  [OK] Replacement prompt record complete: cg_family_memory_clip
+  [OK] Replacement prompt record complete: mei_ling_apartment_family_memory_variant
+  [OK] Replacement prompt record complete: family_memory_fragment
+  [OK] Replacement manifest parses: assets/generated/prompts/audio_ch1_replacement_prompts.jsonl
+  [OK] Replacement prompt record complete: family_memory_fragment
+  [OK] Replacement prompt record complete: eagle_eye_glitch_sting
+  [OK] Replacement prompt record complete: broken_player_scan
+  [OK] Replacement prompt record complete: memory_signature_reveal
+  [OK] Replacement target path stable: family_memory_clip
+  [OK] Replacement target path stable: cg_family_memory_clip
+  [OK] Replacement target path stable: mei_ling_apartment_family_memory_variant
+  [OK] Replacement target path stable: family_memory_fragment
+  [OK] Replacement target path stable: eagle_eye_glitch_sting
+  [OK] Replacement target path stable: broken_player_scan
+  [OK] Replacement target path stable: memory_signature_reveal
+  [OK] Family memory manifest distinguishes connected images from undelivered audio
+  [OK] AudioManager exposes optional SFX loader
+  [OK] AudioManager skips non-OggS placeholders
+  [OK] AugmentedVision wires glitch sting as optional SFX
+  [OK] EvidenceBoard wires deduction reveal as optional SFX
+  [OK] LocationBase wires family and scan SFX as optional
+  [OK] Family memory action declares story CG
+  [OK] LocationBase can show story CG with missing-file fallback
+  [OK] DialogueSystem supports future story CG entries safely
+
+[31] Chapter 1 opening and Mei Ling trust expansion
+  [OK] New-game opening shows Kai office prologue CG before Mei Ling enters
+  [OK] Chapter 1 expanded dialogue exists: ch1_hao_ran_drawer_search
+  [OK] Chapter 1 expanded dialogue exists: ch1_original_backup_album
+  [OK] Chapter 1 expanded dialogue exists: ch1_hao_ran_encrypted_message
+  [OK] Expanded story action wired: inspect_hao_ran_drawer
+  [OK] Expanded story action wired: inspect_original_backup_album
+  [OK] Expanded story action wired: decode_hao_ran_last_message
+  [OK] Expanded evidence has runtime icon/fallback: hao_ran_drawer_note
+  [OK] Expanded evidence has runtime icon/fallback: original_backup_hint
+  [OK] Expanded evidence has runtime icon/fallback: hao_ran_encrypted_message
+  [OK] Evidence board connects original backup hint to Hao Ran message
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_kai_office_prologue.png
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_hao_ran_encrypted_message.png
+  [OK] Generated trust-path asset connected: assets/sprites/items/hao_ran_drawer_note.png
+  [OK] Generated trust-path asset connected: assets/sprites/items/original_backup_hint.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_kai_office_prologue.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_hao_ran_encrypted_message.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/items/hao_ran_drawer_note.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/items/original_backup_hint.png
+  [OK] image_gen trust-path manifest covers all generated assets
+
+[32] Chapter 1 expanded dual-route and eagle-eye readings
+  [OK] Expanded Chapter 1 dialogue exists: ch1_eleven_pm_call_log
+  [OK] Expanded Chapter 1 dialogue exists: ch1_old_city_police_outpost
+  [OK] Expanded Chapter 1 dialogue exists: ch1_street_camera_gap
+  [OK] Expanded Chapter 1 dialogue exists: ch1_abyss_backroom_investigation
+  [OK] Expanded Chapter 1 dialogue exists: ch1_snake_data_chip_choice
+  [OK] Expanded Chapter 1 dialogue exists: ch1_dr_chen_clinic_followup
+  [OK] Expanded Chapter 1 dialogue exists: ch1_three_evidence_inference
+  [OK] Expanded story action wired: inspect_eleven_pm_call_log
+  [OK] Expanded story action wired: visit_old_city_police_outpost
+  [OK] Expanded story action wired: review_east_district_camera_gap
+  [OK] Expanded story action wired: investigate_abyss_backroom
+  [OK] Expanded story action wired: negotiate_snake_data_chip
+  [OK] Expanded story action wired: visit_dr_chen_clinic
+  [OK] Expanded story action wired: compile_ch1_three_evidence_inference
+  [OK] Expanded Chapter 1 evidence exists: eleven_pm_call_log
+  [OK] Expanded Chapter 1 evidence exists: rejected_missing_person_report
+  [OK] Expanded Chapter 1 evidence exists: street_camera_gap
+  [OK] Expanded Chapter 1 evidence exists: masked_client_receipt
+  [OK] Expanded Chapter 1 evidence exists: clinic_eye_warning_log
+  [OK] Expanded Chapter 1 evidence exists: black_market_entry_hint
+  [OK] Chapter 1 evidence has broad eagle-eye second readings
+  [OK] Expanded evidence-board flag wired: "eleven_pm_call_log:rejected_missing_person_report": "deduced_police_suppression"
+  [OK] Expanded evidence-board flag wired: "rejected_missing_person_report:street_camera_gap": "deduced_city_system_suppression"
+  [OK] Expanded evidence-board flag wired: "masked_client_receipt:stranger_photo": "deduced_ch1_black_market_route"
+  [OK] Expanded evidence-board flag wired: "clinic_eye_warning_log:masked_client_receipt": "deduced_ch1_three_evidence_gate"
+  [OK] Expanded route flag present: accepted_snake_deal
+  [OK] Expanded route flag present: rejected_snake_deal
+  [OK] Expanded route flag present: black_market_route_opened
+  [OK] Expanded route flag present: clinic_route_opened
+  [OK] Expanded route flag present: echo_trust_axis_seeded
+  [OK] Eagle-eye overuse count and warning flag are tracked
+  [OK] Evidence board displays alternate evidence readings in eagle-eye mode
+  [OK] Specific evidence and explicit choices determine endings
+  [OK] Expanded Chapter 1 final inference triggers eagle-eye anomaly presentation
+
+[33] Chapter 1 missing visual assets connected
+  [OK] Chapter 1 background source and runtime exist: assets/sprites/locations/old_city_police_outpost.png
+  [OK] Chapter 1 background size stable: assets/sprites/locations/old_city_police_outpost.png
+  [OK] Chapter 1 background source matches runtime: assets/sprites/locations/old_city_police_outpost.png
+  [OK] Chapter 1 background source and runtime exist: assets/sprites/locations/dr_chen_clinic.png
+  [OK] Chapter 1 background size stable: assets/sprites/locations/dr_chen_clinic.png
+  [OK] Chapter 1 background source matches runtime: assets/sprites/locations/dr_chen_clinic.png
+  [OK] Chapter 1 background source and runtime exist: assets/sprites/locations/abyss_bar_backroom.png
+  [OK] Chapter 1 background size stable: assets/sprites/locations/abyss_bar_backroom.png
+  [OK] Chapter 1 background source matches runtime: assets/sprites/locations/abyss_bar_backroom.png
+  [OK] Chapter 1 background source and runtime exist: assets/sprites/locations/east_district_street_camera_gap_variant.png
+  [OK] Chapter 1 background size stable: assets/sprites/locations/east_district_street_camera_gap_variant.png
+  [OK] Chapter 1 background source matches runtime: assets/sprites/locations/east_district_street_camera_gap_variant.png
+  [OK] Chapter 1 background source and runtime exist: assets/sprites/locations/hao_ran_workshop_three_evidence_variant.png
+  [OK] Chapter 1 background size stable: assets/sprites/locations/hao_ran_workshop_three_evidence_variant.png
+  [OK] Chapter 1 background source matches runtime: assets/sprites/locations/hao_ran_workshop_three_evidence_variant.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/commission_letter.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/commission_letter.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/commission_letter.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/commission_letter.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/commission_letter.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/work_id.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/work_id.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/work_id.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/work_id.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/work_id.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/receipt.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/receipt.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/receipt.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/receipt.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/receipt.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/data_chip.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/data_chip.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/data_chip.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/data_chip.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/data_chip.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/recording.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/recording.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/recording.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/recording.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/recording.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/photo.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/photo.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/photo.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/photo.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/photo.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/kai_eye_glitch_log.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/kai_eye_glitch_log.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/kai_eye_glitch_log.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/kai_eye_glitch_log.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/kai_eye_glitch_log.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/family_memory_clip.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/family_memory_clip.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/family_memory_clip.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/family_memory_clip.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/family_memory_clip.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/broken_memory_player.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/broken_memory_player.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/broken_memory_player.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/broken_memory_player.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/broken_memory_player.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/eleven_pm_call_log.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/eleven_pm_call_log.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/eleven_pm_call_log.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/eleven_pm_call_log.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/eleven_pm_call_log.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/rejected_missing_person_report.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/rejected_missing_person_report.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/rejected_missing_person_report.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/rejected_missing_person_report.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/rejected_missing_person_report.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/street_camera_gap.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/street_camera_gap.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/street_camera_gap.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/street_camera_gap.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/street_camera_gap.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/masked_client_receipt.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/masked_client_receipt.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/masked_client_receipt.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/masked_client_receipt.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/masked_client_receipt.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/clinic_eye_warning_log.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/clinic_eye_warning_log.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/clinic_eye_warning_log.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/clinic_eye_warning_log.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/clinic_eye_warning_log.png
+  [OK] Chapter 1 evidence icon source and runtime exist: assets/sprites/items/black_market_entry_hint.png
+  [OK] Chapter 1 evidence icon size stable: assets/sprites/items/black_market_entry_hint.png
+  [OK] Chapter 1 evidence icon keeps alpha channel: assets/sprites/items/black_market_entry_hint.png
+  [OK] Chapter 1 evidence icon source matches runtime: assets/sprites/items/black_market_entry_hint.png
+  [OK] Chapter 1 evidence icon is image-gen replacement quality: assets/sprites/items/black_market_entry_hint.png
+  [OK] Chapter 1 story CG source and runtime exist: assets/sprites/cg/cg_ch1_snake_trade_choice.png
+  [OK] Chapter 1 story CG size stable: assets/sprites/cg/cg_ch1_snake_trade_choice.png
+  [OK] Chapter 1 story CG source matches runtime: assets/sprites/cg/cg_ch1_snake_trade_choice.png
+  [OK] Chapter 1 story CG source and runtime exist: assets/sprites/cg/cg_ch1_three_evidence_inference.png
+  [OK] Chapter 1 story CG size stable: assets/sprites/cg/cg_ch1_three_evidence_inference.png
+  [OK] Chapter 1 story CG source matches runtime: assets/sprites/cg/cg_ch1_three_evidence_inference.png
+  [OK] Chapter 1 story CG source and runtime exist: assets/sprites/cg/cg_ch1_police_report_rejection.png
+  [OK] Chapter 1 story CG size stable: assets/sprites/cg/cg_ch1_police_report_rejection.png
+  [OK] Chapter 1 story CG source matches runtime: assets/sprites/cg/cg_ch1_police_report_rejection.png
+  [OK] Chapter 1 story CG source and runtime exist: assets/sprites/cg/cg_ch1_street_camera_gap.png
+  [OK] Chapter 1 story CG size stable: assets/sprites/cg/cg_ch1_street_camera_gap.png
+  [OK] Chapter 1 story CG source matches runtime: assets/sprites/cg/cg_ch1_street_camera_gap.png
+  [OK] Chapter 1 story CG source and runtime exist: assets/sprites/cg/cg_ch1_dr_chen_warning.png
+  [OK] Chapter 1 story CG size stable: assets/sprites/cg/cg_ch1_dr_chen_warning.png
+  [OK] Chapter 1 story CG source matches runtime: assets/sprites/cg/cg_ch1_dr_chen_warning.png
+  [OK] Chapter 1 evidence uses dedicated icon: eleven_pm_call_log
+  [OK] Chapter 1 evidence uses dedicated icon: rejected_missing_person_report
+  [OK] Chapter 1 evidence uses dedicated icon: street_camera_gap
+  [OK] Chapter 1 evidence uses dedicated icon: masked_client_receipt
+  [OK] Chapter 1 evidence uses dedicated icon: clinic_eye_warning_log
+  [OK] Chapter 1 evidence uses dedicated icon: black_market_entry_hint
+  [OK] Chapter 1 story action declares CG: investigate_abyss_backroom
+  [OK] Chapter 1 story action declares CG: negotiate_snake_data_chip
+  [OK] Chapter 1 story action declares CG: compile_ch1_three_evidence_inference
+  [OK] Chapter 1 story action declares CG: visit_old_city_police_outpost
+  [OK] Chapter 1 story action declares CG: review_east_district_camera_gap
+  [OK] Chapter 1 story action declares CG: visit_dr_chen_clinic
+
+[34] Chapter 1 locationization and side evidence
+  [OK] Chapter 1 location scene path registered: old_city_police_outpost
+  [OK] Chapter 1 location scene exists: old_city_police_outpost
+  [OK] Chapter 1 location background exists: old_city_police_outpost
+  [OK] Chapter 1 location gate and parent-only connection wired: old_city_police_outpost
+  [OK] Chapter 1 location scene path registered: dr_chen_clinic
+  [OK] Chapter 1 location scene exists: dr_chen_clinic
+  [OK] Chapter 1 location background exists: dr_chen_clinic
+  [OK] Chapter 1 location gate and parent-only connection wired: dr_chen_clinic
+  [OK] Chapter 1 location scene path registered: abyss_bar_backroom
+  [OK] Chapter 1 location scene exists: abyss_bar_backroom
+  [OK] Chapter 1 location background exists: abyss_bar_backroom
+  [OK] Chapter 1 location gate and parent-only connection wired: abyss_bar_backroom
+  [OK] Moved story action has a single new-location owner: visit_old_city_police_outpost
+  [OK] Moved story action has a single new-location owner: visit_dr_chen_clinic
+  [OK] Moved story action has a single new-location owner: investigate_abyss_backroom
+  [OK] Chapter 1 locationization dialogue exists: ch1_old_city_police_outpost_enter
+  [OK] Chapter 1 locationization dialogue exists: ch1_old_city_queue_ticket
+  [OK] Chapter 1 locationization dialogue exists: ch1_abyss_bar_backroom_enter
+  [OK] Chapter 1 locationization dialogue exists: ch1_abyss_surveillance_delay_log
+  [OK] Chapter 1 locationization dialogue exists: ch1_clinic_anonymous_case_note
+  [OK] Chapter 1 side evidence data has dedicated icon and eye reading: old_city_queue_ticket
+  [OK] Chapter 1 side evidence icon source and runtime exist: old_city_queue_ticket
+  [OK] Chapter 1 side evidence icon size stable: old_city_queue_ticket
+  [OK] Chapter 1 side evidence icon keeps alpha channel: old_city_queue_ticket
+  [OK] Chapter 1 side evidence icon source matches runtime: old_city_queue_ticket
+  [OK] Chapter 1 locationization prompt documented: old_city_queue_ticket
+  [OK] Chapter 1 side evidence data has dedicated icon and eye reading: clinic_anonymous_case_note
+  [OK] Chapter 1 side evidence icon source and runtime exist: clinic_anonymous_case_note
+  [OK] Chapter 1 side evidence icon size stable: clinic_anonymous_case_note
+  [OK] Chapter 1 side evidence icon keeps alpha channel: clinic_anonymous_case_note
+  [OK] Chapter 1 side evidence icon source matches runtime: clinic_anonymous_case_note
+  [OK] Chapter 1 locationization prompt documented: clinic_anonymous_case_note
+  [OK] Chapter 1 side evidence data has dedicated icon and eye reading: abyss_surveillance_delay_log
+  [OK] Chapter 1 side evidence icon source and runtime exist: abyss_surveillance_delay_log
+  [OK] Chapter 1 side evidence icon size stable: abyss_surveillance_delay_log
+  [OK] Chapter 1 side evidence icon keeps alpha channel: abyss_surveillance_delay_log
+  [OK] Chapter 1 side evidence icon source matches runtime: abyss_surveillance_delay_log
+  [OK] Chapter 1 locationization prompt documented: abyss_surveillance_delay_log
+  [OK] Optional Chapter 1 evidence-board connection wired: "old_city_queue_ticket": "rejected_missing_person_report"
+  [OK] Optional Chapter 1 evidence-board connection wired: "clinic_anonymous_case_note": "clinic_eye_warning_log"
+  [OK] Optional Chapter 1 evidence-board connection wired: "abyss_surveillance_delay_log": "masked_client_receipt"
+  [OK] Optional Chapter 1 evidence-board connection wired: "old_city_queue_ticket:rejected_missing_person_report": "deduced_old_city_system_delay"
+  [OK] Optional Chapter 1 evidence-board connection wired: "clinic_anonymous_case_note:clinic_eye_warning_log": "deduced_clinic_pattern_warning"
+  [OK] Optional Chapter 1 evidence-board connection wired: "abyss_surveillance_delay_log:masked_client_receipt": "deduced_abyss_paid_silence"
+  [OK] LocationBase supports one-shot story actions
+  [OK] LocationBase supports evidence-gated map destinations
+  [OK] DialogueSystem supports route fallback and multi-flag setting
+  [OK] Snake first encounter is reachable and separate from route selection
+  [OK] Chapter 1 final inference has unresolved-route fallback
+  [OK] Snake data-chip trade is one-shot and route choices are mutually exclusive
+  [OK] Chapter 1 completion decisions wired
+  [OK] All story choices use registered, saveable decision keys
+  [OK] Four real new-game paths, A1/A2, three entrances, prerequisites and save/load passed
+  [OK] Fixed energy chassis is 512x96 RGBA, transparent, and copied to source/runtime
+  [OK] Energy HUD runtime: 0-10 states, drain/recharge, one-cell activation and visibility passed
+  [OK] BGM original and license recorded: Welcome Mix
+  [OK] BGM original and license recorded: Night Club Chill
+  [OK] BGM original and license recorded: Strange Experiments
+  [OK] BGM runtime: real scenes, looping, rapid switching, stop and volume passed
+  [OK] Dialogue layout: readable prompts, three visible choices, fourth scrollable on desktop/mobile
+  [OK] Story progression recognises core flag producers and rejects unknown prerequisites
+  [OK] Runtime assets: PCK remaps, resource reuse, raw PNG, missing/wrong types and optional audio
+  [OK] Asset storage: 141 files, source hashes, original archives and preview links
+  [OK] Retired prototypes, duplicate artwork, energy variants and rejected audio remain removed
+
+============================================================
+Results: 923 passed, 0 failed, 0 warnings
+============================================================
+
+ALL TESTS PASSED
