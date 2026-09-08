@@ -2,9 +2,9 @@ name: NEON MEMORIES CI
 
 on:
   push:
-    branches: ['*']
+    branches: ['**']
   pull_request:
-    branches: ['*']
+    branches: ['**']
 
 jobs:
   data-integrity:

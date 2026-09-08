@@ -19,3 +19,7 @@ Thumbs.db
 *.exe
 *.apk
 *.aab
+
+# Local Python test/tool caches
+__pycache__/
+*.py[cod]

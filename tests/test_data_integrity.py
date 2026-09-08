@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 NEON MEMORIES - Data Integrity Tests
-Validates game data cross-references without requiring Godot engine.
+Validates game data cross-references and runs full playthroughs when Godot is available.
 Parses .gd and .tscn files to check scene paths, dialogue IDs,
 evidence connections, asset files, and more.
 """
@@ -10,8 +10,11 @@ import os
 import json
 import hashlib
 import re
+import shutil
 import struct
+import subprocess
 import sys
+import tempfile
 import zlib
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -242,18 +245,22 @@ def test_dialogue_labels():
         fail("dialogue_data.gd not found")
         return
 
-    # Find all "label": "xxx" definitions
-    labels_defined = set(re.findall(r'"label":\s*"(\w+)"', content))
-    # Find all "next": "xxx" references (excluding "end")
-    next_refs = set(re.findall(r'"next":\s*"(\w+)"', content))
-    next_refs.discard("end")
-
-    missing = next_refs - labels_defined
+    # Bug regression: entry.next and choice.next must target a label in the
+    # same dialogue, not an unrelated label elsewhere in the file.
+    from test_story_progression import extract_array_block
+    missing = []
+    next_refs = set()
+    for dialogue_id in re.findall(r'^\s*"((?:ch\d+|ending)_\w+)"\s*:\s*\[', content, re.MULTILINE):
+        block = extract_array_block(content, dialogue_id)
+        labels = set(re.findall(r'"label":\s*"(\w+)"', block))
+        targets = set(re.findall(r'"next":\s*"(\w+)"', block)) - {"end"}
+        next_refs.update(targets)
+        missing.extend(f"{dialogue_id}:{target}" for target in sorted(targets - labels))
     if missing:
-        for m in sorted(missing):
-            fail(f"Label jump target not defined: {m}")
+        for target in missing:
+            fail(f"Dialogue-local jump target missing: {target}")
     else:
-        ok(f"All {len(next_refs)} label jump targets are valid")
+        ok(f"All {len(next_refs)} jump targets stay within their dialogue")
 
 
 # ---------------------------------------------------------------------------
@@ -435,7 +442,6 @@ def test_runtime_portrait_loader_supports_png():
     print("\n[6c] Runtime portrait loader supports PNG")
     required_scripts = [
         "scripts/gameplay/dialogue_system.gd",
-        "scripts/gameplay/interrogation.gd",
     ]
 
     for rel_path in required_scripts:
@@ -552,7 +558,6 @@ def test_project_structure():
         "scripts/data/character_data.gd",
         "scripts/gameplay/dialogue_system.gd",
         "scripts/gameplay/evidence_board.gd",
-        "scripts/gameplay/interrogation.gd",
         "scripts/gameplay/augmented_vision.gd",
         "scripts/gameplay/hotspot.gd",
     ]
@@ -687,11 +692,11 @@ def test_class_name_placement():
 
 # ---------------------------------------------------------------------------
 # 13. Bug regression: Scene transition await safety
-# Calls to SceneManager.change_scene / change_scene_with_chapter_title
-# should be awaited to prevent state conflicts and double-click crashes.
+# The autoload owns the transition. A departing scene must not await its
+# own destruction; SceneManager guards re-entry and reports failures.
 # ---------------------------------------------------------------------------
 def test_scene_transition_await():
-    print("\n[13] Scene transition calls are awaited")
+    print("\n[13] Scene transition coroutine ownership")
     gd_files = []
     for root, dirs, files in os.walk(os.path.join(PROJECT_ROOT, "scripts")):
         for f in files:
@@ -712,13 +717,12 @@ def test_scene_transition_await():
             # Skip comments
             if stripped.startswith("#"):
                 continue
-            # Check for direct calls without await
-            for method in ["change_scene_with_chapter_title", "change_scene("]:
+            for method in ["change_scene_with_chapter_title", "change_scene(", "travel_to_location"]:
                 if f"SceneManager.{method}" in stripped:
-                    if "await " not in stripped:
-                        fail(f"Missing await on SceneManager.{method.rstrip('(')} in {rel}:{i+1}")
+                    if "await " in stripped and rel not in [os.path.join("scripts", "core", "game_manager.gd")]:
+                        fail(f"Departing scene awaits its own destruction in {rel}:{i+1}")
                     else:
-                        ok(f"Properly awaited SceneManager call in {rel}:{i+1}")
+                        ok(f"Transition owned by persistent autoload in {rel}:{i+1}")
 
 
 # ---------------------------------------------------------------------------
@@ -735,7 +739,8 @@ def test_change_scene_error_handling():
 
     # Find all change_scene_to_file calls
     calls = [(i, line) for i, line in enumerate(content.split('\n'), 1)
-             if 'change_scene_to_file' in line and not line.strip().startswith('#')]
+             if any(method in line for method in ['change_scene_to_file', 'change_scene_to_packed'])
+             and not line.strip().startswith('#')]
 
     for lineno, line in calls:
         stripped = line.strip()
@@ -949,15 +954,13 @@ def test_no_onready_in_classname_scripts():
 
 # ---------------------------------------------------------------------------
 # 18. Bug regression: Null safety in _ready() for dynamically created nodes
-# EvidenceBoard, Interrogation, MemoryPreview are created via .new() with
+# EvidenceBoard is created via .new() with
 # child nodes added externally. Their _ready() must use null checks.
 # ---------------------------------------------------------------------------
 def test_ready_null_safety():
     print("\n[18] Null safety in class_name script _ready() methods")
     critical_scripts = [
         "scripts/gameplay/evidence_board.gd",
-        "scripts/gameplay/interrogation.gd",
-        "scripts/gameplay/memory_preview.gd",
     ]
 
     for rel_path in critical_scripts:
@@ -1141,7 +1144,10 @@ def test_dialogue_flags_update_decisions():
     else:
         ok("DialogueData no longer uses legacy trusted_zhao flag")
 
-    if '"set_flag": "trusted_zhao_ming"' in dialogue_content:
+    # Bug regression: trust can be granted alongside other flags in one choice.
+    from test_story_progression import collect_dialogue_effects
+    produced_flags, _ = collect_dialogue_effects(dialogue_content)
+    if "trusted_zhao_ming" in produced_flags:
         ok("Zhao trust choice sets trusted_zhao_ming decision flag")
     else:
         fail("Zhao trust choice does not set trusted_zhao_ming")
@@ -1176,7 +1182,7 @@ def test_image2_asset_prompt_manifests():
     required_manifests = {
         "assets/generated/prompts/image2_backgrounds.jsonl": 15,
         "assets/generated/prompts/image2_items.jsonl": 28,
-        "assets/generated/prompts/image2_ui.jsonl": 5,
+        "assets/generated/prompts/image2_ui.jsonl": 4,
     }
 
     for rel_path, min_count in required_manifests.items():
@@ -1251,8 +1257,7 @@ def test_runtime_asset_loader_supports_generated_pngs():
     print("\n[25] Runtime loaders support generated PNG background/item/UI assets")
     location_base = read_file("scripts/ui/location_base.gd")
     evidence_board = read_file("scripts/gameplay/evidence_board.gd")
-    memory_preview = read_file("scripts/gameplay/memory_preview.gd")
-    if not location_base or not evidence_board or not memory_preview:
+    if not location_base or not evidence_board:
         fail("Required runtime loader files not found")
         return
 
@@ -1281,22 +1286,17 @@ def test_runtime_asset_loader_supports_generated_pngs():
     else:
         fail("EvidenceBoard does not use generated evidence card UI PNG")
 
-    if "memory_preview_overlay.png" in memory_preview and "_setup_generated_overlay" in memory_preview:
-        ok("MemoryPreview uses generated memory overlay UI PNG")
-    else:
-        fail("MemoryPreview does not use generated memory overlay UI PNG")
-
     # Bug regression: generated PNGs are source-controlled without Godot .import
     # sidecars, so runtime loaders must be able to create ImageTexture directly.
     runtime_texture_scripts = {
         "LocationBase": location_base,
         "EvidenceBoard": evidence_board,
-        "MemoryPreview": memory_preview,
         "DialogueSystem": read_file("scripts/gameplay/dialogue_system.gd") or "",
-        "Interrogation": read_file("scripts/gameplay/interrogation.gd") or "",
     }
     for script_name, content in runtime_texture_scripts.items():
-        if "_load_runtime_texture" in content and "ImageTexture.create_from_image" in content:
+        if ('RuntimeAssetsScript.load_texture' in content
+                and 'res://scripts/core/runtime_assets.gd' in content
+                and 'ImageTexture.create_from_image' in read_file('scripts/core/runtime_assets.gd')):
             ok(f"{script_name} can load PNG textures without .import sidecars")
         else:
             fail(f"{script_name} cannot load PNG textures without .import sidecars")
@@ -1314,7 +1314,8 @@ def test_image2_outputs_are_connected_to_runtime_sprites():
         ("ui", "assets/generated/ui", "assets/sprites/ui", ""),
     ]
     source_only_images = {
-        "ui": {"energy_bar_states_sheet.png"},
+        "ui": {"energy_bar_states_sheet.png", "energy_hud_frame_2026_09_08_raw.png",
+               "energy_hud_frame_transparency_attempt_raw.png"},
     }
 
     checked = 0
@@ -1358,12 +1359,14 @@ def test_transparent_item_and_overlay_ui_assets():
     print("\n[26b] Transparent item and overlay UI assets")
 
     item_runtime_dir = os.path.join(PROJECT_ROOT, "assets/sprites/items")
-    item_source_dir = os.path.join(PROJECT_ROOT, "assets/generated/items")
     item_names = sorted(name for name in os.listdir(item_runtime_dir) if name.endswith(".png"))
     item_records_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image_gen_items_transparent_2026_04_30.jsonl")
     if os.path.exists(item_records_path):
         item_records = [json.loads(line) for line in open(item_records_path, encoding="utf-8") if line.strip()]
-        if len(item_records) == len(item_names):
+        branch_records = json.loads(read_file("assets/generated/prompts/image_gen_chapter_branches_2026_09_09.json"))["assets"]
+        recorded_names = {os.path.basename(r["target_path"]) for r in item_records}
+        recorded_names.update(r["file"] for r in branch_records if r["kind"] == "items" and r["status"] == "accepted")
+        if recorded_names == set(item_names):
             ok("Transparent item manifest covers every runtime item PNG")
         else:
             fail("Transparent item manifest count does not match runtime item PNG count")
@@ -1371,7 +1374,9 @@ def test_transparent_item_and_overlay_ui_assets():
         fail("Missing transparent item image_gen manifest")
 
     for name in item_names:
-        source_path = os.path.join(item_source_dir, f"ch1_{name}")
+        asset_records = json.loads(read_file("assets/asset_manifest.json"))["assets"]
+        source_rel = next(a["source"] for a in asset_records if a["runtime"] == "assets/sprites/items/" + name)
+        source_path = os.path.join(PROJECT_ROOT, source_rel)
         runtime_path = os.path.join(item_runtime_dir, name)
         if os.path.exists(source_path) and file_sha256(source_path) == file_sha256(runtime_path):
             ok(f"Transparent item source matches runtime: {name}")
@@ -1385,16 +1390,13 @@ def test_transparent_item_and_overlay_ui_assets():
             fail(f"Transparent item is opaque or wrong size: {name}")
 
     ui_specs = {
-        "ap_status_bar.png": (512, 96),
         "dialogue_panel.png": (1280, 240),
         "eagle_eye_focus_reticle_ch1.png": (512, 512),
         "eagle_eye_glitch_noise_ch1.png": (1280, 720),
         "eagle_eye_scan_overlay_ch1.png": (1280, 720),
         "evidence_card.png": (512, 384),
-        "memory_preview_overlay.png": (1280, 720),
         "popup_panel.png": (768, 768),
         "toolbar_buttons.png": (1024, 256),
-        **{f"energy_bar_{i:02d}.png": (512, 96) for i in range(1, 13)},
     }
     ui_records_path = os.path.join(PROJECT_ROOT, "assets/generated/prompts/image_gen_ui_transparent_2026_04_30.jsonl")
     if os.path.exists(ui_records_path):
@@ -1479,7 +1481,7 @@ def test_runtime_ui_playability_regressions():
     # Bug regression: dialogue_panel.png must render as one complete HUD texture,
     # not as a stretched StyleBoxTexture that distorts red/blue frame alignment.
     if (
-        "DIALOGUE_FRAME_SOURCE_SIZE := Vector2(1280.0, 240.0)" in location_base
+        "DIALOGUE_FRAME_SOURCE_SIZE := Vector2(1280.0, 280.0)" in location_base
         and "DialogueFrameRoot" in location_base
         and "DialogueFrameTexture" in location_base
         and 'dialogue_frame_texture.texture = _load_ui_texture("dialogue_panel")' in location_base
@@ -1493,7 +1495,7 @@ def test_runtime_ui_playability_regressions():
     # Bug regression: portraits should be positioned in the source-image red
     # portrait cell so the lower name plate remains available.
     if (
-        "DIALOGUE_PORTRAIT_RECT := Rect2(34.0, 26.0, 174.0, 134.0)" in location_base
+        "DIALOGUE_PORTRAIT_RECT := Rect2(68.0, 42.0, 252.0, 150.0)" in location_base
         and "_apply_source_rect(portrait_left, DIALOGUE_PORTRAIT_RECT, dialogue_frame_scale)" in location_base
         and "_apply_source_rect(portrait_right, DIALOGUE_PORTRAIT_RECT, dialogue_frame_scale)" in location_base
         and "dialogue_frame_root.add_child(portrait_left)" in location_base
@@ -1514,7 +1516,7 @@ def test_runtime_ui_playability_regressions():
     # Bug regression: the speaker name belongs in the lower red name plate, not
     # in the blue dialogue text frame.
     if (
-        "DIALOGUE_NAME_RECT := Rect2(24.0, 181.0, 184.0, 34.0)" in location_base
+        "DIALOGUE_NAME_RECT := Rect2(68.0, 192.0, 252.0, 26.0)" in location_base
         and "_apply_source_rect(name_label, DIALOGUE_NAME_RECT, dialogue_frame_scale)" in location_base
         and "dialogue_frame_root.add_child(name_label)" in location_base
         and 'character_name_label: Label = find_child("NameLabel", true, false)' in dialogue_system
@@ -1533,7 +1535,7 @@ def test_runtime_ui_playability_regressions():
     # Bug regression: dialogue text and choices must share the source-image blue
     # frame coordinate system, not independent screen-bottom offsets.
     if (
-        "DIALOGUE_BLUE_CONTENT_RECT := Rect2(282.0, 38.0, 910.0, 158.0)" in location_base
+        "DIALOGUE_BLUE_CONTENT_RECT := Rect2(370.0, 44.0, 834.0, 184.0)" in location_base
         and "_apply_source_rect(dialogue_panel, DIALOGUE_BLUE_CONTENT_RECT, dialogue_frame_scale)" in location_base
         and "dialogue_frame_root.add_child(dialogue_panel)" in location_base
         and "dialogue_panel.clip_contents = true" in location_base
@@ -1560,7 +1562,7 @@ def test_runtime_ui_playability_regressions():
 
     # Bug regression: dialogue text should stay readable without making the
     # compact panel feel oversized.
-    if 'name_label.add_theme_font_size_override("font_size", 18 if not InputManager.is_mobile else 14)' in location_base and 'dialogue_text.add_theme_font_size_override("normal_font_size", 24 if not InputManager.is_mobile else 19)' in location_base:
+    if 'name_label.add_theme_font_size_override("font_size", 18)' in location_base and 'dialogue_text.add_theme_font_size_override("normal_font_size", 24 if not InputManager.is_mobile else 20)' in location_base:
         ok("Speaker name and dialogue text use readable compact typography")
     else:
         fail("Speaker name or dialogue text can regress to small typography")
@@ -1592,7 +1594,7 @@ def test_runtime_ui_playability_regressions():
 
     # Bug regression: dialogue choices should render as contained button frames
     # inside the generated text panel, not as loose text below the frame.
-    if "_create_choice_button_style" in dialogue_system and "COMPACT_CHOICE_PROMPT_TEXT_HEIGHT := 34" in dialogue_system and "COMPACT_CHOICE_BUTTON_HEIGHT := 32" in dialogue_system and "choices_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL" in location_base and "DIALOGUE_BLUE_CONTENT_RECT" in location_base:
+    if "_create_choice_button_style" in dialogue_system and "COMPACT_CHOICE_PROMPT_TEXT_HEIGHT := 58" in dialogue_system and "COMPACT_CHOICE_BUTTON_HEIGHT := 32" in dialogue_system and "choices_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL" in location_base and "DIALOGUE_BLUE_CONTENT_RECT" in location_base:
         ok("Dialogue choices stay boxed inside the blue dialogue frame")
     else:
         fail("Dialogue choices can render outside the generated dialogue frame")
@@ -1610,94 +1612,40 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("EvidenceBoard card grid still uses unsafe iteration or row conversion")
 
-    # Bug regression: eagle-eye/AP energy should use the generated 10-state
-    # cyberpunk PNG HUDs, not shader masks or simplified runtime Panel segments.
-    energy_state_names = [f"energy_bar_{i:02d}.png" for i in range(1, 11)]
-    energy_source_dir = os.path.join(PROJECT_ROOT, "assets/generated/ui")
-    energy_runtime_dir = os.path.join(PROJECT_ROOT, "assets/sprites/ui")
-    energy_geometry_path = os.path.join(energy_source_dir, "energy_bar_10_equal_slots_geometry.json")
-    energy_assets_ok = True
-    for name in energy_state_names:
-        source_path = os.path.join(energy_source_dir, name)
-        runtime_path = os.path.join(energy_runtime_dir, name)
-        if not os.path.exists(source_path) or not os.path.exists(runtime_path):
-            energy_assets_ok = False
-            fail(f"Missing 10-state energy HUD asset: {name}")
-            continue
-        if get_png_size(source_path) != (512, 96) or get_png_size(runtime_path) != (512, 96):
-            energy_assets_ok = False
-            fail(f"10-state energy HUD asset has unstable size: {name}")
-        if not png_has_alpha(runtime_path):
-            energy_assets_ok = False
-            fail(f"10-state energy HUD runtime asset lacks alpha: {name}")
-        if file_sha256(source_path) != file_sha256(runtime_path):
-            energy_assets_ok = False
-            fail(f"10-state energy HUD source/runtime SHA mismatch: {name}")
-    if energy_assets_ok:
-        ok("All 10 texture-swap energy HUD states exist in generated and runtime paths")
-
-    equal_slot_geometry_ok = False
-    if os.path.exists(energy_geometry_path):
-        with open(energy_geometry_path, "r", encoding="utf-8") as f:
-            energy_geometry = json.load(f)
-        equal_slot_geometry_ok = (
-            energy_geometry.get("slot_count") == 10
-            and energy_geometry.get("slot_width") == 25
-            and energy_geometry.get("slot_height") == 22
-            and energy_geometry.get("slot_gap") == 3
-            and energy_geometry.get("slot_origin") == [142, 36]
-            and energy_geometry.get("output_size") == [512, 96]
-        )
-    if equal_slot_geometry_ok:
-        ok("10-state energy HUD records equal slot geometry")
+    # Bug regression: independent state PNGs changed the entire chassis at each
+    # energy value. Both consumers now use one fixed frame and identical cells.
+    energy_widget = read_file("scripts/ui/segmented_energy_bar.gd") or ""
+    if all('segmented_energy_bar.gd' in source and 'energy_bar_%02d.png' not in source
+           for source in (augmented_vision, location_base)):
+        ok("AP and eagle-eye share a fixed-frame energy widget")
     else:
-        fail("10-state energy HUD slot geometry is missing or inconsistent")
-
-    if (
-        'ENERGY_BAR_STATE_DIR := "res://assets/sprites/ui"' in augmented_vision
-        and "EAGLE_EYE_SEGMENT_COUNT := 10" in augmented_vision
-        and "EAGLE_EYE_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)" in augmented_vision
-        and "TechEnergyTexture" in augmented_vision
-        and "_set_energy_state_texture" in augmented_vision
-        and "energy_bar_%02d.png" in augmented_vision
-        and "energy_bar.offset_left = EAGLE_EYE_ENERGY_BAR_RECT.position.x" in augmented_vision
-        and "energy_bar.offset_right = EAGLE_EYE_ENERGY_BAR_RECT.position.x + EAGLE_EYE_ENERGY_BAR_RECT.size.x" in augmented_vision
-        and "energy_bar.visible = is_visible" in augmented_vision
-        and "_create_energy_bar_material" not in augmented_vision
-        and "_energy_bar_material" not in augmented_vision
-        and "_build_energy_widget" not in augmented_vision
-        and "Panel.new()" not in augmented_vision
-    ):
-        ok("Eagle-eye energy swaps 10 generated tech HUD textures without clipping")
+        fail("Energy consumers still swap independent chassis images")
+    if ('EAGLE_EYE_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)' in augmented_vision
+            and 'energy_bar.visible = is_visible' in augmented_vision):
+        ok("Eagle-eye keeps its HUD bounds and visibility control")
     else:
-        fail("Eagle-eye energy can regress to shader/Panel segments or clipped HUD")
+        fail("Eagle-eye HUD bounds or visibility control regressed")
 
-    # Bug regression: eagle-eye should spend energy in timed segments and allow
-    # the reticle to move over the scene to scan visible hotspots.
+    # Bug regression: resetting subsecond timers on toggle/scene changes gave
+    # free scanning. Charge the saved global energy directly for every delta.
     if (
-        "EAGLE_EYE_DRAIN_INTERVAL := 1.0" in augmented_vision
-        and "consume_eagle_eye_energy_amount(GameManager.eagle_eye_max_energy / float(EAGLE_EYE_SEGMENT_COUNT))" in augmented_vision
+        "GameManager.consume_eagle_eye_energy(delta)" in augmented_vision
+        and "_drain_timer" not in augmented_vision
         and "func consume_eagle_eye_energy_amount(amount: float)" in game_manager
         and "_set_reticle_target(event.position)" in augmented_vision
         and "_scan_hotspots_under_reticle" in augmented_vision
         and 'add_to_group("hotspots")' in read_file("scripts/gameplay/hotspot.gd")
     ):
-        ok("Eagle-eye drains timed 10-state energy segments and moves the scanner reticle")
+        ok("Eagle-eye charges partial use without resettable timers and retains scanner motion")
     else:
-        fail("Eagle-eye lacks timed drain or movable reticle scanning")
+        fail("Eagle-eye has resettable drain timing or lacks movable reticle scanning")
 
-    # Bug regression: the low-energy pressure should come from image states
-    # that move from yellow full-charge art toward red low-charge art.
-    if (
-        "_get_energy_state_index" in augmented_vision
-        and "_load_energy_state_texture" in augmented_vision
-        and "floori(ratio * EAGLE_EYE_SEGMENT_COUNT)" in augmented_vision
-        and energy_assets_ok
-        and equal_slot_geometry_ok
-    ):
-        ok("Eagle-eye energy HUD uses yellow-to-red 10-state texture logic")
+    if ('const SEGMENT_COUNT := 10' in energy_widget
+            and 'range(SEGMENT_COUNT)' in energy_widget
+            and 'ceili(' in energy_widget and 'lit_segments == 1' in energy_widget):
+        ok("Energy cells use shared geometry, true zero and cell-only low-energy colors")
     else:
-        fail("Eagle-eye energy HUD lacks yellow-to-red texture-state logic")
+        fail("Shared energy geometry or low-energy rendering is missing")
 
     # Bug regression: AP label callbacks should target a member reference, not
     # a local label that can become null after scene reloads.
@@ -1721,20 +1669,15 @@ def test_runtime_ui_playability_regressions():
     else:
         fail("Main menu generated background is not wired with fallback")
 
-    if (
-        "APWidget" in location_base
-        and "var _ap_status_bar: TextureRect = null" in location_base
-        and "_update_ap_status_bar" in location_base
-        and "_get_hud_energy_state" in location_base
-        and "HUD_ENERGY_SEGMENT_COUNT := 10" in location_base
-        and "HUD_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)" in location_base
-        and "energy_bar_%02d.png" in location_base
-        and "_set_ap_widget_visible(false)" in location_base
-        and "_set_ap_widget_visible(true)" in location_base
-    ):
-        ok("LocationBase AP widget swaps generated 10-state status-bar textures")
+    if ("APWidget" in location_base and "_update_ap_status_bar" in location_base
+            and "APStatusBar" in location_base
+            and "HUD_ENERGY_BAR_RECT := Rect2(-536.0, 20.0, 512.0, 96.0)" in location_base
+            and "_set_ap_widget_visible(false)" in location_base
+            and "_set_ap_widget_visible(true)" in location_base):
+        ok("LocationBase AP widget preserves its bounds and eagle-eye visibility handoff")
     else:
-        fail("LocationBase AP widget does not swap generated 10-state status-bar textures")
+        fail("LocationBase AP widget bounds or visibility handoff regressed")
+
 
 
 # ---------------------------------------------------------------------------
@@ -1753,8 +1696,6 @@ def test_image_gen_ui_prompt_requests():
         records = [json.loads(line) for line in f if line.strip()]
 
     required = {
-        "dialogue_panel_compact_name_plate": ("assets/sprites/ui/dialogue_panel.png", (1280, 240)),
-        "ap_status_bar_hitech": ("assets/sprites/ui/ap_status_bar.png", (512, 96)),
         "main_menu_start_background": ("assets/sprites/ui/main_menu_background.png", (1280, 720)),
     }
     by_id = {record.get("id"): record for record in records}
@@ -1777,26 +1718,15 @@ def test_image_gen_ui_prompt_requests():
         else:
             fail(f"Incomplete image_gen prompt request: {prompt_id}")
 
-    energy_record = by_id.get("energy_bar_states_10_equal_slots")
-    energy_runtime_paths = [
-        os.path.join(PROJECT_ROOT, "assets/sprites/ui", f"energy_bar_{i:02d}.png")
-        for i in range(1, 11)
-    ]
-    energy_geometry_path = os.path.join(PROJECT_ROOT, "assets/generated/ui/energy_bar_10_equal_slots_geometry.json")
-    if (
-        energy_record
-        and energy_record.get("tool") == "image_gen+deterministic_normalization"
-        and energy_record.get("status") == "generated_equalized_connected"
-        and energy_record.get("source_imagegen_path")
-        and energy_record.get("geometry_path") == "assets/generated/ui/energy_bar_10_equal_slots_geometry.json"
-        and energy_record.get("prompt")
-        and energy_record.get("negative_prompt")
-        and os.path.exists(energy_geometry_path)
-        and all(os.path.exists(path) and get_png_size(path) == (512, 96) for path in energy_runtime_paths)
-    ):
-        ok("image_gen prompt request generated and connected: energy_bar_states_10_equal_slots")
+    energy_record = json.loads(read_file("assets/generated/prompts/image_gen_energy_hud_fixed_frame_2026_09_08.json"))
+    if (energy_record.get("tool") == "image_gen"
+            and energy_record.get("status") == "generated_connected"
+            and energy_record.get("prompt") and energy_record.get("chroma_retry_prompt")
+            and os.path.isfile(os.path.join(PROJECT_ROOT, energy_record.get("raw_source", "")))):
+        ok("Fixed energy-frame image_gen prompts and raw source are retained")
     else:
-        fail("Incomplete image_gen prompt request: energy_bar_states_10_equal_slots")
+        fail("Fixed energy-frame generation provenance is incomplete")
+
 
 
 # ---------------------------------------------------------------------------
@@ -2034,16 +1964,18 @@ def test_ch1_family_memory_branch():
             fail(f"Missing or wrong-size family memory placeholder PNG: {rel_path}")
 
     audio_path = os.path.join(PROJECT_ROOT, "assets/audio/sfx/family_memory_fragment.ogg")
-    if os.path.exists(audio_path) and os.path.getsize(audio_path) > 0:
-        ok("Family memory placeholder audio target exists")
+    # Bug regression: a 55-byte fake OggS file is not a delivered sound asset.
+    if not os.path.exists(audio_path):
+        ok("Undelivered optional family audio is absent rather than a fake OGG")
+    elif os.path.getsize(audio_path) < 58:
+        fail("Invalid short family audio placeholder has returned")
     else:
-        fail("Missing family memory placeholder audio target")
+        ok("Family audio candidate present; Godot decoding is still required")
 
     generated_pairs = {
         "assets/generated/items/ch1_family_memory_clip.png": "assets/sprites/items/family_memory_clip.png",
         "assets/generated/cg/cg_family_memory_clip.png": "assets/sprites/cg/cg_family_memory_clip.png",
         "assets/generated/backgrounds/mei_ling_apartment_family_memory_variant.png": "assets/sprites/locations/mei_ling_apartment_family_memory_variant.png",
-        "assets/generated/audio/ch1/family_memory_fragment.ogg": "assets/audio/sfx/family_memory_fragment.ogg",
     }
     for generated_rel, runtime_rel in generated_pairs.items():
         generated_path = os.path.join(PROJECT_ROOT, generated_rel)
@@ -2115,11 +2047,12 @@ def test_ch1_asset_replacement_readiness():
     if os.path.exists(family_path):
         with open(family_path, "r", encoding="utf-8") as f:
             family_records = [json.loads(line) for line in f if line.strip()]
-    placeholder_records = [record for record in family_records if record.get("status") == "placeholder_connected"]
-    if len(placeholder_records) == len(family_records) and family_records:
-        ok("Family memory manifest marks current assets as placeholder-connected")
+    if family_records and all(record.get("status") == (
+            "prompt_ready" if record.get("id") == "family_memory_fragment" else "placeholder_connected")
+            for record in family_records):
+        ok("Family memory manifest distinguishes connected images from undelivered audio")
     else:
-        fail("Family memory placeholders are not clearly marked")
+        fail("Family memory image/audio delivery states are not clearly marked")
 
     audio_manager = read_file("scripts/core/audio_manager.gd") or ""
     augmented = read_file("scripts/gameplay/augmented_vision.gd") or ""
@@ -2273,7 +2206,6 @@ def test_ch1_expanded_dual_route_and_eagle_eye_readings():
     evidence_content = read_file("scripts/data/evidence_data.gd") or ""
     board_content = read_file("scripts/gameplay/evidence_board.gd") or ""
     game_manager = read_file("scripts/core/game_manager.gd") or ""
-    decision_tracker = read_file("scripts/gameplay/decision_tracker.gd") or ""
     location_content = read_file("scripts/ui/location_base.gd") or ""
 
     expected_dialogues = [
@@ -2361,10 +2293,13 @@ def test_ch1_expanded_dual_route_and_eagle_eye_readings():
     else:
         fail("Evidence board does not expose eagle-eye alternate evidence readings")
 
-    if "/ 37.0" in game_manager and "/ 37.0" in decision_tracker:
-        ok("Ending evidence ratio denominator matches expanded evidence count")
+    # Bug regression: collection percentage is display-only; specific evidence
+    # and an explicit final choice decide endings, never an automatic fallback.
+    ending_body = re.search(r'func calculate_ending\(.*?(?=\nfunc |\Z)', game_manager, re.DOTALL)
+    if ending_body and "evidence_ratio" not in ending_body.group(0):
+        ok("Specific evidence and explicit choices determine endings")
     else:
-        fail("Ending evidence ratio denominator was not updated for expanded evidence")
+        fail("Explicit ending requirements regressed")
 
     if "compile_ch1_three_evidence_inference" in location_content and "trigger_glitch_pulse" in location_content:
         ok("Expanded Chapter 1 final inference triggers eagle-eye anomaly presentation")
@@ -2518,7 +2453,6 @@ def test_ch1_locationization_and_side_evidence():
     location_base = read_file("scripts/ui/location_base.gd") or ""
     dialogue_system = read_file("scripts/gameplay/dialogue_system.gd") or ""
     game_manager = read_file("scripts/core/game_manager.gd") or ""
-    decision_tracker = read_file("scripts/gameplay/decision_tracker.gd") or ""
     prompt_doc = read_file("docs/ch1_locationization_evidence_image_prompts.md") or ""
 
     expected_locations = {
@@ -2642,12 +2576,12 @@ def test_ch1_locationization_and_side_evidence():
     else:
         fail("LocationBase missing one-shot story action support")
 
-    if "requires_evidence" in location_base and "GameManager.has_evidence(req_evidence)" in location_base:
+    if "GameManager.meets_story_conditions(destination)" in scene_content and 'data.get("requires_evidence"' in game_manager:
         ok("LocationBase supports evidence-gated map destinations")
     else:
         fail("LocationBase missing evidence-gated map destination support")
 
-    if "requires_missing_flags" in dialogue_system and "set_flags" in dialogue_system:
+    if "GameManager.meets_story_conditions(choice)" in dialogue_system and "requires_missing_flags" in game_manager and "set_flags" in dialogue_system:
         ok("DialogueSystem supports route fallback and multi-flag setting")
     else:
         fail("DialogueSystem missing route fallback or multi-flag support")
@@ -2692,20 +2626,313 @@ def test_ch1_locationization_and_side_evidence():
     else:
         fail("Snake data-chip trade can be repeated or route choices are not mutually exclusive")
 
-    if "chapter_1_complete" in game_manager and "chapter_1_route_chosen" in game_manager and "/ 37.0" in game_manager and "/ 37.0" in decision_tracker:
-        ok("Chapter 1 completion decisions and 37-evidence denominator wired")
+    if "chapter_1_complete" in game_manager and "chapter_1_route_chosen" in game_manager:
+        ok("Chapter 1 completion decisions wired")
     else:
-        fail("Chapter 1 completion decisions or 37-evidence denominator missing")
+        fail("Chapter 1 completion decisions missing")
 
 
 # ---------------------------------------------------------------------------
+# Bug regression: A PNG can contain a painted checkerboard or opaque chroma
+# background despite looking transparent in a preview. Check decoded alpha.
+def test_unified_portrait_transparency():
+    print("\n[Portraits] Unified size and actual transparency")
+    portrait_dir = os.path.join(PROJECT_ROOT, "assets/sprites/characters")
+    for filename in sorted(os.listdir(portrait_dir)):
+        if not filename.endswith(".png"):
+            continue
+        stats = png_alpha_stats(os.path.join(portrait_dir, filename))
+        if (stats and stats["size"] == (1024, 1536)
+                and stats["corners"] == [0, 0, 0, 0]
+                and 0 < stats["transparent_pixels"] < 1024 * 1536):
+            ok(f"Portrait has real alpha and unified dimensions: {filename}")
+        else:
+            fail(f"Portrait is opaque, empty, cropped at corners, or wrong size: {filename}")
+
+    # Bug regression: Chroma despill must retain legitimate dark green fabric
+    # and eyes; the Windows converter checks these behaviors on small images.
+    if os.name == "nt":
+        result = subprocess.run(
+            ["powershell", "-NoProfile", "-File",
+             os.path.join(PROJECT_ROOT, "tools/prepare_character_portrait.ps1"), "-SelfTest"],
+            capture_output=True, text=True, timeout=60,
+        )
+        if result.returncode == 0 and "PASS:" in result.stdout:
+            ok("Portrait converter preserves green materials, alpha, and source images")
+        else:
+            fail(f"Portrait converter self-check failed: {result.stdout} {result.stderr}")
+
+
+# Bug regression: Unknown decision keys silently discarded player choices.
+def test_story_decision_keys():
+    dialogue = read_file("scripts/data/dialogue_data.gd")
+    manager = read_file("scripts/core/game_manager.gd")
+    defaults = re.search(r'const DEFAULT_DECISIONS.*?=\s*\{(.*?)\n\}', manager, re.DOTALL)
+    if not defaults:
+        fail("Missing shared decision defaults")
+        return
+    registered = set(re.findall(r'"(\w+)"\s*:', defaults.group(1)))
+    used = set()
+    for block in re.findall(r'"(?:set_decision|add_decision|requires_decisions)"\s*:\s*\{([^{}]*)\}', dialogue):
+        used.update(re.findall(r'"(\w+)"\s*:', block))
+    if used - registered:
+        fail("Dialogue decisions have no saved defaults: " + ", ".join(sorted(used - registered)))
+    else:
+        ok("All story choices use registered, saveable decision keys")
+
+
+def find_godot():
+    candidates = [os.environ.get("GODOT_BIN"), shutil.which("godot"), shutil.which("godot4")]
+    configured = re.search(r'\*\*Godot[^\n]*?`([^`]+\.exe)`', read_file("AGENTS.md") or "")
+    if configured:
+        executable = configured.group(1)
+        candidates.extend([os.path.splitext(executable)[0] + "_console.exe", executable])
+    return next((path for path in candidates if path and os.path.isfile(path)), None)
+
+
+# Bug regression: AP exhaustion/last-point travel, early endings, branch
+# fall-through, lost choice evidence, repeated choices, freed scene callbacks,
+# incomplete dialogue saves, and legacy saves with missing arrays/defaults
+# need real runtime checks, not string matching.
+# Bug regression: epilogues must use the saved ending, isolate all 27 family/care
+# combinations, and keep cancellation, testimony consent and repeat guards intact.
+# Bug regression: opening/closing an evidence board during dialogue must not
+# reset DIALOGUE to PLAYING and bypass the save guard.
+# Bug regression: ghost repair preserves exposure, revoked identity cannot enter,
+# cancelled/repeated actions cannot grant rewards, and later private-memory release
+# invalidates an earlier disclosure. Four actual paths cover A1/A2 and three entries.
+# Bug regression: old pending public saves reopen verification; completed saves
+# retain their ending, and final decisions freeze subsequent ECHO privacy choices.
+# Bug regression: chapter-one market selection must end before the clinic label can overwrite it.
+def test_chapter_and_ending_playthrough():
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; runtime playthrough skipped. Set GODOT_BIN to enable it.")
+        return
+    log_path = os.path.join(tempfile.gettempdir(), "neon-playthrough-last.log")
+    try:
+        result = subprocess.run(
+            [godot, "--headless", "--path", PROJECT_ROOT, "--script", "res://tests/test_playthrough.gd"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180,
+        )
+    except subprocess.TimeoutExpired:
+        fail("Godot playthrough exceeded 180 seconds")
+        return
+    output = result.stdout + result.stderr
+    with open(log_path, "w", encoding="utf-8") as log:
+        log.write(output)
+    # Bug regression: after removing fake audio, stale import sidecars must not
+    # hide missing-resource errors behind the former placeholder exception.
+    unexpected_errors = [line for line in output.splitlines()
+                         if line.startswith("ERROR:")]
+    if result.returncode == 0 and "PLAYTHROUGH_PASS:" in result.stdout and "SCRIPT ERROR:" not in output and not unexpected_errors:
+        ok("Seven real new-game paths, both chapter-two routes, A1/A2, three entrances and save/load passed")
+    else:
+        fail("Godot playthrough failed; log: " + log_path + "\n" + output[-3000:])
+
+
+# Bug regression: header/geometry claims did not detect drifting frame pixels,
+# zero energy still showing one cell, or a stale tween hiding a reopened HUD.
+# Short toggle cycles, partial-use saves and scene travel are exercised too.
+def test_energy_hud():
+    source = os.path.join(PROJECT_ROOT, "assets/generated/ui/energy_hud_frame.png")
+    runtime = os.path.join(PROJECT_ROOT, "assets/sprites/ui/energy_hud_frame.png")
+    stats = png_alpha_stats(runtime) if os.path.isfile(runtime) else None
+    if (stats and stats["size"] == (512, 96) and stats["corners"] == [0, 0, 0, 0]
+            and 0 < stats["transparent_pixels"] < 512 * 96
+            and os.path.isfile(source) and file_sha256(source) == file_sha256(runtime)):
+        ok("Fixed energy chassis is 512x96 RGBA, transparent, and copied to source/runtime")
+    else:
+        fail("Fixed energy chassis alpha, dimensions or source/runtime parity failed")
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; energy HUD runtime checks skipped. Set GODOT_BIN to enable.")
+        return
+    try:
+        result = subprocess.run([godot, "--headless", "--path", PROJECT_ROOT,
+                                 "--script", "res://tests/test_energy_hud.gd"],
+                                capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
+    except subprocess.TimeoutExpired:
+        fail("Energy HUD runtime checks exceeded 60 seconds")
+        return
+    output = result.stdout + result.stderr
+    log_path = os.path.join(tempfile.gettempdir(), "neon-energy-hud-last.log")
+    with open(log_path, "w", encoding="utf-8") as log:
+        log.write(output)
+    if result.returncode == 0 and "ENERGY_HUD_PASS:" in output and "ERROR:" not in output:
+        ok("Energy HUD runtime: 0-10 states, drain/recharge, one-cell activation and visibility passed")
+    else:
+        fail("Energy HUD runtime failed; log: " + log_path + "\n" + output[-2500:])
+
+
+# Bug regression: BGM must be connected, decode, loop, and survive overlapping fades.
+# Bug regression: an escaped-text OggS placeholder is not a playable binary OGG.
+def test_bgm_playback():
+    manifest_path = os.path.join(PROJECT_ROOT, "assets/audio/bgm/manifest.json")
+    with open(manifest_path, encoding="utf-8") as handle:
+        tracks = json.load(handle)
+    for track in tracks:
+        path = os.path.join(PROJECT_ROOT, "assets/audio/bgm", track["file"])
+        if os.path.isfile(path) and file_sha256(path) == track["sha256"] and track["license"] == "CC0-1.0":
+            ok("BGM original and license recorded: " + track["title"])
+        else:
+            fail("BGM missing or altered: " + track["title"])
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; BGM playback checks skipped")
+        return
+    try:
+        result = subprocess.run([godot, "--headless", "--path", PROJECT_ROOT,
+                                 "--script", "res://tests/test_bgm.gd"],
+                                capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
+        output = result.stdout + result.stderr
+        log_path = os.path.join(tempfile.gettempdir(), "neon-bgm-last.log")
+        with open(log_path, "w", encoding="utf-8") as log:
+            log.write(output)
+        if result.returncode == 0 and "BGM_PASS:" in output and "ERROR:" not in output:
+            ok("BGM runtime: real scenes, looping, rapid switching, stop and volume passed")
+        else:
+            fail("BGM runtime failed: " + log_path + "\n" + output[-2500:])
+    except subprocess.TimeoutExpired:
+        fail("BGM playback check exceeded 60 seconds")
+
+
 # Main
 # ---------------------------------------------------------------------------
+# Bug regression: clipped third/fourth choices and long prompt text must remain
+# readable/reachable in the actual desktop and mobile Godot control hierarchy.
+# Bug regression: native-resolution CG textures must not grow beyond the viewport
+# and crop characters; real dialogue checks cover desktop and two mobile sizes.
+# Bug regression: portrait crops, missing speaker names, unscaled readable fonts,
+# centered scrollable maps and native-size location backgrounds are checked at runtime.
+# Bug regression: mobile eagle-eye toggle must not overlap dialogue CG or AP HUD.
+# Bug regression: scan markers follow aspect-cover backgrounds, remain legible
+# above the scan overlay, and avoid the energy HUD on small mobile viewports.
+# Bug regression: transparent route props stay above dialogue; HUD callbacks must release with their scene.
+def test_dialogue_layout():
+    # Bug regression: menu background should cover the viewport without forcing
+    # the root control to use the much larger native texture size.
+    menu = read_file("scripts/ui/main_menu.gd")
+    if "generated_bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE" in menu:
+        ok("Menu background ignores native texture minimum size")
+    else:
+        fail("Menu background can grow beyond the viewport")
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; dialogue layout checks skipped")
+        return
+    result = subprocess.run([godot, "--headless", "--path", PROJECT_ROOT,
+                             "--script", "res://tests/test_dialogue_layout.gd"],
+                            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=45)
+    output = result.stdout + result.stderr
+    if result.returncode == 0 and "DIALOGUE_LAYOUT_PASS:" in output and "ERROR:" not in output:
+        ok("Dialogue layout: readable prompts, three visible choices, fourth scrollable on desktop/mobile")
+    else:
+        fail("Dialogue layout regression: " + output[-2000:])
+
+
+# Bug regression: core-produced flags such as case_resolved must be recognised
+# without allowing an invented prerequisite to pass the progression checker.
+# Bug regression: scan_flag is produced by the shared scan action runner;
+# prerequisite validation must not depend on the order of locations in the file.
+def test_core_story_flag_producers():
+    from test_story_progression import score_progression, read_file as read_story_file
+    inputs = [read_story_file(path) for path in (
+        "scripts/data/case_data.gd", "scripts/data/dialogue_data.gd",
+        "scripts/data/evidence_data.gd", "scripts/gameplay/evidence_board.gd",
+        "scripts/core/game_manager.gd")]
+    _, failures, _ = score_progression(*inputs)
+    inputs[0] = inputs[0].replace('"case_resolved"', '"regression_missing_producer"')
+    _, invalid_failures, _ = score_progression(*inputs)
+    if not failures and any("regression_missing_producer" in failure for failure in invalid_failures):
+        ok("Story progression recognises core flag producers and rejects unknown prerequisites")
+    else:
+        fail("Story flag producer regression: " + str(failures))
+
+
+# Bug regression: packed textures/audio can exist without raw PNG/OGG files;
+# unimported PNGs still need a byte-loading fallback.
+# Bug regression: resource-loading changes must also leave the Godot process
+# clean; runtime checks reject ERROR output even when assertions pass.
+def test_runtime_asset_loading():
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; packed asset checks skipped")
+        return
+    result = subprocess.run([godot, "--headless", "--path", PROJECT_ROOT,
+                             "--script", "res://tests/test_runtime_assets.gd"],
+                            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=45)
+    output = result.stdout + result.stderr
+    if result.returncode == 0 and "RUNTIME_ASSETS_PASS:" in output and "ERROR:" not in output:
+        ok("Runtime assets: PCK remaps, resource reuse, raw PNG, missing/wrong types and optional audio")
+    else:
+        fail("Runtime asset loading regression: " + output[-2000:])
+
+
+# Bug regression: source/runtime copies and original archives must survive
+# relocation together; missing files or changed bytes cannot pass silently.
+def test_asset_storage_manifest():
+    sys.path.insert(0, os.path.join(PROJECT_ROOT, "tools"))
+    from audit_assets import audit
+    result = audit()
+    if not result["errors"]:
+        ok("Asset storage: %d files, source hashes, original archives and preview links" % result["runtime_assets"])
+    else:
+        fail("Asset storage audit: " + str(result["errors"]))
+
+
+# Bug regression: retired UI images and orphan scene/scripts must not return
+# through stale manifests or duplicated implementations after cleanup.
+def test_retired_resources_removed():
+    from pathlib import Path
+    manifest = json.loads(read_file("docs/verification/cleanup_2026_09_08.json"))
+    required_absent = [entry["path"] for entry in manifest["files"]
+                       if Path(entry["path"]).suffix in (".gd", ".tscn", ".png", ".wav")]
+    remaining = [path for path in required_absent if os.path.exists(os.path.join(PROJECT_ROOT, path))]
+    if not remaining and 'res://scenes/game.tscn' not in read_file("scripts/core/scene_manager.gd"):
+        ok("Retired prototypes, duplicate artwork, energy variants and rejected audio remain removed")
+    else:
+        fail("Retired resources returned: " + str(remaining))
+
+
+# Bug regression: failed/repeated scans must not spend energy or rewrite choices;
+# evidence text must update with eagle-eye mode without resetting card positions.
+# Bug regression: scene markers and the investigation menu share scan charging,
+# saved results and one-shot choices; a recovery location cannot precede rescue.
+# Bug regression: repeated menu input must not stack investigation popups;
+# reviewing saved scan observations must not charge energy or grant progress.
+# Bug regression: chapter route commitment, cancellation and legacy saves retain correct gates.
+def test_eagle_eye_branch_runtime():
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; eagle-eye branch checks skipped")
+        return
+    result = subprocess.run([godot, "--headless", "--path", PROJECT_ROOT,
+                             "--script", "res://tests/test_eagle_eye_branches.gd"],
+                            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=45)
+    output = result.stdout + result.stderr
+    if result.returncode == 0 and "EAGLE_EYE_BRANCHES_PASS:" in output and "ERROR:" not in output:
+        ok("Eagle eye: scan costs, saved results, branching outcomes, scene markers and evidence readings")
+    else:
+        fail("Eagle-eye branch regression: " + output[-2000:])
+
+
+
+# Bug regression: branch names containing slashes must trigger push and PR checks.
+def test_ci_branch_filters():
+    workflow = read_file(".github/workflows/test.yml")
+    if workflow.count("branches: ['**']") == 2:
+        ok("CI runs for slash-containing push and pull-request branches")
+    else:
+        fail("CI branch filters can skip development branches")
+
+
 def main():
     print("=" * 60)
     print("NEON MEMORIES — Data Integrity Tests")
     print("=" * 60)
 
+    test_ci_branch_filters()
     test_scene_paths()
     test_case_data_connections()
     test_initial_dialogues()
@@ -2713,6 +2940,7 @@ def main():
     test_evidence_ids()
     test_character_portraits()
     test_generated_png_character_portraits()
+    test_unified_portrait_transparency()
     test_runtime_portrait_loader_supports_png()
     test_location_backgrounds()
     test_evidence_icons()
@@ -2745,6 +2973,16 @@ def main():
     test_ch1_expanded_dual_route_and_eagle_eye_readings()
     test_ch1_missing_visual_assets_connected()
     test_ch1_locationization_and_side_evidence()
+    test_story_decision_keys()
+    test_chapter_and_ending_playthrough()
+    test_energy_hud()
+    test_eagle_eye_branch_runtime()
+    test_bgm_playback()
+    test_dialogue_layout()
+    test_core_story_flag_producers()
+    test_runtime_asset_loading()
+    test_asset_storage_manifest()
+    test_retired_resources_removed()
 
     print("\n" + "=" * 60)
     print(f"Results: {passed} passed, {failed} failed, {warnings} warnings")
