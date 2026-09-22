@@ -103,11 +103,11 @@
     {
       "runtime": "assets/sprites/cg/cg_public_evidence_handover.png",
       "source": "assets/generated/cg/cg_public_evidence_handover.png",
-      "raw": "assets/generated/cg/raw/cg_public_evidence_handover_handdrawn_v2.png",
-      "raw_sha256": "6f6309d3389045a780c6a57c3ed1177285c009c2c0d523f4b916be9f40800bf3",
-      "sha256": "15cae1d6e79a006aae967a016800089ac5f1824b8af3e17e3aa51108f1209948",
-      "bytes": 3365947,
-      "prompt_record": "assets/generated/prompts/image_gen_zhao_handdrawn_v2_2026_09_08.txt"
+      "raw": "assets/generated/cg/candidates/cg_handover_option_b.png",
+      "raw_sha256": "b673e48ee025e495020574598fa612aa56598c829fb93702a92888ee46c395c0",
+      "sha256": "b673e48ee025e495020574598fa612aa56598c829fb93702a92888ee46c395c0",
+      "bytes": 1957634,
+      "prompt_record": "assets/generated/prompts/image_gen_handover_options.txt"
     },
     {
       "runtime": "assets/sprites/cg/eagle_eye_activation_cutin_ch1.png",
@@ -1267,24 +1267,78 @@
       "raw_sha256": "cb41559ab64d716c1dc6dfeddbf7553eaab5d8753a1b1f39e6c6c39da1161ffe",
       "width": 512,
       "height": 512
-    }
-  ],
-  "optional_audio": [
-    {
-      "runtime": "assets/audio/sfx/family_memory_fragment.ogg",
-      "status": "missing"
     },
     {
-      "runtime": "assets/audio/sfx/broken_player_scan.ogg",
-      "status": "missing"
+      "runtime": "assets/audio/sfx/evidence_collect.ogg",
+      "source": "assets/audio/source/sfx/confirmation_001.ogg",
+      "sha256": "063564703b6094d70718a3e787a55cc9141611e4ecd6b6637f8828f79b4a8c3a",
+      "bytes": 8968,
+      "license_record": "assets/audio/sfx/LICENSE.md"
+    },
+    {
+      "runtime": "assets/audio/sfx/scan_confirm.ogg",
+      "source": "assets/audio/source/sfx/select_003.ogg",
+      "sha256": "9a612fd2f513d52a296906b41071c990f75defe56be3bee60d2d4e2423b51b8b",
+      "bytes": 6901,
+      "license_record": "assets/audio/sfx/LICENSE.md"
+    },
+    {
+      "runtime": "assets/audio/sfx/handover_confirm.ogg",
+      "source": "assets/audio/source/sfx/drop_002.ogg",
+      "sha256": "4ac4d1cef7e936965cbf795852ca2020300b9e2ba7daa59f2bf4f1f7bf416218",
+      "bytes": 6411,
+      "license_record": "assets/audio/sfx/LICENSE.md"
     },
     {
       "runtime": "assets/audio/sfx/eagle_eye_glitch_sting.ogg",
-      "status": "missing"
+      "source": "assets/audio/source/sfx/glitch_001.ogg",
+      "sha256": "da78c642bbd95da2c364ed0e991ebbfc5a4c0d281165d932b5819e0dd31a39d2",
+      "bytes": 5121,
+      "license_record": "assets/audio/sfx/LICENSE.md"
+    },
+    {
+      "runtime": "assets/audio/sfx/family_memory_fragment.ogg",
+      "source": "assets/audio/source/sfx/glass_001.ogg",
+      "sha256": "183eebee20eb0a532b0b85104d139cbf2673eb66d95c3cc733ac9ea98362e7e8",
+      "bytes": 6103,
+      "license_record": "assets/audio/sfx/LICENSE.md"
+    },
+    {
+      "runtime": "assets/audio/sfx/broken_player_scan.ogg",
+      "source": "assets/audio/source/sfx/question_001.ogg",
+      "sha256": "abb8f9e4eb2071491b0b15f84ee302386b1847609310c1b000ae174639a6cc5a",
+      "bytes": 11700,
+      "license_record": "assets/audio/sfx/LICENSE.md"
     },
     {
       "runtime": "assets/audio/sfx/memory_signature_reveal.ogg",
-      "status": "missing"
+      "source": "assets/audio/source/sfx/open_001.ogg",
+      "sha256": "a27c6bb0df7da1e6af5dd5937593c98bc58b6e513f42fe6a3254cd6a6949c648",
+      "bytes": 9834,
+      "license_record": "assets/audio/sfx/LICENSE.md"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_ending_b_care.png",
+      "source": "assets/generated/cg/cg_ending_b_care.png",
+      "raw": "assets/generated/cg/raw/cg_ending_b_care.png",
+      "sha256": "fb5d2ee9069e081422eb73eadeabb902c66cdd5d1c9ed3cef0d10e41b2f87811",
+      "raw_sha256": "fb5d2ee9069e081422eb73eadeabb902c66cdd5d1c9ed3cef0d10e41b2f87811",
+      "bytes": 2249712,
+      "width": 1672,
+      "height": 941,
+      "prompt_record": "assets/generated/prompts/cg_ending_b_care.txt"
+    },
+    {
+      "runtime": "assets/sprites/cg/cg_ending_c_awakening.png",
+      "source": "assets/generated/cg/cg_ending_c_awakening.png",
+      "raw": "assets/generated/cg/raw/cg_ending_c_awakening.png",
+      "sha256": "5166a72c71995689fd155a2bf24766f3fe7b259936a67c4082d3142a398cbf9c",
+      "raw_sha256": "5166a72c71995689fd155a2bf24766f3fe7b259936a67c4082d3142a398cbf9c",
+      "bytes": 1995993,
+      "width": 1672,
+      "height": 941,
+      "prompt_record": "assets/generated/prompts/cg_ending_c_awakening.txt"
     }
-  ]
+  ],
+  "optional_audio": []
 }
