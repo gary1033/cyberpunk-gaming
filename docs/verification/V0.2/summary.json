@@ -1,0 +1,43 @@
+{
+  "version": "0.2",
+  "source_routes": 7,
+  "source_freedom_routes": 18,
+  "packaged_freedom_routes": 18,
+  "packaged_combinations": [
+    "corporate/evidence/ending_a_justice",
+    "corporate/evidence/ending_b_grey_deal",
+    "corporate/evidence/ending_c_memory_rebirth",
+    "corporate/rescue/ending_a_justice",
+    "corporate/rescue/ending_b_grey_deal",
+    "corporate/rescue/ending_c_memory_rebirth",
+    "ghost/evidence/ending_a_justice",
+    "ghost/evidence/ending_b_grey_deal",
+    "ghost/evidence/ending_c_memory_rebirth",
+    "ghost/rescue/ending_a_justice",
+    "ghost/rescue/ending_b_grey_deal",
+    "ghost/rescue/ending_c_memory_rebirth",
+    "independent/evidence/ending_a_justice",
+    "independent/evidence/ending_b_grey_deal",
+    "independent/evidence/ending_c_memory_rebirth",
+    "independent/rescue/ending_a_justice",
+    "independent/rescue/ending_b_grey_deal",
+    "independent/rescue/ending_c_memory_rebirth"
+  ],
+  "layout_checks": 1464,
+  "pagination_checks": 10258,
+  "forced_splits": 0,
+  "initial_integrity": {
+    "failed": 1,
+    "resolved_by": "Text shortened; complete pagination rerun passed; entire suite not rerun",
+    "passed": 943,
+    "reason": "Two added prompts split inside sentences"
+  },
+  "native": {
+    "known_cleanup_warning": "ObjectDB instances leaked; 2 resources still in use",
+    "note": "Normal close confirmed using WM_CLOSE on the owned hidden window. Process.CloseMainWindow could not find the hidden window in the first attempt.",
+    "started": true,
+    "normal_close_exit_code": 0
+  },
+  "human_playtest": "pending",
+  "zip_sha256": "C877126BEAA2836ED9562EF4DFF8FF15C393D8F282D203377EED4A70571C1F41"
+}

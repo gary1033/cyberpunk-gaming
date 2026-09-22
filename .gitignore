@@ -23,3 +23,7 @@ Thumbs.db
 # Local Python test/tool caches
 __pycache__/
 *.py[cod]
+
+# Reproducible historical screenshot sweeps remain local; keep test reports.
+/docs/verification/V0.2/**/*.png
+/docs/verification/dialogue_pagination_2026_09_09/**/*.png

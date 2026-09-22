@@ -1,0 +1,90 @@
+
+[3] CaseData initial_dialogue → DialogueData
+  [OK] Dialogue exists: ch1_mei_ling_intro
+  [OK] Dialogue exists: ch1_abyss_bar_enter
+  [OK] Dialogue exists: ch1_workshop_enter
+  [OK] Dialogue exists: ch1_old_city_police_outpost_enter
+  [OK] Dialogue exists: ch1_dr_chen_encounter
+  [OK] Dialogue exists: ch1_abyss_bar_backroom_enter
+  [OK] Dialogue exists: ch2_opening
+  [OK] Dialogue exists: ch2_memory_market_enter
+  [OK] Dialogue exists: ch2_warehouse_explore
+  [OK] Dialogue exists: ch2_zhao_ming_meeting
+  [OK] Dialogue exists: ch2_referral_enter
+  [OK] Dialogue exists: ch2_auction_enter
+  [OK] Dialogue exists: ch2_civic_archive_enter
+  [OK] Dialogue exists: ch3_opening
+  [OK] Dialogue exists: ch3_lab_arrival
+  [OK] Dialogue exists: ch3_echo_ai
+  [OK] Dialogue exists: ch3_recovery_annex_enter
+  [OK] Dialogue exists: ch3_epilogue_family
+
+[4] DialogueData label jump targets
+  [OK] All 171 jump targets stay within their dialogue
+
+[5] Evidence IDs consistency
+  [OK] Found 45 evidence IDs
+  [OK] No duplicate evidence IDs
+  [OK] All story choices use registered, saveable decision keys
+  [OK] Story progression recognises core flag producers and rejects unknown prerequisites
+
+[31] Chapter 1 opening and Mei Ling trust expansion
+  [OK] New-game opening shows Kai office prologue CG before Mei Ling enters
+  [OK] Chapter 1 expanded dialogue exists: ch1_hao_ran_drawer_search
+  [OK] Chapter 1 expanded dialogue exists: ch1_original_backup_album
+  [OK] Chapter 1 expanded dialogue exists: ch1_hao_ran_encrypted_message
+  [OK] Expanded story action wired: inspect_hao_ran_drawer
+  [OK] Expanded story action wired: inspect_original_backup_album
+  [OK] Expanded story action wired: decode_hao_ran_last_message
+  [OK] Expanded evidence has runtime icon/fallback: hao_ran_drawer_note
+  [OK] Expanded evidence has runtime icon/fallback: original_backup_hint
+  [OK] Expanded evidence has runtime icon/fallback: hao_ran_encrypted_message
+  [OK] Evidence board connects original backup hint to Hao Ran message
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_kai_office_prologue.png
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_hao_ran_encrypted_message.png
+  [OK] Generated trust-path asset connected: assets/sprites/items/hao_ran_drawer_note.png
+  [OK] Generated trust-path asset connected: assets/sprites/items/original_backup_hint.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_kai_office_prologue.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_hao_ran_encrypted_message.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/items/hao_ran_drawer_note.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/items/original_backup_hint.png
+  [OK] image_gen trust-path manifest covers all generated assets
+
+[32] Chapter 1 expanded dual-route and eagle-eye readings
+  [OK] Expanded Chapter 1 dialogue exists: ch1_eleven_pm_call_log
+  [OK] Expanded Chapter 1 dialogue exists: ch1_old_city_police_outpost
+  [OK] Expanded Chapter 1 dialogue exists: ch1_street_camera_gap
+  [OK] Expanded Chapter 1 dialogue exists: ch1_abyss_backroom_investigation
+  [OK] Expanded Chapter 1 dialogue exists: ch1_snake_data_chip_choice
+  [OK] Expanded Chapter 1 dialogue exists: ch1_dr_chen_clinic_followup
+  [OK] Expanded Chapter 1 dialogue exists: ch1_three_evidence_inference
+  [OK] Expanded story action wired: inspect_eleven_pm_call_log
+  [OK] Expanded story action wired: visit_old_city_police_outpost
+  [OK] Expanded story action wired: review_east_district_camera_gap
+  [OK] Expanded story action wired: investigate_abyss_backroom
+  [OK] Expanded story action wired: negotiate_snake_data_chip
+  [OK] Expanded story action wired: visit_dr_chen_clinic
+  [OK] Expanded story action wired: compile_ch1_three_evidence_inference
+  [OK] Expanded Chapter 1 evidence exists: eleven_pm_call_log
+  [OK] Expanded Chapter 1 evidence exists: rejected_missing_person_report
+  [OK] Expanded Chapter 1 evidence exists: street_camera_gap
+  [OK] Expanded Chapter 1 evidence exists: masked_client_receipt
+  [OK] Expanded Chapter 1 evidence exists: clinic_eye_warning_log
+  [OK] Expanded Chapter 1 evidence exists: black_market_entry_hint
+  [OK] Chapter 1 evidence has broad eagle-eye second readings
+  [OK] Expanded evidence-board flag wired: "eleven_pm_call_log:rejected_missing_person_report": "deduced_police_suppression"
+  [OK] Expanded evidence-board flag wired: "rejected_missing_person_report:street_camera_gap": "deduced_city_system_suppression"
+  [OK] Expanded evidence-board flag wired: "masked_client_receipt:stranger_photo": "deduced_ch1_black_market_route"
+  [OK] Expanded evidence-board flag wired: "clinic_eye_warning_log:masked_client_receipt": "deduced_ch1_three_evidence_gate"
+  [OK] Expanded route flag present: accepted_snake_deal
+  [OK] Expanded route flag present: rejected_snake_deal
+  [OK] Expanded route flag present: black_market_route_opened
+  [OK] Expanded route flag present: clinic_route_opened
+  [OK] Expanded route flag present: echo_trust_axis_seeded
+  [OK] Eagle-eye overuse count and warning flag are tracked
+  [OK] Evidence board displays alternate evidence readings in eagle-eye mode
+  [OK] Specific evidence and explicit choices determine endings
+  [OK] Expanded Chapter 1 final inference triggers eagle-eye anomaly presentation
+STYLE_DATA_CHECKS: passed=79 failed=0 warnings=0

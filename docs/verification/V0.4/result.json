@@ -1,0 +1,18 @@
+{
+  "suite_initial": {
+    "passed": 956,
+    "failed": 1
+  },
+  "resolved_failure": "Outdated placeholder expectation replaced; BGM 23 checks pass",
+  "gpu": "V04_EXPERIENCE_PASS, no errors",
+  "export": "PCK version, menu and new resources pass; exit resource warnings remain; full packaged playthrough not performed",
+  "zip": "C:\\GameBuilds\\NEON-MEMORIES-Windows-V0.4.zip",
+  "sha256": "c9d5ba916d2e240afbde241679fe648fbff80cbe002ac8b24558937bc87b457e",
+  "zip_matches_files": true,
+  "prepush": {
+    "passed": 957,
+    "failed": 0,
+    "warnings": 0,
+    "log": "prepush.log"
+  }
+}

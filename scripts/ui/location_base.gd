@@ -661,11 +661,12 @@ func _run_story_action(action_data: Dictionary) -> void:
 	if not scan_flag.is_empty() and not GameManager.get_dialogue_flag(scan_flag):
 		var was_active := GameManager.eagle_eye_active
 		if not GameManager.perform_eagle_eye_scan(float(action_data.get("scan_cost", 20.0))):
-			_show_story_actions("鷹眼能量不足。關閉鷹眼等待充能，再重試；調查進度不會消失。")
+			_show_story_actions("鷹眼能量不足。可在地圖休整補滿，或關閉鷹眼自然充能；調查進度保留。")
 			return
 		if was_active and not GameManager.eagle_eye_active:
 			_augmented_vision._deactivate()
 		GameManager.set_dialogue_flag(scan_flag)
+		AudioManager.play_optional_sfx("res://assets/audio/sfx/scan_confirm.ogg")
 		_augmented_vision.trigger_glitch_pulse()
 	var flag: String = action_data.get("set_flag", "")
 	if flag != "":
@@ -776,7 +777,7 @@ func _show_map(message: String = "") -> void:
 	popup_layer.name = "LocationMap"
 	var vbox := _create_popup_content(popup_layer, 380.0, Color(0.0, 0.7, 0.7), "前往目的地", Color(0.0, 0.9, 0.9))
 	var ap_label := Label.new()
-	ap_label.text = "行動力 %d / %d｜移動消耗 1 點\n休整可補滿行動力，保留調查進度。" % [GameManager.action_points, GameManager.max_action_points]
+	ap_label.text = "行動力 %d / %d｜移動消耗 1 點\n休整可補滿行動力與鷹眼，不會推進章節或使事件失效。" % [GameManager.action_points, GameManager.max_action_points]
 	if GameManager.current_chapter == 2 and GameManager.get_dialogue_flag("ghost_identity_resolved") and not GameManager.get_dialogue_flag("ghost_followup_resolved"):
 		ap_label.text += "\n幽靈的離線約定尚未處理；離開本章後無法回訪。"
 	ap_label.add_theme_font_size_override("font_size", 16)
@@ -809,8 +810,8 @@ func _show_map(message: String = "") -> void:
 			scan_note.add_theme_color_override("font_color", Color("66cbb9"))
 			vbox.add_child(scan_note)
 
-	var rest_btn := _create_popup_button("休整（恢復全部行動力）", Color(0.5, 0.9, 0.6), _rest_from_map.bind(popup_layer))
-	rest_btn.disabled = GameManager.action_points >= GameManager.max_action_points
+	var rest_btn := _create_popup_button("休整（補滿行動力與鷹眼）", Color(0.5, 0.9, 0.6), _rest_from_map.bind(popup_layer))
+	rest_btn.disabled = GameManager.action_points >= GameManager.max_action_points and GameManager.eagle_eye_energy >= GameManager.eagle_eye_max_energy
 	vbox.add_child(rest_btn)
 	if GameManager.can_advance_chapter():
 		var next_chapter: Dictionary = CaseDataScript.get_chapter_data(GameManager.current_chapter + 1)
@@ -833,6 +834,8 @@ func _travel_from_map(target_location_id: String, popup_layer: CanvasLayer) -> v
 func _rest_from_map(popup_layer: CanvasLayer) -> void:
 	if not is_instance_valid(popup_layer) or popup_layer.is_queued_for_deletion() or SceneManager.is_transitioning():
 		return
+	if GameManager.eagle_eye_active:
+		_augmented_vision._deactivate()
 	if not GameManager.rest():
 		return
 	popup_layer.queue_free()
@@ -874,43 +877,85 @@ func _open_evidence_board() -> void:
 
 	# Build board UI structure
 	var bg := ColorRect.new()
-	bg.color = Color(0.03, 0.03, 0.08, 0.95)
+	bg.color = Color(0.03, 0.03, 0.08, 1.0)
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 
+	var scroll := ScrollContainer.new()
+	scroll.name = "Scroll"
+	scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
+	scroll.offset_left = 16
+	scroll.offset_right = -16
+	scroll.offset_top = 140
+	scroll.offset_bottom = -90
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
 	var board_container := Control.new()
 	board_container.name = "BoardContainer"
-	board_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	board_container.mouse_filter = Control.MOUSE_FILTER_PASS
+	board_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var cards_layer := Control.new()
 	cards_layer.name = "CardsLayer"
 	cards_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
-	var lines_layer := Control.new()
-	lines_layer.name = "LinesLayer"
-	lines_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
-	board_container.add_child(lines_layer)
+	cards_layer.mouse_filter = Control.MOUSE_FILTER_PASS
 	board_container.add_child(cards_layer)
+	scroll.add_child(board_container)
 
 	var ui_container := Control.new()
 	ui_container.name = "UI"
 	ui_container.set_anchors_preset(Control.PRESET_FULL_RECT)
-
+	ui_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var help := Label.new()
+	help.text = "證據板｜選兩項配對，再按同一項取消。\n滾輪／滑動可查看其他證據。"
+	help.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	help.offset_left = 20
+	help.offset_right = -20
+	help.offset_top = 8
+	help.add_theme_font_size_override("font_size", 16)
+	help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	ui_container.add_child(help)
+	var feedback := RichTextLabel.new()
+	feedback.name = "Feedback"
+	feedback.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	feedback.offset_left = 20
+	feedback.offset_right = -20
+	feedback.offset_top = 68
+	feedback.offset_bottom = 134
+	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	feedback.add_theme_font_size_override("normal_font_size", 16)
+	feedback.add_theme_color_override("default_color", Color(0.7, 0.95, 0.9))
+	ui_container.add_child(feedback)
+	var progress_text := Label.new()
+	progress_text.name = "ProgressText"
+	progress_text.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	progress_text.offset_left = 20
+	progress_text.offset_right = -20
+	progress_text.offset_top = -80
+	progress_text.offset_bottom = -54
+	ui_container.add_child(progress_text)
 	var progress := ProgressBar.new()
 	progress.name = "ProgressBar"
-	progress.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	progress.custom_minimum_size = Vector2(0, 20)
+	progress.show_percentage = false
+	progress.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	progress.offset_left = 20
+	progress.offset_right = -180
+	progress.offset_top = -48
+	progress.offset_bottom = -28
 	ui_container.add_child(progress)
 
 	var close_btn := Button.new()
 	close_btn.name = "CloseButton"
 	close_btn.text = "關閉證據板"
 	close_btn.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	close_btn.offset_left = -160
-	close_btn.offset_top = -50
+	close_btn.offset_left = -168
+	close_btn.offset_right = -16
+	close_btn.offset_top = -62
+	close_btn.offset_bottom = -16
 	close_btn.custom_minimum_size = Vector2(150, 44)
 	close_btn.add_theme_color_override("font_color", Color(0.9, 0.3, 0.3))
 	ui_container.add_child(close_btn)
 
 	board.add_child(bg)
-	board.add_child(board_container)
+	board.add_child(scroll)
 	board.add_child(ui_container)
 	canvas.add_child(board)
 	add_child(canvas)
@@ -919,12 +964,18 @@ func _open_evidence_board() -> void:
 	board.open()
 
 func _show_pause_menu() -> void:
+	if get_tree().get_first_node_in_group("reading_panel") != null:
+		return
 	var popup_layer := _create_popup_layer(0.7)
 	var vbox := _create_popup_content(popup_layer, 280.0, Color(0.0, 0.7, 0.7), "NEON MEMORIES", Color(0.0, 0.9, 0.9))
 	var title := vbox.get_child(0) as Label
 	if title:
 		title.add_theme_font_size_override("font_size", 20)
 
+	vbox.add_child(_create_popup_button("案件摘要／對話回看／閱讀設定", Color(0.5, 0.9, 0.9), func():
+		popup_layer.queue_free()
+		add_child(load("res://scripts/ui/case_notebook.gd").new())
+	))
 	var save_btn := _create_popup_button("存檔", Color(0.0, 0.9, 0.9), func():
 		SaveManager.save_game(1)
 		popup_layer.queue_free()

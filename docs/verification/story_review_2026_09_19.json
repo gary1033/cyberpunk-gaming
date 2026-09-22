@@ -1,0 +1,865 @@
+{
+  "status": "analysis_only; no game fixes applied",
+  "checked_at": "2026-09-19",
+  "engine": "Godot 4.6.1",
+  "baseline": {
+    "playthrough": {
+      "exit_code": 0,
+      "routes": 7,
+      "pass_marker": "PLAYTHROUGH_PASS: seven real new-game paths: A1/A2, both B care outcomes, shared/private/skipped C; both chapter-two routes, bidirectional switching, AP/chapters, save/load",
+      "engine_errors": []
+    },
+    "freedom": {
+      "exit_code": 0,
+      "routes": 18,
+      "pass_marker": "PLAYTHROUGH_PASS: 18 freedom paths: three earned entries, two objective orders, three endings; retries, cancellation, revocation, save/load",
+      "engine_errors": [],
+      "combinations": [
+        {
+          "entry": "ghost",
+          "first_objective": "rescue",
+          "ending": "ending_a_justice"
+        },
+        {
+          "entry": "ghost",
+          "first_objective": "rescue",
+          "ending": "ending_b_grey_deal"
+        },
+        {
+          "entry": "ghost",
+          "first_objective": "rescue",
+          "ending": "ending_c_memory_rebirth"
+        },
+        {
+          "entry": "ghost",
+          "first_objective": "evidence",
+          "ending": "ending_a_justice"
+        },
+        {
+          "entry": "ghost",
+          "first_objective": "evidence",
+          "ending": "ending_b_grey_deal"
+        },
+        {
+          "entry": "ghost",
+          "first_objective": "evidence",
+          "ending": "ending_c_memory_rebirth"
+        },
+        {
+          "entry": "corporate",
+          "first_objective": "rescue",
+          "ending": "ending_a_justice"
+        },
+        {
+          "entry": "corporate",
+          "first_objective": "rescue",
+          "ending": "ending_b_grey_deal"
+        },
+        {
+          "entry": "corporate",
+          "first_objective": "rescue",
+          "ending": "ending_c_memory_rebirth"
+        },
+        {
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "ending": "ending_a_justice"
+        },
+        {
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "ending": "ending_b_grey_deal"
+        },
+        {
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "ending": "ending_c_memory_rebirth"
+        },
+        {
+          "entry": "independent",
+          "first_objective": "rescue",
+          "ending": "ending_a_justice"
+        },
+        {
+          "entry": "independent",
+          "first_objective": "rescue",
+          "ending": "ending_b_grey_deal"
+        },
+        {
+          "entry": "independent",
+          "first_objective": "rescue",
+          "ending": "ending_c_memory_rebirth"
+        },
+        {
+          "entry": "independent",
+          "first_objective": "evidence",
+          "ending": "ending_a_justice"
+        },
+        {
+          "entry": "independent",
+          "first_objective": "evidence",
+          "ending": "ending_b_grey_deal"
+        },
+        {
+          "entry": "independent",
+          "first_objective": "evidence",
+          "ending": "ending_c_memory_rebirth"
+        }
+      ]
+    }
+  },
+  "dialogue_fallthrough": [
+    {
+      "dialogue": "ch1_abyss_bar_enter",
+      "selected_labels": [
+        "ajie_ask",
+        "ajie_receipt"
+      ],
+      "observed_labels": [
+        "ajie_ask",
+        "ajie_receipt",
+        "ajie_vague"
+      ],
+      "flags": {
+        "ajie_told_about_meeting": true
+      }
+    },
+    {
+      "dialogue": "ch1_snake_encounter",
+      "selected_labels": [
+        "snake_info",
+        "snake_deal",
+        "snake_deal_accept"
+      ],
+      "observed_labels": [
+        "snake_info",
+        "snake_deal",
+        "snake_deal_accept",
+        "snake_deal_reject"
+      ],
+      "flags": {
+        "snake_broker_met": true,
+        "snake_requested_data_chip": true
+      }
+    },
+    {
+      "dialogue": "ch1_snake_data_chip_choice",
+      "selected_labels": [
+        "snake_trade_accept"
+      ],
+      "observed_labels": [
+        "snake_trade_accept",
+        "snake_trade_reject"
+      ],
+      "flags": {
+        "accepted_snake_deal": true,
+        "black_market_route_opened": true,
+        "clinic_route_opened": true,
+        "snake_data_chip_choice_resolved": true
+      }
+    },
+    {
+      "dialogue": "ch1_original_backup_album",
+      "selected_labels": [
+        "backup_reassure"
+      ],
+      "observed_labels": [
+        "backup_reassure",
+        "backup_cautious"
+      ],
+      "flags": {
+        "mei_ling_trust_deepened": true
+      }
+    }
+  ],
+  "opening_recovery": [
+    {
+      "bar_revisit_actions": [
+        "scan_ajie_receipt",
+        "meet_snake_information_broker"
+      ],
+      "evidence": [
+        "commission_letter",
+        "abyss_receipt",
+        "work_id"
+      ],
+      "has_photo_after_bar": true,
+      "has_receipt": true,
+      "office_revisit_actions": [],
+      "office_revisit_dialogue_visible": false,
+      "photo_after_revisits": true,
+      "topic": "mei_ling_abnormal"
+    },
+    {
+      "bar_revisit_actions": [],
+      "evidence": [
+        "commission_letter",
+        "work_id"
+      ],
+      "has_photo_after_bar": false,
+      "has_receipt": false,
+      "office_revisit_actions": [],
+      "office_revisit_dialogue_visible": false,
+      "photo_after_revisits": false,
+      "topic": "mei_ling_workshop"
+    },
+    {
+      "bar_revisit_actions": [],
+      "evidence": [
+        "commission_letter",
+        "work_id"
+      ],
+      "has_photo_after_bar": false,
+      "has_receipt": false,
+      "office_revisit_actions": [],
+      "office_revisit_dialogue_visible": false,
+      "photo_after_revisits": false,
+      "topic": "mei_ling_trust_test"
+    },
+    {
+      "available_actions": [
+        "scan_ajie_receipt",
+        "meet_snake_information_broker"
+      ],
+      "has_photo": false,
+      "scenario": "look_around_then_return",
+      "visited_bar": true
+    }
+  ],
+  "earned_board_geometry": [
+    {
+      "below_screen_cards": [],
+      "chapter": 1,
+      "earned_evidence": 17,
+      "earned_ids": [
+        "commission_letter",
+        "abyss_receipt",
+        "work_id",
+        "hao_ran_drawer_note",
+        "original_backup_hint",
+        "family_memory_clip",
+        "broken_memory_player",
+        "kai_eye_glitch_log",
+        "eleven_pm_call_log",
+        "old_city_queue_ticket",
+        "rejected_missing_person_report",
+        "street_camera_gap",
+        "dr_chen_schedule",
+        "clinic_anonymous_case_note",
+        "clinic_eye_warning_log",
+        "memory_device_log",
+        "data_chip"
+      ],
+      "fully_visible_cards": 17,
+      "location": "hao_ran_workshop",
+      "viewport": "(1280.0, 720.0)"
+    },
+    {
+      "below_screen_cards": [
+        "masked_client_receipt"
+      ],
+      "chapter": 1,
+      "earned_evidence": 21,
+      "earned_ids": [
+        "commission_letter",
+        "abyss_receipt",
+        "work_id",
+        "hao_ran_drawer_note",
+        "original_backup_hint",
+        "family_memory_clip",
+        "broken_memory_player",
+        "kai_eye_glitch_log",
+        "eleven_pm_call_log",
+        "old_city_queue_ticket",
+        "rejected_missing_person_report",
+        "street_camera_gap",
+        "dr_chen_schedule",
+        "clinic_anonymous_case_note",
+        "clinic_eye_warning_log",
+        "memory_device_log",
+        "data_chip",
+        "hao_ran_encrypted_message",
+        "stranger_photo",
+        "abyss_surveillance_delay_log",
+        "masked_client_receipt"
+      ],
+      "fully_visible_cards": 20,
+      "location": "abyss_bar_backroom",
+      "viewport": "(1280.0, 720.0)"
+    },
+    {
+      "below_screen_cards": [
+        "masked_client_receipt",
+        "black_market_entry_hint",
+        "echo_symbol",
+        "fake_id_chip",
+        "comm_frequency",
+        "hao_ran_diary",
+        "victim_list",
+        "warehouse_map",
+        "ghost_identity_trace",
+        "ghost_relay_token",
+        "zhengtek_memo"
+      ],
+      "chapter": 2,
+      "earned_evidence": 31,
+      "earned_ids": [
+        "commission_letter",
+        "abyss_receipt",
+        "work_id",
+        "hao_ran_drawer_note",
+        "original_backup_hint",
+        "family_memory_clip",
+        "broken_memory_player",
+        "kai_eye_glitch_log",
+        "eleven_pm_call_log",
+        "old_city_queue_ticket",
+        "rejected_missing_person_report",
+        "street_camera_gap",
+        "dr_chen_schedule",
+        "clinic_anonymous_case_note",
+        "clinic_eye_warning_log",
+        "memory_device_log",
+        "data_chip",
+        "hao_ran_encrypted_message",
+        "stranger_photo",
+        "abyss_surveillance_delay_log",
+        "masked_client_receipt",
+        "black_market_entry_hint",
+        "echo_symbol",
+        "fake_id_chip",
+        "comm_frequency",
+        "hao_ran_diary",
+        "victim_list",
+        "warehouse_map",
+        "ghost_identity_trace",
+        "ghost_relay_token",
+        "zhengtek_memo"
+      ],
+      "fully_visible_cards": 20,
+      "location": "zhengtek_exterior",
+      "viewport": "(1280.0, 720.0)"
+    },
+    {
+      "below_screen_cards": [
+        "masked_client_receipt",
+        "black_market_entry_hint",
+        "echo_symbol",
+        "fake_id_chip",
+        "comm_frequency",
+        "hao_ran_diary",
+        "victim_list",
+        "warehouse_map",
+        "ghost_identity_trace",
+        "ghost_relay_token",
+        "zhengtek_memo",
+        "authorization_order",
+        "zhengtek_funding",
+        "overwrite_report",
+        "echo_ai_log",
+        "kai_memory_fragment"
+      ],
+      "chapter": 3,
+      "earned_evidence": 36,
+      "earned_ids": [
+        "commission_letter",
+        "abyss_receipt",
+        "work_id",
+        "hao_ran_drawer_note",
+        "original_backup_hint",
+        "family_memory_clip",
+        "broken_memory_player",
+        "kai_eye_glitch_log",
+        "eleven_pm_call_log",
+        "old_city_queue_ticket",
+        "rejected_missing_person_report",
+        "street_camera_gap",
+        "dr_chen_schedule",
+        "clinic_anonymous_case_note",
+        "clinic_eye_warning_log",
+        "memory_device_log",
+        "data_chip",
+        "hao_ran_encrypted_message",
+        "stranger_photo",
+        "abyss_surveillance_delay_log",
+        "masked_client_receipt",
+        "black_market_entry_hint",
+        "echo_symbol",
+        "fake_id_chip",
+        "comm_frequency",
+        "hao_ran_diary",
+        "victim_list",
+        "warehouse_map",
+        "ghost_identity_trace",
+        "ghost_relay_token",
+        "zhengtek_memo",
+        "authorization_order",
+        "zhengtek_funding",
+        "overwrite_report",
+        "echo_ai_log",
+        "kai_memory_fragment"
+      ],
+      "fully_visible_cards": 20,
+      "location": "memory_space",
+      "viewport": "(1280.0, 720.0)"
+    }
+  ],
+  "board_fixture": [
+    {
+      "below_screen": [
+        "clinic_eye_warning_log",
+        "old_city_queue_ticket",
+        "clinic_anonymous_case_note",
+        "abyss_surveillance_delay_log",
+        "black_market_entry_hint",
+        "echo_symbol",
+        "memory_sample",
+        "warehouse_map",
+        "hao_ran_diary",
+        "trade_ledger",
+        "zhengtek_memo",
+        "victim_list",
+        "comm_frequency",
+        "rusty_key",
+        "fake_id_chip",
+        "overwrite_report",
+        "zhengtek_funding",
+        "dr_xiao_journal",
+        "hao_ran_sos",
+        "lab_keycard",
+        "overwritten_profiles",
+        "echo_ai_log",
+        "kai_memory_fragment",
+        "authorization_order",
+        "dr_xiao_comms"
+      ],
+      "fixture_card_count": 45,
+      "fully_visible": 20,
+      "line_draw_callbacks": 0,
+      "line_layer_script": "<null>",
+      "repeating_same_pair_added": 2,
+      "stored_pairs": [
+        {
+          "correct": true,
+          "from": "commission_letter",
+          "to": "work_id"
+        },
+        {
+          "correct": true,
+          "from": "commission_letter",
+          "to": "work_id"
+        }
+      ],
+      "viewport": "(1280, 720)"
+    },
+    {
+      "below_screen": [
+        "eleven_pm_call_log",
+        "rejected_missing_person_report",
+        "street_camera_gap",
+        "masked_client_receipt",
+        "clinic_eye_warning_log",
+        "old_city_queue_ticket",
+        "clinic_anonymous_case_note",
+        "abyss_surveillance_delay_log",
+        "black_market_entry_hint",
+        "echo_symbol",
+        "memory_sample",
+        "warehouse_map",
+        "hao_ran_diary",
+        "trade_ledger",
+        "zhengtek_memo",
+        "victim_list",
+        "comm_frequency",
+        "rusty_key",
+        "fake_id_chip",
+        "overwrite_report",
+        "zhengtek_funding",
+        "dr_xiao_journal",
+        "hao_ran_sos",
+        "lab_keycard",
+        "overwritten_profiles",
+        "echo_ai_log",
+        "kai_memory_fragment",
+        "authorization_order",
+        "dr_xiao_comms"
+      ],
+      "fixture_card_count": 45,
+      "fully_visible": 12,
+      "line_draw_callbacks": 0,
+      "line_layer_script": "<null>",
+      "repeating_same_pair_added": 2,
+      "stored_pairs": [
+        {
+          "correct": true,
+          "from": "commission_letter",
+          "to": "work_id"
+        },
+        {
+          "correct": true,
+          "from": "commission_letter",
+          "to": "work_id"
+        }
+      ],
+      "viewport": "(854, 480)"
+    }
+  ],
+  "limitations": [
+    "25 predetermined routes are not exhaustive choice combinations or human playtests.",
+    "Board fixture injects 45 definitions only to test geometry and duplicate pairing.",
+    "Earned board probe uses an actual new-game A route at 1280x720; route automation knows valid pairs and calls their handler directly.",
+    "No full integrity suite, new export, mobile hardware trial, or release verification in this review.",
+    "Temporary probes are stored under C:\\Users\\gary1\\AppData\\Local\\Temp\\neon-story-review-20260919."
+  ],
+  "in_memory_prototype": {
+    "checks": 13,
+    "failures": [],
+    "results": [
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "abyss_receipt",
+          "work_id"
+        ],
+        "flags": {
+          "accepted_case": true,
+          "kai_suppressed_eye_warning": true,
+          "knows_hao_ran_abnormal": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_case_intro",
+          "mei_ling_prove_case",
+          "mei_ling_found_kai",
+          "mei_ling_abnormal",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_case_intro/mei_ling_abnormal"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "work_id",
+          "abyss_receipt"
+        ],
+        "flags": {
+          "kai_suppressed_eye_warning": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_case_intro",
+          "mei_ling_prove_case",
+          "mei_ling_found_kai",
+          "mei_ling_workshop",
+          "mei_ling_trust_test",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_case_intro/mei_ling_workshop"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "work_id",
+          "abyss_receipt"
+        ],
+        "flags": {
+          "kai_suppressed_eye_warning": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_case_intro",
+          "mei_ling_prove_case",
+          "mei_ling_found_kai",
+          "mei_ling_trust_test",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_case_intro/mei_ling_trust_test"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "abyss_receipt",
+          "work_id"
+        ],
+        "flags": {
+          "accepted_case": true,
+          "kai_suppressed_eye_warning": true,
+          "knows_hao_ran_abnormal": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_prove_case",
+          "mei_ling_found_kai",
+          "mei_ling_abnormal",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_prove_case/mei_ling_abnormal"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "work_id",
+          "abyss_receipt"
+        ],
+        "flags": {
+          "kai_suppressed_eye_warning": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_prove_case",
+          "mei_ling_found_kai",
+          "mei_ling_workshop",
+          "mei_ling_trust_test",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_prove_case/mei_ling_workshop"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "work_id",
+          "abyss_receipt"
+        ],
+        "flags": {
+          "kai_suppressed_eye_warning": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_prove_case",
+          "mei_ling_found_kai",
+          "mei_ling_trust_test",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_prove_case/mei_ling_trust_test"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "abyss_receipt",
+          "work_id"
+        ],
+        "flags": {
+          "accepted_case": true,
+          "kai_suppressed_eye_warning": true,
+          "knows_hao_ran_abnormal": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_found_kai",
+          "mei_ling_abnormal",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_found_kai/mei_ling_abnormal"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "work_id",
+          "abyss_receipt"
+        ],
+        "flags": {
+          "kai_suppressed_eye_warning": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_found_kai",
+          "mei_ling_workshop",
+          "mei_ling_trust_test",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_found_kai/mei_ling_workshop"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "commission_letter",
+          "work_id",
+          "abyss_receipt"
+        ],
+        "flags": {
+          "kai_suppressed_eye_warning": true,
+          "knows_workshop_location": true
+        },
+        "labels": [
+          "kai_office_after_warning",
+          "mei_ling_found_kai",
+          "mei_ling_trust_test",
+          "mei_ling_accept"
+        ],
+        "scenario": "mei_ling_found_kai/mei_ling_trust_test"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "abyss_receipt",
+          "data_chip",
+          "stranger_photo"
+        ],
+        "flags": {
+          "ajie_told_about_meeting": true
+        },
+        "labels": [
+          "ajie_ask",
+          "ajie_receipt"
+        ],
+        "scenario": "ch1_abyss_bar_enter"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "abyss_receipt",
+          "data_chip"
+        ],
+        "flags": {
+          "snake_broker_met": true,
+          "snake_requested_data_chip": true
+        },
+        "labels": [
+          "snake_info",
+          "snake_deal",
+          "snake_deal_accept"
+        ],
+        "scenario": "ch1_snake_encounter"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "abyss_receipt",
+          "data_chip"
+        ],
+        "flags": {
+          "accepted_snake_deal": true,
+          "black_market_route_opened": true,
+          "snake_data_chip_choice_resolved": true
+        },
+        "labels": [
+          "snake_trade_accept"
+        ],
+        "scenario": "ch1_snake_data_chip_choice"
+      },
+      {
+        "ended": true,
+        "evidence": [
+          "abyss_receipt",
+          "data_chip",
+          "original_backup_hint"
+        ],
+        "flags": {
+          "mei_ling_trust_deepened": true
+        },
+        "labels": [
+          "backup_reassure",
+          "prototype_backup_collected"
+        ],
+        "scenario": "ch1_original_backup_album"
+      }
+    ],
+    "scope": "in-memory data prototype; source unchanged; no revisit action wired",
+    "first_attempt_note": "The first prototype reused an Array cleared by DialogueSystem.end_dialogue, producing eight empty later cases. The harness was corrected to duplicate each input; all 13 cases were rerun. No game engine change was made."
+  },
+  "configured_pair_producers": {
+    "configured_pairs": 26,
+    "pairs_with_dialogue_or_action_producers": 20,
+    "unproduced_pairs": [
+      {
+        "pair": [
+          "comm_recording",
+          "dr_chen_schedule"
+        ],
+        "no_dialogue_or_action_producer": [
+          "comm_recording"
+        ]
+      },
+      {
+        "pair": [
+          "rusty_key",
+          "fake_id_chip"
+        ],
+        "no_dialogue_or_action_producer": [
+          "rusty_key"
+        ]
+      },
+      {
+        "pair": [
+          "dr_xiao_journal",
+          "overwritten_profiles"
+        ],
+        "no_dialogue_or_action_producer": [
+          "dr_xiao_journal",
+          "overwritten_profiles"
+        ]
+      },
+      {
+        "pair": [
+          "hao_ran_sos",
+          "memory_sample"
+        ],
+        "no_dialogue_or_action_producer": [
+          "hao_ran_sos"
+        ]
+      },
+      {
+        "pair": [
+          "lab_keycard",
+          "authorization_order"
+        ],
+        "no_dialogue_or_action_producer": [
+          "lab_keycard"
+        ]
+      },
+      {
+        "pair": [
+          "dr_xiao_comms",
+          "zhengtek_funding"
+        ],
+        "no_dialogue_or_action_producer": [
+          "dr_xiao_comms"
+        ]
+      }
+    ],
+    "method": "Static producers in current dialogue and case data, plus search finding no scene Hotspot or evidence_id instances. Not an exhaustive state-space proof."
+  },
+  "analysis_started_at": "2026-09-19T13:13:41+08:00",
+  "report": "../story_gameplay_review_2026_09_19.md",
+  "reproduction": {
+    "baseline_script": "res://tests/test_playthrough.gd",
+    "baseline_arguments": [
+      "--headless",
+      "--path",
+      "C:/Projects/cyberpunk-gaming",
+      "--script",
+      "res://tests/test_playthrough.gd"
+    ],
+    "freedom_extra_arguments": [
+      "--",
+      "--freedom-matrix"
+    ],
+    "probe_directory": "C:/Users/gary1/AppData/Local/Temp/neon-story-review-20260919",
+    "probe_scripts": [
+      "story_probe.gd",
+      "opening_probe.gd",
+      "board_probe.gd",
+      "earned_board_probe.gd",
+      "in_memory_prototype.gd"
+    ],
+    "note": "Probe scripts and raw logs are temporary local artifacts, not installed game tests. The JSON records observations; future source fixes still require committed regression checks."
+  },
+  "analysis_completed_at": "2026-09-19T05:43:25Z",
+  "elapsed_minutes": 29.73
+}

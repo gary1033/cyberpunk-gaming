@@ -36,7 +36,7 @@ def audit(root=ROOT):
         if "raw" in item:
             check_file(item["raw"], item["raw_sha256"])
     actual = {p.relative_to(root).as_posix() for folder, suffix in
-              [("assets/sprites", "*.png"), ("assets/audio/bgm", "*.ogg")]
+              [("assets/sprites", "*.png"), ("assets/audio/bgm", "*.ogg"), ("assets/audio/sfx", "*.ogg")]
               for p in (root / folder).rglob(suffix)}
     for path in sorted(actual - recorded):
         errors.append("Unrecorded runtime asset: " + path)

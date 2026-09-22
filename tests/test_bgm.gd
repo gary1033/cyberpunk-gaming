@@ -15,7 +15,7 @@ func _check(value: bool, message: String) -> void:
 
 func _run() -> void:
 	var manager = root.get_node("AudioManager")
-	_check(not manager.is_runtime_audio_ready("res://assets/audio/sfx/family_memory_fragment.ogg"), "Short placeholder must not reach the resource loader")
+	_check(manager.is_runtime_audio_ready("res://assets/audio/sfx/family_memory_fragment.ogg"), "Licensed memory SFX passes the header guard")
 	_check(manager.is_runtime_audio_ready(manager.THEME_BGM), "Real OGG passes the header guard")
 	for path in [manager.THEME_BGM, manager.CLUB_BGM, manager.INVESTIGATION_BGM]:
 		var stream := load(path) as AudioStreamOggVorbis

@@ -1,0 +1,113 @@
+--- before/dialogue_data.gd
++++ after/dialogue_data.gd
+@@ -510,20 +510,29 @@
+ 			{"label": "dispatch_redacted", "speaker": "kai", "text": "摘要提醒接收單位暫停使用疑似批次，不含員工姓名。完整序號仍封在我的底檔，沒有把去識別摘要冒充足以定罪的原件。", "next": "end"}
+ 		],
+ 		"ch3_scan_override_console": [
+-			{"speaker": "kai", "text": "鷹眼讀出覆核站的兩層記錄。外層顯示「等待通知」，R-17 的本地簽章卻在收到撤回請求後，手動維持寫入排程。"},
+-			{"speaker": "dr_xiao", "text": "那張紙不會告訴你病人當時多痛苦。我把撤回送去覆核，不代表我可以立刻切斷維持程序。"},
+-			{"speaker": "kai", "text": "維持生命與繼續寫入不是同一個開關。我要核對的是：誰在收到撤回後，仍選擇繼續改寫。"},
+-			{"speaker": "narrator", "text": "覆核站的接收時間與本地簽章已保存。可以再調查「拿紀錄追問蕭博士」；市政回執能補上請求送達以前的那一段。", "next": "end"}
++			{"speaker": "kai", "text": "外面寫著等待通知，裡面卻簽了繼續。R-17 的撤回，比這個簽章還早。"},
++			{"speaker": "dr_xiao", "text": "撤回送去覆核了。你只盯著時間，當時病人是什麼情況，你問過嗎？維持程序不能說切就切。"},
++			{"speaker": "kai", "text": "這欄是寫入排程。維持器有自己的控制。你動的是哪一邊？"},
++			{"speaker": "narrator", "text": "蕭博士把視線移回螢幕，沒有回答。你保存接收時間與本地簽章；要追問撤回的來處，還能拿市政回執比對。", "next": "end"}
+ 		],
+ 		"ch3_xiao_record_challenge": [
+-			{"speaker": "dr_xiao", "text": "你要問的是誰付錢、誰接到撤回，還是誰按下繼續？先把問題分清楚。", "choices": [{"text": "資金來自正和，所以是你按下繼續。", "next": "challenge_funding", "requires_evidence": "zhengtek_funding"}, {"text": "回執、接收碼、本地簽章一致；為何繼續寫入？", "next": "challenge_admitted", "requires_flag": "eye_withdrawal_scanned", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "admitted"}}, {"text": "目前只能確認本地簽章，保留未核對的部分。", "next": "challenge_disputed", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "disputed"}}, {"text": "先回去比對資料。", "next": "end"}], "next": "end"},
+-			{"label": "challenge_funding", "speaker": "dr_xiao", "text": "資金流向證明企業參與，不能替你補出操作時間。你手上已有本地紀錄，去找撤回請求的原始回執。你可以再問一次。", "next": "end"},
+-			{"speaker": "dr_xiao", "text": "我看過那個撤回。原型只要停一次，企業就會把病例和設備一起帶走。我選擇讓寫入繼續，還把它寫成待覆核。", "label": "challenge_admitted", "mood": "cracking"},
+-			{"speaker": "kai", "text": "我會把這段回答與簽章一起封存。是你做了決定，也有人建立了讓這種決定可以持續的系統。", "requires_decisions": {"xiao_accountability": "admitted"}},
+-			{"speaker": "kai", "text": "市政轉介已暫停。停止下一張請求被送來，仍不能代替你交代已經發生的事。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "frozen"}},
+-			{"speaker": "kai", "text": "測試代碼也抵達同一個覆核站。這不是紙本沒送到，而是送到之後被你繼續排程。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "observed"}, "next": "end"},
++			{"speaker": "dr_xiao", "text": "資料都拿來了？放這裡。你想問哪一筆？", "choices": [{"text": "資金來自正和，所以是你按下繼續。", "next": "challenge_funding", "requires_evidence": "zhengtek_funding"}, {"text": "回執、接收碼、本地簽章一致；為何繼續寫入？", "next": "challenge_admitted", "requires_flag": "eye_withdrawal_scanned"}, {"text": "目前只能確認本地簽章，保留未核對的部分。", "next": "challenge_disputed", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "disputed"}}, {"text": "先回去比對資料。", "next": "end"}], "next": "end"},
++			{"label": "challenge_funding", "speaker": "dr_xiao", "text": "正和付的錢，我沒否認。可你拿著付款單，就知道那天誰坐在終端前？撤回是哪一張，什麼時候送到的？", "next": "end"},
++			{"label": "challenge_admitted", "speaker": "dr_xiao", "mood": "calm", "text": "R-17。我記得，送去覆核了。那個時候停下來，病人後面的反應誰負責？"},
++			{"speaker": "kai", "text": "回執在這裡。你收到以後，寫入還在繼續。", "choices": [
++				{"text": "維持器能單獨運行。為什麼連寫入也留下？", "next": "challenge_controls"},
++				{"text": "你簽了「待覆核」。簽之前，看過撤回嗎？", "next": "challenge_receipt"},
++				{"text": "先停在這裡，回去核對（尚未取得供述）。", "next": "end"}
++			], "next": "end"},
++			{"label": "challenge_controls", "speaker": "dr_xiao", "mood": "conflicted", "text": "能單獨運行。那套控制是我簽的，我當然知道。", "next": "challenge_admission"},
++			{"label": "challenge_receipt", "speaker": "dr_xiao", "mood": "conflicted", "text": "看過。「待覆核」也是我填的。我想再留一點時間。", "next": "challenge_admission"},
++			{"label": "challenge_admission", "speaker": "narrator", "text": "蕭博士的手停在桌沿。他張了張口，沒有立刻出聲。"},
++			{"speaker": "dr_xiao", "mood": "cracking", "text": "一停，正和就會把病例和設備帶走。我怕他們把整個原型收回去。撤回我看過了，寫入……是我讓它繼續的。", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "admitted"}},
++			{"speaker": "kai", "text": "這段我會留著，連同你的簽章。正和要拿走什麼，我也會查。", "requires_decisions": {"xiao_accountability": "admitted"}},
++			{"speaker": "kai", "text": "市政那邊已經暫停轉介。後面的人先擋下來了，前面這些，還得一筆一筆查。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "frozen"}},
++			{"speaker": "kai", "text": "我們送的測試碼也到了同一站。回執、接收碼，還有你剛才這段話，我一起留下。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "observed"}, "next": "end"},
+ 			{"speaker": "narrator", "text": "供述是補充資料；正式公開仍要核驗三份核心原件。", "requires_decisions": {"xiao_accountability": "admitted"}, "next": "end"},
+-			{"label": "challenge_disputed", "speaker": "kai", "text": "紀錄標為有爭議，沒有填入不存在的送達證明。救援不必等你認錯；公開時也不會把我的猜測包成供述。", "next": "end"}
++			{"label": "challenge_disputed", "speaker": "kai", "text": "本地簽章我留著。送達那一段還沒對完，就先留空，這次問話記為有爭議。", "next": "end"}
+ 		],
+ 		"ch3_recovery_annex_enter": [
+ {"speaker": "dr_chen", "text": "等候站那通電話有回覆，浩然的接收人願意留下姓名。整批改派的核對還在等下一個窗口。", "requires_decisions": {"ch2_medical_priority": "patient"}},{"speaker": "dr_chen", "text": "整批改派回條有人接下了。浩然仍由原本的離線照護先承接，個別窗口我會繼續問。", "requires_decisions": {"ch2_medical_priority": "batch"}},
+@@ -1886,7 +1895,7 @@
+ 		"ch3_dr_xiao_confrontation": [
+ 			{
+ 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "calm", "portrait_side": "left",
+-				"text": "川崎先生。我一直在等你。"
++				"text": "川崎先生。把門帶上，外面太吵。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+@@ -1894,13 +1903,13 @@
+ 			},
+ 			{
+ 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "calm", "portrait_side": "left",
+-				"text": "他在維持椅上。外面有人要回收他的成果，我替他關了門。記憶可以被覆寫，痛苦也可以。你先別碰設備。", "requires_missing_flags": ["hao_ran_rescued"]
+-			},
+-			{"speaker": "kai", "text": "浩然已經離開維持椅。我按簽署程序隔離了寫入，也確認了出口。現在談談，他說停之後，你為什麼繼續？", "requires_flag": "hao_ran_rescued"},
+-			{"speaker": "dr_xiao", "mood": "intense", "text": "你把他送走，風險也不會就此消失。我知道程序可以停機；我當時選的是繼續。你要追究的是這個決定。", "requires_flag": "hao_ran_rescued"},
++				"text": "他在維持椅上。外面的人要把他的成果帶走，我只能先把門關上。設備先別碰，你還沒看過運行紀錄。", "requires_missing_flags": ["hao_ran_rescued"]
++			},
++			{"speaker": "kai", "text": "浩然已經離開維持椅。照你簽的程序，停寫入、留維持，都做到了。現在不用再拿設備擋我的問題。", "requires_flag": "hao_ran_rescued"},
++			{"speaker": "dr_xiao", "mood": "intense", "text": "你把他送走了，後面的反應誰來處理？照報告做了一次，就能保證他以後沒事？", "requires_flag": "hao_ran_rescued"},
+ 			{
+ 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "intense", "portrait_side": "left",
+-				"text": "正和提供資金，要求我把創傷治療做成穩定的人格調整。他們挑選目標，我負責讓人不再被痛苦摧毀。你稱它控制；病歷上寫的是治療。",
++				"text": "正和出錢，也挑人。他們要人格調整，我做的是創傷治療。有些病人連睡一覺都做不到，你總不能叫我看著。",
+ 				"choices": [
+ 					{"text": "你在做的是犯罪。", "next": "xiao_crime"},
+ 					{"text": "浩然發現了真相，所以你囚禁了他。", "next": "xiao_truth"},
+@@ -1910,33 +1919,33 @@
+ 					{"text": "先不追問，我要再查設備與紀錄。", "next": "end"}
+ 				]
+ 			},
+-			{"label": "xiao_referral", "speaker": "dr_xiao", "mood": "conflicted", "text": "轉介欄是行政端改的，本地接收是我的簽章。但那張匿名回條不能直接認作浩然；把接收代碼核對好，再問是哪一次撤回。", "next": "xiao_records"},
+-			{"label": "xiao_funding", "speaker": "dr_xiao", "mood": "intense", "text": "付款方要求人格調整能持續部署。我在技術報告上簽了字；保留維持功能的同時，我也讓寫入繼續。這兩件事有各自的控制。", "next": "xiao_records"},
++			{"label": "xiao_referral", "speaker": "dr_xiao", "mood": "conflicted", "text": "轉介欄歸行政端。接收的簽章是我的，這個我認。但匿名回條上哪裡寫了浩然？你先把接收代碼拿來。", "next": "xiao_records"},
++			{"label": "xiao_funding", "speaker": "dr_xiao", "mood": "intense", "text": "付款的是正和，技術報告是我簽的。他們要能一直部署的人格調整，嫌原型停得太多。你要查寫入怎麼排，覆核站有紀錄。", "next": "xiao_records"},
+ 			{
+ 				"label": "xiao_crime",
+ 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "philosophical", "portrait_side": "left",
+-				"text": "我見過有人每天重過同一場事故。若可以停止，難道我要因為一張同意書，繼續讓他受苦？",
++				"text": "我見過病人一閉眼就回到事故現場，醒過來還在喊。你說犯罪，可以。可當時坐在他旁邊的不是你。",
+ 				"next": "xiao_records"
+ 			},
+ 			{
+ 				"label": "xiao_truth",
+ 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "calm", "portrait_side": "left",
+-				"text": "浩然改進了人格錨點。當他發現委託方要的是服從，他想停下來。可他帶走的資料也能被別人使用。我把他留下，是為了避免更大的傷害。",
++				"text": "錨點是浩然改的。他後來知道委託方要的是服從，不肯做了，還要把資料帶走。那份東西換一個人照樣能用，我怎麼讓他走？",
+ 				"next": "xiao_records"
+ 			},
+ 			{
+ 				"label": "xiao_kai_memory",
+ 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "amused", "portrait_side": "left",
+-				"text": "你的義眼認得這間房。至於你以前站在哪一邊，別急著用我的話補完。看看你自己的維護簽名，再來問我。",
++				"text": "你以前來這裡，不是坐著問話的。先看看維護紀錄上自己的簽名。你忘了，不代表只有我動過那套原型。",
+ 				"next": "xiao_records"
+ 			},
+ 			{
+ 				"label": "xiao_records", "speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "病人說停，你卻把門鎖上了。我保存覆寫報告，核對設備序號、運行版本與你的本地簽章。隔離程序和繼續寫入的決定，都留在同一份紀錄裡。",
++				"text": "門是你鎖的。這份覆寫報告我帶走，設備序號、版本、簽章都在。隔離怎麼做，寫入又是誰排的，我分開查。",
+ 				"give_evidence": "overwrite_report", "set_flag": "xiao_confronted"
+ 			},
+-			{"speaker": "kai", "text": "先找到浩然，準備好出口，讓他自己說要不要走。你已說出的話會保留，未查清的部分也會列出來。", "requires_missing_flags": ["hao_ran_rescued"], "next": "end"},
+-			{"speaker": "kai", "text": "浩然已在離線避難間。我會把你的供述與設備紀錄分開保存；他是否願意作證，由他自己決定。", "requires_flag": "hao_ran_rescued", "next": "end"}
++			{"speaker": "kai", "text": "我先去看浩然。出口準備好，就問他願不願意走。這幾份紀錄，你先別碰。", "requires_missing_flags": ["hao_ran_rescued"], "next": "end"},
++			{"speaker": "kai", "text": "浩然在離線避難間。等他緩過來，願意說的，我再問他。你的話跟設備紀錄分開放。", "requires_flag": "hao_ran_rescued", "next": "end"}
+ 		],
+ 
+ 		"ch3_hao_ran_found": [

@@ -8,7 +8,7 @@ const DialogueDataScript = preload("res://scripts/data/dialogue_data.gd")
 const ENDINGS := ["ending_a_justice", "ending_b_grey_deal", "ending_c_memory_rebirth"]
 const TEST_SAVE_SLOT := 8675309
 const OPERATION_TIMEOUT_MS := 30000
-const AUDIT_OUTPUT_DIR := "res://docs/verification/chapter_branches_2026_09_09/playthrough"
+const AUDIT_OUTPUT_DIR := "res://docs/verification/V0.3/playthrough"
 
 var gm: Node
 var sm: Node
@@ -26,6 +26,9 @@ var test_save_bytes := PackedByteArray()
 var last_dialogue_text: Array[String] = []
 var visual_audit := false
 var audit_captures: Dictionary = {}
+var freedom_matrix := false
+var hq_route_override := ""
+var hq_rescue_first := false
 
 
 func _initialize() -> void:
@@ -37,18 +40,34 @@ func _run() -> void:
 	sm = root.get_node("SceneManager")
 	saves = root.get_node("SaveManager")
 	visual_audit = "--visual-audit" in OS.get_cmdline_user_args()
+	freedom_matrix = "--freedom-matrix" in OS.get_cmdline_user_args()
+	if visual_audit:
+		DirAccess.make_dir_recursive_absolute(AUDIT_OUTPUT_DIR)
 	# Accelerate presentation timers; no game-state or dialogue effects are skipped.
 	Engine.time_scale = 20.0
 	var save_path: String = saves._get_save_path(TEST_SAVE_SLOT)
 	test_save_existed = FileAccess.file_exists(save_path)
 	if test_save_existed:
 		test_save_bytes = FileAccess.get_file_as_bytes(save_path)
-	for scenario in ["a_accountable", "b_corporate", "c_shared", "c_private"] + ENDINGS:
+	var scenarios: Array = ["a_accountable", "b_corporate", "c_shared", "c_private"] + ENDINGS
+	if freedom_matrix:
+		scenarios.clear()
+		for route in ["ghost", "corporate", "independent"]:
+			for order in ["rescue", "evidence"]:
+				for ending_id in ENDINGS:
+					scenarios.append(route + "/" + order + "/" + ending_id)
+	for scenario in scenarios:
+		var parts: PackedStringArray = str(scenario).split("/")
+		hq_route_override = parts[0] if freedom_matrix else ""
+		hq_rescue_first = (parts[1] == "rescue") if freedom_matrix else scenario in ["a_accountable", "c_private"]
 		p1_accountable = scenario == "a_accountable"
 		eye_corporate = scenario == "b_corporate"
 		scan_expansion = scenario != "ending_c_memory_rebirth"
 		alternate_scans = p1_accountable or eye_corporate or scenario == "c_private"
 		var ending_id: String = "ending_a_justice" if p1_accountable else ("ending_b_grey_deal" if eye_corporate else ("ending_c_memory_rebirth" if scenario.begins_with("c_") else scenario))
+		if freedom_matrix:
+			ending_id = parts[2]
+			scan_expansion = false
 		ending_under_test = scenario
 		trace.clear()
 		if not await _playthrough(ending_id):
@@ -57,7 +76,7 @@ func _run() -> void:
 			var report := FileAccess.open(AUDIT_OUTPUT_DIR + "/route.json", FileAccess.WRITE)
 			report.store_string(JSON.stringify(trace, "\t"))
 			break
-	if not failed and not visual_audit:
+	if not failed and not visual_audit and not freedom_matrix:
 		await _negative_checks()
 	_restore_test_save()
 	Engine.time_scale = 1.0
@@ -67,7 +86,7 @@ func _run() -> void:
 		print("PLAYTHROUGH_FAIL ", JSON.stringify(trace))
 		quit(1)
 	else:
-		print("PLAYTHROUGH_PASS: " + ("GPU A2 new-game route completed; screenshots and action trace saved" if visual_audit else "seven real new-game paths: A1/A2, both B care outcomes, shared/private/skipped C; both chapter-two routes, bidirectional switching, AP/chapters, save/load"))
+		print("PLAYTHROUGH_PASS: " + ("GPU new-game route completed; screenshots and action trace saved" if visual_audit else ("18 freedom paths: three earned entries, two objective orders, three endings; retries, cancellation, revocation, save/load" if freedom_matrix else "seven real new-game paths: A1/A2, both B care outcomes, shared/private/skipped C; both chapter-two routes, bidirectional switching, AP/chapters, save/load")))
 		quit(0)
 
 
@@ -204,6 +223,8 @@ func _action(dialogue_id: String, choices: Array = [], expected_evidence: Array 
 			await create_timer(0.25).timeout
 	# Use the real investigation menu and its connected button, not copied effects.
 	current_scene._show_story_actions()
+	if visual_audit and gm.current_chapter == 3:
+		await _capture_audit("investigation_" + dialogue_id)
 	var popup := current_scene.get_child(current_scene.get_child_count() - 1)
 	var action_button := _button(popup, str(selected.get("title", "調查")), selected.has("scan_flag"))
 	if not _check(action_button != null and not action_button.disabled, "Missing story button: " + dialogue_id):
@@ -296,7 +317,11 @@ func _chapter_one(ending_id: String) -> bool:
 		return false
 	if ending_id != "ending_c_memory_rebirth":
 		var statement := "statement_coerced" if p1_accountable else ("statement_withheld" if ending_id == "ending_b_grey_deal" else "statement_voluntary")
-		if not await _action("ch1_eye_ajie_statement", [statement]) or not _locked_action("ch1_eye_ajie_statement"):
+		if not await _action("ch1_eye_ajie_statement", ["hypothesis_terminal"]):
+			return false
+		if not await _action("ch1_ajie_terminal_check", ["terminal_confirm"]):
+			return false
+		if not await _action("ch1_ajie_statement_check", [statement]) or not _locked_action("ch1_ajie_statement_check"):
 			return false
 		if p1_accountable and not await _action("ch1_ajie_retraction", ["statement_retracted"]):
 			return false
@@ -391,12 +416,13 @@ func _chapter_two(ending_id: String) -> bool:
 			return false
 		if not await _move("sewer_passage"):
 			return false
-	var ghost_choice := "ghost_expose" if ending_id == "ending_b_grey_deal" or p1_accountable else "ghost_protect"
+	var corporate_entry := hq_route_override == "corporate" if not hq_route_override.is_empty() else ending_id == "ending_b_grey_deal"
+	var ghost_choice := "ghost_expose" if corporate_entry or p1_accountable else "ghost_protect"
 	if not await _action("ch2_ghost_identity_reveal", [ghost_choice]):
 		return false
 	if not _check(gm.get_dialogue_flag("ghost_protected") != gm.get_dialogue_flag("ghost_identity_exposed"), "Both ghost identity outcomes applied"):
 		return false
-	if ending_id != "ending_c_memory_rebirth":
+	if ending_id != "ending_c_memory_rebirth" or hq_route_override == "ghost":
 		if not _locked_action("ch2_ghost_followup"):
 			return false
 		if not await _action("ch2_ghost_trace", ["trace_wrong", "end"]):
@@ -411,7 +437,7 @@ func _chapter_two(ending_id: String) -> bool:
 			return false
 		if not _check(not gm.get_dialogue_flag("ghost_followup_resolved"), "Cancelled followup consumed the choice"):
 			return false
-		var followup := "followup_repair" if p1_accountable else ("followup_refuse" if ending_id == "ending_b_grey_deal" else "followup_protect")
+		var followup := "followup_repair" if p1_accountable else ("followup_refuse" if corporate_entry else "followup_protect")
 		if not await _action("ch2_ghost_followup", [followup]) or not _locked_action("ch2_ghost_followup"):
 			return false
 		if p1_accountable and not _check(gm.get_dialogue_flag("ghost_identity_exposed") and not gm.get_dialogue_flag("ghost_protected") and gm.decisions.black_market_compromise_count >= 2, "Repair erased the identity harm or transaction history"):
@@ -518,6 +544,8 @@ func _chapter_three(ending_id: String) -> bool:
 	if not _check(not gm.get_dialogue_flag("hq_entry_resolved"), "Cancelled entry unlocked core investigation"):
 		return false
 	var expected_route := "corporate" if ending_id == "ending_b_grey_deal" else ("independent" if ending_id == "ending_c_memory_rebirth" else "ghost")
+	if not hq_route_override.is_empty():
+		expected_route = hq_route_override
 	var entry_choices: Array = ["entry_" + expected_route, "entry_" + expected_route + "_ok"]
 	if p1_accountable:
 		# A revoked identity must not be offered even when explicitly preferred.
@@ -528,20 +556,53 @@ func _chapter_three(ending_id: String) -> bool:
 		return false
 	if not _locked_action("ch3_secure_core_evidence"):
 		return false
-	if not await _action("ch3_memory_corridor", [], ["authorization_order"]) or not await _action("ch3_secure_core_evidence", [], ["zhengtek_funding"]):
+	if not await _action("ch3_memory_corridor", [], ["authorization_order"]) or not _locked_action("ch3_secure_core_evidence"):
 		return false
-	if not await _move("secret_lab", ["xiao_kai_memory"]):
+	if expected_route == "ghost":
+		var support := "rescue" if hq_rescue_first else "evidence"
+		if not await _action("ch3_ghost_support", ["support_" + support + "_confirm", "end"]):
+			return false
+		if not _check(gm.decisions.hq_ghost_support == "none", "Cancelled support must remain unassigned"):
+			return false
+		if not await _action("ch3_ghost_support", ["support_" + support + "_confirm", "support_" + support]) or not _locked_action("ch3_ghost_support"):
+			return false
+		gm.set_decision("hq_ghost_support", "evidence" if hq_rescue_first else "rescue")
+		if not _check(gm.decisions.hq_ghost_support == support, "A stale support assignment cannot replace the first commitment"):
+			return false
+	if not await _action("ch3_core_custody", ["end"]):
 		return false
-	if not _check(gm.has_evidence("overwrite_report") and gm.get_dialogue_flag("xiao_confronted"), "Confrontation did not supply the technical report"):
+	if not _check(not gm.get_dialogue_flag("hq_core_verified") and not gm.get_dialogue_flag("hq_named_lookup_used"), "Cancelled custody inquiry grants nothing"):
 		return false
-	if scan_expansion:
-		if not await _action("ch3_scan_override_console"):
+	if expected_route == "corporate" and hq_rescue_first:
+		if not await _action("ch3_core_custody", ["core_corporate", "core_summary_wrong"]):
 			return false
-		if not await _action("ch3_xiao_record_challenge", ["challenge_funding"]):
+		if not _check(gm.get_dialogue_flag("hq_named_lookup_used") and not gm.get_dialogue_flag("hq_core_verified"), "A company summary cannot verify originals; the actual lookup still remains recorded"):
 			return false
-		if not _check(not gm.get_dialogue_flag("xiao_record_challenge_resolved"), "Wrong evidence must allow another question"):
+		if not await _action("ch3_disable_corporate", ["end"]) or not _check(not gm.get_dialogue_flag("hq_corporate_access_disabled"), "Cancelled revocation cannot disable credentials"):
 			return false
-		if not await _action("ch3_xiao_record_challenge", ["challenge_disputed" if alternate_scans else "challenge_admitted"]):
+		if not await _action("ch3_disable_corporate", ["corporate_disabled"]):
+			return false
+		if not _check(gm.decisions.hq_entry_route == "corporate" and gm.get_public_record_facts().has("以企業身份具名調閱或開啟撤離門；停用資格不刪除紀錄"), "Revocation cannot erase entry or lookup history") or not _save_roundtrip():
+			return false
+	if not hq_rescue_first and not await _secure_hq_originals(expected_route):
+		return false
+	if not await _move("secret_lab"):
+		return false
+	if not _check(not gm.get_dialogue_flag("xiao_confronted") and not gm.has_evidence("overwrite_report"), "Entering the lab must not confront or award a report"):
+		return false
+	if not await _action("ch3_dr_xiao_confrontation", ["end"]):
+		return false
+	if not _check(not gm.get_dialogue_flag("xiao_confronted") and not gm.has_evidence("overwrite_report"), "Postponing confrontation must preserve the choice"):
+		return false
+	if hq_rescue_first:
+		if not await _action("ch3_device_report", ["device_wrong"]) or not _check(not gm.has_evidence("overwrite_report"), "Wrong device version cannot grant a report"):
+			return false
+		if not await _action("ch3_device_report", ["device_sequence", "device_unsafe"]) or not _check(not gm.has_evidence("overwrite_report"), "Unsafe isolation interpretation cannot grant a report"):
+			return false
+		if not await _action("ch3_device_report", ["device_sequence", "device_verified"], ["overwrite_report"]) or not _locked_action("ch3_device_report"):
+			return false
+	else:
+		if not await _action("ch3_dr_xiao_confrontation", ["xiao_funding"], ["overwrite_report"]):
 			return false
 	if not _locked_action("ch3_rescue_hao_ran"):
 		return false
@@ -552,10 +613,43 @@ func _chapter_three(ending_id: String) -> bool:
 	for candidate in ENDINGS:
 		if not _check(not gm.can_reach_ending(candidate), "Ending unlocked before the actual rescue"):
 			return false
+	if not _locked_action("ch3_rescue_hao_ran"):
+		return false
+	if not await _action("ch3_prepare_exit", ["exit_offline", "exit_wrong"]):
+		return false
+	if not _check(not gm.get_dialogue_flag("hq_exit_ready"), "Wrong exit cannot enable rescue"):
+		return false
+	var exit_method := "ghost" if expected_route == "ghost" and hq_rescue_first else ("corporate" if expected_route == "corporate" and not hq_rescue_first else "offline")
+	if not await _action("ch3_prepare_exit", ["exit_" + exit_method, "exit_offline_ready"]) or not _locked_action("ch3_prepare_exit") or not _save_roundtrip():
+		return false
+	if not _check(gm.decisions.hq_exit_method == exit_method, "Exit must use the earned method, including revocation"):
+		return false
 	if not await _action("ch3_rescue_hao_ran", ["rescue_disconnect"]):
 		return false
 	if not _check(gm.get_dialogue_flag("hao_ran_rescued"), "Rescue dialogue did not evacuate Hao Ran"):
 		return false
+	if hq_rescue_first:
+		if not _check(not gm.get_dialogue_flag("xiao_confronted") and not gm.get_dialogue_flag("core_evidence_secured"), "Rescue-first must genuinely rescue before confrontation and funding collection"):
+			return false
+		if not _save_roundtrip() or not await _move("echo_network_hq") or not await _secure_hq_originals(expected_route) or not await _move("secret_lab"):
+			return false
+		if not _check(not gm.get_dialogue_flag("xiao_confronted"), "Revisiting cannot auto-confront"):
+			return false
+		var evidence_count: int = gm.collected_evidence.size()
+		if not await _action("ch3_dr_xiao_confrontation", ["xiao_referral", "xiao_funding"]):
+			return false
+		var spoken := "\n".join(last_dialogue_text)
+		if not _check("浩然已經離開維持椅" in spoken and "他在維持椅上" not in spoken and gm.collected_evidence.size() == evidence_count, "Post-rescue confrontation must acknowledge rescue and not duplicate evidence"):
+			return false
+	if not _check(gm.decisions.hq_first_objective == ("rescue" if hq_rescue_first else "evidence"), "Actual objective order must survive save/load and repeated visits"):
+		return false
+	if scan_expansion:
+		if not await _action("ch3_scan_override_console"):
+			return false
+		if not await _action("ch3_xiao_record_challenge", ["challenge_funding"]) or not _check(not gm.get_dialogue_flag("xiao_record_challenge_resolved"), "Wrong evidence must allow another question"):
+			return false
+		if not await _action("ch3_xiao_record_challenge", ["challenge_disputed" if alternate_scans else "challenge_admitted"]):
+			return false
 	if scan_expansion:
 		if not await _move("recovery_annex"):
 			return false
@@ -653,12 +747,13 @@ func _chapter_three(ending_id: String) -> bool:
 		if not _check(memory_text.contains("生活紀錄") == (scan_expansion and not alternate_scans) and memory_text.contains("密封信") == (scan_expansion and alternate_scans), "C must show only the chosen continuity outcome"):
 			return false
 	if ending_id == "ending_a_justice":
-		var variant := "accountable" if p1_accountable else "joint"
+		var accountable := p1_accountable or expected_route == "corporate"
+		var variant := "accountable" if accountable else "joint"
 		if not _check(gm.decisions.public_ending_variant == variant, "Public ending variant was not saved"):
 			return false
 		var public_text := "\n".join(last_dialogue_text)
-		var variant_title := "帶罪揭露" if p1_accountable else "共同作證"
-		var other_title := "共同作證" if p1_accountable else "帶罪揭露"
+		var variant_title := "帶罪揭露" if accountable else "共同作證"
+		var other_title := "共同作證" if accountable else "帶罪揭露"
 		if not _check(variant_title in public_text and other_title not in public_text, "Public variants played together or the earned scene was missing"):
 			return false
 	if not await _move("office_epilogue"):
@@ -676,11 +771,24 @@ func _chapter_three(ending_id: String) -> bool:
 		return false
 	if not await _action("ch3_epilogue_contacts") or not _locked_action("ch3_epilogue_contacts"):
 		return false
-	if not _check(("訊息退回了" in "\n".join(last_dialogue_text)) == (ending_id == "ending_b_grey_deal"), "Ghost aftermath ignored identity choice"):
+	if not _check(("訊息退回了" in "\n".join(last_dialogue_text)) == (expected_route == "corporate"), "Ghost aftermath ignored identity choice"):
 		return false
 	_record("ending_complete", ending_id)
 	print("PLAYTHROUGH_ROUTE ", JSON.stringify({"ending": ending_id, "steps": trace.size(), "evidence": gm.collected_evidence.size(), "deductions": gm.decisions.correct_deductions, "decisions": gm.decisions, "trace": trace}))
 	return true
+
+
+func _secure_hq_originals(route: String) -> bool:
+	if not await _action("ch3_core_custody", ["core_offline", "core_offline_wrong"]):
+		return false
+	if not _check(not gm.get_dialogue_flag("hq_core_verified"), "Wrong custody match must remain retryable") or not _locked_action("ch3_secure_core_evidence"):
+		return false
+	var method := "ghost" if route == "ghost" and not hq_rescue_first else ("corporate" if route == "corporate" and not hq_rescue_first else "offline")
+	if not await _action("ch3_core_custody", ["core_" + method, "core_" + method + "_verified"]):
+		return false
+	if not _check(gm.decisions.hq_core_method == method, "Originals must use the chosen available method") or not _locked_action("ch3_core_custody"):
+		return false
+	return await _action("ch3_secure_core_evidence", ["core_secured"], ["zhengtek_funding"]) and _locked_action("ch3_secure_core_evidence") and _save_roundtrip()
 
 
 func _save_roundtrip() -> bool:
@@ -820,8 +928,67 @@ func _negative_checks() -> bool:
 		return false
 	if not await _homecoming_checks():
 		return false
+	if not await _freedom_negative_checks():
+		return false
 	print("PLAYTHROUGH_NEGATIVE_PASS ", JSON.stringify(trace))
 	return true
+
+
+func _freedom_negative_checks() -> bool:
+	var legacy: Dictionary = saved_fixtures["ending_b_grey_deal"].duplicate(true)
+	for key in ["hq_ghost_support", "hq_core_method", "hq_exit_method", "hq_first_objective"]:
+		legacy.decisions.erase(key)
+	for flag in ["hq_core_verified", "hq_exit_ready", "hq_named_lookup_used", "hq_device_report_checked", "hq_corporate_access_disabled"]:
+		legacy.dialogue_flags.erase(flag)
+	gm.load_save_data(legacy)
+	if not _check(gm.can_reach_ending("ending_b_grey_deal") and gm.decisions.hq_first_objective == "legacy", "V0.1 completed objectives remain valid without invented methods or order"):
+		return false
+	legacy.dialogue_flags.case_resolved = true
+	legacy.decisions.resolved_ending = "ending_b_grey_deal"
+	gm.load_save_data(legacy)
+	if not _check(gm.calculate_ending() == "ending_b_grey_deal", "V0.1 completed cases keep their ending"):
+		return false
+	gm.current_location = "echo_network_hq"
+	sm.change_scene("echo_network_hq")
+	if not await _settle() or not _locked_action("ch3_disable_corporate") or not _locked_action("ch3_core_custody"):
+		return false
+	# Simulate an old save after locating Hao Ran, before rescue or confrontation.
+	legacy.dialogue_flags.erase("case_resolved")
+	legacy.dialogue_flags.erase("final_choice_resolved")
+	legacy.dialogue_flags.erase("hao_ran_rescued")
+	legacy.dialogue_flags.erase("xiao_confronted")
+	legacy.decisions.hao_ran_rescued = false
+	legacy.decisions.final_resolution = "undecided"
+	legacy.decisions.resolved_ending = ""
+	legacy.collected_evidence.erase("overwrite_report")
+	gm.load_save_data(legacy)
+	gm.set_dialogue_flag("hq_corporate_access_disabled")
+	var ds := get_first_node_in_group("dialogue_system")
+	ds.start_dialogue(DialogueDataScript.get_dialogue("ch3_core_custody"))
+	while ds._is_typing or ds._is_waiting_for_input:
+		ds._finish_typing()
+		if ds._is_waiting_for_input:
+			ds._advance()
+	var entry: Dictionary = ds._current_dialogue[ds._current_index]
+	for index in entry.choices.size():
+		if entry.choices[index].get("next", "") != "core_corporate":
+			continue
+		var before: Dictionary = gm.get_save_data().duplicate(true)
+		ds._on_choice_pressed(index)
+		if not _check(gm.get_save_data() == before, "Revoked corporate choice rejects stale clicks"):
+			return false
+	ds.end_dialogue()
+	gm.current_location = "secret_lab"
+	sm.change_scene("secret_lab")
+	if not await _settle() or not _locked_action("ch3_rescue_hao_ran"):
+		return false
+	if not await _action("ch3_prepare_exit", ["exit_offline", "exit_offline_ready"]) or not _locked_action("ch3_rescue_hao_ran"):
+		return false
+	if not await _action("ch3_device_report", ["device_sequence", "device_verified"]):
+		return false
+	if not await _action("ch3_rescue_hao_ran", ["rescue_disconnect"]):
+		return false
+	return _check(gm.get_dialogue_flag("hao_ran_rescued") and not gm.get_dialogue_flag("xiao_confronted") and gm.decisions.hq_first_objective == "legacy", "An unfinished V0.1 save can use the new rescue method without rewriting earlier history")
 
 
 func _homecoming_checks() -> bool:
@@ -936,7 +1103,7 @@ func _action_point_checks() -> bool:
 		popup = current_scene.get_node("LocationMap")
 	if not _check(_button(popup, "前往下一章", true) == null, "Incomplete chapter showed a next-chapter button"):
 		return false
-	var rest_button := _button(popup, "休整（恢復全部行動力）")
+	var rest_button := _button(popup, "休整（補滿行動力與鷹眼）")
 	if not _check(rest_button != null and not rest_button.disabled, "AP 0 recovery is unavailable"):
 		return false
 	rest_button.pressed.emit()

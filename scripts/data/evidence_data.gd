@@ -23,7 +23,7 @@ static func get_all_evidence() -> Dictionary:
 		},
 		"work_id": {
 			"name": "浩然的工作證",
-			"description": "林浩然的記憶技師執照，隸屬於「永恆記憶」工作室。",
+			"description": "林浩然的記憶技師執照，隸屬於「永恆記憶」工作室。背面寫著地址：東區第七街，地下層。",
 			"chapter": 1,
 			"icon": "work_id"
 		},
@@ -73,7 +73,7 @@ static func get_all_evidence() -> Dictionary:
 			"chapter": 1,
 			"icon": "memory_capsule",
 			"preferred_icon": "family_memory_clip",
-			"eye_reading": "晚餐記憶中有一幀不屬於公寓的白色實驗室燈光。義眼標記它為真實異常，但畫面裡凱的視角明顯被污染。"
+			"eye_reading": "晚餐記憶中閃過一幀白色燈光，和公寓裡的燈不同。義眼同時出現視角錯位；這幀畫面來自備份還是凱的記憶，尚無法確認。"
 		},
 		"hao_ran_drawer_note": {
 			"name": "浩然抽屜裡的維修便條",
@@ -91,7 +91,7 @@ static func get_all_evidence() -> Dictionary:
 		},
 		"hao_ran_encrypted_message": {
 			"name": "浩然留給美玲的加密留言",
-			"description": "在浩然工作室中解出的短留言。它沒有直接說明浩然去了哪裡，只警告凱不要讓任何人拿走美玲的原始備份。",
+			"description": "在浩然工作室中解出的短留言。浩然叮囑美玲保管原始備份，並在他無法回來時讓凱查看播放器；沒有留下自己的去向。",
 			"chapter": 1,
 			"icon": "log",
 			"preferred_icon": "log"
@@ -102,7 +102,7 @@ static func get_all_evidence() -> Dictionary:
 			"chapter": 1,
 			"icon": "memory_capsule",
 			"preferred_icon": "broken_memory_player",
-			"eye_reading": "播放器殘留一段鄭泰早期義眼維修握手協定。它不像使用紀錄，更像是浩然故意留下的鑰匙孔。"
+			"eye_reading": "播放器殘留一段正和早期義眼維修握手協定。它不像使用紀錄，更像是浩然故意留下的鑰匙孔。"
 		},
 		"kai_eye_glitch_log": {
 			"name": "凱的鷹眼異常紀錄",
@@ -132,7 +132,7 @@ static func get_all_evidence() -> Dictionary:
 		},
 		"street_camera_gap": {
 			"name": "東區監控空窗",
-			"description": "東區街道監控在 23:04 到 23:11 之間同時失去畫面，時間正好包住浩然最後一通電話。",
+			"description": "東區街道監控在 23:04 到 23:11 之間同時失去畫面，留下連續七分鐘的影像空白。",
 			"chapter": 1,
 			"icon": "street_camera_gap",
 			"eye_reading": "空窗不是設備故障，而是被遠端下達的同步遮蔽命令。指令格式沒有署名，只留下回聲式的封包節奏。"
@@ -146,7 +146,7 @@ static func get_all_evidence() -> Dictionary:
 		},
 		"clinic_eye_warning_log": {
 			"name": "Dr. 陳的義眼警告紀錄",
-			"description": "Dr. 陳診所裡被刪除的維修紀錄，標記凱的義眼仍保留鄭泰早期維修握手協定。",
+			"description": "Dr. 陳診所裡被刪除的維修紀錄，標記凱的義眼仍保留正和早期維修握手協定。",
 			"chapter": 1,
 			"icon": "clinic_eye_warning_log",
 			"eye_reading": "紀錄裡有一行被覆寫的警告：握手協定可由外部播放器喚醒。凱的義眼既是鑰匙，也可能是後門。"

@@ -3,7 +3,7 @@ class_name EvidenceBoard
 
 const RuntimeAssetsScript = preload("res://scripts/core/runtime_assets.gd")
 ## EvidenceBoard - Full-screen evidence board where players connect clues to form deductions.
-## Supports mouse drag and touch drag + pinch zoom.
+## Native scrolling and explicit buttons support mouse, keyboard and touch.
 
 signal deduction_made(from_id: String, to_id: String, is_correct: bool)
 signal board_closed
@@ -14,7 +14,9 @@ const MEMORY_SIGNATURE_REVEAL_SFX := "res://assets/audio/sfx/memory_signature_re
 # Node references (resolved in _ready, not @onready, for safe dynamic instantiation)
 var board_container: Control = null
 var cards_layer: Control = null
-var lines_layer: Control = null
+var scroll_container: ScrollContainer = null
+var feedback_label: RichTextLabel = null
+var progress_label: Label = null
 var progress_bar: ProgressBar = null
 var close_button: Button = null
 
@@ -66,11 +68,7 @@ var valid_connection_flags: Dictionary = {
 }
 
 var _cards: Dictionary = {}  # {evidence_id: CardNode}
-var _dragging_card: Control = null
-var _drag_offset: Vector2 = Vector2.ZERO
 var _connecting_from: String = ""
-var _connection_lines: Array = []
-var _zoom_level: float = 1.0
 var _reading_eye_active := false
 
 func _process(_delta: float) -> void:
@@ -89,27 +87,30 @@ func _ready() -> void:
 	visible = false
 
 	# Resolve nodes safely — supports both .tscn and dynamic instantiation
-	board_container = get_node_or_null("BoardContainer")
+	scroll_container = get_node_or_null("Scroll") as ScrollContainer
+	board_container = get_node_or_null("Scroll/BoardContainer")
 	if board_container:
 		cards_layer = board_container.get_node_or_null("CardsLayer")
-		lines_layer = board_container.get_node_or_null("LinesLayer")
 
 	var ui := get_node_or_null("UI")
 	if ui:
+		feedback_label = ui.get_node_or_null("Feedback") as RichTextLabel
+		progress_label = ui.get_node_or_null("ProgressText") as Label
 		progress_bar = ui.get_node_or_null("ProgressBar") as ProgressBar
 		close_button = ui.get_node_or_null("CloseButton") as Button
 
 	if close_button:
 		close_button.pressed.connect(_on_close)
 
-	if InputManager:
-		InputManager.pinch_zoom.connect(_on_pinch_zoom)
+	resized.connect(_on_board_resized)
 
 func open() -> void:
 	visible = true
 	GameManager.set_state(GameManager.GameState.EVIDENCE_BOARD)
+	_connecting_from = ""
 	_refresh_cards()
 	_update_progress()
+	_set_feedback(_get_ajie_summary())
 
 func close() -> void:
 	visible = false
@@ -123,13 +124,15 @@ func _refresh_cards() -> void:
 
 	# Clear existing cards
 	for child in cards_layer.get_children():
+		cards_layer.remove_child(child)
 		child.queue_free()
 	_cards.clear()
 
 	# Create cards for collected evidence
 	var evidence_list := GameManager.collected_evidence
-	var cols := 4 if not InputManager.is_mobile else 3
-	var card_size := Vector2(180, 120) if not InputManager.is_mobile else Vector2(140, 100)
+	var cols := clampi(int((size.x - 48.0) / 240.0), 1, 5)
+	var card_width := floorf((size.x - 80.0 - (cols - 1) * 20.0) / cols)
+	var card_size := Vector2(card_width, 240)
 	var padding := 20.0
 
 	for i in range(evidence_list.size()):
@@ -147,29 +150,32 @@ func _refresh_cards() -> void:
 		cards_layer.add_child(card)
 		_cards[evidence_id] = card
 
-	# Redraw existing connections
-	_redraw_connections()
+	var rows := int(ceil(float(evidence_list.size()) / cols))
+	board_container.custom_minimum_size = Vector2(0, padding + rows * (card_size.y + padding))
 
 func _create_card(evidence_id: String, card_size: Vector2) -> PanelContainer:
 	var card := PanelContainer.new()
+	card.mouse_filter = Control.MOUSE_FILTER_PASS
 	card.custom_minimum_size = card_size
 	card.size = card_size
 	card.add_theme_stylebox_override("panel", _create_card_style(Color(0.0, 0.7, 0.7)))
 
 	# Evidence name label
 	var vbox := VBoxContainer.new()
+	vbox.mouse_filter = Control.MOUSE_FILTER_PASS
 	var icon := TextureRect.new()
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	icon.texture = _load_evidence_icon(evidence_id)
-	icon.custom_minimum_size = Vector2(42, 42)
+	icon.custom_minimum_size = Vector2(34, 34)
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	vbox.add_child(icon)
 
 	var name_label := Label.new()
 	name_label.text = _get_evidence_display_name(evidence_id)
-	name_label.add_theme_font_size_override("font_size", 14)
+	name_label.add_theme_font_size_override("font_size", 16)
 	name_label.add_theme_color_override("font_color", Color(0.0, 0.9, 0.9))
-	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vbox.add_child(name_label)
 
 	var reading_text := _get_evidence_reading_text(evidence_id)
@@ -177,58 +183,56 @@ func _create_card(evidence_id: String, card_size: Vector2) -> PanelContainer:
 		card.tooltip_text = reading_text
 		var reading_label := Label.new()
 		reading_label.name = "ReadingText"
+		reading_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		reading_label.text = _summarize_reading(reading_text)
-		reading_label.add_theme_font_size_override("font_size", 10 if not InputManager.is_mobile else 9)
+		reading_label.add_theme_font_size_override("font_size", 14)
 		reading_label.add_theme_color_override("font_color", Color(1.0, 0.0, 0.6) if GameManager.eagle_eye_active else Color(0.55, 0.62, 0.68))
-		reading_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+		reading_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		vbox.add_child(reading_label)
 
 	card.add_child(vbox)
 	card.set_meta("evidence_id", evidence_id)
 
-	# Make draggable
-	card.gui_input.connect(_on_card_gui_input.bind(card))
+	var select := Button.new()
+	select.name = "SelectEvidence"
+	select.mouse_filter = Control.MOUSE_FILTER_PASS
+	select.text = "選取"
+	select.custom_minimum_size.y = 44
+	select.pressed.connect(_handle_connection.bind(evidence_id))
+	vbox.add_child(select)
 
 	return card
 
-func _on_card_gui_input(event: InputEvent, card: PanelContainer) -> void:
-	var evidence_id: String = card.get_meta("evidence_id")
+func _on_board_resized() -> void:
+	if visible:
+		_connecting_from = ""
+		_refresh_cards()
+		_set_feedback(_get_ajie_summary())
 
-	if event is InputEventMouseButton:
-		if event.pressed:
-			if event.button_index == MOUSE_BUTTON_LEFT:
-				_dragging_card = card
-				_drag_offset = event.position
-			elif event.button_index == MOUSE_BUTTON_RIGHT:
-				# Right click to start/complete connection
-				_handle_connection(evidence_id)
-		elif not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			_dragging_card = null
+func _set_feedback(message: String) -> void:
+	if feedback_label:
+		feedback_label.text = message
 
-	elif event is InputEventMouseMotion and _dragging_card == card:
-		card.position += event.relative
-
-	# Touch support
-	elif event is InputEventScreenTouch:
-		if event.pressed:
-			if event.double_tap:
-				_handle_connection(evidence_id)
-			else:
-				_dragging_card = card
-				_drag_offset = event.position - card.global_position
-		else:
-			_dragging_card = null
-
-	elif event is InputEventScreenDrag and _dragging_card == card:
-		card.global_position = event.position - _drag_offset
+func _get_ajie_summary() -> String:
+	if not GameManager.get_dialogue_flag("eye_ajie_receipt_scanned"):
+		return "先選一項證據閱讀，再選另一項核對關係。尚未支持的猜測可以繼續查，不會扣分。"
+	if GameManager.get_dialogue_flag("ajie_terminal_verified"):
+		var state := "已修正" if GameManager.decisions.get("ajie_hypothesis_status", "") == "revised" else "已支持"
+		return state + "｜收據＋終端佇列：七分鐘是交易重送，不能指認人影。" + ("後室監控另有三分鐘清場紀錄，兩者不能混用。" if GameManager.has_evidence("abyss_surveillance_delay_log") else "監控是否被處理，仍需查後室原件。")
+	var topics := {"terminal": "終端是否延遲", "witness": "阿傑是否記錯時間", "monitor": "是否與監控清場有關", "none": "七分鐘時間差的原因"}
+	return "待驗證｜%s。收據只有時間差，可回酒吧核對終端重送紀錄。" % topics.get(GameManager.decisions.get("ajie_hypothesis", "none"), "七分鐘時間差的原因")
 
 func _handle_connection(evidence_id: String) -> void:
+	if not GameManager.has_evidence(evidence_id):
+		return
 	if _connecting_from == "":
 		# Start connection
 		_connecting_from = evidence_id
 		if evidence_id in _cards:
 			var card: PanelContainer = _cards[evidence_id]
-			card.add_theme_stylebox_override("panel", _create_card_style(Color(1.0, 0.0, 0.6)))
+			card.modulate = Color(1.0, 0.75, 0.9)
+			(card.find_child("SelectEvidence", true, false) as Button).text = "已選取（再按取消）"
+		_set_feedback("已選取：" + _get_evidence_display_name(evidence_id) + "。" + _get_evidence_reading_text(evidence_id))
 	else:
 		# Complete connection
 		var from_id := _connecting_from
@@ -236,17 +240,19 @@ func _handle_connection(evidence_id: String) -> void:
 
 		if from_id == evidence_id:
 			_refresh_card_style(from_id)
+			_set_feedback(_get_ajie_summary())
 			return
 
 		# Check if connection is valid
 		var is_correct := _check_connection(from_id, evidence_id)
-		GameManager.add_evidence_connection(from_id, evidence_id, is_correct)
+		var added := GameManager.add_evidence_connection(from_id, evidence_id, is_correct)
 
 		# Visual feedback
-		_add_connection_line(from_id, evidence_id, is_correct)
 		_refresh_card_style(from_id)
 
+		var pair_text := _get_evidence_display_name(from_id) + " ↔ " + _get_evidence_display_name(evidence_id)
 		if is_correct:
+			_set_feedback(("已支持：" if added else "已核對過，不重複計數：") + pair_text + "。" + _get_connection_conclusion(from_id, evidence_id))
 			# Green flash
 			var deduction_flag := _get_connection_flag(from_id, evidence_id)
 			if deduction_flag != "":
@@ -255,6 +261,7 @@ func _handle_connection(evidence_id: String) -> void:
 				AudioManager.play_optional_sfx(MEMORY_SIGNATURE_REVEAL_SFX)
 			_flash_connection(from_id, evidence_id, Color(0.0, 1.0, 0.3))
 		else:
+			_set_feedback("尚未支持：" + pair_text + "。現有資料不足以連結，換一組來源或繼續詢問；不扣分。")
 			# Red flash then fade
 			_flash_connection(from_id, evidence_id, Color(1.0, 0.2, 0.2))
 
@@ -270,18 +277,31 @@ func _get_connection_flag(from_id: String, to_id: String) -> String:
 	var reverse_key := "%s:%s" % [to_id, from_id]
 	return valid_connection_flags.get(direct_key, valid_connection_flags.get(reverse_key, ""))
 
-func _add_connection_line(from_id: String, to_id: String, is_correct: bool) -> void:
-	_connection_lines.append({
-		"from": from_id,
-		"to": to_id,
-		"correct": is_correct
-	})
-	if lines_layer:
-		lines_layer.queue_redraw()
-
-func _redraw_connections() -> void:
-	if lines_layer:
-		lines_layer.queue_redraw()
+func _get_connection_conclusion(from_id: String, to_id: String) -> String:
+	var conclusions := {
+		"commission_letter": "委託對象的姓名與工作身份一致，可追查浩然的工作室。",
+		"abyss_receipt": "消費與照片指向同次包廂會面，仍無法辨識面具下的人。",
+		"data_chip": "晶片可與設備使用紀錄對讀，需再查記憶提取的用途。",
+		"family_memory_clip": "家庭片段與被改造的播放器連起浩然保護家人的動機。",
+		"original_backup_hint": "備份座標能對讀加密留言；保管與使用私人內容仍須分開。",
+		"broken_memory_player": "播放器與提取設備使用同類協定，可以追問義眼的呼叫來源。",
+		"kai_eye_glitch_log": "義眼異常與晶片簽章相符，可解讀共同的回聲線索。",
+		"eleven_pm_call_log": "一聲來電與被退回的報案連起失聯、求救與拒絕受理。",
+		"rejected_missing_person_report": "報案與監控空窗互相印證調查受到阻礙。",
+		"masked_client_receipt": "包廂付款紀錄與照片指向同場交易，可追查黑市入口。",
+		"clinic_eye_warning_log": "診所警告與包廂格式連起義眼、浩然失蹤與黑市交易。",
+		"old_city_queue_ticket": "等候號碼與退件紀錄核對了美玲報案被拖延的經過。",
+		"clinic_anonymous_case_note": "匿名病歷支持義眼污染並非單一個案，不能直接認作浩然。",
+		"abyss_surveillance_delay_log": "監控維護與包廂交易指向付費清場；三分鐘不是收據重送的七分鐘。",
+		"echo_symbol": "回聲標記與倉庫位置相互指引。",
+		"memory_sample": "樣本與受害者名單可核對來源，不等於使用私人記憶的同意。",
+		"hao_ran_diary": "日記與帳本連起浩然的工作與交易經過。",
+		"zhengtek_memo": "內部備忘錄與通訊頻率顯示企業和回聲網路的聯繫。",
+		"overwrite_report": "覆寫研究與資金流向共同顯示企業支持，仍須另查操作責任。",
+		"echo_ai_log": "迴響紀錄能與凱的記憶碎片互核，支持繼續追查自己的過去。"
+	}
+	var source := from_id if valid_connections.get(from_id) == to_id else to_id
+	return conclusions.get(source, "兩份紀錄有可核對的關係，仍須保留各自來源與未證實的部分。")
 
 func _flash_connection(from_id: String, to_id: String, color: Color) -> void:
 	for card_id in [from_id, to_id]:
@@ -294,15 +314,19 @@ func _flash_connection(from_id: String, to_id: String, color: Color) -> void:
 func _refresh_card_style(evidence_id: String) -> void:
 	if evidence_id in _cards:
 		var card: PanelContainer = _cards[evidence_id]
-		card.add_theme_stylebox_override("panel", _create_card_style(Color(0.0, 0.7, 0.7)))
+		card.modulate = Color.WHITE
+		(card.find_child("SelectEvidence", true, false) as Button).text = "選取"
 
 func _create_card_style(border_color: Color) -> StyleBox:
 	var texture := RuntimeAssetsScript.load_texture("%s/evidence_card.png" % UI_SPRITE_DIR)
 	if texture:
 		var generated_style := StyleBoxTexture.new()
 		generated_style.texture = texture
-		generated_style.set_texture_margin_all(24)
-		generated_style.set_content_margin_all(8)
+		generated_style.region_rect = Rect2(32, 32, 448, 304)
+		generated_style.set_texture_margin_all(48)
+		generated_style.set_content_margin_all(32)
+		generated_style.set_content_margin(SIDE_TOP, 36)
+		generated_style.set_content_margin(SIDE_BOTTOM, 12)
 		return generated_style
 
 	var style := StyleBoxFlat.new()
@@ -313,75 +337,27 @@ func _create_card_style(border_color: Color) -> StyleBox:
 	return style
 
 func _update_progress() -> void:
-	var total_valid := valid_connections.size()
-	var correct_count: int = 0
-	for conn in GameManager.evidence_connections:
-		if conn.get("correct", false):
+	var total_valid := 0
+	for from_id in valid_connections:
+		if GameManager.has_evidence(from_id) and GameManager.has_evidence(valid_connections[from_id]):
+			total_valid += 1
+	var correct_count := 0
+	for connection in GameManager.evidence_connections:
+		if connection.get("correct", false) and _check_connection(connection.from, connection.to):
 			correct_count += 1
 	if progress_bar:
-		progress_bar.max_value = total_valid
+		progress_bar.max_value = maxi(1, total_valid)
 		progress_bar.value = correct_count
+	if progress_label:
+		progress_label.text = "現有證據配對：%d / %d" % [correct_count, total_valid]
+		progress_label.tooltip_text = "分母只計已取得證據可組成的配對；取得新證據後可能增加。"
 
 func _on_close() -> void:
 	close()
 
-func _on_pinch_zoom(zoom_factor: float, _center: Vector2) -> void:
-	if not visible:
-		return
-	_zoom_level = clamp(_zoom_level * zoom_factor, 0.5, 2.0)
-	if board_container:
-		board_container.scale = Vector2(_zoom_level, _zoom_level)
-
 func _get_evidence_display_name(evidence_id: String) -> String:
-	var names := {
-		# Chapter 1
-		"commission_letter": "美玲的委託信",
-		"work_id": "浩然的工作證",
-		"abyss_receipt": "深淵酒吧的收據",
-		"data_chip": "加密的數據晶片",
-		"stranger_photo": "陌生人的全息照片",
-		"memory_device_log": "記憶提取設備使用紀錄",
-		"comm_recording": "損壞的通訊錄音",
-		"dr_chen_schedule": "Dr. 陳的預約紀錄",
-		"family_memory_clip": "家庭記憶片段",
-		"hao_ran_drawer_note": "浩然抽屜裡的維修便條",
-		"original_backup_hint": "原始記憶備份提示",
-		"hao_ran_encrypted_message": "浩然留給美玲的加密留言",
-		"broken_memory_player": "損壞的記憶播放器",
-		"kai_eye_glitch_log": "凱的鷹眼異常紀錄",
-		"eleven_pm_call_log": "十一點未接來電紀錄",
-		"rejected_missing_person_report": "被退回的失蹤通報",
-		"street_camera_gap": "東區監控空窗",
-		"masked_client_receipt": "遮罩客戶包廂紀錄",
-		"clinic_eye_warning_log": "Dr. 陳的義眼警告紀錄",
-		"old_city_queue_ticket": "舊城警署等候號碼單",
-		"clinic_anonymous_case_note": "匿名記憶污染病歷",
-		"abyss_surveillance_delay_log": "深淵酒吧監控延遲紀錄",
-		"black_market_entry_hint": "記憶黑市入口提示",
-		# Chapter 2
-		"echo_symbol": "回聲網路標記符號",
-		"memory_sample": "記憶樣本",
-		"warehouse_map": "廢棄倉庫位置地圖",
-		"hao_ran_diary": "浩然的個人日記",
-		"trade_ledger": "交易帳本副本",
-		"zhengtek_memo": "正和科技內部備忘錄",
-		"victim_list": "受害者名單",
-		"comm_frequency": "回聲網路通訊頻率",
-		"rusty_key": "生鏽的電子鑰匙",
-		"fake_id_chip": "偽造的身份晶片",
-		# Chapter 3
-		"overwrite_report": "覆寫技術研究報告",
-		"zhengtek_funding": "正和科技資金流向",
-		"dr_xiao_journal": "蕭博士個人日誌",
-		"hao_ran_sos": "浩然的求救訊息",
-		"lab_keycard": "實驗室門禁卡",
-		"overwritten_profiles": "被覆寫者前後對比",
-		"echo_ai_log": "AI迴響對話紀錄",
-		"kai_memory_fragment": "凱的記憶碎片",
-		"authorization_order": "正和科技授權令",
-		"dr_xiao_comms": "蕭博士與高層通訊",
-	}
-	return names.get(evidence_id, evidence_id)
+	var EvidenceDataScript: GDScript = load("res://scripts/data/evidence_data.gd")
+	return str(EvidenceDataScript.get_evidence(evidence_id).get("name", evidence_id))
 
 func _get_evidence_reading_text(evidence_id: String) -> String:
 	var EvidenceDataScript: GDScript = load("res://scripts/data/evidence_data.gd")
@@ -393,7 +369,7 @@ func _get_evidence_reading_text(evidence_id: String) -> String:
 	return evidence.get("description", "")
 
 func _summarize_reading(reading_text: String) -> String:
-	var limit := 44 if not InputManager.is_mobile else 30
+	var limit := 30
 	if reading_text.length() <= limit:
 		return reading_text
 	return reading_text.substr(0, limit - 1) + "..."

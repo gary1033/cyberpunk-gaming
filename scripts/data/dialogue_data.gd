@@ -9,10 +9,222 @@ static func get_dialogue(dialogue_id: String) -> Array:
 
 static func _get_all_dialogues() -> Dictionary:
 	return {
+		"ch3_kai_zhao_followup": [
+  {
+    "speaker": "kai",
+    "text": "我記得你把清單翻了面。我在背面寫過一句話。那時候，你知道我也在維護原型嗎？",
+    "requires_flags": [
+      "kai_memory_2_seen",
+      "trusted_zhao_ming"
+    ]
+  },
+  {
+    "speaker": "zhao_ming",
+    "text": "知道你接過維護。我在調查室看你簽過名。實驗室那頭怎麼用，我不在場。",
+    "choices": [
+      {
+        "text": "核對你親眼見過的簽名。",
+        "next": "zhao_signature"
+      },
+      {
+        "text": "先收起清單，之後再談。",
+        "next": "end"
+      }
+    ]
+  },
+  {
+    "label": "zhao_signature",
+    "speaker": "narrator",
+    "text": "你把清單背面的維護簽名與授權時間並排。簽名能對上；旁邊的手寫異議，沒有撤銷那次權限。"
+  },
+  {
+    "speaker": "zhao_ming",
+    "text": "你那天寫完，問我借了打火機。拿到手又還我，說戒了。我以為你會把這件事查到底。"
+  },
+  {
+    "speaker": "kai",
+    "text": "我寫了反對的話，卻沒把門關上。這兩件事都留著。",
+    "set_flag": "kai_zhao_account_checked",
+    "next": "end"
+  }
+],
+		"ch3_kai_xiao_followup": [
+  {
+    "speaker": "kai",
+    "text": "原型的回寫權限是我開的。我說過先求穩定，再補同意。你當時拿這句話做了什麼？",
+    "requires_flags": [
+      "kai_memory_2_seen",
+      "xiao_confronted"
+    ]
+  },
+  {
+    "speaker": "dr_xiao",
+    "text": "你把它當成待辦，我把它當成能繼續跑的許可。每次測試都有人催下一次。",
+    "choices": [
+      {
+        "text": "拿授權時間核對那次維護。",
+        "next": "kai_scope"
+      },
+      {
+        "text": "先停止追問，回查紀錄。",
+        "next": "end"
+      }
+    ]
+  },
+  {
+    "label": "kai_scope",
+    "speaker": "narrator",
+    "text": "授權時間與你記得的維護批次一致。它能核對你的參與；蕭博士當時怎麼想，仍是他的說法。"
+  },
+  {
+    "speaker": "kai",
+    "text": "我讓權限留下來，是我的事。後來有人喊停，你繼續寫入，是另一件。"
+  },
+  {
+    "speaker": "dr_xiao",
+    "text": "是。你沒替我簽那次覆核。你也別指望那份覆核能把你的簽名遮住。"
+  },
+  {
+    "speaker": "kai",
+    "text": "不遮。把兩份分開存。",
+    "set_flag": "kai_xiao_account_checked",
+    "next": "end"
+  }
+],
+		"ch3_kai_account_response": [
+  {
+    "speaker": "narrator",
+    "text": "清單、授權時間與兩人的回答放在一起。你可以確認自己參與過維護，不能靠一段回憶補出全部經過。",
+    "choices": [
+      {
+        "text": "留下具名維護說明，連同來源保存。",
+        "next": "kai_account_signed"
+      },
+      {
+        "text": "保留未確定的部分，列出待查問題。",
+        "next": "kai_account_pending"
+      },
+      {
+        "text": "暫時收起，稍後再決定。",
+        "next": "end"
+      }
+    ]
+  },
+  {
+    "label": "kai_account_signed",
+    "speaker": "kai",
+    "text": "我簽自己的部分。清單上的名字、權限和時間，不會因為我失憶就換一個人。",
+    "set_decision": {
+      "kai_account_response": "signed"
+    },
+    "set_flag": "kai_account_response_recorded",
+    "next": "end"
+  },
+  {
+    "label": "kai_account_pending",
+    "speaker": "kai",
+    "text": "先列出我能確認的事。誰催下一次、我收到過哪些回覆，還要查。簽名原件照樣保存。",
+    "set_decision": {
+      "kai_account_response": "pending"
+    },
+    "set_flag": "kai_account_response_recorded",
+    "next": "end"
+  }
+],
+		"ch3_lab_arrival": [
+			{"speaker": "narrator", "text": "實驗室的隔板後傳來維持器的聲音。蕭博士站在遠端工作桌旁；設備側面的離線終端仍然亮著。"},
+			{"speaker": "kai", "text": "我可以先找浩然，核對設備報告與出口，也可以先拿紀錄問蕭博士。進了這扇門，不表示得照他的順序談。", "next": "end"}
+		],
+		"ch3_device_report": [
+			{"speaker": "narrator", "text": "維持椅側面刻著 M-3，控制器運行第六版。終端有第四版展示稿，以及第六版簽署報告。第六版才列出這台設備的隔離程序。", "choices": [
+				{"text": "核對 M-3、第六版及本地簽章。", "next": "device_sequence"},
+				{"text": "第四版有治療成功率，直接照做。", "next": "device_wrong"},
+				{"text": "先離開，也可以改問蕭博士。", "next": "end"}
+			], "next": "end"},
+			{"label": "device_wrong", "speaker": "kai", "text": "成功率不能告訴我怎麼斷線。版本與設備也對不上。維持器仍穩定運作，先保留現況，再查一次。", "next": "end"},
+			{"label": "device_sequence", "speaker": "narrator", "text": "簽章、設備序號與運行版本一致。程序要求：先停止遠端寫入，確認離線維持穩定，才解除接口與固定帶。", "choices": [
+				{"text": "保留維持功能，先隔離寫入。", "next": "device_verified"},
+				{"text": "先拔掉所有電源，再檢查。", "next": "device_unsafe"},
+				{"text": "暫停核對。", "next": "end"}
+			], "next": "end"},
+			{"label": "device_unsafe", "speaker": "kai", "text": "那會連維持功能一起切掉。我還沒動手，先重新核對順序。", "next": "end"},
+			{"label": "device_verified", "speaker": "kai", "text": "我保存報告、設備序號及簽章來源。找到浩然、準備好離線出口，就能按程序救人。至於誰下令繼續覆寫，仍要另外追問。", "give_evidence": "overwrite_report", "set_flag": "hq_device_report_checked", "next": "end"}
+		],
+		"ch3_ghost_support": [
+			{"speaker": "ghost", "requires_decisions": {"ghost_followup_choice": "repaired"}, "text": "先說好，只接這一次。新地址不給你，證詞也不給。接應器留在舊頻道，你別追過來。"},
+			{"speaker": "ghost", "mood": "cautious", "text": "我能替你守一次窗口：撤離門，或原件傳輸。選定後我就得守在那一頭，不能來回換。另一件事要你自己核對，仍然做得到。", "choices": [
+				{"text": "把協助留給浩然撤離。", "next": "support_rescue_confirm", "requires_missing_flags": ["hao_ran_rescued"]},
+				{"text": "協助核對原件的傳輸與保管。", "next": "support_evidence_confirm", "requires_missing_flags": ["core_evidence_secured"]},
+				{"text": "先不分派，我自己查。", "next": "end"}
+			], "next": "end"},
+			{"label": "support_rescue_confirm", "speaker": "ghost", "text": "確認後，我守撤離門。伺服器的來源與保管鏈要你自己查；設備隔離也不能由我代做。", "choices": [
+				{"text": "確認，請守撤離門。", "next": "support_rescue", "requires_decisions": {"hq_ghost_support": "none"}, "requires_missing_flags": ["hao_ran_rescued"]},
+				{"text": "還沒決定。", "next": "end"}
+			], "next": "end"},
+			{"label": "support_rescue", "speaker": "ghost", "text": "接應器切到門控頻道。你到實驗室準備出口時，我會回送離線門的狀態。", "set_decision": {"hq_ghost_support": "rescue"}, "next": "end"},
+			{"label": "support_evidence_confirm", "speaker": "ghost", "text": "確認後，我留在原件傳輸端。你得自己比對維修表，確認浩然的離線出口。", "choices": [
+				{"text": "確認，請守原件傳輸端。", "next": "support_evidence", "requires_decisions": {"hq_ghost_support": "none"}, "requires_missing_flags": ["core_evidence_secured"]},
+				{"text": "還沒決定。", "next": "end"}
+			], "next": "end"},
+			{"label": "support_evidence", "speaker": "ghost", "text": "接應器切到只讀傳輸頻道。我替你核對接收端，文件本身的簽章仍要你確認。", "set_decision": {"hq_ghost_support": "evidence"}, "next": "end"}
+		],
+		"ch3_core_custody": [
+			{"speaker": "kai", "text": "授權令有專案碼，伺服器也有展示摘要。我得找到簽署原件的保管紀錄，再封存。選哪一種查法？", "choices": [
+				{"text": "使用幽靈保留的原件傳輸窗口。", "next": "core_ghost", "requires_decisions": {"hq_entry_route": "ghost", "hq_ghost_support": "evidence"}},
+				{"text": "以企業資格具名調閱，保留本次紀錄。", "next": "core_corporate", "requires_decisions": {"hq_entry_route": "corporate"}, "requires_missing_flags": ["hq_corporate_access_disabled"]},
+				{"text": "自行比對紙本交接簿與機架封條。", "next": "core_offline"},
+				{"text": "停用企業資格，改用紙本核對。", "next": "core_offline", "requires_decisions": {"hq_entry_route": "corporate"}, "requires_missing_flags": ["hq_corporate_access_disabled"], "set_flag": "hq_corporate_access_disabled"},
+				{"text": "先不調閱，稍後再選。", "next": "end"}
+			], "next": "end"},
+			{"label": "core_ghost", "speaker": "ghost", "text": "接收端和機架封條的編號一致。這是只讀傳輸，沒有帶走機架內的檔案。你核對授權令與原件簽章，我只替你守住傳輸端。", "choices": [
+				{"text": "比對授權令、原件簽章與接收編號。", "next": "core_ghost_verified"},
+				{"text": "先離開；協助仍留在傳輸端。", "next": "end"}
+			], "next": "end"},
+			{"label": "core_ghost_verified", "speaker": "kai", "text": "三處編號與簽章相符。保管鏈已核對，可以封存資金流向。幽靈留在傳輸端，撤離門要我自己確認。", "set_flag": "hq_core_verified", "set_decision": {"hq_core_method": "ghost"}, "next": "end"},
+			{"label": "core_corporate", "speaker": "narrator", "text": "具名調閱已登記。螢幕先顯示對外摘要；旁邊的稽核欄列出簽署原件與保管編號。這次調閱會留在行動紀錄。", "set_flag": "hq_named_lookup_used", "choices": [
+				{"text": "核對稽核欄的原件簽章與授權令。", "next": "core_corporate_verified"},
+				{"text": "摘要蓋了公司章，直接當原件。", "next": "core_summary_wrong"},
+				{"text": "退出調閱；保留已發生的紀錄。", "next": "end"}
+			], "next": "end"},
+			{"label": "core_summary_wrong", "speaker": "kai", "text": "公司章只能指出誰做了摘要，不能代替原件。我還沒封存；可以重查稽核欄，或改走紙本保管鏈。", "next": "end"},
+			{"label": "core_corporate_verified", "speaker": "kai", "text": "原件簽章、保管編號與授權令對上了。我連同具名調閱回執一起保存，不能日後只留下對我有利的部分。", "set_flag": "hq_core_verified", "set_decision": {"hq_core_method": "corporate"}, "next": "end"},
+			{"label": "core_offline", "speaker": "narrator", "text": "紙本簿記著：K-6 的付款原件放在 C 架，封條 031。A 架只有展示摘要。C 架封條和接收簿都有同一位保管者的簽章。", "choices": [
+				{"text": "用 K-6、C 架、031 逐項比對授權令。", "next": "core_offline_verified"},
+				{"text": "A 架離門最近，先認定它是原件。", "next": "core_offline_wrong"},
+				{"text": "保留現況，稍後重查。", "next": "end"}
+			], "next": "end"},
+			{"label": "core_offline_wrong", "speaker": "kai", "text": "位置方便不代表來源正確。A 架只放摘要，保管編號也不同。我沒有取走任何東西，可以重新比對。", "next": "end"},
+			{"label": "core_offline_verified", "speaker": "kai", "text": "授權令、紙本接收簿和 C 架原件的簽章相符。我記下核對方式與原件位置，接下來可以封存。", "set_flag": "hq_core_verified", "set_decision": {"hq_core_method": "offline"}, "next": "end"}
+		],
+		"ch3_prepare_exit": [
+			{"speaker": "kai", "text": "先確認一條通往屋頂避難間的離線出口。準備出口不會移動浩然；找到他、核對隔離報告後，才能真正救援。", "choices": [
+				{"text": "請幽靈回報保留的撤離門。", "next": "exit_ghost", "requires_decisions": {"hq_entry_route": "ghost", "hq_ghost_support": "rescue"}},
+				{"text": "使用企業資格開門，留下具名紀錄。", "next": "exit_corporate", "requires_decisions": {"hq_entry_route": "corporate"}, "requires_missing_flags": ["hq_corporate_access_disabled"]},
+				{"text": "自行核對維修表與離線門。", "next": "exit_offline"},
+				{"text": "停用企業資格，自己核對出口。", "next": "exit_offline", "requires_decisions": {"hq_entry_route": "corporate"}, "requires_missing_flags": ["hq_corporate_access_disabled"], "set_flag": "hq_corporate_access_disabled"},
+				{"text": "先不準備。", "next": "end"}
+			], "next": "end"},
+			{"label": "exit_ghost", "speaker": "ghost", "text": "三號門回送離線狀態，門後的避難間沒有連接寫入設備。我會守住這頭；你仍要自己按隔離程序帶他過來。", "set_flag": "hq_exit_ready", "set_decision": {"hq_exit_method": "ghost"}, "next": "end"},
+			{"label": "exit_corporate", "speaker": "narrator", "text": "企業門控記下身份與開門用途。你先確認門後通往離線避難間，再保存回執；浩然仍在設備旁，這只是出口準備。", "set_flags": ["hq_exit_ready", "hq_named_lookup_used"], "set_decision": {"hq_exit_method": "corporate"}, "next": "end"},
+			{"label": "exit_offline", "speaker": "narrator", "text": "維修表寫著：排水停機時，三號門可手動開啟，通往離線避難間。貨梯則連著遠端門控。你比對門牌、隔離燈和實際通道。", "choices": [
+				{"text": "確認三號門、停機燈與離線通道一致。", "next": "exit_offline_ready"},
+				{"text": "貨梯會動，直接把它當撤離路線。", "next": "exit_wrong"},
+				{"text": "暫停，回頭重新確認。", "next": "end"}
+			], "next": "end"},
+			{"label": "exit_wrong", "speaker": "kai", "text": "貨梯仍受遠端門控，不能把會動當作安全。我還沒移動浩然，先核對離線通道。", "next": "end"},
+			{"label": "exit_offline_ready", "speaker": "kai", "text": "門牌、隔離燈和避難間對上了。我記下手動開門位置，試過回程再關好門；不用任何人的身份，也有人能在裡面鎖門。", "set_flag": "hq_exit_ready", "set_decision": {"hq_exit_method": "offline"}, "next": "end"}
+		],
+		"ch3_disable_corporate": [
+			{"speaker": "kai", "text": "停用後，企業具名調閱和開門都不能再用，仍可自行查紙本與離線出口。已取得的材料保留，使用過的身份與調閱紀錄也不會消失。", "choices": [
+				{"text": "確認停用，後續自行核對。", "next": "corporate_disabled"},
+				{"text": "暫時保留資格。", "next": "end"}
+			], "next": "end"},
+			{"label": "corporate_disabled", "speaker": "narrator", "text": "你拔下資格憑證，保存停用回執。企業入口的使用歷史仍在，紙本保管簿與離線門仍可調查。", "set_flag": "hq_corporate_access_disabled", "next": "end"}
+		],
 "ch2_branch_direction": [
     {
       "speaker": "kid",
-      "text": "兩邊都是今晚的窗口。最後一份資料交接完，另一邊就收件了。你可以現在換方向，已經交出去的東西可不會跟著回來。",
+      "text": "兩邊都是今晚的窗口。最後一份資料交接完，另一邊就停止收件。你可以現在換方向，已經交出去的東西可不會跟著回來。",
       "choices": [
         {
           "text": "改查交割後室：只辦限用引介，不交家庭備份。",
@@ -363,13 +575,13 @@ static func _get_all_dialogues() -> Dictionary:
     },
     {
       "speaker": "kai",
-      "text": "帳頁的來源與交接簽收一起封好。門外引擎已經遠了，我只記到下一個派送站。今晚轉介窗口也收件了；之後用這條文件線繼續查。",
+      "text": "帳頁的來源與交接簽收一起封好。門外引擎已經遠了，我只記到下一個派送站。今晚轉介窗口已停止收件；之後用這條文件線繼續查。",
       "label": "market_ledger",
       "next": "end"
     },
     {
       "speaker": "kai",
-      "text": "我在門內核對車次與接收站，沒有追出去。帳頁只保住能驗證的幾欄；設備去向另存。今晚轉介窗口收件了，原本的離線照護仍會接手。",
+      "text": "我在門內核對車次與接收站，沒有追出去。帳頁只保住能驗證的幾欄；設備去向另存。今晚轉介窗口已停止收件，原本的離線照護仍會接手。",
       "label": "market_dispatch",
       "next": "end"
     }
@@ -421,20 +633,29 @@ static func _get_all_dialogues() -> Dictionary:
 			{"label": "dispatch_redacted", "speaker": "kai", "text": "摘要提醒接收單位暫停使用疑似批次，不含員工姓名。完整序號仍封在我的底檔，沒有把去識別摘要冒充足以定罪的原件。", "next": "end"}
 		],
 		"ch3_scan_override_console": [
-			{"speaker": "kai", "text": "鷹眼讀出覆核站的兩層記錄。外層顯示「等待通知」，R-17 的本地簽章卻在收到撤回請求後，手動維持寫入排程。"},
-			{"speaker": "dr_xiao", "text": "那張紙不會告訴你病人當時多痛苦。我把撤回送去覆核，不代表我可以立刻切斷維持程序。"},
-			{"speaker": "kai", "text": "維持生命與繼續寫入不是同一個開關。我要核對的是：誰在收到撤回後，仍選擇繼續改寫。"},
-			{"speaker": "narrator", "text": "覆核站的接收時間與本地簽章已保存。可以再調查「拿紀錄追問蕭博士」；市政回執能補上請求送達以前的那一段。", "next": "end"}
+			{"speaker": "kai", "text": "外面寫著等待通知，裡面卻簽了繼續。R-17 的撤回，比這個簽章還早。"},
+			{"speaker": "dr_xiao", "text": "撤回送去覆核了。你只盯著時間，當時病人是什麼情況，你問過嗎？維持程序不能說切就切。"},
+			{"speaker": "kai", "text": "這欄是寫入排程。維持器有自己的控制。你動的是哪一邊？"},
+			{"speaker": "narrator", "text": "蕭博士把視線移回螢幕，沒有回答。你保存接收時間與本地簽章；要追問撤回的來處，還能拿市政回執比對。", "next": "end"}
 		],
 		"ch3_xiao_record_challenge": [
-			{"speaker": "dr_xiao", "text": "你要問的是誰付錢、誰接到撤回，還是誰按下繼續？先把問題分清楚。", "choices": [{"text": "資金來自正和，所以是你按下繼續。", "next": "challenge_funding", "requires_evidence": "zhengtek_funding"}, {"text": "回執、接收碼、本地簽章一致；為何繼續寫入？", "next": "challenge_admitted", "requires_flag": "eye_withdrawal_scanned", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "admitted"}}, {"text": "目前只能確認本地簽章，保留未核對的部分。", "next": "challenge_disputed", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "disputed"}}, {"text": "先回去比對資料。", "next": "end"}], "next": "end"},
-			{"label": "challenge_funding", "speaker": "dr_xiao", "text": "資金流向證明企業參與，不能替你補出操作時間。你手上已有本地紀錄，去找撤回請求的原始回執。你可以再問一次。", "next": "end"},
-			{"speaker": "dr_xiao", "text": "我看過那個撤回。原型只要停一次，企業就會把病例和設備一起帶走。我選擇讓寫入繼續，還把它寫成待覆核。", "label": "challenge_admitted", "mood": "cracking"},
-			{"speaker": "kai", "text": "我會把這段回答與簽章一起封存。是你做了決定，也有人建立了讓這種決定可以持續的系統。", "requires_decisions": {"xiao_accountability": "admitted"}},
-			{"speaker": "kai", "text": "市政轉介已暫停。停止下一張請求被送來，仍不能代替你交代已經發生的事。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "frozen"}},
-			{"speaker": "kai", "text": "測試代碼也抵達同一個覆核站。這不是紙本沒送到，而是送到之後被你繼續排程。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "observed"}, "next": "end"},
+			{"speaker": "dr_xiao", "text": "資料都拿來了？放這裡。你想問哪一筆？", "choices": [{"text": "資金來自正和，所以是你按下繼續。", "next": "challenge_funding", "requires_evidence": "zhengtek_funding"}, {"text": "回執、接收碼、本地簽章一致；為何繼續寫入？", "next": "challenge_admitted", "requires_flag": "eye_withdrawal_scanned"}, {"text": "目前只能確認本地簽章，保留未核對的部分。", "next": "challenge_disputed", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "disputed"}}, {"text": "先回去比對資料。", "next": "end"}], "next": "end"},
+			{"label": "challenge_funding", "speaker": "dr_xiao", "text": "正和付的錢，我沒否認。可你拿著付款單，就知道那天誰坐在終端前？撤回是哪一張，什麼時候送到的？", "next": "end"},
+			{"label": "challenge_admitted", "speaker": "dr_xiao", "mood": "calm", "text": "R-17。我記得，送去覆核了。那個時候停下來，病人後面的反應誰負責？"},
+			{"speaker": "kai", "text": "回執在這裡。你收到以後，寫入還在繼續。", "choices": [
+				{"text": "維持器能單獨運行。為什麼連寫入也留下？", "next": "challenge_controls"},
+				{"text": "你簽了「待覆核」。簽之前，看過撤回嗎？", "next": "challenge_receipt"},
+				{"text": "先停在這裡，回去核對（尚未取得供述）。", "next": "end"}
+			], "next": "end"},
+			{"label": "challenge_controls", "speaker": "dr_xiao", "mood": "conflicted", "text": "能單獨運行。那套控制是我簽的，我當然知道。", "next": "challenge_admission"},
+			{"label": "challenge_receipt", "speaker": "dr_xiao", "mood": "conflicted", "text": "看過。「待覆核」也是我填的。我想再留一點時間。", "next": "challenge_admission"},
+			{"label": "challenge_admission", "speaker": "narrator", "text": "蕭博士的手停在桌沿。他張了張口，沒有立刻出聲。"},
+			{"speaker": "dr_xiao", "mood": "cracking", "text": "一停，正和就會把病例和設備帶走。我怕他們把整個原型收回去。撤回我看過了，寫入……是我讓它繼續的。", "set_flag": "xiao_record_challenge_resolved", "set_decision": {"xiao_accountability": "admitted"}},
+			{"speaker": "kai", "text": "這段我會留著，連同你的簽章。正和要拿走什麼，我也會查。", "requires_decisions": {"xiao_accountability": "admitted"}},
+			{"speaker": "kai", "text": "市政那邊已經暫停轉介。後面的人先擋下來了，前面這些，還得一筆一筆查。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "frozen"}},
+			{"speaker": "kai", "text": "我們送的測試碼也到了同一站。回執、接收碼，還有你剛才這段話，我一起留下。", "requires_decisions": {"xiao_accountability": "admitted", "archive_route": "observed"}, "next": "end"},
 			{"speaker": "narrator", "text": "供述是補充資料；正式公開仍要核驗三份核心原件。", "requires_decisions": {"xiao_accountability": "admitted"}, "next": "end"},
-			{"label": "challenge_disputed", "speaker": "kai", "text": "紀錄標為有爭議，沒有填入不存在的送達證明。救援不必等你認錯；公開時也不會把我的猜測包成供述。", "next": "end"}
+			{"label": "challenge_disputed", "speaker": "kai", "text": "本地簽章我留著。送達那一段還沒對完，就先留空，這次問話記為有爭議。", "next": "end"}
 		],
 		"ch3_recovery_annex_enter": [
 {"speaker": "dr_chen", "text": "等候站那通電話有回覆，浩然的接收人願意留下姓名。整批改派的核對還在等下一個窗口。", "requires_decisions": {"ch2_medical_priority": "patient"}},{"speaker": "dr_chen", "text": "整批改派回條有人接下了。浩然仍由原本的離線照護先承接，個別窗口我會繼續問。", "requires_decisions": {"ch2_medical_priority": "batch"}},
@@ -446,7 +667,7 @@ static func _get_all_dialogues() -> Dictionary:
 		"ch3_scan_recovery_route": [
 			{"speaker": "kai", "text": "終端待送的是回診時間、接收醫師與病人代碼，沒有私人記憶；預設收件者卻包含企業的設備承包商。"},
 			{"speaker": "hao_ran", "text": "今天不要再替我一次勾完。陳醫師可以知道怎麼接手，承包商不需要知道我在哪裡。"},
-			{"speaker": "dr_chen", "text": "可以改成紙本雙人交接，慢一些但全程離線；也可以刪掉承包商地址，只傳給指定醫師，送出前再讓浩然確認。", "choices": [{"text": "紙本雙人交接；接受多等一班轉運。", "next": "recovery_paper", "set_flag": "recovery_route_resolved", "set_decision": {"recovery_channel": "paper"}}, {"text": "只送指定醫師，由浩然逐項確認。", "next": "recovery_direct", "set_flag": "recovery_route_resolved", "set_decision": {"recovery_channel": "direct"}}, {"text": "先保留離線狀態，稍後決定。", "next": "end"}], "next": "end"},
+			{"speaker": "dr_chen", "text": "可以改成紙本雙人交接。慢一些，但全程離線。也可以刪掉承包商地址，只傳給指定醫師。送出前，再讓浩然確認。", "choices": [{"text": "紙本雙人交接；接受多等一班轉運。", "next": "recovery_paper", "set_flag": "recovery_route_resolved", "set_decision": {"recovery_channel": "paper"}}, {"text": "只送指定醫師，由浩然逐項確認。", "next": "recovery_direct", "set_flag": "recovery_route_resolved", "set_decision": {"recovery_channel": "direct"}}, {"text": "先保留離線狀態，稍後決定。", "next": "end"}], "next": "end"},
 			{"label": "recovery_paper", "speaker": "hao_ran", "text": "那就等下一班。交接表由兩個人簽，我也留一張。這裡有人照看我，你可以繼續查案；別為了趕時間再替我接回去。", "next": "end"},
 			{"label": "recovery_direct", "speaker": "hao_ran", "text": "我看過接收醫師與三個欄位，同意只送這一份。傳送完成就移除這次聯絡路由。下一次回診，再問一次。", "next": "end"}
 		],
@@ -460,39 +681,78 @@ static func _get_all_dialogues() -> Dictionary:
 			{"label": "anchor_shared_end", "speaker": "kai", "text": "紀錄分成可確認與待核對兩欄。姓名和接收時間另封，不送進迴響。若我醒來不相信它，也能從每一項的來源重新問起。", "next": "end"},
 			{"label": "anchor_private", "speaker": "kai", "text": "信封寫著今天的日期。我只寫自己現在知道的事，沒有替醒來的人下命令。罪證另行封存；這封信不是案件原件的唯一副本。", "next": "end"}
 		],
+		"ch1_case_materials_review": [
+			{"speaker": "narrator", "text": "你倒出委託袋裡的東西。美玲把失聯日期寫在信上，工作室地址則抄在工作證背面：東區第七街，地下層。", "give_evidence": "commission_letter"},
+			{"speaker": "kai", "text": "永恆記憶。地址倒是不難找。", "give_evidence": "work_id", "set_flag": "knows_workshop_location"},
+			{"speaker": "narrator", "text": "袋底還夾著一張深淵酒吧的收據。你展平折角，把它和工作證一起收好。", "give_evidence": "abyss_receipt", "next": "end"}
+		],
+		"ch1_ajie_followup": [
+			{"speaker": "narrator", "requires_decisions": {"ajie_statement": "coerced"}, "text": "阿傑把照片推到你面前，卻把寫著名字的紙抽了回去。收銀紀錄還能核對，那個指認他不肯再說一遍。"},
+			{"speaker": "ajie", "mood": "suspicious", "requires_decisions": {"ajie_statement": "coerced"}, "text": "照片還在，你拿去。上回那個名字是你逼我說的，別又拿來問我認不認得。"},
+			{"speaker": "ajie", "mood": "cooperative", "requires_decisions": {"ajie_statement": "voluntary"}, "text": "帳要再對一遍也行。這張臉就算了吧，面具擋成這樣，我認得出什麼？"},
+			{"speaker": "ajie", "requires_missing_flags": ["ajie_told_about_meeting"], "text": "是我們的收據。浩然那晚進了二號包廂，裡頭那位戴著全息面具。喏，照片在這。"},
+			{"speaker": "narrator", "text": "照片傳到你的終端上。放大後，面具底下仍看不見五官。阿傑朝後室偏了偏頭，繼續擦他的杯子。", "give_evidence": "stranger_photo", "set_flag": "ajie_told_about_meeting", "next": "end"}
+		],
 		"ch1_eye_ajie_statement": [
-			{"speaker": "kai", "text": "鷹眼分開了收據的列印層與結帳層。兩者差七分鐘，只能證明終端延遲，不能證明那張模糊人影是誰。", "set_flag": "eye_ajie_receipt_scanned"},
-			{"speaker": "ajie", "mood": "nervous", "text": "你一直盯著我，我當然緊張。別把心跳當成口供。你要問哪一筆？", "choices": [
+			{"speaker": "narrator", "text": "鷹眼掃過褪色的收據，兩行時間亮了起來。結帳、列印，中間差了七分鐘。交易編號相同，紙上卻沒寫為什麼。", "set_flag": "eye_ajie_receipt_scanned"},
+			{"speaker": "kai", "text": "（七分鐘。卡在機器上，還是另有別的事？）", "choices": [
+				{"text": "先查七分鐘是否來自終端延遲。", "next": "hypothesis_terminal", "set_decision": {"ajie_hypothesis": "terminal", "ajie_hypothesis_status": "pending"}},
+				{"text": "先查阿傑是否把見面時間記錯。", "next": "hypothesis_witness", "set_decision": {"ajie_hypothesis": "witness", "ajie_hypothesis_status": "pending"}},
+				{"text": "先查時間差是否與監控清場有關。", "next": "hypothesis_monitor", "set_decision": {"ajie_hypothesis": "monitor", "ajie_hypothesis_status": "pending"}},
+				{"text": "先保存掃描，稍後再想。", "next": "end"}
+			], "next": "end"},
+			{"label": "hypothesis_terminal", "speaker": "kai", "text": "阿傑，這個編號。收銀機裡還查得到嗎？", "next": "end"},
+			{"label": "hypothesis_witness", "speaker": "kai", "text": "（也許他記岔了。先看看收銀機怎麼記，再問。）", "next": "end"},
+			{"label": "hypothesis_monitor", "speaker": "kai", "text": "（要是有人動過監控，後室應該留得下痕跡。先查清楚收據這七分鐘。）", "next": "end"}
+		],
+		"ch1_ajie_terminal_check": [
+			{"speaker": "ajie", "text": "喏，機器轉過來了。斷線、重送，都在這一欄。紙上哪印得下這些。"},
+			{"speaker": "narrator", "text": "你把收據貼在螢幕邊，逐位比對交易編號。同一筆帳：結帳成功，斷線，重送。七分鐘後才印出來。紀錄裡沒有客人的姓名。"},
+			{"speaker": "kai", "text": "（錢先結了，紙卻晚了七分鐘。）", "choices": [
+				{"text": "確認終端重送；身份仍待查。", "next": "terminal_confirm", "set_flag": "ajie_terminal_verified"},
+				{"text": "筆記假設：七分鐘能證明他認得那人。", "next": "terminal_overreach"},
+				{"text": "先不下結論，回去重看收據。", "next": "end"}
+			], "next": "end"},
+			{"label": "terminal_confirm", "speaker": "narrator", "requires_decisions": {"ajie_hypothesis": "terminal"}, "text": "你在「終端延遲」旁打了勾，把收據和原始紀錄放在一起。那七分鐘就在這幾行重送紀錄裡。", "set_decision": {"ajie_hypothesis_status": "supported"}},
+			{"speaker": "narrator", "requires_decisions": {"ajie_hypothesis": "none"}, "text": "你記下重送的起迄時間，把原始紀錄和收據放在一起。來客姓名那一欄，仍舊空著。", "set_decision": {"ajie_hypothesis_status": "supported"}},
+			{"speaker": "kai", "requires_decisions": {"ajie_hypothesis": "witness"}, "text": "（先怪到他頭上了。這七分鐘，機器已經交代清楚。至於那晚他看見什麼，還得問。）", "set_decision": {"ajie_hypothesis_status": "revised"}},
+			{"speaker": "kai", "requires_decisions": {"ajie_hypothesis": "monitor"}, "text": "（是重送。我把兩件事扯在一起了。監控得另查後室的紀錄。）", "set_decision": {"ajie_hypothesis_status": "revised"}},
+			{"speaker": "narrator", "text": "你收好筆記。阿傑還站在吧台後，等著看你會不會再問。核對結果已存入證據板。", "next": "end"},
+			{"label": "terminal_overreach", "speaker": "kai", "text": "（等等。哪一行寫了他認得那個人？只有編號和時間。我想得太快了。）", "next": "end"}
+		],
+		"ch1_ajie_statement_check": [
+			{"speaker": "kai", "text": "帳對上了。阿傑，還有件事想問你。", "requires_flag": "ajie_terminal_verified"},
+			{"speaker": "ajie", "mood": "nervous", "text": "能不能把那隻眼睛關了？你拿它照著我，還嫌我心跳快。問吧。", "requires_flag": "ajie_terminal_verified", "requires_missing_flags": ["ajie_statement_resolved"], "choices": [
 				{"text": "讓他核對時間，不逼他認人。", "next": "statement_voluntary", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "voluntary"}, "affinity": {"ajie": 2}},
-				{"text": "用掃描推算逼他指認那個人。", "next": "statement_coerced", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "coerced", "interrogation_pressure_ajie": 80}, "affinity": {"ajie": -2}},
+				{"text": "逼他指認（不可靠，留下施壓紀錄；本章可更正）。", "next": "statement_coerced", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "coerced", "interrogation_pressure_ajie": 80}, "affinity": {"ajie": -2}},
 				{"text": "只留時間差，不使用他的證詞。", "next": "statement_withheld", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "withheld"}},
 				{"text": "先保存掃描，稍後再問。", "next": "end"}
 			], "next": "end"},
-			{"label": "statement_voluntary", "speaker": "ajie", "mood": "cooperative", "text": "七分鐘是斷線重送。我願意只為這個作證。你公開時把問題原文一起放上去，別幫我補一句我沒說的話。", "next": "end"},
-			{"label": "statement_coerced", "speaker": "ajie", "mood": "angry", "text": "好，你要那個名字，我說了。可你也把剛才怎麼問的留著。這份指認不可靠；想更正，就在離開本章前回來。", "next": "end"},
-			{"label": "statement_withheld", "speaker": "kai", "text": "我只保留機器時間差。後面的指控仍要靠原件，阿傑不會因此成為我的證人。", "next": "end"}
+			{"label": "statement_voluntary", "speaker": "ajie", "mood": "cooperative", "text": "斷線重送，七分鐘。這個我能作證。要拿出去，你怎麼問的也一起放，別到時候變成我認出了誰。", "next": "end"},
+			{"label": "statement_coerced", "speaker": "ajie", "mood": "angry", "text": "行，名字照你的意思報了。滿意了？我連他的臉都沒見著。你要拿這段出去，剛才怎麼逼我的，也給我放進去。", "next": "end"},
+			{"label": "statement_withheld", "speaker": "kai", "text": "今天就到這。我留一份機器紀錄，不把你列成證人。", "next": "end"}
 		],
 		"ch1_ajie_retraction": [
-			{"speaker": "ajie", "mood": "suspicious", "text": "收回名字可以，收回你逼問過我不行。我只幫你更正紀錄，不替你公開作證。", "choices": [
+			{"speaker": "ajie", "mood": "suspicious", "text": "現在肯把那個名字撤掉了？好。可你怎麼逼我說的，得留著。還有，別指望我再替你作證。", "choices": [
 				{"text": "撤回指認，保留施壓經過。", "next": "statement_retracted", "set_flag": "ajie_statement_retracted", "affinity": {"ajie": 1}},
 				{"text": "先不更正。", "next": "end"}
 			], "next": "end"},
-			{"label": "statement_retracted", "speaker": "kai", "text": "更正附在原始紀錄後。我不再使用那個名字，公開案件時仍須交代這次施壓。", "next": "end"}
+			{"label": "statement_retracted", "speaker": "kai", "text": "好。我在原紀錄後面加上更正，那個名字不再用了。逼你開口的事，我會交代。", "next": "end"}
 		],
 		"ch2_eye_market_claim": [
-			{"speaker": "kai", "text": "鷹眼比對市場公開合約與你的交易紀錄。樣本報價權屬於面具商人，蛇女只有代理權；先前在酒吧談的晶片交易是另一筆。", "set_flag": "eye_market_claim_scanned"},
-			{"speaker": "snake", "mood": "serious", "requires_decisions": {"memory_trade_method": "buy"}, "text": "你欠的是下一份線索的優先報價權，不是任意調閱你的腦袋。你找出的附頁可以限制範圍，也可以拿一份受害者聯絡路由來結清。"},
-			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "intrude"}, "text": "你入侵過市場，留下裝置識別，但沒簽這筆報價權。我不能憑一個編號替你造債。眼前這張是新委託，你可以拒絕。"},
-			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "refuse"}, "text": "你沒買樣本，沒有舊債。這次只是新委託：讓我先看你下一份非人身線索的報價，或者拿聯絡路由換企業承包照護的優先預約。"},
-			{"speaker": "snake", "mood": "serious", "text": "限制條款會留下可核對的回執。交出路由則會讓市場找到受害者。拒絕新委託，不會抹掉你本來欠的東西。", "choices": [
+			{"speaker": "kai", "text": "簽章對上了。報價權在面具商人手裡，你替他談。酒吧那枚晶片，又算另一筆。", "set_flag": "eye_market_claim_scanned"},
+			{"speaker": "snake", "mood": "serious", "requires_decisions": {"memory_trade_method": "buy"}, "text": "你買過他的樣本，下次拿到線索，就得先讓他出價。不放心？把不能碰的寫進附頁。或者給他一份受害者的聯絡路由，這筆帳就結了。"},
+			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "intrude"}, "text": "你闖進去拿的，沒簽買賣。裝置碼他們留著，帳不能因此算到你頭上。今天這張，你可以不接。"},
+			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "refuse"}, "text": "上回沒買，當然不欠。今天另談：下份非人身線索先讓市場報價。或者，你給一份聯絡路由，我替你排企業承包的照護預約，往前排。"},
+			{"speaker": "snake", "mood": "serious", "text": "附頁談好，我給回執。路由交出去，市場就找得到那些人，這個你想清楚。不簽也行，舊帳有多少，還是多少。", "choices": [
 				{"text": "只給非人身線索的優先報價權。", "next": "claim_bounded", "set_flag": "market_claim_resolved", "set_decision": {"market_claim_resolution": "bounded"}},
 				{"text": "交出路由，換結清或照護預約。", "next": "claim_pledge", "requires_evidence": "victim_list", "set_flags": ["market_claim_resolved", "market_claim_pledged"], "set_decision": {"market_claim_resolution": "pledge"}, "affinity": {"snake": 2, "hao_ran": -2}},
 				{"text": "拒絕；舊債若存在就繼續保留。", "next": "claim_refuse", "set_flag": "market_claim_resolved", "set_decision": {"market_claim_resolution": "refuse"}},
 				{"text": "保存簽署核對，暫不答覆。", "next": "end"}
 			], "next": "end"},
-			{"label": "claim_bounded", "speaker": "snake", "mood": "serious", "text": "受害者姓名、住處和私人記憶排除；報價不等於必須賣。原先買過樣本的帳仍存在，只是追討範圍固定了。到了總部若有人拿照護換你的沉默，你能用這份回執要求由獨立單位承接。", "next": "end"},
+			{"label": "claim_bounded", "speaker": "snake", "mood": "serious", "text": "姓名、住處、私人記憶，都劃掉。剩下的先報價，你還能不賣。買樣本欠的那筆若還在，就照這個範圍算。回執收好，往後有人拿照護跟你談沉默，你就拿它去談獨立接手。", "next": "end"},
 			{"label": "claim_pledge", "speaker": "narrator", "text": "你傳出聯絡路由。買過樣本的報價權就此結清；沒有這筆舊債的人，換到企業承包照護的優先預約。受害者多了一個知道如何找到他們的人，這次外流會進入公開行動紀錄。", "next": "end"},
-			{"label": "claim_refuse", "speaker": "snake", "mood": "default", "text": "不加新條款。有買樣本就照舊欠著，沒簽過就沒有這筆債。我不替你提供獨立照護談判的回執。", "next": "end"}
+			{"label": "claim_refuse", "speaker": "snake", "mood": "default", "text": "好，這張作廢。樣本的舊帳照舊，沒買過就別管它。獨立照護的回執，我也就不給你了。", "next": "end"}
 		],
 		"ch2_eye_unsent_backup": [
 			{"speaker": "kid", "mood": "serious", "text": "用浩然日記的時間，對照你帶來的原始備份提示。我從網咖開啟那份離線映像，原始檔仍保留在你帶來的封存資料裡。"},
@@ -512,7 +772,7 @@ static func _get_all_dialogues() -> Dictionary:
 			{"speaker": "hao_ran", "mood": "hopeful", "requires_decisions": {"backup_handling": "sealed"}, "text": "謝謝你沒替我打開。我願意讓陳醫師只看家用修復片段，不准拿去公開，也不保證我想起來會比較好。或者先把封存檔還我，我改天再決定。"},
 			{"speaker": "hao_ran", "mood": "confused", "requires_decisions": {"backup_handling": "copied"}, "text": "你先聽過了，現在才問我。把檔案還我，刪掉你留的副本；我暫時不授權你把它交給任何醫師。"},
 			{"speaker": "hao_ran", "mood": "dazed", "requires_decisions": {"backup_handling": "discarded"}, "text": "既然私人快取已經刪了，就不要說還能交回來。我們從現在能留下的紀錄開始，先照顧好今天。"},
-			{"speaker": "kai", "text": "備份怎麼處理，不會改變救援已完成，也不會替浩然保證恢復。", "choices": [
+			{"speaker": "kai", "text": "聽清楚了。怎麼保管，照你的意思辦。", "choices": [
 				{"text": "依本人同意，交給陳醫師限用途照護。", "next": "custody_clinic", "requires_decisions": {"backup_handling": "sealed"}, "set_flag": "backup_custody_resolved", "set_decision": {"backup_custody": "clinic"}, "affinity": {"hao_ran": 2}},
 				{"text": "將密封備份交還本人。", "next": "custody_owner", "requires_decisions": {"backup_handling": "sealed"}, "set_flag": "backup_custody_resolved", "set_decision": {"backup_custody": "owner"}},
 				{"text": "承認越界，交還並刪除私留副本。", "next": "custody_owner", "requires_decisions": {"backup_handling": "copied"}, "set_flags": ["backup_custody_resolved", "backup_copy_deleted"], "set_decision": {"backup_custody": "owner"}},
@@ -521,7 +781,7 @@ static func _get_all_dialogues() -> Dictionary:
 			], "next": "end"},
 			{"label": "custody_clinic", "speaker": "hao_ran", "mood": "hopeful", "text": "授權只到家用修復片段，每次使用先問我。我也可以叫停。這樣我才知道，那段聲音還是我的。", "next": "end"},
 			{"label": "custody_owner", "speaker": "hao_ran", "mood": "dazed", "text": "檔案留在我手上，今天不打開。至於案件要不要作證，我會另外回答；保管備份不是作證同意。", "next": "end"},
-			{"label": "custody_absent", "speaker": "kai", "text": "照護紀錄註明私人快取已刪除，不虛構交接。之後的每次嘗試都重新詢問浩然。", "next": "end"}
+			{"label": "custody_absent", "speaker": "kai", "text": "那就從今天記。下次要留什麼，我先問你。", "next": "end"}
 		],
 		"ch3_grey_care_terms": [
 			{"speaker": "snake", "mood": "serious", "text": "若你最後選擇沉默換照護，先談清楚誰能控制回診。條款現在可以準備，到屋頂作最後決定才生效；你仍能選公開或恢復記憶。", "choices": [
@@ -541,15 +801,15 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
 				"show_cg": "cg_kai_office_prologue",
-				"text": "雨水敲打著九龍延伸區的窗。你的辦公室只剩一盞壞掉的檯燈、一台過期咖啡機，以及牆上還沒拆掉的正和科技安全調查員識別框。"
+				"text": "雨打在九龍延伸區的窗上。檯燈壞了，咖啡機也過了保固。牆上那只正和科技安全調查員識別框倒還好好的，你一直沒把它摘下來。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "上一件案子剛結束：走失的仿生寵物、拖欠三週的尾款、以及一名客戶堅持把你叫成「前企業狗」。你沒有反駁。那是履歷上最接近事實的形容。"
+				"text": "上一件案子的仿生寵物找回來了，尾款拖了三週。客戶肯回覆的只有一句「前企業狗」。你把催款訊息又發了一遍。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
-				"text": "（正和科技留下的義眼又在低鳴。不是疼痛，比較像有人在門外測試舊鎖。）",
+				"text": "（義眼又在響。這次又怎麼了？）",
 				"choices": [
 					{"text": "按掉義眼警示，整理委託紀錄。", "next": "kai_office_after_warning", "set_flag": "kai_suppressed_eye_warning"},
 					{"text": "讓鷹眼掃過辦公室一次。", "next": "kai_office_after_warning", "set_flag": "kai_checked_office_with_eagle_eye"}
@@ -558,20 +818,20 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "kai_office_after_warning",
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "你把舊案照片翻面，讓桌面看起來像一個還能營業的地方。抽屜裡的止痛藥瓶碰到金屬義眼維護盒，發出細小的聲響。"
+				"text": "你把舊案照片翻過去，騰出桌面。關抽屜時，藥瓶撞了一下義眼維護盒。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "敲門聲在第三下才變得急促。來人很克制，但克制不是平靜；那是把恐懼折好，藏進濕透外套裡的聲音。"
+				"text": "門響了兩下。你還沒應聲，第三下已經落下來。門外的女人把濕透的袖口攥在手裡，見你開門才鬆開。"
 			},
 			{
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
 				"clear_cg": true,
-				"text": "你是川崎凱嗎？我在舊城警署外面等了四個小時，他們叫我回家等通知。可是我不能再等了。"
+				"text": "川崎凱先生？我弟弟林浩然，三天沒消息了。我在舊城警署等了四個小時，他們還是叫我回家。你這裡……還接委託嗎？"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "失蹤案？警署不立案通常有兩種原因：時間太短，或者他們不想碰。",
+				"text": "接。你慢慢說。",
 				"choices": [
 					{"text": "先坐下，把你知道的照順序說。", "next": "mei_ling_case_intro", "affinity": {"mei_ling": 1}},
 					{"text": "如果只是家人失聯，我不一定接。", "next": "mei_ling_prove_case", "affinity": {"mei_ling": -1}},
@@ -581,23 +841,23 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "mei_ling_case_intro",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
-				"text": "我弟弟浩然三天前失蹤。他是一名記憶技師，在東區經營「永恆記憶」工作室。警察說成年人三天不回家不算失蹤。"
+				"text": "他在東區開了一間記憶工作室，叫永恆記憶。警察說他是成年人，也許只是想出去幾天。"
 			},
 			{
 				"label": "mei_ling_prove_case",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
-				"text": "浩然不是會消失的人。他每天晚上十一點會打給我，確認我有沒有吃藥，有沒有關掉窗邊的漏電燈。失蹤那晚，電話只響了一聲就被切掉。",
+				"text": "他不會連電話也不接。每天十一點，他都打來問我吃藥了沒，窗邊那盞燈關了沒。那晚電話響了一聲就斷了。我再打，他就沒接。",
 				"give_evidence": "commission_letter"
 			},
 			{
 				"label": "mei_ling_found_kai",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
-				"text": "浩然以前提過你。他說如果有一天他出事，不要找警察，找那個被正和科技趕出去、但還知道怎麼看記憶傷口的人。",
+				"text": "你的名字，是浩然留給我的。他說萬一出了事，就找你。我問他為什麼不找警察，他只說，你以前在正和做過，查得懂那些記憶。",
 				"give_evidence": "commission_letter"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "他知道我的名字，卻從沒找過我。這通常代表他怕我也在某張名單上。",
+				"text": "他沒來找過我。倒把名字留給你了。",
 				"choices": [
 					{"text": "他失蹤前有沒有反常行為？", "next": "mei_ling_abnormal"},
 					{"text": "他的工作室在哪？", "next": "mei_ling_workshop"},
@@ -607,12 +867,12 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "mei_ling_abnormal",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
-				"text": "他最近幾個月變得很奇怪。經常深夜外出，說是在加班。手機裡有很多加密訊息，還把家裡那台舊記憶播放器鎖進房間。",
+				"text": "這幾個月常常半夜出門，問就說加班。手機上的訊息全加了密，家裡那台舊播放器也鎖進房間，還叫我別碰。",
 				"set_flag": "knows_hao_ran_abnormal"
 			},
 			{
 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
-				"text": "我在他房間裡找到了一張深淵酒吧的收據。那種地方不是浩然會去的。他怕吵，怕人群，連生日都只肯在家裡吃飯。",
+				"text": "還有這張收據，在他房裡找到的。深淵酒吧……他連生日都嫌外面吵，只肯在家吃飯。怎麼會跑去那裡？",
 				"give_evidence": "abyss_receipt",
 				"choices": [
 					{"text": "我接下這個案子。", "next": "mei_ling_accept", "set_flag": "accepted_case", "affinity": {"mei_ling": 1}},
@@ -622,29 +882,34 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "mei_ling_workshop",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "default", "portrait_side": "left",
-				"text": "在東區第七街的地下層，「永恆記憶」工作室。這是他的工作證。我沒有鑰匙，但他房間裡也許還有備份。",
+				"text": "東區第七街，地下層。工作證給你，地址也寫在背面。我沒有鑰匙，得回他房裡找找，看有沒有多留一把。",
 				"give_evidence": "work_id",
-				"set_flag": "knows_workshop_location"
+				"set_flag": "knows_workshop_location",
+				"next": "mei_ling_accept"
 			},
 			{
 				"label": "mei_ling_trust_test",
 				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
-				"text": "我不確定我能信任你。但浩然說你討厭正和科技，卻不會把被害者當籌碼。這句話我記得很清楚。"
+				"text": "我不知道能不能信你。浩然說過，你恨正和，但不會拿來求你的人去換錢。我現在也只能信他。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
-				"text": "那他對我的評價比大部分人好。把地址和你找到的東西留下，我會先去你們公寓。"
+				"text": "這話倒很少聽。東西先留給我，你們公寓我也得去一趟。"
 			},
 			{
 				"label": "mei_ling_accept",
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "我接下這個案子。但你也要配合：不要交出任何備份，不要回撥陌生號碼，不要讓警署把你的東西帶走。",
+				"text": "我去找他。這幾天有人找你要備份，先打給我。陌生號碼別回撥，警署要拿東西，你也先跟我說一聲。",
 				"give_evidence": "work_id",
-				"set_flag": "knows_workshop_location"
+				"set_flags": ["knows_workshop_location", "accepted_case"]
+			},
+			{
+				"speaker": "narrator", "text": "美玲把酒吧收據推到你面前，指尖壓著紙角。等你拿出委託袋，她才鬆手，讓你把它和工作證一起收進去。",
+				"give_evidence": "abyss_receipt"
 			},
 			{
 				"speaker": "mei_ling", "name": "林美玲", "mood": "relieved", "portrait_side": "left",
-				"text": "謝謝你，川崎先生。請一定要找到他。如果浩然真的留下了什麼，我想親耳聽見。"
+				"text": "謝謝。要是找到他，先讓他打個電話給我。說一句也好。"
 			}
 		],
 
@@ -763,7 +1028,8 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "backup_reassure",
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "責任在拿記憶當貨物的人身上。浩然留下線索，是因為他相信你會活著把它交給對的人。"
+				"text": "責任在拿記憶當貨物的人身上。浩然留下線索，是因為他相信你會活著把它交給對的人。",
+				"next": "backup_collected"
 			},
 			{
 				"label": "backup_cautious",
@@ -772,6 +1038,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"label": "backup_collected",
 				"text": "你把備份標籤掃進證據板。它不包含完整記憶，只保留一串座標式雜訊，像是等著和另一段留言拼合。",
 				"give_evidence": "original_backup_hint",
 				"set_flag": "mei_ling_trust_deepened"
@@ -843,7 +1110,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
-				"text": "七分鐘。剛好能讓一個人從公寓外被帶走，也剛好能讓一通電話失去來源。"
+				"text": "七分鐘的空白。單靠這個，還看不出是誰被帶走，也看不出去了哪裡。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
@@ -857,11 +1124,11 @@ static func _get_all_dialogues() -> Dictionary:
 		"ch1_abyss_bar_enter": [
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "深淵酒吧藏在東區的地下三層。霓虹紫色的燈光照亮了一個充滿煙霧和低語的空間。合成音樂在空氣中脈動。"
+				"text": "下到東區地下三層，深淵酒吧的低音已透過門板傳來。你推門進去，紫光裡浮著一層煙，近旁的客人把話壓低了。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "吧台後面站著一個壯碩的男人，手臂上滿是發光的電路紋身——那是酒保阿傑。"
+				"text": "阿傑站在吧台後擦杯子，手臂上的電路紋身隨動作一明一暗。他看了看你的義眼，才把杯子放下。"
 			},
 			{
 				"speaker": "ajie", "name": "阿傑", "mood": "default", "portrait_side": "left",
@@ -875,11 +1142,11 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "ajie_ask",
 				"speaker": "ajie", "name": "阿傑", "mood": "default", "portrait_side": "left",
-				"text": "看你眼生。問什麼人？"
+				"text": "酒可以。人嘛，你先說名字。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "一個記憶技師，叫林浩然。三天前最後出現在這裡。",
+				"text": "林浩然，修記憶的。三天前來過這裡，之後就沒消息了。",
 				"choices": [
 					{"text": "（出示收據）這是你們酒吧的收據。", "next": "ajie_receipt", "requires_evidence": "abyss_receipt"},
 					{"text": "有沒有印象？", "next": "ajie_vague"}
@@ -901,9 +1168,10 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "ajie_receipt",
 				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
-				"text": "...那天他確實來過。跟包廂裡的人見面。我不知道對方是誰——全息面具，看不到真面目。",
+				"text": "是這筆啊。來過，進了二號包廂。裡頭那位戴著全息面具，我哪認得。照片給你，能看清的也就這些。",
 				"give_evidence": "stranger_photo",
-				"set_flag": "ajie_told_about_meeting"
+				"set_flag": "ajie_told_about_meeting",
+				"next": "end"
 			},
 			{
 				"label": "ajie_vague",
@@ -912,33 +1180,33 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "（也許該正式審問他...或者先去其他地方收集更多線索。）",
+				"text": "（嘴倒是很緊。光報個名字，問不出來。）",
 			}
 		],
 
 		"ch1_abyss_bar_backroom_enter": [
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "深淵酒吧後室比前場安靜得多。隔音牆把音樂壓成低頻心跳，包廂門上的感應燈一明一滅，像在替每段沉默計價。"
+				"text": "後室的門一關，前場只剩悶悶的低音。包廂門上的感應燈亮了又暗，你聽見阿傑在身後停下腳步。"
 			},
 			{
 				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
-				"text": "你要看的都在裡面。但有些紀錄不是消失，是有人付錢讓它慢一點出現。"
+				"text": "紀錄在裡面。先說好，有人付過錢，讓監控慢幾分鐘。你看到時間不對，別說我沒提。"
 			}
 		],
 
 		"ch1_abyss_backroom_investigation": [
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "阿傑把包廂紀錄推到吧台邊緣，手指沒有離開紙面。那不是交出證據的姿勢，比較像在確認自己還能不能反悔。"
+				"text": "阿傑把包廂紀錄推過來。你伸手去拿，他的指頭還壓在紙上，隔了一會兒才挪開。"
 			},
 			{
 				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
-				"text": "浩然那晚不是一個人來。他見的人戴全息面具，用的是臨時 hash。這種客人我通常不問名字，也最好不要記得臉。"
+				"text": "二號包廂，那個戴面具的。付款只留一組臨時代碼。這種客人，你問名字，他下次就換一家喝。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "你不是忘了，是有人付錢讓你忘。"
+				"text": "所以就連監控也替他延了？"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
@@ -959,16 +1227,18 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "沉默不一定是共犯，但有人很懂怎麼把沉默做成服務。",
+				"text": "三支鏡頭，三分鐘。我把這份紀錄帶走。收的是誰的錢，還得往下查。",
 				"give_evidence": "abyss_surveillance_delay_log",
 				"set_flag": "abyss_surveillance_delay_log_found"
 			}
 		],
 
 		"ch1_snake_data_chip_choice": [
+			{"speaker": "snake", "mood": "amused", "requires_flag": "snake_requested_data_chip", "text": "找到了？先別接讀取器。你上次說找到再談，我記得。"},
+			{"speaker": "snake", "mood": "amused", "requires_flag": "snake_broker_met", "requires_missing_flags": ["snake_requested_data_chip"], "text": "不是說不替我跑腿？坐吧。晶片還在你手上，肯坐下不算答應。"},
 			{
 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
-				"text": "你手上的晶片聞起來像回聲網路。我要一份副本，給你一條入口。拒絕也可以，只是你得用自己的眼睛慢慢找。"
+				"text": "原件你留著。我取一份副本，替你弄到黑市拍賣的入口。回聲網路的東西在那裡轉手，你應該想去看看。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
@@ -976,22 +1246,24 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "情報從來不免費。你現在要買的是速度，代價是誰先知道你在查這件事。",
+				"text": "我會拿去問價，不保證只給你一個人看。你要是不願意，晶片收好。我也省得白忙。",
 				"choices": [
-					{"text": "交出晶片副本，換黑市拍賣入口。", "next": "snake_trade_accept", "requires_missing_flags": ["rejected_snake_deal"], "set_flag": "accepted_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"accepted_snake_deal": true, "black_market_route_opened": true, "black_market_compromise_count": 1}, "affinity": {"snake": 2}},
-					{"text": "拒絕交易，改走診所與義眼追查。", "next": "snake_trade_reject", "requires_missing_flags": ["accepted_snake_deal"], "set_flag": "rejected_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"rejected_snake_deal": true, "clinic_route_opened": true}, "affinity": {"snake": -1}}
+					{"text": "交出可被轉手的副本，換拍賣入口（留下交易紀錄）。", "next": "snake_trade_accept", "requires_missing_flags": ["rejected_snake_deal"], "set_flag": "accepted_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"accepted_snake_deal": true, "black_market_route_opened": true, "black_market_compromise_count": 1}, "affinity": {"snake": 2}},
+					{"text": "拒絕交易，改走診所與義眼追查。", "next": "snake_trade_reject", "requires_missing_flags": ["accepted_snake_deal"], "set_flag": "rejected_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"rejected_snake_deal": true, "clinic_route_opened": true}, "affinity": {"snake": -1}},
+					{"text": "晶片先收起來，之後再談（暫不選路線）。", "next": "end"}
 				]
 			},
 			{
 				"label": "snake_trade_accept",
 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
-				"text": "聰明。第二章你會收到拍賣邀請。記得，拍賣場賣的不是物品，是人們以為自己還擁有的過去。",
-				"set_flag": "black_market_route_opened"
+				"text": "副本收到了。下一場交割前，邀請會送到你手上。進去先看貨，別一開口就找人。",
+				"set_flag": "black_market_route_opened",
+				"next": "end"
 			},
 			{
 				"label": "snake_trade_reject",
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "也行。去找會替義眼擦血的人吧。只是診所能告訴你的，通常是你已經受傷之後的事。",
+				"text": "那就收好。你那隻眼睛，陳醫師倒是能看看。拍賣的入口，這次我就不替你安排了。",
 				"set_flag": "clinic_route_opened"
 			}
 		],
@@ -1000,11 +1272,11 @@ static func _get_all_dialogues() -> Dictionary:
 		"ch1_snake_encounter": [
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "酒吧角落的卡座裡，一個戴著蛇形面具的女人正悠閒地抽著電子菸。她注意到了你。"
+				"text": "角落的女人戴著蛇形面具。你走近卡座，她把電子菸擱在杯墊旁，挪開對面的椅子。"
 			},
 			{
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "偵探先生，在找什麼有趣的東西嗎？"
+				"text": "坐。站在那裡，阿傑會以為我又替他攬客。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
@@ -1012,7 +1284,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
-				"text": "凱·川崎，前正和科技安全調查員。在情報圈裡，你的名字偶爾會被提起。",
+				"text": "凱·川崎。正和出來的，現在自己接案。我做這行，總得認得幾張臉。",
 				"choices": [
 					{"text": "你知道林浩然的事嗎？", "next": "snake_info"},
 					{"text": "你是什麼人？", "next": "snake_intro"},
@@ -1022,12 +1294,12 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "snake_intro",
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "叫我蛇女就好。我做的是情報生意——用正確的價格，買正確的消息。"
+				"text": "叫蛇女就行。有人找消息，有人急著脫手，我替兩邊搭個線，抽一點。"
 			},
 			{
 				"label": "snake_info",
 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
-				"text": "記憶技師？有趣。最近地下市場確實流傳著一些...新鮮的商品。",
+				"text": "浩然，那個記憶技師。最近市場多了一批貨，也許跟他有關。你別急著點頭，我還沒說價錢。",
 				"choices": [
 					{"text": "什麼商品？", "next": "snake_deal"},
 					{"text": "直說吧，你要什麼交換條件？", "next": "snake_deal"}
@@ -1036,7 +1308,7 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "snake_deal",
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "幫我一個小忙。浩然的工作室裡有一個加密數據晶片。等你真的拿到它，再來談你願意用什麼代價換入口。",
+				"text": "他工作室裡有一枚加密晶片，我要看那個。你本來也得去找他，順路留意一下。拿到手，我們再談拍賣入口。",
 				"choices": [
 					{"text": "我會先找到晶片，再決定要不要交易。", "next": "snake_deal_accept", "set_flags": ["snake_broker_met", "snake_requested_data_chip"], "affinity": {"snake": 1}},
 					{"text": "我不替情報販子跑腿。", "next": "snake_deal_reject", "set_flag": "snake_broker_met", "affinity": {"snake": -1}},
@@ -1045,12 +1317,13 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "snake_deal_accept",
 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
-				"text": "謹慎比忠誠值錢。去浩然的工作室找到那個晶片，我們再見面；到時候你會知道自己想買的是速度，還是乾淨。"
+				"text": "好，只算你肯去找。東西拿回來以前，我不替你留入口，也不算你欠我的。",
+				"next": "end"
 			},
 			{
 				"label": "snake_deal_reject",
 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
-				"text": "那真可惜。不過拒絕第一次報價的人，通常只是還沒看見時間多貴。如果改變主意，你知道在哪找我。"
+				"text": "那真可惜。椅子不用替我推回來，等會兒還有人。真拿到晶片，再來也行。"
 			}
 		],
 
@@ -1061,7 +1334,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "worried", "portrait_side": "left",
-				"text": "我看過這種握手協定。鄭泰早期義眼維修用的，後來被禁掉，因為外部設備可以把它叫醒。"
+				"text": "我看過這種握手協定。正和早期義眼維修用的，後來被禁掉，因為外部設備可以把它叫醒。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
@@ -1207,7 +1480,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "第一章的答案不是浩然在哪裡，而是浩然為什麼選我。第二章，入口已經分岔。",
+				"text": "他知道我的義眼能讀這些東西。接下來，得查清楚是誰把他帶走。",
 				"choices": [
 					{"text": "追查蛇女提供的黑市拍賣入口。", "next": "route_black_market", "requires_flag": "accepted_snake_deal"},
 					{"text": "沿著 Dr. 陳的義眼警告追查。", "next": "route_clinic", "requires_flag": "rejected_snake_deal"},
@@ -1224,14 +1497,14 @@ static func _get_all_dialogues() -> Dictionary:
 			{
 				"label": "route_clinic",
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "Dr. 陳會從網咖聯絡你。下一步去離線轉介等候站查人的去向；你沒有交出晶片，但得從被退回的求助裡逐項核對。",
+				"text": "Dr. 陳會從網咖聯絡你。下一步去離線轉介等候站查人的去向；你沒有把副本交給蛇女，得從被退回的求助裡逐項核對。",
 				"set_flags": ["chapter_1_complete", "chapter_1_route_chosen"],
 				"set_decision": {"chapter_1_complete": true, "chapter_1_route_chosen": "clinic"}, "next": "end"
 			},
 			{
 				"label": "route_unresolved",
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "路線還沒分岔。資料晶片要不要交給蛇女，必須先在深淵酒吧做決定；否則第二章只是另一個沒有出口的走廊。"
+				"text": "蛇女還在等答覆。先回深淵酒吧；要不要拿晶片副本換入口，當面說清楚。"
 			}
 		],
 
@@ -1287,7 +1560,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "你不是第一次看見這種握手。只是第一次有人把它留在我的義眼裡。",
+				"text": "別的病人也有……這套協定為什麼還在我的義眼裡？",
 				"give_evidence": "clinic_anonymous_case_note",
 				"set_flag": "clinic_anonymous_case_note_found"
 			}
@@ -1301,7 +1574,7 @@ static func _get_all_dialogues() -> Dictionary:
 {"speaker": "dr_chen", "text": "離線等候站還在收件。先核對叫號與簽收，再去市政檔案室查改派。我在電話這頭等你。", "requires_chapter_route": "clinic"},{"speaker": "snake", "text": "交割後室的門今晚開著。引介只管那一道門；要不要具名查表，等你看清價錢再說。", "requires_chapter_route": "black_market"},{"speaker": "kid", "text": "換方向可以在網咖找我。等最後一份交接完成，另一邊今晚的窗口就收了；沒有暗中倒數，你決定交接時我會再提醒。"},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "第一章的線索指向了一個叫「回聲網路」的地下組織。你需要找到進入記憶黑市的方法。"
+				"text": "浩然留下的訊號、被遮去姓名的紀錄，都指向回聲網路。你得沿著交接紀錄，查出他最後被送去了哪裡。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
@@ -1314,7 +1587,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "nervous", "portrait_side": "left", "requires_flag": "rejected_snake_deal",
-				"text": "你沒交出晶片，至少原件還在。去比特風暴找小鬼做離線協定檢查；不要上傳記憶。若不願再接線，下水道的倉庫也是一條路。",
+				"text": "你沒把副本給蛇女，這條線暫時還沒經過她的手。去比特風暴找小鬼做離線協定檢查；不要上傳記憶。若不願再接線，下水道的倉庫也是一條路。",
 				"next": "end"
 			}
 		],
@@ -1570,9 +1843,9 @@ static func _get_all_dialogues() -> Dictionary:
 		"ch2_memory_trade_choice": [
 			{
 				"speaker": "mask_merchant", "name": "面具商人", "mood": "interested", "portrait_side": "left",
-				"text": "一份來源不公開的樣本，附倉庫地址。現在不收錢，記在你的身份上；將來的真相要給市場優先出價。這些抵押一再累積，日後的公開舉報就會失去可信度。",
+				"text": "樣本帶倉庫地址，來源不開放查詢。今天不用付款，留個身份就好。下次拿到線索，先讓我們報價。交易都會記帳，您往後要公開查案經過，這筆也在裡面。",
 				"choices": [
-					{"text": "買下線索：留下交易債。", "next": "trade_buy", "requires_missing_flags": ["market_trade_resolved"], "set_flag": "market_trade_resolved", "set_decision": {"memory_trade_method": "buy"}, "add_decision": {"black_market_compromise_count": 1}, "give_evidence": "warehouse_map"},
+					{"text": "買樣本與地址（欠優先報價權，增加交易紀錄）。", "next": "trade_buy", "requires_missing_flags": ["market_trade_resolved"], "set_flag": "market_trade_resolved", "set_decision": {"memory_trade_method": "buy"}, "add_decision": {"black_market_compromise_count": 1}, "give_evidence": "warehouse_map"},
 					{"text": "侵入樣本：暴露身份並承受污染。", "next": "trade_intrude", "requires_missing_flags": ["market_trade_resolved"], "set_flags": ["market_trade_resolved", "identity_exposed_market"], "set_decision": {"memory_trade_method": "intrude"}, "add_decision": {"eagle_eye_overuse_count": 1}, "give_evidence": "trade_ledger"},
 					{"text": "拒絕：到倉庫另找線索。", "next": "trade_refuse", "requires_missing_flags": ["market_trade_resolved"], "set_flag": "market_trade_resolved", "set_decision": {"memory_trade_method": "refuse"}},
 					{"text": "先離開交易台。", "next": "end"}
@@ -1581,17 +1854,17 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"label": "trade_buy", "speaker": "mask_merchant", "name": "面具商人", "mood": "default", "portrait_side": "left",
-				"text": "樣本與地址歸你。欠款不是數字，是一次優先交易權。若日後選擇公開，你也得公開自己在這裡買過什麼。",
+				"text": "收好了，樣本和地址都在。下一份線索先來問價，記在這個身份底下。有人來查這筆買賣，我們也按帳回答。",
 				"give_evidence": "memory_sample", "next": "end"
 			},
 			{
 				"label": "trade_intrude", "speaker": "kai", "name": "凱", "mood": "surprised", "portrait_side": "right",
-				"text": "陌生人的疼痛擠進義眼，帳本卻也留下了轉運編號。終端亮起我的真實裝置識別碼。這份副本拿到了；我和樣本的主人都沒有同意這次提取。",
+				"text": "（疼……這是誰的記憶？）帳本複製下來了，轉運編號也在。糟了，終端上那串是我的裝置碼。",
 				"give_evidence": "memory_sample", "next": "end"
 			},
 			{
 				"label": "trade_refuse", "speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "不拿別人的記憶抵價。幽靈還在後方通道；網咖的下水道也能到倉庫。少一條捷徑，案子還查得下去。",
+				"text": "不用包了，我不買。後面還有個幽靈要找。真問不出來，我從網咖的下水道去倉庫。",
 				"next": "end"
 			}
 		],
@@ -1607,7 +1880,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "ghost", "name": "幽靈", "mood": "cautious", "portrait_side": "left",
-				"text": "我能交出一次轉運頻率。你可以把我當匿名證人，也可以把這個編號賣回市場，換到供應端的完整帳本。我就得再消失一次。",
+				"text": "我能交出一次轉運頻率。你可以把我當匿名證人。也能把這個編號賣回市場，換到供應端的完整帳本。那樣，我就得再消失一次。",
 				"choices": [
 					{"text": "保護身份，只保留匿名證詞。", "next": "ghost_protect", "requires_missing_flags": ["ghost_identity_resolved"], "set_flags": ["ghost_identity_resolved", "helped_ghost", "ghost_protected"], "set_decision": {"ghost_identity_choice": "protect"}, "affinity": {"ghost": 2}, "give_evidence": "comm_frequency"},
 					{"text": "出賣身份換帳本：他將失去藏身處。", "next": "ghost_expose", "requires_missing_flags": ["ghost_identity_resolved"], "set_flags": ["ghost_identity_resolved", "ghost_identity_exposed"], "set_decision": {"ghost_identity_choice": "expose"}, "add_decision": {"black_market_compromise_count": 1}, "affinity": {"ghost": -2}, "give_evidence": "trade_ledger"},
@@ -1744,50 +2017,61 @@ static func _get_all_dialogues() -> Dictionary:
 		],
 
 		"ch3_dr_xiao_confrontation": [
+			{"speaker": "narrator", "requires_flag": "hao_ran_rescued", "text": "蕭博士看了一眼空出的維持椅，手離開了門控鍵。他現在只能隔著桌子跟你談。"},
+			{"speaker": "kai", "requires_decisions": {"hq_first_objective": "evidence"}, "requires_flag": "core_evidence_secured", "text": "付款原件已經離線保存。我帶著專案碼來問，你不用再給我展示摘要。"},
 			{
 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "calm", "portrait_side": "left",
-				"text": "川崎先生。我一直在等你。"
+				"text": "川崎先生。把門帶上，外面太吵。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
-				"text": "浩然在哪？"
+				"text": "浩然在哪？", "requires_missing_flags": ["hao_ran_rescued"]
 			},
 			{
 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "calm", "portrait_side": "left",
-				"text": "他在維持椅上。外面有人要回收他的成果，我替他關了門。記憶可以被覆寫，痛苦也可以。你先別碰設備。"
+				"text": "他在維持椅上。外面的人要把他的成果帶走，我只能先把門關上。設備先別碰，你還沒看過運行紀錄。", "requires_missing_flags": ["hao_ran_rescued"]
 			},
+			{"speaker": "kai", "text": "浩然已經離開維持椅。照你簽的程序，停寫入、留維持，都做到了。現在不用再拿設備擋我的問題。", "requires_flag": "hao_ran_rescued"},
+			{"speaker": "dr_xiao", "mood": "intense", "text": "你把他送走了，後面的反應誰來處理？照報告做了一次，就能保證他以後沒事？", "requires_flag": "hao_ran_rescued"},
 			{
 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "intense", "portrait_side": "left",
-				"text": "正和提供資金，要求我把創傷治療做成穩定的人格調整。他們挑選目標，我負責讓人不再被痛苦摧毀。你稱它控制；病歷上寫的是治療。",
+				"text": "正和出錢，也挑人。他們要人格調整，我做的是創傷治療。有些病人連睡一覺都做不到，你總不能叫我看著。",
 				"choices": [
 					{"text": "你在做的是犯罪。", "next": "xiao_crime"},
 					{"text": "浩然發現了真相，所以你囚禁了他。", "next": "xiao_truth"},
-					{"text": "你對我做了什麼？", "next": "xiao_kai_memory"}
+					{"text": "你對我做了什麼？", "next": "xiao_kai_memory"},
+					{"text": "拿改派回條追問：誰接手了被撤回的求救？", "next": "xiao_referral", "requires_flag": "referral_reroute_checked"},
+					{"text": "拿資金原件追問：誰付錢維持寫入？", "next": "xiao_funding", "requires_evidence": "zhengtek_funding"},
+					{"text": "先不追問，我要再查設備與紀錄。", "next": "end"}
 				]
 			},
+			{"label": "xiao_referral", "speaker": "dr_xiao", "mood": "conflicted", "text": "轉介欄歸行政端。接收的簽章是我的，這個我認。但匿名回條上哪裡寫了浩然？你先把接收代碼拿來。", "next": "xiao_records"},
+			{"label": "xiao_funding", "speaker": "dr_xiao", "mood": "intense", "text": "付款的是正和，技術報告是我簽的。他們要能一直部署的人格調整，嫌原型停得太多。你要查寫入怎麼排，覆核站有紀錄。", "next": "xiao_records"},
 			{
 				"label": "xiao_crime",
 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "philosophical", "portrait_side": "left",
-				"text": "我見過有人每天重過同一場事故。若可以停止，難道我要因為一張同意書，繼續讓他受苦？",
+				"text": "我見過病人一閉眼就回到事故現場，醒過來還在喊。你說犯罪，可以。可當時坐在他旁邊的不是你。",
 				"next": "xiao_records"
 			},
 			{
 				"label": "xiao_truth",
 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "calm", "portrait_side": "left",
-				"text": "浩然改進了人格錨點。當他發現委託方要的是服從，他想停下來。可他帶走的資料也能被別人使用。我把他留下，是為了避免更大的傷害。",
+				"text": "錨點是浩然改的。他後來知道委託方要的是服從，不肯做了，還要把資料帶走。那份東西換一個人照樣能用，我怎麼讓他走？",
 				"next": "xiao_records"
 			},
 			{
 				"label": "xiao_kai_memory",
 				"speaker": "dr_xiao", "name": "蕭博士", "mood": "amused", "portrait_side": "left",
-				"text": "你的義眼認得這間房。至於你以前站在哪一邊，別急著用我的話補完。看看你自己的維護簽名，再來問我。",
+				"text": "你以前來這裡，不是坐著問話的。先看看維護紀錄上自己的簽名。你忘了，不代表只有我動過那套原型。",
 				"next": "xiao_records"
 			},
 			{
 				"label": "xiao_records", "speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "病人說停，你卻把門鎖上了。我複製了覆寫報告，裡面有維持椅的隔離程序。先找到浩然，讓他自己說要不要走。",
-				"give_evidence": "overwrite_report", "set_flag": "xiao_confronted", "next": "end"
-			}
+				"text": "門是你鎖的。這份覆寫報告我帶走，設備序號、版本、簽章都在。隔離怎麼做，寫入又是誰排的，我分開查。",
+				"give_evidence": "overwrite_report", "set_flag": "xiao_confronted"
+			},
+			{"speaker": "kai", "text": "我先去看浩然。出口準備好，就問他願不願意走。這幾份紀錄，你先別碰。", "requires_missing_flags": ["hao_ran_rescued"], "next": "end"},
+			{"speaker": "kai", "text": "浩然在離線避難間。等他緩過來，願意說的，我再問他。你的話跟設備紀錄分開放。", "requires_flag": "hao_ran_rescued", "next": "end"}
 		],
 
 		"ch3_hao_ran_found": [
@@ -1846,7 +2130,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"label": "corridor_aligned", "speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "授權對象是『人格覆寫部署』，不是一般醫療。先保留簽章原件，再去伺服器查付款。那些認得我的畫面，留在記憶空間逐段核對。",
+				"text": "授權對象是『人格覆寫部署』，不是一般醫療。我保存簽章原件。接下來可先到實驗室救人，也可在總部查付款；記憶空間留待逐段核對。",
 				"give_evidence": "authorization_order", "set_flag": "memory_corridor_aligned", "next": "end"
 			}
 		],
@@ -1856,8 +2140,8 @@ static func _get_all_dialogues() -> Dictionary:
 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
 				"text": "正式授權的專案碼，對上倉庫那批貨的費用。我要保留轉帳簽章和離線副本，讓他們不能只刪一部機器就否認。",
 				"choices": [
-					{"text": "封存伺服器的資金流向原件。", "next": "core_secured", "requires_flag": "memory_corridor_aligned", "requires_evidence": "authorization_order", "requires_missing_flags": ["core_evidence_secured"]},
-					{"text": "先去走廊核對授權令。", "next": "end"}
+					{"text": "封存伺服器的資金流向原件。", "next": "core_secured", "requires_flags": ["memory_corridor_aligned", "hq_core_verified"], "requires_evidence": "authorization_order", "requires_missing_flags": ["core_evidence_secured"]},
+					{"text": "先回查授權令與保管鏈。", "next": "end"}
 				], "next": "end"
 			},
 			{
@@ -1882,11 +2166,11 @@ static func _get_all_dialogues() -> Dictionary:
 		"ch3_kai_fragment_2": [
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left", "requires_flag": "kai_memory_1_seen",
-				"text": "第二段。你站在蕭博士身旁，調整義眼原型的回寫權限。有人問為什麼不保留拒絕按鈕，你回答：『先讓程序穩定，再補同意流程。』"
+				"text": "第二段。你站在蕭博士身旁，調整義眼原型的回寫權限。有人問為什麼不保留拒絕按鈕，你回答：『先讓程序穩定，再補同意流程。』手指停在確認鍵上，還是按了下去。"
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right", "requires_flag": "kai_memory_1_seen",
-				"text": "我不只站在門外調查。至少有一次，是我替這台機器把門打開。時間戳能對上授權令；我不能把責任都推給失憶。",
+				"text": "我不只站在門外調查。至少有一次，是我替這台機器把門打開。時間戳能對上授權令；我不能把責任都推給失憶。趙明見過那張清單，蕭博士用過這套權限；我得拿著簽名問他們。",
 				"set_flag": "kai_memory_2_seen", "next": "end"
 			}
 		],
@@ -1904,12 +2188,14 @@ static func _get_all_dialogues() -> Dictionary:
 		],
 
 		"ch3_rescue_hao_ran": [
-			{"speaker": "narrator", "text": "接應器回了一次短光：三號維修門保持離線。幽靈沒有問你找到什麼，只留了一條能把浩然帶出去的路。", "requires_decisions": {"hq_entry_route": "ghost"}},
+			{"speaker": "narrator", "text": "接應器回了一次短光：幽靈正守著三號維修門。這次窗口留給了浩然，原件的保管鏈由你自己核對。", "requires_decisions": {"hq_exit_method": "ghost"}},
+			{"speaker": "narrator", "text": "你再次對上紙本維修表和門牌。出口是自己逐項確認的，沒有接應者替你守門。", "requires_decisions": {"hq_exit_method": "offline"}},
+			{"speaker": "narrator", "text": "企業門控回執顯示出口已開啟。這份具名紀錄會和設備操作一起保留，不能在救援後刪掉。", "requires_decisions": {"hq_exit_method": "corporate"}},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
 				"text": "報告要求先隔離寫入，再切換離線維持，最後解除固定。浩然，我會照順序做；如果你不舒服，就叫我停。",
 				"choices": [
-					{"text": "依隔離程序開始救援。", "next": "rescue_disconnect", "requires_flags": ["hao_ran_located", "xiao_confronted"], "requires_evidence": "overwrite_report", "requires_missing_flags": ["hao_ran_rescued"]},
+					{"text": "依隔離程序開始救援。", "next": "rescue_disconnect", "requires_flags": ["hao_ran_located", "hq_exit_ready"], "requires_evidence": "overwrite_report", "requires_missing_flags": ["hao_ran_rescued"]},
 					{"text": "先確認浩然與覆寫報告。", "next": "end"}
 				], "next": "end"
 			},
@@ -1955,7 +2241,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious",
-				"text": "你可以不錄。先照護，就暫時沒有你的第一手陳述；如果你願意，只記確定的部分，封存留待你確認，不交市場，也不公開你的私密記憶。",
+				"text": "你可以不錄，先接受照護。這樣，我們就暫時沒有你的第一手陳述。如果你願意錄，我們只記確定的部分。紀錄會封存，留待你確認。不交市場，也不公開你的私密記憶。",
 				"choices": [
 					{"text": "先休息，把詢問留到他準備好。", "next": "aftercare_rest", "requires_flag": "hao_ran_rescued", "requires_missing_flags": ["hao_ran_aftercare_resolved", "final_choice_resolved", "case_resolved"], "set_flag": "hao_ran_aftercare_resolved", "set_decision": {"hao_ran_aftercare": "rest"}, "affinity": {"hao_ran": 1}},
 					{"text": "說清使用範圍，讓浩然決定是否錄音。", "next": "aftercare_ask", "requires_flag": "hao_ran_rescued", "requires_missing_flags": ["hao_ran_aftercare_resolved", "final_choice_resolved", "case_resolved"]},
@@ -2029,6 +2315,8 @@ static func _get_all_dialogues() -> Dictionary:
 		],
 
 		"ch3_zhao_whistleblower": [
+			{"speaker": "zhao_ming", "requires_decisions": {"kai_account_response": "signed"}, "text": "你那份維護說明我收到了。和簽章放同一袋，封存時你也簽名；以後有人問，不會只有我替你回答。"},
+			{"speaker": "zhao_ming", "requires_decisions": {"kai_account_response": "pending"}, "text": "你列的疑問另放一頁，別混進已確認的欄位。原件上的維護簽名還在，有人問起，你得照實說。"},
 {"speaker": "zhao_ming", "text": "交割後室的完整批次帳目能作調查起點，還要和這裡的三份原件分開核驗。你沒有拿市場名稱代替受害者身份。", "requires_decisions": {"ch2_market_priority": "ledger"}},{"speaker": "zhao_ming", "text": "你記下的接收站能定位設備去向。局部帳頁只引用看得到的欄位，其他部分仍以原件核對。", "requires_decisions": {"ch2_market_priority": "dispatch"}},
 			{"speaker": "zhao_ming", "text": "退件索引也核對了：同一案件三次退回，不是三名不同的受害者。我會保留退回經過，避免公開數字被重複計算。", "requires_flag": "archive_index_checked"},
 			{"speaker": "zhao_ming", "text": "後門的完整序號能接到設備簽收單。我會請另一個人核對，先遮掉無關清潔員的身分；這段運送鏈與三份核心原件分開列。", "requires_decisions": {"dispatch_record": "sealed"}},
@@ -2071,7 +2359,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
-				"text": "公開還需要趙明的署名與舉報包；若一再拿人和真相交易，這條線便撐不住。記憶恢復需要看完三段記憶、理解代價並同意融合。可走的路，現在由我選。",
+				"text": "趙明肯署名，原件也核對過，公開才有憑據。做過的交易得一起交代。至於恢復記憶……看完那三段，再決定要不要接受融合。",
 				"choices": [
 					{"text": "公開罪證，承擔追責。", "next": "rooftop_public", "requires_ending": "ending_a_justice", "requires_missing_flags": ["final_choice_resolved"], "set_flag": "final_choice_resolved", "set_decision": {"final_resolution": "public"}},
 					{"text": "交易真相，換取安全。", "next": "rooftop_deal", "requires_ending": "ending_b_grey_deal", "requires_missing_flags": ["final_choice_resolved"], "set_flag": "final_choice_resolved", "set_decision": {"final_resolution": "deal"}},
@@ -2166,6 +2454,11 @@ static func _get_all_dialogues() -> Dictionary:
 		],
 
 		"ch3_epilogue_contacts": [
+			{"speaker": "narrator", "text": "整理筆記時，你把浩然進入避難間的時間放在前面。之後才封存資金原件；救人的順序，沒有替任何人的責任畫上句點。", "requires_decisions": {"hq_first_objective": "rescue"}},
+			{"speaker": "narrator", "text": "筆記先記著資金原件的封存時間，接著才是浩然的安全撤離。資料留下了，人的照護仍要繼續。", "requires_decisions": {"hq_first_objective": "evidence"}},
+			{"speaker": "narrator", "text": "幽靈留下最後一次門控回覆：撤離窗口已關閉。他替你守過的那扇門，在筆記裡有明確用途。", "requires_decisions": {"hq_ghost_support": "rescue", "hq_exit_method": "ghost"}},
+			{"speaker": "narrator", "text": "幽靈確認原件接收端已離線。他守住傳輸窗口，你自行確認撤離門；兩段不同的工作都留在調查紀錄。", "requires_decisions": {"hq_ghost_support": "evidence", "hq_core_method": "ghost", "hq_exit_method": "offline"}},
+			{"speaker": "narrator", "text": "停用企業資格的回執夾在舊通行紀錄後面。後來改走離線查證，沒有讓先前使用的身份消失。", "requires_flag": "hq_corporate_access_disabled"},
 {"speaker": "mei_ling", "text": "陳醫師把接收人的回電寫給我了。我第一次打過去，不必再從弟弟為什麼失蹤講起。", "requires_decisions": {"ch2_medical_priority": "patient"}},{"speaker": "dr_chen", "text": "整批改派已有人逐件核對。浩然的接收還在跟，不把一份收件通知當成所有人都回家。", "requires_decisions": {"ch2_medical_priority": "batch"}},{"speaker": "kai", "text": "交割帳頁仍在離線封袋裡。那天沒追上的設備，留下的是待查欄，不是我補寫的目的地。", "requires_decisions": {"ch2_market_priority": "ledger"}},{"speaker": "kai", "text": "那晚記下的設備接收站已回覆。帳目缺的部分還是缺著；我把回覆接在它旁邊，沒有冒充原來就完整。", "requires_decisions": {"ch2_market_priority": "dispatch"}},
 			{"speaker": "hao_ran", "text": "轉運前，你陪我坐著，沒再問我想起多少。你可能不覺得那是幫忙，可是我記得。", "requires_decisions": {"recovery_company": "stay"}},
 			{"speaker": "hao_ran", "text": "那杯水，我自己拿到了。你在門邊等，沒有伸手替我做完。那天我需要的是這樣。", "requires_decisions": {"recovery_company": "space"}},
@@ -2451,7 +2744,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "narrator",
-				"text": "三號維修門開了。你把回程脈衝留在接應器上，浩然撤離時不用再走監控門。這條線只負責開門，不帶任何人的證詞。",
+				"text": "三號維修門開了。幽靈還能守一次撤離或原件傳輸窗口。進去後可在總部安排；另一件事由你自己核對。這條線不攜帶任何人的證詞。",
 				"next": "end",
 				"label": "entry_ghost_ok",
 				"set_flag": "hq_entry_resolved",
@@ -2536,7 +2829,7 @@ static func _get_all_dialogues() -> Dictionary:
 		"ch3_verify_public_sources": [
 			{
 				"speaker": "zhao_ming",
-				"text": "帳本可以指路，卻不能單獨證明命令來自誰。趙明開啟與市場資料分開保管的稽核紀錄：授權摘要、付款批次、實驗設備簽署時間。",
+				"text": "光靠帳本還不夠。我把另外保管的稽核紀錄調出來了：授權摘要、付款批次，還有設備簽署時間。拿原件一筆一筆對。",
 				"mood": "determined"
 			},
 			{
@@ -2560,7 +2853,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "zhao_ming",
-				"text": "這樣只是讓同一個來源重複說三次。拿帳本的批次當索引，與獨立保管的授權、付款及設備紀錄相互核對，才能知道哪裡對不上。",
+				"text": "這樣只是讓同一個來源重複說三次。先拿帳本的批次當索引。再核對獨立保管的授權、付款及設備紀錄。這樣才知道哪裡對不上。",
 				"mood": "conflicted",
 				"label": "sources_wrong",
 				"choices": [
@@ -2634,12 +2927,12 @@ static func _get_all_dialogues() -> Dictionary:
 			{"speaker": "narrator", "text": "沒有真人資料的測試代碼，將調查帶到實驗室覆核站。市政窗口已改成人工受理；接收站的管理責任成為後續調查的一部分。", "requires_decisions": {"archive_route": "observed"}},
 			{"speaker": "narrator", "text": "蕭博士的供述與三段時間紀錄被一併提交。它沒有取代核心原件，也沒有讓其他管理者免於說明。", "requires_decisions": {"xiao_accountability": "admitted"}},
 			{"speaker": "narrator", "requires_flag": "ghost_repaired", "text": "幽靈確認維修門已關閉，卻拒絕加入舉報。他提供過有限接應，沒有撤回你出賣身份的紀錄。"},
-			{"speaker": "narrator", "text": "你與趙明把封存原件放入離線保管箱，公開副本另行交接。", "show_cg": "cg_public_evidence_handover"},
+			{"speaker": "narrator", "text": "你與趙明把封存原件放入離線保管箱，公開副本另行交接。", "show_cg": "cg_public_evidence_handover", "sfx": "res://assets/audio/sfx/handover_confirm.ogg"},
 			{"speaker": "narrator", "text": "【正義之光・共同作證】趙明在你旁邊簽名。來源與交接都有各自負責的人；沒有人替另一個人承諾免於追責。", "requires_public_liability": false},
 			{"speaker": "narrator", "text": "【正義之光・帶罪揭露】你把自己的交易與資料處置一併交出。調查者收下企業罪證，也約了下一次向你詢問的時間。", "requires_public_liability": true},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "趙明送出署名舉報包。媒體收到遮蔽受害者私密內容的副本，調查者則能核驗封存原件。你們連自己的交易與參與紀錄也一併交出。"
+				"text": "趙明送出署名舉報包。媒體收到遮蔽受害者私密內容的副本，調查者則能核驗封存原件。你們各自的行動紀錄也附在後面。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
@@ -2659,7 +2952,7 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
-				"text": "浩然回到了美玲身邊，雖然他需要很長時間才能恢復。而你，九龍延伸區最不起眼的偵探，證明了一個人也能改變什麼。"
+				"text": "浩然回到了美玲身邊。復健的日子還長，她在行事曆上記下了下一次回診的時間。"
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
@@ -2672,6 +2965,10 @@ static func _get_all_dialogues() -> Dictionary:
 		],
 
 		"ending_b_grey_deal": [
+			{"speaker": "narrator", "text": "回診室裡，浩然把預約單折成四折，壓在水杯下面。美玲問他冷不冷，他搖頭，自己把椅子挪離出風口。", "show_cg": "cg_ending_b_care", "sfx": "res://assets/audio/sfx/handover_confirm.ogg"},
+			{"speaker": "hao_ran", "requires_decisions": {"grey_care_terms": "independent"}, "text": "下次能換近一點的地方嗎？我不想每回都讓她請假。"},
+			{"speaker": "mei_ling", "requires_decisions": {"grey_care_terms": "independent"}, "text": "能。我明天問那間診所。費用照回執走，你先把水喝了。"},
+			{"speaker": "narrator", "requires_decisions": {"grey_care_terms": "corporate"}, "text": "美玲想換一個較近的回診點。櫃檯把預約單推回來，指著指定窗口那一欄。她收起單子，重新翻自己的班表。"},
 			{"speaker": "narrator", "text": "浩然等到下一班轉運，帶走一式三份的紙本交接。回診如何付費仍受你談定的交易條款約束，交接方式本身沒有買來自由。", "requires_decisions": {"recovery_channel": "paper"}},
 			{"speaker": "narrator", "text": "指定醫師收到浩然逐項同意的接收資料，承包商沒有列在收件者內。這次傳送完成即移除路由，後續照護仍須重新取得同意。", "requires_decisions": {"recovery_channel": "direct"}},
 			{"speaker": "narrator", "requires_decisions": {"market_claim_resolution": "pledge", "memory_trade_method": "refuse"}, "text": "市場給的優先預約派上用場，浩然較早排到企業承包的照護。你沒有欠過那筆樣本債，這是拿他人的聯絡路由換來的新交易。"},
@@ -2715,13 +3012,18 @@ static func _get_all_dialogues() -> Dictionary:
 			},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"show_cg": "cg_ending_c_awakening",
 				"text": "你睜開眼睛，無法再確定那些偵探時期的經歷是否屬於自己。浩然已安全撤離，罪證與你的兩次同意仍留在離線紀錄中。它們不能替醒來的人回答自己是誰。"
 			},
 			{"speaker": "narrator", "text": "醒來後，你面前多了一份能逐項核對的生活紀錄。美玲圈出自己在場的部分，別人的轉述另列；空白仍是空白。你可以不相信它，再從來源開始問。", "requires_decisions": {"continuity_record": "shared"}},
 			{"speaker": "mei_ling", "text": "我不會要求你照著這本子演回原來的樣子。今天你想知道哪一件，我們就從那一件開始。", "requires_decisions": {"continuity_record": "shared"}},
-			{"speaker": "narrator", "text": "桌上只有一封寫給自己的密封信。你認得筆跡，卻不確定認不認得寫信的人；要不要拆開，由現在的你決定。案件原件另存，沒有和私信綁在一起。", "requires_decisions": {"continuity_record": "private"}},
+			{"speaker": "narrator", "text": "桌邊留著一封寫給自己的密封信。你認得筆跡，卻不確定認不認得寫信的人；要不要拆開，由現在的你決定。案件原件另存，沒有和私信綁在一起。", "requires_decisions": {"continuity_record": "private"}},
 			{
 				"speaker": "narrator", "name": "", "portrait_side": "left",
+				"text": "美玲把水放在你伸手能碰到的地方，沒有替你拿起來。你問她的名字。她答了，又把椅子拉近一點。"
+			},
+			{
+				"speaker": "narrator",
 				"text": "[結局C — 記憶重生]\n\n回到偵探辦公室，與美玲和浩然見面。"
 			}
 		],

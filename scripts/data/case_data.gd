@@ -15,6 +15,7 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"description": "你的辦公室，位於九龍延伸區的一棟老舊大樓裡。",
 					"connections": ["mei_ling_apartment", "abyss_bar", "east_district_street"],
 					"initial_dialogue": "ch1_mei_ling_intro",
+					"story_actions": [{"id": "review_case_materials", "title": "整理美玲留下的委託資料", "dialogue": "ch1_case_materials_review"}],
 					"hotspots": ["desk", "evidence_board", "window", "phone"]
 				},
 				"mei_ling_apartment": {
@@ -64,7 +65,10 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"connections": ["detective_office", "east_district_street", "abyss_bar_backroom"],
 					"initial_dialogue": "ch1_abyss_bar_enter",
 					"story_actions": [
-						{"id": "scan_ajie_receipt", "title": "核對酒吧時間戳", "dialogue": "ch1_eye_ajie_statement", "requires_evidence": "abyss_receipt", "scan_flag": "eye_ajie_receipt_scanned", "scan_summary": "收據列印與結帳相差七分鐘。終端延遲可核對，阿傑緊張或被迫說出的名字不能單獨證明誰到過現場。", "scan_cost": 20.0, "scan_position": [0.21, 0.49], "hide_after_flag": "ajie_statement_resolved"},
+						{"id": "ask_ajie_again", "title": "拿收據回問阿傑／核對照片", "dialogue": "ch1_ajie_followup", "requires_evidence": "abyss_receipt"},
+						{"id": "scan_ajie_receipt", "title": "讀取收據／整理待查假設", "dialogue": "ch1_eye_ajie_statement", "requires_evidence": "abyss_receipt", "scan_flag": "eye_ajie_receipt_scanned", "scan_summary": "同筆交易的列印與結帳相差七分鐘。原因仍待終端紀錄核對，不能據此指認人影。", "scan_cost": 20.0, "scan_position": [0.21, 0.49], "hide_after_flag": "ajie_terminal_verified"},
+						{"id": "verify_ajie_terminal", "title": "核對終端重送紀錄", "dialogue": "ch1_ajie_terminal_check", "requires_flag": "eye_ajie_receipt_scanned", "hide_after_flag": "ajie_terminal_verified"},
+						{"id": "ask_ajie_statement", "title": "帶核對結果詢問阿傑", "dialogue": "ch1_ajie_statement_check", "requires_flag": "ajie_terminal_verified", "hide_after_flag": "ajie_statement_resolved"},
 						{"id": "retract_ajie_statement", "title": "向阿傑更正指認", "dialogue": "ch1_ajie_retraction", "requires_decisions": {"ajie_statement": "coerced"}, "hide_after_flag": "ajie_statement_retracted"},
 						{
 							"id": "meet_snake_information_broker",
@@ -412,9 +416,13 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"connections": ["secret_lab", "memory_space"],
 					"initial_dialogue": "ch3_opening",
 					"story_actions": [
+						{"id": "ask_kai_zhao", "title": "拿自己的維護簽名問趙明", "dialogue": "ch3_kai_zhao_followup", "requires_flags": ["kai_memory_2_seen", "trusted_zhao_ming"], "requires_evidence": "authorization_order", "hide_after_flag": "kai_zhao_account_checked", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
 						{"id": "choose_hq_entry", "title": "在前室選擇進入總部的方式", "dialogue": "ch3_hq_entry", "hide_after_flag": "hq_entry_resolved"},
 						{"id": "align_memory_corridor", "title": "比對記憶錯位走廊與授權紀錄", "dialogue": "ch3_memory_corridor", "requires_flag": "hq_entry_resolved", "hide_after_flag": "memory_corridor_aligned"},
-						{"id": "secure_core_evidence", "title": "封存伺服器的核心證據", "dialogue": "ch3_secure_core_evidence", "requires_flag": "memory_corridor_aligned", "hide_after_flag": "core_evidence_secured"},
+						{"id": "plan_ghost_support", "title": "安排幽靈的一次協助", "dialogue": "ch3_ghost_support", "requires_flag": "hq_entry_resolved", "requires_decisions": {"hq_entry_route": "ghost", "hq_ghost_support": "none"}, "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
+						{"id": "verify_core_custody", "title": "核對原件保管鏈／改用其他方法", "dialogue": "ch3_core_custody", "requires_flag": "memory_corridor_aligned", "requires_evidence": "authorization_order", "hide_after_flag": "hq_core_verified", "requires_missing_flags": ["core_evidence_secured", "final_choice_resolved", "case_resolved"]},
+						{"id": "disable_corporate_access", "title": "停用企業資格，改查離線紀錄", "dialogue": "ch3_disable_corporate", "requires_decisions": {"hq_entry_route": "corporate"}, "hide_after_flag": "hq_corporate_access_disabled", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
+						{"id": "secure_core_evidence", "title": "封存伺服器的核心證據", "dialogue": "ch3_secure_core_evidence", "requires_flags": ["memory_corridor_aligned", "hq_core_verified"], "hide_after_flag": "core_evidence_secured", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
 						{"id": "verify_public_sources", "title": "核對三份原件與獨立稽核紀錄", "dialogue": "ch3_verify_public_sources", "requires_flags": ["core_evidence_secured", "xiao_confronted", "trusted_zhao_ming"], "requires_evidences": ["overwrite_report", "zhengtek_funding", "authorization_order"], "hide_after_flag": "public_sources_verified"},
 						{"id": "review_public_record", "title": "確認或更新自己的行動紀錄", "dialogue": "ch3_review_public_record", "requires_flags": ["public_sources_verified", "trusted_zhao_ming"], "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
 						{"id": "prepare_whistleblower_package", "title": "與趙明製作保護證人身份的舉報包", "dialogue": "ch3_zhao_whistleblower", "requires_flags": ["trusted_zhao_ming", "core_evidence_secured"], "requires_evidences": ["overwrite_report", "zhengtek_funding", "authorization_order"], "hide_after_flag": "zhao_whistleblower_package"}
@@ -425,13 +433,17 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"name": "正和科技秘密實驗室",
 					"description": "記憶覆寫技術的核心實驗室。蕭博士的領地。",
 					"connections": ["echo_network_hq", "rooftop", "recovery_annex"],
-					"initial_dialogue": "ch3_dr_xiao_confrontation",
+					"initial_dialogue": "ch3_lab_arrival",
 					"requires_flag": "memory_corridor_aligned",
 					"story_actions": [
+						{"id": "ask_kai_xiao", "title": "追問自己開過的回寫權限", "dialogue": "ch3_kai_xiao_followup", "requires_flags": ["kai_memory_2_seen", "xiao_confronted"], "requires_evidence": "authorization_order", "hide_after_flag": "kai_xiao_account_checked", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
+						{"id": "confront_dr_xiao", "title": "主動追問蕭博士", "dialogue": "ch3_dr_xiao_confrontation", "requires_flag": "memory_corridor_aligned", "hide_after_flag": "xiao_confronted", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
+						{"id": "read_isolation_report", "title": "自行核對設備與隔離報告", "dialogue": "ch3_device_report", "requires_flag": "memory_corridor_aligned", "hide_after_flag": "hq_device_report_checked", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
+						{"id": "prepare_rescue_exit", "title": "準備撤離出口／改用其他方法", "dialogue": "ch3_prepare_exit", "requires_flag": "memory_corridor_aligned", "hide_after_flag": "hq_exit_ready", "requires_missing_flags": ["hao_ran_rescued", "final_choice_resolved", "case_resolved"]},
 						{"id": "scan_override_console", "title": "掃描覆核站的本地簽章", "dialogue": "ch3_scan_override_console", "requires_flag": "xiao_confronted", "scan_flag": "eye_override_scanned", "scan_summary": "R-17 在本地已接收，之後有人簽章維持寫入排程。維持生命與繼續改寫有獨立控制，須與市政回執核對。", "scan_cost": 20.0, "scan_position": [0.22, 0.49], "hide_after_flag": "override_console_reviewed", "set_flag": "override_console_reviewed"},
 						{"id": "challenge_xiao_records", "title": "拿紀錄追問蕭博士", "dialogue": "ch3_xiao_record_challenge", "requires_flag": "eye_override_scanned", "hide_after_flag": "xiao_record_challenge_resolved", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
-						{"id": "find_hao_ran", "title": "搜尋浩然", "dialogue": "ch3_hao_ran_found", "requires_flag": "xiao_confronted", "hide_after_flag": "hao_ran_located"},
-						{"id": "rescue_hao_ran", "title": "隔離覆寫裝置並救出浩然", "dialogue": "ch3_rescue_hao_ran", "requires_flag": "hao_ran_located", "requires_evidence": "overwrite_report", "hide_after_flag": "hao_ran_rescued"},
+						{"id": "find_hao_ran", "title": "搜尋浩然", "dialogue": "ch3_hao_ran_found", "requires_flag": "memory_corridor_aligned", "hide_after_flag": "hao_ran_located", "requires_missing_flags": ["hao_ran_rescued", "final_choice_resolved", "case_resolved"]},
+						{"id": "rescue_hao_ran", "title": "隔離覆寫裝置並救出浩然", "dialogue": "ch3_rescue_hao_ran", "requires_flags": ["hao_ran_located", "hq_exit_ready"], "requires_evidence": "overwrite_report", "hide_after_flag": "hao_ran_rescued", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
 						{"id": "ask_backup_permission", "title": "讓浩然決定備份用途", "dialogue": "ch3_backup_permission", "requires_flags": ["hao_ran_rescued", "backup_handling_resolved"], "requires_missing_flags": ["final_choice_resolved", "case_resolved"], "hide_after_flag": "backup_custody_resolved"}
 					],
 					"hotspots": ["overwrite_device", "dr_xiao_desk", "hao_ran_chair", "ai_terminal"]
@@ -444,6 +456,7 @@ static func get_chapter_data(chapter: int) -> Dictionary:
 					"requires_flag": "memory_corridor_aligned",
 					"story_actions": [
 						{"id": "scan_memory_anchor", "title": "掃描記憶時間標記，留下甦醒紀錄", "dialogue": "ch3_scan_memory_anchor", "requires_flags": ["kai_memory_truth_reviewed", "hao_ran_rescued"], "requires_missing_flags": ["final_choice_resolved", "case_resolved"], "scan_flag": "eye_anchor_scanned", "scan_summary": "片段匯入時間與事件發生日期不同。外部生活紀錄或私信可以提供核對線索，都不能保證恢復後記得今天。", "scan_cost": 20.0, "scan_position": [0.18, 0.54], "hide_after_flag": "memory_anchor_resolved"},
+						{"id": "record_kai_account", "title": "整理自己的維護責任與待查事項", "dialogue": "ch3_kai_account_response", "requires_flags": ["kai_zhao_account_checked", "kai_xiao_account_checked"], "hide_after_flag": "kai_account_response_recorded", "requires_missing_flags": ["final_choice_resolved", "case_resolved"]},
 						{"id": "review_kai_fragment_1", "title": "記憶一：與趙明的內部調查", "dialogue": "ch3_kai_fragment_1", "hide_after_flag": "kai_memory_1_seen"},
 						{"id": "review_kai_fragment_2", "title": "記憶二：與蕭博士的覆寫原型", "dialogue": "ch3_kai_fragment_2", "requires_flag": "kai_memory_1_seen", "hide_after_flag": "kai_memory_2_seen"},
 						{"id": "review_kai_fragment_3", "title": "記憶三：核對測試者的同意紀錄", "dialogue": "ch3_kai_fragment_3", "requires_flags": ["kai_memory_2_seen", "xiao_confronted", "core_evidence_secured"], "hide_after_flag": "kai_memory_3_seen"},

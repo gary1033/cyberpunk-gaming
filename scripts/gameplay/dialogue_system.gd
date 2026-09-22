@@ -22,11 +22,8 @@ signal choice_made(choice_index: int)
 @onready var dialogue_content_margin: MarginContainer = find_child("DialogueContentMargin", true, false) as MarginContainer
 
 const STORY_CG_DIR := "res://assets/sprites/cg"
-const DESKTOP_DIALOGUE_PAGE_CHARS := 50
-const MOBILE_DIALOGUE_PAGE_CHARS := 30
-const CHOICE_DIALOGUE_PAGE_CHARS := 32
 const DIALOGUE_TEXT_HEIGHT := 96
-const CHOICE_PROMPT_TEXT_HEIGHT := 48
+const CHOICE_PROMPT_TEXT_HEIGHT := 58
 const COMPACT_CHOICE_PROMPT_TEXT_HEIGHT := 58
 const NO_CHOICE_DIALOGUE_TOP_MARGIN := 28
 const NO_CHOICE_DIALOGUE_BOTTOM_MARGIN := 4
@@ -38,7 +35,8 @@ const NORMAL_CHOICE_GAP := 5
 const COMPACT_CHOICE_GAP := 3
 const NORMAL_CHOICE_FONT_SIZE := 18
 const COMPACT_CHOICE_FONT_SIZE := 18
-const DIALOGUE_SPLIT_PUNCTUATION := "，。！？；：、,.!?;: "
+const DIALOGUE_SENTENCE_ENDS := "。！？!?\n"
+const DIALOGUE_CLOSING_MARKS := "，。、：；！？!?.,;:）)]】」』〉》…"
 
 var _current_dialogue: Array = []  # Array of dialogue entries
 var _current_index: int = 0
@@ -49,6 +47,8 @@ var _is_waiting_for_input: bool = false
 var _full_text: String = ""
 var _visible_chars: int = 0
 var _type_timer: float = 0.0
+var _page_recorded := false
+var _notebook_button: Button
 var _story_cg_overlay: TextureRect = null
 
 # Dialogue entry format:
@@ -67,8 +67,20 @@ var _story_cg_overlay: TextureRect = null
 # }
 
 func _ready() -> void:
+	_notebook_button = Button.new()
+	_notebook_button.name = "NotebookButton"
+	_notebook_button.text = "紀錄／閱讀"
+	_notebook_button.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	_notebook_button.offset_left = -170
+	_notebook_button.offset_right = -24
+	_notebook_button.offset_top = 130
+	_notebook_button.offset_bottom = 174
+	_notebook_button.pressed.connect(_open_notebook)
+	add_child(_notebook_button)
 	_ensure_story_cg_overlay()
 	visible = false
+	dialogue_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	dialogue_text.visible_characters_behavior = TextServer.VC_CHARS_AFTER_SHAPING
 	choices_container.visible = false
 	continue_indicator.visible = false
 	continue_indicator.text = "▼"
@@ -102,6 +114,8 @@ func _show_entry(entry: Dictionary) -> void:
 			end_dialogue()
 			return
 		entry = _current_dialogue[_current_index]
+	dialogue_text.add_theme_font_size_override("normal_font_size", (20 if InputManager.is_mobile else 24) + int(SaveManager.reading_settings.font_step) * 2)
+	typewriter_speed = [0.06, 0.03, 0.012, 0.0][int(SaveManager.reading_settings.speed)]
 	var entry_text: String = entry.get("text", "")
 	if entry.get("show_public_record", false):
 		var facts := GameManager.get_public_record_facts()
@@ -130,6 +144,8 @@ func _apply_entry_speaker(entry: Dictionary) -> void:
 	_update_portrait(speaker, mood, "left")
 
 func _apply_entry_effects(entry: Dictionary) -> void:
+	if entry.has("sfx"):
+		AudioManager.play_optional_sfx(str(entry.sfx))
 	_apply_entry_cg_effect(entry)
 	_apply_dialogue_state_changes(entry)
 
@@ -167,12 +183,14 @@ func _apply_dialogue_state_changes(source: Dictionary) -> void:
 
 func _start_typewriter_page(page_text: String, will_show_choices: bool) -> void:
 	_set_dialogue_content_layout(will_show_choices)
+	_page_recorded = false
 	_full_text = page_text
 	dialogue_text.text = _full_text
 	dialogue_text.visible_characters = 0
 	dialogue_text.custom_minimum_size = Vector2(0, DIALOGUE_TEXT_HEIGHT)
 	dialogue_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_visible_chars = 0
+	_type_timer = 0.0
 	_is_typing = true
 	_is_waiting_for_input = false
 	choices_container.visible = false
@@ -181,10 +199,13 @@ func _start_typewriter_page(page_text: String, will_show_choices: bool) -> void:
 	continue_indicator.visible = false
 
 func _process(delta: float) -> void:
-	if not visible:
+	if not visible or get_tree().get_first_node_in_group("reading_panel") != null:
 		return
 
 	if _is_typing:
+		if is_zero_approx(typewriter_speed):
+			_finish_typing()
+			return
 		_type_timer += delta
 		var fast_forward := Input.is_action_pressed("interact") or Input.is_key_pressed(KEY_SPACE)
 		var speed := fast_speed if fast_forward else typewriter_speed
@@ -197,6 +218,9 @@ func _process(delta: float) -> void:
 
 func _finish_typing() -> void:
 	_is_typing = false
+	if not _page_recorded:
+		GameManager.record_dialogue(character_name_label.text, _full_text)
+		_page_recorded = true
 	dialogue_text.visible_characters = -1  # Show all
 
 	if _has_more_pages():
@@ -214,6 +238,7 @@ func _finish_typing() -> void:
 func _show_continue_indicator() -> void:
 	_is_waiting_for_input = true
 	continue_indicator.visible = true
+	continue_indicator.text = "續讀 %d/%d ▸" % [_current_page_index + 1, _current_entry_pages.size()] if _has_more_pages() else "下一段 ▾"
 
 func _wait_for_dialogue_advance() -> void:
 	_set_dialogue_content_layout(false)
@@ -237,7 +262,7 @@ func _show_choices(available_choices: Array, compact_layout: bool) -> void:
 		choices_scroll.scroll_vertical = 0
 	choices_container.add_theme_constant_override("separation", COMPACT_CHOICE_GAP if compact_layout else NORMAL_CHOICE_GAP)
 	var button_height := COMPACT_CHOICE_BUTTON_HEIGHT if compact_layout else NORMAL_CHOICE_BUTTON_HEIGHT
-	var font_size := COMPACT_CHOICE_FONT_SIZE if compact_layout else NORMAL_CHOICE_FONT_SIZE
+	var font_size := (COMPACT_CHOICE_FONT_SIZE if compact_layout else NORMAL_CHOICE_FONT_SIZE) + int(SaveManager.reading_settings.font_step)
 
 	for available in available_choices:
 		var choice: Dictionary = available.get("choice", {})
@@ -354,6 +379,7 @@ func _on_choice_pressed(index: int) -> void:
 		var choice: Dictionary = choices[index]
 		if not _is_choice_available(choice):
 			return
+		GameManager.record_dialogue("選擇", str(choice.get("text", "")))
 		_apply_choice_effects(choice)
 		choice_made.emit(index)
 		_follow_choice_next(choice)
@@ -376,11 +402,13 @@ func _follow_choice_next(choice: Dictionary) -> void:
 		_advance(true)
 
 func _input(event: InputEvent) -> void:
-	if not visible:
+	if not visible or get_tree().get_first_node_in_group("reading_panel") != null:
 		return
 
+	if (event is InputEventMouseButton or event is InputEventScreenTouch) and _notebook_button.get_global_rect().has_point(event.position):
+		return
 	var is_interact := false
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.device != InputEvent.DEVICE_ID_EMULATION and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		is_interact = true
 	elif event is InputEventScreenTouch and event.pressed:
 		is_interact = true
@@ -428,40 +456,44 @@ func _advance(choice_selected: bool = false) -> void:
 func _has_more_pages() -> bool:
 	return _current_page_index + 1 < _current_entry_pages.size()
 
+func _dialogue_text_fits(text: String, has_choices: bool) -> bool:
+	var font := dialogue_text.get_theme_font("normal_font")
+	var font_size := dialogue_text.get_theme_font_size("normal_font_size")
+	var width := maxf(1.0, dialogue_panel.size.x - 4.0)
+	var height := CHOICE_PROMPT_TEXT_HEIGHT if has_choices else DIALOGUE_TEXT_HEIGHT
+	return font.get_multiline_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, width, font_size).y <= height
+
 func _split_dialogue_pages(text: String, has_choices: bool = false) -> Array:
-	if text == "":
+	if text.is_empty():
 		return [""]
-
-	var limit := MOBILE_DIALOGUE_PAGE_CHARS if InputManager.is_mobile else DESKTOP_DIALOGUE_PAGE_CHARS
-	if has_choices:
-		limit = mini(limit, CHOICE_DIALOGUE_PAGE_CHARS)
-	if text.length() <= limit:
-		return [text]
-
 	var pages: Array = []
 	var start := 0
 	while start < text.length():
-		var end := mini(start + limit, text.length())
-		if end < text.length():
-			end = _find_dialogue_page_break(text, start, end)
-
-		var page := text.substr(start, end - start).strip_edges()
-		if page != "":
-			pages.append(page)
-
+		var end := text.length()
+		if not _dialogue_text_fits(text.substr(start), has_choices):
+			var low := start + 1
+			var high := end
+			while low < high:
+				var middle := (low + high + 1) / 2
+				if _dialogue_text_fits(text.substr(start, middle - start), has_choices):
+					low = middle
+				else:
+					high = middle - 1
+			end = _find_dialogue_page_break(text, start, low)
+		pages.append(text.substr(start, end - start))
 		start = end
-		while start < text.length() and text.substr(start, 1) == " ":
-			start += 1
-
-	if pages.is_empty():
-		return [text]
 	return pages
 
 func _find_dialogue_page_break(text: String, start: int, hard_end: int) -> int:
-	var min_break := start + int(float(hard_end - start) * 0.55)
-	for i in range(hard_end - 1, min_break - 1, -1):
-		if DIALOGUE_SPLIT_PUNCTUATION.contains(text.substr(i, 1)):
-			return i + 1
+	# Keep closing quotes with their sentence, and prefer complete sentences.
+	while hard_end > start + 1 and hard_end < text.length() and (DIALOGUE_CLOSING_MARKS.contains(text[hard_end]) or "（([【「『〈《".contains(text[hard_end - 1])):
+		hard_end -= 1
+	for i in range(hard_end - 1, start - 1, -1):
+		if DIALOGUE_SENTENCE_ENDS.contains(text[i]):
+			var end := i + 1
+			while end < hard_end and "」』）)]】〉》".contains(text[end]):
+				end += 1
+			return end
 	return hard_end
 
 func _jump_to_label(label: String) -> void:
@@ -543,3 +575,7 @@ func _update_portrait(speaker: String, mood: String, _side: String) -> void:
 func _load_character_portrait(speaker: String, mood: String) -> Texture2D:
 	var portrait_path := "res://assets/sprites/characters/%s_%s.png" % [speaker, mood]
 	return RuntimeAssetsScript.load_texture(portrait_path)
+
+func _open_notebook() -> void:
+	if get_tree().get_first_node_in_group("reading_panel") == null:
+		add_child(load("res://scripts/ui/case_notebook.gd").new())

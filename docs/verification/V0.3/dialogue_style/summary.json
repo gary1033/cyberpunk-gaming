@@ -1,0 +1,91 @@
+{
+  "version": "0.3",
+  "date": "2026-09-19",
+  "stage": "Opening and Ajie dialogue style revision",
+  "text_only_structure_identical": true,
+  "changed_text_fields": 60,
+  "changed_dialogues": [
+    {
+      "dialogue": "ch1_case_materials_review",
+      "changed_text_fields": 3
+    },
+    {
+      "dialogue": "ch1_ajie_followup",
+      "changed_text_fields": 4
+    },
+    {
+      "dialogue": "ch1_eye_ajie_statement",
+      "changed_text_fields": 5
+    },
+    {
+      "dialogue": "ch1_ajie_terminal_check",
+      "changed_text_fields": 9
+    },
+    {
+      "dialogue": "ch1_ajie_statement_check",
+      "changed_text_fields": 6
+    },
+    {
+      "dialogue": "ch1_ajie_retraction",
+      "changed_text_fields": 2
+    },
+    {
+      "dialogue": "ch1_mei_ling_intro",
+      "changed_text_fields": 19
+    },
+    {
+      "dialogue": "ch1_abyss_bar_enter",
+      "changed_text_fields": 6
+    },
+    {
+      "dialogue": "ch1_abyss_bar_backroom_enter",
+      "changed_text_fields": 2
+    },
+    {
+      "dialogue": "ch1_abyss_backroom_investigation",
+      "changed_text_fields": 3
+    },
+    {
+      "dialogue": "ch1_abyss_surveillance_delay_log",
+      "changed_text_fields": 1
+    }
+  ],
+  "before_sha256": "848d370caeb3daf5a346d565addcd0efe1385653dfed40474ebfd1967ed65235",
+  "after_sha256": "01d9c87da2b04bda6ecafbdc157ec1a59d47acad8d44000a246c7feea48f795e",
+  "data_checks": {
+    "passed": 79,
+    "failed": 0,
+    "warnings": 0
+  },
+  "investigation": {
+    "assertions": 1004,
+    "passed": true
+  },
+  "pagination": {
+    "checks": 10673,
+    "audit": {
+      "choice_checks": 732,
+      "dialogues": 98,
+      "entry_checks": 1755,
+      "failures": [],
+      "forced_splits": [],
+      "pages": 1846
+    },
+    "configurations": [
+      "1280x720 desktop",
+      "1280x720 mobile mode",
+      "854x480 mobile mode"
+    ]
+  },
+  "changed_test": "Only the existing coercion text assertion was updated to match the new line; checks and scenarios retained. Runtime assertion count includes page advances.",
+  "not_repeated": [
+    "full data-integrity suite",
+    "seven ending routes",
+    "eighteen freedom routes",
+    "GPU screenshots",
+    "physical device playtest"
+  ],
+  "exported_windows_package": false,
+  "test_sha256": "f0e6fedc742c0eac8eb435bc85c326b888a79af80d623264bd80971222b278d6",
+  "reference": "https://zh.wikisource.org/zh-hant/駱駝祥子/4"
+}

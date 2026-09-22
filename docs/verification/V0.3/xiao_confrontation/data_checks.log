@@ -1,0 +1,26 @@
+
+[3] CaseData initial_dialogue → DialogueData
+  [OK] Dialogue exists: ch1_mei_ling_intro
+  [OK] Dialogue exists: ch1_abyss_bar_enter
+  [OK] Dialogue exists: ch1_workshop_enter
+  [OK] Dialogue exists: ch1_old_city_police_outpost_enter
+  [OK] Dialogue exists: ch1_dr_chen_encounter
+  [OK] Dialogue exists: ch1_abyss_bar_backroom_enter
+  [OK] Dialogue exists: ch2_opening
+  [OK] Dialogue exists: ch2_memory_market_enter
+  [OK] Dialogue exists: ch2_warehouse_explore
+  [OK] Dialogue exists: ch2_zhao_ming_meeting
+  [OK] Dialogue exists: ch2_referral_enter
+  [OK] Dialogue exists: ch2_auction_enter
+  [OK] Dialogue exists: ch2_civic_archive_enter
+  [OK] Dialogue exists: ch3_opening
+  [OK] Dialogue exists: ch3_lab_arrival
+  [OK] Dialogue exists: ch3_echo_ai
+  [OK] Dialogue exists: ch3_recovery_annex_enter
+  [OK] Dialogue exists: ch3_epilogue_family
+
+[4] DialogueData label jump targets
+  [OK] All 174 jump targets stay within their dialogue
+  [OK] All story choices use registered, saveable decision keys
+  [OK] Story progression recognises core flag producers and rejects unknown prerequisites
+XIAO_DATA_CHECKS: passed=21 failed=0 warnings=0; scope verified

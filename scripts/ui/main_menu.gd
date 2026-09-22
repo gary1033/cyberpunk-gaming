@@ -14,6 +14,7 @@ const MAIN_MENU_BACKGROUND_PATH := "res://assets/sprites/ui/main_menu_background
 const CaseDataScript: GDScript = preload("res://scripts/data/case_data.gd")
 
 func _ready() -> void:
+	$VersionLabel.text = "V" + str(ProjectSettings.get_setting("application/config/version"))
 	AudioManager.play_location_bgm("main_menu")
 	GameManager.set_state(GameManager.GameState.MAIN_MENU)
 	_setup_generated_background()
@@ -423,6 +424,17 @@ func _on_settings() -> void:
 		DisplayServer.window_set_position(pos)
 	)
 	vbox.add_child(res_options)
+
+	var reading_btn := Button.new()
+	reading_btn.text = "閱讀設定（字級／打字速度）"
+	reading_btn.custom_minimum_size.y = 44
+	reading_btn.pressed.connect(func():
+		if get_tree().get_first_node_in_group("reading_panel") == null:
+			var notebook = load("res://scripts/ui/case_notebook.gd").new()
+			notebook.initial_tab = 2
+			add_child(notebook)
+	)
+	vbox.add_child(reading_btn)
 
 	# BGM Volume
 	var bgm_label := Label.new()

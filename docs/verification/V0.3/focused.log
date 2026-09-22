@@ -1,0 +1,113 @@
+
+[2] CaseData location connections
+  [OK] Connection target valid: abandoned_warehouse
+  [OK] Connection target valid: abyss_bar
+  [OK] Connection target valid: abyss_bar_backroom
+  [OK] Connection target valid: auction_handover_room
+  [OK] Connection target valid: bitstorm_cafe
+  [OK] Connection target valid: civic_archive
+  [OK] Connection target valid: detective_office
+  [OK] Connection target valid: dr_chen_clinic
+  [OK] Connection target valid: east_district_street
+  [OK] Connection target valid: echo_network_hq
+  [OK] Connection target valid: hao_ran_workshop
+  [OK] Connection target valid: mei_ling_apartment
+  [OK] Connection target valid: memory_black_market
+  [OK] Connection target valid: memory_space
+  [OK] Connection target valid: office_epilogue
+  [OK] Connection target valid: old_city_police_outpost
+  [OK] Connection target valid: recovery_annex
+  [OK] Connection target valid: referral_waiting_station
+  [OK] Connection target valid: rooftop
+  [OK] Connection target valid: secret_lab
+  [OK] Connection target valid: sewer_passage
+  [OK] Connection target valid: zhengtek_exterior
+
+[3] CaseData initial_dialogue → DialogueData
+  [OK] Dialogue exists: ch1_mei_ling_intro
+  [OK] Dialogue exists: ch1_abyss_bar_enter
+  [OK] Dialogue exists: ch1_workshop_enter
+  [OK] Dialogue exists: ch1_old_city_police_outpost_enter
+  [OK] Dialogue exists: ch1_dr_chen_encounter
+  [OK] Dialogue exists: ch1_abyss_bar_backroom_enter
+  [OK] Dialogue exists: ch2_opening
+  [OK] Dialogue exists: ch2_memory_market_enter
+  [OK] Dialogue exists: ch2_warehouse_explore
+  [OK] Dialogue exists: ch2_zhao_ming_meeting
+  [OK] Dialogue exists: ch2_referral_enter
+  [OK] Dialogue exists: ch2_auction_enter
+  [OK] Dialogue exists: ch2_civic_archive_enter
+  [OK] Dialogue exists: ch3_opening
+  [OK] Dialogue exists: ch3_lab_arrival
+  [OK] Dialogue exists: ch3_echo_ai
+  [OK] Dialogue exists: ch3_recovery_annex_enter
+  [OK] Dialogue exists: ch3_epilogue_family
+
+[4] DialogueData label jump targets
+  [OK] All 171 jump targets stay within their dialogue
+
+[5] Evidence IDs consistency
+  [OK] Found 45 evidence IDs
+  [OK] No duplicate evidence IDs
+
+[10] GDScript quality checks
+  [OK] No debug print statements found
+  [OK] Scanned 17 GDScript files
+
+[18] Null safety in class_name script _ready() methods
+  [OK] scripts/gameplay/evidence_board.gd: Uses safe node resolution
+
+[27] Runtime UI playability regressions
+  [OK] Dialogue HUD uses the complete generated texture as a single aligned frame
+  [OK] Dialogue portraits fit inside the source-image red portrait frame
+  [OK] Dialogue portraits are forced to the left portrait frame
+  [OK] Speaker name renders in the source-image lower red name plate
+  [OK] Opening narrator dialogue falls back to Kai name plate text
+  [OK] Dialogue text and choices are constrained to the source-image blue frame
+  [OK] No-choice dialogue text is lowered without moving choice layouts
+  [OK] Speaker name and dialogue text use readable compact typography
+  [OK] DialogueSystem resolves text nodes inside the frame-root layout
+  [OK] Dialogue supports Space for fast-forward and advance
+  [OK] DialogueSystem paginates long text into follow-up pages
+  [OK] Dialogue choices stay boxed inside the blue dialogue frame
+  [OK] DialogueSystem uses compact in-blue-frame layout for three choices
+  [OK] EvidenceBoard card grid uses safe range iteration and int row conversion
+  [OK] AP and eagle-eye share a fixed-frame energy widget
+  [OK] Eagle-eye keeps its HUD bounds and visibility control
+  [OK] Eagle-eye charges partial use without resettable timers and retains scanner motion
+  [OK] Energy cells use shared geometry, true zero and cell-only low-energy colors
+  [OK] LocationBase updates AP through a guarded member label
+  [OK] Eagle-eye scanline fallback renders transparent HUD tint
+  [OK] Main menu loads generated background with ColorRect fallback
+  [OK] LocationBase AP widget preserves its bounds and eagle-eye visibility handoff
+
+[31] Chapter 1 opening and Mei Ling trust expansion
+  [OK] New-game opening shows Kai office prologue CG before Mei Ling enters
+  [OK] Chapter 1 expanded dialogue exists: ch1_hao_ran_drawer_search
+  [OK] Chapter 1 expanded dialogue exists: ch1_original_backup_album
+  [OK] Chapter 1 expanded dialogue exists: ch1_hao_ran_encrypted_message
+  [OK] Expanded story action wired: inspect_hao_ran_drawer
+  [OK] Expanded story action wired: inspect_original_backup_album
+  [OK] Expanded story action wired: decode_hao_ran_last_message
+  [OK] Expanded evidence has runtime icon/fallback: hao_ran_drawer_note
+  [OK] Expanded evidence has runtime icon/fallback: original_backup_hint
+  [OK] Expanded evidence has runtime icon/fallback: hao_ran_encrypted_message
+  [OK] Evidence board connects original backup hint to Hao Ran message
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_kai_office_prologue.png
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png
+  [OK] Generated trust-path asset connected: assets/sprites/cg/cg_hao_ran_encrypted_message.png
+  [OK] Generated trust-path asset connected: assets/sprites/items/hao_ran_drawer_note.png
+  [OK] Generated trust-path asset connected: assets/sprites/items/original_backup_hint.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_kai_office_prologue.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_mei_ling_apartment_memory_trace.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/cg/cg_hao_ran_encrypted_message.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/items/hao_ran_drawer_note.png
+  [OK] Generated trust-path source matches runtime target: assets/sprites/items/original_backup_hint.png
+  [OK] image_gen trust-path manifest covers all generated assets
+  [OK] All story choices use registered, saveable decision keys
+  [OK] Story progression recognises core flag producers and rejects unknown prerequisites
+  [OK] Menu background ignores native texture minimum size
+  [OK] Dialogue layout: readable prompts, three visible choices, fourth scrollable on desktop/mobile
+  [OK] All dialogue: complete sentences, lossless pages, stable wrapping and single-touch advance
+  [OK] Opening/revisits/branch isolation/hypothesis repair/board input/save migration pass
+FINAL_FOCUSED: 96 passed, 0 failed, 0 warnings

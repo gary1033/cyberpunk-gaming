@@ -44,7 +44,7 @@ func _run() -> void:
 			_check(not ds.character_name_label.text.is_empty(), "Character name fallback: " + character_id)
 			_check(ds.portrait_left.texture is AtlasTexture, "Character uses a headshot: " + character_id)
 			ds.end_dialogue()
-		for dialogue_id in ["ch2_branch_direction", "ch2_referral_number", "ch2_referral_reassigned", "ch2_referral_priority", "ch2_auction_batch", "ch2_auction_access", "ch2_auction_priority", "ch2_family_update", "ch2_memory_trade_choice", "ch2_ghost_trace", "ch2_ghost_followup", "ch3_hq_entry", "ch3_verify_public_sources", "ch3_review_public_record", "ch1_eye_ajie_statement", "ch1_ajie_retraction", "ch2_eye_market_claim", "ch2_eye_unsent_backup", "ch3_backup_permission", "ch3_grey_care_terms", "ch1_scan_grid", "ch2_scan_warehouse_batch", "ch2_scan_withdrawal_queue", "ch2_scan_dispatch_clock", "ch3_xiao_record_challenge", "ch3_scan_recovery_route", "ch3_scan_memory_anchor", "ch3_recovery_quiet", "ch2_archive_returned_index"]:
+		for dialogue_id in ["ch3_device_report", "ch3_ghost_support", "ch3_core_custody", "ch3_prepare_exit", "ch3_disable_corporate", "ch3_dr_xiao_confrontation", "ch2_ghost_identity_reveal", "ch3_hao_ran_aftercare", "ch2_branch_direction", "ch2_referral_number", "ch2_referral_reassigned", "ch2_referral_priority", "ch2_auction_batch", "ch2_auction_access", "ch2_auction_priority", "ch2_family_update", "ch2_memory_trade_choice", "ch2_ghost_trace", "ch2_ghost_followup", "ch3_hq_entry", "ch3_verify_public_sources", "ch3_review_public_record", "ch1_eye_ajie_statement", "ch1_ajie_retraction", "ch2_eye_market_claim", "ch2_eye_unsent_backup", "ch3_backup_permission", "ch3_grey_care_terms", "ch1_scan_grid", "ch2_scan_warehouse_batch", "ch2_scan_withdrawal_queue", "ch2_scan_dispatch_clock", "ch3_xiao_record_challenge", "ch3_scan_recovery_route", "ch3_scan_memory_anchor", "ch3_recovery_quiet", "ch2_archive_returned_index"]:
 			gm.set_decision("market_claim_resolution", "bounded")
 			gm.set_decision("backup_handling", "sealed")
 			gm.set_decision("ghost_identity_choice", "expose")
@@ -80,7 +80,7 @@ func _run() -> void:
 				_check(ds.choices_scroll.get_global_rect().grow(0.5).encloses(buttons[-1].get_global_rect()), "Fourth choice reachable by scrolling")
 			if "--render-check" in OS.get_cmdline_user_args():
 				RenderingServer.force_draw(false)
-				var folder := "res://docs/verification/chapter_branches_2026_09_09"
+				var folder := "res://docs/verification/V0.3/layout"
 				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder))
 				_check(view.get_texture().get_image().save_png(folder + "/" + config[2] + "_" + dialogue_id + ".png") == OK, "Screenshot saved")
 			ds.end_dialogue()
@@ -91,7 +91,7 @@ func _run() -> void:
 		_check(ds._story_cg_overlay.visible and ds._story_cg_overlay.texture != null, "Ending uses the generated CG")
 		if "--render-check" in OS.get_cmdline_user_args():
 			RenderingServer.force_draw(false)
-			_check(view.get_texture().get_image().save_png("res://docs/verification/chapter_branches_2026_09_09/" + config[2] + "_public_cg.png") == OK, "Public CG screenshot saved")
+			_check(view.get_texture().get_image().save_png("res://docs/verification/V0.3/layout/" + config[2] + "_public_cg.png") == OK, "Public CG screenshot saved")
 		ds.end_dialogue()
 		scene._show_map()
 		await process_frame
@@ -106,7 +106,7 @@ func _run() -> void:
 		_check(scroll.get_global_rect().grow(1).encloses(scroll.get_child(0).get_children()[-1].get_global_rect()), "Map cancel remains reachable")
 		if "--render-check" in OS.get_cmdline_user_args():
 			RenderingServer.force_draw(false)
-			view.get_texture().get_image().save_png("res://docs/verification/chapter_branches_2026_09_09/" + config[2] + "_map.png")
+			view.get_texture().get_image().save_png("res://docs/verification/V0.3/layout/" + config[2] + "_map.png")
 		view.queue_free()
 		await process_frame
 		for sample in [[2, "referral_waiting_station"], [2, "auction_handover_room"], [1, "abyss_bar"], [1, "east_district_street"], [2, "bitstorm_cafe"], [2, "memory_black_market"], [2, "abandoned_warehouse"], [2, "zhengtek_exterior"], [2, "civic_archive"], [3, "secret_lab"], [3, "memory_space"], [3, "recovery_annex"]]:
@@ -141,7 +141,7 @@ func _run() -> void:
 			_check(not marker.get_global_rect().intersects(map_scene._augmented_vision.energy_bar.get_global_rect()), "Scan marker avoids energy HUD: " + str(sample[1]) + " " + str(config[2]))
 			if "--render-check" in OS.get_cmdline_user_args():
 				RenderingServer.force_draw(false)
-				_check(map_view.get_texture().get_image().save_png("res://docs/verification/chapter_branches_2026_09_09/" + config[2] + "_" + sample[1] + ".png") == OK, "New location screenshot saved")
+				_check(map_view.get_texture().get_image().save_png("res://docs/verification/V0.3/layout/" + config[2] + "_" + sample[1] + ".png") == OK, "New location screenshot saved")
 			if sample[1] == "civic_archive":
 				for chapter in [1, 2, 3]:
 					for place in CaseData.get_chapter_data(chapter).locations.values():
@@ -160,7 +160,25 @@ func _run() -> void:
 				_check(journal_scroll.get_global_rect().grow(1).encloses(journal_scroll.get_child(0).get_children()[-1].get_global_rect()), "Journal return button remains reachable")
 				if "--render-check" in OS.get_cmdline_user_args():
 					RenderingServer.force_draw(false)
-					_check(map_view.get_texture().get_image().save_png("res://docs/verification/chapter_branches_2026_09_09/" + config[2] + "_scan_journal.png") == OK, "Journal screenshot saved")
+					_check(map_view.get_texture().get_image().save_png("res://docs/verification/V0.3/layout/" + config[2] + "_scan_journal.png") == OK, "Journal screenshot saved")
+			if sample[1] == "secret_lab":
+				gm.set_dialogue_flag("hao_ran_rescued", false)
+				gm.set_dialogue_flag("xiao_confronted", false)
+				gm.set_dialogue_flag("hq_entry_resolved")
+				gm.set_dialogue_flag("memory_corridor_aligned")
+				map_scene._show_story_actions()
+				await process_frame
+				await process_frame
+				await process_frame
+				var investigation: Control = map_scene.get_node("StoryActions").get_child(1).get_child(0)
+				_check(Rect2(Vector2.ZERO, Vector2(config[1])).encloses(investigation.get_global_rect()), "Freedom objectives and actions fit the viewport")
+				var investigation_scroll: ScrollContainer = investigation.get_child(0).get_child(0)
+				investigation_scroll.scroll_vertical = 10000
+				await process_frame
+				_check(investigation_scroll.get_global_rect().grow(1).encloses(investigation_scroll.get_child(0).get_children()[-1].get_global_rect()), "Freedom menu cancel is reachable below the objectives")
+				if "--render-check" in OS.get_cmdline_user_args():
+					RenderingServer.force_draw(false)
+					_check(map_view.get_texture().get_image().save_png("res://docs/verification/V0.3/layout/" + config[2] + "_freedom_menu.png") == OK, "Freedom menu screenshot saved")
 			map_view.queue_free()
 			await process_frame
 	root.get_node("AudioManager").stop_bgm(false)
