@@ -1,0 +1,143 @@
+{
+  "version": "0.3",
+  "date": "2026-09-19",
+  "stage": "Xiao evidence follow-up",
+  "dialogues": [
+    "ch3_scan_override_console",
+    "ch3_xiao_record_challenge",
+    "ch3_dr_xiao_confrontation"
+  ],
+  "outside_scope_unchanged": true,
+  "scan_and_initial_confrontation_text_only": true,
+  "dialogue_sha256": "e2ff9d17cb27c545665a5533519b929b680b3a555783da098f5fba364e95b008",
+  "changes": [
+    "three dialogue groups",
+    "two alternative follow-up questions",
+    "one mid-question exit",
+    "admission flag moved from question selection to spoken admission",
+    "no new save fields or ending requirements"
+  ],
+  "data_checks": {
+    "passed": 21,
+    "failed": 0,
+    "warnings": 0
+  },
+  "branch_checks": 168,
+  "xiao_fixtures": {
+    "count": 12,
+    "dimensions": [
+      "rescued / not rescued",
+      "archive none / frozen / observed",
+      "controls / receipt question"
+    ],
+    "state_roundtrip": "serialized save dictionary, not disk save",
+    "checks": [
+      "funding alone does not resolve",
+      "mid-question exit leaves state unchanged",
+      "resume after state roundtrip",
+      "chosen answer only",
+      "admission completes only at actual answer",
+      "preserve rescue and evidence",
+      "archive-specific reaction"
+    ],
+    "additional_check": "disputed remains available"
+  },
+  "playthrough": {
+    "count": 7,
+    "passed": true,
+    "scope": "real new-game routes with both objective orders and disk save/load",
+    "routes": [
+      {
+        "ending": "ending_a_justice",
+        "first_objective": "rescue",
+        "xiao_accountability": "disputed",
+        "followups": [
+          "challenge_funding",
+          "challenge_disputed"
+        ]
+      },
+      {
+        "ending": "ending_b_grey_deal",
+        "first_objective": "evidence",
+        "xiao_accountability": "disputed",
+        "followups": [
+          "challenge_funding",
+          "challenge_disputed"
+        ]
+      },
+      {
+        "ending": "ending_c_memory_rebirth",
+        "first_objective": "evidence",
+        "xiao_accountability": "admitted",
+        "followups": [
+          "challenge_funding",
+          "challenge_admitted",
+          "challenge_controls"
+        ]
+      },
+      {
+        "ending": "ending_c_memory_rebirth",
+        "first_objective": "rescue",
+        "xiao_accountability": "disputed",
+        "followups": [
+          "challenge_funding",
+          "challenge_disputed"
+        ]
+      },
+      {
+        "ending": "ending_a_justice",
+        "first_objective": "evidence",
+        "xiao_accountability": "admitted",
+        "followups": [
+          "challenge_funding",
+          "challenge_admitted",
+          "challenge_controls"
+        ]
+      },
+      {
+        "ending": "ending_b_grey_deal",
+        "first_objective": "evidence",
+        "xiao_accountability": "admitted",
+        "followups": [
+          "challenge_funding",
+          "challenge_admitted",
+          "challenge_controls"
+        ]
+      },
+      {
+        "ending": "ending_c_memory_rebirth",
+        "first_objective": "evidence",
+        "xiao_accountability": "none",
+        "followups": []
+      }
+    ]
+  },
+  "pagination": {
+    "checks": 10772,
+    "audit": {
+      "choice_checks": 744,
+      "dialogues": 98,
+      "entry_checks": 1776,
+      "failures": [],
+      "forced_splits": [],
+      "pages": 1867
+    },
+    "configurations": [
+      "1280x720 desktop",
+      "1280x720 mobile mode",
+      "854x480 mobile mode"
+    ]
+  },
+  "not_rerun": [
+    "full integrity suite",
+    "18 freedom matrix",
+    "GPU screenshots",
+    "physical device playtest"
+  ],
+  "exported_windows_package": false,
+  "source_hashes": {
+    "scripts\\data\\dialogue_data.gd": "e2ff9d17cb27c545665a5533519b929b680b3a555783da098f5fba364e95b008",
+    "tests\\test_eagle_eye_branches.gd": "e289f7e8a9e40929e791a70bddb34d800d3a4f43a9ee15ba0c9ebc64f7030ad7",
+    "tests\\test_data_integrity.py": "9d27be034601f008fa052701df3b6ad0d7970c98005bbb68187c270e7f88ee9e"
+  }
+}

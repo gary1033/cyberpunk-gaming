@@ -1,0 +1,175 @@
+--- before/scripts/data/dialogue_data.gd
++++ after/scripts/data/dialogue_data.gd
+@@ -101,7 +101,7 @@
+ "ch2_branch_direction": [
+     {
+       "speaker": "kid",
+-      "text": "兩邊都是今晚的窗口。最後一份資料交接完，另一邊就收件了。你可以現在換方向，已經交出去的東西可不會跟著回來。",
++      "text": "兩邊都是今晚的窗口。最後一份資料交接完，另一邊就停止收件。你可以現在換方向，已經交出去的東西可不會跟著回來。",
+       "choices": [
+         {
+           "text": "改查交割後室：只辦限用引介，不交家庭備份。",
+@@ -452,13 +452,13 @@
+     },
+     {
+       "speaker": "kai",
+-      "text": "帳頁的來源與交接簽收一起封好。門外引擎已經遠了，我只記到下一個派送站。今晚轉介窗口也收件了；之後用這條文件線繼續查。",
++      "text": "帳頁的來源與交接簽收一起封好。門外引擎已經遠了，我只記到下一個派送站。今晚轉介窗口已停止收件；之後用這條文件線繼續查。",
+       "label": "market_ledger",
+       "next": "end"
+     },
+     {
+       "speaker": "kai",
+-      "text": "我在門內核對車次與接收站，沒有追出去。帳頁只保住能驗證的幾欄；設備去向另存。今晚轉介窗口收件了，原本的離線照護仍會接手。",
++      "text": "我在門內核對車次與接收站，沒有追出去。帳頁只保住能驗證的幾欄；設備去向另存。今晚轉介窗口已停止收件，原本的離線照護仍會接手。",
+       "label": "market_dispatch",
+       "next": "end"
+     }
+@@ -648,7 +648,7 @@
+ 			{"speaker": "hao_ran", "mood": "hopeful", "requires_decisions": {"backup_handling": "sealed"}, "text": "謝謝你沒替我打開。我願意讓陳醫師只看家用修復片段，不准拿去公開，也不保證我想起來會比較好。或者先把封存檔還我，我改天再決定。"},
+ 			{"speaker": "hao_ran", "mood": "confused", "requires_decisions": {"backup_handling": "copied"}, "text": "你先聽過了，現在才問我。把檔案還我，刪掉你留的副本；我暫時不授權你把它交給任何醫師。"},
+ 			{"speaker": "hao_ran", "mood": "dazed", "requires_decisions": {"backup_handling": "discarded"}, "text": "既然私人快取已經刪了，就不要說還能交回來。我們從現在能留下的紀錄開始，先照顧好今天。"},
+-			{"speaker": "kai", "text": "備份怎麼處理，不會改變救援已完成，也不會替浩然保證恢復。", "choices": [
++			{"speaker": "kai", "text": "聽清楚了。怎麼保管，照你的意思辦。", "choices": [
+ 				{"text": "依本人同意，交給陳醫師限用途照護。", "next": "custody_clinic", "requires_decisions": {"backup_handling": "sealed"}, "set_flag": "backup_custody_resolved", "set_decision": {"backup_custody": "clinic"}, "affinity": {"hao_ran": 2}},
+ 				{"text": "將密封備份交還本人。", "next": "custody_owner", "requires_decisions": {"backup_handling": "sealed"}, "set_flag": "backup_custody_resolved", "set_decision": {"backup_custody": "owner"}},
+ 				{"text": "承認越界，交還並刪除私留副本。", "next": "custody_owner", "requires_decisions": {"backup_handling": "copied"}, "set_flags": ["backup_custody_resolved", "backup_copy_deleted"], "set_decision": {"backup_custody": "owner"}},
+@@ -657,7 +657,7 @@
+ 			], "next": "end"},
+ 			{"label": "custody_clinic", "speaker": "hao_ran", "mood": "hopeful", "text": "授權只到家用修復片段，每次使用先問我。我也可以叫停。這樣我才知道，那段聲音還是我的。", "next": "end"},
+ 			{"label": "custody_owner", "speaker": "hao_ran", "mood": "dazed", "text": "檔案留在我手上，今天不打開。至於案件要不要作證，我會另外回答；保管備份不是作證同意。", "next": "end"},
+-			{"label": "custody_absent", "speaker": "kai", "text": "照護紀錄註明私人快取已刪除，不虛構交接。之後的每次嘗試都重新詢問浩然。", "next": "end"}
++			{"label": "custody_absent", "speaker": "kai", "text": "那就從今天記。下次要留什麼，我先問你。", "next": "end"}
+ 		],
+ 		"ch3_grey_care_terms": [
+ 			{"speaker": "snake", "mood": "serious", "text": "若你最後選擇沉默換照護，先談清楚誰能控制回診。條款現在可以準備，到屋頂作最後決定才生效；你仍能選公開或恢復記憶。", "choices": [
+@@ -703,11 +703,11 @@
+ 			{
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+ 				"clear_cg": true,
+-				"text": "川崎凱先生？我剛從舊城警署過來。等了四個小時，他們還是叫我回家。你這裡……還接委託嗎？"
++				"text": "川崎凱先生？我弟弟林浩然，三天沒消息了。我在舊城警署等了四個小時，他們還是叫我回家。你這裡……還接委託嗎？"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+-				"text": "接。先說是什麼事。",
++				"text": "接。你慢慢說。",
+ 				"choices": [
+ 					{"text": "先坐下，把你知道的照順序說。", "next": "mei_ling_case_intro", "affinity": {"mei_ling": 1}},
+ 					{"text": "如果只是家人失聯，我不一定接。", "next": "mei_ling_prove_case", "affinity": {"mei_ling": -1}},
+@@ -717,7 +717,7 @@
+ 			{
+ 				"label": "mei_ling_case_intro",
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+-				"text": "我弟弟，林浩然。三天沒消息了。他在東區開了一間記憶工作室，叫永恆記憶。警察說他是成年人，也許只是想出去幾天。"
++				"text": "他在東區開了一間記憶工作室，叫永恆記憶。警察說他是成年人，也許只是想出去幾天。"
+ 			},
+ 			{
+ 				"label": "mei_ling_prove_case",
+@@ -986,7 +986,7 @@
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+-				"text": "七分鐘。剛好能讓一個人從公寓外被帶走，也剛好能讓一通電話失去來源。"
++				"text": "七分鐘的空白。單靠這個，還看不出是誰被帶走，也看不出去了哪裡。"
+ 			},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+@@ -1210,7 +1210,7 @@
+ 			},
+ 			{
+ 				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "worried", "portrait_side": "left",
+-				"text": "我看過這種握手協定。鄭泰早期義眼維修用的，後來被禁掉，因為外部設備可以把它叫醒。"
++				"text": "我看過這種握手協定。正和早期義眼維修用的，後來被禁掉，因為外部設備可以把它叫醒。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+@@ -1356,7 +1356,7 @@
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "第一章的答案不是浩然在哪裡，而是浩然為什麼選我。第二章，入口已經分岔。",
++				"text": "他知道我的義眼能讀這些東西。接下來，得查清楚是誰把他帶走。",
+ 				"choices": [
+ 					{"text": "追查蛇女提供的黑市拍賣入口。", "next": "route_black_market", "requires_flag": "accepted_snake_deal"},
+ 					{"text": "沿著 Dr. 陳的義眼警告追查。", "next": "route_clinic", "requires_flag": "rejected_snake_deal"},
+@@ -1373,14 +1373,14 @@
+ 			{
+ 				"label": "route_clinic",
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "Dr. 陳會從網咖聯絡你。下一步去離線轉介等候站查人的去向；你沒有交出晶片，但得從被退回的求助裡逐項核對。",
++				"text": "Dr. 陳會從網咖聯絡你。下一步去離線轉介等候站查人的去向；你沒有把副本交給蛇女，得從被退回的求助裡逐項核對。",
+ 				"set_flags": ["chapter_1_complete", "chapter_1_route_chosen"],
+ 				"set_decision": {"chapter_1_complete": true, "chapter_1_route_chosen": "clinic"}, "next": "end"
+ 			},
+ 			{
+ 				"label": "route_unresolved",
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "路線還沒分岔。資料晶片要不要交給蛇女，必須先在深淵酒吧做決定；否則第二章只是另一個沒有出口的走廊。"
++				"text": "蛇女還在等答覆。先回深淵酒吧；要不要拿晶片副本換入口，當面說清楚。"
+ 			}
+ 		],
+ 
+@@ -1436,7 +1436,7 @@
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "你不是第一次看見這種握手。只是第一次有人把它留在我的義眼裡。",
++				"text": "別的病人也有……這套協定為什麼還在我的義眼裡？",
+ 				"give_evidence": "clinic_anonymous_case_note",
+ 				"set_flag": "clinic_anonymous_case_note_found"
+ 			}
+@@ -1450,7 +1450,7 @@
+ {"speaker": "dr_chen", "text": "離線等候站還在收件。先核對叫號與簽收，再去市政檔案室查改派。我在電話這頭等你。", "requires_chapter_route": "clinic"},{"speaker": "snake", "text": "交割後室的門今晚開著。引介只管那一道門；要不要具名查表，等你看清價錢再說。", "requires_chapter_route": "black_market"},{"speaker": "kid", "text": "換方向可以在網咖找我。等最後一份交接完成，另一邊今晚的窗口就收了；沒有暗中倒數，你決定交接時我會再提醒。"},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "第一章的線索指向了一個叫「回聲網路」的地下組織。你需要找到進入記憶黑市的方法。"
++				"text": "浩然留下的訊號、被遮去姓名的紀錄，都指向回聲網路。你得沿著交接紀錄，查出他最後被送去了哪裡。"
+ 			},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+@@ -1463,7 +1463,7 @@
+ 			},
+ 			{
+ 				"speaker": "dr_chen", "name": "Dr. 陳", "mood": "nervous", "portrait_side": "left", "requires_flag": "rejected_snake_deal",
+-				"text": "你沒交出晶片，至少原件還在。去比特風暴找小鬼做離線協定檢查；不要上傳記憶。若不願再接線，下水道的倉庫也是一條路。",
++				"text": "你沒把副本給蛇女，這條線暫時還沒經過她的手。去比特風暴找小鬼做離線協定檢查；不要上傳記憶。若不願再接線，下水道的倉庫也是一條路。",
+ 				"next": "end"
+ 			}
+ 		],
+@@ -2231,7 +2231,7 @@
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "公開還需要趙明的署名與舉報包；若一再拿人和真相交易，這條線便撐不住。記憶恢復需要看完三段記憶、理解代價並同意融合。可走的路，現在由我選。",
++				"text": "趙明肯署名，原件也核對過，公開才有憑據。做過的交易得一起交代。至於恢復記憶……看完那三段，再決定要不要接受融合。",
+ 				"choices": [
+ 					{"text": "公開罪證，承擔追責。", "next": "rooftop_public", "requires_ending": "ending_a_justice", "requires_missing_flags": ["final_choice_resolved"], "set_flag": "final_choice_resolved", "set_decision": {"final_resolution": "public"}},
+ 					{"text": "交易真相，換取安全。", "next": "rooftop_deal", "requires_ending": "ending_b_grey_deal", "requires_missing_flags": ["final_choice_resolved"], "set_flag": "final_choice_resolved", "set_decision": {"final_resolution": "deal"}},
+@@ -2701,7 +2701,7 @@
+ 		"ch3_verify_public_sources": [
+ 			{
+ 				"speaker": "zhao_ming",
+-				"text": "帳本可以指路，卻不能單獨證明命令來自誰。趙明開啟與市場資料分開保管的稽核紀錄：授權摘要、付款批次、實驗設備簽署時間。",
++				"text": "光靠帳本還不夠。我把另外保管的稽核紀錄調出來了：授權摘要、付款批次，還有設備簽署時間。拿原件一筆一筆對。",
+ 				"mood": "determined"
+ 			},
+ 			{
+@@ -2804,7 +2804,7 @@
+ 			{"speaker": "narrator", "text": "【正義之光・帶罪揭露】你把自己的交易與資料處置一併交出。調查者收下企業罪證，也約了下一次向你詢問的時間。", "requires_public_liability": true},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "趙明送出署名舉報包。媒體收到遮蔽受害者私密內容的副本，調查者則能核驗封存原件。你們連自己的交易與參與紀錄也一併交出。"
++				"text": "趙明送出署名舉報包。媒體收到遮蔽受害者私密內容的副本，調查者則能核驗封存原件。你們各自的行動紀錄也附在後面。"
+ 			},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+@@ -2824,7 +2824,7 @@
+ 			},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "浩然回到了美玲身邊，雖然他需要很長時間才能恢復。而你，九龍延伸區最不起眼的偵探，證明了一個人也能改變什麼。"
++				"text": "浩然回到了美玲身邊。復健的日子還長，她在行事曆上記下了下一次回診的時間。"
+ 			},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",

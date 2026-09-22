@@ -1,0 +1,234 @@
+{
+  "version": "0.3",
+  "date": "2026-09-19",
+  "engine": "Godot 4.6.1",
+  "exported_windows_package": false,
+  "full_suite": {
+    "passed": 945,
+    "failed": 0,
+    "warnings": 0,
+    "stage": "Core implementation. Subsequent presentation and private-inference refinements were checked below."
+  },
+  "focused_after_refinement": {
+    "passed": 96,
+    "failed": 0,
+    "warnings": 0
+  },
+  "final_investigation": {
+    "assertions": 1007,
+    "passed": true,
+    "scope": [
+      "nine opening combinations",
+      "bar revisit",
+      "legacy clue recovery",
+      "four isolated branches",
+      "three hypotheses plus no prior hypothesis",
+      "private overreach correction",
+      "real disk save/load",
+      "mouse wheel and pointer selection",
+      "emulated native touch tap/drag",
+      "1280x720,854x480,390x844",
+      "legacy duplicate-pair migration"
+    ]
+  },
+  "final_pagination": {
+    "checks": 10669,
+    "audit": {
+      "choice_checks": 732,
+      "dialogues": 98,
+      "entry_checks": 1755,
+      "failures": [],
+      "forced_splits": [],
+      "pages": 1845
+    }
+  },
+  "routes": {
+    "baseline": {
+      "count": 7,
+      "routes": [
+        {
+          "ending": "ending_a_justice",
+          "entry": "ghost",
+          "first_objective": "rescue",
+          "evidence_count": 38
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "independent",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "independent",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_a_justice",
+          "entry": "ghost",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "independent",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        }
+      ]
+    },
+    "freedom": {
+      "count": 18,
+      "routes": [
+        {
+          "ending": "ending_a_justice",
+          "entry": "ghost",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "ghost",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "ghost",
+          "first_objective": "rescue",
+          "evidence_count": 38
+        },
+        {
+          "ending": "ending_a_justice",
+          "entry": "ghost",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "ghost",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "ghost",
+          "first_objective": "evidence",
+          "evidence_count": 38
+        },
+        {
+          "ending": "ending_a_justice",
+          "entry": "corporate",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "corporate",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "corporate",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_a_justice",
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "corporate",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_a_justice",
+          "entry": "independent",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "independent",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "independent",
+          "first_objective": "rescue",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_a_justice",
+          "entry": "independent",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_b_grey_deal",
+          "entry": "independent",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        },
+        {
+          "ending": "ending_c_memory_rebirth",
+          "entry": "independent",
+          "first_objective": "evidence",
+          "evidence_count": 36
+        }
+      ]
+    }
+  },
+  "board_render": {
+    "renderer": "OpenGL 3.3 Compatibility, NVIDIA RTX 3060 Ti",
+    "images": [
+      "1280x720_bottom.png",
+      "1280x720_top.png",
+      "390x844_bottom.png",
+      "390x844_top.png",
+      "854x480_bottom.png",
+      "854x480_top.png"
+    ],
+    "fixture": "45 definitions injected solely for UI stress; not a claim that a normal route obtains all 45."
+  },
+  "runtime_source_sha256": {
+    "project.godot": "b3a303aa91e408e3892c9021098cc2b86914c8bacb624a20f378eac0fdcd67b1",
+    "scripts/core/game_manager.gd": "d629ab8f80be44bcc50086463184cf9cf29821b9ab8fef9b1c5ad41cc2b0755a",
+    "scripts/data/case_data.gd": "2fcac23a70b368d4584a312a168fe83b9ce6d1a17a12bbc99d9e9e42383e6ef7",
+    "scripts/data/dialogue_data.gd": "848d370caeb3daf5a346d565addcd0efe1385653dfed40474ebfd1967ed65235",
+    "scripts/gameplay/evidence_board.gd": "83cb0f0babf50bbc143b89da6e26d9f333f32352299f3138b4e1ebdc1fc911eb",
+    "scripts/ui/location_base.gd": "7ac5aa766ccecd3908cdbf0b8a59bb5df4ddcea790a5bed33954ac55cdad2d79",
+    "tests/test_investigation_flow.gd": "f8b509f9e71dd852fd043f1301a608a9bef86be93c88fa2d1d95e7598bf3bd32"
+  },
+  "limitations": [
+    "No human playtest or physical phone verification.",
+    "No new Windows ZIP, commit or push.",
+    "Xiao confrontation and cross-chapter event expansions remain deferred."
+  ],
+  "touch_test_reference": "https://docs.godotengine.org/en/stable/classes/class_displayserver.html#class-displayserver-method-is-touchscreen-available"
+}

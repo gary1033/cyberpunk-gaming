@@ -1,0 +1,7 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+RELEASE_V04_PASS
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2641)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:810)

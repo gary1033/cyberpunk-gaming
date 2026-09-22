@@ -1,0 +1,34 @@
+{
+  "note_links": 17,
+  "dialogue_ids": 13,
+  "runtime_tokens": 29,
+  "mermaid_blocks": 3,
+  "missing_links": [],
+  "missing_ids": [],
+  "text_only_confirmed": true,
+  "changed_lines": {
+    "scripts/data/dialogue_data.gd": 20,
+    "scripts/data/evidence_data.gd": 6
+  },
+  "rendered_in_obsidian": false,
+  "changed_dialogue_groups": [
+    "ch2_branch_direction",
+    "ch2_auction_priority",
+    "ch3_backup_permission",
+    "ch1_mei_ling_intro",
+    "ch1_street_camera_gap",
+    "ch1_dr_chen_clinic_followup",
+    "ch1_three_evidence_inference",
+    "ch1_clinic_anonymous_case_note",
+    "ch2_opening",
+    "ch3_rooftop_choice",
+    "ch3_verify_public_sources",
+    "ending_a_justice"
+  ],
+  "final_source_sha256": {
+    "scripts/data/dialogue_data.gd": "d687e91b713973621f1c73f250bf2d413eb82c13e6e856e65607e73ba3b29db3",
+    "scripts/data/evidence_data.gd": "840e4e0efac7e2167cdbdb52a3e7985a27fd5b946f00d9231fa8bc092f53941e",
+    "tests/test_data_integrity.py": "b03b70b0350884135c5c7f34d071018e1d69da45d4c2f049f1ff395b5b221f96",
+    "tests/test_investigation_flow.gd": "d8c5a3704fa4bdd02d6175a4399f24ff3d38a0402e42ee9395db51a67b6aac0d"
+  }
+}

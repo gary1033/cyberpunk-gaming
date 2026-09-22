@@ -1,0 +1,170 @@
+--- before/dialogue_data.gd
++++ after/dialogue_data.gd
+@@ -607,19 +607,19 @@
+ 			{"label": "statement_retracted", "speaker": "kai", "text": "好。我在原紀錄後面加上更正，那個名字不再用了。逼你開口的事，我會交代。", "next": "end"}
+ 		],
+ 		"ch2_eye_market_claim": [
+-			{"speaker": "kai", "text": "鷹眼比對市場公開合約與你的交易紀錄。樣本報價權屬於面具商人，蛇女只有代理權；先前在酒吧談的晶片交易是另一筆。", "set_flag": "eye_market_claim_scanned"},
+-			{"speaker": "snake", "mood": "serious", "requires_decisions": {"memory_trade_method": "buy"}, "text": "你欠的是下一份線索的優先報價權，不是任意調閱你的腦袋。你找出的附頁可以限制範圍，也可以拿一份受害者聯絡路由來結清。"},
+-			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "intrude"}, "text": "你入侵過市場，留下裝置識別，但沒簽這筆報價權。我不能憑一個編號替你造債。眼前這張是新委託，你可以拒絕。"},
+-			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "refuse"}, "text": "你沒買樣本，沒有舊債。這次只是新委託：讓我先看你下一份非人身線索的報價，或者拿聯絡路由換企業承包照護的優先預約。"},
+-			{"speaker": "snake", "mood": "serious", "text": "限制條款會留下可核對的回執。交出路由則會讓市場找到受害者。拒絕新委託，不會抹掉你本來欠的東西。", "choices": [
++			{"speaker": "kai", "text": "簽章對上了。報價權在面具商人手裡，你替他談。酒吧那枚晶片，又算另一筆。", "set_flag": "eye_market_claim_scanned"},
++			{"speaker": "snake", "mood": "serious", "requires_decisions": {"memory_trade_method": "buy"}, "text": "你買過他的樣本，下次拿到線索，就得先讓他出價。不放心？把不能碰的寫進附頁。或者給他一份受害者的聯絡路由，這筆帳就結了。"},
++			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "intrude"}, "text": "你闖進去拿的，沒簽買賣。裝置碼他們留著，帳不能因此算到你頭上。今天這張，你可以不接。"},
++			{"speaker": "snake", "mood": "default", "requires_decisions": {"memory_trade_method": "refuse"}, "text": "上回沒買，當然不欠。今天另談：下份非人身線索先讓市場報價。或者，你給一份聯絡路由，我替你排企業承包的照護預約，往前排。"},
++			{"speaker": "snake", "mood": "serious", "text": "附頁談好，我給回執。路由交出去，市場就找得到那些人，這個你想清楚。不簽也行，舊帳有多少，還是多少。", "choices": [
+ 				{"text": "只給非人身線索的優先報價權。", "next": "claim_bounded", "set_flag": "market_claim_resolved", "set_decision": {"market_claim_resolution": "bounded"}},
+ 				{"text": "交出路由，換結清或照護預約。", "next": "claim_pledge", "requires_evidence": "victim_list", "set_flags": ["market_claim_resolved", "market_claim_pledged"], "set_decision": {"market_claim_resolution": "pledge"}, "affinity": {"snake": 2, "hao_ran": -2}},
+ 				{"text": "拒絕；舊債若存在就繼續保留。", "next": "claim_refuse", "set_flag": "market_claim_resolved", "set_decision": {"market_claim_resolution": "refuse"}},
+ 				{"text": "保存簽署核對，暫不答覆。", "next": "end"}
+ 			], "next": "end"},
+-			{"label": "claim_bounded", "speaker": "snake", "mood": "serious", "text": "受害者姓名、住處和私人記憶排除；報價不等於必須賣。原先買過樣本的帳仍存在，只是追討範圍固定了。到了總部若有人拿照護換你的沉默，你能用這份回執要求由獨立單位承接。", "next": "end"},
++			{"label": "claim_bounded", "speaker": "snake", "mood": "serious", "text": "姓名、住處、私人記憶，都劃掉。剩下的先報價，你還能不賣。買樣本欠的那筆若還在，就照這個範圍算。回執收好，往後有人拿照護跟你談沉默，你就拿它去談獨立接手。", "next": "end"},
+ 			{"label": "claim_pledge", "speaker": "narrator", "text": "你傳出聯絡路由。買過樣本的報價權就此結清；沒有這筆舊債的人，換到企業承包照護的優先預約。受害者多了一個知道如何找到他們的人，這次外流會進入公開行動紀錄。", "next": "end"},
+-			{"label": "claim_refuse", "speaker": "snake", "mood": "default", "text": "不加新條款。有買樣本就照舊欠著，沒簽過就沒有這筆債。我不替你提供獨立照護談判的回執。", "next": "end"}
++			{"label": "claim_refuse", "speaker": "snake", "mood": "default", "text": "好，這張作廢。樣本的舊帳照舊，沒買過就別管它。獨立照護的回執，我也就不給你了。", "next": "end"}
+ 		],
+ 		"ch2_eye_unsent_backup": [
+ 			{"speaker": "kid", "mood": "serious", "text": "用浩然日記的時間，對照你帶來的原始備份提示。我從網咖開啟那份離線映像，原始檔仍保留在你帶來的封存資料裡。"},
+@@ -1101,9 +1101,11 @@
+ 		],
+ 
+ 		"ch1_snake_data_chip_choice": [
++			{"speaker": "snake", "mood": "amused", "requires_flag": "snake_requested_data_chip", "text": "找到了？先別接讀取器。你上次說找到再談，我記得。"},
++			{"speaker": "snake", "mood": "amused", "requires_flag": "snake_broker_met", "requires_missing_flags": ["snake_requested_data_chip"], "text": "不是說不替我跑腿？坐吧。晶片還在你手上，肯坐下不算答應。"},
+ 			{
+ 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
+-				"text": "你手上的晶片聞起來像回聲網路。我要一份副本，給你一條入口。拒絕也可以，只是你得用自己的眼睛慢慢找。"
++				"text": "原件你留著。我取一份副本，替你弄到黑市拍賣的入口。回聲網路的東西在那裡轉手，你應該想去看看。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+@@ -1111,23 +1113,24 @@
+ 			},
+ 			{
+ 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+-				"text": "情報從來不免費。你現在要買的是速度，代價是誰先知道你在查這件事。",
+-				"choices": [
+-					{"text": "交出晶片副本，換黑市拍賣入口。", "next": "snake_trade_accept", "requires_missing_flags": ["rejected_snake_deal"], "set_flag": "accepted_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"accepted_snake_deal": true, "black_market_route_opened": true, "black_market_compromise_count": 1}, "affinity": {"snake": 2}},
+-					{"text": "拒絕交易，改走診所與義眼追查。", "next": "snake_trade_reject", "requires_missing_flags": ["accepted_snake_deal"], "set_flag": "rejected_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"rejected_snake_deal": true, "clinic_route_opened": true}, "affinity": {"snake": -1}}
++				"text": "我會拿去問價，不保證只給你一個人看。你要是不願意，晶片收好。我也省得白忙。",
++				"choices": [
++					{"text": "交出可被轉手的副本，換拍賣入口（留下交易紀錄）。", "next": "snake_trade_accept", "requires_missing_flags": ["rejected_snake_deal"], "set_flag": "accepted_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"accepted_snake_deal": true, "black_market_route_opened": true, "black_market_compromise_count": 1}, "affinity": {"snake": 2}},
++					{"text": "拒絕交易，改走診所與義眼追查。", "next": "snake_trade_reject", "requires_missing_flags": ["accepted_snake_deal"], "set_flag": "rejected_snake_deal", "set_flags": ["snake_data_chip_choice_resolved"], "set_decision": {"rejected_snake_deal": true, "clinic_route_opened": true}, "affinity": {"snake": -1}},
++					{"text": "晶片先收起來，之後再談（暫不選路線）。", "next": "end"}
+ 				]
+ 			},
+ 			{
+ 				"label": "snake_trade_accept",
+ 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
+-				"text": "下一場交割前，你會收到拍賣邀請。記得，拍賣場賣的不是物品，是人們以為自己還擁有的過去。",
++				"text": "副本收到了。下一場交割前，邀請會送到你手上。進去先看貨，別一開口就找人。",
+ 				"set_flag": "black_market_route_opened",
+ 				"next": "end"
+ 			},
+ 			{
+ 				"label": "snake_trade_reject",
+ 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+-				"text": "也行。去找會替義眼擦血的人吧。只是診所能告訴你的，通常是你已經受傷之後的事。",
++				"text": "那就收好。你那隻眼睛，陳醫師倒是能看看。拍賣的入口，這次我就不替你安排了。",
+ 				"set_flag": "clinic_route_opened"
+ 			}
+ 		],
+@@ -1136,11 +1139,11 @@
+ 		"ch1_snake_encounter": [
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "酒吧角落的卡座裡，一個戴著蛇形面具的女人正悠閒地抽著電子菸。她注意到了你。"
++				"text": "角落的女人戴著蛇形面具。你走近卡座，她把電子菸擱在杯墊旁，挪開對面的椅子。"
+ 			},
+ 			{
+ 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+-				"text": "偵探先生，在找什麼有趣的東西嗎？"
++				"text": "坐。站在那裡，阿傑會以為我又替他攬客。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+@@ -1148,7 +1151,7 @@
+ 			},
+ 			{
+ 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
+-				"text": "凱·川崎，前正和科技安全調查員。在情報圈裡，你的名字偶爾會被提起。",
++				"text": "凱·川崎。正和出來的，現在自己接案。我做這行，總得認得幾張臉。",
+ 				"choices": [
+ 					{"text": "你知道林浩然的事嗎？", "next": "snake_info"},
+ 					{"text": "你是什麼人？", "next": "snake_intro"},
+@@ -1158,12 +1161,12 @@
+ 			{
+ 				"label": "snake_intro",
+ 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+-				"text": "叫我蛇女就好。我做的是情報生意——用正確的價格，買正確的消息。"
++				"text": "叫蛇女就行。有人找消息，有人急著脫手，我替兩邊搭個線，抽一點。"
+ 			},
+ 			{
+ 				"label": "snake_info",
+ 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
+-				"text": "記憶技師？有趣。最近地下市場確實流傳著一些...新鮮的商品。",
++				"text": "浩然，那個記憶技師。最近市場多了一批貨，也許跟他有關。你別急著點頭，我還沒說價錢。",
+ 				"choices": [
+ 					{"text": "什麼商品？", "next": "snake_deal"},
+ 					{"text": "直說吧，你要什麼交換條件？", "next": "snake_deal"}
+@@ -1172,7 +1175,7 @@
+ 			{
+ 				"label": "snake_deal",
+ 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+-				"text": "幫我一個小忙。浩然的工作室裡有一個加密數據晶片。等你真的拿到它，再來談你願意用什麼代價換入口。",
++				"text": "他工作室裡有一枚加密晶片，我要看那個。你本來也得去找他，順路留意一下。拿到手，我們再談拍賣入口。",
+ 				"choices": [
+ 					{"text": "我會先找到晶片，再決定要不要交易。", "next": "snake_deal_accept", "set_flags": ["snake_broker_met", "snake_requested_data_chip"], "affinity": {"snake": 1}},
+ 					{"text": "我不替情報販子跑腿。", "next": "snake_deal_reject", "set_flag": "snake_broker_met", "affinity": {"snake": -1}},
+@@ -1181,13 +1184,13 @@
+ 			{
+ 				"label": "snake_deal_accept",
+ 				"speaker": "snake", "name": "蛇女", "mood": "amused", "portrait_side": "left",
+-				"text": "謹慎比忠誠值錢。去浩然的工作室找到那個晶片，我們再見面；到時候你會知道自己想買的是速度，還是乾淨。",
++				"text": "好，只算你肯去找。東西拿回來以前，我不替你留入口，也不算你欠我的。",
+ 				"next": "end"
+ 			},
+ 			{
+ 				"label": "snake_deal_reject",
+ 				"speaker": "snake", "name": "蛇女", "mood": "default", "portrait_side": "left",
+-				"text": "那真可惜。不過拒絕第一次報價的人，通常只是還沒看見時間多貴。如果改變主意，你知道在哪找我。"
++				"text": "那真可惜。椅子不用替我推回來，等會兒還有人。真拿到晶片，再來也行。"
+ 			}
+ 		],
+ 
+@@ -1707,9 +1710,9 @@
+ 		"ch2_memory_trade_choice": [
+ 			{
+ 				"speaker": "mask_merchant", "name": "面具商人", "mood": "interested", "portrait_side": "left",
+-				"text": "一份來源不公開的樣本，附倉庫地址。現在不收錢，記在你的身份上；將來的真相要給市場優先出價。這些抵押一再累積，日後的公開舉報就會失去可信度。",
+-				"choices": [
+-					{"text": "買下線索：留下交易債。", "next": "trade_buy", "requires_missing_flags": ["market_trade_resolved"], "set_flag": "market_trade_resolved", "set_decision": {"memory_trade_method": "buy"}, "add_decision": {"black_market_compromise_count": 1}, "give_evidence": "warehouse_map"},
++				"text": "樣本帶倉庫地址，來源不開放查詢。今天不用付款，留個身份就好。下次拿到線索，先讓我們報價。交易都會記帳，您往後要公開查案經過，這筆也在裡面。",
++				"choices": [
++					{"text": "買樣本與地址（欠優先報價權，增加交易紀錄）。", "next": "trade_buy", "requires_missing_flags": ["market_trade_resolved"], "set_flag": "market_trade_resolved", "set_decision": {"memory_trade_method": "buy"}, "add_decision": {"black_market_compromise_count": 1}, "give_evidence": "warehouse_map"},
+ 					{"text": "侵入樣本：暴露身份並承受污染。", "next": "trade_intrude", "requires_missing_flags": ["market_trade_resolved"], "set_flags": ["market_trade_resolved", "identity_exposed_market"], "set_decision": {"memory_trade_method": "intrude"}, "add_decision": {"eagle_eye_overuse_count": 1}, "give_evidence": "trade_ledger"},
+ 					{"text": "拒絕：到倉庫另找線索。", "next": "trade_refuse", "requires_missing_flags": ["market_trade_resolved"], "set_flag": "market_trade_resolved", "set_decision": {"memory_trade_method": "refuse"}},
+ 					{"text": "先離開交易台。", "next": "end"}
+@@ -1718,17 +1721,17 @@
+ 			},
+ 			{
+ 				"label": "trade_buy", "speaker": "mask_merchant", "name": "面具商人", "mood": "default", "portrait_side": "left",
+-				"text": "樣本與地址歸你。欠款不是數字，是一次優先交易權。若日後選擇公開，你也得公開自己在這裡買過什麼。",
++				"text": "收好了，樣本和地址都在。下一份線索先來問價，記在這個身份底下。有人來查這筆買賣，我們也按帳回答。",
+ 				"give_evidence": "memory_sample", "next": "end"
+ 			},
+ 			{
+ 				"label": "trade_intrude", "speaker": "kai", "name": "凱", "mood": "surprised", "portrait_side": "right",
+-				"text": "陌生人的疼痛擠進義眼，帳本卻也留下了轉運編號。終端亮起我的真實裝置識別碼。這份副本拿到了；我和樣本的主人都沒有同意這次提取。",
++				"text": "（疼……這是誰的記憶？）帳本複製下來了，轉運編號也在。糟了，終端上那串是我的裝置碼。",
+ 				"give_evidence": "memory_sample", "next": "end"
+ 			},
+ 			{
+ 				"label": "trade_refuse", "speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "不拿別人的記憶抵價。幽靈還在後方通道；網咖的下水道也能到倉庫。少一條捷徑，案子還查得下去。",
++				"text": "不用包了，我不買。後面還有個幽靈要找。真問不出來，我從網咖的下水道去倉庫。",
+ 				"next": "end"
+ 			}
+ 		],

@@ -1,0 +1,316 @@
+--- before/dialogue_data.gd
++++ after/dialogue_data.gd
+@@ -550,61 +550,61 @@
+ 			{"label": "anchor_private", "speaker": "kai", "text": "信封寫著今天的日期。我只寫自己現在知道的事，沒有替醒來的人下命令。罪證另行封存；這封信不是案件原件的唯一副本。", "next": "end"}
+ 		],
+ 		"ch1_case_materials_review": [
+-			{"speaker": "narrator", "text": "你重新打開美玲留下的委託袋。委託信記著浩然失聯的時間；工作證背面寫著東區第七街地下層的地址。", "give_evidence": "commission_letter"},
+-			{"speaker": "kai", "text": "地址和工作證放在一起。先去哪裡查，可以再決定。", "give_evidence": "work_id", "set_flag": "knows_workshop_location"},
+-			{"speaker": "narrator", "text": "袋裡還有深淵酒吧的收據。可以帶去吧台，請阿傑核對那晚的來客。", "give_evidence": "abyss_receipt", "next": "end"}
++			{"speaker": "narrator", "text": "你倒出委託袋裡的東西。美玲把失聯日期寫在信上，工作室地址則抄在工作證背面：東區第七街，地下層。", "give_evidence": "commission_letter"},
++			{"speaker": "kai", "text": "永恆記憶。地址倒是不難找。", "give_evidence": "work_id", "set_flag": "knows_workshop_location"},
++			{"speaker": "narrator", "text": "袋底還夾著一張深淵酒吧的收據。你展平折角，把它和工作證一起收好。", "give_evidence": "abyss_receipt", "next": "end"}
+ 		],
+ 		"ch1_ajie_followup": [
+-			{"speaker": "ajie", "mood": "suspicious", "requires_decisions": {"ajie_statement": "coerced"}, "text": "你逼我說過的名字，不能當成我真的看見。收據和照片可以再看；別拿回來問第二次，就當前面的事沒發生。"},
+-			{"speaker": "ajie", "mood": "cooperative", "requires_decisions": {"ajie_statement": "voluntary"}, "text": "終端那筆我願意核對。照片裡的臉被擋著，你問幾次，我都不能替它補一張臉。"},
+-			{"speaker": "ajie", "requires_missing_flags": ["ajie_told_about_meeting"], "text": "收據是我們的。浩然來過，進了二號包廂。那人戴著全息面具，留下的照片只有這樣。"},
+-			{"speaker": "narrator", "text": "你保存吧台提供的照片。它能核對包廂來客的外觀，不能用來指認面具下的人。後室紀錄可以繼續查。", "give_evidence": "stranger_photo", "set_flag": "ajie_told_about_meeting", "next": "end"}
++			{"speaker": "ajie", "mood": "suspicious", "requires_decisions": {"ajie_statement": "coerced"}, "text": "照片還在，你拿去。上回那個名字是你逼我說的，別又拿來問我認不認得。"},
++			{"speaker": "ajie", "mood": "cooperative", "requires_decisions": {"ajie_statement": "voluntary"}, "text": "帳要再對一遍也行。這張臉就算了吧，面具擋成這樣，我認得出什麼？"},
++			{"speaker": "ajie", "requires_missing_flags": ["ajie_told_about_meeting"], "text": "是我們的收據。浩然那晚進了二號包廂，裡頭那位戴著全息面具。喏，照片在這。"},
++			{"speaker": "narrator", "text": "照片傳到你的終端上。放大後，面具底下仍看不見五官。阿傑朝後室偏了偏頭，繼續擦他的杯子。", "give_evidence": "stranger_photo", "set_flag": "ajie_told_about_meeting", "next": "end"}
+ 		],
+ 		"ch1_eye_ajie_statement": [
+-			{"speaker": "narrator", "text": "鷹眼讀出同一張收據的兩個時間：列印比結帳晚七分鐘。交易編號相同，原因欄沒有留在紙上。", "set_flag": "eye_ajie_receipt_scanned"},
+-			{"speaker": "kai", "text": "先記下我要查的事。這還不是結論。", "choices": [
++			{"speaker": "narrator", "text": "鷹眼掃過褪色的收據，兩行時間亮了起來。結帳、列印，中間差了七分鐘。交易編號相同，紙上卻沒寫為什麼。", "set_flag": "eye_ajie_receipt_scanned"},
++			{"speaker": "kai", "text": "（七分鐘。卡在機器上，還是另有別的事？）", "choices": [
+ 				{"text": "先查七分鐘是否來自終端延遲。", "next": "hypothesis_terminal", "set_decision": {"ajie_hypothesis": "terminal", "ajie_hypothesis_status": "pending"}},
+ 				{"text": "先查阿傑是否把見面時間記錯。", "next": "hypothesis_witness", "set_decision": {"ajie_hypothesis": "witness", "ajie_hypothesis_status": "pending"}},
+ 				{"text": "先查時間差是否與監控清場有關。", "next": "hypothesis_monitor", "set_decision": {"ajie_hypothesis": "monitor", "ajie_hypothesis_status": "pending"}},
+ 				{"text": "先保存掃描，稍後再想。", "next": "end"}
+ 			], "next": "end"},
+-			{"label": "hypothesis_terminal", "speaker": "kai", "text": "待驗證：終端是否延遲。先拿交易編號去比對原始佇列。", "next": "end"},
+-			{"label": "hypothesis_witness", "speaker": "kai", "text": "待驗證：阿傑是否記錯。先核對機器時間，再問他親眼看見的事。", "next": "end"},
+-			{"label": "hypothesis_monitor", "speaker": "kai", "text": "待驗證：監控是否被處理。終端的七分鐘和後室監控，要分開找來源。", "next": "end"}
++			{"label": "hypothesis_terminal", "speaker": "kai", "text": "阿傑，這個編號。收銀機裡還查得到嗎？", "next": "end"},
++			{"label": "hypothesis_witness", "speaker": "kai", "text": "（也許他記岔了。先看看收銀機怎麼記，再問。）", "next": "end"},
++			{"label": "hypothesis_monitor", "speaker": "kai", "text": "（要是有人動過監控，後室應該留得下痕跡。先查清楚收據這七分鐘。）", "next": "end"}
+ 		],
+ 		"ch1_ajie_terminal_check": [
+-			{"speaker": "ajie", "text": "紙只印出最後一次時間。原始佇列在這裡，你自己對編號。"},
+-			{"speaker": "narrator", "text": "離線終端顯示同筆交易先結帳，斷線後重送，七分鐘後列印成功。原始交易編號與收據一致；這筆紀錄不含來客身份。"},
+-			{"speaker": "kai", "text": "把機器記錄和人的記憶分開，再決定怎麼問。", "choices": [
++			{"speaker": "ajie", "text": "喏，機器轉過來了。斷線、重送，都在這一欄。紙上哪印得下這些。"},
++			{"speaker": "narrator", "text": "你把收據貼在螢幕邊，逐位比對交易編號。同一筆帳：結帳成功，斷線，重送。七分鐘後才印出來。紀錄裡沒有客人的姓名。"},
++			{"speaker": "kai", "text": "（錢先結了，紙卻晚了七分鐘。）", "choices": [
+ 				{"text": "確認終端重送；身份仍待查。", "next": "terminal_confirm", "set_flag": "ajie_terminal_verified"},
+ 				{"text": "筆記假設：七分鐘能證明他認得那人。", "next": "terminal_overreach"},
+ 				{"text": "先不下結論，回去重看收據。", "next": "end"}
+ 			], "next": "end"},
+-			{"label": "terminal_confirm", "speaker": "narrator", "requires_decisions": {"ajie_hypothesis": "terminal"}, "text": "已支持：收據時間差來自同筆交易重送。來源是收據和終端佇列，不是阿傑的心率。", "set_decision": {"ajie_hypothesis_status": "supported"}},
+-			{"speaker": "narrator", "requires_decisions": {"ajie_hypothesis": "none"}, "text": "已支持：兩份紀錄指向同一筆重送。至於當晚來客的身份，這裡沒有答案。", "set_decision": {"ajie_hypothesis_status": "supported"}},
+-			{"speaker": "kai", "requires_decisions": {"ajie_hypothesis": "witness"}, "text": "已修正：七分鐘有機器紀錄可解釋。這不能證明阿傑記錯或說謊；他看見什麼，得另問。", "set_decision": {"ajie_hypothesis_status": "revised"}},
+-			{"speaker": "kai", "requires_decisions": {"ajie_hypothesis": "monitor"}, "text": "已修正：這七分鐘屬於交易重送。監控清場仍是另一個問題，要查後室的原始紀錄。", "set_decision": {"ajie_hypothesis_status": "revised"}},
+-			{"speaker": "narrator", "text": "核對結果已留在證據板。可以回問阿傑願意證明哪些事；也可以暫不使用他的證詞。", "next": "end"},
+-			{"label": "terminal_overreach", "speaker": "kai", "text": "不，這份佇列只有交易編號和時間，沒有面具下的身份。這個推論先留在筆記裡，不拿去要求阿傑認人。", "next": "end"}
++			{"label": "terminal_confirm", "speaker": "narrator", "requires_decisions": {"ajie_hypothesis": "terminal"}, "text": "你在「終端延遲」旁打了勾，把收據和原始紀錄放在一起。那七分鐘就在這幾行重送紀錄裡。", "set_decision": {"ajie_hypothesis_status": "supported"}},
++			{"speaker": "narrator", "requires_decisions": {"ajie_hypothesis": "none"}, "text": "你記下重送的起迄時間，把原始紀錄和收據放在一起。來客姓名那一欄，仍舊空著。", "set_decision": {"ajie_hypothesis_status": "supported"}},
++			{"speaker": "kai", "requires_decisions": {"ajie_hypothesis": "witness"}, "text": "（先怪到他頭上了。這七分鐘，機器已經交代清楚。至於那晚他看見什麼，還得問。）", "set_decision": {"ajie_hypothesis_status": "revised"}},
++			{"speaker": "kai", "requires_decisions": {"ajie_hypothesis": "monitor"}, "text": "（是重送。我把兩件事扯在一起了。監控得另查後室的紀錄。）", "set_decision": {"ajie_hypothesis_status": "revised"}},
++			{"speaker": "narrator", "text": "你收好筆記。阿傑還站在吧台後，等著看你會不會再問。核對結果已存入證據板。", "next": "end"},
++			{"label": "terminal_overreach", "speaker": "kai", "text": "（等等。哪一行寫了他認得那個人？只有編號和時間。我想得太快了。）", "next": "end"}
+ 		],
+ 		"ch1_ajie_statement_check": [
+-			{"speaker": "kai", "text": "收據和終端紀錄對得上。接下來要問的是你自己看見的事。", "requires_flag": "ajie_terminal_verified"},
+-			{"speaker": "ajie", "mood": "nervous", "text": "你一直盯著我，我當然緊張。別把心跳當成口供。你要問哪一筆？", "requires_flag": "ajie_terminal_verified", "requires_missing_flags": ["ajie_statement_resolved"], "choices": [
++			{"speaker": "kai", "text": "帳對上了。阿傑，還有件事想問你。", "requires_flag": "ajie_terminal_verified"},
++			{"speaker": "ajie", "mood": "nervous", "text": "能不能把那隻眼睛關了？你拿它照著我，還嫌我心跳快。問吧。", "requires_flag": "ajie_terminal_verified", "requires_missing_flags": ["ajie_statement_resolved"], "choices": [
+ 				{"text": "讓他核對時間，不逼他認人。", "next": "statement_voluntary", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "voluntary"}, "affinity": {"ajie": 2}},
+-				{"text": "仍逼他認人（留下不可靠指認與施壓紀錄）。", "next": "statement_coerced", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "coerced", "interrogation_pressure_ajie": 80}, "affinity": {"ajie": -2}},
++				{"text": "逼他指認（不可靠，留下施壓紀錄；本章可更正）。", "next": "statement_coerced", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "coerced", "interrogation_pressure_ajie": 80}, "affinity": {"ajie": -2}},
+ 				{"text": "只留時間差，不使用他的證詞。", "next": "statement_withheld", "set_flag": "ajie_statement_resolved", "set_decision": {"ajie_statement": "withheld"}},
+ 				{"text": "先保存掃描，稍後再問。", "next": "end"}
+ 			], "next": "end"},
+-			{"label": "statement_voluntary", "speaker": "ajie", "mood": "cooperative", "text": "七分鐘是斷線重送。我願意只為這個作證。你公開時把問題原文一起放上去，別幫我補一句我沒說的話。", "next": "end"},
+-			{"label": "statement_coerced", "speaker": "ajie", "mood": "angry", "text": "好，你要那個名字，我說了。可你也把剛才怎麼問的留著。這份指認不可靠；想更正，就在離開本章前回來。", "next": "end"},
+-			{"label": "statement_withheld", "speaker": "kai", "text": "我只保留機器時間差。後面的指控仍要靠原件，阿傑不會因此成為我的證人。", "next": "end"}
++			{"label": "statement_voluntary", "speaker": "ajie", "mood": "cooperative", "text": "斷線重送，七分鐘。這個我能作證。要拿出去，你怎麼問的也一起放，別到時候變成我認出了誰。", "next": "end"},
++			{"label": "statement_coerced", "speaker": "ajie", "mood": "angry", "text": "行，名字照你的意思報了。滿意了？我連他的臉都沒見著。你要拿這段出去，剛才怎麼逼我的，也給我放進去。", "next": "end"},
++			{"label": "statement_withheld", "speaker": "kai", "text": "今天就到這。我留一份機器紀錄，不把你列成證人。", "next": "end"}
+ 		],
+ 		"ch1_ajie_retraction": [
+-			{"speaker": "ajie", "mood": "suspicious", "text": "收回名字可以，收回你逼問過我不行。我只幫你更正紀錄，不替你公開作證。", "choices": [
++			{"speaker": "ajie", "mood": "suspicious", "text": "現在肯把那個名字撤掉了？好。可你怎麼逼我說的，得留著。還有，別指望我再替你作證。", "choices": [
+ 				{"text": "撤回指認，保留施壓經過。", "next": "statement_retracted", "set_flag": "ajie_statement_retracted", "affinity": {"ajie": 1}},
+ 				{"text": "先不更正。", "next": "end"}
+ 			], "next": "end"},
+-			{"label": "statement_retracted", "speaker": "kai", "text": "更正附在原始紀錄後。我不再使用那個名字，公開案件時仍須交代這次施壓。", "next": "end"}
++			{"label": "statement_retracted", "speaker": "kai", "text": "好。我在原紀錄後面加上更正，那個名字不再用了。逼你開口的事，我會交代。", "next": "end"}
+ 		],
+ 		"ch2_eye_market_claim": [
+ 			{"speaker": "kai", "text": "鷹眼比對市場公開合約與你的交易紀錄。樣本報價權屬於面具商人，蛇女只有代理權；先前在酒吧談的晶片交易是另一筆。", "set_flag": "eye_market_claim_scanned"},
+@@ -668,15 +668,15 @@
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+ 				"show_cg": "cg_kai_office_prologue",
+-				"text": "雨水敲打著九龍延伸區的窗。你的辦公室只剩一盞壞掉的檯燈、一台過期咖啡機，以及牆上還沒拆掉的正和科技安全調查員識別框。"
+-			},
+-			{
+-				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "上一件案子剛結束：走失的仿生寵物、拖欠三週的尾款、以及一名客戶堅持把你叫成「前企業狗」。你沒有反駁。那是履歷上最接近事實的形容。"
++				"text": "雨打在九龍延伸區的窗上。檯燈壞了，咖啡機也過了保固。牆上那只正和科技安全調查員識別框倒還好好的，你一直沒把它摘下來。"
++			},
++			{
++				"speaker": "narrator", "name": "", "portrait_side": "left",
++				"text": "上一件案子的仿生寵物找回來了，尾款拖了三週。客戶肯回覆的只有一句「前企業狗」。你把催款訊息又發了一遍。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+-				"text": "（正和科技留下的義眼又在低鳴。不是疼痛，比較像有人在門外測試舊鎖。）",
++				"text": "（義眼又在響。這次又怎麼了？）",
+ 				"choices": [
+ 					{"text": "按掉義眼警示，整理委託紀錄。", "next": "kai_office_after_warning", "set_flag": "kai_suppressed_eye_warning"},
+ 					{"text": "讓鷹眼掃過辦公室一次。", "next": "kai_office_after_warning", "set_flag": "kai_checked_office_with_eagle_eye"}
+@@ -685,20 +685,20 @@
+ 			{
+ 				"label": "kai_office_after_warning",
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "你把舊案照片翻面，讓桌面看起來像一個還能營業的地方。抽屜裡的止痛藥瓶碰到金屬義眼維護盒，發出細小的聲響。"
+-			},
+-			{
+-				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "敲門聲在第三下才變得急促。來人很克制，但克制不是平靜；那是把恐懼折好，藏進濕透外套裡的聲音。"
++				"text": "你把舊案照片翻過去，騰出桌面。關抽屜時，藥瓶撞了一下義眼維護盒。"
++			},
++			{
++				"speaker": "narrator", "name": "", "portrait_side": "left",
++				"text": "門響了兩下。你還沒應聲，第三下已經落下來。門外的女人把濕透的袖口攥在手裡，見你開門才鬆開。"
+ 			},
+ 			{
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+ 				"clear_cg": true,
+-				"text": "你是川崎凱嗎？我在舊城警署外面等了四個小時，他們叫我回家等通知。可是我不能再等了。"
++				"text": "川崎凱先生？我剛從舊城警署過來。等了四個小時，他們還是叫我回家。你這裡……還接委託嗎？"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+-				"text": "失蹤案？警署不立案通常有兩種原因：時間太短，或者他們不想碰。",
++				"text": "接。先說是什麼事。",
+ 				"choices": [
+ 					{"text": "先坐下，把你知道的照順序說。", "next": "mei_ling_case_intro", "affinity": {"mei_ling": 1}},
+ 					{"text": "如果只是家人失聯，我不一定接。", "next": "mei_ling_prove_case", "affinity": {"mei_ling": -1}},
+@@ -708,23 +708,23 @@
+ 			{
+ 				"label": "mei_ling_case_intro",
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+-				"text": "我弟弟浩然三天前失蹤。他是一名記憶技師，在東區經營「永恆記憶」工作室。警察說成年人三天不回家不算失蹤。"
++				"text": "我弟弟，林浩然。三天沒消息了。他在東區開了一間記憶工作室，叫永恆記憶。警察說他是成年人，也許只是想出去幾天。"
+ 			},
+ 			{
+ 				"label": "mei_ling_prove_case",
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+-				"text": "浩然不是會消失的人。他每天晚上十一點會打給我，確認我有沒有吃藥，有沒有關掉窗邊的漏電燈。失蹤那晚，電話只響了一聲就被切掉。",
++				"text": "他不會連電話也不接。每天十一點，他都打來問我吃藥了沒，窗邊那盞燈關了沒。那晚電話響了一聲就斷了。我再打，他就沒接。",
+ 				"give_evidence": "commission_letter"
+ 			},
+ 			{
+ 				"label": "mei_ling_found_kai",
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+-				"text": "浩然以前提過你。他說如果有一天他出事，不要找警察，找那個被正和科技趕出去、但還知道怎麼看記憶傷口的人。",
++				"text": "你的名字，是浩然留給我的。他說萬一出了事，就找你。我問他為什麼不找警察，他只說，你以前在正和做過，查得懂那些記憶。",
+ 				"give_evidence": "commission_letter"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+-				"text": "他知道我的名字，卻從沒找過我。這通常代表他怕我也在某張名單上。",
++				"text": "他沒來找過我。倒把名字留給你了。",
+ 				"choices": [
+ 					{"text": "他失蹤前有沒有反常行為？", "next": "mei_ling_abnormal"},
+ 					{"text": "他的工作室在哪？", "next": "mei_ling_workshop"},
+@@ -734,12 +734,12 @@
+ 			{
+ 				"label": "mei_ling_abnormal",
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+-				"text": "他最近幾個月變得很奇怪。經常深夜外出，說是在加班。手機裡有很多加密訊息，還把家裡那台舊記憶播放器鎖進房間。",
++				"text": "這幾個月常常半夜出門，問就說加班。手機上的訊息全加了密，家裡那台舊播放器也鎖進房間，還叫我別碰。",
+ 				"set_flag": "knows_hao_ran_abnormal"
+ 			},
+ 			{
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "worried", "portrait_side": "left",
+-				"text": "我在他房間裡找到了一張深淵酒吧的收據。那種地方不是浩然會去的。他怕吵，怕人群，連生日都只肯在家裡吃飯。",
++				"text": "還有這張收據，在他房裡找到的。深淵酒吧……他連生日都嫌外面吵，只肯在家吃飯。怎麼會跑去那裡？",
+ 				"give_evidence": "abyss_receipt",
+ 				"choices": [
+ 					{"text": "我接下這個案子。", "next": "mei_ling_accept", "set_flag": "accepted_case", "affinity": {"mei_ling": 1}},
+@@ -749,7 +749,7 @@
+ 			{
+ 				"label": "mei_ling_workshop",
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "default", "portrait_side": "left",
+-				"text": "在東區第七街的地下層，「永恆記憶」工作室。這是他的工作證。我沒有鑰匙，但他房間裡也許還有備份。",
++				"text": "東區第七街，地下層。工作證給你，地址也寫在背面。我沒有鑰匙，得回他房裡找找，看有沒有多留一把。",
+ 				"give_evidence": "work_id",
+ 				"set_flag": "knows_workshop_location",
+ 				"next": "mei_ling_accept"
+@@ -757,26 +757,26 @@
+ 			{
+ 				"label": "mei_ling_trust_test",
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "nervous", "portrait_side": "left",
+-				"text": "我不確定我能信任你。但浩然說你討厭正和科技，卻不會把被害者當籌碼。這句話我記得很清楚。"
++				"text": "我不知道能不能信你。浩然說過，你恨正和，但不會拿來求你的人去換錢。我現在也只能信他。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "thoughtful", "portrait_side": "right",
+-				"text": "那他對我的評價比大部分人好。把地址和你找到的東西留下，我會先去你們公寓。"
++				"text": "這話倒很少聽。東西先留給我，你們公寓我也得去一趟。"
+ 			},
+ 			{
+ 				"label": "mei_ling_accept",
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+-				"text": "我接下這個案子。但你也要配合：不要交出任何備份，不要回撥陌生號碼，不要讓警署把你的東西帶走。",
++				"text": "我去找他。這幾天有人找你要備份，先打給我。陌生號碼別回撥，警署要拿東西，你也先跟我說一聲。",
+ 				"give_evidence": "work_id",
+ 				"set_flags": ["knows_workshop_location", "accepted_case"]
+ 			},
+ 			{
+-				"speaker": "narrator", "text": "你把美玲留下的酒吧收據與工作證收進委託袋。還沒問完的事，可以帶著資料再去核對。",
++				"speaker": "narrator", "text": "美玲把酒吧收據推到你面前，指尖壓著紙角。等你拿出委託袋，她才鬆手，讓你把它和工作證一起收進去。",
+ 				"give_evidence": "abyss_receipt"
+ 			},
+ 			{
+ 				"speaker": "mei_ling", "name": "林美玲", "mood": "relieved", "portrait_side": "left",
+-				"text": "謝謝你，川崎先生。請一定要找到他。如果浩然真的留下了什麼，我想親耳聽見。"
++				"text": "謝謝。要是找到他，先讓他打個電話給我。說一句也好。"
+ 			}
+ 		],
+ 
+@@ -991,11 +991,11 @@
+ 		"ch1_abyss_bar_enter": [
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "深淵酒吧藏在東區的地下三層。霓虹紫色的燈光照亮了一個充滿煙霧和低語的空間。合成音樂在空氣中脈動。"
+-			},
+-			{
+-				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "吧台後面站著一個壯碩的男人，手臂上滿是發光的電路紋身——那是酒保阿傑。"
++				"text": "下到東區地下三層，深淵酒吧的低音已透過門板傳來。你推門進去，紫光裡浮著一層煙，近旁的客人把話壓低了。"
++			},
++			{
++				"speaker": "narrator", "name": "", "portrait_side": "left",
++				"text": "阿傑站在吧台後擦杯子，手臂上的電路紋身隨動作一明一暗。他看了看你的義眼，才把杯子放下。"
+ 			},
+ 			{
+ 				"speaker": "ajie", "name": "阿傑", "mood": "default", "portrait_side": "left",
+@@ -1009,11 +1009,11 @@
+ 			{
+ 				"label": "ajie_ask",
+ 				"speaker": "ajie", "name": "阿傑", "mood": "default", "portrait_side": "left",
+-				"text": "看你眼生。問什麼人？"
++				"text": "酒可以。人嘛，你先說名字。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+-				"text": "一個記憶技師，叫林浩然。三天前最後出現在這裡。",
++				"text": "林浩然，修記憶的。三天前來過這裡，之後就沒消息了。",
+ 				"choices": [
+ 					{"text": "（出示收據）這是你們酒吧的收據。", "next": "ajie_receipt", "requires_evidence": "abyss_receipt"},
+ 					{"text": "有沒有印象？", "next": "ajie_vague"}
+@@ -1035,7 +1035,7 @@
+ 			{
+ 				"label": "ajie_receipt",
+ 				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
+-				"text": "...那天他確實來過。跟包廂裡的人見面。我不知道對方是誰——全息面具，看不到真面目。",
++				"text": "是這筆啊。來過，進了二號包廂。裡頭那位戴著全息面具，我哪認得。照片給你，能看清的也就這些。",
+ 				"give_evidence": "stranger_photo",
+ 				"set_flag": "ajie_told_about_meeting",
+ 				"next": "end"
+@@ -1047,33 +1047,33 @@
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "default", "portrait_side": "right",
+-				"text": "（也許該正式審問他...或者先去其他地方收集更多線索。）",
++				"text": "（嘴倒是很緊。光報個名字，問不出來。）",
+ 			}
+ 		],
+ 
+ 		"ch1_abyss_bar_backroom_enter": [
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "深淵酒吧後室比前場安靜得多。隔音牆把音樂壓成低頻心跳，包廂門上的感應燈一明一滅，像在替每段沉默計價。"
++				"text": "後室的門一關，前場只剩悶悶的低音。包廂門上的感應燈亮了又暗，你聽見阿傑在身後停下腳步。"
+ 			},
+ 			{
+ 				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
+-				"text": "你要看的都在裡面。但有些紀錄不是消失，是有人付錢讓它慢一點出現。"
++				"text": "紀錄在裡面。先說好，有人付過錢，讓監控慢幾分鐘。你看到時間不對，別說我沒提。"
+ 			}
+ 		],
+ 
+ 		"ch1_abyss_backroom_investigation": [
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+-				"text": "阿傑把包廂紀錄推到吧台邊緣，手指沒有離開紙面。那不是交出證據的姿勢，比較像在確認自己還能不能反悔。"
++				"text": "阿傑把包廂紀錄推過來。你伸手去拿，他的指頭還壓在紙上，隔了一會兒才挪開。"
+ 			},
+ 			{
+ 				"speaker": "ajie", "name": "阿傑", "mood": "nervous", "portrait_side": "left",
+-				"text": "浩然那晚不是一個人來。他見的人戴全息面具，用的是臨時 hash。這種客人我通常不問名字，也最好不要記得臉。"
++				"text": "二號包廂，那個戴面具的。付款只留一組臨時代碼。這種客人，你問名字，他下次就換一家喝。"
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "你不是忘了，是有人付錢讓你忘。"
++				"text": "所以就連監控也替他延了？"
+ 			},
+ 			{
+ 				"speaker": "narrator", "name": "", "portrait_side": "left",
+@@ -1094,7 +1094,7 @@
+ 			},
+ 			{
+ 				"speaker": "kai", "name": "凱", "mood": "serious", "portrait_side": "right",
+-				"text": "沉默不一定是共犯，但有人很懂怎麼把沉默做成服務。",
++				"text": "三支鏡頭，三分鐘。我把這份紀錄帶走。收的是誰的錢，還得往下查。",
+ 				"give_evidence": "abyss_surveillance_delay_log",
+ 				"set_flag": "abyss_surveillance_delay_log_found"
+ 			}

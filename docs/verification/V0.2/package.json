@@ -1,0 +1,39 @@
+{
+  "version": "0.2",
+  "zip": "C:\\GameBuilds\\NEON-MEMORIES-Windows-V0.2.zip",
+  "bytes": 188507493,
+  "sha256": "C877126BEAA2836ED9562EF4DFF8FF15C393D8F282D203377EED4A70571C1F41",
+  "roundtrip_verified": true,
+  "files": [
+    {
+      "file": "試玩說明.txt",
+      "bytes": 1746,
+      "sha256": "AC12DB62E3BC975FB5CF5881CE1224DBEE58447C19A6E89D0D497B136327ACD6"
+    },
+    {
+      "file": "GODOT-LICENSE.txt",
+      "bytes": 1149,
+      "sha256": "B0435E3B3E4E55238F05F4B306F30524A1B2E20147810D436EAA554FA6855C80"
+    },
+    {
+      "file": "GODOT-THIRD-PARTY.txt",
+      "bytes": 99790,
+      "sha256": "DC043A7DBF69632560219E72FBC61EF9FA7338C7A773660ACD81B51590B69104"
+    },
+    {
+      "file": "MUSIC-CREDITS.md",
+      "bytes": 1400,
+      "sha256": "F91BB1590E00AAC09763A1948845BD679344124059EC833385B5A634C9C17D43"
+    },
+    {
+      "file": "NEON-MEMORIES.exe",
+      "bytes": 104576512,
+      "sha256": "6A0266CB7571AA4D437A32094ACD353F020C77DCF7FF5A3305AE45D0609E5C20"
+    },
+    {
+      "file": "NEON-MEMORIES.pck",
+      "bytes": 152366064,
+      "sha256": "F3D7888326D4E1D1E9ECA5B99E508B13A06944AC90CEAB9E6E042FF20952EAF9"
+    }
+  ]
+}

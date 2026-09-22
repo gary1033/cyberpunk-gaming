@@ -21,3 +21,6 @@
 *.otf binary
 *.woff binary
 *.woff2 binary
+
+# Preserve the distributor's original license bytes and whitespace.
+assets/audio/sfx/KENNEY-LICENSE.txt -text -whitespace

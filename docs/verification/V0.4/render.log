@@ -1,0 +1,167 @@
+WorkerThreadPool: 20 threads, 6 max low-priority.
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Unrecognized output string "misc2" in mapping:
+030000000d0f00000202000000000000,Horipad O Nintendo Switch 2 Controller,a:b1,b:b0,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b4,leftstick:b10,lefttrigger:b6,leftx:a0,lefty:a1,misc1:b13,misc2:b14,rightshoulder:b5,rightstick:b11,righttrigger:b7,rightx:a2,righty:a3,start:b9,x:b3,y:b2,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00009601000000000000,Horipad Steam,a:b0,b:b1,back:b10,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b6,leftstick:b13,lefttrigger:b8,leftx:a0,lefty:a1,misc2:b2,paddle1:b5,paddle2:b15,paddle3:b18,paddle4:b19,rightshoulder:b7,rightstick:b14,righttrigger:b9,rightx:a3,righty:a4,start:b11,x:b3,y:b4,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000007e0500006920000000000000,Nintendo Switch 2 Pro Controller,a:b0,b:b1,back:b14,dpdown:b8,dpleft:b10,dpright:b9,dpup:b11,guide:b16,leftshoulder:b12,leftstick:b15,lefttrigger:b13,leftx:a0,lefty:a1~,misc1:b17,misc2:b20,paddle1:b18,paddle2:b19,rightshoulder:b4,rightstick:b7,righttrigger:b5,rightx:a2,righty:a3~,start:b6,x:b2,y:b3,platform:Windows,
+Native OpenGL API detected: 3.3: NVIDIA - NVIDIA GeForce RTX 3060 Ti
+NVAPI: Init OK!
+NVAPI: Application not found in profile, creating...
+NVAPI: Error creating application: NVAPI_EXECUTABLE_ALREADY_IN_USE(code -167)
+SDL: Init OK!
+Using "winink" pen tablet driver...
+Shader 'CanvasSdfShaderGLES3' SHA256: 5995750b00507dcfc7cddf8ff02673e6415a811ed9bd660919fd0b5e73849326
+Shader 'SkeletonShaderGLES3' SHA256: 0df15e1557da43b3088485fe06ec1dd1cda71f99a00f88670368aa1ec24a9f9c
+Shader 'ParticlesShaderGLES3' SHA256: 20a0d190d3077dd8fb73f37797b10d9e2902925289445282d87a066c469a2488
+Shader 'ParticlesCopyShaderGLES3' SHA256: ee4a596468e8a2178a37c1cdbbfa459af90c6a62598502d444bb00bdc90bd07b
+Shader 'CopyShaderGLES3' SHA256: 0f29a0bf886e4864cfaa43b415d39a98af9064f1af972467bdc92a5b6ca960bd
+Shader 'CubemapFilterShaderGLES3' SHA256: c41d25dba94d908f53edbee86d348289c6609a302389f07d75476b4dca9abbc3
+Shader 'GlowShaderGLES3' SHA256: 46ccc3f9aeb27153f0dddc8321e4ad4599bb5679a101b76afdd0ebc5217137a7
+Shader 'PostShaderGLES3' SHA256: decbbfd650de6be7c291abb030df0ca5747f74ce63ad46b45973da3a9c4d4b3c
+Shader 'FeedShaderGLES3' SHA256: 7af8eb26c8e6d86cc75afa9a0ef9d2b9e5a374082b6af5a7d8cf8702e5f870cb
+Shader 'CanvasShaderGLES3' SHA256: e4e16c1f5372530a34c56469e85500b129223311759782a5213aec02617045c7
+Shader 'CanvasOcclusionShaderGLES3' SHA256: 8e3d23c4ef1cddcb8717082bdee15ca44846b66340ead32fedb406013e4ee70e
+Shader 'SceneShaderGLES3' SHA256: 43ae78983a177d1aa8ed26fcdbbacad63b39ec1af04dcefa7d85a65b53f1c7c6
+Shader 'SkyShaderGLES3' SHA256: 589ae8820b9161f747fb9ada6f50b3fbf03d1eb3bda8f980816394bdf34f78aa
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3060 Ti
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 75400357
+EDITOR API HASH: 3012763406
+Loading resource: res://tests/test_v04_experience.gd
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://scripts/core/game_manager.gd
+Loading resource: res://scripts/core/save_manager.gd
+Loading resource: res://scripts/core/audio_manager.gd
+Loading resource: res://scripts/core/input_manager.gd
+Loaded system CA certificates
+Loading resource: res://scenes/locations/chapter1/detective_office.tscn
+Loading resource: res://scripts/ui/location_base.gd
+Loading resource: res://assets/audio/bgm/strange_experiments_80bpm.ogg
+Loading resource: res://.godot/imported/strange_experiments_80bpm.ogg-511a4f926e34f06e48164eab7ec0f0aa.oggvorbisstr
+Loading resource: res://assets/sprites/locations/detective_office.png
+Loading resource: res://.godot/imported/detective_office.png-4a4771db021f616f2b17eeb058018e34.ctex
+Loading resource: res://assets/sprites/ui/energy_hud_frame.png
+Loading resource: res://.godot/imported/energy_hud_frame.png-a6ac1d7c8c877c8ebf187b250ba309e2.ctex
+Loading resource: res://assets/sprites/ui/toolbar_buttons.png
+Loading resource: res://.godot/imported/toolbar_buttons.png-d8ab6753bc5d5d8129502f274b5ff184.ctex
+Loading resource: res://scripts/gameplay/dialogue_system.gd
+Loading resource: res://assets/sprites/ui/dialogue_panel.png
+Loading resource: res://.godot/imported/dialogue_panel.png-534807211c34b5677db65f62533b8172.ctex
+Loading resource: res://scripts/gameplay/augmented_vision.gd
+Loading resource: res://assets/shaders/scanline.gdshader
+Loading resource: res://assets/sprites/ui/eagle_eye_scan_overlay_ch1.png
+Loading resource: res://.godot/imported/eagle_eye_scan_overlay_ch1.png-8751e6bab4546182da339d1d74888e2a.ctex
+Loading resource: res://assets/sprites/ui/eagle_eye_focus_reticle_ch1.png
+Loading resource: res://.godot/imported/eagle_eye_focus_reticle_ch1.png-601ccfa848a9138a0ced543858102884.ctex
+Loading resource: res://assets/sprites/ui/eagle_eye_glitch_noise_ch1.png
+Loading resource: res://.godot/imported/eagle_eye_glitch_noise_ch1.png-298bf92ad58478e4884f766512d037bb.ctex
+Loading resource: res://assets/sprites/cg/eagle_eye_activation_cutin_ch1.png
+Loading resource: res://.godot/imported/eagle_eye_activation_cutin_ch1.png-eee3fc240192429451cdda36f61d0d20.ctex
+Loading resource: res://assets/sprites/characters/kai_thoughtful.png
+Loading resource: res://.godot/imported/kai_thoughtful.png-661c915191678fa50557ac0de2c3362e.ctex
+Loading resource: res://assets/sprites/cg/cg_kai_office_prologue.png
+Loading resource: res://.godot/imported/cg_kai_office_prologue.png-269bb9221dffca359d4096a541579672.ctex
+Loading resource: res://assets/sprites/characters/mei_ling_worried.png
+Loading resource: res://.godot/imported/mei_ling_worried.png-0e7e72b5340bc982e86136a91dc33d38.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/mei_ling_worried.png
+Loading resource: res://.godot/imported/mei_ling_worried.png-0e7e72b5340bc982e86136a91dc33d38.ctex
+Loading resource: res://assets/audio/sfx/evidence_collect.ogg
+Loading resource: res://.godot/imported/evidence_collect.ogg-d771fa38e2edfa5537eafb938b5bfd51.oggvorbisstr
+Loading resource: res://assets/sprites/characters/mei_ling_nervous.png
+Loading resource: res://.godot/imported/mei_ling_nervous.png-bb9eb575de46710d2f5c2a89cedd444a.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/mei_ling_nervous.png
+Loading resource: res://.godot/imported/mei_ling_nervous.png-bb9eb575de46710d2f5c2a89cedd444a.ctex
+Loading resource: res://assets/sprites/characters/mei_ling_worried.png
+Loading resource: res://.godot/imported/mei_ling_worried.png-0e7e72b5340bc982e86136a91dc33d38.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/kai_thoughtful.png
+Loading resource: res://.godot/imported/kai_thoughtful.png-661c915191678fa50557ac0de2c3362e.ctex
+Loading resource: res://assets/sprites/characters/mei_ling_relieved.png
+Loading resource: res://.godot/imported/mei_ling_relieved.png-b15b2014b4addd6b90a85ca232bad4f5.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/zhao_ming_default.png
+Loading resource: res://.godot/imported/zhao_ming_default.png-2ebe0ff4a16957601192fb125978fb89.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/zhao_ming_default.png
+Loading resource: res://.godot/imported/zhao_ming_default.png-2ebe0ff4a16957601192fb125978fb89.ctex
+Loading resource: res://assets/sprites/characters/kai_thoughtful.png
+Loading resource: res://.godot/imported/kai_thoughtful.png-661c915191678fa50557ac0de2c3362e.ctex
+Loading resource: res://assets/sprites/characters/zhao_ming_default.png
+Loading resource: res://.godot/imported/zhao_ming_default.png-2ebe0ff4a16957601192fb125978fb89.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/dr_xiao_default.png
+Loading resource: res://.godot/imported/dr_xiao_default.png-f108dd57aa5888eba3b4676d0599c2ed.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/dr_xiao_default.png
+Loading resource: res://.godot/imported/dr_xiao_default.png-f108dd57aa5888eba3b4676d0599c2ed.ctex
+Loading resource: res://assets/sprites/characters/kai_thoughtful.png
+Loading resource: res://.godot/imported/kai_thoughtful.png-661c915191678fa50557ac0de2c3362e.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/dr_xiao_default.png
+Loading resource: res://.godot/imported/dr_xiao_default.png-f108dd57aa5888eba3b4676d0599c2ed.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/kai_thoughtful.png
+Loading resource: res://.godot/imported/kai_thoughtful.png-661c915191678fa50557ac0de2c3362e.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/characters/kai_thoughtful.png
+Loading resource: res://.godot/imported/kai_thoughtful.png-661c915191678fa50557ac0de2c3362e.ctex
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://scripts/ui/case_notebook.gd
+Loading resource: res://assets/audio/sfx/scan_confirm.ogg
+Loading resource: res://.godot/imported/scan_confirm.ogg-0a6a5a6c46bbc6a0344332ad6fe8a046.oggvorbisstr
+Loading resource: res://assets/audio/sfx/handover_confirm.ogg
+Loading resource: res://.godot/imported/handover_confirm.ogg-0f69565cab239b7affcd5f16de98545f.oggvorbisstr
+Loading resource: res://assets/audio/sfx/family_memory_fragment.ogg
+Loading resource: res://.godot/imported/family_memory_fragment.ogg-7c5fb73b67a8e8cf6402ab6319cb0d68.oggvorbisstr
+Loading resource: res://assets/audio/sfx/broken_player_scan.ogg
+Loading resource: res://.godot/imported/broken_player_scan.ogg-bd0bf6b6e435fd135dff9d7e9f891d55.oggvorbisstr
+Loading resource: res://assets/audio/sfx/eagle_eye_glitch_sting.ogg
+Loading resource: res://.godot/imported/eagle_eye_glitch_sting.ogg-58a2f4b339809f28d9a6fc4d8375d6fa.oggvorbisstr
+Loading resource: res://assets/audio/sfx/memory_signature_reveal.ogg
+Loading resource: res://.godot/imported/memory_signature_reveal.ogg-671e3d664822b8dd1d405f48b6793eff.oggvorbisstr
+Loading resource: res://assets/sprites/characters/kai_thoughtful.png
+Loading resource: res://.godot/imported/kai_thoughtful.png-661c915191678fa50557ac0de2c3362e.ctex
+Loading resource: res://assets/audio/sfx/handover_confirm.ogg
+Loading resource: res://.godot/imported/handover_confirm.ogg-0f69565cab239b7affcd5f16de98545f.oggvorbisstr
+Loading resource: res://assets/sprites/cg/cg_ending_b_care.png
+Loading resource: res://.godot/imported/cg_ending_b_care.png-26cd9fa9fd890c01d4aa981a2189af0d.ctex
+Loading resource: res://assets/sprites/cg/cg_ending_c_awakening.png
+Loading resource: res://.godot/imported/cg_ending_c_awakening.png-46dba040a2aac3fece009d3ee714279b.ctex
+Loading resource: res://scenes/locations/chapter1/detective_office.tscn
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://scripts/data/evidence_data.gd
+Loading resource: res://assets/sprites/cg/cg_ending_b_care.png
+Loading resource: res://.godot/imported/cg_ending_b_care.png-26cd9fa9fd890c01d4aa981a2189af0d.ctex
+Loading resource: res://assets/sprites/cg/cg_ending_c_awakening.png
+Loading resource: res://.godot/imported/cg_ending_c_awakening.png-46dba040a2aac3fece009d3ee714279b.ctex
+Loading resource: res://scenes/locations/chapter1/detective_office.tscn
+Loading resource: res://scripts/gameplay/hotspot.gd
+Loading resource: res://assets/sprites/characters/kai_default.png
+Loading resource: res://.godot/imported/kai_default.png-0bf872ed7f5f181e6634ead669aeca6b.ctex
+Loading resource: res://assets/sprites/cg/cg_ending_b_care.png
+Loading resource: res://.godot/imported/cg_ending_b_care.png-26cd9fa9fd890c01d4aa981a2189af0d.ctex
+Loading resource: res://assets/sprites/cg/cg_ending_c_awakening.png
+Loading resource: res://.godot/imported/cg_ending_c_awakening.png-46dba040a2aac3fece009d3ee714279b.ctex
+V04_EXPERIENCE_PASS
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

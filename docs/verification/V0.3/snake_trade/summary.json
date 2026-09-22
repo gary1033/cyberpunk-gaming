@@ -1,0 +1,82 @@
+{
+  "version": "0.3",
+  "date": "2026-09-19",
+  "stage": "Snake negotiation and market dialogue",
+  "changed_dialogues": [
+    "ch2_eye_market_claim",
+    "ch1_snake_data_chip_choice",
+    "ch1_snake_encounter",
+    "ch2_memory_trade_choice"
+  ],
+  "rewritten_text_fields": 25,
+  "rewritten_by_dialogue": {
+    "ch2_eye_market_claim": 7,
+    "ch1_snake_data_chip_choice": 5,
+    "ch1_snake_encounter": 8,
+    "ch2_memory_trade_choice": 5
+  },
+  "added_conditional_reactions": 2,
+  "added_postpone_choices": 1,
+  "existing_non_text_effects_unchanged": true,
+  "dialogue_sha256": "b16f97fc34de0b019d8ac0ce878493a4aff946d179c774f405785a4482ba6d53",
+  "data_checks": {
+    "passed": 108,
+    "failed": 0,
+    "warnings": 0
+  },
+  "investigation_assertions": 1888,
+  "snake_scenarios": {
+    "count": 6,
+    "prior_attitudes": [
+      "tentative agreement",
+      "refused errand",
+      "not met"
+    ],
+    "outcomes": [
+      "accept",
+      "reject"
+    ],
+    "checks": [
+      "real new-game workshop chip",
+      "side-effect-free postponement",
+      "exclusive remembered reaction",
+      "save/load",
+      "leave and revisit",
+      "repeated postponement",
+      "exclusive final route",
+      "single affinity and trade effect",
+      "keep original chip",
+      "resolved action unavailable"
+    ]
+  },
+  "eagle_eye_branch_checks": 83,
+  "pagination": {
+    "checks": 10729,
+    "audit": {
+      "choice_checks": 735,
+      "dialogues": 98,
+      "entry_checks": 1761,
+      "failures": [],
+      "forced_splits": [],
+      "pages": 1854
+    },
+    "configurations": [
+      "1280x720 desktop",
+      "1280x720 mobile mode",
+      "854x480 mobile mode"
+    ]
+  },
+  "not_rerun": [
+    "full integrity suite",
+    "seven ending routes",
+    "eighteen freedom routes",
+    "GPU screenshots",
+    "physical device playtest"
+  ],
+  "exported_windows_package": false,
+  "source_hashes": {
+    "scripts\\data\\dialogue_data.gd": "b16f97fc34de0b019d8ac0ce878493a4aff946d179c774f405785a4482ba6d53",
+    "tests\\test_investigation_flow.gd": "2bf2273a9a8082b091062b3499198610290e9da377d26f1acfd10147fb6f007f",
+    "tests\\test_data_integrity.py": "03b79601b5c974f551e4929f47a07bcf8bc9aa398436471c1cec5c730950d856"
+  }
+}
