@@ -9,7 +9,27 @@ signal save_completed(slot: int)
 signal load_completed(slot: int)
 signal save_failed(slot: int, error: String)
 
+var reading_settings := {"font_step": 0, "speed": 1}
+const READING_SETTINGS_PATH := "user://reading.cfg"
+
+func set_reading_setting(key: String, value: int) -> void:
+	if key not in reading_settings:
+		return
+	reading_settings[key] = clampi(value, 0, 2 if key == "font_step" else 3)
+	var config := ConfigFile.new()
+	for setting in reading_settings:
+		config.set_value("reading", setting, reading_settings[setting])
+	var error := config.save(READING_SETTINGS_PATH)
+	if error != OK:
+		push_warning("Unable to save reading settings: " + str(error))
+
 func _ready() -> void:
+	var config := ConfigFile.new()
+	if config.load(READING_SETTINGS_PATH) == OK:
+		for key in reading_settings:
+			var value: Variant = config.get_value("reading", key, reading_settings[key])
+			if value is int:
+				reading_settings[key] = clampi(value, 0, 2 if key == "font_step" else 3)
 	# Ensure save directory exists
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
 

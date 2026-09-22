@@ -1587,7 +1587,7 @@ def test_runtime_ui_playability_regressions():
 
     # Bug regression: long dialogue lines must paginate before they overflow
     # the generated right-side text frame.
-    if "_split_dialogue_pages" in dialogue_system and "DESKTOP_DIALOGUE_PAGE_CHARS" in dialogue_system and "_has_more_pages()" in dialogue_system:
+    if "_split_dialogue_pages" in dialogue_system and "_dialogue_text_fits" in dialogue_system and "_has_more_pages()" in dialogue_system:
         ok("DialogueSystem paginates long text into follow-up pages")
     else:
         fail("DialogueSystem does not paginate long text before overflow")
@@ -2731,6 +2731,32 @@ def test_chapter_and_ending_playthrough():
         fail("Godot playthrough failed; log: " + log_path + "\n" + output[-3000:])
 
 
+# Bug regression: lab entry forced confrontation, rescue prerequisites differed
+# between menu and dialogue, and credential revocation could erase lookup history.
+def test_hq_freedom_playthrough():
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; V0.2 freedom playthrough skipped")
+        return
+    log_path = os.path.join(tempfile.gettempdir(), "neon-freedom-last.log")
+    try:
+        result = subprocess.run(
+            [godot, "--headless", "--path", PROJECT_ROOT, "--script",
+             "res://tests/test_playthrough.gd", "--", "--freedom-matrix"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=420,
+        )
+    except subprocess.TimeoutExpired:
+        fail("V0.2 freedom playthrough exceeded 420 seconds")
+        return
+    output = result.stdout + result.stderr
+    with open(log_path, "w", encoding="utf-8") as log:
+        log.write(output)
+    if result.returncode == 0 and "PLAYTHROUGH_PASS: 18 freedom paths" in output and "ERROR:" not in output:
+        ok("18 new-game freedom routes: earned entrances, both objective orders, all endings and retained consequences")
+    else:
+        fail("V0.2 freedom playthrough failed; log: " + log_path + "\n" + output[-3000:])
+
+
 # Bug regression: header/geometry claims did not detect drifting frame pixels,
 # zero energy still showing one cell, or a stale tween hiding a reopened HUD.
 # Short toggle cycles, partial-use saves and scene travel are exercised too.
@@ -2902,6 +2928,8 @@ def test_retired_resources_removed():
 # Bug regression: repeated menu input must not stack investigation popups;
 # reviewing saved scan observations must not charge energy or grant progress.
 # Bug regression: chapter route commitment, cancellation and legacy saves retain correct gates.
+# Bug regression: leaving Xiao's follow-up must not record an admission; both
+# evidence-backed questions finish only after his answer and preserve rescue state.
 def test_eagle_eye_branch_runtime():
     godot = find_godot()
     if not godot:
@@ -2925,6 +2953,114 @@ def test_ci_branch_filters():
         ok("CI runs for slash-containing push and pull-request branches")
     else:
         fail("CI branch filters can skip development branches")
+
+
+
+# Bug regression: ordinary opening questions and leaving the bar must not lose
+# essential clues; sibling dialogue branches must not fall through.
+# Bug regression: the last evidence card must be reachable by pointer input;
+# duplicate/reversed connections must remain unique across legacy save loading.
+# Bug regression: card containers must propagate touch scrolling and use the
+# evidence display name rather than an internal identifier.
+# Bug regression: hearing Snake's offer must allow postponement without route,
+# affinity, or trade effects, including a saved game and a later revisit.
+# Bug regression: every opening tone must introduce the missing brother and
+# disappearance duration before optional questions can skip case exposition.
+def test_investigation_flow():
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; investigation and evidence-board regressions skipped")
+        return
+    result = subprocess.run(
+        [godot, "--headless", "--path", PROJECT_ROOT, "--script",
+         "res://tests/test_investigation_flow.gd"],
+        capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=240)
+    output = result.stdout + result.stderr
+    log_path = os.path.join(tempfile.gettempdir(), "neon-investigation-last.log")
+    with open(log_path, "w", encoding="utf-8") as log:
+        log.write(output)
+    if result.returncode == 0 and "INVESTIGATION_FLOW_PASS" in output and "ERROR:" not in output:
+        ok("Opening/revisits/branch isolation/hypothesis repair/board input/save migration pass")
+    else:
+        fail("Investigation regression; log: " + log_path + "\n" + output[-3000:])
+
+
+# Bug regression: fixed character limits split commas/words; touch emulation
+# skipped entries. Audit every dialogue and choice at desktop/mobile sizes.
+# Bug regression: V0.2 device and custody prompts must not split mid-sentence above choices.
+def test_dialogue_pagination():
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; full dialogue pagination audit skipped")
+        return
+    result = subprocess.run([godot, "--headless", "--path", PROJECT_ROOT,
+                             "--script", "res://tests/test_dialogue_pagination.gd"],
+                            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
+    output = result.stdout + result.stderr
+    if result.returncode == 0 and "DIALOGUE_PAGINATION_PASS:" in output and "ERROR:" not in output:
+        ok("All dialogue: complete sentences, lossless pages, stable wrapping and single-touch advance")
+    else:
+        fail("Dialogue pagination regression: " + output[-2500:])
+
+
+# Bug regression: stale names, skipped case introductions, mandatory-market
+# wording and original/copy confusion contradicted the available story routes.
+# Bug regression: the encrypted message is addressed to Mei Ling, not Kai;
+# a contaminated eye reading must not certify the memory as authentic.
+# Bug regression: the 23:04-23:11 camera gap follows the 23:00 call; it cannot
+# contain the call or by itself establish a kidnapping's place and destination.
+# Bug regression: public disclosure remains available with admitted trade
+# history; rooftop text must not revive the removed moral-score lockout.
+# Bug regression: completing a route closes the other window; "收件了"
+# incorrectly suggested it had just opened rather than stopped accepting work.
+def test_story_text_consistency():
+    from test_story_progression import extract_array_block, extract_braced_block
+
+    dialogue = read_file("scripts/data/dialogue_data.gd")
+    evidence = read_file("scripts/data/evidence_data.gd")
+    opening = extract_array_block(dialogue, "ch1_mei_ling_intro")
+    client_arrival = opening[opening.index('"speaker": "mei_ling"'):]
+    introduction = client_arrival[:client_arrival.index('"choices"')]
+    chapter_two = extract_array_block(dialogue, "ch2_opening")
+    camera = extract_braced_block(evidence, "street_camera_gap")
+    call = extract_array_block(dialogue, "ch1_eleven_pm_call_log")
+    checks = {
+        "Canonical company name has no retired aliases": not re.search("鄭泰|正泰", dialogue + evidence),
+        "Missing brother and duration precede all opening choices": all(
+            term in introduction for term in ["弟弟", "林浩然", "三天"]),
+        "Clinic route does not mandate entering the market": "你需要找到進入記憶黑市的方法" not in chapter_two,
+        "Refusing a copy trade is not required to retain the original": "至少原件還在" not in chapter_two,
+        "Message summary does not change its recipient to Kai": "只警告凱" not in evidence,
+        "Contaminated memory reading is not certified as authentic": "標記它為真實異常" not in evidence,
+        "Camera gap remains later than the eleven o'clock call": (
+            "十一點整" in call and "23:04 到 23:11" in camera and "包住" not in camera),
+        "Camera gap alone does not identify a kidnapping route":
+            "剛好能讓一個人從公寓外被帶走" not in extract_array_block(dialogue, "ch1_street_camera_gap"),
+        "Public ending prompt does not imply a trade-count lockout":
+            "若一再拿人和真相交易，這條線便撐不住" not in extract_array_block(dialogue, "ch3_rooftop_choice"),
+        "Route commitment clearly stops the other window accepting work": all(
+            "停止收件" in extract_array_block(dialogue, key) and "收件了" not in extract_array_block(dialogue, key)
+            for key in ["ch2_branch_direction", "ch2_auction_priority"]),
+    }
+    for description, valid in checks.items():
+        (ok if valid else fail)(description)
+
+
+# Bug regression: reading must not advance dialogue, replay effects, reveal unread
+# text, or drain eagle-eye energy; history must survive saves without blocking old saves.
+def test_v04_experience():
+    godot = find_godot()
+    if not godot:
+        warn("Godot unavailable; V0.4 experience checks skipped")
+        return
+    result = subprocess.run([godot, "--headless", "--path", PROJECT_ROOT,
+                             "--script", "res://tests/test_v04_experience.gd"],
+                            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120)
+    output = result.stdout + result.stderr
+    if result.returncode == 0 and "V04_EXPERIENCE_PASS" in output and "ERROR:" not in output:
+        ok("Memory inquiry, read-only history, settings, ending CG, SFX and rest checks pass")
+    else:
+        fail("V0.4 experience regression: " + output[-3500:])
 
 
 def main():
@@ -2974,11 +3110,16 @@ def main():
     test_ch1_missing_visual_assets_connected()
     test_ch1_locationization_and_side_evidence()
     test_story_decision_keys()
+    test_story_text_consistency()
     test_chapter_and_ending_playthrough()
+    test_hq_freedom_playthrough()
     test_energy_hud()
     test_eagle_eye_branch_runtime()
     test_bgm_playback()
     test_dialogue_layout()
+    test_dialogue_pagination()
+    test_investigation_flow()
+    test_v04_experience()
     test_core_story_flag_producers()
     test_runtime_asset_loading()
     test_asset_storage_manifest()

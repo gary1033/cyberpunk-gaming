@@ -15,7 +15,7 @@ func _check(condition: bool, message: String) -> void:
 		failures.append(message)
 		push_error(message)
 
-func _finish_dialogue(target: String) -> String:
+func _finish_dialogue(target: String, followup: String = "") -> String:
 	var seen: Array[String] = []
 	for step in 500:
 		if not ds.visible:
@@ -30,6 +30,9 @@ func _finish_dialogue(target: String) -> String:
 					selected = candidate
 					break
 			ds._on_choice_pressed(selected.index)
+			if not followup.is_empty():
+				target = followup
+				followup = ""
 		else:
 			ds._advance()
 		await process_frame
@@ -98,6 +101,18 @@ func _run() -> void:
 	gm.load_save_data(saved)
 	location._run_story_action(action)
 	_check(ds.visible and gm.eagle_eye_energy == 0.0, "Saved scan can be reopened at zero energy after load")
+	await _finish_dialogue("hypothesis_terminal")
+	var terminal_action: Dictionary = {}
+	for candidate in location._get_available_story_actions():
+		if candidate.get("id", "") == "verify_ajie_terminal":
+			terminal_action = candidate
+	location._run_story_action(terminal_action)
+	await _finish_dialogue("terminal_confirm")
+	var statement_action: Dictionary = {}
+	for candidate in location._get_available_story_actions():
+		if candidate.get("id", "") == "ask_ajie_statement":
+			statement_action = candidate
+	location._run_story_action(statement_action)
 	await _finish_dialogue("statement_coerced")
 	var finished: Dictionary = gm.get_save_data().duplicate(true)
 	location._run_story_action(action)
@@ -112,9 +127,9 @@ func _run() -> void:
 	_check(not gm.perform_eagle_eye_scan(20.0), "Double scan during dialogue is rejected")
 
 	for sample in [
-		["ch1_eye_ajie_statement", "statement_voluntary", "ajie_statement", "voluntary"],
-		["ch1_eye_ajie_statement", "statement_coerced", "ajie_statement", "coerced"],
-		["ch1_eye_ajie_statement", "statement_withheld", "ajie_statement", "withheld"],
+		["ch1_ajie_statement_check", "statement_voluntary", "ajie_statement", "voluntary"],
+		["ch1_ajie_statement_check", "statement_coerced", "ajie_statement", "coerced"],
+		["ch1_ajie_statement_check", "statement_withheld", "ajie_statement", "withheld"],
 		["ch2_eye_market_claim", "claim_bounded", "market_claim_resolution", "bounded"],
 		["ch2_eye_market_claim", "claim_pledge", "market_claim_resolution", "pledge"],
 		["ch2_eye_market_claim", "claim_refuse", "market_claim_resolution", "refuse"],
@@ -138,6 +153,7 @@ func _run() -> void:
 	]:
 		gm.new_game()
 		gm.collect_evidence("victim_list")
+		gm.set_dialogue_flag("ajie_terminal_verified")
 		gm.set_decision("memory_trade_method", "buy")
 		ds.start_dialogue(DialogueData.get_dialogue(sample[0]))
 		await _finish_dialogue(sample[1])
@@ -186,7 +202,7 @@ func _run() -> void:
 	_check(card.tooltip_text.begins_with("鷹眼讀取："), "An already-open board updates when eagle eye activates")
 	gm.deactivate_eagle_eye()
 	board._process(0.0)
-	_check(not card.tooltip_text.begins_with("鷹眼讀取：") and card.position == Vector2(120, 90), "Deactivation updates text without resetting dragged cards")
+	_check(not card.tooltip_text.begins_with("鷹眼讀取：") and card.position == Vector2(120, 90), "Deactivation updates text without rebuilding cards")
 	board.close()
 	await _check_map_scans()
 	_write_inventory()
@@ -260,6 +276,42 @@ func _check_map_scans() -> void:
 	ds.start_dialogue(challenge)
 	await _finish_dialogue("challenge_admitted")
 	_check(gm.decisions.xiao_accountability == "admitted", "Documented question records the admission")
+	await _check_xiao_followup()
+
+func _check_xiao_followup() -> void:
+	# Isolated story-state fixtures exercise the real dialogue runner.
+	for rescued in [false, true]:
+		for archive in ["none", "frozen", "observed"]:
+			for question in ["challenge_controls", "challenge_receipt"]:
+				gm.new_game()
+				gm.set_dialogue_flag("xiao_confronted")
+				gm.set_dialogue_flag("eye_override_scanned")
+				gm.set_dialogue_flag("eye_withdrawal_scanned")
+				gm.set_decision("archive_route", archive)
+				if rescued:
+					gm.set_dialogue_flag("hao_ran_rescued")
+				gm.collect_evidence("zhengtek_funding")
+				var before: Dictionary = gm.get_save_data().duplicate(true)
+				ds.start_dialogue(DialogueData.get_dialogue("ch3_xiao_record_challenge"))
+				await _finish_dialogue("challenge_funding")
+				_check(before.merged({"dialogue_history": []}, true) == gm.get_save_data().merged({"dialogue_history": []}, true), "Funding alone cannot produce Xiao's admission")
+				ds.start_dialogue(DialogueData.get_dialogue("ch3_xiao_record_challenge"))
+				await _finish_dialogue("challenge_admitted", "end")
+				_check(before.merged({"dialogue_history": []}, true) == gm.get_save_data().merged({"dialogue_history": []}, true), "Leaving the follow-up records no admission or completed challenge")
+				var saved: Dictionary = gm.get_save_data().duplicate(true)
+				gm.new_game()
+				gm.load_save_data(saved)
+				ds.start_dialogue(DialogueData.get_dialogue("ch3_xiao_record_challenge"))
+				var spoken := await _finish_dialogue("challenge_admitted", question)
+				_check(spoken.contains("能單獨運行。那套控制") == (question == "challenge_controls"), "Only the chosen controls answer is spoken")
+				_check(spoken.contains("看過。「待覆核」也是我填的") == (question == "challenge_receipt"), "Only the chosen receipt answer is spoken")
+				_check(spoken.contains("是我讓它繼續的") and gm.decisions.xiao_accountability == "admitted" and gm.get_dialogue_flag("xiao_record_challenge_resolved"), "The actual admission completes the challenge after either follow-up")
+				_check(gm.get_dialogue_flag("hao_ran_rescued") == rescued and gm.collected_evidence == before.collected_evidence, "Questioning neither grants rescue nor replaces the core evidence")
+				_check(spoken.contains("市政那邊已經暫停轉介") == (archive == "frozen") and spoken.contains("我們送的測試碼") == (archive == "observed"), "Only the actual archive route is recalled")
+	gm.new_game()
+	ds.start_dialogue(DialogueData.get_dialogue("ch3_xiao_record_challenge"))
+	await _finish_dialogue("challenge_disputed")
+	_check(gm.decisions.xiao_accountability == "disputed" and gm.get_dialogue_flag("xiao_record_challenge_resolved"), "Incomplete evidence can still be recorded as disputed")
 
 func _write_inventory() -> void:
 	var result := {"readings": [], "eye_only_metadata": [], "scan_actions": [], "narrative_effect_actions": [], "scene_hotspot_nodes": 0, "runtime_scan_markers": 0, "location_count": 0}
@@ -290,7 +342,7 @@ func _write_inventory() -> void:
 					result.scan_actions.append({"chapter": chapter, "location": id, "name": locations[id].name, "action": action})
 	_check(result.scan_actions.size() == 12 and result.runtime_scan_markers == 12 and result.location_count == 22, "Twelve scans across twenty-two maps have real scene markers")
 	_check(result.readings.size() == 29, "All chapters have evidence readings: 15 existing plus 14 added")
-	var folder := "res://docs/verification/chapter_branches_2026_09_09"
+	var folder := "res://docs/verification/V0.3/branches"
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder))
 	var file := FileAccess.open(folder + "/inventory.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(result, "\t"))

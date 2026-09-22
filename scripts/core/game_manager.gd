@@ -25,6 +25,7 @@ var max_action_points: int = 20
 # Decision tracking for endings
 const DEFAULT_DECISIONS: Dictionary = {
 	"branch_story_version": 0,
+	"kai_account_response": "none",
 	"chapter_2_route": "none",
 	"ch2_medical_priority": "none",
 	"ch2_market_access": "none",
@@ -38,6 +39,8 @@ const DEFAULT_DECISIONS: Dictionary = {
 	"recovery_company": "none",
 	"continuity_record": "none",
 	"ajie_statement": "none",
+	"ajie_hypothesis": "none",
+	"ajie_hypothesis_status": "pending",
 	"market_claim_resolution": "none",
 	"backup_handling": "none",
 	"backup_custody": "none",
@@ -68,6 +71,10 @@ const DEFAULT_DECISIONS: Dictionary = {
 	"ghost_identity_choice": "none",
 	"ghost_followup_choice": "none",
 	"hq_entry_route": "none",
+	"hq_ghost_support": "none",
+	"hq_core_method": "none",
+	"hq_exit_method": "none",
+	"hq_first_objective": "none",
 	"public_record_reviewed": false,
 	"public_record_facts": [],
 	"public_ending_variant": "",
@@ -96,6 +103,7 @@ var character_affinity: Dictionary = {
 
 # Dialogue flags - tracks which dialogues have been seen
 var dialogue_flags: Dictionary = {}
+var dialogue_history: Array[Dictionary] = []
 
 # Eagle eye (augmented vision)
 var eagle_eye_energy: float = 100.0
@@ -114,6 +122,7 @@ func new_game() -> void:
 	action_points = 20
 	max_action_points = 20
 	dialogue_flags.clear()
+	dialogue_history.clear()
 	eagle_eye_energy = 100.0
 	eagle_eye_active = false
 	_reset_decisions()
@@ -140,10 +149,20 @@ func collect_evidence(evidence_id: String) -> void:
 func has_evidence(evidence_id: String) -> bool:
 	return evidence_id in collected_evidence
 
-func add_evidence_connection(from_id: String, to_id: String, is_correct: bool) -> void:
+func add_evidence_connection(from_id: String, to_id: String, is_correct: bool) -> bool:
+	if from_id == to_id or not has_evidence(from_id) or not has_evidence(to_id):
+		return false
+	for connection in evidence_connections:
+		if (connection.from == from_id and connection.to == to_id) or (connection.from == to_id and connection.to == from_id):
+			if is_correct and not connection.get("correct", false):
+				connection.correct = true
+				decisions["correct_deductions"] += 1
+				return true
+			return false
 	evidence_connections.append({"from": from_id, "to": to_id, "correct": is_correct})
 	if is_correct:
 		decisions["correct_deductions"] += 1
+	return true
 
 # --- Action Points ---
 
@@ -155,9 +174,10 @@ func spend_action_points(amount: int) -> bool:
 	return true
 
 func rest() -> bool:
-	if SceneManager.is_transitioning() or action_points >= max_action_points:
+	if SceneManager.is_transitioning() or (action_points >= max_action_points and eagle_eye_energy >= eagle_eye_max_energy):
 		return false
 	action_points = max_action_points
+	eagle_eye_energy = eagle_eye_max_energy
 	action_points_changed.emit(action_points)
 	return true
 
@@ -178,6 +198,21 @@ func is_chapter_branch_complete() -> bool:
 	return int(decisions.branch_story_version) == 0 or get_dialogue_flag("ch2_branch_complete")
 
 func get_chapter_branch_hint() -> String:
+	if current_chapter == 3:
+		if get_dialogue_flag("case_resolved"):
+			return "案件已結束；可在事務所閱讀後續訊息。"
+		if not get_dialogue_flag("hq_entry_resolved"):
+			return "先在總部前室選擇入口；可以取消，再選另一種方法。"
+		if not get_dialogue_flag("memory_corridor_aligned"):
+			return "先核對走廊與授權令，再自行安排救援、取證與對質。"
+		var remaining: Array[String] = []
+		if not get_dialogue_flag("hao_ran_rescued"):
+			remaining.append("救援：實驗室搜尋浩然、核對報告並準備出口")
+		if not get_dialogue_flag("core_evidence_secured"):
+			remaining.append("取證：總部核對保管鏈，再封存原件")
+		if not get_dialogue_flag("xiao_confronted"):
+			remaining.append("對質：可在實驗室主動追問蕭博士")
+		return "可以先救人或先取證；核對錯誤可重試，也可換方法。\n" + "\n".join(remaining) if not remaining.is_empty() else "救援、取證與對質已完成。屋頂可查看各結局尚需的準備。"
 	if current_chapter != 2 or int(decisions.branch_story_version) == 0:
 		return ""
 	if get_dialogue_flag("ch2_branch_complete"):
@@ -230,7 +265,7 @@ func perform_eagle_eye_scan(cost: float) -> bool:
 	return true
 
 func consume_eagle_eye_energy(delta: float) -> void:
-	if eagle_eye_active:
+	if eagle_eye_active and current_state == GameState.PLAYING:
 		# Charge partial use immediately; the HUD alone rounds it into ten cells.
 		consume_eagle_eye_energy_amount(maxf(delta, 0.0) * 10.0)
 
@@ -258,6 +293,9 @@ func set_dialogue_flag(flag: String, value: bool = true) -> void:
 	dialogue_flags[flag] = value
 	if flag in decisions and decisions[flag] is bool:
 		decisions[flag] = value
+	if value and current_chapter == 3 and decisions.hq_first_objective == "none":
+		if flag in ["hao_ran_rescued", "core_evidence_secured"]:
+			decisions.hq_first_objective = "rescue" if flag == "hao_ran_rescued" else "evidence"
 
 func get_dialogue_flag(flag: String) -> bool:
 	return dialogue_flags.get(flag, false)
@@ -265,6 +303,11 @@ func get_dialogue_flag(flag: String) -> bool:
 func set_decision(decision_id: String, value: Variant) -> void:
 	if decision_id == "chapter_2_route" and (current_chapter != 2 or get_dialogue_flag("ch2_branch_complete") or value not in ["clinic", "black_market"]):
 		return
+	if decision_id == "hq_ghost_support":
+		if current_chapter != 3 or decisions.hq_entry_route != "ghost" or decisions.hq_ghost_support != "none" or value not in ["rescue", "evidence"] or get_dialogue_flag("final_choice_resolved") or get_dialogue_flag("case_resolved"):
+			return
+		if get_dialogue_flag("hao_ran_rescued" if value == "rescue" else "core_evidence_secured"):
+			return
 	if decision_id in decisions:
 		decisions[decision_id] = value
 		if value is bool:
@@ -325,6 +368,8 @@ func get_public_record_facts() -> Array[String]:
 		facts.append("釋放受害者私人記憶")
 	if decisions.get("hq_entry_route", "none") == "corporate":
 		facts.append("使用他人的企業身份通行")
+	if get_dialogue_flag("hq_named_lookup_used"):
+		facts.append("以企業身份具名調閱或開啟撤離門；停用資格不刪除紀錄")
 	# Legacy saves can retain a transaction count without the original branch keys.
 	if int(decisions.get("black_market_compromise_count", 0)) > 0:
 		facts.append("保留的交易次數：" + str(decisions.black_market_compromise_count))
@@ -401,6 +446,7 @@ func get_save_data() -> Dictionary:
 		"decisions": decisions.duplicate(true),
 		"character_affinity": character_affinity.duplicate(),
 		"dialogue_flags": dialogue_flags.duplicate(),
+		"dialogue_history": dialogue_history.duplicate(true),
 		"eagle_eye_energy": eagle_eye_energy
 	}
 
@@ -412,9 +458,24 @@ func load_save_data(data: Dictionary) -> void:
 	action_points = data.get("action_points", 20)
 	_reset_decisions()
 	decisions.merge(data.get("decisions", {}), true)
+	# Reuse the same pair guard to repair duplicate/reversed legacy connections.
+	var saved_connections := evidence_connections.duplicate(true)
+	evidence_connections.clear()
+	decisions["correct_deductions"] = 0
+	for connection in saved_connections:
+		add_evidence_connection(str(connection.get("from", "")), str(connection.get("to", "")), bool(connection.get("correct", false)))
 	_reset_affinity()
 	character_affinity.merge(data.get("character_affinity", {}), true)
 	dialogue_flags = data.get("dialogue_flags", {})
+	dialogue_history.clear()
+	var history: Variant = data.get("dialogue_history", [])
+	if history is Array:
+		for entry in history.slice(maxi(0, history.size() - 300)):
+			if entry is Dictionary and entry.get("speaker") is String and entry.get("text") is String:
+				record_dialogue(entry.speaker, entry.text)
+	# Preserve legacy progress without inventing which objective happened first.
+	if not data.get("decisions", {}).has("hq_first_objective") and (get_dialogue_flag("hao_ran_rescued") or get_dialogue_flag("core_evidence_secured")):
+		decisions.hq_first_objective = "legacy"
 	for decision_id in decisions:
 		if decisions[decision_id] is bool:
 			if dialogue_flags.has(decision_id):
@@ -430,3 +491,52 @@ func load_save_data(data: Dictionary) -> void:
 	eagle_eye_active = false
 	eagle_eye_energy = data.get("eagle_eye_energy", 100.0)
 	set_state(GameState.PLAYING)
+
+func record_dialogue(speaker: String, text: String) -> void:
+	if text.is_empty():
+		return
+	# ponytail: retain 300 read pages; a searchable archive can replace this if needed.
+	dialogue_history.append({"speaker": speaker, "text": text})
+	if dialogue_history.size() > 300:
+		dialogue_history.pop_front()
+
+func get_case_summary() -> String:
+	var lines: Array[String] = ["已確認｜目前持有的來源"]
+	if collected_evidence.is_empty():
+		lines.append("尚未接到委託或取得證據。")
+	for evidence_id in collected_evidence:
+		var evidence: Dictionary = load("res://scripts/data/evidence_data.gd").get_evidence(evidence_id)
+		lines.append("• " + str(evidence.get("name", evidence_id)))
+	lines.append("\n仍有疑問｜不把推測當成結論")
+	if has_evidence("abyss_receipt") and not get_dialogue_flag("ajie_terminal_verified"):
+		lines.append("收據時間是否等於人在場的時間？可回酒吧核對終端。")
+	if get_dialogue_flag("ajie_terminal_verified"):
+		lines.append("收銀重送已核對；不能單靠時間推定客人身份。")
+	if get_dialogue_flag("kai_memory_2_seen"):
+		lines.append("維護簽名與記憶需要互證；回憶不能補出未查到的經過。")
+		if not get_dialogue_flag("kai_zhao_account_checked"):
+			lines.append("趙明的見聞尚待核對；建立信任後可在總部詢問。")
+		if not get_dialogue_flag("kai_xiao_account_checked"):
+			lines.append("蕭博士如何使用那次權限？可在實驗室對質後追問。")
+	if get_dialogue_flag("kai_zhao_account_checked"):
+		lines.append("已問趙明：他見過清單與簽名，沒有目擊實驗室操作。")
+	if get_dialogue_flag("kai_xiao_account_checked"):
+		lines.append("已問蕭博士：授權時間可核對；他的動機仍屬口述。")
+	lines.append("\n可去哪裡查｜目前已開放的地點")
+	var hint := get_chapter_branch_hint()
+	if not hint.is_empty():
+		lines.append(hint)
+	var chapter: Dictionary = load("res://scripts/data/case_data.gd").get_chapter_data(current_chapter)
+	for location_id in chapter.get("locations", {}):
+		var location: Dictionary = chapter.locations[location_id]
+		if not meets_story_conditions(location):
+			continue
+		var titles: Array[String] = []
+		for action in location.get("story_actions", []):
+			if action.get("use_calculated_ending", false) and calculate_ending().is_empty():
+				continue
+			if meets_story_conditions(action) and not get_dialogue_flag(str(action.get("hide_after_flag", ""))):
+				titles.append(str(action.title))
+		if not titles.is_empty():
+			lines.append(str(location.name) + "：" + "、".join(titles))
+	return "\n".join(lines)

@@ -20,6 +20,13 @@ func _ready() -> void:
 	if AudioServer.get_bus_index("Music") == -1:
 		AudioServer.add_bus()
 		AudioServer.set_bus_name(AudioServer.bus_count - 1, "Music")
+	if AudioServer.get_bus_index("MusicContext") == -1:
+		AudioServer.add_bus()
+		AudioServer.set_bus_name(AudioServer.bus_count - 1, "MusicContext")
+	AudioServer.move_bus(AudioServer.get_bus_index("MusicContext"), 1)
+	AudioServer.set_bus_send(AudioServer.get_bus_index("Music"), "MusicContext")
+	GameManager.game_state_changed.connect(_on_game_state_changed)
+	GameManager.evidence_collected.connect(func(_evidence_id: String): play_optional_sfx("res://assets/audio/sfx/evidence_collect.ogg"))
 	set_bgm_volume(bgm_volume)
 	# BGM players
 	_bgm_player = AudioStreamPlayer.new()
@@ -96,6 +103,8 @@ func stop_bgm(fade: bool = true) -> void:
 		_bgm_player.stop()
 
 func play_sfx(path: String) -> void:
+	if is_zero_approx(sfx_volume):
+		return
 	var stream := load(path) as AudioStream
 	if stream == null:
 		return
@@ -103,13 +112,13 @@ func play_sfx(path: String) -> void:
 	for player in _sfx_players:
 		if not player.playing:
 			player.stream = stream
-			player.volume_db = linear_to_db(sfx_volume)
+			player.volume_db = linear_to_db(maxf(sfx_volume, 0.0001)) - 14.0
 			player.play()
 			return
 
 	# All players busy, use the first one
 	_sfx_players[0].stream = stream
-	_sfx_players[0].volume_db = linear_to_db(sfx_volume)
+	_sfx_players[0].volume_db = linear_to_db(maxf(sfx_volume, 0.0001)) - 14.0
 	_sfx_players[0].play()
 
 func play_optional_sfx(path: String) -> void:
@@ -142,3 +151,9 @@ func set_bgm_volume(vol: float) -> void:
 
 func set_sfx_volume(vol: float) -> void:
 	sfx_volume = clamp(vol, 0.0, 1.0)
+
+func _on_game_state_changed(state: String) -> void:
+	# Separate mix bus preserves the user's volume during crossfades and dialogue.
+	if state == "paused":
+		return
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MusicContext"), -5.0 if state == "dialogue" else 0.0)
