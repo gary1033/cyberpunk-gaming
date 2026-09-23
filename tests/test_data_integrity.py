@@ -2687,7 +2687,10 @@ def find_godot():
     if configured:
         executable = configured.group(1)
         candidates.extend([os.path.splitext(executable)[0] + "_console.exe", executable])
-    return next((path for path in candidates if path and os.path.isfile(path)), None)
+    executable = next((path for path in candidates if path and os.path.isfile(path)), None)
+    if not executable and os.environ.get("CI", "").lower() == "true":
+        raise RuntimeError("CI requires Godot; refusing to skip runtime tests")
+    return executable
 
 
 # Bug regression: AP exhaustion/last-point travel, early endings, branch
@@ -3063,12 +3066,25 @@ def test_v04_experience():
         fail("V0.4 experience regression: " + output[-3500:])
 
 
+# Bug regression: CI must fail instead of passing with every engine test skipped.
+def test_ci_requires_godot():
+    from unittest.mock import patch
+    with patch.dict(os.environ, {"CI": "true"}), patch("shutil.which", return_value=None), patch("os.path.isfile", return_value=False):
+        try:
+            find_godot()
+        except RuntimeError:
+            ok("CI rejects missing Godot instead of skipping runtime tests")
+        else:
+            fail("CI accepted missing Godot")
+
+
 def main():
     print("=" * 60)
     print("NEON MEMORIES — Data Integrity Tests")
     print("=" * 60)
 
     test_ci_branch_filters()
+    test_ci_requires_godot()
     test_scene_paths()
     test_case_data_connections()
     test_initial_dialogues()
